@@ -1,0 +1,128 @@
+useDynLib(arules,
+  ## used by arulesSequences
+  R_asList_ngCMatrix,
+  R_cbind_ngCMatrix,
+  R_colSubset_ngCMatrix,
+  R_colSums_ngCMatrix,
+  R_pnindex,
+  R_pnrindex,
+  R_recode_ngCMatrix,
+  R_rowSubset_ngCMatrix,
+  R_rowSums_ngCMatrix,
+  R_wcount_ngCMatrix,
+  R_weclat_ngCMatrix,
+  R_rowWSums_ngCMatrix,
+  R_hits_ngCMatrix
+)
+
+import("methods")
+importFrom("stats", "predict", "aggregate", "as.dist", "cor", "rpois")  ## we want to add methods
+importFrom("utils", "head", "write.table")  ## we want to add methods
+import("graphics")
+
+importFrom("Matrix", "summary", "image", "t") ## we need generics and methods 
+importFrom("Matrix", "drop0") ## we need function 
+importClassesFrom("Matrix", "dgCMatrix", "ngCMatrix")
+importMethodsFrom("Matrix", "crossprod", "rowSums", "colSums")
+
+export(
+  "read.transactions", 
+  "read.PMML", 
+  "write.PMML", 
+  "random.transactions", 
+  "random.patterns",
+  "apriori", 
+  "eclat",
+  "weclat",
+  "hits",
+  "abbreviate",
+  "discretize"
+)
+
+exportClasses(
+  "itemMatrix", "summary.itemMatrix",
+  "transactions", "summary.transactions",
+  "tidLists", "summary.tidLists", 
+  "associations", "summary.associations",
+  "itemsets", "summary.itemsets",
+  "rules", "summary.rules",
+  "ASparameter", "AScontrol",
+  "APparameter", "APcontrol", "APappearance",
+  "ECparameter", "ECcontrol",
+  "ar_similarity", "ar_cross_dissimilarity", "dist"
+)
+
+exportMethods(
+  "%in%",
+  "%ain%",
+  "%pin%",
+  "LIST",
+  "[",
+  "aggregate",
+  "addComplement",
+  "coverage",
+  "crossTable",
+  "c", 
+  "coerce",           ### for setAs
+  "decode", 
+  "dim", 
+  "dimnames", "dimnames<-",
+  "duplicated",
+  "encode",
+  "generatingItemsets",
+  "image", 
+  "info", "info<-", 
+  "initialize", 
+  "inspect", 
+  "intersect", 
+  "itemInfo", "itemInfo<-", 
+  "itemsetInfo", "itemsetInfo<-", 
+  "items", "items<-",
+  "itemLabels", "itemLabels<-", 
+  "itemFrequency", 
+  "itemFrequencyPlot",
+  "itemUnion",
+  "itemSetdiff",
+  "itemIntersect",
+  "is.closed",
+  "is.element",
+  "is.maximal",
+  "is.subset",
+  "is.superset",
+  "labels", 
+  "length", 
+  "lhs", "lhs<-",
+  "match",
+  "merge",
+  "interestMeasure",
+  "nitems",
+  "quality", "quality<-",
+  "recode",
+  "rhs", "rhs<-", 
+  "ruleInduction",
+  "sample",
+  "setdiff",
+  "setequal",
+  "show", 
+  "size",
+  "sort",
+  "write",
+  "subset", 
+  "summary", 
+  "support", 
+  "supportingTransactions", 
+  "t", 
+  "tidLists", 
+  "transactionInfo", "transactionInfo<-",
+  "union",
+  "unique",
+  "affinity", 
+  "predict",
+  "dissimilarity"
+)
+
+S3method(abbreviate, default)
+S3method(abbreviate, transactions)
+S3method(abbreviate, rules)
+S3method(abbreviate, itemsets)
+S3method(abbreviate, tidLists)

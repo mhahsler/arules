@@ -1,0 +1,31 @@
+
+citation(auto = meta)
+
+bibentry(bibtype = "article",
+         title = paste("arules -- {A} Computational Environment for Mining",
+                       "Association Rules and Frequent Item Sets"),
+         author = {
+             c(person("Michael", "Hahsler",
+                               email = "michael@hahsler.net"),
+                        person("Bettina", "Gruen",
+                               email = "Bettina.Gruen@wu.ac.at"),
+                        person("Kurt", "Hornik",
+                               email = "Kurt.Hornik@R-project.org"))
+         },
+         year = 2005,
+         journal = "Journal of Statistical Software",
+         volume = 14,
+         number = 15,
+         pages = "1--25",
+         url = "http://www.jstatsoft.org/v14/i15/",
+         month = "October",
+         issn = "1548-7660",
+         textVersion = {
+             paste(paste("Michael Hahsler, Bettina Gruen and",
+                         "Kurt Hornik (2005),",
+                         "arules - A Computational Environment for",
+                         "Mining Association Rules and Frequent Item Sets."),
+                   "Journal of Statistical Software 14/15.",
+                   "URL: http://www.jstatsoft.org/v14/i15/.",
+                   sep = "  ")
+         })
