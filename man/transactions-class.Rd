@@ -80,10 +80,9 @@ Complete examples for how to prepare data can be found in the man pages for \cod
   %    extracts transactions and the second argument can be used to
   %    extract a subset of items (using item IDs)}
     \item{coerce}{\code{signature(from = "matrix", to = "transactions")};
-      produces a transactions data set from a binary incidence matrix. 
+      produces a transactions data set from a binary incidence matrix.
       The row names are used as item labels and the column names are
-      stores as transaction IDs.
-    }
+      stores as transaction IDs.}
     \item{coerce}{\code{signature(from = "transactions", to = "matrix")};
       coerces the transactions data set into a binary incidence matrix.
     }
@@ -113,9 +112,9 @@ Complete examples for how to prepare data can be found in the man pages for \cod
       as a data.frame. 
       Note that this does not reverse coercion from data.frame 
       to \code{transactions}.}
-    \item{coerce}{\code{signature(from = "ngCMatrix", to = "transactions")};         Note that the ngCMatrix needs to have the items as rows!}
+    \item{coerce}{\code{signature(from = "ngCMatrix", to = "transactions")};              Note that the ngCMatrix needs to have the items as rows!}
     \item{dimnames, rownames, colnames}{\code{signature(x = "transactions")};
-        returns row (transactionID) and column (item) names.}
+      returns row (transactionID) and column (item) names.}
     \item{labels}{\code{signature(x = "transactions")};
       returns the labels for the itemsets in each transaction 
       (see \code{itemMatrix}).} 

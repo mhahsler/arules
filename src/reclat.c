@@ -295,11 +295,15 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
 	clock_t t;                    /* timer for measurements */
 
   param.verbose = *LOGICAL(GET_SLOT(control, install("verbose")));
+  
+  /*
   if (param.verbose) {
 	  Rprintf("%s - %s\n", PRGNAME, DESCRIPTION);
-	  Rprintf(VERSION);  /* print a startup message */
+	  Rprintf(VERSION);
 	  Rprintf("\n");
   }
+  */
+  
   /* --- evaluate arguments --- */
   supp   = param.supp = *REAL(GET_SLOT(parms, install("support")));       /* minimal support 's'*/
   target = param.target = BMtargetcode(translateChar(STRING_ELT(GET_SLOT(parms, install("target")), 0)));

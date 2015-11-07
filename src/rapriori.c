@@ -7,7 +7,7 @@ and are copyrighted by 1996-2003 Christian Borgelt
 This program is free software; you can redistribute it and/or modify it under
 the terms of the LGPL.
 
-The R-interface was added by Bettina Gr?n and modified by Michael Hahsler (MFH)
+The R-interface was added by Bettina Gruen and modified by Michael Hahsler (MFH)
 ----------------------------------------------------------------------*/
 
 #include "rapriori.h"
@@ -45,7 +45,7 @@ static const char* aremtypes[] = {
 /* --- error messages --- */
 static const char *errmsgs[] = {
   /* E_NONE      0 */  "no error\n",
-  /* E_NOMEM    -1 */  "not enough memory\n",
+  /* E_NOMEM    -1 */  "not enough memory. Increase minimum support!\n",
   /* E_FOPEN    -2 */  "cannot open file %s\n",
   /* E_FREAD    -3 */  "read error on file %s\n",
   /* E_FWRITE   -4 */  "write error on file %s\n",
@@ -622,7 +622,7 @@ void createRules(ISTREE *istree, ARparameter *param) {
 		      size += (size > BLKSIZE) ? (size >> 1) : BLKSIZE;
 		      vec   = (char**)realloc(ruleset->body, size *sizeof(char*));
 		      if (!vec)  {
-			      free(vec1);free(vec2);free(vec3);
+			      //free(vec1);free(vec2);free(vec3);
 			      cleanup(); error(msgs(E_NOMEM));}    /* enlarge the item vector */
 		      ruleset->body = vec;
 	      }                             /* set the new vector and its size */
@@ -633,40 +633,40 @@ void createRules(ISTREE *istree, ARparameter *param) {
 	  size1 += (size1 > BLKSIZE) ? (size1 >> 1) : BLKSIZE;
 	  vec1 = (int*)realloc(ruleset->tnb, size1 *sizeof(int));
 	  if (!vec1) {
-		  free(vec);free(vec2);free(vec3);
+		  //free(vec);free(vec2);free(vec3);
 		  cleanup(); error(msgs(E_NOMEM));}
 	  ruleset->tnb = vec1;
 	  vec2 = (double*)realloc(ruleset->supp, size1 *sizeof(double));
 	  if (!vec2) {
-		  free(vec);free(vec1);free(vec3);
+		  //free(vec);free(vec1);free(vec3);
 		  cleanup(); error(msgs(E_NOMEM));}
 	  ruleset->supp = vec2;
 	  vec2 = (double*)realloc(ruleset->conf, size1 *sizeof(double));
 	  if (!vec2) {
-		  free(vec);free(vec1);free(vec3);
+		  //free(vec);free(vec1);free(vec3);
 		  cleanup(); error(msgs(E_NOMEM));}
 	  ruleset->conf = vec2;
 	  vec2 = (double*)realloc(ruleset->lift, size1 *sizeof(double));
 	  if (!vec2) {
-		  free(vec);free(vec1);free(vec3);
+		  //free(vec);free(vec1);free(vec3);
 		  cleanup(); error(msgs(E_NOMEM));}
 	  ruleset->lift = vec2;
 	  vec3 = (char**)realloc(ruleset->head, size1 *sizeof(char*));
 	  if (!vec3) {
-		  free(vec);free(vec1);free(vec);
+		  //free(vec);free(vec1);free(vec);
 		  cleanup(); error(msgs(E_NOMEM));}
 	  ruleset->head = vec3;
 	  if (param->aval) {
 	      vec2 = (double*)realloc(ruleset->aval, size1 *sizeof(double));
 	      if (!vec2) {
-		      free(vec);free(vec1);free(vec3);
+		      //free(vec);free(vec1);free(vec3);
 		      cleanup(); error(msgs(E_NOMEM));}      /* enlarge the item vector */
 	      ruleset->aval = vec2;
 	  }
 	  if (param->ext) {
 	      vec2 = (double*)realloc(ruleset->ext, size1 *sizeof(double));
 	      if (!vec2) {
-		      free(vec);free(vec1);free(vec3);
+		      //free(vec);free(vec1);free(vec3);
 		      cleanup(); error(msgs(E_NOMEM));}      /* enlarge the item vector */
 	      ruleset->ext = vec2;
 	  }
@@ -700,7 +700,7 @@ void createRules(ISTREE *istree, ARparameter *param) {
 		      size += (size > BLKSIZE) ? (size >> 1) : BLKSIZE;
 		      vec  = (char**)realloc(ruleset->body, size *sizeof(char*));
 		      if (!vec)  {
-			      free(vec1);free(vec2);free(vec3);
+			      //free(vec1);free(vec2);free(vec3);
 			      cleanup(); error(msgs(E_NOMEM));}    /* enlarge the item vector */
 		      ruleset->body = vec;
 	      }                             /* set the new vector and its size */
@@ -711,17 +711,17 @@ void createRules(ISTREE *istree, ARparameter *param) {
 	      size1 += (size1 > BLKSIZE) ? (size1 >> 1) : BLKSIZE;
 	      vec1 = (int*)realloc(ruleset->tnb, size1 *sizeof(int));
 	      if (!vec1) {
-		      free(vec);free(vec2);free(vec3);
+		      //free(vec);free(vec2);free(vec3);
 		      cleanup(); error(msgs(E_NOMEM));}
 	      ruleset->tnb = vec1;
 	      vec2 = (double*)realloc(ruleset->supp, size1 *sizeof(double));
 	      if (!vec2) {
-		      free(vec);free(vec1);free(vec3);
+		      //free(vec);free(vec1);free(vec3);
 		      cleanup(); error(msgs(E_NOMEM));}
 	      ruleset->supp = vec2;
 	      vec2 = (double*)realloc(ruleset->conf, size1 *sizeof(double));
 	      if (!vec2) {
-		      free(vec);free(vec1);free(vec3);
+		      //free(vec);free(vec1);free(vec3);
 		      cleanup(); error(msgs(E_NOMEM));}   /* enlarge the item vector */
 	      ruleset->conf = vec2;
       }                             /* set the new vector and its size */
@@ -933,11 +933,13 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
 	SEXP ans;
 	
 	param.verbose = *LOGICAL(GET_SLOT(control, install("verbose")));  /* flag for verbose */
+	/*
 	if (param.verbose) {
 		Rprintf("%s - %s\n", PRGNAME, DESCRIPTION);
-		Rprintf(VERSION);  /* print a startup message */
+		Rprintf(VERSION);
 		Rprintf("\n");
 	}
+  */
 
 	/* --- evaluate arguments --- */
  	param.supp = *REAL(GET_SLOT(parms, install("support")));       /* minimal support 's'*/
