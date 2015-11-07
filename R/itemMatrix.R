@@ -59,9 +59,13 @@ setAs("matrix", "itemMatrix",
     ## Matrix requires logical. however, it should be
     ## the responsibility of mode to avoid uneccessary
     ## coercions.
-    if (mode(from) != "logical") 
+    if (mode(from) != "logical") {
+      ## check if it is a 0-1 matrix
+      if(mode(from) != "numeric") stop("matrix is not logical or a numeric 0-1 matrix!")
+      if(any(from != 0 & from != 1)) warning("matrix contains values other than 0 and 1! Setting all entries != 0 to 1.")
       mode(from) <- "logical"
-    
+    }
+      
     ## we have to transpose since there is currently no
     ## support for "ngRMatrix" in Matrix. note that we
     ## can fail later as the row or column names need 
