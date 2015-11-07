@@ -22,15 +22,22 @@
 ## aggregate items to item groups
 setMethod("aggregate", signature(x = "itemMatrix"),
 	function(x, itemLabels) {
+	    
+	    ## we can specify the name in itemInfo
+	    if(length(itemLabels) == 1 && !is.null(itemInfo(x)[[itemLabels]])) {
+	      itemLabels <- itemInfo(x)[[itemLabels]]
+	    }
+	  
 	    itemLabels <- as.factor(itemLabels)
 
-	    if(length(itemLabels) != nitems(x)) stop("Supplied number of itemLabels does not match number of items in x!")
+	    if(length(itemLabels) != nitems(x)) stop("Name not available in itemInfo or supplied number of itemLabels does not match number of items in x!")
 
 	    aggrMat <- as(sapply(levels(itemLabels),
-			    FUN = function(l) as.numeric(itemLabels == l)), 
-		    "dgCMatrix")
+			    FUN = function(l) as.numeric(itemLabels == l)), "dgCMatrix")
 
-	    x@data <- as(crossprod(aggrMat, as(as(x, "ngCMatrix"), "dgCMatrix")), "ngCMatrix")
+	    x@data <- as(crossprod(aggrMat, as(as(x, "ngCMatrix"), "dgCMatrix")), 
+	      "ngCMatrix")
+	    
 	    x@itemInfo <- data.frame(labels = levels(itemLabels))
 
 	    validObject(x)
