@@ -40,7 +40,9 @@ expect_equal(.Call("R_recode_ngCMatrix", e, integer()), e)
 
 ## recode (add columns)
 expect_identical(.Call("R_recode_ngCMatrix", x, c(1L,3:7)),
-  as(rbind(x[1,,drop=FALSE], 0, x[2:6,, drop = FALSE]), "ngCMatrix"))
+  as(rbind(x[1,,drop=FALSE], 
+    Matrix(0, ncol = 5, sparse = TRUE), 
+    x[2:6,, drop = FALSE]), "ngCMatrix"))
 
 ## cbind
 expect_identical(.Call("R_cbind_ngCMatrix", e, e), cbind(e,e))
@@ -67,3 +69,4 @@ expect_equal(.Call("R_crosstab_ngCMatrix", x, NULL, FALSE),
   as(Matrix::crossprod(as(x, "dgCMatrix")), "matrix"))
 
 ###
+
