@@ -16,7 +16,7 @@ Description: Provides the infrastructure for representing,
 Classification/ACM: G.4, H.2.8, I.5.1
 URL: http://lyle.smu.edu/IDA/arules
 BugReports: http://r-forge.r-project.org/projects/arules
-Depends: R (>= 2.14.2), Matrix (>= 1.0-0)
+Depends: R (>= 3.1.0), Matrix (>= 1.2-0)
 Imports: stats, methods, graphics, utils
 Suggests: pmml, XML, arulesViz, testthat
 License: GPL-3
