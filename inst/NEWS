@@ -5,6 +5,10 @@ Changes in version 1-2-1.1 (xx/xx/2015)
     * removed deprecated WRITE and SORT functions.
     * read.transactions gained arguments skip and quote and some defaults for
       read and write (uses now quotes and no rownames by default) have changed.
+    * itemMatrix: coersion from matrix checks now for 0-1 matrix with a warning.
+    * APRIORI and ECLAT report now absolute minimum support.
+    * APRIORI: out-of-memory while rule building does now result in an error and
+      not a memory fault.
     
 Changes in version 1-2-1 (09/20/2015)
     * Added many new interest measures.
