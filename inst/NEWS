@@ -1,14 +1,16 @@
-Changes in version 1-2-1.1 (xx/xx/2015)
+Changes in version 1-3-0 (11/11/2015)
+    * removed deprecated WRITE and SORT functions.
     * ruleInduction: bug fix for missing confidence values and better checking 
       (by C. Buchta). 
-    * subset extraction: added checks, handles not NAs and recycles for logical.
-    * removed deprecated WRITE and SORT functions.
+    * subset extraction: added checks, handles now NAs and recycles for logical.
     * read.transactions gained arguments skip and quote and some defaults for
       read and write (uses now quotes and no rownames by default) have changed.
     * itemMatrix: coersion from matrix checks now for 0-1 matrix with a warning.
     * APRIORI and ECLAT report now absolute minimum support.
     * APRIORI: out-of-memory while rule building does now result in an error and
       not a memory fault.
+    * aggregate uses now 'by' instead of 'itemLabels' to conform to 
+      aggregate in base.
     
 Changes in version 1-2-1 (09/20/2015)
     * Added many new interest measures.

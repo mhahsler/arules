@@ -1,2 +1,4 @@
 library("testthat")
-test_package("arules")
+
+library("arules")
+test_check("arules")

@@ -1,6 +1,6 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011, 2012 Michael Hahsler, Christian Buchta, 
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
 #			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
