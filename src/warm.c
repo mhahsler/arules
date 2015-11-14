@@ -348,6 +348,7 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
 	Rprintf("mining ...");
     }
 #endif    
+     p[0] = 0;
      p[1] = 1;
     pz[0] = 0;
     pr[0] = 0;
