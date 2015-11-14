@@ -22,11 +22,13 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
     0.8, and maxlen 10.}
   \item{appearance}{object of class
     \code{\linkS4class{APappearance}} or named list.
-    With this argument item appearance can be restricted.
+    With this argument item appearance can be restricted 
+    (implements rule templates).
     By default all items can appear unrestricted.}
   \item{control}{object of class
     \code{\linkS4class{APcontrol}} or named list.
-    Controls the performance of the mining algorithm (item sorting, etc.)}
+    Controls the algorithmic performance of the mining 
+    algorithm (item sorting, etc.)}
 }
 \details{
   Calls the C implementation of the Apriori algorithm by Christian

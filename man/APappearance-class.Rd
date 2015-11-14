@@ -2,17 +2,18 @@
 \docType{class}
 \alias{APappearance-class}
 \alias{APappearance}
+\alias{template}
 \alias{coerce,list,APappearance-method}
 \alias{coerce,NULL,APappearance-method}
 \title{Class ``APappearance'' --- Specifying the `appearance' Argument of
-  apriori()}
+  apriori() to Implement Rule Templates}
 
 \description{Specifies the restrictions on the associations mined by
   \code{\link{apriori}}. These restrictions can implement certain aspects
   of rule templates described by Klemettinen (1994).
   
-  Note that appearance is not supported by the
-  implementation of \code{\link{eclat}}.
+  Note that appearance is only supported by the
+  implementation of \code{\link{apriori}}.
 }
 
 \section{Objects from the Class}{
