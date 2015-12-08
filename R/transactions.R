@@ -80,7 +80,7 @@ setAs("data.frame", "transactions",
     
     ## check that everything is factor
     if (!all((p <- sapply(from, is.factor))))
-      stop("column(s) ", paste(which(!p), collapse=", "), " not logical or a factor. Use as.factor, as.logical or categorize first.")
+      stop("column(s) ", paste(which(!p), collapse=", "), " not logical or a factor. Discretize the columns first.")
     
     p <- seq(nrow(from))
     x <- lapply(from, function(x)
