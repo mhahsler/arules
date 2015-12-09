@@ -20,11 +20,6 @@
 
 
 ## find maximal itemsets
-
-setMethod("is.maximal", signature(x = "itemsets"),
-    function(x) is.maximal(items(x)) 
-)
-
 setMethod("is.maximal", signature(x = "itemMatrix"),
     function(x) {
         ## 
@@ -34,6 +29,14 @@ setMethod("is.maximal", signature(x = "itemMatrix"),
         i <- match(x, u)
         m[i]
 })
+
+setMethod("is.maximal", signature(x = "itemsets"),
+    function(x) is.maximal(items(x)) 
+)
+
+setMethod("is.maximal", signature(x = "rules"),
+    function(x) is.maximal(items(x)) 
+)
 
 
 ## old code w/o prefix tree
