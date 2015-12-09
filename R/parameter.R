@@ -37,48 +37,68 @@ setAs("list", "ECparameter", function(from, to) .list2object(from, to))
 ## initialize
 
 setMethod("initialize", "ASparameter",
-    function(.Object, minlen = 1L, maxlen = 10L, 
-        target = "frequent itemsets", ...) {
-	
-        minlen <- as.integer(minlen)
-        maxlen <- as.integer(maxlen)
-        
-	if(!is.finite(minlen) || minlen<1) stop("minlen needs to be finite and >0")    
-	if(!is.finite(maxlen) || maxlen<minlen) stop("maxlen needs to be finite and >minlen")    
-
-	.Object@minlen <- minlen
-        .Object@maxlen <- maxlen
-        i <- pmatch(tolower(target), .types())
-        if (!is.na(i)) .Object@target <- .types()[i] 
-        else .Object@target = target
-        
-        args = list(...)
-        for (i in names(args)) slot(.Object, i, check = FALSE) <- args[[i]]
-        validObject(.Object)
-        .Object
-    })
+  function(.Object, minlen = 1L, maxlen = 10L, ...) {
+    
+    minlen <- as.integer(minlen)
+    maxlen <- as.integer(maxlen)
+    
+    if(!is.finite(minlen) || minlen<1) 
+      stop("minlen needs to be finite and >0")    
+    if(!is.finite(maxlen) || maxlen<minlen) 
+      stop("maxlen needs to be finite and >minlen")    
+    
+    .Object@minlen <- minlen
+    .Object@maxlen <- maxlen
+    
+    args = list(...)
+    for (i in names(args)) slot(.Object, i, check = FALSE) <- args[[i]]
+    validObject(.Object)
+    .Object
+  })
 
 setMethod("initialize", "APparameter",
-    function(.Object, minlen = 1L, maxlen = 10L, 
-        target = "rules", arem = "none", ...) {
-        
-        i <- pmatch(tolower(arem), .aremtypes())
-        if (!is.na(i)) .Object@arem <- .aremtypes()[i] else .Object@arem = arem
-        .Object <- callNextMethod(.Object, minlen = minlen, 
-            maxlen = maxlen, target = target, ...)
-        .Object
-    })
+  function(.Object, minlen = 1L, maxlen = 10L, 
+    target = "rules", arem = "none", confidence = .8, ...) {
+    
+    i <- pmatch(tolower(arem), .aremtypes())
+    if (!is.na(i)) .Object@arem <- .aremtypes()[i] 
+    else .Object@arem <- arem
+    
+    i <- pmatch(tolower(target), .types("apriori"))
+    if (is.na(i)) stop("Unknown target type!") 
+    target <- .types("apriori")[i] 
+    
+    # no confidence for frequent itemsets 
+    if(i>3) .Object@confidence <- confidence
+    else .Object@confidence <- as.numeric(NA)
+    
+    callNextMethod(.Object, minlen = minlen, 
+      maxlen = maxlen, target = target, ...)
+  })
+
+setMethod("initialize", "ECparameter",
+  function(.Object, minlen = 1L, maxlen = 10L, 
+    target = "frequent itemsets", ...) {
+    
+    i <- pmatch(tolower(target), .types("eclat"))
+    if (is.na(i)) stop("Unknown target type!") 
+    target <- .types("eclat")[i] 
+    
+    callNextMethod(.Object, minlen = minlen, 
+      maxlen = maxlen, target = target, ...)
+  })
+
 
 ##********************************************************
 ## show
 
 setMethod("show", signature(object = "ASparameter"),
-    function(object) {
-        print(data.frame(sapply(slotNames(object), 
-                    function(x) slot(object, x), 
-                    simplify = FALSE), row.names = ""))
-        
-        invisible(NULL)
-    })
+  function(object) {
+    print(data.frame(sapply(slotNames(object), 
+      function(x) slot(object, x), 
+      simplify = FALSE), row.names = ""))
+    
+    invisible(NULL)
+  })
 
 

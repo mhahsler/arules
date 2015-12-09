@@ -8,6 +8,7 @@
 \alias{ECparameter}
 \alias{initialize,ASparameter-method}
 \alias{initialize,APparameter-method}
+\alias{initialize,ECparameter-method}
 \alias{show,ASparameter-method}
 \alias{show,APparameter-method}
 \alias{coerce,NULL,APparameter-method}
@@ -63,7 +64,7 @@
   \describe{
     \item{\code{confidence}:}{a numeric value for the
       minimal confidence of rules/association hyperedges (default:
-      \eqn{0.8})}
+      \eqn{0.8}). For frequent itemsets it is set to \code{NA}.}
     \item{\code{smax}:}{a numeric value for the
       maximal support of itemsets/rules/hyperedgesets (default: 1)}
     \item{\code{arem}:}{a character string indicating the used
