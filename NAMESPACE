@@ -84,6 +84,7 @@ exportMethods(
   "itemUnion",
   "itemSetdiff",
   "itemIntersect",
+  "is.significant",
   "is.closed",
   "is.element",
   "is.maximal",
