@@ -57,7 +57,8 @@ setReplaceMethod("info", signature(x = "associations"),
 
 ## sort + unique
 setMethod("sort", signature(x = "associations"),
-  function (x, decreasing = TRUE, na.last = NA, by = "support", order = FALSE, ...) {
+  function (x, decreasing = TRUE, na.last = NA, 
+    by = "support", order = FALSE, ...) {
     q <- quality(x)
     q <- q[, pmatch(by, colnames(q)), drop = FALSE]
     if(is.null(q)) stop("Unknown interest measure to sort by.")

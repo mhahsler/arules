@@ -241,7 +241,6 @@ setClass("APparameter",
     if (!object@arem %in% .aremtypes()) 
       return(paste("arem =", object@arem, "not supported."))
    
-    print(object) 
     if (pmatch(object@target, .types("apriori")) >3) {
       if (is.na(object@confidence) 
         || object@confidence > 1 
