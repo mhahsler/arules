@@ -333,7 +333,7 @@ setMethod("c", signature(x = "itemMatrix"),
   }
 )
 
-### this is cbind
+### merge items (this is cbind)
 setMethod("merge", signature(x="itemMatrix"),
   function(x, y, ...) {
     y <- as(y, "itemMatrix")
@@ -343,11 +343,20 @@ setMethod("merge", signature(x="itemMatrix"),
     dc <- t(.Call("R_cbind_ngCMatrix", 
       t(x@data), t(y@data), PACKAGE="arules"))
     
-    ### FIXME: itemInfo only preserves labels
+    ## fix itemInfo
+    iix <- itemInfo(x)
+    iiy <- itemInfo(y)
+    names <- unique(union(colnames(iix), colnames(iiy)))
+    for(n in names) {
+      if(is.null(iix[[n]])) iix[[n]] <- NA_character_
+      if(is.null(iiy[[n]])) iiy[[n]] <- NA_character_
+    }
+    
+    ii <- rbind(iix, iiy)
+    
     new("itemMatrix",
       data        = dc,
-      itemInfo    = data.frame(labels = c(itemLabels(x),
-        itemLabels(y)), stringsAsFactors=FALSE),
+      itemInfo    = ii,
       itemsetInfo = itemsetInfo(x)
     )
   })

@@ -3,6 +3,7 @@ Changes in version 1-3-0.1 (xx/xx/2015)
     * is.maximal is now also available for rules.
     * added is.significant for rules (used Fishers exact test).
     * added is.redundant for rules.
+    * added support for multi-level analysis. 
     * APparameter: confidence shows not NA for frequent itemsets.
     
 

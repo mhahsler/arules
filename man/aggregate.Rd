@@ -3,44 +3,71 @@
 \alias{aggregate,itemMatrix-method}
 \alias{aggregate,itemsets-method}
 \alias{aggregate,rules-method}
-\title{Aggregate Items Into Hierarchical Item Groups}
+\alias{addAggregate}
+\alias{filterAggregate}
+\title{Support for Item Hierarchies}
 \description{
-  Provides the generic functions and the S4 methods for 
-  aggregating items in rules and itemsets into hierarchical groups.
-
   Often an item hierarchy is available for datasets used for 
   association rule mining. For example in a supermarket dataset
   items like  "bread" and "beagle" might belong to the item
-  group (category) "baked goods". The aggregate methods
-  replaces items in transactions, itemsets or rules by
-  item groups as specified by the user.
+  group (category) "baked goods." 
+  
+  We provide support to use the item hierarchy to aggregate items 
+  to different group levels, to
+  produce multi-level transactions and to filter spurious    
+  associations mined from multi-level transactions.
 }
 \usage{
 \S4method{aggregate}{itemMatrix}(x, by)
 \S4method{aggregate}{itemsets}(x, by)
 \S4method{aggregate}{rules}(x, by)
+addAggregate(x, by, postfix = "*")
+filterAggregate(x)
 }
 \arguments{
-    \item{x}{ 
-	an transactions, itemsets or rules object.}
-    \item{by}{name of a field available in itemInfo or a vector of 
+  \item{x}{an transactions, itemsets or rules object.}
+  \item{by}{name of a field (hierarchy level) available in 
+    itemInfo or a vector of 
     character strings (factor) of the same length as items in \code{x}
     by which should be aggregated. Items receiving
     the same label in \code{by} will be aggregated into a single,
     higher-level item.}
+  \item{postfix}{characters added to mark group-level items.}
 }
 \details{  
   Transactions can store item hierarchies as additional columns in the 
-  itemInfo data.frame (\code{"labels"} is reserved for the item labels). These
-  item hierarchies can be used for aggregation.
+  itemInfo data.frame (\code{"labels"} is reserved for the item labels). 
   
-  If rules are aggregated and the aggregation would
-  lead to the same aggregated item in the lhs and in the rhs then the item
-  is removed from the lhs. Rules or itemsets which are not     
-  unique after the aggregation are also removed.
+  \bold{Aggregation:} To perform analysis at a group level of the item hierarchy,
+  \code{agregate()} produces a new
+  object with items aggregated to a given group level. A group-level item
+  is present if one or more of the items in the group are present in 
+  the original object.
+  If rules are aggregated, and the 
+  aggregation would lead to the same aggregated group item in the lhs and 
+  in the rhs, then that group item is removed from the lhs. 
+  Rules or itemsets, which are not     
+  unique after the aggregation, are also removed. Note also that the 
+  quality measures are not applicable to the new rules and thus are removed. 
+  If these measures are required, then aggregate the transactions before 
+  mining rules.
+  
+  \bold{Multi-level analysis:} To analyze relationships between 
+  individual items 
+  and item groups, \code{addAggregate()} creates a new transactions object
+  which contains both, the original items and group-level items (marked with
+  a given postfix). In association rule mining, all items are handled 
+  the same, which means that we will produce a large number of rules
+  of the type 
+  
+            \deqn{item A => group of item A}
+
+  with a confidence of 1. This happens also to itemsets 
+  \code{filterAggregate()} can be used to
+  filter these spurious rules or itemsets.
 }
 \value{
-   This method returns an object of the same class as \code{x} encoded
+   \code{aggregate()} returns an object of the same class as \code{x} encoded
    with a number of items equal to the number of unique values in
    \code{by}. Note that for associations (itemsets and rules) 
    the number of associations in the 
@@ -49,6 +76,10 @@
    aggregate returns a unique set. If several associations map to
    a single aggregated association then the quality measures of one 
    of the original associations is randomly chosen.
+   
+   \code{addAggregate()} returns a new transactions object with the
+   original items and the group-items added. \code{filterAggregateRules()}
+   returns a new rules object with the spurious rules remove.
 }
 \author{Michael Hahsler}
 \examples{
@@ -61,8 +92,11 @@ head(itemInfo(Groceries))
 ## aggregate by level2
 Groceries_level2 <- aggregate(Groceries, by = "level2")
 Groceries_level2
-head(itemInfo(Groceries_level2))
-inspect(head(Groceries_level2))
+head(itemInfo(Groceries_level2)) ## labels are alphabetically sorted!
+
+## compare orginal and aggregated transactions
+inspect(head(Groceries, 2))
+inspect(head(Groceries_level2, 2))
 
 ## create lables manually (organize items by the first letter)
 mylevels <- toupper(substr(itemLabels(Groceries), 1, 1))
@@ -70,10 +104,11 @@ head(mylevels)
 
 Groceries_alpha <- aggregate(Groceries, by = mylevels)
 Groceries_alpha
-inspect(head(Groceries_alpha))
+inspect(head(Groceries_alpha, 2))
 
-## aggregate rules (note: you could also directly mine rules from aggregated
-## transactions)
+## aggregate rules 
+## Note: you could also directly mine rules from aggregated transactions to
+## get support, lift and support
 rules <- apriori(Groceries, parameter=list(supp=0.005, conf=0.5))
 rules
 inspect(rules[1])
@@ -81,9 +116,15 @@ inspect(rules[1])
 rules_level2 <- aggregate(rules, by = "level2")
 inspect(rules_level2[1])
 
-## interest measures need to be recalculated from aggregated transactions
-quality(rules_level2) <- interestMeasure(rules_level2, 
-  measure = c("support", "confidence", "lift"), transactions = Groceries_level2)
-inspect(rules_level2[1])
+## mine multi-level rules
+Groceries_multilevel <- addAggregate(Groceries, "level2")
+summary(Groceries_multilevel)
+
+rules <- apriori(Groceries_multilevel, 
+  parameter = list(support = 0.01, conf =.9))
+inspect(head(sort(rules, by = "lift")))
+## filter spurious rules 
+rules <- filterAggregate(rules)
+inspect(head(sort(rules, by = "lift")))
 }
 \keyword{manip}

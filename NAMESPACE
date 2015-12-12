@@ -36,7 +36,9 @@ export(
   "weclat",
   "hits",
   "abbreviate",
-  "discretize"
+  "discretize",
+  "addAggregate",
+  "filterAggregate"
 )
 
 exportClasses(

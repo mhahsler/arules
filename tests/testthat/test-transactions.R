@@ -70,6 +70,5 @@ g2 <- addComplement(g2, "coffee", "NO coffee")
 expect_equal(nitems(g2), nitems(Groceries)+3L)
 expect_identical(as.logical(as(g2[, "!whole milk"], "matrix")), 
   !as.logical(as(g2[, "whole milk"], "matrix")))
-## NOTE: addCompliment removes additional itemInfo!
-itemInfo(Groceries) <- itemInfo(Groceries)[,"labels", drop=FALSE]
 expect_identical(g2[,1:nitems(Groceries)], Groceries)
+
