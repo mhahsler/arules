@@ -42,7 +42,7 @@ s <- sample(Adult, 500)
 s
 
 a <- affinity(s)
-summary(as.vector(a))
+image(a)
 }
 \references{
    Charu C. Aggarwal, Cecilia Procopiuc, and Philip S. Yu (2002)

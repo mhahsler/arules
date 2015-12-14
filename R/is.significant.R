@@ -18,17 +18,14 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-
 ## uses fishers exact test to find significant rules (corrected)
-
-
 setMethod("is.significant", signature(x = "rules"),
-    function(x, transactions, alpha = 0.01, adjust = "bonferroni") {
-        p <- quality(x)[["fishersExactTest"]]
-        if(is.null(p)) p <- interestMeasure(rules, 
-          measure = "fishersExactTest", 
-          transactions = transactions)
-        if(adjust != "none") p <- p.adjust(p, method = adjust)
-        p <= alpha
-      })
+  function(x, transactions, alpha = 0.01, adjust = "bonferroni") {
+    p <- quality(x)[["fishersExactTest"]]
+    if(is.null(p)) p <- interestMeasure(x, 
+      measure = "fishersExactTest", 
+      transactions = transactions)
+    if(adjust != "none") p <- p.adjust(p, method = adjust)
+    p <= alpha
+  })
 

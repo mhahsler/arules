@@ -114,11 +114,11 @@ image(trans)
 
 ## use the method by Agrawal and Srikant (1994) to simulate transactions 
 ## which contains correlated items. This should create data similar to
-## T10I4D100K (just only 1000 transactions)
+## T10I4D100K (we just create 100 transactions here to speed things up).
 patterns <- random.patterns(nItems = 1000)
 summary(patterns)
 
-trans2 <- random.transactions(nItems = 1000, nTrans = 1000, 
+trans2 <- random.transactions(nItems = 1000, nTrans = 100, 
    method = "agrawal", patterns = patterns)
 image(trans2) 
 
