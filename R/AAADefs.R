@@ -73,10 +73,12 @@
     ## make column names conforming (rbind fixes order) 
     cols <- unique(c(colnames(mx), colnames(my)))
     
-    ## Note: rbind does not preserve rows is ncol==0!
+    ## Note: rbind does not preserve rows if ncol==0!
     if(length(cols) > 0) {
-      for(col in cols[!(cols %in% colnames(mx))]) mx[[col]] <- NA
-      for(col in cols[!(cols %in% colnames(my))]) my[[col]] <- NA
+      for(col in cols[!(cols %in% colnames(mx))]) 
+	  mx[[col]] <- rep(NA_real_, times = nrow(mx))
+      for(col in cols[!(cols %in% colnames(my))]) 
+	  my[[col]] <- rep(NA_real_, times = nrow(my))
       rbind(mx, my)
     }else{
       data.frame(matrix(nrow = length(x)+length(y), ncol = 0))

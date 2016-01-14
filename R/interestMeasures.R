@@ -279,7 +279,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     ## substitutes; Pr[C_XY > c_XY]
     res <- stats::phyper(c_XY, m=c_Y, n=t-c_X, k=c_X, lower.tail = significance)
   
-  ## todo: check resulting NaN
+  ## TODO: check resulting NaN
   res
 }
 

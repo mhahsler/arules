@@ -39,6 +39,40 @@ expect_identical(dimnames(j), dn2)
 ### test for unique items
 expect_error(i[,c(1,1)])
 
+### combine (itemInfo)
+i2 <- i3 <- i
+# no info
+itemsetInfo(i2) <- data.frame(matrix(nrow = length(i2), ncol = 0))
+
+expect_equal(itemsetInfo(c(i, i2)), 
+  data.frame(itemsetID = c(
+	itemsetInfo(i)$itemsetID, 
+        rep(NA, times = length(i2))
+    ), stringsAsFactors = FALSE))
+expect_equal(itemsetInfo(c(i2, i)), 
+  data.frame(itemsetID = c(
+        rep(NA, times = length(i2)),
+	itemsetInfo(i)$itemsetID 
+     ), stringsAsFactors = FALSE))
+
+# additional info
+itemsetInfo(i3)$moreInfo <- sample(1:2, length(i3), replace = TRUE)
+
+expect_equal(itemsetInfo(c(i, i3)), data.frame(
+    itemsetID = c(itemsetInfo(i)$itemsetID, itemsetInfo(i3)$itemsetID),
+    moreInfo = c(rep(NA, times = length(i)), itemsetInfo(i3)$moreInfo),
+    stringsAsFactors = FALSE))
+expect_equal(itemsetInfo(c(i3, i)), data.frame(
+    itemsetID = c(itemsetInfo(i3)$itemsetID, itemsetInfo(i)$itemsetID),
+    moreInfo = c(itemsetInfo(i3)$moreInfo, rep(NA, times = length(i))),
+    stringsAsFactors = FALSE))
+
+# empty associations
+expect_equal(itemsetInfo(c(i, i[0])), itemsetInfo(i))
+expect_equal(itemsetInfo(c(i[0], i3)), itemsetInfo(i3))
+
+
+
 ### test export as sparse matrix
 #dgc <- as(i, "dgCMatrix")
 #expect_true(all(t(m)==dgc))
