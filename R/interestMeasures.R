@@ -283,16 +283,17 @@ setMethod("interestMeasure",  signature(x = "rules"),
   res
 }
 
-
 ## Minimum Improvement (Bayardo et al. 1999)
 ## Let the improvement of a rule be defined as the minimum
 ## difference between its confidence and the confidence of any
 ## proper sub-rule with the same consequent.
 
-.improvement <- function(x, transactions = NULL, reuse = TRUE) {
+.improvement <- function(x, transactions = NULL, reuse = TRUE, 
+  measure = "confidence") {
   
-  
-  conf <- interestMeasure(x, "confidence", transactions, reuse)
+  ## Note: improvement is defined for confidence, but could also used with 
+  ## other measures
+  conf <- interestMeasure(x, measure, transactions, reuse)
   #conf <- quality(x)$confidence
   imp <- numeric(length(x))
   

@@ -18,20 +18,20 @@ is.redundant(x, ...)
   \item{...}{ additional arguments. }
 }
 \details{
-Zaki (2000) defines a rule as redundant if there exists a rule
-that differs only by an additional item in the LHS and has the
-same or higher confidence.
+A rule is redundant if it does not improve confidence over the confidence 
+of its proper sub-rules. That is, a more specific rule is less 
+predictive than a more general rules and has a negative \emph{improvement} as defined by Bayardo et al. (2000).
 
-In this implementation other measures than confidence, e.g. lift, 
-can be used as well. 
+In this implementation other measures than confidence, e.g. improvement  of lift, can be used as well. 
 }
 \value{
 returns a logical vector indicating which rules are redundant.
 }
-%\seealso{
-%}
+\seealso{
+\code{\link{interestMeasure}}
+}
 \references{
-Zaki, M. J. (2000) Generating non-redundant association rules. \emph{ Proceedings of the sixth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining,} 34--42.
+Bayardo, R. , R. Agrawal, and D. Gunopulos (2000). Constraint-based rule mining in large, dense databases. \emph{Data Mining and Knowledge Discovery,} 4(2/3):217--240.
 }
 \examples{
 data("Income")

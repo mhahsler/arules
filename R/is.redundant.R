@@ -18,28 +18,14 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-
 ## Find redundant rules
-## A rule is redundant if a sub rule (with less items in the LHS) has the
-## same or higher confidence. (Zaki, 2000)
-
+## redundant rules are rules which do not improve confidence over the
+## confidence of their proper sub-rules (i.e., have a negative improvement).
 setMethod("is.redundant", signature(x = "rules"),
   function(x, measure = "confidence") {
-  
-    ## sort by lift
-    o <- sort(x, by=measure, order=TRUE)
-    x_sorted <- x[o]
-    
-    ## find sub rules
-    sub_matrix <- is.subset(x_sorted)
-    sub_matrix[lower.tri(sub_matrix, diag=TRUE)] <- NA
-    
-    ## find the sub rules with higher support
-    redundant <- colSums(sub_matrix, na.rm=TRUE) > 0L
-    
-    ## go back to original order 
-    redundant[o] <- redundant
-    #names(redundant)[o] <- names(redundant)
-    unname(redundant)
+    #i <- interestMeasure(x, measure = "improvement")
+    i <- .improvement(x, transactions = NULL, reuse = TRUE, measure = measure)
+    i <- i<0
+    i[is.na(i)] <- FALSE
+    i
   })
-
