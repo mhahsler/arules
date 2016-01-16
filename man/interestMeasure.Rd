@@ -498,7 +498,7 @@ quality(rules) <- cbind(quality(rules),
 	hyperConfidence = interestMeasure(rules, measure = "hyperConfidence", 
 	transactions = Income))
 
-inspect(head(sort(rules, by = "hyperConfidence")))
+inspect(head(rules, by = "hyperConfidence"))
 
 ## calculate several measures
 m <- interestMeasure(rules, c("confidence", "oddsRatio", "leverage"), 

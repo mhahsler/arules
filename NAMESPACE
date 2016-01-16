@@ -40,7 +40,7 @@ export(
   "discretize",
   "addAggregate",
   "filterAggregate"
-)
+  )
 
 exportClasses(
   "itemMatrix", "summary.itemMatrix",
@@ -73,6 +73,7 @@ exportMethods(
   "duplicated",
   "encode",
   "generatingItemsets",
+  "head",
   "image", 
   "info", "info<-", 
   "initialize", 

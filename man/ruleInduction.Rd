@@ -78,13 +78,12 @@ rules <- ruleInduction(closed, Adult, control = list(verbose = TRUE))
 summary(rules)
 
 ## inspect the resulting rules
-inspect(head(sort(rules, by = "lift")))
+inspect(head(rules, by = "lift"))
 
 ## use lattice of frequent itemsets
 ec  <- eclat(Adult, parameter = list(support = 0.4))
 rec <- ruleInduction(ec)
 rec
 inspect(head(rec))
-
 }
 \keyword{models}

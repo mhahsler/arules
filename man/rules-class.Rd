@@ -129,10 +129,13 @@ rules <- apriori(Adult, parameter = list(support = 0.4))
 ## in the right-hand-side and a quality measure
 rules.sub <- subset(rules, subset = rhs \%pin\% "sex" & lift > 1.3)
 
-## Display rules.
-inspect(sort(rules.sub)[1:3])
+## Display the top 3 support rules
+inspect(head(rules.sub, n = 3, by = "support"))
 
-## Get labels for rules
+## Display the first 3 rules
+inspect(rules.sub[1:3])
+
+## Get labels for the first 3 rules
 labels(rules.sub[1:3])
 labels(rules.sub[1:3], itemSep = " + ", setStart = "", setEnd="", 
   ruleSep = " ---> ")

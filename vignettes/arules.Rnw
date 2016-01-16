@@ -1420,12 +1420,12 @@ rulesIncomeLarge <- subset(rules, subset = rhs %in% "income=large" & lift > 1.2)
 
 We now have a set with rules for persons with a small income and a set
 for persons with a large income.  For comparison, we inspect for both
-sets the three rules with the highest confidence (using \func{sort}).
+sets the three rules with the highest confidence (using \func{head}).
 
 %%{\samepage\small
 <<subset>>=
-inspect(head(sort(rulesIncomeSmall, by = "confidence"), n = 3))
-inspect(head(sort(rulesIncomeLarge, by = "confidence"), n = 3))
+inspect(head(rulesIncomeSmall, n = 3, by = "confidence"))
+inspect(head(rulesIncomeLarge, n = 3, by = "confidence"))
 @
 %%}
 

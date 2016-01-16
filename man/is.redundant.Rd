@@ -18,9 +18,12 @@ is.redundant(x, ...)
   \item{...}{ additional arguments. }
 }
 \details{
-Zaki (2000) defines redundant rules as rules where a super rule (items added to the rule's LHS) have the same or higher confidence.
+Zaki (2000) defines a rule as redundant if there exists a rule
+that differs only by an additional item in the LHS and has the
+same or higher confidence.
 
-In this implementation other measures, e.g. lift, can be used as well. 
+In this implementation other measures than confidence, e.g. lift, 
+can be used as well. 
 }
 \value{
 returns a logical vector indicating which rules are redundant.

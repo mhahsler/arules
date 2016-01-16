@@ -62,16 +62,29 @@ setMethod("sort", signature(x = "associations"),
     q <- quality(x)
     q <- q[, pmatch(by, colnames(q)), drop = FALSE]
     if(is.null(q)) stop("Unknown interest measure to sort by.")
+    
+    if(!is.na(na.last)) stop("na.last not supported. NAs are always put last.")
+    
     if(length(x) == 0) return(x)
     
-    o <- do.call(base::order, c(q, list(na.last = na.last, 
+    o <- do.call(base::order, c(q, list(na.last = TRUE, 
       decreasing = decreasing)))
     
     if(order) o
     else x[o]
   })
 
-
+setMethod("head", signature(x = "associations"),
+  function (x, n = 6L, by = NULL, decreasing = TRUE, ...) {
+    n <- as.integer(n)
+    
+    if(n > length(x)) n <- length(x)
+    if(n == 0 || n <= -length(x)) return(x[0])
+    
+    if(is.null(by)) if(n>0) return(x[1:n]) else return(x[1:(length(x)+n)])
+    
+    x[head(sort(x, by = by, decreasing = decreasing, order = TRUE), n = n)]
+  })
 
 ## this needs a working implementation of duplicated for the 
 ## type of associations

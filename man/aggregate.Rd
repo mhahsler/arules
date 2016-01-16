@@ -122,9 +122,9 @@ summary(Groceries_multilevel)
 
 rules <- apriori(Groceries_multilevel, 
   parameter = list(support = 0.01, conf =.9))
-inspect(head(sort(rules, by = "lift")))
+inspect(head(rules, by = "lift"))
 ## filter spurious rules 
 rules <- filterAggregate(rules)
-inspect(head(sort(rules, by = "lift")))
+inspect(head(rules, by = "lift"))
 }
 \keyword{manip}
