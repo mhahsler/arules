@@ -1,6 +1,7 @@
 Changes in version 1-3-1.1 (xx/xx/2015)
     * bugfix for combining item matrices with 0 rows (reported by C. Buchta).
-    * is.redundant: fixed, it is now based on improvement.
+    * is.redundant: fixed and performance improvement
+    * interest: performance improvement.
     * Groceries: fixed typo in dataset.
     * sort: speed up sort by always sorting NAs last.
     * head: added method head for associations for getting the best rules 

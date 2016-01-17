@@ -290,35 +290,42 @@ setMethod("interestMeasure",  signature(x = "rules"),
 
 .improvement <- function(x, transactions = NULL, reuse = TRUE, 
   measure = "confidence") {
+    
+  ### col min of exiting entries in sparse matrix
+  cmin_dgC <- function(x) {
+    j <- x@p + 1L
+    ms <- rep(NA_real_, ncol(x))
+    for(i in 1:(length(j)-1L)) {
+      if(j[i]!=j[i+1L])
+        ms[i] <- min(x@x[j[i]:(j[i+1L]-1L)])
+    }
+    ms
+  }
+    
   
   ## Note: improvement is defined for confidence, but could also used with 
   ## other measures
-  conf <- interestMeasure(x, measure, transactions, reuse)
+  q <- interestMeasure(x, measure, transactions, reuse)
   #conf <- quality(x)$confidence
   imp <- numeric(length(x))
   
-  ## find sets of rules w/the same rhs 
-  rhsList <- LIST(rhs(x), decode = FALSE)
-  rhsUnique <- unique(rhsList)
+  ### do it by unique rhs
+  rr <- .Call(R_pnindex, rhs(x)@data, NULL, FALSE, PACKAGE = "arules")
   
-  for(i in rhsUnique) {
-    sameRhs <- which(is.element(rhsList, i))
-    lhsSameRhs <- lhs(x)[sameRhs]
+  for(r in unique(rr)) {
+    pos <- which(rr==r) 
+    s <- is.subset(lhs(x[pos]), proper = TRUE, sparse = TRUE)
+    s <- as(s, "dgCMatrix")
+    i <- s@i + 1L
+    j <- diff(s@p)
+    j <- rep(seq_along(j), j)
+    s@x <- q[pos[j]] - q[pos[i]]
     
-    for(j in sameRhs) {
-      ## find subsets
-      subRules <- sameRhs[is.superset(lhs(x)[j], 
-        lhsSameRhs, proper = TRUE)]
-      
-      ## calculate improvement
-      imp[j] <- conf[j] - suppressWarnings(max(conf[subRules]))
-    }
+    #s <- selectMethod("colMins", class(s))(s) > 0L
+    imp[pos] <- cmin_dgC(s)
   }
-  
-  ### no improvement with missing smaller rule 
-  imp[!is.finite(imp)] <- NA
-  
-  return(imp)
+
+  imp
 }
 
 ## count helpers

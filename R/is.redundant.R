@@ -21,11 +21,38 @@
 ## Find redundant rules
 ## redundant rules are rules which do not improve confidence over the
 ## confidence of their proper sub-rules (i.e., have a negative improvement).
+#setMethod("is.redundant", signature(x = "rules"),
+#  function(x, measure = "confidence") {
+#    #i <- interestMeasure(x, measure = "improvement")
+#    i <- .improvement(x, transactions = NULL, reuse = TRUE, measure = measure)
+#    i <- i<0
+#    i[is.na(i)] <- FALSE
+#    i
+#  })
+
 setMethod("is.redundant", signature(x = "rules"),
   function(x, measure = "confidence") {
-    #i <- interestMeasure(x, measure = "improvement")
-    i <- .improvement(x, transactions = NULL, reuse = TRUE, measure = measure)
-    i <- i<0
-    i[is.na(i)] <- FALSE
-    i
-  })
+    q <- quality(x)[[measure]]
+    if(is.null(q)) 
+      stop("invalid 'measure'")
+    if (any(is.na(q)))
+      stop("missing values not implemented")
+ 
+    ### do it by unique rhs
+    res <- logical(length(x))
+    rr <- .Call(R_pnindex, rhs(x)@data, NULL, FALSE, PACKAGE = "arules")
+    for(r in unique(rr)) {
+      pos <- which(rr==r) 
+      s <- is.subset(lhs(x[pos]), proper = TRUE, sparse = TRUE)
+      s <- as(s, "dgCMatrix")
+      i <- s@i + 1L
+      j <- diff(s@p)
+      j <- rep(seq_along(j), j)
+      s@x[(q[pos[i]] <= q[pos[j]])] <- 0
+      s <- selectMethod("colSums", class(s))(s) > 0L
+      res[pos[s]] <- TRUE
+    }
+  
+  res
+  }
+)

@@ -30,10 +30,12 @@ is.superset(x, y = NULL, proper = FALSE, sparse = FALSE, ...)
 looks for each element in \code{x} which elements in \code{y} are supersets  or
 subsets. Note that the method can be very slow and memory intensive  if
 \code{x} and/or \code{y} contain many elements.
+
+For rules, the union of lhs and rhs is used a the set of items.
 }
 \value{
 returns a logical matrix 
-or a sparse ngCMatrix (for \code{parse=TRUE}) 
+or a sparse ngCMatrix (for \code{sparse=TRUE}) 
 with \code{length(x)} rows and \code{length(y)}
 columns.  Each logical row vector represents which elements in \code{y} are
 supersets (subsets) of the corresponding element in \code{x}.  If either
