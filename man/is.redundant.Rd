@@ -20,7 +20,7 @@ is.redundant(x, ...)
 \details{
 A rule is redundant if it does not improve confidence over a more specific 
 rule (a rule with items added to the lhs). That is, a more specific rule is redundant if it is less 
-predictive than a more general rules. This is equivalent to a 
+predictive than a more general rule. This is equivalent to a 
 negative \emph{improvement} as defined by Bayardo et al. (2000).
 
 In this implementation other measures than confidence, e.g. 
