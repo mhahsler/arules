@@ -187,7 +187,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
       interestMeasure(x, "support", transactions, reuse)/
         (interestMeasure(x, "coverage", transactions, reuse) 
           * support(rhs(x), transactions)))
-    if(measure == "improvement") return(.improvement(x, transactions, reuse))
+    if(measure == "improvement") return(.improvement(x, transactions, reuse, ...))
     if(measure == "hyperLift") return(
       .hyperLift(x, transactions, reuse, ...))
     if(measure == "hyperConfidence") return(
@@ -289,23 +289,11 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## proper sub-rule with the same consequent.
 
 .improvement <- function(x, transactions = NULL, reuse = TRUE, 
-  measure = "confidence") {
-    
-  ### col min of exiting entries in sparse matrix
-  cmin_dgC <- function(x) {
-    j <- x@p + 1L
-    ms <- rep(NA_real_, ncol(x))
-    for(i in 1:(length(j)-1L)) {
-      if(j[i]!=j[i+1L])
-        ms[i] <- min(x@x[j[i]:(j[i+1L]-1L)])
-    }
-    ms
-  }
-    
+  quality_measure = "confidence") {
   
   ## Note: improvement is defined for confidence, but could also used with 
   ## other measures
-  q <- interestMeasure(x, measure, transactions, reuse)
+  q <- interestMeasure(x, quality_measure, transactions, reuse)
   #conf <- quality(x)$confidence
   imp <- numeric(length(x))
   
@@ -314,19 +302,18 @@ setMethod("interestMeasure",  signature(x = "rules"),
   
   for(r in unique(rr)) {
     pos <- which(rr==r) 
-    s <- is.subset(lhs(x[pos]), proper = TRUE, sparse = TRUE)
-    s <- as(s, "dgCMatrix")
-    i <- s@i + 1L
-    j <- diff(s@p)
-    j <- rep(seq_along(j), j)
-    s@x <- q[pos[j]] - q[pos[i]]
     
-    #s <- selectMethod("colMins", class(s))(s) > 0L
-    imp[pos] <- cmin_dgC(s)
+    q2 <- q[pos]
+    ### FALSE is for verbose
+    qsubmax <- .Call(R_pnmax, lhs(x[pos])@data, q2, FALSE, 
+      PACKAGE = "arules")
+  
+    imp[pos] <- q2 - qsubmax
   }
 
   imp
 }
+
 
 ## count helpers
 .getCounts <- function(x, transactions, reuse = TRUE){

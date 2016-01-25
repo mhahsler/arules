@@ -60,8 +60,8 @@ setGeneric("generatingItemsets",
     function(x) standardGeneric("generatingItemsets"))
 
 # somehow redefining the generic funciton this is necessary
-#setGeneric("head",
-#    function(x, ...) standardGeneric("head"))
+setGeneric("head",
+    function(x, ...) standardGeneric("head"))
 
 setGeneric("info",
     function(x) standardGeneric("info"))

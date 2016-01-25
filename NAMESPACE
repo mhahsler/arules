@@ -12,7 +12,8 @@ useDynLib(arules,
   R_wcount_ngCMatrix,
   R_weclat_ngCMatrix,
   R_rowWSums_ngCMatrix,
-  R_hits_ngCMatrix
+  R_hits_ngCMatrix,
+  R_pnmax
 )
 
 import("methods")
