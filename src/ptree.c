@@ -734,6 +734,134 @@ SEXP R_pnclosed(SEXP R_x, SEXP R_c, SEXP R_v) {
     return r;
 }
 
+//
+// compute the maximum over all subsets of
+// a superset
+//
+
+static double pmx, *pvl;
+
+static void pnmax(PN *p, int *x, int n, int l) {
+    if (p == NULL || n == 0)
+	return;
+    cpn++;
+    if (p->index == *x) {
+	npn++;
+	if ((l > n || n > 1) && p->count) {
+	    double v = pvl[p->count];
+	    if (pmx < v)
+		pmx = v;
+	}
+	pnmax(p->pl, x+1, n-1, l-1);
+	pnmax(p->pr, x+1, n-1, l);
+    } else
+    if (p->index < *x) 
+	pnmax(p->pr, x, n, l);
+    else
+	pnmax(p, x+1, n-1, l);
+}
+
+SEXP R_pnmax(SEXP R_x, SEXP R_c, SEXP R_v) {
+    double e;
+    int i, k, f, l, n, nr;
+    int *x;
+    SEXP r, px, ix;
+#ifdef _TIME_H
+    clock_t t2, t1 = clock();
+#endif
+    
+    if (!inherits(R_x, "ngCMatrix"))
+	error("'x' not of class ngCMatrix");
+    if (TYPEOF(R_c) != REALSXP)
+	error("'c' not of storage type real");
+    if (LENGTH(R_c) != INTEGER(GET_SLOT(R_x, install("Dim")))[1])
+	error("'x' and 'c' not the same length");
+    if (TYPEOF(R_v) != LGLSXP)
+	error("'v' not of type logical");
+    
+#ifdef _TIME_H
+    if (LOGICAL(R_v)[0] == TRUE) 
+	Rprintf("computing ... ");
+#endif
+    nr = INTEGER(GET_SLOT(R_x, install("Dim")))[0];
+    
+    px = GET_SLOT(R_x, install("p"));
+    ix = GET_SLOT(R_x, install("i"));
+
+    cpn = apn = npn = 0;
+    
+    if (nb != NULL)
+        nbfree();
+    nb = (PN **) malloc(sizeof(PN *) * (nr+1));
+    if (nb == NULL)
+        error("pointer array allocation failed");
+
+    k = nr;
+    nb[k] = NULL;
+    while (k-- > 0)
+	nb[k] = pnadd(nb[k+1], &k, 1);
+
+    if (npn) {
+	nbfree();
+	error("node allocation failed");
+    }
+  
+    pvl = REAL(R_c) - 1;
+
+    e = R_NegInf;
+    f = 0;
+    for (i = 1; i < LENGTH(px); i++) {
+	l = INTEGER(px)[i];
+	n = l-f;
+	if (n == 0) {
+	    e = pvl[i];
+	    continue;
+	}
+	x = INTEGER(ix)+f;
+	pnadd(nb[*x], x, n);
+	if (npn) {
+	    nbfree();
+	    error("node allocation failed");
+	}
+	nq->count = i;
+	f = l;
+	R_CheckUserInterrupt();
+    }
+
+    PROTECT(r = allocVector(REALSXP, LENGTH(px)-1));
+
+    f = 0;
+    for (i = 1; i < LENGTH(px); i++) {
+	l = INTEGER(px)[i];
+	n = l-f;
+	if (n == 0) {
+	    REAL(r)[i-1] = R_NegInf;	
+	    continue;
+	}
+	x   = INTEGER(ix)+f;
+	pmx = e;
+	pnmax(nb[*x], x, n, n);
+	REAL(r)[i-1] = pmx;
+	f = l;
+	R_CheckUserInterrupt();
+    }
+
+    nbfree();
+
+    if (apn)
+	error("node deallocation imbalance %i", apn);
+#ifdef _TIME_H
+    t2 = clock();
+    if (LOGICAL(R_v)[0] == TRUE)
+	Rprintf(" %i itemsets [%.2fs]\n", LENGTH(px) - 1, 
+		((double) t2-t1) / CLOCKS_PER_SEC);
+#endif
+    
+    UNPROTECT(1);
+    
+    return r;
+}
+
 /*
  index a set of itemsets into a set of 
  rules.

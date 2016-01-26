@@ -63,3 +63,4 @@ expect_equal(coverage(rules, trans = trans, reuse = FALSE),
   support(lhs(rules), trans = trans))
 
 ## FIXME: test others
+
