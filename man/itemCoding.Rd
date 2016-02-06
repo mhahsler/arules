@@ -1,4 +1,6 @@
 \name{itemCoding}
+\alias{itemCoding}
+\alias{itemcoding}
 \alias{decode}
 \alias{decode,numeric-method}
 \alias{decode,list-method}

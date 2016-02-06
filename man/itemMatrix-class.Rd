@@ -49,6 +49,14 @@
   The class contains a sparse Matrix representation of items (a set of
   itemsets or transactions) and the corresponding item labels.
 }
+\details{
+Sets of itemsets are represented as sparse binary matrices.
+If you work with several itemMatrices at the same time (e.g.,
+several transaction sets, lhs and rhs of a rule, etc.),
+then the encoding (itemLabes and order of the items in the binary matrix) 
+in the different itemMatrices is important and needs to conform.
+See \code{\link{itemCoding}} to learn how to encode and recode itemMatrix objects.
+}
 \section{Objects from the Class}{
   Objects can be created by calls of the form \code{new("itemMatrix",
     ...)}.
@@ -176,6 +184,7 @@
   \code{\link{is.superset}},
   \code{\link{itemFrequency}},
   \code{\link{itemFrequencyPlot}},
+  \code{\link{itemCoding}},
   \code{\link{match}},
   \code{\link{length}},
   \code{\link{sets}},

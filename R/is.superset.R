@@ -44,7 +44,9 @@ setMethod("is.subset", signature(x = "itemMatrix"),
     if(!is.null(y)) {
       if(is(y, "associations")) y <- items(y)
       if(!is(y, "itemMatrix")) stop("y needs to be an itemMatrix.")
-      x <- recode(x, match = y)
+      il <- union(itemLabels(x), itemLabels(y))
+      x <- recode(x, itemLabels = il)
+      y <- recode(y, itemLabels = il)
     }
     
     if(sparse) return(.is.subset_sparse(x, y, proper))

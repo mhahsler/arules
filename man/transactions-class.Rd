@@ -71,6 +71,10 @@ Continuous variables need to be discretized first. An item resulting from discre
 Complete examples for how to prepare data can be found in the man pages for \code{\link{Income}} and
 \code{\link{Adult}}.
 
+Transactions are represented as sparse binary matrices of class
+\code{\link{itemMatrix}}. If you work with several transaction sets at the 
+same time, then the encoding (order of the items in the binary matrix) in the different sets is important.
+See \code{\link{itemCoding}} to learn how to encode and recode transaction sets. 
 }
 
 \section{Methods}{
@@ -134,6 +138,7 @@ Complete examples for how to prepare data can be found in the man pages for \cod
   \code{\link{c}},
   \code{\link{image}},
   \code{\link{inspect}},
+  \code{\link{itemCoding}},
   \code{\link{read.transactions}},
   \code{\link{random.transactions}},
   \code{\link{sets}},
