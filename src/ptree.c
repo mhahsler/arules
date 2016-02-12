@@ -17,9 +17,9 @@
 	
  note that sgCMatrix support is for package arulesSequence.
 
- Version 0.2-6
+ Version 0.2-7
 
- (C) ceeboo 2007
+ (C) ceeboo 2007, 2016
 */
 
 typedef struct pnode {
@@ -247,13 +247,13 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
 #endif
     }
     
-    cpn = apn = npn = 0;
-
     if (nb != NULL)
         nbfree();
     nb = (PN **) malloc(sizeof(PN *) * (nr+1));
     if (nb == NULL)
         error("pointer array allocation failed");
+
+    cpn = apn = npn = 0;
 
     k = nr;
     nb[k] = NULL;
@@ -506,14 +506,14 @@ SEXP R_pnindex(SEXP R_x, SEXP R_y, SEXP R_v) {
 	iy = GET_SLOT(R_y, install("i"));
     }
     
-    cpn = apn = npn = 0;
-    
     if (nb != NULL)
         nbfree();
     nb = (PN **) malloc(sizeof(PN *) * (nr+1));
     if (nb == NULL)
         error("pointer array allocation failed");
 
+    cpn = apn = npn = 0;
+    
     k = nr;
     nb[k] = NULL;
     while (k-- > 0)
@@ -640,14 +640,14 @@ SEXP R_pnclosed(SEXP R_x, SEXP R_c, SEXP R_v) {
     px = GET_SLOT(R_x, install("p"));
     ix = GET_SLOT(R_x, install("i"));
 
-    cpn = apn = npn = 0;
-    
     if (nb != NULL)
         nbfree();
     nb = (PN **) malloc(sizeof(PN *) * (nr+1));
     if (nb == NULL)
         error("pointer array allocation failed");
 
+    cpn = apn = npn = 0;
+    
     k = nr;
     nb[k] = NULL;
     while (k-- > 0)
@@ -788,14 +788,14 @@ SEXP R_pnmax(SEXP R_x, SEXP R_c, SEXP R_v) {
     px = GET_SLOT(R_x, install("p"));
     ix = GET_SLOT(R_x, install("i"));
 
-    cpn = apn = npn = 0;
-    
     if (nb != NULL)
         nbfree();
     nb = (PN **) malloc(sizeof(PN *) * (nr+1));
     if (nb == NULL)
         error("pointer array allocation failed");
 
+    cpn = apn = npn = 0;
+    
     k = nr;
     nb[k] = NULL;
     while (k-- > 0)
@@ -893,14 +893,14 @@ SEXP R_pnrindex(SEXP R_x, SEXP R_v) {
     px = GET_SLOT(R_x, install("p"));
     ix = GET_SLOT(R_x, install("i"));
 
-    cpn = apn = npn = 0;
-    
     if (nb != NULL)
         nbfree();
     nb = (PN **) malloc(sizeof(PN *) * (nr+1));
     if (nb == NULL)
         error("pointer array allocation failed");
 
+    cpn = apn = npn = 0;
+    
     k = nr;
     nb[k] = NULL;
     while (k-- > 0)
