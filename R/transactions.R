@@ -30,13 +30,13 @@
 setAs("matrix", "transactions",
   function(from)
     new("transactions", as(from, "itemMatrix"), 
-      transactionInfo = data.frame(transactionID = dimnames(from)[[1]], 
+      itemsetInfo = data.frame(transactionID = dimnames(from)[[1]], 
         stringsAsFactors = FALSE)))
 
 setAs("transactions", "matrix",
   function(from) {
     to <- as(as(from, "itemMatrix"), "matrix")
-    if (length(i <- from@transactionInfo[["transactionID"]]))
+    if (length(i <- from@itemsetInfo[["transactionID"]]))
       dimnames(to)[[1]] <- i
     to
   }
@@ -49,7 +49,7 @@ setAs("ngCMatrix", "transactions",
 setAs("list", "transactions",
   function(from)
     new("transactions", as(from, "itemMatrix"), 
-      transactionInfo = data.frame(transactionID = names(from), 
+      itemsetInfo = data.frame(transactionID = names(from), 
         stringsAsFactors = FALSE)))
 
 setAs("transactions", "list",
@@ -59,7 +59,7 @@ setMethod("LIST", signature(from = "transactions"),
   function(from, decode = TRUE) {
     to <- LIST(as(from, "itemMatrix"), decode)
     if (decode == TRUE) 
-      names(to) <- from@transactionInfo[["transactionID"]]
+      names(to) <- from@itemsetInfo[["transactionID"]]
     to
   }
 )
@@ -115,7 +115,7 @@ setAs("data.frame", "transactions",
     new("transactions",
       data     = t(x),
       itemInfo = iInfo,
-      transactionInfo = tInfo
+      itemsetInfo = tInfo
     )
   }
 )
@@ -126,10 +126,10 @@ setAs("transactions", "data.frame",
   function(from) {
     if (!length(from)) return (data.frame())
     
-    if (!length(transactionInfo(from))) 
+    if (!length(itemsetInfo(from))) 
       return(data.frame(items = labels(from)))
     
-    #cbind(transactionInfo(from), data.frame(items = labels(from)))
+    #cbind(itemsetInfo(from), data.frame(items = labels(from)))
     ## Deal with the case when transactionInfo contains items
     
     df <- cbind(data.frame(items = labels(from)), transactionInfo(from))
@@ -161,13 +161,12 @@ setMethod("[", signature(x = "transactions", i = "ANY", j = "ANY", drop = "ANY")
         else i <- i[!is.na(i)]
       }  
       
-      x <- new("transactions", as(x, "itemMatrix")[i,, ..., drop],
-        transactionInfo = x@transactionInfo[i,, drop = FALSE])
+      x <- new("transactions", as(x, "itemMatrix")[i,, ..., drop])
     }
     
     if (!missing(j))
       x <- new("transactions", as(x, "itemMatrix")[,j, ..., drop],
-        transactionInfo = x@transactionInfo)
+        itemsetInfo = x@itemsetInfo)
     
     x
   }
@@ -183,7 +182,7 @@ setMethod("c", signature(x = "transactions"),
         stop("can only combine transactions")
       x <- new("transactions", c(as(x, "itemMatrix"), 
         as(y, "itemMatrix")),
-        transactionInfo = .combineMeta(x, y, "transactionInfo"))
+        itemsetInfo = .combineMeta(x, y, "itemsetInfo"))
     }
     x
   }
@@ -211,7 +210,7 @@ setMethod("summary", signature(object = "transactions"),
   function(object)
     new("summary.transactions",
       summary(as(object, "itemMatrix")),
-      transactionInfo = head(object@transactionInfo, 3))
+      itemsetInfo = head(object@itemsetInfo, 3))
 )
 
 setMethod("show", signature(object = "summary.transactions"),
@@ -219,9 +218,9 @@ setMethod("show", signature(object = "summary.transactions"),
     cat("transactions as ")
     show(as(object,"summary.itemMatrix"))
     
-    if (length(object@transactionInfo)) {
+    if (length(object@itemsetInfo)) {
       cat("\nincludes extended transaction information - examples:\n")
-      print(object@transactionInfo)
+      print(object@itemsetInfo)
     }
     invisible(NULL)
   }
@@ -231,11 +230,11 @@ setMethod("show", signature(object = "summary.transactions"),
 ## accessors
 
 setMethod("transactionInfo", signature(x = "transactions"),
-  function(x) x@transactionInfo)
+  function(x) x@itemsetInfo)
 
 setReplaceMethod("transactionInfo", signature(x = "transactions"),
   function(x, value) {
-    x@transactionInfo <- value
+    x@itemsetInfo <- value
     validObject(x)
     x
   }

@@ -92,7 +92,7 @@ eclat <-  function(data, parameter = NULL, control = NULL)
     ## make sure tid list itemInfo is ok
     if (!is.null(result@tidLists)) {
       result@tidLists@itemInfo <- data.frame(labels = labels(result))
-      result@tidLists@transactionInfo <- data@transactionInfo
+      result@tidLists@transactionInfo <- transactionInfo(data)
     }
     
     result

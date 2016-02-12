@@ -81,7 +81,7 @@ random.transactions <- function(
     
     new("transactions", 
          encode(simList, paste("item", 1:nItems, sep = "")),
-         transactionInfo = data.frame(transactionID = 
+         itemsetInfo = data.frame(transactionID = 
                                       paste("trans", 1:nTrans, sep = "")))
 }
 
@@ -176,7 +176,7 @@ random.transactions <- function(
 
     new("transactions", 
          encode(tn, paste("item", 1:nItems, sep = "")),
-         transactionInfo = data.frame(transactionID = 
+         itemsetInfo = data.frame(transactionID = 
                                       paste("trans", 1:nTrans, sep = "")))
 }
 
@@ -358,7 +358,7 @@ random.patterns <- function(
 
     new("transactions", 
          encode(transactions, paste("item", 1:nItems, sep = "")),
-         transactionInfo = data.frame(transactionID = 
+         itemsetInfo = data.frame(transactionID = 
                                       paste("trans", 1:nTrans, sep = "")))
 }
 

@@ -255,7 +255,7 @@ setAs("tidLists", "transactions",
     new("transactions", 
       data            = t(from@data), 
       itemInfo        = from@itemInfo, 
-      transactionInfo = from@transactionInfo
+      itemsetInfo = from@transactionInfo
     ))
 
 setAs("transactions", "tidLists",
@@ -263,7 +263,7 @@ setAs("transactions", "tidLists",
     new("tidLists", 
       data            = t(from@data), 
       itemInfo        = from@itemInfo, 
-      transactionInfo = from@transactionInfo))
+      transactionInfo = transactionInfo(from)))
 
 ##
 setAs("tidLists", "itemMatrix",
