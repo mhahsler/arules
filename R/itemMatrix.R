@@ -271,7 +271,8 @@ setMethod("[", signature(x = "itemMatrix", i = "ANY", j = "ANY", drop = "ANY"),
       x@data <- .Call("R_colSubset_ngCMatrix", x@data, i, 
         PACKAGE="arules")
       
-      x@itemsetInfo <- x@itemsetInfo[i,, drop = FALSE]
+      ### only subset if we have rows
+      if(nrow(x@itemsetInfo)) x@itemsetInfo <- x@itemsetInfo[i,, drop = FALSE]
     }
     
     if (!missing(j)) {

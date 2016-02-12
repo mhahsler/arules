@@ -29,23 +29,6 @@ expect_equal(support(its, Income, weighted = TRUE),
 ## check SunBai data
 data(SunBai)
 
-z <- list(
-  "100" = c("A","B","C","D","E"),
-  "200" = c("C","F","G"),
-  "300" = c("A","B"),
-  "400" = c("A"),
-  "500" = c("C","F","G","H"),
-  "600" = c("A","G","H")
-)
-
-z <- as(z, "transactions")
-transactionInfo(z)$weight <- hits(z, verbose = FALSE)
-
-### Note: Allow for small numeric variation on some platforms
-#expect_idential(SunBai, z)
-expect_equal(SunBai, z)
-
-
 ## compare weclat with eclat
 data(Adult)
 is1 <- eclat(Adult, control=list(verbose = FALSE))

@@ -48,11 +48,6 @@ setClass("itemMatrix",
 setMethod(initialize, "itemMatrix", function(.Object, ...) { 
   .Object <- callNextMethod()
   
-  ## itemInfo has to match
-  ## fix empty data.frame in itemsetInfo
-  if(all(dim(.Object@itemsetInfo) == 0)) 
-    .Object@itemsetInfo <- data.frame(matrix(ncol = 0, nrow = nrow(.Object)))
-  
   validObject(.Object)
   .Object
 })

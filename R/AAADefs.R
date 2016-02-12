@@ -65,7 +65,10 @@
 .combineMeta <- function(x, y, name, ...) {
     mx <- slot(x, name)
     my <- slot(y, name)
-    
+   
+    ## return empty data.frame
+    if(ncol(mx) == 0 && ncol(my) == 0) return(data.frame())
+     
     ## add empty data.frame if nrows is 0 or corrupt
     if(nrow(mx) != length(x)) mx <- data.frame(matrix(nrow = nrow(x), ncol = 0))
     if(nrow(my) != length(y)) my <- data.frame(matrix(nrow = nrow(y), ncol = 0))
@@ -84,6 +87,3 @@
       data.frame(matrix(nrow = length(x)+length(y), ncol = 0))
     }
 }
-
-
-###
