@@ -40,7 +40,10 @@ export(
   "abbreviate",
   "discretize",
   "addAggregate",
-  "filterAggregate"
+  "filterAggregate",
+  "%in%",
+  "%pin%",
+  "%ain%"
   )
 
 exportClasses(

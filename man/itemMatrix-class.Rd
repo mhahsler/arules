@@ -17,6 +17,7 @@
 \alias{dimnames,itemMatrix-method}
 \alias{dimnames<-,itemMatrix,list-method}
 \alias{\%in\%,itemMatrix,character-method}
+\alias{\%in\%,itemMatrix,itemMatrix-method}
 \alias{\%pin\%}
 \alias{\%pin\%,itemMatrix,character-method}
 \alias{\%ain\%}

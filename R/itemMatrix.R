@@ -215,6 +215,10 @@ setMethod("%in%", signature(x = "itemMatrix", table = "character"),
   }
 )
 
+setMethod("%in%", signature(x = "itemMatrix", table = "itemMatrix"),
+  function(x, table) x %in% itemLabels(table)
+)
+
 ## all items have to be in
 setMethod("%ain%", signature(x = "itemMatrix", table = "character"),
   function(x, table) {

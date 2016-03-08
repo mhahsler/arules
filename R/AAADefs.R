@@ -52,12 +52,6 @@
     do.call("new", c(from, Class = to))
 }
 
-
-## FIXME: this is defined in base and the only way to make it work 
-## is to redefine it here
-"%in%" <-  function(x, table) match(x, table, nomatch = 0) > 0
-
-
 ## Combine Meta data (used for assoctiations and itemMatrix)
 ## x, y ... two S4 objects with data.frames as meta data
 ## name ... name of the slot with the data.frame

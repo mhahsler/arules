@@ -21,6 +21,7 @@
 ## create generics
 
 # is now a generic in R 2.11.0
+setGeneric("%in%", function(x, table) match(x, table, nomatch = 0) > 0)
 #setGeneric("%in%",
 #    function(x, table) standardGeneric("%in%"))
 
