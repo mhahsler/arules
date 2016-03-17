@@ -1,28 +1,29 @@
 \name{abbreviate}
 \Rdversion{1.1}
 \alias{abbreviate}
-\alias{abbreviate.transactions}
-\alias{abbreviate.rules}
-\alias{abbreviate.itemsets}
-\alias{abbreviate.itemMatrix}
-\alias{abbreviate.tidLists}
+\alias{abbreviate,transactions-method}
+\alias{abbreviate,rules-method}
+\alias{abbreviate,itemsets-method}
+\alias{abbreviate,itemMatrix-method}
+\alias{abbreviate,tidLists-method}
 \title{Abbreviate function for item labels in transactions, 
 itemMatrix and associations}
 \description{
-Methods to abbreviate long item labels in transactions, associations (rules and itemsets) and transaction ID lists. Note that \code{abbreviate} is not a
+Provides the generic function and the
+methods to abbreviate long item labels in transactions, associations (rules and itemsets) and transaction ID lists. Note that \code{abbreviate} is not a
   generic and this \pkg{arules} defines a generic with the R's abbreviate
   as the default.
 }
 \usage{
-abbreviate(...)
-\method{abbreviate}{transactions}(data, minlength = 4, ..., method = "both.sides")
-\method{abbreviate}{rules}(data, minlength = 4, ..., method = "both.sides")
-\method{abbreviate}{itemsets}(data, minlength = 4, ..., method = "both.sides")
-\method{abbreviate}{itemMatrix}(data, minlength = 4, ..., method = "both.sides")
-\method{abbreviate}{tidLists}(data, minlength = 4, ..., method = "both.sides")
+abbreviate(names.arg, ...)
+\S4method{abbreviate}{itemMatrix}(names.arg, minlength = 4, ..., method = "both.sides")
+\S4method{abbreviate}{rules}(names.arg, minlength = 4, ..., method = "both.sides")
+\S4method{abbreviate}{itemsets}(names.arg, minlength = 4, ..., method = "both.sides")
+\S4method{abbreviate}{transactions}(names.arg, minlength = 4, ..., method = "both.sides")
+\S4method{abbreviate}{tidLists}(names.arg, minlength = 4, ..., method = "both.sides")
 }
 \arguments{
-  \item{data}{ an object of class "transactions", "itemMatrix", "itemsets",
+  \item{names.arg}{ an object of class "transactions", "itemMatrix", "itemsets",
     "rules" or "tidLists". }
   \item{minlength}{ number of characters allowed in abbreviation}
   \item{method}{ apply to level and value (both.sides) }

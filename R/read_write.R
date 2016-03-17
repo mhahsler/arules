@@ -105,8 +105,6 @@ function(file, format = c("basket", "single"), sep = "", cols = NULL,
 
 ## write transactions and associations
 ### FIXME: Quote does not work for basket format!
-setMethod("write", signature(x = "ANY"),
-	function(x, file = "", ...) base::write(x, file, ...))
 
 setMethod("write", signature(x = "transactions"),
 	function(x, file = "", format = c("basket", "single"), 

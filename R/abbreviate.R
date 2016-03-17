@@ -17,49 +17,46 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-## FIXME: abbreviate destroys appreviate in base!
+setMethod("abbreviate", signature(names.arg = "itemMatrix"),
+  function(names.arg, minlength = 4, ..., 
+    method = "both.sides"){
+    
+    ## both sides helps with labels of form variable=level 
+    itemInfo(names.arg)$labels_orig <- itemInfo(names.arg)$labels
+    
+    itemInfo(names.arg)$labels<- as.factor(
+      abbreviate(itemInfo(names.arg)$labels, minlength, ..., method = method)
+    )
+    
+    names.arg
+  })
 
-## Make abbreviate generic
-abbreviate <- function(...) UseMethod("abbreviate")
-abbreviate.default <- function(...) base::abbreviate(...)
+setMethod("abbreviate", signature(names.arg = "transactions"),
+  function(names.arg, minlength = 4, ..., 
+    method = "both.sides"){
+    abbreviate(as(names.arg, "itemMatrix"), minlength, ..., method=method)
+  })
 
-
-abbreviate.itemMatrix <- function(data, minlength = 4, ..., 
-  method = "both.sides"){
+setMethod("abbreviate", signature(names.arg = "rules"),
+  function(names.arg, minlength = 4, ..., 
+    method = "both.sides"){
+    names.arg@lhs <- abbreviate(lhs(names.arg), minlength, ..., method)
+    names.arg@rhs <- abbreviate(rhs(names.arg), minlength, ..., method)
+    names.arg   
+  })
   
-  ## both sides helps with labels of form variable=level 
-  
-  itemInfo(data)$labels_orig <- itemInfo(data)$labels
-  
-  itemInfo(data)$labels<- as.factor(
-    abbreviate(itemInfo(data)$labels, minlength, ..., method = method)
-  )
-  
-  data
-}
+setMethod("abbreviate", signature(names.arg = "itemsets"),
+  function(names.arg, minlength = 4, ..., 
+    method = "both.sides"){
+    names.arg@items = abbreviate(items(names.arg), minlength, ..., method)
+    names.arg
+  })
 
-abbreviate.transactions <- function(data, minlength = 4, ..., 
-  method = "both.sides"){
-  abbreviate.itemMatrix(data, minlength, ..., method=method)
-}
-
-abbreviate.rules <- function(data, minlength = 4, ..., 
-  method = "both.sides"){
-  data@lhs <- abbreviate(lhs(data), minlength, ..., method)
-  data@rhs <- abbreviate(rhs(data), minlength, ..., method)
-  data   
-}
-
-abbreviate.itemsets <- function(data, minlength = 4, ..., 
-  method = "both.sides"){
-  data@items = abbreviate(items(data), minlength, ..., method)
-  data
-}
-
-abbreviate.tidLists <- function(data, minlength = 4, ..., 
-  method = "both.sides"){
-  abbreviate.itemMatrix(data, minlength, ..., method=method)
-}
+setMethod("abbreviate", signature(names.arg = "tidLists"),
+  function(names.arg, minlength = 4, ..., 
+    method = "both.sides"){
+    abbreviate(as(names.arg, "itemMatrix"), minlength, ..., method=method)
+  })
 
 
 

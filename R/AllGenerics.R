@@ -21,9 +21,12 @@
 ## create generics
 
 # is now a generic in R 2.11.0
-setGeneric("%in%", function(x, table) match(x, table, nomatch = 0) > 0)
-#setGeneric("%in%",
-#    function(x, table) standardGeneric("%in%"))
+setGeneric("%in%")
+#setGeneric("%in%", function(x, table) match(x, table, nomatch = 0) > 0)
+
+## this complains because we add ... 
+setGeneric("abbreviate", function(names.arg, ...) 
+  base::abbreviate(names.arg, ...))
 
 setGeneric("%pin%",
     function(x, table) standardGeneric("%pin%"))
@@ -34,8 +37,9 @@ setGeneric("%ain%",
 setGeneric("LIST",
     function(from, ...) standardGeneric("LIST"))
 
+## this complains because we add ... 
 setGeneric("write",
-    function(x, file = "", ...) standardGeneric("write"))
+    function(x, file = "", ...) base::write(x, file, ...))
 
 setGeneric("addComplement",
     function(x, labels, complementLabels=NULL) standardGeneric("addComplement"))
