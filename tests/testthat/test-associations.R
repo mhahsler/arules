@@ -135,5 +135,9 @@
     head(r, n = 5, by = "lift", decreasing = FALSE))
   
   
-
+  # match and %in%
+  expect_identical(match(r[2:10], r), 2:10)
+  expect_identical(r[2:10] %in% r, 2:10)
+  expect_identical(match(f[2:10], f), 2:10)
+  expect_identical(f[2:10] %in% f, 2:10)
   

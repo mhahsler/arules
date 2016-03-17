@@ -18,7 +18,7 @@
 \alias{labels,associations-method}
 \alias{length,associations-method}
 \alias{t,associations-method}
-
+\alias{\%in\%,associations,associations-method}
 
 \title{Class ``associations'' - A Set of Associations}
 \description{

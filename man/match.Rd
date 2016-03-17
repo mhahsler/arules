@@ -1,6 +1,8 @@
 \name{match}
 \alias{match}
 \alias{\%in\%}
+\alias{\%in\%,itemsets,itemsets-method}
+\alias{\%in\%,itemsets,character-method}
 \alias{match,itemsets,itemsets-method}
 \alias{match,rules,rules-method}
 \alias{match,itemMatrix,itemMatrix-method}

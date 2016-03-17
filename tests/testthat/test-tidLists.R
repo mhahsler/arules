@@ -31,13 +31,12 @@ tl <- (as(trans,"tidLists"))
 
 expect_identical(dim(tl), rev(dim(trans)))
 expect_identical(length(tl), nitems(trans))
+expect_identical(transactionInfo(tl), transactionInfo(trans))
 
 expect_identical(length(as(tl, "list")), nitems(trans))
 expect_identical(as(tl, "matrix"), t(as(trans, "matrix")))
 
-## NOTE: Itemset info! We need to merge itemsetInfo and transactionInfo
 ## coercion back to transactions
-trans@itemsetInfo <- as(tl, "transactions")@itemsetInfo
 expect_identical(as(tl, "transactions"), trans)
 
 ## extract
@@ -45,4 +44,7 @@ expect_identical(tl[2:3,3:4], as(trans[3:4,2:3], "tidLists"))
 
 ## size
 expect_identical(size(tl), unname(sapply(as(tl, "list"), length)))
+
+## check 
+transactionInfo(tl) <- cbind(transactionInfo(tl), additional = 1)
 

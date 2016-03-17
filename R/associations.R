@@ -106,6 +106,9 @@ setMethod("t", signature(x = "associations"),
     stop("Object not transposable!")  
   })
 
+setMethod("%in%", signature(x = "associations", table = "associations"),
+  function(x, table) match(x, table)
+)
 
 ##************************************************
 ## implementations of associations must provide minimal interface
