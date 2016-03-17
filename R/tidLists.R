@@ -297,6 +297,15 @@ setAs("itemMatrix", "tidLists",
 setMethod("transactionInfo", signature(x = "tidLists"),
   function(x) x@transactionInfo)
 
+setReplaceMethod("transactionInfo", signature(x = "tidLists"),
+  function(x, value) {
+    x@transactionInfo <- value
+    validObject(x)
+    x
+  }
+)
+
+
 setMethod("itemInfo", signature(object = "tidLists"),
   function(object) object@itemInfo)
 

@@ -23,6 +23,7 @@
 \alias{itemInfo<-,tidLists-method}
 \alias{inspect,tidLists-method}
 \alias{transactionInfo,tidLists-method}
+\alias{transactionInfo<-,tidLists-method}
 \alias{t,tidLists-method}
 \alias{c,tidLists-method}
 \alias{show,tidLists-method}
