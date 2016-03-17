@@ -13,7 +13,7 @@
     The data set contains the example database described in the
     paper by K. Sun and F.Bai for illustration of the concepts of
     weighted association rule mining. \code{weight} 
-    stored in \code{transactionInfo}
+    stored as transaction information
     denotes the transaction weights obtained using the HITS algorithm.
 }
 \source{
