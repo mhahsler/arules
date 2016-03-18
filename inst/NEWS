@@ -1,7 +1,10 @@
-Changes in version 1-3-1.1 (xx/xx/2016)
-    * bugfix for combining item matrices with 0 rows (reported by C. Buchta).
-    * bugfix for itemLabel recoding in is.subset (reported by sjain777). 
-    * bugfix for NAMESPACE export for %in%
+Changes in version 1-4-0 (03/18/2016)
+    * The transaction class lost slot transactionInfo (we use the 
+      itemsetInfo slot now). Note that you may have to rebuild some 
+      transaction sets if you are using transactionInfo.
+    * Bugfix for combining item matrices with 0 rows (reported by C. Buchta).
+    * Bugfix for itemLabel recoding in is.subset (reported by sjain777). 
+    * Bugfix for NAMESPACE export for %in%
     * is.redundant: fixed and performance improvement.
     * interestMeasure: performance improvement for "improvement" measure.
     * sort: speed up sort by always sorting NAs last.
@@ -9,7 +12,6 @@ Changes in version 1-3-1.1 (xx/xx/2016)
       according to an interest measure faster than sorting all the 
       associations first.
     * Groceries: fixed typo in dataset.
-    * transaction class lost slot transactionInfo (we use itemsetInfo now).
     * abbreviate is now a S4 generic with S4 methods.
 
 Changes in version 1-3-1 (12/13/2015)

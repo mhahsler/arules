@@ -1,7 +1,7 @@
 # arules - Mining Association Rules and Frequent Itemsets - R package
 
-[![CRAN version](http://www.r-pkg.org/badges/version/arules)](http://cran.r-project.org/web/packages/arules/index.html)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/arules)](http://cran.r-project.org/web/packages/arules/index.html)
+[![CRAN version](http://www.r-pkg.org/badges/version/arules)](https://cran.r-project.org/package=arules)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/arules)](https://cran.r-project.org/package=arules)
 [![Travis-CI Build Status](https://travis-ci.org/mhahsler/arules.svg?branch=master)](https://travis-ci.org/mhahsler/arules)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/arules?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/arules)
 
