@@ -55,6 +55,7 @@ setGeneric("crossTable", function(x, ...) standardGeneric("crossTable"))
 setGeneric("decode",
     function(x, ...) standardGeneric("decode"))
 
+# is already a generic
 #setGeneric("duplicated",
 #    function(x, incomparables = FALSE, ...) standardGeneric("duplicated"))
 
@@ -64,9 +65,9 @@ setGeneric("encode",
 setGeneric("generatingItemsets",
     function(x) standardGeneric("generatingItemsets"))
 
-# somehow redefining the generic funciton this is necessary
-setGeneric("head",
-    function(x, ...) standardGeneric("head"))
+# make head and tail generic
+setGeneric("head")
+setGeneric("tail")
 
 setGeneric("info",
     function(x) standardGeneric("info"))
@@ -80,6 +81,7 @@ setGeneric("info<-",
 setGeneric("inspect",
     function(x, ...) standardGeneric("inspect"))
 
+# is generic
 #setGeneric("intersect",
 #    function(x, y) standardGeneric("intersect"))
 
@@ -113,6 +115,7 @@ setGeneric("itemFrequency",
 setGeneric("itemFrequencyPlot",
     function(x, ...) standardGeneric("itemFrequencyPlot"))
 
+# is generic
 #setGeneric("is.element",
 #    function(el, set) standardGeneric("is.element"))
 
@@ -128,6 +131,7 @@ setGeneric("is.significant",
 setGeneric("is.redundant",
     function(x, ...) standardGeneric("is.redundant"))
 
+# is generic
 #setGeneric("labels",
 #    function(object, ...) standardGeneric("labels"))
 
@@ -141,10 +145,12 @@ setGeneric("interestMeasure",
     function(x,  measure, transactions = NULL, reuse = TRUE, ...) 
     standardGeneric("interestMeasure"))
 
+# is generic
 #setGeneric("match",
 #    function(x,  table, nomatch = NA_integer_, incomparables = NULL) 
 #    standardGeneric("match"))
 
+# is generic
 #setGeneric("merge",
 #    function(x,  y, ...) 
 #    standardGeneric("merge"))
@@ -192,9 +198,11 @@ setGeneric("ruleInduction",
 #setGeneric("sort",
 #    function(x, decreasing = FALSE, ...) standardGeneric("sort"))
 
+# is generic
 #setGeneric("setdiff",
 #    function(x, y) standardGeneric("setdiff"))
 
+# is generic
 #setGeneric("setequal",
 #    function(x, y) standardGeneric("setequal"))
 
@@ -209,9 +217,11 @@ setGeneric("supportingTransactions",
 setGeneric("size",
     function(x, ...) standardGeneric("size"))
 
+# is generic
 #setGeneric("subset",
 #    function(x, ...) standardGeneric("subset"))
 
+# is generic
 #setGeneric("summary",
 #   function(object, ...) standardGeneric("summary"))
 
@@ -223,9 +233,11 @@ setGeneric("transactionInfo",
 setGeneric("transactionInfo<-",
     function(x, value) standardGeneric("transactionInfo<-"))
 
+# is generic
 #setGeneric("union",
 #    function(x, y) standardGeneric("union"))
 
+# is generic
 #setGeneric("unique",
 #    function(x, incomparables = FALSE, ...) standardGeneric("unique"))
 

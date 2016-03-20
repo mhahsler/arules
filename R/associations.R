@@ -76,15 +76,20 @@ setMethod("sort", signature(x = "associations"),
 
 setMethod("head", signature(x = "associations"),
   function (x, n = 6L, by = NULL, decreasing = TRUE, ...) {
-    n <- as.integer(n)
+    if(!is.null(by)) o <- sort(x, by = by, decreasing = decreasing, order = TRUE)
+    else o <- 1:length(x)
     
-    if(n > length(x)) n <- length(x)
-    if(n == 0 || n <= -length(x)) return(x[0])
-    
-    if(is.null(by)) if(n>0) return(x[1:n]) else return(x[1:(length(x)+n)])
-    
-    x[head(sort(x, by = by, decreasing = decreasing, order = TRUE), n = n)]
+    x[head(o, n = n, ...)]
   })
+
+setMethod("tail", signature(x = "associations"),
+  function (x, n = 6L, by = NULL, decreasing = TRUE, ...) {
+    if(!is.null(by)) o <- sort(x, by = by, decreasing = decreasing, order = TRUE)
+    else o <- 1:length(x)
+    
+    x[tail(o, n = n, ...)]
+  })
+
 
 ## this needs a working implementation of duplicated for the 
 ## type of associations

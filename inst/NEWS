@@ -1,3 +1,6 @@
+Changes in version 1-4-0.1 (xx/xx/2016)
+    * added tail method for associations.
+
 Changes in version 1-4-0 (03/18/2016)
     * The transaction class lost slot transactionInfo (we use the 
       itemsetInfo slot now). Note that you may have to rebuild some 
