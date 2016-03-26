@@ -31,6 +31,8 @@ eclat(data, parameter = NULL, control = NULL)
   creating transaction ID lists only works for minimum
   support values which create a relatively small number of itemsets. 
   See also \code{supportingTransactions()}.
+
+  \code{ruleInduction()} can be used to generate rules from the found itemsets.
 }
 \value{
   Returns an object of class \code{\linkS4class{itemsets}}.
@@ -54,13 +56,19 @@ eclat(data, parameter = NULL, control = NULL)
   \code{\link{transactions-class}},
   \code{\link{itemsets-class}},
   \code{\link{apriori}},
+  \code{\link{ruleInduction}},
   \code{\link{supportingTransactions}}
 }
 \author{Michael Hahsler and Bettina Gruen}
 \examples{
 data("Adult")
-## Mine itemsets with minimum support of 0.1.
+## Mine itemsets with minimum support of 0.1 and 5 or less items
 itemsets <- eclat(Adult,
-		parameter = list(supp = 0.1, maxlen = 15))
+		parameter = list(supp = 0.1, maxlen = 5))
+itemsets
+
+## Create rules from the itemsets
+rules <- ruleInduction(itemsets, Adult, confidence = .9)
+rules
 }
 \keyword{models}
