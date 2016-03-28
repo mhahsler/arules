@@ -44,7 +44,7 @@ function(file, format = c("basket", "single"), sep = "", cols = NULL,
     if (format == "basket") {
         data <- lapply(readLines(file, encoding=encoding), FUN = function(l) 
           scan(text = l, what='character',
-          sep = sep, quote = quote, quiet = TRUE))
+          sep = sep, quote = quote, quiet = TRUE, encoding=encoding))
         
         ## skip
         if(skip>0) data <- data[-(1:skip)]
