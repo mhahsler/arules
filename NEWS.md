@@ -2,6 +2,8 @@
 
 * added tail method for associations.
 * added/fixed encoding for read.transactions
+* Bugfix for interestMeasure. Mutual information is now calculated correctly
+  (reported by ddessommes).
 
 # Changes in version 1-4-0 (03/18/2016)
 

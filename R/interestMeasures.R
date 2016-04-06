@@ -394,9 +394,13 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "mutualInformation") return(
     (f00/N * log(N*f00/(f0x*fx0)) +
         f01/N * log(N*f01/(f0x*fx1)) +
-        f01/N * log(N*f01/(f0x*fx1)) +
+        f10/N * log(N*f10/(f1x*fx0)) +
         f11/N * log(N*f11/(f1x*fx1))) / 
-      (f0x/N * log(f0x/N) + f1x/N * log(f1x/N)))
+      pmin(
+        -1*(f0x/N * log(f0x/N) + f1x/N * log(f1x/N)), 
+        -1*(fx0/N * log(fx0/N) + fx1/N * log(fx1/N))
+      )
+  )
   if(measure == "jMeasure") return(f11/N * log(N*f11/(f1x*fx1)) + 
       f10/N * log(N*f10/(f1x*fx0)))
   if(measure == "laplace") return((f11 + 1)/(f1x + 2))
