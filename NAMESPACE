@@ -23,7 +23,7 @@ importFrom("utils", "head", "tail", "write.table")  ## we want to add methods
 import("graphics")
 
 importFrom("Matrix", "summary", "image", "t") ## we need generics and methods 
-importFrom("Matrix", "drop0") ## we need function 
+importFrom("Matrix", "drop0") ## we need functions 
 importClassesFrom("Matrix", "dgCMatrix", "ngCMatrix")
 importMethodsFrom("Matrix", "crossprod", "rowSums", "colSums")
 
@@ -37,13 +37,9 @@ export(
   "eclat",
   "weclat",
   "hits",
-  "abbreviate",
   "discretize",
   "addAggregate",
-  "filterAggregate",
-  "%in%",
-  "%pin%",
-  "%ain%"
+  "filterAggregate"
   )
 
 exportClasses(

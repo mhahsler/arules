@@ -19,14 +19,16 @@
 
 
 ## create generics
-
-# is now a generic in R 2.11.0
-setGeneric("%in%")
-#setGeneric("%in%", function(x, table) match(x, table, nomatch = 0) > 0)
-
-## this complains because we add ... 
+## FIXME: this complains because we add ... 
 setGeneric("abbreviate", function(names.arg, ...) 
   base::abbreviate(names.arg, ...))
+
+## FIXME: this complains because we add ... 
+setGeneric("write",
+    function(x, file = "", ...) base::write(x, file, ...))
+
+
+setGeneric("%in%")
 
 setGeneric("%pin%",
     function(x, table) standardGeneric("%pin%"))
@@ -37,15 +39,10 @@ setGeneric("%ain%",
 setGeneric("LIST",
     function(from, ...) standardGeneric("LIST"))
 
-## this complains because we add ... 
-setGeneric("write",
-    function(x, file = "", ...) base::write(x, file, ...))
-
 setGeneric("addComplement",
     function(x, labels, complementLabels=NULL) standardGeneric("addComplement"))
 
-#setGeneric("aggregate",
-#    function(x, ...) standardGeneric("aggregate"))
+setGeneric("aggregate")
 
 setGeneric("coverage",
     function(x, transactions = NULL, reuse = TRUE) standardGeneric("coverage"))
@@ -55,9 +52,7 @@ setGeneric("crossTable", function(x, ...) standardGeneric("crossTable"))
 setGeneric("decode",
     function(x, ...) standardGeneric("decode"))
 
-# is already a generic
-#setGeneric("duplicated",
-#    function(x, incomparables = FALSE, ...) standardGeneric("duplicated"))
+setGeneric("duplicated")
 
 setGeneric("encode",
     function(x, ...) standardGeneric("encode"))
@@ -65,12 +60,8 @@ setGeneric("encode",
 setGeneric("generatingItemsets",
     function(x) standardGeneric("generatingItemsets"))
 
-# make head and tail generic
 setGeneric("head")
 setGeneric("tail")
-
-setGeneric("info",
-    function(x) standardGeneric("info"))
 
 setGeneric("info",
     function(x) standardGeneric("info"))
@@ -81,9 +72,7 @@ setGeneric("info<-",
 setGeneric("inspect",
     function(x, ...) standardGeneric("inspect"))
 
-# is generic
-#setGeneric("intersect",
-#    function(x, y) standardGeneric("intersect"))
+setGeneric("intersect")
 
 setGeneric("itemInfo",
     function(object) standardGeneric("itemInfo"))
@@ -115,9 +104,7 @@ setGeneric("itemFrequency",
 setGeneric("itemFrequencyPlot",
     function(x, ...) standardGeneric("itemFrequencyPlot"))
 
-# is generic
-#setGeneric("is.element",
-#    function(el, set) standardGeneric("is.element"))
+setGeneric("is.element")
 
 setGeneric("is.superset",
     function(x, y = NULL, proper = FALSE, sparse = FALSE, ...) standardGeneric("is.superset"))
@@ -131,9 +118,7 @@ setGeneric("is.significant",
 setGeneric("is.redundant",
     function(x, ...) standardGeneric("is.redundant"))
 
-# is generic
-#setGeneric("labels",
-#    function(object, ...) standardGeneric("labels"))
+setGeneric("labels")
 
 setGeneric("lhs",
     function(x) standardGeneric("lhs"))
@@ -145,15 +130,8 @@ setGeneric("interestMeasure",
     function(x,  measure, transactions = NULL, reuse = TRUE, ...) 
     standardGeneric("interestMeasure"))
 
-# is generic
-#setGeneric("match",
-#    function(x,  table, nomatch = NA_integer_, incomparables = NULL) 
-#    standardGeneric("match"))
-
-# is generic
-#setGeneric("merge",
-#    function(x,  y, ...) 
-#    standardGeneric("merge"))
+setGeneric("match")
+setGeneric("merge")
 
 setGeneric("nitems",
     function(x, ...) standardGeneric("nitems"))
@@ -172,6 +150,7 @@ setGeneric("itemSetdiff",
 
 setGeneric("itemIntersect",
   function(x, y) standardGeneric("itemIntersect"))
+
 setGeneric("quality",
     function(x) standardGeneric("quality"))
 
@@ -190,22 +169,10 @@ setGeneric("rhs<-",
 setGeneric("ruleInduction",
     function(x, ...) standardGeneric("ruleInduction"))
 
-# is now a generic in R 2.11.0
-#setGeneric("sample",
-#    function(x, size, replace = FALSE, prob = NULL) standardGeneric("sample"))
-
-# is now a generic in R 2.11.0
-#setGeneric("sort",
-#    function(x, decreasing = FALSE, ...) standardGeneric("sort"))
-
-# is generic
-#setGeneric("setdiff",
-#    function(x, y) standardGeneric("setdiff"))
-
-# is generic
-#setGeneric("setequal",
-#    function(x, y) standardGeneric("setequal"))
-
+setGeneric("sample")
+setGeneric("sort")
+setGeneric("setdiff")
+setGeneric("setequal")
 
 setGeneric("support",
     function(x, transactions, ...) standardGeneric("support"))
@@ -217,13 +184,8 @@ setGeneric("supportingTransactions",
 setGeneric("size",
     function(x, ...) standardGeneric("size"))
 
-# is generic
-#setGeneric("subset",
-#    function(x, ...) standardGeneric("subset"))
-
-# is generic
-#setGeneric("summary",
-#   function(object, ...) standardGeneric("summary"))
+setGeneric("subset")
+setGeneric("summary")
 
 setGeneric("tidLists", function(x) standardGeneric("tidLists"))
 
@@ -233,13 +195,8 @@ setGeneric("transactionInfo",
 setGeneric("transactionInfo<-",
     function(x, value) standardGeneric("transactionInfo<-"))
 
-# is generic
-#setGeneric("union",
-#    function(x, y) standardGeneric("union"))
-
-# is generic
-#setGeneric("unique",
-#    function(x, incomparables = FALSE, ...) standardGeneric("unique"))
+setGeneric("union")
+setGeneric("unique")
 
 ##***************************************************************
 ## for clustering

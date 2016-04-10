@@ -1,4 +1,4 @@
-# Changes in version 1-4-0.1 (xx/xx/2016)
+# Changes in version 1-4-1 (04/10/2016)
 
 * added tail method for associations.
 * added/fixed encoding for read.transactions
