@@ -21,6 +21,9 @@ weclat(data, parameter = NULL, control = NULL)
     components.}
 }
 \details{
+  Transaction weights are stored in the transaction as a column called 
+  \code{weight} in \code{transactionInfo()}.
+  
   The weighted support of an itemset is the sum of the weights of the 
   transactions that contain the itemset. An itemset is frequent if
   its weighted support is equal or greater than the threshold specified
@@ -47,7 +50,10 @@ weclat(data, parameter = NULL, control = NULL)
 }
 \examples{
 data(SunBai)
-summary(SunBai)
+SunBai
+
+## weights are stored in transactionInfo
+transactionInfo(SunBai)
 
 ## mine weighted support itemsets using transaction support in SunBai
 s <- weclat(SunBai, parameter = list(support = 0.3),
