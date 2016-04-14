@@ -1,11 +1,11 @@
-# Changes in version 1-4-1 (04/10/2016)
+# Changes in version 1.4-1 (04/10/2016)
 
 * added tail method for associations.
 * added/fixed encoding for read.transactions
 * Bugfix for interestMeasure. Mutual information is now calculated correctly
   (reported by ddessommes).
 
-# Changes in version 1-4-0 (03/18/2016)
+# Changes in version 1.4-0 (03/18/2016)
 
 * The transaction class lost slot transactionInfo (we use the 
   itemsetInfo slot now). Note that you may have to rebuild some 
@@ -22,7 +22,7 @@
 * Groceries: fixed typo in dataset.
 * abbreviate is now a S4 generic with S4 methods.
 
-# Changes in version 1-3-1 (12/13/2015)
+# Changes in version 1.3-1 (12/13/2015)
 
 * we now require R 2.3.0 so cbind in Matrix works.
 * is.maximal is now also available for rules.
@@ -31,7 +31,7 @@
 * added support for multi-level analysis (aggregate). 
 * APparameter: confidence shows now NA for frequent itemsets.
 
-# Changes in version 1-3-0 (11/11/2015)
+# Changes in version 1.3-0 (11/11/2015)
 
 * removed deprecated WRITE and SORT functions.
 * ruleInduction: bug fix for missing confidence values and better checking 
@@ -46,7 +46,7 @@
 * aggregate uses now 'by' instead of 'itemLabels' to conform to 
       aggregate in base.
     
-# Changes in version 1-2-1 (09/20/2015)
+# Changes in version 1.2-1 (09/20/2015)
 
 * Added many new interest measures.
 * interestMeasure: the formal argument method is now called measure 
@@ -56,7 +56,7 @@
 * fixed undefined behavior for left shift in reclat.c 
   (reported by B. Ripley)
 
-# Changes in version 1-2-0 (09/14/2015)
+# Changes in version 1.2-0 (09/14/2015)
 
 * added support for weighted association rule mining (by C. Buchta):
     - transactions can store weights a column called "weight" in 
