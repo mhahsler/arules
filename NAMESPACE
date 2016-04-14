@@ -17,12 +17,16 @@ useDynLib(arules,
 )
 
 import("methods")
+
 importFrom("stats", "predict", "aggregate", "as.dist", "cor", 
   "rpois", "p.adjust")  ## we want to add methods
-importFrom("utils", "head", "tail", "write.table")  ## we want to add methods
+
+importFrom("utils", "write.table")  ## we want to add methods
+
 import("graphics")
 
-importFrom("Matrix", "summary", "image", "t") ## we need generics and methods 
+importFrom("Matrix", "summary", "image", "t", 
+  "head", "tail") ## we need generics and methods 
 importFrom("Matrix", "drop0") ## we need functions 
 importClassesFrom("Matrix", "dgCMatrix", "ngCMatrix")
 importMethodsFrom("Matrix", "crossprod", "rowSums", "colSums")

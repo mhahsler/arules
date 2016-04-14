@@ -18,7 +18,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-## create generics
+## create new generics
 ## FIXME: this complains because we add ... 
 setGeneric("abbreviate", function(names.arg, ...) 
   base::abbreviate(names.arg, ...))
@@ -26,9 +26,6 @@ setGeneric("abbreviate", function(names.arg, ...)
 ## FIXME: this complains because we add ... 
 setGeneric("write",
     function(x, file = "", ...) base::write(x, file, ...))
-
-
-setGeneric("%in%")
 
 setGeneric("%pin%",
     function(x, table) standardGeneric("%pin%"))
@@ -42,8 +39,6 @@ setGeneric("LIST",
 setGeneric("addComplement",
     function(x, labels, complementLabels=NULL) standardGeneric("addComplement"))
 
-setGeneric("aggregate")
-
 setGeneric("coverage",
     function(x, transactions = NULL, reuse = TRUE) standardGeneric("coverage"))
 
@@ -52,16 +47,11 @@ setGeneric("crossTable", function(x, ...) standardGeneric("crossTable"))
 setGeneric("decode",
     function(x, ...) standardGeneric("decode"))
 
-setGeneric("duplicated")
-
 setGeneric("encode",
     function(x, ...) standardGeneric("encode"))
 
 setGeneric("generatingItemsets",
     function(x) standardGeneric("generatingItemsets"))
-
-setGeneric("head")
-setGeneric("tail")
 
 setGeneric("info",
     function(x) standardGeneric("info"))
@@ -71,8 +61,6 @@ setGeneric("info<-",
 
 setGeneric("inspect",
     function(x, ...) standardGeneric("inspect"))
-
-setGeneric("intersect")
 
 setGeneric("itemInfo",
     function(object) standardGeneric("itemInfo"))
@@ -104,8 +92,6 @@ setGeneric("itemFrequency",
 setGeneric("itemFrequencyPlot",
     function(x, ...) standardGeneric("itemFrequencyPlot"))
 
-setGeneric("is.element")
-
 setGeneric("is.superset",
     function(x, y = NULL, proper = FALSE, sparse = FALSE, ...) standardGeneric("is.superset"))
 
@@ -118,8 +104,6 @@ setGeneric("is.significant",
 setGeneric("is.redundant",
     function(x, ...) standardGeneric("is.redundant"))
 
-setGeneric("labels")
-
 setGeneric("lhs",
     function(x) standardGeneric("lhs"))
 
@@ -129,9 +113,6 @@ setGeneric("lhs<-",
 setGeneric("interestMeasure",
     function(x,  measure, transactions = NULL, reuse = TRUE, ...) 
     standardGeneric("interestMeasure"))
-
-setGeneric("match")
-setGeneric("merge")
 
 setGeneric("nitems",
     function(x, ...) standardGeneric("nitems"))
@@ -169,11 +150,6 @@ setGeneric("rhs<-",
 setGeneric("ruleInduction",
     function(x, ...) standardGeneric("ruleInduction"))
 
-setGeneric("sample")
-setGeneric("sort")
-setGeneric("setdiff")
-setGeneric("setequal")
-
 setGeneric("support",
     function(x, transactions, ...) standardGeneric("support"))
 
@@ -184,9 +160,6 @@ setGeneric("supportingTransactions",
 setGeneric("size",
     function(x, ...) standardGeneric("size"))
 
-setGeneric("subset")
-setGeneric("summary")
-
 setGeneric("tidLists", function(x) standardGeneric("tidLists"))
 
 setGeneric("transactionInfo",
@@ -195,6 +168,26 @@ setGeneric("transactionInfo",
 setGeneric("transactionInfo<-",
     function(x, value) standardGeneric("transactionInfo<-"))
 
+### make existing functions generic
+
+#setGeneric("head") # generic in Matrix
+#setGeneric("tail") # generic in Matrix
+setGeneric("%in%")
+setGeneric("aggregate")
+setGeneric("duplicated")
+setGeneric("intersect")
+setGeneric("is.element")
+# setGeneric("image") # is generic in Matrix
+setGeneric("labels")
+setGeneric("match")
+setGeneric("merge")
+setGeneric("sample")
+setGeneric("setdiff")
+setGeneric("setequal")
+setGeneric("sort")
+setGeneric("subset")
+# setGeneric("summary") # is generic in Matrix
+# setGeneric("t") # is generic in Matrix
 setGeneric("union")
 setGeneric("unique")
 
@@ -208,7 +201,6 @@ setGeneric("dissimilarity",
     function(x, y = NULL, method = NULL, args = NULL, ...)
     standardGeneric("dissimilarity"))
 
-#setGeneric("predict",
-#    function(object, ...) standardGeneric("predict"))
+setGeneric("predict")
 
 
