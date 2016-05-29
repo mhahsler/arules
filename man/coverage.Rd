@@ -17,10 +17,17 @@ coverage(x, transactions = NULL, reuse = TRUE)
   from transactions? }
 }
 \details{
-  Coverage is calculated from the rules quality measures 
-  (support and confidence) stored in the quality slot or, if these
-  values are not present, as the 
-  support of the LHS.
+  Coverage (also called cover or LHS-support) is the support of the 
+  left-hand-side of the rule, i.e., \eq{supp(X)}. It represents a measure 
+  of to how often the rule can be applied.
+  
+  Coverage is quickly calculated from the rules quality measures 
+  (support and confidence) stored in the quality slot. If these
+  values are not present, then the support of the LHS is counted using 
+  the data supplied in \code{transactions}.
+  
+  Coverage is also one of the measures available via the function
+  \code{interestMeasures}.
 }
 \value{
    A numeric vector of the same length as \code{x} containing
@@ -28,6 +35,7 @@ coverage(x, transactions = NULL, reuse = TRUE)
 }
 
 \seealso{ 
+\code{\link{interestMeasures}}, 
 \code{\link{rules-class}} 
 }
 \examples{

@@ -139,7 +139,7 @@ the proportion of transactions that do not contain \eqn{X}.
   
 \item{"coverage", cover, LHS-support}{ Support of the left-hand-side of the rule, 
     i.e., \eqn{supp(X)}.
-    A meassure of to how often the rule can be applied.
+    A measure of to how often the rule can be applied.
     
     Range: \eqn{[0, 1]}}
 
