@@ -15,7 +15,7 @@ Additional packages in the arules family are: [arulesViz](http://github.com/mhah
 ## Installation
 
 * __Stable CRAN version:__ install from within R.
-* __Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/arules/build/artifacts) or install via `intall_git("mhahsler/arules")` (needs devtools) 
+* __Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/arules/build/artifacts) or install via `install_git("mhahsler/arules")` (needs devtools) 
 
 ## Example
 ```R
