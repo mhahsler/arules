@@ -25,6 +25,6 @@
 setMethod("is.redundant", signature(x = "rules"),
   function(x, measure = "confidence") {
     interestMeasure(x, measure = "improvement", transactions = NULL, reuse = TRUE, 
-      quality_measure = measure) >= 0
+      quality_measure = measure) < 0
   }
 )

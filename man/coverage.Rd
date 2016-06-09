@@ -18,7 +18,7 @@ coverage(x, transactions = NULL, reuse = TRUE)
 }
 \details{
   Coverage (also called cover or LHS-support) is the support of the 
-  left-hand-side of the rule, i.e., \eq{supp(X)}. It represents a measure 
+  left-hand-side of the rule, i.e., \eqn{supp(X)}. It represents a measure 
   of to how often the rule can be applied.
   
   Coverage is quickly calculated from the rules quality measures 
@@ -35,7 +35,7 @@ coverage(x, transactions = NULL, reuse = TRUE)
 }
 
 \seealso{ 
-\code{\link{interestMeasures}}, 
+\code{\link{interestMeasure}}, 
 \code{\link{rules-class}} 
 }
 \examples{

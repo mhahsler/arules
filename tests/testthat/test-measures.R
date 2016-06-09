@@ -62,5 +62,16 @@ expect_equal(coverage(rules), support(lhs(rules), trans = trans))
 expect_equal(coverage(rules, trans = trans, reuse = FALSE), 
   support(lhs(rules), trans = trans))
 
+
+## is.redundant (this test does not help much)!
+context("is.redundant")
+
+red <- is.redundant(rules)
+imp <- interestMeasure(rules, measure = "improvement")
+expect_equal(red, imp<0)
+
+#inspect(rules[!red])
+#inspect(rules[red])
+
 ## FIXME: test others
 

@@ -261,7 +261,9 @@ the proportion of transactions that do not contain \eqn{X}.
 \item{"improvement" (Bayardo et al., 2000)}{
   The  improvement of a rule is 
   the minimum difference between its confidence and the confidence of any
-  proper sub-rule with the same consequent. 
+  more general rule (i.e., a rule with the same consequent but one or 
+  more items removed in the LHS). Defined as
+  \eqn{min_{X' \subset X}(conf(X \Rightarrow Y) - conf(X' \Rightarrow Y)}{min_X' subset X ((conf(X -> Y) - conf(X' -> Y))}
   
   Range: \eqn{[0, 1]}}
 

@@ -20,8 +20,12 @@ is.redundant(x, ...)
 \details{
 A rule is redundant if a more general rules with a higher confidence exists.
 That is, a more specific rule is redundant if it is less 
-predictive than a more general rule. A rule is more specific if it has additional
-items in the lhs. 
+predictive than a more general rule. A rule is more general if it has 
+the same RHS but one or more items removed from the LHS. Formally,
+a rule is redundent if there
+
+\eqn{\exists X' \subset X \quad conf(X' \Rightarrow Y) > conf(X \Rightarrow Y).}{
+exists X' subset X  conf(X' -> Y) > conf(X -> Y).}
 
 This is equivalent to a 
 negative \emph{improvement} as defined by Bayardo et al. (2000).
