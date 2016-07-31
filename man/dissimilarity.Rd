@@ -93,9 +93,7 @@ data("Groceries")
 
 s <- Groceries[,itemFrequency(Groceries)>0.05]
 d_jaccard <- dissimilarity(s, which = "items")
-plot(hclust(d_jaccard, method = "ward"))
-
-
+plot(hclust(d_jaccard, method = "ward.D2"))
 
 ## cluster transactions for a sample of Adult
 data("Adult")
@@ -103,7 +101,7 @@ s <- sample(Adult, 500)
 
 ##  calculate Jaccard distances and do hclust
 d_jaccard <- dissimilarity(s)
-hc <- hclust(d_jaccard)
+hc <- hclust(d_jaccard, method = "ward.D2")
 plot(hc)
 
 ## get 20 clusters and look at the difference of the item frequencies (bars) 
@@ -113,7 +111,7 @@ itemFrequencyPlot(s[assign==1], population=s, topN=20)
 
 ## calculate affinity-based distances and do hclust
 d_affinity <- dissimilarity(s, method = "affinity")
-hc <- hclust(d_affinity)
+hc <- hclust(d_affinity, method = "ward.D2")
 plot(hc)
 
 

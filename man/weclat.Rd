@@ -48,6 +48,11 @@ weclat(data, parameter = NULL, control = NULL)
   \code{\link{ruleInduction}},
   \code{\link{eclat}}
 }
+\references{
+G.D. Ramkumar, S. Ranka, and S. Tsur (1998). 
+Weighted Association Rules: Model and Algorithm, 
+\emph{Proceedings of ACM SIGKDD}
+}
 \examples{
 data(SunBai)
 SunBai

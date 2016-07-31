@@ -23,8 +23,9 @@ discretize(x, method="interval", categories = 3, labels = NULL,
   \item{\dots}{for method "cluster" further arguments are passed on to
   \code{kmeans}. }.
 }
-%\details{
-%}
+\details{
+\code{discretize} only implements unsupervised discretization. See packages \pkg{discretization} or \pkg{RWeka} for supervised discretization.
+}
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
