@@ -13,10 +13,13 @@
 }
 \usage{
 dissimilarity(x, y = NULL, method = NULL, args = NULL, \ldots)
+
 \S4method{dissimilarity}{itemMatrix}(x, y = NULL, method = NULL, args = NULL,
 	which = "transactions")
+
 \S4method{dissimilarity}{associations}(x, y = NULL, method = NULL, args = NULL,
-	which = "transactions")
+	which = "associations")
+
 \S4method{dissimilarity}{matrix}(x, y = NULL, method = NULL, args = NULL)
 }
 \arguments{
@@ -74,9 +77,10 @@ dissimilarity(x, y = NULL, method = NULL, args = NULL, \ldots)
 
  }
   \item{args}{ a list of additional arguments for the methods.}  
-   \item{which}{a character string indicating if the dissimilarity should be 
-     calculated between transactions (default) or items (use \code{"items"}). }
-   \item{\ldots}{further arguments.}
+  \item{which}{a character string indicating if the dissimilarity should be 
+     calculated between transactions/associations (default) 
+     or items (use \code{"items"}). }
+  \item{\ldots}{further arguments.}
 }
 \value{
   returns an object of class \code{dist}.
