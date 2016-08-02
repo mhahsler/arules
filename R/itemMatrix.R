@@ -152,8 +152,10 @@ setAs("list", "itemMatrix",
     ## some checks
     if (!all(sapply(from, is.atomic)))
       stop("can coerce list with atomic components only")
-    if (any(unlist(lapply(from, duplicated))))
-      stop("can not coerce list with transactions with duplicated items")
+    if (any(dup <- sapply(from, anyDuplicated))) {
+      warning("removing duplicated items in transactions")
+      for(i in which(dup>0)) from[[i]] <- unique(from[[i]])
+    }
     
     ## fix for Matrix (ceeboo 2009)
     from <- lapply(from, sort)

@@ -1,6 +1,8 @@
 # Changes in version 1.4-1.1 (xx/xx/2016)
 
 * Bugfix: is.redundant returned !is.redundant (reported by brisbia)
+* Duplicate items when coercing from list to transactions are now 
+  removed with a warning.
 
 # Changes in version 1.4-1 (04/10/2016)
 
