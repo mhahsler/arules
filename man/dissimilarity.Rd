@@ -106,28 +106,29 @@ s <- sample(Adult, 500)
 ##  calculate Jaccard distances and do hclust
 d_jaccard <- dissimilarity(s)
 hc <- hclust(d_jaccard, method = "ward.D2")
-plot(hc)
+plot(hc, labels = FALSE, main = "Dendrogram for Transactions (Jaccard)")
 
 ## get 20 clusters and look at the difference of the item frequencies (bars) 
 ## for the top 20 items) in cluster 1 compared to the data (line) 
 assign <- cutree(hc, 20)
 itemFrequencyPlot(s[assign==1], population=s, topN=20)
 
-## calculate affinity-based distances and do hclust
+## calculate affinity-based distances between transactions and do hclust
 d_affinity <- dissimilarity(s, method = "affinity")
 hc <- hclust(d_affinity, method = "ward.D2")
-plot(hc)
+plot(hc, labels = FALSE, main = "Dendrogram for Transactions (Affinity)")
 
-
-## cluster rules
+## cluster association rules
 rules <- apriori(Adult, parameter=list(support=0.3))
 rules <- subset(rules, subset = lift > 2)
 
-## use affinity
-## we need to supply the item affinities from the dataset (sample)
+## use affinity to cluster rules
+## Note: we need to supply the transactions (or affinities) from the 
+## dataset (sample).
 d_affinity <- dissimilarity(rules, method = "affinity", 
-  args = list(affinity = affinity(s)))
-plot(hclust(d_affinity))
+  args = list(transactions = s))
+hc <- hclust(d_affinity, method = "ward.D2")
+plot(hc, main = "Dendrogram for Rules (Affinity)") 
 }
 \references{
   Sneath, P. H. A. (1957) Some thoughts on bacterial classification. 
