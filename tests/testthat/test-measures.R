@@ -68,7 +68,7 @@ context("is.redundant")
 
 red <- is.redundant(rules)
 imp <- interestMeasure(rules, measure = "improvement")
-expect_equal(red, imp<0)
+expect_equal(red, imp<=0)
 
 #inspect(rules[!red])
 #inspect(rules[red])
