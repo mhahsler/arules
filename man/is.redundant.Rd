@@ -18,17 +18,18 @@ is.redundant(x, ...)
   \item{...}{ additional arguments. }
 }
 \details{
-A rule is redundant if a more general rules with a higher confidence exists.
-That is, a more specific rule is redundant if it is less 
+A rule is redundant if a more general rules with the same or a higher 
+confidence exists.
+That is, a more specific rule is redundant if it is only equally or even less 
 predictive than a more general rule. A rule is more general if it has 
 the same RHS but one or more items removed from the LHS. Formally,
-a rule is redundent if there
+a rule \eqn{X \Rightarrow Y}{X -> Y} is redundant if
 
-\eqn{\exists X' \subset X \quad conf(X' \Rightarrow Y) > conf(X \Rightarrow Y).}{
-exists X' subset X  conf(X' -> Y) > conf(X -> Y).}
+\deqn{\exists X' \subset X \quad conf(X' \Rightarrow Y) \ge conf(X \Rightarrow Y).}{
+for some X' subset X, conf(X' -> Y) >= conf(X -> Y).}
 
 This is equivalent to a 
-negative \emph{improvement} as defined by Bayardo et al. (2000).
+negative or zero \emph{improvement} as defined by Bayardo et al. (2000).
 In this implementation other measures than confidence, e.g. 
 improvement of lift, can be used as well. 
 }
@@ -43,11 +44,16 @@ Bayardo, R. , R. Agrawal, and D. Gunopulos (2000). Constraint-based rule mining 
 }
 \examples{
 data("Income")
-rules <- apriori(Income, parameter = list(support = 0.5))
-is.redundant(rules)
 
-## add Bayado's improvement for comparison
+## mine some rules with the consequent "language in home=english"
+rules <- apriori(Income, parameter = list(support = 0.5), 
+  appearance = list(rhs = "language in home=english", default = "lhs"))
+
+## for better comparison we sort the rules by confidence and add Bayado's improvement
+rules <- sort(rules, by = "confidence")
 quality(rules)$improvement <- interestMeasure(rules, measure = "improvement")
+inspect(rules)
+is.redundant(rules)
 
 ## redundant rules
 inspect(rules[is.redundant(rules)])
