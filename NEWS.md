@@ -1,5 +1,9 @@
 # Changes in version 1.4-2-1 (xx/xx/2016)
 
+* is.redundant now also marks rules with the same confidence as redundant.
+* apriori uses now a time limit set in parameter with maxtime. The default is
+  5 seconds.
+
 # Changes in version 1.4-2 (08/06/2016)
 
 * Bugfix: is.redundant returned !is.redundant (reported by brisbia)

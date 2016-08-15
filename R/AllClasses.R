@@ -205,7 +205,8 @@ setClass("APparameter",
     smax        = "numeric",
     arem        = "character",
     aval        = "logical",
-    originalSupport = "logical"),
+    originalSupport = "logical",
+    maxtime     = "numeric"),
   contains = "ASparameter",
   
   prototype(new("ASparameter"),
@@ -215,7 +216,8 @@ setClass("APparameter",
     smax        = 1.0,
     arem        = "none",
     originalSupport = TRUE,
-    aval = FALSE),
+    aval = FALSE,
+    maxtime = 5.0),
   
   validity = function(object) {
     if (!object@arem %in% .aremtypes()) 

@@ -40,9 +40,9 @@
     \item{\code{support}:}{a numeric value for the 
       minimal support of an item set (default: \eqn{0.1})}
     \item{\code{minlen}:}{an integer value for the
-      minimal number of items per item set (default: 1)}
+      minimal number of items per item set (default: 1 item)}
     \item{\code{maxlen}:}{an integer value for the
-      maximal number of items per item set (default: 10)}
+      maximal number of items per item set (default: 10 items)}
     \item{\code{target}:}{a character string 
       indicating the type of association mined.
       One of
@@ -90,6 +90,8 @@
       a rule (lhs and rhs) instead of lhs support.  Make sure to use
       \code{ext = TRUE} if \code{originalSupport} is set to \code{FALSE}
       (default: \code{TRUE})}
+    \item{\code{maxtime}:}{ Time limit in seconds for checking subsets. 
+      (default: 2 seconds)}
   }
   
   Additional slots for Eclat in \code{ECparameter}:

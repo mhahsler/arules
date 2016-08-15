@@ -37,6 +37,7 @@ typedef struct {                /* --- parameter values--- */
 	int target;
 	int minlen;
 	int maxlen;          /* maximal rule length */
+	double maxtime;         /* maximal time allowed */
 	int rsdef;
 	int arem;
 	int tree;

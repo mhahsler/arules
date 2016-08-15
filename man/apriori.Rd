@@ -18,8 +18,9 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
     matrix or data.frame).}
   \item{parameter}{object of class
     \code{\linkS4class{APparameter}} or named list.
-    The default behavior is to mine rules with support 0.1, confidence
-    0.8, and maxlen 10.}
+    The default behavior is to mine rules with minimum support of 0.1,
+    minimum confidence of 0.8, maximum of 10 items (maxlen), and 
+    a maximal time for subset checking of 5 seconds (maxtime).}
   \item{appearance}{object of class
     \code{\linkS4class{APappearance}} or named list.
     With this argument item appearance can be restricted 
@@ -34,9 +35,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
   Calls the C implementation of the Apriori algorithm by Christian
   Borgelt for mining frequent itemsets, rules or hyperedges.
 
-  Note: Apriori only creates rules with one item in the RHS (Consequent)!
-
-  Note: The default value in \code{\linkS4class{APparameter}} for \code{minlen} is 1. This
+  \bold{Note:} Apriori only creates rules with one item in the RHS (Consequent)! The default value in \code{\linkS4class{APparameter}} for \code{minlen} is 1. This
   means that rules with only one item (i.e., an empty antecedent/LHS) like
   
   \deqn{\{\} => \{beer\}}{{} => {beer}}
@@ -47,6 +46,25 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
   confidence (which equals the support).
   If you want to avoid these rules then use 
   the argument \code{parameter=list(minlen=2)}.
+
+  \bold{Notes on run time and memory usage:} 
+  If the minimum \code{support} is chosen 
+  too low for the dataset, then the algorithm will try to 
+  create an extremely large set of itemsets/rules. This will result in very
+  long run time and eventually the process will run out of memory.
+  To prevent this, the default maximal 
+  length of itemsets/rules is restricted to 10 items
+  (via the parameter element \code{maxlen=10}) and 
+  the time for checking subsets is limited to 5 seconds 
+  (via \code{maxtime=5}). The output will show if you
+  hit these limits in the "checking subsets" line of the output. The 
+  time limit is only checked when the subset size increases, so
+  it may run significantly longer than what you specify in maxtime.
+  
+  Interrupting execution with Control-C/Esc is not recommended. 
+  Memory cleanup will be prevented resulting in a memory leak. Also,
+  interrupts are only checked when the subset size increases, so it may take
+  some time till the execution actually stops.
 }
 \value{
   Returns an object of class \code{\linkS4class{rules}} or

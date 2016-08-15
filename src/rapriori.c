@@ -1,6 +1,5 @@
 /*----------------------------------------------------------------------
-The code for apriori and eclat were obtained from
-            http://fuzzy.cs.uni-magdeburg.de/~borgelt/
+The code for apriori and eclat were obtained from http://www.borgelt.net/
 
 and are copyrighted by 1996-2003 Christian Borgelt
 
@@ -454,7 +453,24 @@ void frequentItem(ARparameter *param, INPUT *in)
 	  param->maxlen = maxcnt;            /* to the maximum set size */
   /* --- check item subsets --- */
   if (param->verbose) Rprintf("checking subsets of size 1");
-  while (ist_height(istree) < param->maxlen) {
+  
+  /* while (ist_height(istree) < param->maxlen) { */
+  while (1) {
+    /* R check for C-C to interupt execution */
+    /* Note: This creates a memory leak. I would like to call cleanup() */
+    R_CheckUserInterrupt();
+    
+    /* Check if we run into limits */
+    if(ist_height(istree) >= param->maxlen){
+      Rprintf(" *stopping (maxlen reached)*");
+      break;
+    }
+    
+    if(SEC_SINCE(t) > param->maxtime) {
+      Rprintf(" *stopping (time limit)*");
+      break;
+    }
+    
     if (param->filter != 0) {          /* if to filter w.r.t. item usage, */
       i = ist_check(istree, apps);     /* check current item usage */
       if (i < param->maxlen) param->maxlen = i;      /* update the maximum size */
@@ -463,10 +479,8 @@ void frequentItem(ARparameter *param, INPUT *in)
     k = ist_addlvl(istree);     /* while max. height is not reached, */
     if (k <  0) {cleanup(); error(msgs(E_NOMEM));}  /* add a level to the item set tree */
     if (k != 0) break;          /* if no level was added, abort */
-    if (param->verbose) Rprintf(" %d", ist_height(istree));
     
-    /* R check for C-C to interupt execution */
-    R_CheckUserInterrupt();
+    if (param->verbose) Rprintf(" %d", ist_height(istree));
     
     if (tatree) {               /* if a transaction tree was created */
       if (((param->filter < 0)         /* if to filter w.r.t. item usage */
@@ -499,7 +513,7 @@ void frequentItem(ARparameter *param, INPUT *in)
     else {
       in->index = 0;
       for (maxcnt = 0; (i = is_read_in(itemset, in)) == 0; ) {
-	if (param->filter != 0)        /* (re)read the transactions and */
+	      if (param->filter != 0)        /* (re)read the transactions and */
           is_filter(itemset, apps);  /* remove unnecessary items */
         k = is_tsize(itemset);  /* update the maximum size */
         if (k > maxcnt) maxcnt = k;  /* of a transaction */
@@ -510,6 +524,7 @@ void frequentItem(ARparameter *param, INPUT *in)
         param->maxlen = maxcnt;        /* according to the max. t.a. size */
     }                           /* (may be smaller than before) */
   }                             /* clear the file variable */
+
   if (param->verbose) Rprintf(" done [%.2fs].\n", SEC_SINCE(t));
 
   /* --- filter found item sets --- */
@@ -958,6 +973,7 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
 
 	param.minlen = *INTEGER(GET_SLOT(parms, install("minlen")));   /* minimal rule length 'm'*/
 	maxlen = param.maxlen = *INTEGER(GET_SLOT(parms, install("maxlen")));   /* maximal rule length 'n'*/  
+	param.maxtime = *REAL(GET_SLOT(parms, install("maxtime")));      /* maximal time allowed in seconds*/
 	param.sort = *INTEGER(GET_SLOT(control, install("sort")));     /* flag for item sorting and recoding 'q'*/
 
 	param.rsdef = *LOGICAL(GET_SLOT(parms, install("originalSupport")));      /* rule support definition 'o'*/
@@ -1056,8 +1072,8 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
 	in.ind = INTEGER(x);
 	in.index = 0;
 	in.tnb = length(x)-1;
-  	frequentItem(&param, &in);	
-  	createRules(istree, &param);
+  frequentItem(&param, &in);	
+  createRules(istree, &param);
 	ruleset->cnt = is_cnt(itemset);
 	ruleset->tacnt = in.tnb;
  	SET_SLOT(parms, install("maxlen"), allocVector(INTSXP, 1)); 
