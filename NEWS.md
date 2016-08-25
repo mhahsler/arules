@@ -2,7 +2,8 @@
 
 * is.redundant now also marks rules with the same confidence as redundant.
 * apriori uses now a time limit set in parameter with maxtime. The default is
-  5 seconds.
+  5 seconds. Running out of time or maxlen results in a warning. The 
+  warning for low absolute support was removed.
 
 # Changes in version 1.4-2 (08/06/2016)
 

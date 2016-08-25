@@ -22,10 +22,8 @@ trans <- as(data, "transactions")
 context("APRIORI interface")
 
 ### rules (all warnings are for low support)
-expect_warning(
-  r <- apriori(trans, parameter=list(supp=0.25, conf=0), 
-    control=list(verb=FALSE))
-)
+r <- apriori(trans, parameter=list(supp=0.25, conf=0), 
+  control=list(verb=FALSE))
 
 expect_identical(length(r), 18L)
 
@@ -34,21 +32,17 @@ expect_identical(length(r), 18L)
 #inspect(sort(r, by = "lift")[1:7])
 
 ### test appearance
-expect_warning(
-  r <- apriori(trans, parameter=list(supp=0.25, conf=0),
-    appearance=list(rhs=c("a","b"), default= "lhs"), 
-    control=list(verb=FALSE))
-)
+r <- apriori(trans, parameter=list(supp=0.25, conf=0),
+  appearance=list(rhs=c("a","b"), default= "lhs"), 
+  control=list(verb=FALSE))
 
 expect_identical(length(r), 6L)
 #inspect(r)
 
 ### test lhs.support
-expect_warning(
-  r <- apriori(trans, parameter=list(supp=0.25, conf=0, 
-    originalSupp=FALSE, ext=TRUE),
-    control=list(verb=FALSE))
-)
+r <- apriori(trans, parameter=list(supp=0.25, conf=0, 
+  originalSupp=FALSE, ext=TRUE),
+  control=list(verb=FALSE))
 
 expect_true("lhs.support" %in% colnames(quality(r)))
 #inspect(r[1:2])

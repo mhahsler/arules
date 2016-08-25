@@ -52,8 +52,6 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
     if(control@verbose) {
       cat("\nAbsolute minimum support count:", abs_supp,"\n\n")
     }
-    if(abs_supp < 2) warning(sprintf("You chose a very low absolute support count of %d. You might run out of memory! Increase minimum support.\n", abs_supp),
-        immediate.=TRUE)
 
     ## call apriori
     result <- .Call("rapriori", 

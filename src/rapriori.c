@@ -460,14 +460,20 @@ void frequentItem(ARparameter *param, INPUT *in)
     /* Note: This creates a memory leak. I would like to call cleanup() */
     R_CheckUserInterrupt();
     
+    /* Check if we reach the max. transaction size */
+    if(ist_height(istree) >= maxcnt) break;
+    
     /* Check if we run into limits */
     if(ist_height(istree) >= param->maxlen){
-      Rprintf(" *stopping (maxlen reached)*");
+      /* if (param->verbose) Rprintf(" *stopping (maxlen reached)*"); */
+      Rf_warning("Mining stopped (maxlen reached). Only patterns up to a length of %d returned!", param->maxlen);
       break;
     }
     
     if(SEC_SINCE(t) > param->maxtime) {
-      Rprintf(" *stopping (time limit)*");
+      /* if (param->verbose) Rprintf(" *stopping (time limit)*"); */
+      Rf_warning("Mining stopped (time limit reached). Only patterns up to a length of %d returned!", 
+        ist_height(istree));
       break;
     }
     
@@ -581,6 +587,11 @@ void createRules(ISTREE *istree, ARparameter *param) {
   size1 = ruleset->rnb;
   if (target <= TT_CLSET) {     /* if to find frequent item sets */
     for (n = 0; 1; ) {          /* extract item sets from the tree */
+     
+     /* R check for C-C to interupt execution */
+     /* Note: This creates a memory leak. I would like to call cleanup() */
+     R_CheckUserInterrupt(); 
+      
       k = ist_set(istree, set, &supp, &conf);
       if (k <= 0) break;        /* get the next frequent item set */
       if (supp > param->smax) continue;/* check against maximal support */
@@ -629,6 +640,11 @@ void createRules(ISTREE *istree, ARparameter *param) {
   } 
   else if (target == TT_RULE) { /* if to find association rules, */
     for (n = 0; 1; ) {          /* extract rules from tree */
+      
+	    /* R check for C-C to interupt execution */
+	    /* Note: This creates a memory leak. I would like to call cleanup() */
+	    R_CheckUserInterrupt();
+      
       k = ist_rule(istree, set, &supp, &conf, &lftval, &minval);
       if (k <= 0) break;        /* get the next association rule */
       if (supp > param->smax) continue;/* check against maximal support */
@@ -707,6 +723,11 @@ void createRules(ISTREE *istree, ARparameter *param) {
   }
   else {                        /* if to find association hyperedges */
     for (n = 0; 1; ) {          /* extract hyperedges from tree */
+	      
+	   /* R check for C-C to interupt execution */
+	   /* Note: This creates a memory leak. I would like to call cleanup() */
+	   R_CheckUserInterrupt(); 
+      
       k = ist_hedge(istree, set, &supp, &conf);
       if (k <= 0) break;        /* get the next hyperedge */
       if (supp > param->smax) continue;/* check against maximal support */

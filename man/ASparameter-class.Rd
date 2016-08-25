@@ -90,8 +90,8 @@
       a rule (lhs and rhs) instead of lhs support.  Make sure to use
       \code{ext = TRUE} if \code{originalSupport} is set to \code{FALSE}
       (default: \code{TRUE})}
-    \item{\code{maxtime}:}{ Time limit in seconds for checking subsets. 
-      (default: 2 seconds)}
+    \item{\code{maxtime}:}{ Time limit in seconds for checking subsets 
+      (default: 5 seconds)}
   }
   
   Additional slots for Eclat in \code{ECparameter}:

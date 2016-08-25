@@ -29,7 +29,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
   \item{control}{object of class
     \code{\linkS4class{APcontrol}} or named list.
     Controls the algorithmic performance of the mining 
-    algorithm (item sorting, etc.)}
+    algorithm (item sorting, report progress (verbose), etc.)}
 }
 \details{
   Calls the C implementation of the Apriori algorithm by Christian

@@ -16,12 +16,9 @@ trans <- as(data, "transactions")
 
 context("Rule Induction")
 
-### rules (all warnings are for low support)
-expect_warning(
-  is <- apriori(trans, parameter=list(supp=0.25, target = "frequent"), 
-    control=list(verb=FALSE)),
-  regex = "low absolute support"
-)
+### rules
+is <- apriori(trans, parameter=list(supp=0.25, target = "frequent"), 
+   control=list(verb=FALSE))
 # inspect(is)
 
 ## without transactions
@@ -102,19 +99,16 @@ expect_equal_rules(r2_nosupp, r1)
 
 ## test method apriori and compare to ptree method (default)
 ## they all need specified transactions
-expect_warning(
-  r1_a <- ruleInduction(is, transactions = trans, 
-    control=list(method="apriori")),
-  regex = "low absolute support"
-)
+r1_a <- ruleInduction(is, transactions = trans, 
+  control=list(method="apriori"))
 expect_equal_rules(r1_a, r1)
 
-expect_warning(
-  r2_a <- ruleInduction(is, transactions = trans, 
-    control=list(method="apriori"), confidence = 1),
-  regex = "low absolute support"
-)
+
+r2_a <- ruleInduction(is, transactions = trans, 
+  control=list(method="apriori"), confidence = 1)
 expect_equal_rules(r2_a, r2)
+
+
 
 # test tidlists
 # FIXME: tidlists does not work correctly!
@@ -147,11 +141,8 @@ expect_equal(length(r_t2), 3L)
 r_t0a <- ruleInduction(is, transactions = trans[0], control=list(method="apriori"))
 expect_equal(length(r_t0a), 0L)
 
-expect_warning(
-  r_t2a <- ruleInduction(is, transactions = trans[1:2], 
-    control=list(method="apriori")),
-  regex = "low absolute support"
-)
+r_t2a <- ruleInduction(is, transactions = trans[1:2], 
+  control=list(method="apriori"))
 
 ## FIXME: apriori returns rules like {} -> rule induction does not!
 expect_equal_rules(r_t2, r_t2a[size(r_t2a)>1])
@@ -162,3 +153,4 @@ expect_error(ruleInduction(is, transactions = trans[,rev(1:nitems(trans))]),
 
 expect_error(ruleInduction(is, transactions = trans[,-2]), 
   regex = "Dimensions")
+

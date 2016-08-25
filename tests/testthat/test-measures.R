@@ -49,10 +49,8 @@ expect_equal(m1, m2)
 ###################################################################
 # test measures for rules
 
-expect_warning(
-  rules <- apriori(trans, parameter=list(supp=0.01, conf = 0.5), 
-    control=list(verb=FALSE))
-)
+rules <- apriori(trans, parameter=list(supp=0.01, conf = 0.5), 
+  control=list(verb=FALSE))
 
 ## calculate all measures (just to see if one creates an error)
 m1 <- interestMeasure(rules, transactions = trans)
