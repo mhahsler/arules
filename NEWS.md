@@ -36,7 +36,7 @@
 
 # Changes in version 1.3-1 (12/13/2015)
 
-* we now require R 2.3.0 so cbind in Matrix works.
+* we now require R 3.2.0 so cbind in Matrix works.
 * is.maximal is now also available for rules.
 * added is.significant for rules (uses Fishers exact test with correction).
 * added is.redundant for rules.
