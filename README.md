@@ -10,7 +10,14 @@ manipulating and analyzing transaction data and patterns (frequent
 itemsets and association rules). Also provides interfaces to
 C implementations of the association mining algorithms Apriori and Eclat.
 
-Additional packages in the arules family are: [arulesViz](http://github.com/mhahsler/arulesViz), [arulesSequences](http://cran.r-project.org/package=arulesSequences) and [arulesNBMiner](http://github.com/mhahsler/arulesNBMiner). 
+Additional packages in the arules family are: 
+
+* [arulesViz](http://github.com/mhahsler/arulesViz): Visualization of association rules. 
+* [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification based on association rules.  
+* [arulesSequences](http://cran.r-project.org/package=arulesSequences):
+   Mining frequent sequences.
+* [arulesNBMiner](http://github.com/mhahsler/arulesNBMiner):
+  Mining NB-frequent itemsets and NB-precise rules.
 
 ## Installation
 
