@@ -4,6 +4,8 @@
 * apriori uses now a time limit set in parameter with maxtime. The default is
   5 seconds. Running out of time or maxlen results in a warning. The 
   warning for low absolute support was removed.
+* plot for associations and transactions produces now a better 
+  error message/warning.
 
 # Changes in version 1.4-2 (08/06/2016)
 

@@ -42,6 +42,7 @@
 \alias{summary,itemMatrix-method}
 %compat
 \alias{t,ngCMatrix-method}
+\alias{plot.itemMatrix}
 
 \title{Class ``itemMatrix'' --- Sparse Binary Incidence Matrix to Represent Sets
   of Items}

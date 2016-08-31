@@ -19,6 +19,7 @@
 \alias{length,associations-method}
 \alias{t,associations-method}
 \alias{\%in\%,associations,associations-method}
+\alias{plot.associations}
 
 \title{Class ``associations'' - A Set of Associations}
 \description{
