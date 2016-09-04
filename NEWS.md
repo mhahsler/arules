@@ -5,7 +5,7 @@
   5 seconds. Running out of time or maxlen results in a warning. The 
   warning for low absolute support was removed.
 * plot for associations and transactions produces now a better 
-  error message/warning.
+  error/warning message.
 
 # Changes in version 1.4-2 (08/06/2016)
 
