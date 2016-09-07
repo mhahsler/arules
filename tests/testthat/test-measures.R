@@ -71,5 +71,15 @@ expect_equal(red, imp<=0)
 #inspect(rules[!red])
 #inspect(rules[red])
 
+
+context("support")
+
+s_tid <- support(rules, trans, control=list(method="tidlist"))
+s_ptree <- support(rules, trans, control=list(method="ptree"))
+expect_equal(s_tid, s_ptree)
+expect_equal(s_tid, quality(rules)$support)
+
+
 ## FIXME: test others
+
 
