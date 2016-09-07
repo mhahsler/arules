@@ -19,7 +19,7 @@
 #include <math.h>
 #include <time.h>
 #include <assert.h>
-#include "scan.h"
+//#include "scan.h"
 #include "tract.h"
 #include "bitmat.h"
 #ifdef STORAGE
