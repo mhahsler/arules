@@ -234,11 +234,19 @@ setMethod("%ain%", signature(x = "itemMatrix", table = "character"),
 ## partial in  
 setMethod("%pin%", signature(x = "itemMatrix", table = "character"),
   function(x, table) {
-    if (length(table) > 1)
-      stop(sQuote(table)," contains more than one item label pattern")
+    if (length(table) > 1) {
+      warning("table contains more than one item label pattern and only the first element will be used")
+      table <- table[1]
+    }
+      
+    if (table[1] == "")
+      stop("table contains an illegal pattern (empty string)")
+    
     pos <- grep(table, itemLabels(x))
+    
     if (is.na(pos[1])) 
       return(rep(FALSE, length(x)))
+    
     size(x[, pos]) > 0
   }
 )

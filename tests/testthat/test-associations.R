@@ -33,8 +33,7 @@
   ss <- subset(f, subset = items %in% "item7")
   #inspect(ss)
   expect_identical(labels(ss), grep("item7", labels(ss), value = TRUE))
-  
-  
+ 
   ### create associations manually
   lmat <- matrix(rbind(c(1,1,0), c(0,0,1)), ncol=3)
   rmat <- matrix(rbind(c(1,0,0), c(0,1,0)), ncol=3)
@@ -135,9 +134,15 @@
     head(r, n = 5, by = "lift", decreasing = FALSE))
   
   
-  # match and %in%
+  # match, %in%, %pin%
   expect_identical(match(r[2:10], r), 2:10)
   expect_identical(r[2:10] %in% r, 2:10)
   expect_identical(match(f[2:10], f), 2:10)
   expect_identical(f[2:10] %in% f, 2:10)
-  
+ 
+
+  expect_identical(rhs(r[1:10]) %pin% "item1", c(FALSE, FALSE,TRUE, TRUE, TRUE, 
+    TRUE, TRUE, FALSE, FALSE, TRUE)) 
+  expect_error(rhs(r[1:10]) %pin% "")
+  expect_warning(rhs(r[1:10]) %pin% c("1", "2"))
+   

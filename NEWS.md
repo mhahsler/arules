@@ -1,11 +1,13 @@
 # Changes in version 1.4-2-1 (xx/xx/2016)
 
+* IMPORTANT CHANGE: apriori uses now a time limit set in parameter with 
+  maxtime. The default is 5 seconds. Running out of time or maxlen results 
+  in a warning. The warning for low absolute support was removed.
 * is.redundant now also marks rules with the same confidence as redundant.
-* apriori uses now a time limit set in parameter with maxtime. The default is
-  5 seconds. Running out of time or maxlen results in a warning. The 
-  warning for low absolute support was removed.
 * plot for associations and transactions produces now a better 
   error/warning message.
+* improved argument check for %pin%. Warns now for multiple patterns 
+  (was an error) and give error for empty pattern.
 
 # Changes in version 1.4-2 (08/06/2016)
 
