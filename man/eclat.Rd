@@ -33,6 +33,9 @@ eclat(data, parameter = NULL, control = NULL)
   See also \code{supportingTransactions()}.
 
   \code{ruleInduction()} can be used to generate rules from the found itemsets.
+
+  A weighted version of ECLAT is available as function \code{\link{weclat()}}. 
+  This version can be used to perform weighted association rule mining (WARM).
 }
 \value{
   Returns an object of class \code{\linkS4class{itemsets}}.
@@ -55,6 +58,7 @@ eclat(data, parameter = NULL, control = NULL)
   \code{\link{ECcontrol-class}},
   \code{\link{transactions-class}},
   \code{\link{itemsets-class}},
+  \code{\link{weclat}},
   \code{\link{apriori}},
   \code{\link{ruleInduction}},
   \code{\link{supportingTransactions}}

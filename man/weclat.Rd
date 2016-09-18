@@ -1,9 +1,12 @@
 \name{weclat}
 \alias{weclat}
-\title{Mining Associations from Weighted Transaction Data with Eclat}
+\alias{WARM}
+\alias{warm}
+\title{Mining Associations from Weighted Transaction Data with Eclat (WARM)}
 \description{
   Find frequent itemsets with the Eclat algorithm. This implementation
-  uses optimized tidlist joins and transaction weights.
+  uses optimized tidlist joins and transaction weights to implement 
+  weighted association rule mining (WARM).
 }
 \usage{
 weclat(data, parameter = NULL, control = NULL)
@@ -28,6 +31,9 @@ weclat(data, parameter = NULL, control = NULL)
   transactions that contain the itemset. An itemset is frequent if
   its weighted support is equal or greater than the threshold specified
   by \code{support} (assuming that the weights sum to one).
+
+  Note that ECLAT only mines (weighted) frequent itemsets. Weighted
+  association rules can be created using \code{ruleInduction()}.
 }
 \value{
   Returns an object of class
@@ -38,8 +44,7 @@ weclat(data, parameter = NULL, control = NULL)
 \note{
   The C code can be interrupted by CTRL-C. This is convenient
   but comes at the price that the code cannot clean up its internal
-  memory. This is a known problem of the R API and the workaround
-  is to defer the cleanup to the next function call.
+  memory. 
 }
 \seealso{
   Class 
