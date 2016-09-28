@@ -7,7 +7,9 @@
 * plot for associations and transactions produces now a better 
   error/warning message.
 * improved argument check for %pin%. Warns now for multiple patterns 
-  (was an error) and give error for empty pattern.
+  (was an error) and give an error for empty pattern.
+* inspect prints now consistenly the index of rules/itemsets using brackets 
+  and starting from 1.
 
 # Changes in version 1.4-2 (08/06/2016)
 

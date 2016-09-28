@@ -41,6 +41,7 @@ setMethod("inspect", signature(x = "itemsets"),
     if(!linebreak) {
       out <- data.frame(items = l)
       if(nrow(quality(x)) > 0) out <- cbind(out, quality(x))
+      rownames(out) <- paste0('[', 1:n_of_itemsets, ']')
       print(out, right = FALSE)
       
     } else {
@@ -64,7 +65,7 @@ setMethod("inspect", signature(x = "itemsets"),
       
       ## Column 1: itemset nr.
       tmp <- rep.int("", n_of_rows + 1)
-      tmp[entry_beg_pos+1] <- c(1:n_of_itemsets) 
+      tmp[entry_beg_pos+1] <- paste0('[', 1:n_of_itemsets, ']') 
       out[,1] <- format(tmp)
       
       ## Column 2: items in the item sets, one per line.
@@ -109,6 +110,7 @@ setMethod("inspect", signature(x = "rules"),
       out <- data.frame(lhs = lhs, "." = ruleSep, rhs = rhs)
       if(nrow(quality(x)) > 0) out <- cbind(out, quality(x))
       colnames(out)[2] <- ""
+      rownames(out) <- paste0('[', 1:n_of_rules, ']')
       print(out, right = FALSE)
       
     } else {
@@ -119,7 +121,7 @@ setMethod("inspect", signature(x = "rules"),
       ### Empty RHS!
       items_rhs <- lapply(items_rhs, FUN = function(r) 
         if(length(r)==0) "" else r
-        )
+      )
       
       quality <- quality(x)
       
@@ -141,9 +143,9 @@ setMethod("inspect", signature(x = "rules"),
       
       out <- matrix("", nrow = n_of_rows, ncol = 4 + NCOL(quality))
       
-      ## Column 1: counts.
+      ## Column 1: Rule number
       tmp <- rep.int("", n_of_rows)
-      tmp[entry_beg_pos] <- seq(length = n_of_rules)
+      tmp[entry_beg_pos] <- paste0('[', 1:n_of_rules, ']')
       out[, 1] <- format(tmp)
       
       ## Column 2: lhs.
@@ -204,6 +206,7 @@ setMethod("inspect", signature(x = "transactions"),
       out <- data.frame(items = l)
       if(nrow(transactionInfo(x)) > 0) 
         out <- cbind(out, transactionInfo(x))
+      rownames(out) <- paste0('[', 1:n_of_itemsets, ']')
       print(out, right = FALSE)
       
     } else {
@@ -226,7 +229,7 @@ setMethod("inspect", signature(x = "transactions"),
       
       ## Column 1: itemset nr.
       tmp <- rep.int("", n_of_rows + 1)
-      tmp[entry_beg_pos+1] <- c(1:n_of_itemsets) 
+      tmp[entry_beg_pos+1] <- paste0('[', 1:n_of_itemsets, ']') 
       out[,1] <- format(tmp)
       
       ## Column 2: items in the item sets, one per line.
@@ -266,7 +269,9 @@ setMethod("inspect", signature(x = "itemMatrix"),
       linebreak <- any(nchar(l) > options("width")$width*2/3)
     
     if(!linebreak) {
-      print(data.frame(items = l), right = FALSE)
+      out <- data.frame(items = l)
+      rownames(out) <- paste0('[', 1:n_of_itemsets, ']')
+      print(out, right = FALSE)
       
     } else {
       
@@ -287,7 +292,7 @@ setMethod("inspect", signature(x = "itemMatrix"),
       
       ## Column 1: itemset nr.
       tmp <- rep.int("", n_of_rows + 1)
-      tmp[entry_beg_pos+1] <- c(1:n_of_itemsets) 
+      tmp[entry_beg_pos+1] <- paste0('[', 1:n_of_itemsets, ']') 
       out[,1] <- format(tmp)
       
       ## Column 2: items in the item sets, one per line.
