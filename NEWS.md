@@ -1,4 +1,4 @@
-# Changes in version 1.4-2-1 (xx/xx/2016)
+# Changes in version 1.5-0 (09/23/2016)
 
 * IMPORTANT CHANGE: apriori uses now a time limit set in parameter with 
   maxtime. The default is 5 seconds. Running out of time or maxlen results 

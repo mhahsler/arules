@@ -14,7 +14,7 @@ Additional packages in the arules family are:
 
 * [arulesViz](http://github.com/mhahsler/arulesViz): Visualization of association rules. 
 * [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification based on association rules.  
-* [arulesSequences](http://cran.r-project.org/package=arulesSequences):
+* [arulesSequences](https://cran.r-project.org/package=arulesSequences):
    Mining frequent sequences.
 * [arulesNBMiner](http://github.com/mhahsler/arulesNBMiner):
   Mining NB-frequent itemsets and NB-precise rules.
@@ -29,9 +29,8 @@ Additional packages in the arules family are:
 R> library("arules")
 R> data("Adult")
 
-## Mine association rules.
-R> rules <- apriori(Adult, 
-+     parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
+R> ## Mine association rules
+R> rules <- apriori(Adult, parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
 
 Parameter specification:
  confidence minval smax arem  aval originalSupport support minlen maxlen target   ext
@@ -40,6 +39,8 @@ Parameter specification:
 Algorithmic control:
  filter tree heap memopt load sort verbose
     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+
+Absolute minimum support count: 24421 
 
 apriori - find association rules with the apriori algorithm
 version 4.21 (2004.05.09)        (c) 1996-2004   Christian Borgelt
@@ -51,6 +52,7 @@ checking subsets of size 1 2 3 4 done [0.00s].
 writing ... [52 rule(s)] done [0.00s].
 creating S4 object  ... done [0.01s].
 
+R> ## Show some basic statistics
 R> summary(rules)
 set of 52 rules
 
@@ -74,27 +76,29 @@ mining info:
   data ntransactions support confidence
  Adult         48842     0.5        0.9
 
+R> ## Inspect rules with the highest lift
 R> inspect(head(sort(rules, by = "lift")))
-  lhs                               rhs                              support confidence     lift
-1 {sex=Male,                                                                                    
-   native-country=United-States} => {race=White}                   0.5415421  0.9051090 1.058554
-2 {sex=Male,                                                                                    
-   capital-loss=None,                                                                           
-   native-country=United-States} => {race=White}                   0.5113632  0.9032585 1.056390
-3 {race=White}                   => {native-country=United-States} 0.7881127  0.9217231 1.027076
-4 {race=White,                                                                                  
-   capital-loss=None}            => {native-country=United-States} 0.7490480  0.9205626 1.025783
-5 {race=White,                                                                                  
-   sex=Male}                     => {native-country=United-States} 0.5415421  0.9204803 1.025691
-6 {race=White,                                                                                  
-   capital-gain=None}            => {native-country=United-States} 0.7194628  0.9202807 1.025469
+    lhs                               rhs                              support confidence     lift
+[1] {sex=Male,                                                                                    
+     native-country=United-States} => {race=White}                   0.5415421  0.9051090 1.058554
+[2] {sex=Male,                                                                                    
+     capital-loss=None,                                                                           
+     native-country=United-States} => {race=White}                   0.5113632  0.9032585 1.056390
+[3] {race=White}                   => {native-country=United-States} 0.7881127  0.9217231 1.027076
+[4] {race=White,                                                                                  
+     capital-loss=None}            => {native-country=United-States} 0.7490480  0.9205626 1.025783
+[5] {race=White,                                                                                  
+     sex=Male}                     => {native-country=United-States} 0.5415421  0.9204803 1.025691
+[6] {race=White,                                                                                  
+     capital-gain=None}            => {native-country=United-States} 0.7194628  0.9202807 1.025469
+
 ```
 
 ## Further Information
 
 * List changes from [NEWS.md](https://github.com/mhahsler/arules/blob/master/NEWS.md)
-* [Reference manual](http://cran.r-project.org/web/packages/arules/arules.pdf)
-* [arules package vignette](http://cran.r-project.org/web/packages/arules/vignettes/arules.pdf) with complete examples.
+* [Reference manual](https://cran.r-project.org/package=arules/arules.pdf)
+* [arules package vignette](https://cran.r-project.org/package=arules/vignettes/arules.pdf) with complete examples.
 * Development version of [arules on github](https://github.com/mhahsler/arules).
 * Michael Hahsler, Bettina Gr&uuml;n and Kurt Hornik, [arules - A Computational Environment for Mining Association Rules and Frequent Item Sets.](http://dx.doi.org/10.18637/jss.v014.i15) _Journal of Statistical Software,_ 14(15), 2005.
 * Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta. [The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets.](http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html) _Journal of Machine Learning Research,_ 12:1977-1981, 2011.
