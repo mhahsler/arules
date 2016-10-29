@@ -9,7 +9,10 @@
 \description{
   Provides the generic function \code{dissimilarity} and the S4 methods to
   compute and returns distances for binary data in a \code{matrix},
-  \code{\linkS4class{transactions}} or \code{\linkS4class{associations}}.
+  \code{\linkS4class{transactions}} or \code{\linkS4class{associations}} which 
+  can be used for grouping and clustering. See Hahsler (2016)
+  for an introduction to distance-based
+  clustering of association rules.
 }
 \usage{
 dissimilarity(x, y = NULL, method = NULL, args = NULL, \ldots)
@@ -131,28 +134,32 @@ hc <- hclust(d_affinity, method = "ward.D2")
 plot(hc, main = "Dendrogram for Rules (Affinity)") 
 }
 \references{
+  Aggarwal, C.C., Cecilia Procopiuc, and Philip S. Yu. (2002)
+  Finding localized associations in market basket data.
+  \emph{IEEE Trans. on Knowledge and Data Engineering} 14(1):51--62.
+
+  Dice, L. R. (1945) Measures of the amount of ecologic association 
+  between species. \emph{Ecology} 26, pages 297--302.
+  
+  Gupta, G., Strehl, A., and Ghosh, J. (1999) Distance based clustering 
+  of association rules. \emph{In Intelligent Engineering 
+  Systems Through Artificial Neural Networks (Proceedings 
+  of ANNIE 1999)}, pages 759-764. ASME Press.
+  
+  Hahsler, M. (2016) Grouping association rules using lift. In C. 
+  Iyigun, R. Moghaddess, and A. Oztekin, editors, 11th INFORMS Workshop 
+  on Data Mining and Decision Analytics (DM-DA 2016).
+
   Sneath, P. H. A. (1957) Some thoughts on bacterial classification. 
   \emph{Journal of General Microbiology} 17, pages 184--200.
   
   Sokal, R. R. and Michener, C. D. (1958) A statistical method for evaluating 
   systematic relationships. \emph{University of Kansas Science Bulletin} 38, 
   pages 1409--1438.
-  
-  Dice, L. R. (1945) Measures of the amount of ecologic association 
-  between species. \emph{Ecology} 26, pages 297--302.
  
-  Charu C. Aggarwal, Cecilia Procopiuc, and Philip S. Yu. (2002)
-  Finding localized associations in market basket data.
-  \emph{IEEE Trans. on Knowledge and Data Engineering} 14(1):51--62.
-
   Toivonen, H., Klemettinen, M., Ronkainen, P., 
   Hatonen, K. and Mannila H. (1995) Pruning and grouping discovered
   association rules. \emph{In Proceedings of KDD'95}.
-
-  Gupta, G., Strehl, A., and Ghosh, J. (1999) Distance based clustering 
-  of association rules. \emph{In Intelligent Engineering 
-  Systems Through Artificial Neural Networks (Proceedings 
-  of ANNIE 1999)}, pages 759-764. ASME Press.
 }
 \author{Michael Hahsler}
 \keyword{cluster}
