@@ -1,3 +1,6 @@
+# Changes in version 1.5-0.1 (xx/xx/2016)
+
+
 # Changes in version 1.5-0 (09/23/2016)
 
 * IMPORTANT CHANGE: apriori uses now a time limit set in parameter with 
@@ -8,7 +11,7 @@
   error/warning message.
 * improved argument check for %pin%. Warns now for multiple patterns 
   (was an error) and give an error for empty pattern.
-* inspect prints now consistenly the index of rules/itemsets using brackets 
+* inspect prints now consistently the index of rules/itemsets using brackets 
   and starting from 1.
 
 # Changes in version 1.4-2 (08/06/2016)
