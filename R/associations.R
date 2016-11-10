@@ -59,12 +59,15 @@ setReplaceMethod("info", signature(x = "associations"),
 setMethod("sort", signature(x = "associations"),
   function (x, decreasing = TRUE, na.last = NA, 
     by = "support", order = FALSE, ...) {
-    q <- quality(x)
-    q <- q[, pmatch(by, colnames(q)), drop = FALSE]
-    if(is.null(q)) stop("Unknown interest measure to sort by.")
     
     if(!is.na(na.last)) stop("na.last not supported. NAs are always put last.")
     
+    q <- quality(x)
+    m <- pmatch(by, colnames(q))
+    if(any(is.na(m))) stop("Unknown interest measure to sort by.")
+    
+    q <- q[,m, drop = FALSE]
+  
     if(length(x) == 0) return(x)
     
     o <- do.call(base::order, c(q, list(na.last = TRUE, 
