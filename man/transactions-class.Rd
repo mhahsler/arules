@@ -89,15 +89,14 @@ See \code{\link{itemCoding}} to learn how to encode and recode transaction sets.
   %    extract a subset of items (using item IDs)}
     \item{coerce}{\code{signature(from = "matrix", to = "transactions")};
       produces a transactions data set from a binary incidence matrix.
-      The row names are used as item labels and the column names are
+      The column names are used as item labels and the row names are
       stores as transaction IDs.}
     \item{coerce}{\code{signature(from = "transactions", to = "matrix")};
       coerces the transactions data set into a binary incidence matrix.
     }
     \item{coerce}{\code{signature(from = "list", to = "transactions")};
       produces a transactions data set from a list.  The names of the
-      items in the list are used as item labels and the item IDs and the 
-      incidence matrix is produced automatically.
+      items in the list are used as item labels.
     }
     \item{coerce}{\code{signature(from = "transactions", to = "list")};
       coerces the transactions data set into a list of transactions. 
@@ -120,7 +119,9 @@ See \code{\link{itemCoding}} to learn how to encode and recode transaction sets.
       as a data.frame. 
       Note that this does not reverse coercion from data.frame 
       to \code{transactions}.}
-    \item{coerce}{\code{signature(from = "ngCMatrix", to = "transactions")};              Note that the ngCMatrix needs to have the items as rows!}
+    \item{coerce}{\code{signature(from = "ngCMatrix", to = "transactions")};              
+      Note that the data is stored transposed in the ngCMatrix. Items are 
+      stored as rows and transactions are columns!}
     \item{dimnames, rownames, colnames}{\code{signature(x = "transactions")};
       returns row (transactionID) and column (item) names.}
     \item{labels}{\code{signature(x = "transactions")};
