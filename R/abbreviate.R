@@ -34,28 +34,33 @@ setMethod("abbreviate", signature(names.arg = "itemMatrix"),
 setMethod("abbreviate", signature(names.arg = "transactions"),
   function(names.arg, minlength = 4, ..., 
     method = "both.sides"){
-    abbreviate(as(names.arg, "itemMatrix"), minlength, ..., method=method)
+    abbreviate(as(names.arg, "itemMatrix"), minlength = minlength, 
+      ..., method=method)
   })
 
 setMethod("abbreviate", signature(names.arg = "rules"),
   function(names.arg, minlength = 4, ..., 
     method = "both.sides"){
-    names.arg@lhs <- abbreviate(lhs(names.arg), minlength, ..., method)
-    names.arg@rhs <- abbreviate(rhs(names.arg), minlength, ..., method)
+    names.arg@lhs <- abbreviate(lhs(names.arg), minlength = minlength, 
+      ..., method = method)
+    names.arg@rhs <- abbreviate(rhs(names.arg), minlength = minlength, 
+      ..., method = method)
     names.arg   
   })
   
 setMethod("abbreviate", signature(names.arg = "itemsets"),
   function(names.arg, minlength = 4, ..., 
     method = "both.sides"){
-    names.arg@items = abbreviate(items(names.arg), minlength, ..., method)
+    names.arg@items = abbreviate(items(names.arg), minlength = minlength, 
+      ..., method = method)
     names.arg
   })
 
 setMethod("abbreviate", signature(names.arg = "tidLists"),
   function(names.arg, minlength = 4, ..., 
     method = "both.sides"){
-    abbreviate(as(names.arg, "itemMatrix"), minlength, ..., method=method)
+    abbreviate(as(names.arg, "itemMatrix"), minlength = minlength, 
+      ..., method=method)
   })
 
 

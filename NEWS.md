@@ -1,5 +1,6 @@
 # Changes in version 1.5-0.1 (xx/xx/2016)
 * FIX: Error message for sorting with an unknown interest measure.
+* FIX: abbreviate works now for rules correctly.
 
 
 # Changes in version 1.5-0 (09/23/2016)
