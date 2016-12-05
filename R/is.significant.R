@@ -20,11 +20,25 @@
 
 ## uses fishers exact test to find significant rules (corrected)
 setMethod("is.significant", signature(x = "rules"),
-  function(x, transactions, alpha = 0.01, adjust = "bonferroni") {
-    p <- quality(x)[["fishersExactTest"]]
-    if(is.null(p)) p <- interestMeasure(x, 
+  function(x, transactions, method = "fisher", 
+    alpha = 0.01, adjust = "bonferroni") {
+    
+    methods <- c("fisher", "chisq")
+    m <- pmatch(tolower(method), methods)
+    if(is.na(m)) stop("Unknown method.")
+    method <- methods[m]
+    
+    if(method == "fisher") p <- interestMeasure(x, 
       measure = "fishersExactTest", 
-      transactions = transactions)
+      transactions = transactions,
+      reuse = TRUE)
+    
+      ### chisq
+    else p <- interestMeasure(x, 
+        measure = "chiSquared", 
+        transactions = transactions,
+        reuse = TRUE, significance = TRUE)
+    
     if(adjust != "none") p <- p.adjust(p, method = adjust)
     p <= alpha
   })

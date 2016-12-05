@@ -96,7 +96,7 @@ R> inspect(head(sort(rules, by = "lift")))
 
 ## Further Information
 
-* List changes from [NEWS.md](https://github.com/mhahsler/arules/blob/master/NEWS.md)
+* List of changes from [NEWS.md](https://github.com/mhahsler/arules/blob/master/NEWS.md)
 * [Reference manual](https://cran.r-project.org/package=arules/arules.pdf)
 * [arules package vignette](https://cran.r-project.org/package=arules/vignettes/arules.pdf) with complete examples.
 * Development version of [arules on github](https://github.com/mhahsler/arules).

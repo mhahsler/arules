@@ -10,11 +10,14 @@
   Fisher's exact test and corrects for multiple comparisons.
 }
 \usage{
-is.significant(x, transactions, alpha = 0.01, adjust = "bonferroni") 
+is.significant(x, transactions, method = "fisher", 
+  alpha = 0.01, adjust = "bonferroni") 
 }
 \arguments{
   \item{x}{ a set of rules.}
   \item{transactions}{set of transactions used to mine the rules. }
+  \item{method}{ test to use. Options are
+  \code{"fisher", "chisq"}. Note that the contingency table is likely to have cells with low expected values and that thus Fisher's Exact Test might be more appropriate than the chi-squared test.}
   \item{alpha}{required significance level.}
   \item{adjust}{method to adjust for multiple comparisons. Options are
   \code{"none", "bonferroni", "holm", "fdr"}, etc. (see \code{\link[stats]{p.adjust}})}
