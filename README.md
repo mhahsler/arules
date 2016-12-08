@@ -5,7 +5,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/mhahsler/arules.svg?branch=master)](https://travis-ci.org/mhahsler/arules)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/arules?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/arules)
 
-The arules R package provides the infrastructure for representing,
+The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns (frequent
 itemsets and association rules). Also provides interfaces to
 C implementations of the association mining algorithms Apriori and Eclat.
@@ -30,7 +30,7 @@ __Current development version:__ Download package from [AppVeyor](https://ci.app
 install_git("mhahsler/arules")
 ``` 
 
-## Example
+## Usage
 
 Load package and mine some association rules.
 ```R
@@ -62,7 +62,7 @@ writing ... [52 rule(s)] done [0.00s].
 creating S4 object  ... done [0.01s].
 ```
 
-Show basic statistics
+Show basic statistics.
 ```R
 summary(rules)
 ```
@@ -112,13 +112,9 @@ inspect(head(rules, by = "lift"))
      capital-gain=None}            => {native-country=United-States} 0.7194628  0.9202807 1.025469
 ```
 
-## Further Information
+## References
 
-* List of changes from [NEWS.md](https://github.com/mhahsler/arules/blob/master/NEWS.md)
-* [Reference manual](https://cran.r-project.org/package=arules/arules.pdf)
-* [arules package vignette](https://cran.r-project.org/package=arules/vignettes/arules.pdf) with complete examples.
-* Development version of [arules on github](https://github.com/mhahsler/arules).
+* [Intro article](https://cran.r-project.org/package=arules/vignettes/arules.pdf) by Michael Hahsler, Bettina Gr&uuml;n, Kurt Hornik and
+Christian Buchta
 * Michael Hahsler, Bettina Gr&uuml;n and Kurt Hornik, [arules - A Computational Environment for Mining Association Rules and Frequent Item Sets.](http://dx.doi.org/10.18637/jss.v014.i15) _Journal of Statistical Software,_ 14(15), 2005.
 * Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta. [The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets.](http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html) _Journal of Machine Learning Research,_ 12:1977-1981, 2011.
-
-_Maintainer:_ [Michael Hahsler](http://michael.hahsler.net)

@@ -4,7 +4,7 @@
 \alias{LIST,transactions-method}
 \alias{LIST,tidLists-method}
 \alias{coerce,ngCMatrix,list-method}
-\title{List Representation for Objects Based on Class itemMatrix'
+\title{List Representation for Objects Based on Class itemMatrix}
 \description{
   Provides the generic function \code{LIST} and the S4 methods to create a list
   representation from objects based on \code{\linkS4class{itemMatrix}} (e.g.,

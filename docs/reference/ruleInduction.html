@@ -49,10 +49,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="https://cran.r-project.org/package=arules/vignettes/arules.pdf">Intro</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference Manual</a>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Change Log</a>
 </li>
 <li>
   <a href="https://github.com/mhahsler/arules/">Development Version</a>
@@ -182,14 +185,14 @@ generation. <em>Computational Statistics,</em> 23(2):303-315, April 2008</p>
 #&gt; checking subsets of size 1 2 3 4 5 done [0.00s].
 #&gt; filtering closed item sets ... done [0.00s].
 #&gt; writing ... [99 set(s)] done [0.00s].
-#&gt; creating S4 object  ... done [0.01s].</div><div class='input'><span class='no'>closed</span></div><div class='output co'>#&gt; set of 99 itemsets </div><div class='input'>
+#&gt; creating S4 object  ... done [0.00s].</div><div class='input'><span class='no'>closed</span></div><div class='output co'>#&gt; set of 99 itemsets </div><div class='input'>
 <span class='co'>## rule induction</span>
 <span class='no'>rules</span> <span class='kw'>&lt;-</span> <span class='fu'>ruleInduction</span>(<span class='no'>closed</span>, <span class='no'>Adult</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; ruleInduction: using method ptree 
 #&gt; preprocessing done [0s].
 #&gt; preparing ... 593 itemsets, created 203 (0.20) nodes [0.00s]
-#&gt; counting ... 48842 transactions, processed 9285411 (0.31) nodes [0.07s]
+#&gt; counting ... 48842 transactions, processed 9285411 (0.31) nodes [0.06s]
 #&gt; writing ... 247 rules, processed 1433 (0.70) nodes [0.00s]
-#&gt; searching done [0.092s].
+#&gt; searching done [0.076s].
 #&gt; postprocessing done [0s].</div><div class='input'><span class='fu'>summary</span>(<span class='no'>rules</span>)</div><div class='output co'>#&gt; set of 165 rules
 #&gt; 
 #&gt; rule length distribution (lhs + rhs):sizes

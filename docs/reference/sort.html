@@ -49,10 +49,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="https://cran.r-project.org/package=arules/vignettes/arules.pdf">Intro</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference Manual</a>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Change Log</a>
 </li>
 <li>
   <a href="https://github.com/mhahsler/arules/">Development Version</a>
@@ -165,10 +168,10 @@ it does it without copying and rearranging all the data.
 #&gt; set item appearances ...[0 item(s)] done [0.00s].
 #&gt; set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
 #&gt; sorting and recoding items ... [6 item(s)] done [0.00s].
-#&gt; creating transaction tree ... done [0.03s].
+#&gt; creating transaction tree ... done [0.02s].
 #&gt; checking subsets of size 1 2 3 4 done [0.00s].
 #&gt; writing ... [39 rule(s)] done [0.00s].
-#&gt; creating S4 object  ... done [0.01s].</div><div class='input'>
+#&gt; creating S4 object  ... done [0.00s].</div><div class='input'>
 <span class='no'>rules_by_lift</span> <span class='kw'>&lt;-</span> <span class='fu'>sort</span>(<span class='no'>rules</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"lift"</span>)
 
 <span class='fu'><a href='inspect.html'>inspect</a></span>(<span class='fu'>head</span>(<span class='no'>rules</span>))</div><div class='output co'>#&gt;     lhs           rhs                            support   confidence lift     

@@ -16,10 +16,13 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+  <a href="https://cran.r-project.org/package=arules/vignettes/arules.pdf">Intro</a>
+</li>
+<li>
   <a href="reference/index.html">Reference Manual</a>
 </li>
 <li>
-  <a href="news/index.html">News</a>
+  <a href="news/index.html">Change Log</a>
 </li>
 <li>
   <a href="https://github.com/mhahsler/arules/">Development Version</a>
@@ -43,7 +46,7 @@
     <div id="arules-mining-association-rules-and-frequent-itemsets-with-r" class="section level1">
 <div class="page-header"><h1 class="hasAnchor"><a href="#arules-mining-association-rules-and-frequent-itemsets-with-r" class="anchor"> </a>arules &mdash; Mining Association Rules and Frequent Itemsets with R</h1></div>
 
-<p>The arules R package provides the infrastructure for representing, manipulating and analyzing transaction data and patterns (frequent itemsets and association rules). Also provides interfaces to C implementations of the association mining algorithms Apriori and Eclat.</p>
+<p>The arules package for R provides the infrastructure for representing, manipulating and analyzing transaction data and patterns (frequent itemsets and association rules). Also provides interfaces to C implementations of the association mining algorithms Apriori and Eclat.</p>
 <p>Additional packages in the arules family are:</p>
 <ul><li>
 <a href="http://github.com/mhahsler/arulesViz">arulesViz</a>: Visualization of association rules.</li>
@@ -61,9 +64,9 @@
 <p><strong>Current development version:</strong> Download package from <a href="https://ci.appveyor.com/project/mhahsler/arules/build/artifacts">AppVeyor</a> or install from GitHub (needs devtools).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install_git</span>(<span class="st">"mhahsler/arules"</span>)</code></pre></div>
 </div>
-<div id="example" class="section level2">
+<div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"> </a>Example</h2>
+<a href="#usage" class="anchor"> </a>Usage</h2>
 <p>Load package and mine some association rules.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"arules"</span>)
 <span class="kw">data</span>(<span class="st">"Adult"</span>)
@@ -88,7 +91,7 @@ creating transaction tree ... done [0.03s].
 checking subsets of size 1 2 3 4 done [0.00s].
 writing ... [52 rule(s)] done [0.00s].
 creating S4 object  ... done [0.01s].</code></pre>
-<p>Show basic statistics</p>
+<p>Show basic statistics.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(rules)</code></pre></div>
 <pre><code>set of 52 rules
 
@@ -127,19 +130,14 @@ mining info:
 [6] {race=White,                                                                                  
      capital-gain=None}            =&gt; {native-country=United-States} 0.7194628  0.9202807 1.025469</code></pre>
 </div>
-<div id="further-information" class="section level2">
+<div id="references" class="section level2">
 <h2 class="hasAnchor">
-<a href="#further-information" class="anchor"> </a>Further Information</h2>
-<ul><li>List of changes from <a href="https://github.com/mhahsler/arules/blob/master/NEWS.md">NEWS.md</a>
-</li>
-<li><a href="https://cran.r-project.org/package=arules/arules.pdf">Reference manual</a></li>
-<li>
-<a href="https://cran.r-project.org/package=arules/vignettes/arules.pdf">arules package vignette</a> with complete examples.</li>
-<li>Development version of <a href="https://github.com/mhahsler/arules">arules on github</a>.</li>
+<a href="#references" class="anchor"> </a>References</h2>
+<ul><li>
+<a href="https://cran.r-project.org/package=arules/vignettes/arules.pdf">Intro article</a> by Michael Hahsler, Bettina Gr&uuml;n, Kurt Hornik and Christian Buchta</li>
 <li>Michael Hahsler, Bettina Gr&uuml;n and Kurt Hornik, <a href="http://dx.doi.org/10.18637/jss.v014.i15">arules - A Computational Environment for Mining Association Rules and Frequent Item Sets.</a> <em>Journal of Statistical Software,</em> 14(15), 2005.</li>
 <li>Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta. <a href="http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html">The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets.</a> <em>Journal of Machine Learning Research,</em> 12:1977-1981, 2011.</li>
-</ul><p><em>Maintainer:</em> <a href="http://michael.hahsler.net">Michael Hahsler</a></p>
-</div>
+</ul></div>
 </div>
   </div>
 
