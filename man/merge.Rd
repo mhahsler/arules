@@ -2,7 +2,7 @@
 \alias{merge}
 \alias{merge,itemMatrix-method}
 \alias{merge,transactions-method}
-\title{Merging (adding) items }
+\title{Adding Items to Data}
 \description{
   Provides the generic function \code{merge}  and the S4 methods for
   itemMatrix and transactions. The methods are used to add new items to

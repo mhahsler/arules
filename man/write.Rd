@@ -5,10 +5,10 @@
 \alias{write,transactions-method}
 \alias{write,associations-method}
 \alias{write,ANY-method} % redirects to base::write
-\title{Writes transactions or associations to disk}
+\title{Write Transactions or Associations to a File}
 \description{
   Provides the generic function \code{write} and the S4 methods to 
-  write transactions or associations (itemsets, rules) to disk.  
+  write transactions or associations (itemsets, rules) to a file.  
 }
 \usage{
 write(x, file = "",\dots)

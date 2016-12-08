@@ -2,7 +2,7 @@
 \alias{interestMeasure}
 \alias{interestMeasure,rules-method}
 \alias{interestMeasure,itemsets-method}
-\title{Calculating various additional interest measures}
+\title{Calculate Additional Interest Measures}
 \description{
 Provides the generic function \code{interestMeasure} and the needed S4 method 
 to calculate various additional interest measures for existing sets of

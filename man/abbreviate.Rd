@@ -6,8 +6,7 @@
 \alias{abbreviate,itemsets-method}
 \alias{abbreviate,itemMatrix-method}
 \alias{abbreviate,tidLists-method}
-\title{Abbreviate function for item labels in transactions, 
-itemMatrix and associations}
+\title{Abbreviate function for item labels in transactions, itemMatrix and associations}
 \description{
 Provides the generic function and the
 methods to abbreviate long item labels in transactions, associations (rules and itemsets) and transaction ID lists. Note that \code{abbreviate} is not a

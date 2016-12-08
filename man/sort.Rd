@@ -7,7 +7,7 @@
 \alias{head,associations-method}
 \alias{tail}
 \alias{tail,associations-method}
-\title{Sorting Associations}
+\title{Sort Associations}
 \description{
   Provides the method \code{sort} to sort elements
   in class \code{\linkS4class{associations}} (e.g., itemsets or rules)

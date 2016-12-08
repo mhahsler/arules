@@ -10,7 +10,7 @@
 \alias{encode,character-method}
 \alias{recode}
 \alias{recode,itemMatrix-method}
-\title{Item Coding -- Handling Item Labels and Column IDs Conversions}
+\title{Item Coding --- Handling Item Labels and Column IDs}
 \description{
   Provides the generic functions and the S4 methods for converting item labels
   into column IDs used in the binary matrix representation and vice versa.

@@ -228,6 +228,10 @@
 * read.transactions now accepts column names to specify user and item 
 	columns (by F. Leisch)
 
-# Initial stable release version arules 1.0-0 (3/24/2009)
+# arules 1.0-0 (3/24/2009)
 
-# Alpha and beta versions starting with arules 0.1-0 (4/15/2005)
+* Initial stable release version
+
+# arules 0.1-0 (4/15/2005)
+
+* Alpha and beta versions
