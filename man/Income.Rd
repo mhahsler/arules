@@ -12,7 +12,7 @@
   The data set is a good mixture of categorical and continuous variables with a
   lot of missing data.  This is characteristic of data mining applications.
   The \code{Income} data set contains the data already prepared and coerced to
-  \code{\link[arules:transactions-class]{transactions}}.
+  \code{\link{transactions}}.
 }
 \usage{
 data("Income")

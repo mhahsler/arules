@@ -3,9 +3,7 @@
 \alias{dissimilarity,matrix-method}
 \alias{dissimilarity,itemMatrix-method}
 \alias{dissimilarity,associations-method}
-\title{
-  Dissimilarity Computation
-}
+\title{Dissimilarity Computation}
 \description{
   Provides the generic function \code{dissimilarity} and the S4 methods to
   compute and returns distances for binary data in a \code{matrix},

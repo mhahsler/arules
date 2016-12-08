@@ -21,7 +21,7 @@
 \alias{\%in\%,associations,associations-method}
 \alias{plot.associations}
 
-\title{Class ``associations'' - A Set of Associations}
+\title{Class associations - A Set of Associations}
 \description{
   The \code{associations} class is a virtual class which is extended to
   represent mining result (e.g., sets of itemsets or rules).  The class

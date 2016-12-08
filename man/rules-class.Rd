@@ -26,7 +26,7 @@
 \alias{summary,rules-method}
 \alias{initialize,rules-method}
 
-\title{Class ``rules'' --- A Set of Rules}
+\title{Class rules --- A Set of Rules}
 \description{
 The \code{rules} class represents a set of rules.
 

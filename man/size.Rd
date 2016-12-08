@@ -14,10 +14,6 @@
 }
 \usage{
 size(x, ...)
-%\S4method{size}{itemMatrix}(x)
-%\S4method{size}{itemsets}(x)
-%\S4method{size}{rules}(x)
-%\S4method{size}{tidLists}(x)
 }
 \arguments{
   \item{x}{an object.}

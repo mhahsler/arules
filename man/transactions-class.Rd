@@ -26,7 +26,7 @@
 \alias{summary.transactions-class}
 \alias{show,summary.transactions-method}
 
-\title{Class ``transactions'' --- Binary Incidence Matrix for
+\title{Class transactions --- Binary Incidence Matrix for
   Transactions}
 \description{
   The \code{transactions} class represents transaction data used for

@@ -1,10 +1,11 @@
-# Changes in version 1.5-0.1 (xx/xx/2016)
+# arules 1.5-0.1 (xx/xx/2016)
+
 * FIX: Error message for sorting with an unknown interest measure.
 * FIX: abbreviate works now for rules correctly.
 * is.significant now supports in addition to Fisher's exact test,
   the chi-squared test.
 
-# Changes in version 1.5-0 (09/23/2016)
+# arules 1.5-0 (09/23/2016)
 
 * IMPORTANT CHANGE: apriori uses now a time limit set in parameter with 
   maxtime. The default is 5 seconds. Running out of time or maxlen results 
@@ -17,20 +18,20 @@
 * inspect prints now consistently the index of rules/itemsets using brackets 
   and starting from 1.
 
-# Changes in version 1.4-2 (08/06/2016)
+# arules 1.4-2 (08/06/2016)
 
 * Bugfix: is.redundant returned !is.redundant (reported by brisbia)
 * Duplicate items when coercing from list to transactions are now 
   removed with a warning.
 
-# Changes in version 1.4-1 (04/10/2016)
+# arules 1.4-1 (04/10/2016)
 
 * added tail method for associations.
 * added/fixed encoding for read.transactions
 * Bugfix for interestMeasure. Mutual information is now calculated correctly
   (reported by ddessommes).
 
-# Changes in version 1.4-0 (03/18/2016)
+# arules 1.4-0 (03/18/2016)
 
 * The transaction class lost slot transactionInfo (we use the 
   itemsetInfo slot now). Note that you may have to rebuild some 
@@ -47,7 +48,7 @@
 * Groceries: fixed typo in dataset.
 * abbreviate is now a S4 generic with S4 methods.
 
-# Changes in version 1.3-1 (12/13/2015)
+# arules 1.3-1 (12/13/2015)
 
 * we now require R 3.2.0 so cbind in Matrix works.
 * is.maximal is now also available for rules.
@@ -56,7 +57,7 @@
 * added support for multi-level analysis (aggregate). 
 * APparameter: confidence shows now NA for frequent itemsets.
 
-# Changes in version 1.3-0 (11/11/2015)
+# arules 1.3-0 (11/11/2015)
 
 * removed deprecated WRITE and SORT functions.
 * ruleInduction: bug fix for missing confidence values and better checking 
@@ -71,7 +72,7 @@
 * aggregate uses now 'by' instead of 'itemLabels' to conform to 
       aggregate in base.
     
-# Changes in version 1.2-1 (09/20/2015)
+# arules 1.2-1 (09/20/2015)
 
 * Added many new interest measures.
 * interestMeasure: the formal argument method is now called measure 
@@ -81,7 +82,7 @@
 * fixed undefined behavior for left shift in reclat.c 
   (reported by B. Ripley)
 
-# Changes in version 1.2-0 (09/14/2015)
+# arules 1.2-0 (09/14/2015)
 
 * added support for weighted association rule mining (by C. Buchta):
     - transactions can store weights a column called "weight" in 
@@ -117,18 +118,18 @@
   0 columns.
 * arules uses now testthat (tests are in tests/testthat).
 
-# Changes in version 1.1-9 (7/13/2015)
+# arules 1.1-9 (7/13/2015)
 
 * More work on namespace.
 * Fixed tests.
 
-# Changes in version 1.1-7 (6/29/2015)
+# arules 1.1-7 (6/29/2015)
 
 * itemUnion: fixed bug for large amounts of dense rules.
 * crossTable gained arguments measure and sort.
 * Fixed namespace imports for non-base default packages.
 
-# Changes in version 1.1-6 (12/07/2014)
+# arules 1.1-6 (12/07/2014)
 
 * dissimilarity method "pearson" is now set to 1 (max) for neg. 
       correlation. Also added phi correlation coefficient.
@@ -138,18 +139,18 @@
 * as(..., "transactions"): binary attributes are now translated into items
       only if TRUE. 
 
-# Changes in version 1.1-5 (8/19/2014)
+# arules 1.1-5 (8/19/2014)
 
 * Import drop0 from Matrix
 
-# Changes in version 1.1-4 (7/25/2014)
+# arules 1.1-4 (7/25/2014)
 
 * C code: fixed problem in error message generation in apriori and eclat
 	    (this fixes the trio library problem under Windows)
 * C code: rapriori uses now STRING_ELT to be compatible with TERR (TIBCO)
 * C code: removed some unused variables.
 
-# Changes in version 1.1-3 (6/17/2014)
+# arules 1.1-3 (6/17/2014)
 
 * Fixed dependency on XML and pmml
 * the interest measure chi-squared does now also report p-values 
@@ -158,14 +159,14 @@
 * interestMeasure consistently returns now NA if not defined for a 
         certain rule
 
-# Changes in version 1.1-2 (2/21/2014)
+# arules 1.1-2 (2/21/2014)
 
 * discretize gained the parameter ordered.
 * itemwise set operations itemUnion, itemSetdiff and itemIntersect added.
 * validObject checks now rules more thoroughly
 * aggregate removes duplicate items from the lhs
 
-# Changes in version 1.1-1 (1/16/2014)
+# arules 1.1-1 (1/16/2014)
 
 * is.superset/is.subset now makes sure that the two arguments conform using 
         recode (number and order of items)
@@ -174,7 +175,7 @@
 * image: labels are now passed on correctly.
 * tidLists has now c(). 
 
-# Changes in version 1.1-0 (12/10/2013)
+# arules 1.1-0 (12/10/2013)
 
 * bug fix: reuse in now passed on correctly in interestMeasures 
 	      (bug reported by Ying Leung)
@@ -183,50 +184,50 @@
 * coercion from ngCMatrix to itemMatrix and transactions is now possible
 * C code: fixed misaligned address on 64-bit systems
 
-# Changes in version 1.0-15 (9/6/2013)
+# arules 1.0-15 (9/6/2013)
 
 * service release
 
-# Changes in version 1.0-14 (5/24/2013)
+# arules 1.0-14 (5/24/2013)
 
 * discretize handles now NAs correctly
 * bug fix in is.subset
 
-# Changes in version 1.0-13 (4/7/2013)
+# arules 1.0-13 (4/7/2013)
 
 * transactions: coercion form data.frame now handles logical automatically.
 * discretize replaces categorize and offers several additional methods
 
-# Changes in version 1.0-12 (11/28/2012)
+# arules 1.0-12 (11/28/2012)
 
 * Added read and write for PMML.
 * 'WRITE' is now deprecated, use 'write' instead
 * C code: Added a copy of the C subscript code from R for 
 	better performance and compatibility with arulesSequences
 
-# Changes in version 1.0-11 (11/19/2012)
+# arules 1.0-11 (11/19/2012)
 
 * Fixed vignette.
 * Internal Changes for dimnames and subsetting
 
-# Changes in version 1.0-9 and 1.0-10 (9/3/2012)
+# arules 1.0-9 and 1.0-10 (9/3/2012)
 
 * Added PACKAGE argument to C calls.
 * C code: Added C routine symbols to NAMESPACE for arulesSequence
 
-# Changes in version 1.0-8 (8/23/2012)
+# arules 1.0-8 (8/23/2012)
 
 * fixed memory problem in eclat with tidLists=TRUE
 * added supportedTransactions()
 * is.subset/is.superset can not return a sparse matrix
 * added support to categorize continuous variables.
 
-# Changes in version 1.0-7 (11/4/2011)
+# arules 1.0-7 (11/4/2011)
 
 * minor fixes (removed factor in dimnames for itemMatrix, warning in WRITE)
 * read.transactions now accepts column names to specify user and item 
 	columns (by F. Leisch)
 
-# Initial stable release version 1.0-0 (3/24/2009)
+# Initial stable release version arules 1.0-0 (3/24/2009)
 
-# Alpha and beta versions starting with 0.1-0 (4/15/2005)
+# Alpha and beta versions starting with arules 0.1-0 (4/15/2005)

@@ -5,7 +5,7 @@
 \alias{template}
 \alias{coerce,list,APappearance-method}
 \alias{coerce,NULL,APappearance-method}
-\title{Class ``APappearance'' --- Specifying the `appearance' Argument of
+\title{Class APappearance --- Specifying the appearance Argument of
   apriori() to Implement Rule Templates}
 
 \description{Specifies the restrictions on the associations mined by

@@ -12,9 +12,6 @@
 }
 \usage{
 inspect(x, ...)
-%\S4method{inspect}{itemsets}(x, ...)
-%\S4method{inspect}{rules}(x, ...)
-%\S4method{inspect}{transactions}(x, ...)
 }
 \arguments{
   \item{x}{ a set of associations or transactions or an itemMatrix.}

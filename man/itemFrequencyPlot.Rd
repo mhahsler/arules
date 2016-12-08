@@ -1,9 +1,7 @@
 \name{itemFrequencyPlot}
 \alias{itemFrequencyPlot}
 \alias{itemFrequencyPlot,itemMatrix-method}
-\title{
-  Creating a Item Frequencies/Support Bar Plot
-}
+\title{Creating a Item Frequencies/Support Bar Plot}
 \description{
   Provides the generic function \code{itemFrequencyPlot} and the S4 method to
   create an item frequency bar plot for inspecting the item frequency

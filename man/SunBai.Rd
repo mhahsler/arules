@@ -6,7 +6,7 @@
 \description{
     A small example database for weighted association rule mining
     provided as an object of class
-    \code{\link[arules:transactions-class]{transactions}}.
+    \code{\link{transactions}}.
 }
 \usage{data(SunBai)}
 \details{
@@ -23,9 +23,9 @@
 }
 \seealso{
     Class
-    \code{\link[arules:transactions-class]{transactions}},
+    \code{\link{transactions}},
     method 
-    \code{\link[arules:transactionInfo]{transactionInfo}},
+    \code{\link{transactionInfo}},
     function 
     \code{\link{hits}}.
 }

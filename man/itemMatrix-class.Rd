@@ -44,7 +44,7 @@
 \alias{t,ngCMatrix-method}
 \alias{plot.itemMatrix}
 
-\title{Class ``itemMatrix'' --- Sparse Binary Incidence Matrix to Represent Sets
+\title{Class itemMatrix --- Sparse Binary Incidence Matrix to Represent Sets
   of Items}
 \description{The \code{itemMatrix} class is the basic building block
   for transactions, itemsets and rules in package \pkg{arules}. 

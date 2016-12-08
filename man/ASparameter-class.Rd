@@ -16,8 +16,8 @@
 \alias{coerce,NULL,ECparameter-method}
 \alias{coerce,list,ECparameter-method}
 
-\title{Classes ``ASparameter'', ``APparameter'', ``ECparameter'' ---
-  Specifying the `parameter' Argument of apriori() and eclat()}
+\title{Classes ASparameter, APparameter, ECparameter ---
+  Specifying the parameter Argument of apriori() and eclat()}
 \description{
   The \code{ASparameter} class holds the mining parameters (e.g., minimum
   support) for the used mining algorithms.  \code{APparameter} and

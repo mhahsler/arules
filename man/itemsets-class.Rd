@@ -20,7 +20,7 @@
 \alias{tidLists,itemsets-method}
 %\alias{tidLists}
 
-\title{Class ``itemsets'' --- A Set of Itemsets}
+\title{Class itemsets --- A Set of Itemsets}
 \description{
   The \code{itemsets} class represents a set of itemsets and the associated
   quality measures. 

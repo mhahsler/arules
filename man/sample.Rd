@@ -11,8 +11,6 @@
 }
 \usage{
 sample(x, size, replace = FALSE, prob = NULL, ...)
-%\S4method{sample}{itemMatrix}(x, size, replace = FALSE, prob = NULL)
-%\S4method{sample}{associations}(x, size, replace = FALSE, prob = NULL)
 }
 \arguments{
   \item{x}{ object to be sampled from 

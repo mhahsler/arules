@@ -1,11 +1,11 @@
-# arules - Mining Association Rules and Frequent Itemsets - R package
+# arules --- Mining Association Rules and Frequent Itemsets with R
 
 [![CRAN version](http://www.r-pkg.org/badges/version/arules)](https://cran.r-project.org/package=arules)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/arules)](https://cran.r-project.org/package=arules)
 [![Travis-CI Build Status](https://travis-ci.org/mhahsler/arules.svg?branch=master)](https://travis-ci.org/mhahsler/arules)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/arules?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/arules)
 
-This R package provides the infrastructure for representing,
+The arules R package provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns (frequent
 itemsets and association rules). Also provides interfaces to
 C implementations of the association mining algorithms Apriori and Eclat.
@@ -21,17 +21,26 @@ Additional packages in the arules family are:
 
 ## Installation
 
-* __Stable CRAN version:__ install from within R.
-* __Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/arules/build/artifacts) or install via `install_git("mhahsler/arules")` (needs devtools) 
+__Stable CRAN version:__ install from within R with
+```R
+install.packages("arules")
+```
+__Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/arules/build/artifacts) or install from GitHub (needs devtools). 
+```R 
+install_git("mhahsler/arules")
+``` 
 
 ## Example
+
+Load package and mine some association rules.
 ```R
-R> library("arules")
-R> data("Adult")
+library("arules")
+data("Adult")
 
-R> ## Mine association rules
-R> rules <- apriori(Adult, parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
+rules <- apriori(Adult, parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
+```
 
+```
 Parameter specification:
  confidence minval smax arem  aval originalSupport support minlen maxlen target   ext
         0.9    0.1    1 none FALSE            TRUE     0.5      1     10  rules FALSE
@@ -51,9 +60,14 @@ creating transaction tree ... done [0.03s].
 checking subsets of size 1 2 3 4 done [0.00s].
 writing ... [52 rule(s)] done [0.00s].
 creating S4 object  ... done [0.01s].
+```
 
-R> ## Show some basic statistics
-R> summary(rules)
+Show basic statistics
+```R
+summary(rules)
+```
+
+```
 set of 52 rules
 
 rule length distribution (lhs + rhs):
@@ -75,9 +89,14 @@ summary of quality measures:
 mining info:
   data ntransactions support confidence
  Adult         48842     0.5        0.9
+```
 
-R> ## Inspect rules with the highest lift
-R> inspect(head(sort(rules, by = "lift")))
+Inspect rules with the highest lift.
+```R
+inspect(head(rules, by = "lift"))
+```
+
+```
     lhs                               rhs                              support confidence     lift
 [1] {sex=Male,                                                                                    
      native-country=United-States} => {race=White}                   0.5415421  0.9051090 1.058554
@@ -91,7 +110,6 @@ R> inspect(head(sort(rules, by = "lift")))
      sex=Male}                     => {native-country=United-States} 0.5415421  0.9204803 1.025691
 [6] {race=White,                                                                                  
      capital-gain=None}            => {native-country=United-States} 0.7194628  0.9202807 1.025469
-
 ```
 
 ## Further Information

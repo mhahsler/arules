@@ -13,8 +13,8 @@
 \alias{coerce,NULL,ECcontrol-method}
 \alias{coerce,list,ECcontrol-method}
 
-\title{Classes ``AScontrol'', ``APcontrol'', ``ECcontrol'' ---
-  Specifying the `control' Argument of apriori() and eclat()}
+\title{Classes AScontrol, APcontrol, ECcontrol ---
+  Specifying the control Argument of apriori() and eclat()}
 \description{
   The \code{AScontrol} class holds the algorithmic parameters for the used
   mining algorithms.  \code{APcontrol} and \code{ECcontrol} directly extend

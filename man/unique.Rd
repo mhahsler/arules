@@ -13,8 +13,6 @@
   }
 \usage{
 unique(x, incomparables = FALSE, ...)
-%\S4method{unique}{associations}(x, incomparables = FALSE, ...)
-%\S4method{unique}{itemMatrix}(x, incomparables = FALSE, ...)
 }
 \arguments{
   \item{x}{ an object of class \code{itemMatrix} or associations. }

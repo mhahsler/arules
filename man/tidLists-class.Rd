@@ -32,7 +32,7 @@
 \alias{summary.tidLists-class}
 \alias{show,summary.tidLists-method}
 
-\title{Class ``tidLists'' --- Transaction ID Lists for Items/Itemsets}
+\title{Class tidLists --- Transaction ID Lists for Items/Itemsets}
 \description{
   Transaction ID lists contains a set of lists.  Each list is associated with
   an item/itemset and stores the IDs of the transactions which support the

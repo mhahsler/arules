@@ -12,7 +12,6 @@ maximal itemsets.
 }
 \usage{
 is.maximal(x,\ldots)
-%\S4method{is.maximal}{itemMatrix}(x, blocksize = 200)
 \S4method{is.maximal}{itemMatrix}(x)
 }
 \arguments{

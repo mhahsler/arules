@@ -11,7 +11,7 @@ hits(data, iter = 16L, tol = NULL,
 }
 \arguments{
   \item{data}{an object of or coercible to class
-    \code{\link[arules:transactions-class]{transactions}}.}
+    \code{\link{transactions}}.}
   \item{iter}{an integer value specifying the maximum number of iterations
     to use.}
   \item{tol}{convergence tolerance (default \code{FLT_EPSILON}).}
@@ -41,7 +41,7 @@ hits(data, iter = 16L, tol = NULL,
 \author{Christian Buchta}
 \seealso{
   Class
-  \code{\link[arules:transactions-class]{transactions}},
+  \code{\link{transactions}},
   function 
   \code{\link{weclat}}
 }

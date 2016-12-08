@@ -16,9 +16,6 @@
 }
 \usage{
 duplicated(x, incomparables = FALSE, ...)
-%\S4method{duplicated}{rules}(x, incomparables = FALSE, ...)
-%\S4method{duplicated}{itemsets}(x, incomparables = FALSE, ...)
-%\S4method{duplicated}{itemMatrix}(x, incomparables = FALSE, ...)
 }
 \arguments{
   \item{x}{ an object of class \code{itemMatrix} or associations.}

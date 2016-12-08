@@ -7,7 +7,7 @@
 %
 \alias{dist-class}
 
-\title{Classes ``dist'', ``ar\_cross\_dissimilarity'' and ``ar\_similarity'' --- Proximity Matrices}
+\title{Classes dist, ar\_cross\_dissimilarity and ar\_similarity --- Proximity Matrices}
 \description{
   Simple classes to represent proximity matrices.  For compatibility with
   clustering functions in \code{R}, we represent dissimilarities as the

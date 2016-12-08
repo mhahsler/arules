@@ -1,9 +1,7 @@
 \name{discretize}
 \alias{discretize}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-Convert a Continuous Variable into a Categorical Variable
-}
+\title{Convert a Continuous Variable into a Categorical Variable}
 \description{
 This function implements several basic unsupervized methods to convert continuous variables into a categorical variables (factor) suitable for association rule mining.
 }
