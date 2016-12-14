@@ -44,13 +44,17 @@ LIST(from, \dots)
 \seealso{
   \code{\link{decode}},
   \code{\link{coerce,itemMatrix,list-method}},
-  \code{\link{itemMatrix-class}}
+  \code{\link{itemMatrix-class}},
+  \code{\link{DATAFRAME}}
 }
 \author{Michael Hahsler}
 \examples{
 data(Adult)
 
+### default coercions (same as as(Adult[1:5], "list"))
 LIST(Adult[1:5])
+
+### coercion without item decoding
 LIST(Adult[1:5], decode = FALSE)
 }
 \keyword{manip}

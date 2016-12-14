@@ -1,9 +1,12 @@
 # arules 1.5-0.1 (xx/xx/2016)
 
-* FIX: Error message for sorting with an unknown interest measure.
-* FIX: abbreviate works now for rules correctly.
 * is.significant now supports in addition to Fisher's exact test,
   the chi-squared test.
+* Added function DATAFRAME for more control over coercion to data.frame 
+  (e.g., use separate columns for LHS and RHS of rules).
+* FIX: Error message for sorting with an unknown interest measure.
+* FIX: abbreviate works now for rules correctly.
+
 
 # arules 1.5-0 (09/23/2016)
 
