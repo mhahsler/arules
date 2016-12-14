@@ -136,12 +136,14 @@ LIST(from, decode = TRUE)</pre>
 
     <p><code><a href='itemCoding.html'>decode</a></code>,
   <code><a href='itemMatrix-class.html'>coerce,itemMatrix,list-method</a></code>,
-  <code><a href='itemMatrix-class.html'>itemMatrix-class</a></code></p>
+  <code><a href='itemMatrix-class.html'>itemMatrix-class</a></code>,
+  <code><a href='DATAFRAME.html'>DATAFRAME</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>Adult</span>)
 
+<span class='co'>### default coercions (same as as(Adult[1:5], "list"))</span>
 <span class='fu'>LIST</span>(<span class='no'>Adult</span>[<span class='fl'>1</span>:<span class='fl'>5</span>])</div><div class='output co'>#&gt; $`1`
 #&gt;  [1] &quot;age=Middle-aged&quot;              &quot;workclass=State-gov&quot;         
 #&gt;  [3] &quot;education=Bachelors&quot;          &quot;marital-status=Never-married&quot;
@@ -186,7 +188,9 @@ LIST(from, decode = TRUE)</pre>
 #&gt;  [9] &quot;capital-gain=None&quot;                 &quot;capital-loss=None&quot;                
 #&gt; [11] &quot;hours-per-week=Full-time&quot;          &quot;native-country=Cuba&quot;              
 #&gt; [13] &quot;income=small&quot;                     
-#&gt; </div><div class='input'><span class='fu'>LIST</span>(<span class='no'>Adult</span>[<span class='fl'>1</span>:<span class='fl'>5</span>], <span class='kw'>decode</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'>
+<span class='co'>### coercion without item decoding</span>
+<span class='fu'>LIST</span>(<span class='no'>Adult</span>[<span class='fl'>1</span>:<span class='fl'>5</span>], <span class='kw'>decode</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt;  [1]   2  11  26  33  36  51  60  62  64  66  70 111 114
 #&gt; 
 #&gt; [[2]]

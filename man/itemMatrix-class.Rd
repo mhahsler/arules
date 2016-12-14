@@ -126,9 +126,6 @@ See \code{\link{itemCoding}} to learn how to encode and recode itemMatrix object
       returns the dimensions of the itemMatrix.}
     \item{dimnames, rownames, colnames}{\code{signature(x = "itemMatrix")};
         returns row (itemsetID) and column (item) names.}
-    \item{labels}{\code{signature(x = "transactions")};
-      returns the labels for the itemsets in each transaction 
-      (see \code{itemMatrix}).} 
     \item{dimnames}{\code{signature(x = "itemMatrix")};
       returns dimnames.}
     \item{dimnames<-}{\code{signature(x = "itemMatrix", value = "list")};

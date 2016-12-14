@@ -36,6 +36,9 @@ setGeneric("%ain%",
 setGeneric("LIST",
     function(from, ...) standardGeneric("LIST"))
 
+setGeneric("DATAFRAME",
+    function(from, ...) standardGeneric("DATAFRAME"))
+
 setGeneric("addComplement",
     function(x, labels, complementLabels=NULL) standardGeneric("addComplement"))
 

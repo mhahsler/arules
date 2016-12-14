@@ -64,6 +64,7 @@ exportMethods(
   "%ain%",
   "%pin%",
   "LIST",
+  "DATAFRAME",
   "[",
   "aggregate",
   "abbreviate",
