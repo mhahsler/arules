@@ -6,7 +6,8 @@
 \description{
 Provides the generic function \code{interestMeasure} and the needed S4 method 
 to calculate various additional interest measures for existing sets of
-itemsets or rules.
+itemsets or rules. Definitions and equations can be found in
+\href{http://michael.hahsler.net/research/association_rules/measures.html}{Hahsler (2015)}.
 }
 \usage{
 interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
@@ -130,7 +131,7 @@ the proportion of transactions that do not contain \eqn{X}.
   Defined as 
   \eqn{\frac{supp(X)supp(\overline{Y})}{supp(X \cup \overline{Y})}}{supp(X)supp(!Y)/supp(X & !Y)}. 
   
-  Range: \eqn{[.5, \infty]}{[.5, Inf]} (\eqn{1} indicates unrelated items)}
+  Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates unrelated items)}
 
 \item{"cosine" (Tan et al., 2004)}{
   Defined as \eqn{\frac{supp(X \cup Y)}{\sqrt{(supp(X)supp(Y))}}}{supp(X & Y)/sqrt(supp(X)supp(Y))}
@@ -404,6 +405,9 @@ the proportion of transactions that do not contain \eqn{X}.
    defined.
 }
 \references{
+Hahsler, Michael (2015). 
+A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: \url{http://michael.hahsler.net/research/association_rules/measures.html}.
+
 Agrawal, R., H Mannila, R Srikant, H Toivonen, AI Verkamo (1996).
 Fast Discovery of Association Rules.
 \emph{Advances in Knowledge Discovery and Data Mining} 12 (1), 307--328.
