@@ -12,7 +12,7 @@ C implementations of the association mining algorithms Apriori and Eclat.
 
 Additional packages in the arules family are: 
 
-* [arulesViz](http://github.com/mhahsler/arulesViz): Visualization of association rules. 
+* [arulesViz](http://mhahsler.github.io/arulesViz/): Visualization of association rules. 
 * [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification based on association rules.  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences):
    Mining frequent sequences.
