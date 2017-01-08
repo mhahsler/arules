@@ -104,9 +104,12 @@ the proportion of transactions that do not contain \eqn{X}.
   Fisher's Exact Test might be more appropriate 
   (see below).
   
-  Called with \code{significance=TRUE}, the p-value of the test for independence is returned instead of the chi-squared statistic.  
+  Called with \code{significance=TRUE}, the p-value of the test for 
+  independence is returned instead of the chi-squared statistic.  
+  For p-values, substitutes effects can be tested using 
+  the parameter \code{complements = FALSE}.  
   
-  Range: \eqn{[0, \infty]}{[0, Inf]}}
+  Range: \eqn{[0, \infty]}{[0, Inf]}} or p-value scale
 
 \item{"certainty", certainty factor, CF, Loevinger (Berzal et al., 2002)}{
   The certainty factor is a measure of variation of the probability that 
