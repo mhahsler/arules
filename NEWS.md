@@ -1,19 +1,31 @@
 # arules 1.5-0.1 (xx/xx/2016)
 
+## New Features
+
 * Added interest measure maxConf.
 * is.significant now supports in addition to Fisher's exact test,
   the chi-squared test.
+* interest measure Fisher's exact test can now produce p-values for
+  substitutes.
 * Added function DATAFRAME for more control over coercion to data.frame 
   (e.g., use separate columns for LHS and RHS of rules).
-* FIX: Error message for sorting with an unknown interest measure.
-* FIX: abbreviate works now for rules correctly.
+
+## BUG FIXES
+
+* Error message for sorting with an unknown interest measure.
+* abbreviate works now for rules correctly.
 
 
 # arules 1.5-0 (09/23/2016)
 
-* IMPORTANT CHANGE: apriori uses now a time limit set in parameter with 
+## Major Changes
+
+* apriori uses now a time limit set in parameter with 
   maxtime. The default is 5 seconds. Running out of time or maxlen results 
   in a warning. The warning for low absolute support was removed.
+
+## BUG FIXES
+
 * is.redundant now also marks rules with the same confidence as redundant.
 * plot for associations and transactions produces now a better 
   error/warning message.
@@ -24,37 +36,55 @@
 
 # arules 1.4-2 (08/06/2016)
 
-* Bugfix: is.redundant returned !is.redundant (reported by brisbia)
+## BUG FIXES
+
+* is.redundant returned !is.redundant (reported by brisbia)
 * Duplicate items when coercing from list to transactions are now 
   removed with a warning.
 
 # arules 1.4-1 (04/10/2016)
 
+## New Features
+
 * added tail method for associations.
 * added/fixed encoding for read.transactions
-* Bugfix for interestMeasure. Mutual information is now calculated correctly
+
+## BUG FIXES
+
+* Mutual information is now calculated correctly
   (reported by ddessommes).
 
 # arules 1.4-0 (03/18/2016)
 
+## New Features
+
 * The transaction class lost slot transactionInfo (we use the 
   itemsetInfo slot now). Note that you may have to rebuild some 
   transaction sets if you are using transactionInfo.
-* Bugfix for combining item matrices with 0 rows (reported by C. Buchta).
-* Bugfix for itemLabel recoding in is.subset (reported by sjain777). 
-* Bugfix for NAMESPACE export for %in%
-* is.redundant: fixed and performance improvement.
 * interestMeasure: performance improvement for "improvement" measure.
 * sort: speed up sort by always sorting NAs last.
 * head: added method head for associations for getting the best rules 
   according to an interest measure faster than sorting all the 
   associations first.
-* Groceries: fixed typo in dataset.
 * abbreviate is now a S4 generic with S4 methods.
+
+## BUG FIXES
+
+* combining item matrices with 0 rows (reported by C. Buchta).
+* itemLabel recoding in is.subset (reported by sjain777). 
+* NAMESPACE export for %in%
+* is.redundant: fixed and performance improvement.
+* Groceries: fixed typo in dataset.
 
 # arules 1.3-1 (12/13/2015)
 
+
+## Major Changes
+
 * we now require R 3.2.0 so cbind in Matrix works.
+
+## New Features
+
 * is.maximal is now also available for rules.
 * added is.significant for rules (uses Fishers exact test with correction).
 * added is.redundant for rules.
@@ -63,9 +93,9 @@
 
 # arules 1.3-0 (11/11/2015)
 
+## New Features
+
 * removed deprecated WRITE and SORT functions.
-* ruleInduction: bug fix for missing confidence values and better checking 
-  (by C. Buchta). 
 * subset extraction: added checks, handles now NAs and recycles for logical.
 * read.transactions gained arguments skip and quote and some defaults for
   read and write (uses now quotes and no rownames by default) have changed.
@@ -75,18 +105,30 @@
   not a memory fault.
 * aggregate uses now 'by' instead of 'itemLabels' to conform to 
       aggregate in base.
+
+## BUG FIXES
+
+* ruleInduction: bug fix for missing confidence values and better checking 
+  (by C. Buchta). 
     
 # arules 1.2-1 (09/20/2015)
+
+## New Features
 
 * Added many new interest measures.
 * interestMeasure: the formal argument method is now called measure 
   (method is now deprecated).
 * Added Mushroom dataset.
 * Moved abbreviate from arulesViz to arules.
+
+## BUG FIXES
+
 * fixed undefined behavior for left shift in reclat.c 
   (reported by B. Ripley)
 
 # arules 1.2-0 (09/14/2015)
+
+## Major Changes
 
 * added support for weighted association rule mining (by C. Buchta):
     - transactions can store weights a column called "weight" in 
@@ -95,6 +137,14 @@
         called weighted.
     - weclat extends eclat with transaction weights.
     - hits can be used to calculate weights from transact ions.
+* We are transitioning to internally use consistently data.frames 
+  with the correct number of rows for quality, itemInfo, 
+  transactionInfo and itemsetInfo. These data.frames possibly have 
+  0 columns.
+* arules uses now testthat (tests are in tests/testthat).
+
+## New Features
+
 * sort can now sort by several columns (used to break ties) in quality. 
   It also gained an order parameter to return a permutation vector
   (order) instead.
@@ -111,16 +161,14 @@
   no prefix (except if transactionInfo contains an item called "items").
 * transactions has now its own dimnames function which correctly returns 
   transactionID from transactionInfo as rownames.
-* fixed missing row labels for is.subset().
 * replacement method for dimnames() checks now dimensions.
 * item labels are now internally handled as character using 
   stringAsFactor = FALSE in data.frames and not AsIs with I(character).
 * rules can now have no item in the RHS.
-* We are transitioning to internally use consistently data.frames 
-  with the correct number of rows for quality, itemInfo, 
-  transactionInfo and itemsetInfo. These data.frames possibly have 
-  0 columns.
-* arules uses now testthat (tests are in tests/testthat).
+
+## Bug Fixes
+
+* fixed missing row labels for is.subset().
 
 # arules 1.1-9 (7/13/2015)
 
