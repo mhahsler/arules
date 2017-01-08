@@ -5,7 +5,8 @@
 * Added interest measure maxConf.
 * is.significant now supports in addition to Fisher's exact test,
   the chi-squared test.
-* interest measure Fisher's exact test can now produce p-values for
+* interest measures Fisher's exact test and chi-squared 
+  (using significance = TRUE) can now produce p-values for
   substitutes.
 * Added function DATAFRAME for more control over coercion to data.frame 
   (e.g., use separate columns for LHS and RHS of rules).

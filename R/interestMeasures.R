@@ -360,8 +360,9 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## more measures
 ## see Tan et al. Introduction to Data Mining, 2006
 
-.basicRuleMeasure <- function(x, measure, counts, significance = FALSE, ...) {
-  ### significance is only used by chi-squared
+.basicRuleMeasure <- function(x, measure, counts, 
+  significance = FALSE, compliment = TRUE, ...) {
+  ### significance and compliment are only used by chi-squared
   
   N   <- counts$N
   f1x <- counts$f1x
@@ -435,7 +436,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "doc") return((f11/f1x)-(f01/f0x))
   
   
-  ## this one is from Bing Liu, Wynne Hsu, and Yiming Ma (1999) 
+  ## chi-squared is from Bing Liu, Wynne Hsu, and Yiming Ma (1999) 
   if(measure == "chiSquared") {
     
     chi2 <- c()
@@ -454,7 +455,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     ## qchisq(0.05, df =1, lower.tail=FALSE)
     ## [1] 3.841459
     if(!significance) return(chi2)
-    else return(stats::pchisq(q=chi2, df=1, lower.tail=FALSE))
+    else return(stats::pchisq(q=chi2, df=1, lower.tail=!compliment))
   }
   
   stop("Specified measure not implemented.")
