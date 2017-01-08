@@ -1,5 +1,6 @@
 # arules 1.5-0.1 (xx/xx/2016)
 
+* Added interest measure maxConf.
 * is.significant now supports in addition to Fisher's exact test,
   the chi-squared test.
 * Added function DATAFRAME for more control over coercion to data.frame 

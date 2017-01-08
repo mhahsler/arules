@@ -268,8 +268,8 @@ the proportion of transactions that do not contain \eqn{X}.
   
   Range: \eqn{[0, 1]}}
 
-\item{"jaccard", Jaccard coefficient (Tan and Kumar, 2000)}{
-  Defined as \eqn{\frac{supp(X \cup Y)}{supp(X) + supp(Y) - supp(X \cup Y)}}{supp(X & Y) / (supp(X) + supp(Y) - supp(X & Y))}
+\item{"jaccard", Jaccard coefficient (Tan and Kumar, 2000) sometimes also called Coherence (Wu et al., 2010)}{
+  Null-invariant measure defined as \eqn{\frac{supp(X \cup Y)}{supp(X) + supp(Y) - supp(X \cup Y)}}{supp(X & Y) / (supp(X) + supp(Y) - supp(X & Y))}
 
   Range: \eqn{[-1, 1]} (0 for independence)}
 
@@ -289,7 +289,7 @@ the proportion of transactions that do not contain \eqn{X}.
 
   Range: \eqn{[-1, 1]} (0 for independence)}
 
-\item{"kulczynski" (Wu, Chen and Han, 2007; Kulczynski, 1927)}{
+\item{"kulczynski" (Wu, Chen and Han, 2010; Kulczynski, 1927)}{
 
   Calculate the null-invariant Kulczynski measure with a preference for 
   skewed patterns. 
@@ -330,6 +330,12 @@ the proportion of transactions that do not contain \eqn{X}.
   Lift quantifies dependence between X and Y by \eqn{\frac{supp(X \cup Y)}{supp(X)supp(Y)}}{supp(X&Y)/(supp(X)supp(Y))}.
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (1 means independence)}
+
+\item{"maxConfidence" (Wu et al. 2010)}{
+  Null-invariant measure defined as \eqn{max{conf(X->Y), conf(X->Y)}}.
+  
+  Range: \eqn{[0, 1]}
+}
 
 \item{"mutualInformation", uncertainty, M (Tan et al., 2002)}{
   Measures the information gain for Y provided by X.
@@ -482,10 +488,7 @@ Tan, Pang-Ning, Vipin Kumar, and Jaideep Srivastava (2004). Selecting the right
 objective measure for association analysis. \emph{Information Systems},
 29(4):293--313.
 
-Wu, Tianyi, Yuguo Chen, and Jiawei Han (2007). Association Mining in Large Databases: A Re-examination of Its Measures. In \emph{Proceedings of the 11th European conference on Principles and Practice of Knowledge Discovery in Databases (PKDD 2007)}, Springer-Verlag, Berlin, Heidelberg, 621--628.
-
-Wu, T., Y. Chen, and J. Han (2010). Re-examination of interestingness measures in pattern mining: A unified framework. \emph{Data Mining and Knowledge Discovery},
-2010.
+Wu, T., Y. Chen, and J. Han (2010). Re-examination of interestingness measures in pattern mining: A unified framework. \emph{Data Mining and Knowledge Discovery}, 21(3):371-397, 2010.
 
 Xiong, Hui, Pang-Ning Tan, and Vipin Kumar (2003). Mining strong affinity
 association patterns in data sets with skewed support distribution. In Bart

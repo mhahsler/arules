@@ -141,8 +141,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "jaccard", "kappa",
       "mutualInformation", "lambda", "jMeasure", "laplace",
       "certainty", "addedValue",
-      
-      ### FIXME: add to man page!
+      "maxconfidence",
+       
       "ralambrodrainy",
       "descriptiveConfirm",
       "confirmedConfidence",
@@ -197,6 +197,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if(measure == "RLD") return(.RLD(x, transactions, reuse))
     if(measure == "imbalance") return(.imbalance(x, transactions, reuse))
     if(measure == "kulczynski") return(.kulc(x, transactions, reuse))
+    if(measure == "maxconfidence") return(.maxConf(x, transactions, reuse))
     
     
     ## all other measures are implemented here (counts is in ...)
@@ -522,6 +523,21 @@ setMethod("interestMeasure",  signature(x = "rules"),
   ## rhs support
   Y <- .rhsSupport(x, transactions = transactions, reuse = reuse)
   
-  kulc <- XY/2 * (1/X + 1/Y)
-  kulc
+  XY/2 * (1/X + 1/Y)
+}
+
+## Maximum Confidence measure see T. Wu et al. 2010
+# maxConf = max{supp(X,Y)/supp(X), supp(X,Y)/supp(Y)}
+.maxConf <- function(x, transactions, reuse = TRUE) {
+  if(is.null(transactions)) stop("transactions missing. Please specify the data used to mine the rules as transactions!")
+
+  XY <- interestMeasure(x, measure = "support", 
+    transactions  = transactions, reuse = reuse)
+  ## lhs support
+  X <- interestMeasure(x, measure = "coverage", 
+    transactions = transactions, reuse = reuse)
+  ## rhs support
+  Y <- .rhsSupport(x, transactions = transactions, reuse = reuse)
+  
+  pmax(XY/X, XY/Y)
 }
