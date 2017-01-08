@@ -25,7 +25,7 @@ weclat(data, parameter = NULL, control = NULL)
 }
 \details{
   Transaction weights are stored in the transaction as a column called 
-  \code{weight} in \code{transactionInfo()}.
+  \code{weight} in \code{\link{transactionInfo}}.
   
   The weighted support of an itemset is the sum of the weights of the 
   transactions that contain the itemset. An itemset is frequent if
@@ -33,7 +33,7 @@ weclat(data, parameter = NULL, control = NULL)
   by \code{support} (assuming that the weights sum to one).
 
   Note that ECLAT only mines (weighted) frequent itemsets. Weighted
-  association rules can be created using \code{ruleInduction()}.
+  association rules can be created using \code{\link{ruleInduction}}.
 }
 \value{
   Returns an object of class

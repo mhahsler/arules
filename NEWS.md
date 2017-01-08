@@ -7,11 +7,7 @@
   the chi-squared test.
 * interest measures Fisher's exact test and chi-squared 
   (using significance = TRUE) can now produce p-values for
-<<<<<<< HEAD
   substitutes (with complements = FALSE).
-=======
-  substitutes.
->>>>>>> 2063152f45f475c71bf8243b8ee7e50074d28239
 * Added function DATAFRAME for more control over coercion to data.frame 
   (e.g., use separate columns for LHS and RHS of rules).
 

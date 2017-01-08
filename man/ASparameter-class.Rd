@@ -50,7 +50,8 @@
 	\item \code{"frequent itemsets"} 
 	\item \code{"maximally frequent itemsets"}
 	\item \code{"closed frequent itemsets"}
-	\item \code{"rules"} (only available for Apriori) 
+	\item \code{"rules"} (only available for Apriori; 
+	     use \code{\link{ruleInduction}} for \code{eclat}.) 
  	\item \code{"hyperedgesets"} (only available for Apriori; 
 	see references for the definition of association hyperedgesets)
       }
@@ -118,7 +119,9 @@
 }
 \seealso{
   \code{\link{apriori}},
-  \code{\link{eclat}}
+  \code{\link{eclat}},
+  \code{\link{weclat}} (for weighted rule mining),
+  \code{\link{ruleInduction}}
 }
 \author{Michael Hahsler and Bettina Gruen}
 \keyword{classes}

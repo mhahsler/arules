@@ -26,13 +26,13 @@ eclat(data, parameter = NULL, control = NULL)
   Calls the C implementation of the Eclat algorithm by Christian 
   Borgelt for mining frequent itemsets. 
 
-  Note for contriol parameter \code{tidLists=TRUE}: 
+  Note for control parameter \code{tidLists=TRUE}: 
   Since storing transaction ID lists is very memory intensive, 
   creating transaction ID lists only works for minimum
   support values which create a relatively small number of itemsets. 
-  See also \code{supportingTransactions()}.
+  See also \code{\link{supportingTransactions}}.
 
-  \code{ruleInduction()} can be used to generate rules from the found itemsets.
+  \code{\link{ruleInduction}} can be used to generate rules from the found itemsets.
 
   A weighted version of ECLAT is available as function \code{\link{weclat}}. 
   This version can be used to perform weighted association rule mining (WARM).
