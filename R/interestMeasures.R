@@ -252,11 +252,9 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## (confidence level that we observe too high/low counts)
 ## 
 ## uses the model from:
-## Michael Hahsler, Kurt Hornik, and Thomas Reutterer. 
-## Implications of probabilistic data modeling for rule mining. 
-## Report 14, Research Report Series, Department of Statistics and 
-## Mathematics, Wirtschaftsuniversitaet Wien, Augasse 2-6, 1090 Wien, 
-## Austria, March 2005.
+## Hahsler, Michael and Kurt Hornik (2007). New probabilistic 
+## interest measures for association rules. 
+## Intelligent Data Analysis, 11(5):437--455.
 
 
 .hyperConfidence <- function(x, transactions, reuse = TRUE, complements = TRUE, 
@@ -278,9 +276,10 @@ setMethod("interestMeasure",  signature(x = "rules"),
   
   else
     ## substitutes; Pr[C_XY > c_XY]
-    res <- stats::phyper(c_XY, m=c_Y, n=t-c_X, k=c_X, lower.tail = significance)
+    ## empty LHS causes a div by zero -> NAN
+    suppressWarnings(res <- stats::phyper(c_XY, m=c_Y, n=t-c_X, k=c_X, lower.tail = significance))
   
-  ## TODO: check resulting NaN
+  res[is.nan(res)] <- NA
   res
 }
 

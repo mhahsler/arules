@@ -179,8 +179,11 @@ the proportion of transactions that do not contain \eqn{X}.
     Range: \eqn{[-1, 1]}}
 
 \item{"fishersExactTest", Fisher's exact test (Hahsler and Hornik, 2007)}{
-  Statistical significance test used in the analysis of contingency tables 
-  where sample sizes are small. Returns the p-value.
+  p-value of Fisher's exact test used in the analysis of contingency tables 
+  where sample sizes are small.
+  By default complementary effects are mined, substitutes can be found
+  by using the parameter \code{complements = FALSE}. 
+  
   Note that it is equal to hyper-confidence with \code{significance=TRUE}.
   
   Range: \eqn{[0, 1]} (p-value scale)}
@@ -237,7 +240,7 @@ the proportion of transactions that do not contain \eqn{X}.
   there is only a  5\% chance that the count for the rule was generated
   randomly.
   
-  Per default complementary effects are mined, substitutes can be found
+  By default complementary effects are mined, substitutes can be found
   by using the parameter \code{complements = FALSE}. 
   
   Range: \eqn{[0, 1]}}
