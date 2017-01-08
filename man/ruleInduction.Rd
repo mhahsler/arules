@@ -87,7 +87,7 @@ closed_rules <- ruleInduction(closed_is, Adult,
   control = list(verbose = TRUE))
 
 ## X&Y are already closed, check that X is also closed
-closed_rules[is.element(lhs(closed_rules), items(closed))]
+closed_rules[is.element(lhs(closed_rules), items(closed_is))]
 
 ## inspect the resulting closed rules
 summary(closed_rules)
