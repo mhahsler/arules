@@ -54,7 +54,7 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
     }
 
     ## call apriori
-    result <- .Call("rapriori", 
+    result <- .Call(R_rapriori, 
         ## transactions
         items@p,
         items@i,
@@ -62,8 +62,7 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
         ## parameter
         parameter, control,
         appearance,
-        data@itemInfo,
-        PACKAGE = "arules")                  
+        data@itemInfo)                  
 
     ## add some reflectance
     call <- match.call()

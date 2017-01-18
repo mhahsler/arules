@@ -29,8 +29,7 @@ setMethod("crossTable", signature(x = "itemMatrix"),
     
     measure <- match.arg(measure)
     
-    m <- .Call("R_crosstab_ngCMatrix", x@data, NULL, TRUE,
-      PACKAGE="arules")
+    m <- .Call(R_crosstab_ngCMatrix, x@data, NULL, TRUE)
     if (is.null(dimnames(m)))
       dimnames(m) <- list(itemLabels(x), itemLabels(x))
     

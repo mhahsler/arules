@@ -60,15 +60,14 @@ eclat <-  function(data, parameter = NULL, control = NULL)
     }
 
     ## call eclat
-    result <- .Call("reclat", 
+    result <- .Call(R_reclat, 
         ## transactions
         items@p,
         items@i,
         items@Dim,
         ## parameter
         parameter, control,
-        data@itemInfo,
-        PACKAGE = "arules")                  
+        data@itemInfo)                  
     
     ## validate sparse Matrix (this takes care of sorting vector i)
     validObject(result@items@data)

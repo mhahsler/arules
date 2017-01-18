@@ -23,8 +23,7 @@ setMethod("itemUnion", signature(x = "itemMatrix", y = "itemMatrix"),
     if(length(x)!=length(y)) stop("Length mismatch between x and y!")
     
     ### the C code does not deal well with a large number of dense rules.
-    #x@data <- .Call("R_or_ngCMatrix", x@data, y@data, 
-    #  PACKAGE="arules")
+    #x@data <- .Call(R_or_ngCMatrix", x@data, y@data) 
     
     x@data <- as(x@data+y@data, "ngCMatrix")
     

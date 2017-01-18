@@ -24,8 +24,7 @@ setMethod("is.maximal", signature(x = "itemMatrix"),
     function(x) {
         ## 
         u <- unique(x)
-        m <- .Call("R_pncount", u@data, u@data, TRUE, TRUE, FALSE, 
-		PACKAGE="arules") == 1
+        m <- .Call(R_pncount, u@data, u@data, TRUE, TRUE, FALSE) == 1
         i <- match(x, u)
         m[i]
 })

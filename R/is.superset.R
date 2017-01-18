@@ -51,10 +51,8 @@ setMethod("is.subset", signature(x = "itemMatrix"),
     
     if(sparse) return(.is.subset_sparse(x, y, proper))
     
-    if (is.null(y)) m <- .Call("R_crosstab_ngCMatrix", x@data, NULL, FALSE, 
-      PACKAGE="arules")
-    else m <- .Call("R_crosstab_ngCMatrix", x@data, y@data, FALSE,
-      PACKAGE="arules")
+    if (is.null(y)) m <- .Call(R_crosstab_ngCMatrix, x@data, NULL, FALSE)
+    else m <- .Call(R_crosstab_ngCMatrix, x@data, y@data, FALSE)
     
     m <- m == size(x)
     

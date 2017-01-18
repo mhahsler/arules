@@ -44,8 +44,8 @@ setMethod("is.closed", signature(x = "itemsets"),
         ## since R_pnclosed only supports abs. support counts
         size <- x@info$ntransactions
         if (!is.null(size)) 
-            isclosed <- .Call("R_pnclosed", x@items@data, 
-                as.integer(support * size), FALSE, PACKAGE="arules")
+            isclosed <- .Call(R_pnclosed, x@items@data, 
+                as.integer(support * size), FALSE)
         else {
             cat("legacy approach can take a while ...\n")
             

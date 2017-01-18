@@ -298,15 +298,14 @@ setMethod("interestMeasure",  signature(x = "rules"),
   imp <- numeric(length(x))
   
   ### do it by unique rhs
-  rr <- .Call(R_pnindex, rhs(x)@data, NULL, FALSE, PACKAGE = "arules")
+  rr <- .Call(R_pnindex, rhs(x)@data, NULL, FALSE)
   
   for(r in unique(rr)) {
     pos <- which(rr==r) 
     
     q2 <- q[pos]
     ### FALSE is for verbose
-    qsubmax <- .Call(R_pnmax, lhs(x[pos])@data, q2, FALSE, 
-      PACKAGE = "arules")
+    qsubmax <- .Call(R_pnmax, lhs(x[pos])@data, q2, FALSE)
   
     imp[pos] <- q2 - qsubmax
   }

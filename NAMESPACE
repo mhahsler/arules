@@ -1,20 +1,21 @@
-useDynLib(arules,
-  ## used by arulesSequences
-  R_asList_ngCMatrix,
-  R_cbind_ngCMatrix,
-  R_colSubset_ngCMatrix,
-  R_colSums_ngCMatrix,
-  R_pnindex,
-  R_pnrindex,
-  R_recode_ngCMatrix,
-  R_rowSubset_ngCMatrix,
-  R_rowSums_ngCMatrix,
-  R_wcount_ngCMatrix,
-  R_weclat_ngCMatrix,
-  R_rowWSums_ngCMatrix,
-  R_hits_ngCMatrix,
-  R_pnmax
-)
+#useDynLib(arules,
+#  ## used by arulesSequences
+#  R_asList_ngCMatrix,
+#  R_cbind_ngCMatrix,
+#  R_colSubset_ngCMatrix,
+#  R_colSums_ngCMatrix,
+#  R_pnindex,
+#  R_pnrindex,
+#  R_recode_ngCMatrix,
+#  R_rowSubset_ngCMatrix,
+#  R_rowSums_ngCMatrix,
+#  R_wcount_ngCMatrix,
+#  R_weclat_ngCMatrix,
+#  R_rowWSums_ngCMatrix,
+#  R_hits_ngCMatrix,
+#  R_pnmax
+#)
+useDynLib("arules", .registration = TRUE)
 
 import("methods")
 
