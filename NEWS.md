@@ -1,4 +1,4 @@
-# arules 1.5-0.1 (xx/xx/2016)
+# arules 1.5-0.2 (xx/xx/2016)
 
 ## New Features
 
@@ -16,6 +16,9 @@
 * Error message for sorting with an unknown interest measure.
 * abbreviate works now for rules correctly.
 
+## Internal Changes
+
+* Added registration code for native routines.
 
 # arules 1.5-0 (09/23/2016)
 
