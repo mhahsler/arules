@@ -41,7 +41,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
   \deqn{\{\} => \{beer\}}{{} => {beer}}
   
   will be created. 
-  These rules mean that no matter what other items are involved the 
+  These rules mean that no matter what other items are involved, the 
   item in the RHS will appear with the probability given by the rule's
   confidence (which equals the support).
   If you want to avoid these rules then use 
