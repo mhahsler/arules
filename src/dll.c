@@ -36,39 +36,50 @@ extern SEXP R_na_zero(SEXP x);
 extern SEXP R_tid_support(SEXP tidLists, SEXP itemsets);
 extern SEXP R_tid_rules(SEXP tidLists, SEXP itemsets);
 
-static const R_CallMethodDef CallEntries[] = {
-    {"R_reclat",	      (DL_FUNC) &reclat,		6},
-    {"R_rapriori",	      (DL_FUNC) &rapriori,		7},
-    {"R_transpose_ngCMatrix", (DL_FUNC) &R_transpose_ngCMatrix, 1},
-    {"R_crosstab_ngCMatrix",  (DL_FUNC) &R_crosstab_ngCMatrix,  3},
-    {"R_rowSums_ngCMatrix",   (DL_FUNC) &R_rowSums_ngCMatrix,   1},
-    {"R_colSums_ngCMatrix",   (DL_FUNC) &R_colSums_ngCMatrix,   1},
-    {"R_colSubset_ngCMatrix", (DL_FUNC) &R_colSubset_ngCMatrix, 2},
-    {"R_rowSubset_ngCMatrix", (DL_FUNC) &R_rowSubset_ngCMatrix, 2},
-    {"R_asList_ngCMatrix",    (DL_FUNC) &R_asList_ngCMatrix,    2},
-    {"R_cbind_ngCMatrix",     (DL_FUNC) &R_cbind_ngCMatrix,     2},
-    {"R_recode_ngCMatrix",    (DL_FUNC) &R_recode_ngCMatrix,    2},
-    {"R_or_ngCMatrix",	      (DL_FUNC) &R_or_ngCMatrix,        2},
-    {"R_valid_ngCMatrix",     (DL_FUNC) &R_valid_ngCMatrix,     1},
-    {"R_pncount",	      (DL_FUNC) &R_pncount,		5},
-    {"R_pnindex",	      (DL_FUNC) &R_pnindex,		3},
-    {"R_pnclosed",	      (DL_FUNC) &R_pnclosed,		3},
-    {"R_pnmax",		      (DL_FUNC) &R_pnmax,		3},
-    {"R_pnrindex",	      (DL_FUNC) &R_pnrindex,		2},
-    {"R_similarity_ngCMatrix",(DL_FUNC) &R_similarity_ngCMatrix,4},
-    {"R_hits_ngCMatrix",      (DL_FUNC) &R_hits_ngCMatrix,	4},
-    {"R_rowWSums_ngCMatrix",  (DL_FUNC) &R_rowWSums_ngCMatrix,	2},
-    {"R_colWSums_ngCMatrix",  (DL_FUNC) &R_colWSums_ngCMatrix,	2},
-    {"R_weclat_ngCMatrix",    (DL_FUNC) &R_weclat_ngCMatrix,	6},
-    {"R_wcount_ngCMatrix",    (DL_FUNC) &R_wcount_ngCMatrix,	6},
-    {"R_na_zero",	      (DL_FUNC) &R_na_zero,		1},
-    {"R_tid_support",	      (DL_FUNC) &R_tid_support,		2},
-    {"R_tid_rules",	      (DL_FUNC) &R_tid_rules,		2},
-    {NULL, NULL, 0}
-};
-
 void R_init_arules(DllInfo *dll) {
+
+    const R_CallMethodDef CallEntries[] = {
+	{"R_reclat",		  (DL_FUNC) reclat,		    6},
+	{"R_rapriori",		  (DL_FUNC) rapriori,		    7},
+	{"R_transpose_ngCMatrix", (DL_FUNC) R_transpose_ngCMatrix,  1},
+	{"R_crosstab_ngCMatrix",  (DL_FUNC) R_crosstab_ngCMatrix,   3},
+	{"R_rowSums_ngCMatrix",   (DL_FUNC) R_rowSums_ngCMatrix,    1},
+	{"R_colSums_ngCMatrix",   (DL_FUNC) R_colSums_ngCMatrix,    1},
+	{"R_colSubset_ngCMatrix", (DL_FUNC) R_colSubset_ngCMatrix,  2},
+	{"R_rowSubset_ngCMatrix", (DL_FUNC) R_rowSubset_ngCMatrix,  2},
+	{"R_asList_ngCMatrix",    (DL_FUNC) R_asList_ngCMatrix,	    2},
+	{"R_cbind_ngCMatrix",     (DL_FUNC) R_cbind_ngCMatrix,	    2},
+	{"R_recode_ngCMatrix",    (DL_FUNC) R_recode_ngCMatrix,	    2},
+	{"R_or_ngCMatrix",	  (DL_FUNC) R_or_ngCMatrix,	    2},
+	{"R_valid_ngCMatrix",     (DL_FUNC) R_valid_ngCMatrix,	    1},
+	{"R_pncount",		  (DL_FUNC) R_pncount,		    5},
+	{"R_pnindex",		  (DL_FUNC) R_pnindex,		    3},
+	{"R_pnclosed",		  (DL_FUNC) R_pnclosed,		    3},
+	{"R_pnmax",		  (DL_FUNC) R_pnmax,		    3},
+	{"R_pnrindex",		  (DL_FUNC) R_pnrindex,		    2},
+	{"R_similarity_ngCMatrix",(DL_FUNC) R_similarity_ngCMatrix, 4},
+	{"R_hits_ngCMatrix",      (DL_FUNC) R_hits_ngCMatrix,	    4},
+	{"R_rowWSums_ngCMatrix",  (DL_FUNC) R_rowWSums_ngCMatrix,   2},
+	{"R_colWSums_ngCMatrix",  (DL_FUNC) R_colWSums_ngCMatrix,   2},
+	{"R_weclat_ngCMatrix",    (DL_FUNC) R_weclat_ngCMatrix,	    6},
+	{"R_wcount_ngCMatrix",    (DL_FUNC) R_wcount_ngCMatrix,	    6},
+	{"R_na_zero",		  (DL_FUNC) R_na_zero,		    1},
+	{"R_tid_support",	  (DL_FUNC) R_tid_support,	    2},
+	{"R_tid_rules",		  (DL_FUNC) R_tid_rules,	    2},
+	{NULL, NULL, 0}
+    };
+
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
+
+    R_RegisterCCallable("arules", "R_rowSums_ngCMatrix",   (DL_FUNC) R_rowSums_ngCMatrix);
+    R_RegisterCCallable("arules", "R_colSums_ngCMatrix",   (DL_FUNC) R_colSums_ngCMatrix);
+    R_RegisterCCallable("arules", "R_colSubset_ngCMatrix", (DL_FUNC) R_colSubset_ngCMatrix);
+    R_RegisterCCallable("arules", "R_rowSubset_ngCMatrix", (DL_FUNC) R_rowSubset_ngCMatrix);
+    R_RegisterCCallable("arules", "R_asList_ngCMatrix",    (DL_FUNC) R_asList_ngCMatrix);
+    R_RegisterCCallable("arules", "R_cbind_ngCMatrix",     (DL_FUNC) R_cbind_ngCMatrix);
+    R_RegisterCCallable("arules", "R_recode_ngCMatrix",    (DL_FUNC) R_recode_ngCMatrix);
+    R_RegisterCCallable("arules", "R_pnindex",             (DL_FUNC) R_pnindex);
+    R_RegisterCCallable("arules", "R_pnrindex",		   (DL_FUNC) R_pnrindex);
 }
 

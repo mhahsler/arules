@@ -291,3 +291,4 @@
 # arules 0.1-0 (4/15/2005)
 
 * Alpha and beta versions
+
