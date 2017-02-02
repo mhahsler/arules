@@ -23,7 +23,7 @@ DATAFRAME(from, \dots)
 \details{
   Using \code{DATAFRAME} is equivalent to 
   the standard coercion \code{as(x, "data.frame")}.
-  However, for rules, the argument \code{separate = TRUE} will prodiuce
+  However, for rules, the argument \code{separate = TRUE} will produce
   separate columns for the LHS and the RHS of the rule. Furthermore,
   the arguments 
   \code{itemSep}, 

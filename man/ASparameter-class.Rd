@@ -91,7 +91,8 @@
       a rule (lhs and rhs) instead of lhs support.  Make sure to use
       \code{ext = TRUE} if \code{originalSupport} is set to \code{FALSE}
       (default: \code{TRUE})}
-    \item{\code{maxtime}:}{ Time limit in seconds for checking subsets 
+    \item{\code{maxtime}:}{ Time limit in seconds for checking subsets. 
+    \code{maxtime=0} disables the time limit.  
       (default: 5 seconds)}
   }
   

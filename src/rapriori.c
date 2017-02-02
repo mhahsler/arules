@@ -470,7 +470,7 @@ void frequentItem(ARparameter *param, INPUT *in)
       break;
     }
     
-    if(SEC_SINCE(t) > param->maxtime) {
+    if(SEC_SINCE(t) > param->maxtime && param->maxtime > 0) {
       /* if (param->verbose) Rprintf(" *stopping (time limit)*"); */
       Rf_warning("Mining stopped (time limit reached). Only patterns up to a length of %d returned!", 
         ist_height(istree));

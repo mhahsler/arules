@@ -1,4 +1,10 @@
-# arules 1.5-0.2 (xx/xx/2016)
+# arules 1.5-1.1 (xx/xx/2017)
+
+## New Features
+
+* apriori: maxtime = 0 diables the time limit. 
+
+# arules 1.5-1 (01/23/2017)
 
 ## New Features
 
@@ -18,13 +24,13 @@
 
 ## Internal Changes
 
-* Added registration code for native routines.
+* Added registration code for native routines. This requires R 3.3.2.
 
 # arules 1.5-0 (09/23/2016)
 
 ## Major Changes
 
-* apriori uses now a time limit set in parameter with 
+* apriori uses now a time limit set in the parameter list with 
   maxtime. The default is 5 seconds. Running out of time or maxlen results 
   in a warning. The warning for low absolute support was removed.
 
