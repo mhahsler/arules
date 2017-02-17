@@ -80,10 +80,11 @@ setMethod("is.subset", signature(x = "associations"),
 
   if(is.null(y)) y <- x
 
-  p <- rep(0, y@Dim[1]+1)
-  i <- .Call("is_subset", x@data@p, x@data@i, x@data@dim, x@data@p, x@data@i, x@data@dim, p, PACKAGE = "arules")
+  p <- as.integer(rep(0, y@data@Dim[1]+1))
+  i <- .Call(R_is_subset, x@data@p, x@data@i, y@data@p, y@data@i, y@data@Dim, p, PACKAGE = "arules")
 
-  return(new("ngCMatrix", p=p, i=i, Dim=c(max(i), y@Dim[1])))
+
+  return(t(new("ngCMatrix", p=p, i=i, Dim=c(as.integer(max(i)+1), as.integer(y@data@Dim[1])))))
 
 }
 

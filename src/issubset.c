@@ -5,7 +5,6 @@ Author: Ian Johnson
 
 #include <R.h>
 #include <Rdefines.h>
-#include <Rinternals.h>
 
 
 void populateMatches(int* matches_for_y, int* x_i, int* x_p, int* y_p, int* y_i, int y_index, int num_rows){
@@ -24,37 +23,38 @@ void populateMatches(int* matches_for_y, int* x_i, int* x_p, int* y_p, int* y_i,
        while(loc < end_loc){
 
          if (y_i[loc] == x_i[curr_col]) curr_col++;
-         if(curr_col == rule_end_index) break;
+         if(curr_col == y_end_index) break;
 
          loc++;
 
        }
 
 
-       if(curr_col == rule_end_index){
+       if(curr_col == y_end_index){
             matches_for_y[num_matches++] = x_index;
        }
 
     }
 
-    matches_for_rule[num_matches] = -1;
+    matches_for_y[num_matches] = -1;
 
 }
 
-int copyMatches(int* y_matches, int*& output_i, int& output_i_length, int& output_i_last){
+int copyMatches(int* y_matches, int** output_i, int* output_i_length, int* output_i_last){
 
   int index = 0;
 
   while(y_matches[index] != -1){
 
-    if(output_i_last == output_i_length - 1){
-      int* tmp = malloc(2*output_i_length * sizeof(int));
-      memcpy(tmp, output_i, output_i_length*sizeof(int));
-      free(output_i);
-      output_i = tmp;
+    if(*output_i_last == *output_i_length - 1){
+      int* tmp = malloc(2*(*output_i_length) * sizeof(int));
+      memcpy(tmp, *output_i, *output_i_length*sizeof(int));
+      *output_i_length *= 2;
+      free(*output_i);
+      *output_i = tmp;
     }
 
-    output_i[++output_i_last] = y_matches[index++];
+    (*output_i)[++(*output_i_last)] = y_matches[index++];
 
   }
 
@@ -63,16 +63,13 @@ int copyMatches(int* y_matches, int*& output_i, int& output_i_length, int& outpu
 }
 
 
-SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, SEXP OUT_P){
+SEXP is_subset(SEXP X_P, SEXP X_I, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, SEXP OUT_P){
 
   int* x_p = INTEGER(X_P);
   int* x_i = INTEGER(X_I);
 
   int* y_p = INTEGER(Y_P);
   int* y_i = INTEGER(Y_I);
-
-  int x_p_length = INTEGER(X_DIM)[1];
-  int x_i_max    = INTEGER(X_DIM)[0];
 
   int y_p_length = INTEGER(Y_DIM)[1];
   int y_i_max    = INTEGER(Y_DIM)[0];
@@ -91,7 +88,7 @@ SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, S
 
     populateMatches(y_matches, x_i, x_p, y_p, y_i, y_index, y_p_length);
 
-    curr_p += copyMatches(y_matches, output_i, output_i_length, output_i_last);
+    curr_p += copyMatches(y_matches, &output_i, &output_i_length, &output_i_last);
     output_p[y_index+1] = curr_p;
 
   }
@@ -102,6 +99,8 @@ SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, S
 	for(int i = 0; i < output_i_last+1; i++){
 		INTEGER(OUT_I)[i] = output_i[i];
 	}
+
+  free(output_i);
 
   return OUT_I;
 

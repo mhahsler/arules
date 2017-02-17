@@ -8,9 +8,9 @@ Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	    person("Bettina", "Gruen", role = c("aut", "cph")),
 	    person("Kurt", "Hornik", role = c("aut", "cph")),
 	    person("Christian", "Borgelt", role = c("ctb", "cph")))
-Description: Provides the infrastructure for representing, 
-    manipulating and analyzing transaction data and patterns (frequent 
-    itemsets and association rules). Also provides interfaces to 
+Description: Provides the infrastructure for representing,
+    manipulating and analyzing transaction data and patterns (frequent
+    itemsets and association rules). Also provides interfaces to
     C implementations of the association mining algorithms Apriori and Eclat
     by C. Borgelt.
 Classification/ACM: G.4, H.2.8, I.5.1
