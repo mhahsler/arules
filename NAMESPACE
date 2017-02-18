@@ -28,7 +28,7 @@ import("graphics")
 
 importFrom("Matrix", "summary", "image", "t", 
   "head", "tail") ## we need generics and methods 
-importFrom("Matrix", "drop0") ## we need functions 
+importFrom("Matrix", "drop0", "diag") ## we need functions 
 importClassesFrom("Matrix", "dgCMatrix", "ngCMatrix")
 importMethodsFrom("Matrix", "crossprod", "rowSums", "colSums")
 

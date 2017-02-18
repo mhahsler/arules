@@ -22,13 +22,13 @@
 ## arules specific set methods: is.superset, is.subset (only for itemMatrix)
 ##
 setMethod("is.superset", signature(x = "itemMatrix"),
-    function(x, y = NULL, proper = FALSE, sparse = FALSE)
+    function(x, y = NULL, proper = FALSE, sparse = TRUE)
 	if (is.null(y)) t(is.subset(x, NULL, proper, sparse))
 	else t(is.subset(y, x, proper, sparse))
 	    )
 
 setMethod("is.superset", signature(x = "associations"),
-    function (x, y = NULL, proper = FALSE, sparse = FALSE)
+    function (x, y = NULL, proper = FALSE, sparse = TRUE)
 	if (is.null(y)) t(is.subset(x, NULL, proper, sparse))
 	else t(is.subset(y, x, proper, sparse))
 )
@@ -36,7 +36,7 @@ setMethod("is.superset", signature(x = "associations"),
 ## this takes about 3 times the memory but is very fast!
 ## I suspect internally it always uses a lot of memory.
 setMethod("is.subset", signature(x = "itemMatrix"),
-  function(x, y = NULL, proper = FALSE, sparse = FALSE) {
+  function(x, y = NULL, proper = FALSE, sparse = TRUE) {
     if (length(x) == 0 || (!is.null(y) && length(y) == 0))
       return(logical(0))
 
@@ -71,7 +71,7 @@ setMethod("is.subset", signature(x = "itemMatrix"),
 )
 
 setMethod("is.subset", signature(x = "associations"),
-    function(x, y = NULL, proper = FALSE, sparse = FALSE)
+    function(x, y = NULL, proper = FALSE, sparse = TRUE)
             is.subset(items(x), y, proper, sparse)
 )
 

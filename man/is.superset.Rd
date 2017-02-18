@@ -14,16 +14,16 @@
   itemMatrix objects.
 }
 \usage{
-is.subset(x, y = NULL, proper = FALSE, sparse = FALSE, ...)
-is.superset(x, y = NULL, proper = FALSE, sparse = FALSE, ...)
+is.subset(x, y = NULL, proper = FALSE, sparse = TRUE, ...)
+is.superset(x, y = NULL, proper = FALSE, sparse = TRUE, ...)
 }
 \arguments{
   \item{x, y}{ associations or itemMatrix objects. If \code{y = NULL}, 
     the super or subset structure within set \code{x} is calculated.}
   \item{proper}{a logical indicating if all or just proper super or subsets.}
   \item{sparse}{a logical indicating if a sparse (ngCMatrix) rather than a 
-  dense logical matrix sgould be returned. This preserves a significant 
-  amount of memory for large sets of x and y.}
+  dense logical matrix sgould be returned. Sparse computation 
+  preserves a significant amount of memory and is much faster for large sets.}
   \item{\dots}{ currently unused.}
 }
 \details{
@@ -52,7 +52,7 @@ set <- eclat(Adult, parameter = list(supp = 0.8))
 
 ### find the supersets of each itemset in set
 is.superset(set, set)
-is.superset(set, set, sparse = TRUE)
+is.superset(set, set, sparse = FALSE)
 }
-\author{Michael Hahsler}
+\author{Michael Hahsler and Ian Johnson}
 \keyword{manip}

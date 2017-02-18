@@ -96,10 +96,10 @@ setGeneric("itemFrequencyPlot",
     function(x, ...) standardGeneric("itemFrequencyPlot"))
 
 setGeneric("is.superset",
-    function(x, y = NULL, proper = FALSE, sparse = FALSE, ...) standardGeneric("is.superset"))
+    function(x, y = NULL, proper = FALSE, sparse = TRUE, ...) standardGeneric("is.superset"))
 
 setGeneric("is.subset",
-    function(x, y = NULL, proper = FALSE, sparse = FALSE, ...) standardGeneric("is.subset"))
+    function(x, y = NULL, proper = FALSE, sparse = TRUE, ...) standardGeneric("is.subset"))
 
 setGeneric("is.significant",
     function(x, transactions, method = "fisher", 

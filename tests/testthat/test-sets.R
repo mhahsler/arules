@@ -28,15 +28,15 @@ ss <- is.superset(is, is, proper = TRUE)
 expect_equal(unname(diag(ss)), rep(FALSE, nrow(ss)))
 
 ss <- is.superset(is[5], is)
-expect_equal(unname(ss), t(c(T, F, T, F, T)))
+expect_equal(unname(as(ss, "matrix")), t(c(T, F, T, F, T)))
 
 ### sparse (should all be true)
-expect_equal(as.matrix(is.superset(is, is, sparse=TRUE)),is.superset(is, is))
-expect_equal(as.matrix(is.superset(is, sparse=TRUE)), is.superset(is))
-expect_equal(as.matrix(is.superset(is[5], is, sparse=TRUE)), 
-  is.superset(is[5], is))
-expect_equal(as.matrix(is.superset(is, is, proper=TRUE, sparse=TRUE)),
-  is.superset(is, is, proper=TRUE))
+expect_equal(as.matrix(is.superset(is, is)),is.superset(is, is, sparse = FALSE))
+expect_equal(as.matrix(is.superset(is)), is.superset(is, sparse = FALSE))
+expect_equal(as.matrix(is.superset(is[5], is)), 
+  is.superset(is[5], is, sparse = FALSE))
+expect_equal(as.matrix(is.superset(is, is, proper=TRUE)),
+  is.superset(is, is, proper=TRUE, sparse = FALSE))
 
 ### find subsets in is
 ss <- is.subset(is, is)
@@ -50,7 +50,7 @@ expect_identical(rownames(ss), labels(is))
 expect_equal(unname(diag(ss)), rep(FALSE, nrow(ss)))
   
 ss <- is.subset(is[1], is)
-expect_equal(unname(ss), t(c(T, T, F, F, T)))
+expect_equal(unname(as(ss, "matrix")), t(c(T, T, F, F, T)))
 
 ### is.maximal
 quality(is)$isMaximal <- is.maximal(is)
@@ -67,3 +67,4 @@ expect_warning(
 quality(is) <- cbind(quality(is), isClosed = is.closed(is))
 #inspect(is)
 expect_equal(quality(is)$isClosed[1:5], c(T, T, F, F, F))
+
