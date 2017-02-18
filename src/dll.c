@@ -3,7 +3,8 @@
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 
-extern SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, 
+extern SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, SEXP PROPER, SEXP OUT_P);
+extern SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control,
 		   SEXP itemInfo);
 extern SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control,
 		     SEXP app, SEXP itemInfo);
@@ -39,6 +40,7 @@ extern SEXP R_tid_rules(SEXP tidLists, SEXP itemsets);
 void R_init_arules(DllInfo *dll) {
 
     const R_CallMethodDef CallEntries[] = {
+	{"R_is_subset", (DL_FUNC) is_subset, 8},
 	{"R_reclat",		  (DL_FUNC) reclat,		    6},
 	{"R_rapriori",		  (DL_FUNC) rapriori,		    7},
 	{"R_transpose_ngCMatrix", (DL_FUNC) R_transpose_ngCMatrix,  1},
@@ -82,4 +84,3 @@ void R_init_arules(DllInfo *dll) {
     R_RegisterCCallable("arules", "R_pnindex",             (DL_FUNC) R_pnindex);
     R_RegisterCCallable("arules", "R_pnrindex",		   (DL_FUNC) R_pnrindex);
 }
-
