@@ -4,7 +4,8 @@
 
 * apriori: maxtime = 0 diables the time limit. 
 * is.subset/is.superset uses now fast and memory efficient C code 
-   for sparse computation. sparse = TRUE is now the default.
+   for sparse computation (contributed by Ian Johnson). 
+   sparse = TRUE is now the default.
 
 # arules 1.5-1 (01/23/2017)
 
@@ -19,7 +20,7 @@
 * Added function DATAFRAME for more control over coercion to data.frame 
   (e.g., use separate columns for LHS and RHS of rules).
 
-## BUG FIXES
+## Bug Fixes
 
 * Error message for sorting with an unknown interest measure.
 * abbreviate works now for rules correctly.
@@ -36,7 +37,7 @@
   maxtime. The default is 5 seconds. Running out of time or maxlen results 
   in a warning. The warning for low absolute support was removed.
 
-## BUG FIXES
+## Bug Fixes
 
 * is.redundant now also marks rules with the same confidence as redundant.
 * plot for associations and transactions produces now a better 
@@ -48,7 +49,7 @@
 
 # arules 1.4-2 (08/06/2016)
 
-## BUG FIXES
+## Bug Fixes
 
 * is.redundant returned !is.redundant (reported by brisbia)
 * Duplicate items when coercing from list to transactions are now 
@@ -61,7 +62,7 @@
 * added tail method for associations.
 * added/fixed encoding for read.transactions
 
-## BUG FIXES
+## Bug Fixes
 
 * Mutual information is now calculated correctly
   (reported by ddessommes).
@@ -80,7 +81,7 @@
   associations first.
 * abbreviate is now a S4 generic with S4 methods.
 
-## BUG FIXES
+## Bug Fixes
 
 * combining item matrices with 0 rows (reported by C. Buchta).
 * itemLabel recoding in is.subset (reported by sjain777). 
@@ -118,7 +119,7 @@
 * aggregate uses now 'by' instead of 'itemLabels' to conform to 
       aggregate in base.
 
-## BUG FIXES
+## Bug Fixes
 
 * ruleInduction: bug fix for missing confidence values and better checking 
   (by C. Buchta). 
@@ -133,7 +134,7 @@
 * Added Mushroom dataset.
 * Moved abbreviate from arulesViz to arules.
 
-## BUG FIXES
+## Bug Fixes
 
 * fixed undefined behavior for left shift in reclat.c 
   (reported by B. Ripley)
