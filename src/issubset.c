@@ -7,7 +7,7 @@ Author: Ian Johnson
 #include <Rdefines.h>
 
 
-void populateMatches(int* matches_for_y, int* x_i, int* x_p, int* y_p, int* y_i, int y_index, int num_rows){
+void populateMatches(int* matches_for_y, int* x_i, int* x_p, int* y_p, int* y_i, int y_index, int num_rows, int proper){
 
     int y_start_index = x_p[y_index], y_end_index = x_p[y_index+1];
 
@@ -16,6 +16,8 @@ void populateMatches(int* matches_for_y, int* x_i, int* x_p, int* y_p, int* y_i,
     for(int x_index = 0; x_index < num_rows; x_index++){
 
        int loc = y_p[x_index], end_loc = y_p[x_index+1], curr_col;
+
+       if(proper && (end_loc - loc == y_end_index - y_start_index)) continue;
 
        curr_col = y_start_index;
 
@@ -62,10 +64,12 @@ int copyMatches(int* y_matches, int** output_i, int* output_i_length, int* outpu
 }
 
 
-SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, SEXP OUT_P){
+SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, SEXP PROPER, SEXP OUT_P){
 
   int* x_p = INTEGER(X_P);
   int* x_i = INTEGER(X_I);
+
+  int proper = LOGICAL(PROPER)[0];
 
   int* y_p = INTEGER(Y_P);
   int* y_i = INTEGER(Y_I);
@@ -87,7 +91,7 @@ SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, S
   //For every item in y, list all matches in x
   for(int y_index = 0; y_index < x_p_length; y_index++){
 
-    populateMatches(y_matches, x_i, x_p, y_p, y_i, y_index, y_p_length);
+    populateMatches(y_matches, x_i, x_p, y_p, y_i, y_index, y_p_length, proper);
 
     curr_p += copyMatches(y_matches, &output_i, &output_i_length, &output_i_last);
     output_p[y_index+1] = curr_p;
