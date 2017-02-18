@@ -76,20 +76,18 @@ setMethod("is.subset", signature(x = "associations"),
 )
 
 ### use tidlist intersection
-.is.subset_sparse <- function(x, y = NULL, proper=FALSE) {
+.is.subset_sparse <- function(x, y = NULL, proper = FALSE) {
 
   if(is.null(y)) y <- x
 
   p <- as.integer(rep(0, x@data@Dim[2]+1))
-  i <- .Call(R_is_subset, x@data@p, x@data@i, x@data@Dim, y@data@p, y@data@i, y@data@Dim, proper, p, PACKAGE = "arules")
+  i <- .Call(R_is_subset, x@data@p, x@data@i, x@data@Dim, 
+    y@data@p, y@data@i, y@data@Dim, 
+    as.logical(proper), p, PACKAGE = "arules")
 
-  m <- t(new("ngCMatrix", p=p, i=i, Dim=c(as.integer(max(i)+1), as.integer(x@data@Dim[2]))))
-
-  if(!is.null(y)) colnames(m) <- labels(y)
-  rownames(m) <- labels(x)
-
-  return(m)
-
+  t(new("ngCMatrix", p = p, i = i, 
+    Dim = c(y@data@Dim[2], x@data@Dim[2]),
+    Dimnames = list(labels(y), labels(x))))
 }
 
 
