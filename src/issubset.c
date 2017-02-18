@@ -19,9 +19,6 @@ void populateMatches(int* matches_for_y, int* x_i, int* x_p, int* y_p, int* y_i,
 
        curr_col = y_start_index;
 
-       printf("y_index: %i, y_start_index: %i, y_end_index: %i\n", y_index, y_start_index, y_end_index);
-
-
        while(loc < end_loc){
 
          if (y_i[loc] == x_i[curr_col]) curr_col++;
@@ -86,8 +83,6 @@ SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, S
   int  curr_p   = 0;
 
   int* y_matches = malloc((output_i_length+1) * sizeof(int));
-
-  printf("Y_I_Max: %i, Y_P_Length: %i\n\n\n", y_i_max, y_p_length);
 
   //For every item in y, list all matches in x
   for(int y_index = 0; y_index < x_p_length; y_index++){

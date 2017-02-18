@@ -2,6 +2,7 @@ Package: arules
 Version: 1.5-0.2
 Date: 2016-xx-xx
 Title: Mining Association Rules and Frequent Itemsets
+Author: Michael Hahsler
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 		email = "mhahsler@lyle.smu.edu"),
 	    person("Christian", "Buchta", role = c("aut", "cph")),
@@ -14,6 +15,7 @@ Description: Provides the infrastructure for representing,
     C implementations of the association mining algorithms Apriori and Eclat
     by C. Borgelt.
 Classification/ACM: G.4, H.2.8, I.5.1
+Maintainer: Michael Hahsler
 URL: http://mhahsler.github.io/arules/, http://lyle.smu.edu/IDA/arules
 BugReports: https://github.com/mhahsler/arules/issues
 Depends: R (>= 3.3.2), Matrix (>= 1.2-0)
