@@ -1,11 +1,12 @@
-# arules 1.5-1.1 (xx/xx/2017)
+# arules 1.5-2 (03/12/2017)
 
 ## New Features
 
-* apriori: maxtime = 0 diables the time limit. 
+* apriori: maxtime = 0 disables the time limit. 
 * is.subset/is.superset uses now fast and memory efficient C code 
    for sparse computation (contributed by Ian Johnson). 
-   sparse = TRUE is now the default.
+   sparse = TRUE is now the default. Note that the result is now a 
+   sparse matrix.
 
 # arules 1.5-1 (01/23/2017)
 
