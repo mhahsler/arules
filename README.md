@@ -10,19 +10,20 @@ manipulating and analyzing transaction data and patterns (frequent
 itemsets and association rules). Also provides interfaces to
 C implementations of the association mining algorithms Apriori and Eclat.
 
-### Additional packages in the arules family are: 
+### arules core packages: 
 
+* [arules](http://mhahsler.github.io/arules/): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
 * [arulesViz](http://mhahsler.github.io/arulesViz/): Visualization of association rules. 
-* [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification based on association rules.  
+* [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification algorithms based on association rules (incudes CBA).  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences):
-   Mining frequent sequences.
-* [arulesNBMiner](http://github.com/mhahsler/arulesNBMiner):
-  Mining NB-frequent itemsets and NB-precise rules.
+   Mining frequent sequences (cSPADE).
 
 ### Other related packages:
 
-#### Mining algorithms 
+#### Additional mining algorithms 
 
+* [arulesNBMiner](http://github.com/mhahsler/arulesNBMiner):
+  Mining NB-frequent itemsets and NB-precise rules.
 * [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for filtered top-k association discovery.
 * [RSarules](https://cran.r-project.org/package=RSarules): Mining algorithm which randomly samples association rules with one pre-chosen item as the consequent from a transaction dataset.
 * [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL's association rule mining algorithm.
