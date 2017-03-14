@@ -77,7 +77,10 @@ SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, S
   int x_p_length = INTEGER(X_DIM)[1];
 
   int y_p_length = INTEGER(Y_DIM)[1];
-  int y_i_max    = INTEGER(Y_DIM)[0];
+  
+  /* MFH: unused
+   * int y_i_max    = INTEGER(Y_DIM)[0];
+   */
 
   int output_i_length = y_p_length;
   int output_i_last   = -1;
