@@ -14,7 +14,7 @@ C implementations of the association mining algorithms Apriori and Eclat.
 
 * [arules](http://mhahsler.github.io/arules/): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
 * [arulesViz](http://mhahsler.github.io/arulesViz/): Visualization of association rules. 
-* [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification algorithms based on association rules (incudes CBA).  
+* [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification algorithms based on association rules (includes CBA).  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences):
    Mining frequent sequences (cSPADE).
 
@@ -25,8 +25,8 @@ C implementations of the association mining algorithms Apriori and Eclat.
 * [arulesNBMiner](http://github.com/mhahsler/arulesNBMiner):
   Mining NB-frequent itemsets and NB-precise rules.
 * [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for filtered top-k association discovery.
-* [RSarules](https://cran.r-project.org/package=RSarules): Mining algorithm which randomly samples association rules with one pre-chosen item as the consequent from a transaction dataset.
 * [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL's association rule mining algorithm.
+* [RSarules](https://cran.r-project.org/package=RSarules): Mining algorithm which randomly samples association rules with one pre-chosen item as the consequent from a transaction dataset.
 
 
 #### In-database analytics
@@ -41,9 +41,9 @@ C implementations of the association mining algorithms Apriori and Eclat.
 
 #### Classification 
 
+* [arc](https://cran.r-project.org/package=arc): Alternative CBA implementation. 
+* [rCBA](https://cran.r-project.org/package=rCBA): Alternative CBA implementation.
 * [sblr](https://cran.r-project.org/package=sbrl): Scalable Bayesian rule lists algorithm for classification.
-* [arc](https://cran.r-project.org/package=arc): CBA implementation. 
-* [rCBA](https://cran.r-project.org/package=rCBA): CBA implementation.
 
 #### Recommendation/Prediction
 
