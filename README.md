@@ -10,7 +10,7 @@ manipulating and analyzing transaction data and patterns (frequent
 itemsets and association rules). Also provides interfaces to
 C implementations of the association mining algorithms Apriori and Eclat.
 
-Additional packages in the arules family are: 
+### Additional packages in the arules family are: 
 
 * [arulesViz](http://mhahsler.github.io/arulesViz/): Visualization of association rules. 
 * [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification based on association rules.  
@@ -18,6 +18,36 @@ Additional packages in the arules family are:
    Mining frequent sequences.
 * [arulesNBMiner](http://github.com/mhahsler/arulesNBMiner):
   Mining NB-frequent itemsets and NB-precise rules.
+
+### Other related packages:
+
+#### Mining algorithms 
+
+* [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for filtered top-k association discovery.
+* [RSarules](https://cran.r-project.org/package=RSarules): Mining algorithm which randomly samples association rules with one pre-chosen item as the consequent from a transaction dataset.
+* [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL's association rule mining algorithm.
+
+
+#### In-database analytics
+
+* [ibmdbR](https://cran.r-project.org/package=ibmdbR): IBM in-database analytics for R can calculate association rules from a database table.
+* [rfml](https://cran.r-project.org/package=rfml): Mine frequent itemsets or association rules using a MarkLogic server (in-database analytics). 
+
+#### Interface
+
+* [rattle](https://cran.r-project.org/package=rattle): Provides a graphical user interface for association rule mining.
+* [pmml](https://cran.r-project.org/package=pmml): Generates PMML (predictive model markup language) for association rules.
+
+#### Classification 
+
+* [sblr](https://cran.r-project.org/package=sbrl): Scalable Bayesian rule lists algorithm for classification.
+* [arc](https://cran.r-project.org/package=arc): CBA implementation. 
+* [rCBA](https://cran.r-project.org/package=rCBA): CBA implementation.
+
+#### Recommendation/Prediction
+
+* [recommenerlab](https://cran.r-project.org/package=recommenderlab): Supports creating predictions using association rules.
+
 
 ## Installation
 
