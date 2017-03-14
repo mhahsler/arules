@@ -360,7 +360,7 @@ the proportion of transactions that do not contain \eqn{X}.
     
   Range: \eqn{[-1, 1]} (0 when X and Y are independent)}
 
-\item{"ralambrodrainy", Ralambrodrainy Measure (Ralambrodrainy, 1991)}{
+\item{"ralambrodrainy", Ralambrodrainy Measure (Diatta et al, 2007)}{
     
     Range: \eqn{[0, 1]}}
 
@@ -436,6 +436,10 @@ approche et une etude de sensibilite au bruit. In
 \emph{Mesures de Qualite pour la fouille de donnees. 
 Revue des Nouvelles Technologies de l'Information, RNTI.}
 
+Bernard, Jean-Marc and Charron, Camilo (1996).
+L'analyse implicative bayesienne, une methode pour l'etude des dependances orientees. II : modele logique sur un tableau de contingence
+Mathematiques et Sciences Humaines, Volume 135 (1996), p. 5--18. 
+
 Bayardo, R. , R. Agrawal, and D. Gunopulos (2000). 
 Constraint-based rule mining
 in large, dense databases.  \emph{Data Mining and Knowledge Discovery},
@@ -450,6 +454,8 @@ Brin, Sergey, Rajeev Motwani, Jeffrey D. Ullman, and Shalom Tsur (1997). Dynamic
 itemset counting and implication rules for market basket data. In \emph{SIGMOD
 1997, Proceedings ACM SIGMOD International Conference on Management of Data},
 pages 255--264, Tucson, Arizona, USA.
+
+Diatta, J., H. Ralambondrainy, and A. Totohasina (2007). Towards a unifying probabilistic implicative normalized quality measure for association rules. In \emph{Quality Measures in Data Mining,} 237--250, 2007.
 
 Hahsler, Michael and Kurt Hornik (2007). New probabilistic interest measures for association rules. \emph{Intelligent Data Analysis}, 11(5):437--455.
 
