@@ -142,6 +142,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "mutualInformation", "lambda", "jMeasure", "laplace",
       "certainty", "addedValue",
       "maxconfidence",
+      "rulePowerFactor",
        
       "ralambrodrainy",
       "descriptiveConfirm",
@@ -181,13 +182,17 @@ setMethod("interestMeasure",  signature(x = "rules"),
       transactions, type = "relative"))
     if(measure == "coverage") return(coverage(x, transactions, reuse))
     if(measure == "confidence") return(
-      interestMeasure(x, "support", transactions, reuse)/
+      interestMeasure(x, "support", transactions, reuse) /
         interestMeasure(x, "coverage", transactions, reuse))
     if(measure == "lift") return(
-      interestMeasure(x, "support", transactions, reuse)/
+      interestMeasure(x, "support", transactions, reuse) /
         (interestMeasure(x, "coverage", transactions, reuse) 
           * support(rhs(x), transactions)))
-    if(measure == "improvement") return(.improvement(x, transactions, reuse, ...))
+    if(measure == "rulePowerFactor") return(
+      interestMeasure(x, "support", transactions, reuse) * 
+        interestMeasure(x, "confidence", transactions, reuse))
+    if(measure == "improvement") return(
+      .improvement(x, transactions, reuse, ...))
     if(measure == "hyperLift") return(
       .hyperLift(x, transactions, reuse, ...))
     if(measure == "hyperConfidence") return(

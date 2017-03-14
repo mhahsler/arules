@@ -373,6 +373,12 @@ the proportion of transactions that do not contain \eqn{X}.
     
     Range: \eqn{[0, 1]}}
 
+\item{"rulePowerFactor", rule power factor (Ochin and Kumar, 2016)}{
+
+    Product of support and confidence. Can be seen as rule confidence weighted
+    by support. 
+    
+    Range: \eqn{[0, 1]}}
 
 \item{"sebag", Sebag measure (Sebag and Schoenauer, 1988)}{
     Defined as \eqn{\frac{supp(X \cup Y)}{supp(X \cup \overline{Y})}}{supp(X & Y)/supp(X & !Y)}
@@ -467,6 +473,8 @@ Liu, Bing, Wynne Hsu, and Yiming Ma (1999). Pruning and summarizing the
 discovered associations. In \emph{KDD '99: Proceedings of the fifth ACM SIGKDD
 international conference on Knowledge discovery and data mining}, pages
 125--134.  ACM Press, 1999.
+
+Ochin, Suresh, and  Kumar, Nisheeth Joshi (2016). Rule Power Factor: A New Interest Measure in Associative Classification. \emph{6th International Conference On Advances In Computing and Communications, ICACC 2016,} 6-8 September 2016, Cochin, India.
 
 Omiecinski, Edward R. (2003). Alternative interest measures for mining
 associations in databases. \emph{IEEE Transactions on Knowledge and Data
