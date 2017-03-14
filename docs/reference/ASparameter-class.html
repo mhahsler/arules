@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -104,89 +104,80 @@
   specifying a named list (names equal to slots) as <code>parameter</code>
   argument for the <code><a href='apriori.html'>apriori</a></code> or the  <code><a href='eclat.html'>eclat</a></code>
   function, default values can be replaced by the values in the list.
-  Objects can be created by calls of the form <code>new(&quot;APparameter&quot;,
-    ...)</code> or <code>new(&quot;ECparameter&quot;, ...)</code>.</p>
+  Objects can be created by calls of the form <code>new("APparameter",
+    ...)</code> or <code>new("ECparameter", ...)</code>.</p>
     
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p>Common slots defined in <code>ASparameter</code>:
-  <dl class='dl-horizontal'>
-    <dt><code>support</code>:</dt><dd>a numeric value for the 
-      minimal support of an item set (default: \(0.1\))</dd>
-    <dt><code>minlen</code>:</dt><dd>an integer value for the
-      minimal number of items per item set (default: 1 item)</dd>
-    <dt><code>maxlen</code>:</dt><dd>an integer value for the
-      maximal number of items per item set (default: 10 items)</dd>
-    <dt><code>target</code>:</dt><dd>a character string 
+    <p>Common slots defined in <code>ASparameter</code>:</p><dl class='dl-horizontal'>
+    <dt><code>support</code>:</dt><dd><p>a numeric value for the 
+      minimal support of an item set (default: \(0.1\))</p></dd>
+    <dt><code>minlen</code>:</dt><dd><p>an integer value for the
+      minimal number of items per item set (default: 1 item)</p></dd>
+    <dt><code>maxlen</code>:</dt><dd><p>an integer value for the
+      maximal number of items per item set (default: 10 items)</p></dd>
+    <dt><code>target</code>:</dt><dd><p>a character string 
       indicating the type of association mined.
       One of
       <ul>
-<li> <code>&quot;frequent itemsets&quot;</code> 
-	</li>
-<li> <code>&quot;maximally frequent itemsets&quot;</code>
-	</li>
-<li> <code>&quot;closed frequent itemsets&quot;</code>
-	</li>
-<li> <code>&quot;rules&quot;</code> (only available for Apriori) 
- 	</li>
-<li> <code>&quot;hyperedgesets&quot;</code> (only available for Apriori; 
-	see references for the definition of association hyperedgesets)
-      </li>
-</ul></p>
-    <p></dd>
-    <dt><code>ext</code>:</dt><dd>a logical indicating whether to
+<li><p><code>"frequent itemsets"</code></p></li>
+<li><p><code>"maximally frequent itemsets"</code></p></li>
+<li><p><code>"closed frequent itemsets"</code></p></li>
+<li><p><code>"rules"</code> (only available for Apriori; 
+	     use <code><a href='ruleInduction.html'>ruleInduction</a></code> for <code>eclat</code>.)</p></li>
+<li><p><code>"hyperedgesets"</code> (only available for Apriori; 
+	see references for the definition of association hyperedgesets)</p></li>
+</ul></p></dd>
+    <dt><code>ext</code>:</dt><dd><p>a logical indicating whether to
       produce extended information on quality measures (e.g.,
-      lhs.support) (default: <code>FALSE</code>)</dd>
-  </dl></p>
-    <p>Additional slots for Apriori in <code>APparameter</code>:
-  <dl class='dl-horizontal'>
-    <dt><code>confidence</code>:</dt><dd>a numeric value for the
+      lhs.support) (default: <code>FALSE</code>)</p></dd>
+  </dl>
+    <p>Additional slots for Apriori in <code>APparameter</code>:</p><dl class='dl-horizontal'>
+    <dt><code>confidence</code>:</dt><dd><p>a numeric value for the
       minimal confidence of rules/association hyperedges (default:
-      \(0.8\)). For frequent itemsets it is set to <code>NA</code>.</dd>
-    <dt><code>smax</code>:</dt><dd>a numeric value for the
-      maximal support of itemsets/rules/hyperedgesets (default: 1)</dd>
-    <dt><code>arem</code>:</dt><dd>a character string indicating the used
-      additional rule evaluation measure (default: <code>&quot;none&quot;</code>) given 
+      \(0.8\)). For frequent itemsets it is set to <code>NA</code>.</p></dd>
+    <dt><code>smax</code>:</dt><dd><p>a numeric value for the
+      maximal support of itemsets/rules/hyperedgesets (default: 1)</p></dd>
+    <dt><code>arem</code>:</dt><dd><p>a character string indicating the used
+      additional rule evaluation measure (default: <code>"none"</code>) given 
         by one of
       <dl class='dl-horizontal'>
-	<dt><code>&quot;none&quot;</code>:</dt><dd>no additional evaluation measure</dd>
-	<dt><code>&quot;diff&quot;</code>:</dt><dd>absolute confidence difference</dd>
-	<dt><code>&quot;quot&quot;</code>:</dt><dd>difference of confidence quotient to 1</dd>
-	<dt><code>&quot;aimp&quot;</code>:</dt><dd>absolute difference of improvement to 1</dd>
-	<dt><code>&quot;info&quot;</code>:</dt><dd>information difference to prior</dd>
-	<dt><code>&quot;chi2&quot;</code>:</dt><dd>normalized \(\chi^2\) measure</dd>
-      </dl></p>
-    <p></dd>
-    <dt><code>aval</code>:</dt><dd>a logical indicating whether to
+	<dt><code>"none"</code>:</dt><dd><p>no additional evaluation measure</p></dd>
+	<dt><code>"diff"</code>:</dt><dd><p>absolute confidence difference</p></dd>
+	<dt><code>"quot"</code>:</dt><dd><p>difference of confidence quotient to 1</p></dd>
+	<dt><code>"aimp"</code>:</dt><dd><p>absolute difference of improvement to 1</p></dd>
+	<dt><code>"info"</code>:</dt><dd><p>information difference to prior</p></dd>
+	<dt><code>"chi2"</code>:</dt><dd><p>normalized \(\chi^2\) measure</p></dd>
+      </dl></p></dd>
+    <dt><code>aval</code>:</dt><dd><p>a logical indicating whether to
       return the additional rule evaluation measure selected with
-      <code>arem</code>.</dd>
-    <dt><code>minval</code>:</dt><dd>a numeric value for the
+      <code>arem</code>.</p></dd>
+    <dt><code>minval</code>:</dt><dd><p>a numeric value for the
       minimal value of additional evaluation measure selected with
-      <code>arem</code> (default: \(0.1\))</dd>
-    <dt><code>originalSupport</code>:</dt><dd>a logical indicating whether to
+      <code>arem</code> (default: \(0.1\))</p></dd>
+    <dt><code>originalSupport</code>:</dt><dd><p>a logical indicating whether to
       use for minimum support the original definition of the support of
       a rule (lhs and rhs) instead of lhs support.  Make sure to use
       <code>ext = TRUE</code> if <code>originalSupport</code> is set to <code>FALSE</code>
-      (default: <code>TRUE</code>)</dd>
-    <dt><code>maxtime</code>:</dt><dd> Time limit in seconds for checking subsets 
-      (default: 5 seconds)</dd>
-  </dl></p>
-    <p>Additional slots for Eclat in <code>ECparameter</code>:
-  <dl class='dl-horizontal'>
-    <dt><code>tidLists</code>:</dt><dd>a logical indicating whether to
+      (default: <code>TRUE</code>)</p></dd>
+    <dt><code>maxtime</code>:</dt><dd><p>Time limit in seconds for checking subsets. 
+    <code>maxtime=0</code> disables the time limit.  
+      (default: 5 seconds)</p></dd>
+  </dl><p>Additional slots for Eclat in <code>ECparameter</code>:</p><dl class='dl-horizontal'>
+    <dt><code>tidLists</code>:</dt><dd><p>a logical indicating whether to
       return also a list of supporting transactions (transaction IDs)
-      (default: <code>FALSE</code>)</dd>
-  </dl></p>
+      (default: <code>FALSE</code>)</p></dd>
+  </dl>
     
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
-    <p><dl class='dl-horizontal'>
-    <dt>coerce</dt><dd><code>signature(from = &quot;NULL&quot;, to = &quot;APparameter&quot;)</code></dd>
-    <dt>coerce</dt><dd><code>signature(from = &quot;list&quot;, to = &quot;APparameter&quot;)</code></dd>
-    <dt>coerce</dt><dd><code>signature(from = &quot;NULL&quot;, to = &quot;ECparameter&quot;)</code></dd>
-    <dt>coerce</dt><dd><code>signature(from = &quot;list&quot;, to = &quot;ECparameter&quot;)</code></dd>
-    <dt>show</dt><dd><code>signature(object = &quot;ASparameter&quot;)</code></dd>
-  </dl></p>
+    <p></p><dl class='dl-horizontal'>
+    <dt>coerce</dt><dd><p><code>signature(from = "NULL", to = "APparameter")</code></p></dd>
+    <dt>coerce</dt><dd><p><code>signature(from = "list", to = "APparameter")</code></p></dd>
+    <dt>coerce</dt><dd><p><code>signature(from = "NULL", to = "ECparameter")</code></p></dd>
+    <dt>coerce</dt><dd><p><code>signature(from = "list", to = "ECparameter")</code></p></dd>
+    <dt>show</dt><dd><p><code>signature(object = "ASparameter")</code></p></dd>
+  </dl>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -198,7 +189,9 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='apriori.html'>apriori</a></code>,
-  <code><a href='eclat.html'>eclat</a></code></p>
+  <code><a href='eclat.html'>eclat</a></code>,
+  <code><a href='weclat.html'>weclat</a></code> (for weighted rule mining),
+  <code><a href='ruleInduction.html'>ruleInduction</a></code></p>
     
 
   </div>

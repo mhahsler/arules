@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -88,231 +88,405 @@
     </div>
 
     <div class="contents">
-    <div id="arules-1-5-0-1-xxxx2016" class="section level1">
+    <div id="arules-1-5-2-1-xxxx2017" class="section level1">
 <h1 class="hasAnchor">
-<a href="#arules-1-5-0-1-xxxx2016" class="anchor"> </a>arules 1.5-0.1 (xx/xx/2016)</h1>
-<ul><li>FIX: Error message for sorting with an unknown interest measure.</li>
-<li>FIX: abbreviate works now for rules correctly.</li>
+<a href="#arules-1-5-2-1-xxxx2017" class="anchor"> </a>arules 1.5-2.1 (xx/xx/2017)</h1>
+</div>
+    <div id="arules-1-5-2-03122017" class="section level1">
+<h1 class="hasAnchor">
+<a href="#arules-1-5-2-03122017" class="anchor"> </a>arules 1.5-2 (03/12/2017)</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"> </a>New Features</h2>
+<ul>
+<li>apriori: maxtime = 0 disables the time limit.</li>
+<li>is.subset/is.superset uses now fast and memory efficient C code for sparse computation (contributed by Ian Johnson). sparse = TRUE is now the default. Note that the result is now a sparse matrix.</li>
+</ul>
+</div>
+</div>
+    <div id="arules-1-5-1-01232017" class="section level1">
+<h1 class="hasAnchor">
+<a href="#arules-1-5-1-01232017" class="anchor"> </a>arules 1.5-1 (01/23/2017)</h1>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"> </a>New Features</h2>
+<ul>
+<li>Added interest measure maxConf.</li>
 <li>is.significant now supports in addition to Fisher’s exact test, the chi-squared test.</li>
-</ul></div>
+<li>interest measures Fisher’s exact test and chi-squared (using significance = TRUE) can now produce p-values for substitutes (with complements = FALSE).</li>
+<li>Added function DATAFRAME for more control over coercion to data.frame (e.g., use separate columns for LHS and RHS of rules).</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"> </a>Bug Fixes</h2>
+<ul>
+<li>Error message for sorting with an unknown interest measure.</li>
+<li>abbreviate works now for rules correctly.</li>
+</ul>
+</div>
+<div id="internal-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#internal-changes" class="anchor"> </a>Internal Changes</h2>
+<ul>
+<li>Added registration code for native routines. This requires R 3.3.2.</li>
+</ul>
+</div>
+</div>
     <div id="arules-1-5-0-09232016" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-5-0-09232016" class="anchor"> </a>arules 1.5-0 (09/23/2016)</h1>
-<ul><li>IMPORTANT CHANGE: apriori uses now a time limit set in parameter with maxtime. The default is 5 seconds. Running out of time or maxlen results in a warning. The warning for low absolute support was removed.</li>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"> </a>Major Changes</h2>
+<ul>
+<li>apriori uses now a time limit set in the parameter list with maxtime. The default is 5 seconds. Running out of time or maxlen results in a warning. The warning for low absolute support was removed.</li>
+</ul>
+</div>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"> </a>Bug Fixes</h2>
+<ul>
 <li>is.redundant now also marks rules with the same confidence as redundant.</li>
 <li>plot for associations and transactions produces now a better error/warning message.</li>
 <li>improved argument check for %pin%. Warns now for multiple patterns (was an error) and give an error for empty pattern.</li>
 <li>inspect prints now consistently the index of rules/itemsets using brackets and starting from 1.</li>
-</ul></div>
+</ul>
+</div>
+</div>
     <div id="arules-1-4-2-08062016" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-4-2-08062016" class="anchor"> </a>arules 1.4-2 (08/06/2016)</h1>
-<ul><li>Bugfix: is.redundant returned !is.redundant (reported by brisbia)</li>
+<div id="bug-fixes-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-2" class="anchor"> </a>Bug Fixes</h2>
+<ul>
+<li>is.redundant returned !is.redundant (reported by brisbia)</li>
 <li>Duplicate items when coercing from list to transactions are now removed with a warning.</li>
-</ul></div>
+</ul>
+</div>
+</div>
     <div id="arules-1-4-1-04102016" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-4-1-04102016" class="anchor"> </a>arules 1.4-1 (04/10/2016)</h1>
-<ul><li>added tail method for associations.</li>
+<div id="new-features-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-2" class="anchor"> </a>New Features</h2>
+<ul>
+<li>added tail method for associations.</li>
 <li>added/fixed encoding for read.transactions</li>
-<li>Bugfix for interestMeasure. Mutual information is now calculated correctly (reported by ddessommes).</li>
-</ul></div>
+</ul>
+</div>
+<div id="bug-fixes-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-3" class="anchor"> </a>Bug Fixes</h2>
+<ul>
+<li>Mutual information is now calculated correctly (reported by ddessommes).</li>
+</ul>
+</div>
+</div>
     <div id="arules-1-4-0-03182016" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-4-0-03182016" class="anchor"> </a>arules 1.4-0 (03/18/2016)</h1>
-<ul><li>The transaction class lost slot transactionInfo (we use the itemsetInfo slot now). Note that you may have to rebuild some transaction sets if you are using transactionInfo.</li>
-<li>Bugfix for combining item matrices with 0 rows (reported by C. Buchta).</li>
-<li>Bugfix for itemLabel recoding in is.subset (reported by sjain777).</li>
-<li>Bugfix for NAMESPACE export for %in%</li>
-<li>is.redundant: fixed and performance improvement.</li>
+<div id="new-features-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-3" class="anchor"> </a>New Features</h2>
+<ul>
+<li>The transaction class lost slot transactionInfo (we use the itemsetInfo slot now). Note that you may have to rebuild some transaction sets if you are using transactionInfo.</li>
 <li>interestMeasure: performance improvement for “improvement” measure.</li>
 <li>sort: speed up sort by always sorting NAs last.</li>
 <li>head: added method head for associations for getting the best rules according to an interest measure faster than sorting all the associations first.</li>
-<li>Groceries: fixed typo in dataset.</li>
 <li>abbreviate is now a S4 generic with S4 methods.</li>
-</ul></div>
+</ul>
+</div>
+<div id="bug-fixes-4" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-4" class="anchor"> </a>Bug Fixes</h2>
+<ul>
+<li>combining item matrices with 0 rows (reported by C. Buchta).</li>
+<li>itemLabel recoding in is.subset (reported by sjain777).</li>
+<li>NAMESPACE export for %in%</li>
+<li>is.redundant: fixed and performance improvement.</li>
+<li>Groceries: fixed typo in dataset.</li>
+</ul>
+</div>
+</div>
     <div id="arules-1-3-1-12132015" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-3-1-12132015" class="anchor"> </a>arules 1.3-1 (12/13/2015)</h1>
-<ul><li>we now require R 3.2.0 so cbind in Matrix works.</li>
+<div id="major-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes-1" class="anchor"> </a>Major Changes</h2>
+<ul>
+<li>we now require R 3.2.0 so cbind in Matrix works.</li>
+</ul>
+</div>
+<div id="new-features-4" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-4" class="anchor"> </a>New Features</h2>
+<ul>
 <li>is.maximal is now also available for rules.</li>
 <li>added is.significant for rules (uses Fishers exact test with correction).</li>
 <li>added is.redundant for rules.</li>
 <li>added support for multi-level analysis (aggregate).</li>
 <li>APparameter: confidence shows now NA for frequent itemsets.</li>
-</ul></div>
+</ul>
+</div>
+</div>
     <div id="arules-1-3-0-11112015" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-3-0-11112015" class="anchor"> </a>arules 1.3-0 (11/11/2015)</h1>
-<ul><li>removed deprecated WRITE and SORT functions.</li>
-<li>ruleInduction: bug fix for missing confidence values and better checking (by C. Buchta).</li>
+<div id="new-features-5" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-5" class="anchor"> </a>New Features</h2>
+<ul>
+<li>removed deprecated WRITE and SORT functions.</li>
 <li>subset extraction: added checks, handles now NAs and recycles for logical.</li>
 <li>read.transactions gained arguments skip and quote and some defaults for read and write (uses now quotes and no rownames by default) have changed.</li>
 <li>itemMatrix: coersion from matrix checks now for 0-1 matrix with a warning.</li>
 <li>APRIORI and ECLAT report now absolute minimum support.</li>
 <li>APRIORI: out-of-memory while rule building does now result in an error and not a memory fault.</li>
 <li>aggregate uses now ‘by’ instead of ‘itemLabels’ to conform to aggregate in base.</li>
-</ul></div>
+</ul>
+</div>
+<div id="bug-fixes-5" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-5" class="anchor"> </a>Bug Fixes</h2>
+<ul>
+<li>ruleInduction: bug fix for missing confidence values and better checking (by C. Buchta).</li>
+</ul>
+</div>
+</div>
     <div id="arules-1-2-1-09202015" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-2-1-09202015" class="anchor"> </a>arules 1.2-1 (09/20/2015)</h1>
-<ul><li>Added many new interest measures.</li>
+<div id="new-features-6" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-6" class="anchor"> </a>New Features</h2>
+<ul>
+<li>Added many new interest measures.</li>
 <li>interestMeasure: the formal argument method is now called measure (method is now deprecated).</li>
 <li>Added Mushroom dataset.</li>
 <li>Moved abbreviate from arulesViz to arules.</li>
+</ul>
+</div>
+<div id="bug-fixes-6" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-6" class="anchor"> </a>Bug Fixes</h2>
+<ul>
 <li>fixed undefined behavior for left shift in reclat.c (reported by B. Ripley)</li>
-</ul></div>
+</ul>
+</div>
+</div>
     <div id="arules-1-2-0-09142015" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-2-0-09142015" class="anchor"> </a>arules 1.2-0 (09/14/2015)</h1>
-<ul><li>added support for weighted association rule mining (by C. Buchta):
-<ul><li>transactions can store weights a column called “weight” in transactionInfo.</li>
+<div id="major-changes-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes-2" class="anchor"> </a>Major Changes</h2>
+<ul>
+<li>added support for weighted association rule mining (by C. Buchta):
+<ul>
+<li>transactions can store weights a column called “weight” in transactionInfo.</li>
 <li>support, itemFrequency and itemFrequencyPlot gained a parameter called weighted.</li>
 <li>weclat extends eclat with transaction weights.</li>
 <li>hits can be used to calculate weights from transact ions.</li>
-</ul></li>
+</ul>
+</li>
+<li>We are transitioning to internally use consistently data.frames with the correct number of rows for quality, itemInfo, transactionInfo and itemsetInfo. These data.frames possibly have 0 columns.</li>
+<li>arules uses now testthat (tests are in tests/testthat).</li>
+</ul>
+</div>
+<div id="new-features-7" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-7" class="anchor"> </a>New Features</h2>
+<ul>
 <li>sort can now sort by several columns (used to break ties) in quality. It also gained an order parameter to return a permutation vector (order) instead.</li>
 <li>inspect gained parameters setStart, setEnd, itemSep, ruleSep and linebreak to control output better.</li>
 <li>read.transactions now ignores empty items (e.g., caused by trailing commas and leading or trailing white spaces).</li>
-<li>labels now returns not a list but consistent labels for objects<br/>
+<li>labels now returns not a list but consistent labels for objects<br>
 (transactions, itemMatrix, rules, itemsets, and tidLists).</li>
 <li>tidLists has now an inspect method, gained coercion from “list”, and has now a replacement method for dimnames().</li>
 <li>Coercion from itemMatrix to matrix results now in a logical matrix.</li>
 <li>fixed as(transactions, “data.frame”). The column names do now have no prefix (except if transactionInfo contains an item called “items”).</li>
 <li>transactions has now its own dimnames function which correctly returns transactionID from transactionInfo as rownames.</li>
-<li>fixed missing row labels for is.subset().</li>
 <li>replacement method for dimnames() checks now dimensions.</li>
 <li>item labels are now internally handled as character using stringAsFactor = FALSE in data.frames and not AsIs with I(character).</li>
 <li>rules can now have no item in the RHS.</li>
-<li>We are transitioning to internally use consistently data.frames with the correct number of rows for quality, itemInfo, transactionInfo and itemsetInfo. These data.frames possibly have 0 columns.</li>
-<li>arules uses now testthat (tests are in tests/testthat).</li>
-</ul></div>
+</ul>
+</div>
+<div id="bug-fixes-7" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-7" class="anchor"> </a>Bug Fixes</h2>
+<ul>
+<li>fixed missing row labels for is.subset().</li>
+</ul>
+</div>
+</div>
     <div id="arules-1-1-9-7132015" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-9-7132015" class="anchor"> </a>arules 1.1-9 (7/13/2015)</h1>
-<ul><li>More work on namespace.</li>
+<ul>
+<li>More work on namespace.</li>
 <li>Fixed tests.</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-1-7-6292015" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-7-6292015" class="anchor"> </a>arules 1.1-7 (6/29/2015)</h1>
-<ul><li>itemUnion: fixed bug for large amounts of dense rules.</li>
+<ul>
+<li>itemUnion: fixed bug for large amounts of dense rules.</li>
 <li>crossTable gained arguments measure and sort.</li>
 <li>Fixed namespace imports for non-base default packages.</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-1-6-12072014" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-6-12072014" class="anchor"> </a>arules 1.1-6 (12/07/2014)</h1>
-<ul><li>dissimilarity method “pearson” is now set to 1 (max) for neg. correlation. Also added phi correlation coefficient.</li>
+<ul>
+<li>dissimilarity method “pearson” is now set to 1 (max) for neg. correlation. Also added phi correlation coefficient.</li>
 <li>discretize method “cluster” accepts now … passed on to k-means (e.g., for nstart)</li>
 <li>merge for itemMatrix checks now for conformity</li>
 <li>as(…, “transactions”): binary attributes are now translated into items only if TRUE.</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-1-5-8192014" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-5-8192014" class="anchor"> </a>arules 1.1-5 (8/19/2014)</h1>
-<ul><li>Import drop0 from Matrix</li>
-</ul></div>
+<ul>
+<li>Import drop0 from Matrix</li>
+</ul>
+</div>
     <div id="arules-1-1-4-7252014" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-4-7252014" class="anchor"> </a>arules 1.1-4 (7/25/2014)</h1>
-<ul><li>C code: fixed problem in error message generation in apriori and eclat (this fixes the trio library problem under Windows)</li>
+<ul>
+<li>C code: fixed problem in error message generation in apriori and eclat (this fixes the trio library problem under Windows)</li>
 <li>C code: rapriori uses now STRING_ELT to be compatible with TERR (TIBCO)</li>
 <li>C code: removed some unused variables.</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-1-3-6172014" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-3-6172014" class="anchor"> </a>arules 1.1-3 (6/17/2014)</h1>
-<ul><li>Fixed dependency on XML and pmml</li>
+<ul>
+<li>Fixed dependency on XML and pmml</li>
 <li>the interest measure chi-squared does now also report p-values (with significance=TRUE)</li>
 <li>interestMeasure calculation checks now better for missing transactions</li>
 <li>interestMeasure consistently returns now NA if not defined for a certain rule</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-1-2-2212014" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-2-2212014" class="anchor"> </a>arules 1.1-2 (2/21/2014)</h1>
-<ul><li>discretize gained the parameter ordered.</li>
+<ul>
+<li>discretize gained the parameter ordered.</li>
 <li>itemwise set operations itemUnion, itemSetdiff and itemIntersect added.</li>
 <li>validObject checks now rules more thoroughly</li>
 <li>aggregate removes duplicate items from the lhs</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-1-1-1162014" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-1-1162014" class="anchor"> </a>arules 1.1-1 (1/16/2014)</h1>
-<ul><li>is.superset/is.subset now makes sure that the two arguments conform using recode (number and order of items)</li>
+<ul>
+<li>is.superset/is.subset now makes sure that the two arguments conform using recode (number and order of items)</li>
 <li>is.superset/is.subset returns now a matrix with appropriate dimnames</li>
 <li>bug fix: fixed dimname bug in as(…, “dgCMatrix”) for tidLists</li>
 <li>image: labels are now passed on correctly.</li>
 <li>tidLists has now c().</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-1-0-12102013" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-1-0-12102013" class="anchor"> </a>arules 1.1-0 (12/10/2013)</h1>
-<ul><li>bug fix: reuse in now passed on correctly in interestMeasures (bug reported by Ying Leung)</li>
+<ul>
+<li>bug fix: reuse in now passed on correctly in interestMeasures (bug reported by Ying Leung)</li>
 <li>direct coercions from and to dgCMatrix is no longer supported use ngCMatrix instead</li>
 <li>coercion from ngCMatrix to itemMatrix and transactions is now possible</li>
 <li>C code: fixed misaligned address on 64-bit systems</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-0-15-962013" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-15-962013" class="anchor"> </a>arules 1.0-15 (9/6/2013)</h1>
-<ul><li>service release</li>
-</ul></div>
+<ul>
+<li>service release</li>
+</ul>
+</div>
     <div id="arules-1-0-14-5242013" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-14-5242013" class="anchor"> </a>arules 1.0-14 (5/24/2013)</h1>
-<ul><li>discretize handles now NAs correctly</li>
+<ul>
+<li>discretize handles now NAs correctly</li>
 <li>bug fix in is.subset</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-0-13-472013" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-13-472013" class="anchor"> </a>arules 1.0-13 (4/7/2013)</h1>
-<ul><li>transactions: coercion form data.frame now handles logical automatically.</li>
+<ul>
+<li>transactions: coercion form data.frame now handles logical automatically.</li>
 <li>discretize replaces categorize and offers several additional methods</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-0-12-11282012" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-12-11282012" class="anchor"> </a>arules 1.0-12 (11/28/2012)</h1>
-<ul><li>Added read and write for PMML.</li>
+<ul>
+<li>Added read and write for PMML.</li>
 <li>‘WRITE’ is now deprecated, use ‘write’ instead</li>
 <li>C code: Added a copy of the C subscript code from R for better performance and compatibility with arulesSequences</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-0-11-11192012" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-11-11192012" class="anchor"> </a>arules 1.0-11 (11/19/2012)</h1>
-<ul><li>Fixed vignette.</li>
+<ul>
+<li>Fixed vignette.</li>
 <li>Internal Changes for dimnames and subsetting</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-0-9-and-1-0-10-932012" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-9-and-1-0-10-932012" class="anchor"> </a>arules 1.0-9 and 1.0-10 (9/3/2012)</h1>
-<ul><li>Added PACKAGE argument to C calls.</li>
+<ul>
+<li>Added PACKAGE argument to C calls.</li>
 <li>C code: Added C routine symbols to NAMESPACE for arulesSequence</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-0-8-8232012" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-8-8232012" class="anchor"> </a>arules 1.0-8 (8/23/2012)</h1>
-<ul><li>fixed memory problem in eclat with tidLists=TRUE</li>
+<ul>
+<li>fixed memory problem in eclat with tidLists=TRUE</li>
 <li>added supportedTransactions()</li>
 <li>is.subset/is.superset can not return a sparse matrix</li>
 <li>added support to categorize continuous variables.</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-0-7-1142011" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-7-1142011" class="anchor"> </a>arules 1.0-7 (11/4/2011)</h1>
-<ul><li>minor fixes (removed factor in dimnames for itemMatrix, warning in WRITE)</li>
+<ul>
+<li>minor fixes (removed factor in dimnames for itemMatrix, warning in WRITE)</li>
 <li>read.transactions now accepts column names to specify user and item columns (by F. Leisch)</li>
-</ul></div>
+</ul>
+</div>
     <div id="arules-1-0-0-3242009" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-1-0-0-3242009" class="anchor"> </a>arules 1.0-0 (3/24/2009)</h1>
-<ul><li>Initial stable release version</li>
-</ul></div>
+<ul>
+<li>Initial stable release version</li>
+</ul>
+</div>
     <div id="arules-0-1-0-4152005" class="section level1">
 <h1 class="hasAnchor">
 <a href="#arules-0-1-0-4152005" class="anchor"> </a>arules 0.1-0 (4/15/2005)</h1>
-<ul><li>Alpha and beta versions</li>
-</ul></div>
+<ul>
+<li>Alpha and beta versions</li>
+</ul>
+</div>
     </div>
   </div>
 
@@ -320,7 +494,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#arules-1-5-0-1-xxxx2016">1.5-0.1</a></li>
+        <li><a href="#arules-1-5-2-1-xxxx2017">1.5-2.1</a></li>
+        <li><a href="#arules-1-5-2-03122017">1.5-2</a></li>
+        <li><a href="#arules-1-5-1-01232017">1.5-1</a></li>
         <li><a href="#arules-1-5-0-09232016">1.5-0</a></li>
         <li><a href="#arules-1-4-2-08062016">1.4-2</a></li>
         <li><a href="#arules-1-4-1-04102016">1.4-1</a></li>

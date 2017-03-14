@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -97,37 +97,37 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>data</dt>
-      <dd>object of class
+      <dd><p>object of class
    <code><a href='transactions-class.html'>transactions</a></code> or any data structure
    which can be coerced into
    <code><a href='transactions-class.html'>transactions</a></code> (e.g., binary
-   <code>matrix</code>, <code>data.frame</code>).</dd>
+   <code>matrix</code>, <code>data.frame</code>).</p></dd>
       <dt>parameter</dt>
-      <dd>object of class
-   <code><a href='ASparameter-classes.html'>ECparameter</a></code> or named list (default
-   values are: support 0.1 and maxlen 5)</dd>
+      <dd><p>object of class
+   <code><a href='ASparameter-class.html'>ECparameter</a></code> or named list (default
+   values are: support 0.1 and maxlen 5)</p></dd>
       <dt>control</dt>
-      <dd>object of class
-    <code><a href='AScontrol-classes.html'>ECcontrol</a></code> or named list for
-    algorithmic controls.</dd>
+      <dd><p>object of class
+    <code><a href='AScontrol-class.html'>ECcontrol</a></code> or named list for
+    algorithmic controls.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Calls the C implementation of the Eclat algorithm by Christian 
   Borgelt for mining frequent itemsets.</p>
-    <p>Note for contriol parameter <code>tidLists=TRUE</code>: 
+<p>Note for control parameter <code>tidLists=TRUE</code>: 
   Since storing transaction ID lists is very memory intensive, 
   creating transaction ID lists only works for minimum
   support values which create a relatively small number of itemsets. 
-  See also <code>supportingTransactions()</code>.</p>
-    <p><code>ruleInduction()</code> can be used to generate rules from the found itemsets.</p>
-    <p>A weighted version of ECLAT is available as function <code><a href='weclat.html'>weclat</a></code>. 
+  See also <code><a href='supportingTransactions.html'>supportingTransactions</a></code>.</p>
+<p><code><a href='ruleInduction.html'>ruleInduction</a></code> can be used to generate rules from the found itemsets.</p>
+<p>A weighted version of ECLAT is available as function <code><a href='weclat.html'>weclat</a></code>. 
   This version can be used to perform weighted association rule mining (WARM).</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns an object of class <code><a href='itemsets-class.html'>itemsets</a></code>.</p>
+    <p>Returns an object of class <code>itemsets</code>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -135,16 +135,16 @@
   Li. (1997)
   <em>New algorithms for fast discovery of association rules</em>.
   Technical Report 651, Computer Science Department, University of
-  Rochester, Rochester, NY 14627.</p>
-    <p>Christian Borgelt (2003) Efficient Implementations of Apriori and
+  Rochester, Rochester, NY 14627.
+    Christian Borgelt (2003) Efficient Implementations of Apriori and
   Eclat. <em>Workshop of Frequent Item Set Mining Implementations</em>
   (FIMI 2003, Melbourne, FL, USA).</p>
-    <p>ECLAT Implementation: <a href = 'http://www.borgelt.net/eclat.html'>http://www.borgelt.net/eclat.html</a></p>
+<p>ECLAT Implementation: <a href = 'http://www.borgelt.net/eclat.html'>http://www.borgelt.net/eclat.html</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='ASparameter-classes.html'>ECparameter-class</a></code>,
-  <code><a href='AScontrol-classes.html'>ECcontrol-class</a></code>,
+    <p><code><a href='ASparameter-class.html'>ECparameter-class</a></code>,
+  <code><a href='AScontrol-class.html'>ECcontrol-class</a></code>,
   <code><a href='transactions-class.html'>transactions-class</a></code>,
   <code><a href='itemsets-class.html'>itemsets-class</a></code>,
   <code><a href='weclat.html'>weclat</a></code>,
@@ -172,7 +172,7 @@
 #&gt; create itemset ... 
 #&gt; set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
 #&gt; sorting and recoding items ... [31 item(s)] done [0.01s].
-#&gt; creating bit matrix ... [31 row(s), 48842 column(s)] done [0.00s].
+#&gt; creating bit matrix ... [31 row(s), 48842 column(s)] done [0.01s].
 #&gt; writing  ... [2143 set(s)] done [0.01s].
 #&gt; Creating S4 object  ... done [0.00s].</div><div class='input'><span class='no'>itemsets</span></div><div class='output co'>#&gt; set of 2143 itemsets </div><div class='input'>
 <span class='co'>## Create rules from the itemsets</span>

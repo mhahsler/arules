@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -101,16 +101,16 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>from</dt>
-      <dd>the object to be converted into a data.frame (<code><a href='rules-class.html'>rules</a></code>, <code><a href='itemsets-class.html'>itemsets</a></code>, <code><a href='transactions-class.html'>transactions</a></code>).</dd>
+      <dd><p>the object to be converted into a data.frame (<code><a href='rules-class.html'>rules</a></code>, <code><a href='itemsets-class.html'>itemsets</a></code>, <code><a href='transactions-class.html'>transactions</a></code>).</p></dd>
       <dt>&#8230;</dt>
-      <dd>further arguments.</dd>
+      <dd><p>further arguments.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Using <code>DATAFRAME</code> is equivalent to 
-  the standard coercion <code>as(x, &quot;data.frame&quot;)</code>.
-  However, for rules, the argument <code>separate = TRUE</code> will prodiuce
+  the standard coercion <code>as(x, "data.frame")</code>.
+  However, for rules, the argument <code>separate = TRUE</code> will produce
   separate columns for the LHS and the RHS of the rule. Furthermore,
   the arguments 
   <code>itemSep</code>, 
@@ -178,11 +178,11 @@
 #&gt; 
 #&gt; set item appearances ...[0 item(s)] done [0.00s].
 #&gt; set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
-#&gt; sorting and recoding items ... [9 item(s)] done [0.00s].
+#&gt; sorting and recoding items ... [9 item(s)] done [0.01s].
 #&gt; creating transaction tree ... done [0.03s].
 #&gt; checking subsets of size 1 2 3 4 done [0.00s].
 #&gt; writing ... [52 rule(s)] done [0.00s].
-#&gt; creating S4 object  ... done [0.00s].</div><div class='input'><span class='no'>rules</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sort.html'>head</a></span>(<span class='no'>rules</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"conf"</span>)
+#&gt; creating S4 object  ... done [0.01s].</div><div class='input'><span class='no'>rules</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sort.html'>head</a></span>(<span class='no'>rules</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"conf"</span>)
 
 
 <span class='co'>### default coercions (same as as(rules, "data.frame"))</span>
