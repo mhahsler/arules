@@ -1,5 +1,6 @@
 \name{dissimilarity}
 \alias{dissimilarity}
+\alias{dist}
 \alias{dissimilarity,matrix-method}
 \alias{dissimilarity,itemMatrix-method}
 \alias{dissimilarity,associations-method}
@@ -98,7 +99,7 @@ data("Groceries")
 
 s <- Groceries[,itemFrequency(Groceries)>0.05]
 d_jaccard <- dissimilarity(s, which = "items")
-plot(hclust(d_jaccard, method = "ward.D2"))
+plot(hclust(d_jaccard, method = "ward.D2"), main = "Dendrogram for items")
 
 ## cluster transactions for a sample of Adult
 data("Adult")
@@ -130,6 +131,10 @@ d_affinity <- dissimilarity(rules, method = "affinity",
   args = list(transactions = s))
 hc <- hclust(d_affinity, method = "ward.D2")
 plot(hc, main = "Dendrogram for Rules (Affinity)") 
+
+## create 4 groups and inspect the rules in the first group.
+assign <- cutree(hc, k = 3)
+inspect(rules[assign == 1])
 }
 \references{
   Aggarwal, C.C., Cecilia Procopiuc, and Philip S. Yu. (2002)
