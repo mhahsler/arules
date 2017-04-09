@@ -816,19 +816,19 @@ SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
 
     /* set items/lhs */
     items = PROTECT(NEW_OBJECT(MAKE_CLASS("ngCMatrix")));
-    tp = PROTECT(allocVector(INTSXP, set->ttotal));
+    tp = PROTECT(NEW_INTEGER(set->ttotal));
     for (i = 0; i < set->ttotal; i++) 
 	INTEGER(tp)[i] = atoi(set->body[i]);
     SET_SLOT(items, install("i"), tp);
     UNPROTECT(1);
 
-    tp = PROTECT(allocVector(INTSXP, set->rnb+1));
+    tp = PROTECT(NEW_INTEGER(set->rnb+1));
     INTEGER(tp)[0] = 0;						     
     for (i = 0; i < set->rnb; i++) INTEGER(tp)[i+1] = set->tnb[i];
     SET_SLOT(items, install("p"), tp);
     UNPROTECT(1);
 
-    tp = PROTECT(allocVector(INTSXP, 2));
+    tp = PROTECT(NEW_INTEGER(2));
     INTEGER(tp)[0] = INTEGER(dim)[0];
     INTEGER(tp)[1] = set->rnb;
     SET_SLOT(items, install("Dim"), tp);
@@ -850,18 +850,18 @@ SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
     if (param->target == TT_RULE) {
 	items = PROTECT(NEW_OBJECT(MAKE_CLASS("ngCMatrix")));
 
-	tp = PROTECT(allocVector(INTSXP, set->rnb));
+	tp = PROTECT(NEW_INTEGER(set->rnb));
 	for (i = 0; i < set->rnb; i++) 
 	    INTEGER(tp)[i] = atoi(set->head[i]);
 	SET_SLOT(items, install("i"), tp);
 	UNPROTECT(1);
 
-	tp = PROTECT(allocVector(INTSXP, set->rnb+1));
+	tp = PROTECT(NEW_INTEGER(set->rnb+1));
 	for (i = 0; i < set->rnb+1; i++) INTEGER(tp)[i] = i;
 	SET_SLOT(items, install("p"),  tp);
 	UNPROTECT(1);
 
-	tp = PROTECT(allocVector(INTSXP, 2));
+	tp = PROTECT(NEW_INTEGER(2));
 	INTEGER(tp)[0] = INTEGER(dim)[0];
 	INTEGER(tp)[1] = set->rnb;
 	SET_SLOT(items, install("Dim"), tp);
@@ -877,47 +877,47 @@ SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
     }
 
     /* set quality measures */
-    qual = PROTECT(allocVector(VECSXP, len));
-    names = PROTECT(allocVector(STRSXP, len));
+    qual = PROTECT(NEW_LIST(len));
+    names = PROTECT(NEW_CHARACTER(len));
 
     k=0;
-    SET_VECTOR_ELT(qual, k, q = allocVector(REALSXP, set->rnb));
+    SET_VECTOR_ELT(qual, k, q = NEW_NUMERIC(set->rnb));
     for (i = 0; i < set->rnb; i++) REAL(q)[i] = set->supp[i];
-    SET_STRING_ELT(names, k++, mkChar("support"));
+    SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR("support"));
 
     if (param->target > TT_CLSET) {
-	SET_VECTOR_ELT(qual, k, q = allocVector(REALSXP, set->rnb));
+	SET_VECTOR_ELT(qual, k, q = NEW_NUMERIC(set->rnb));
 	for (i = 0; i < set->rnb; i++) REAL(q)[i] = set->conf[i];
-	SET_STRING_ELT(names, k++, mkChar("confidence"));
+	SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR("confidence"));
     }
 
     if (param->aval) {
-	SET_VECTOR_ELT(qual, k, q = allocVector(REALSXP, set->rnb));
+	SET_VECTOR_ELT(qual, k, q = NEW_NUMERIC(set->rnb));
 	for (i = 0; i < set->rnb; i++) REAL(q)[i] = set->aval[i];
-	SET_STRING_ELT(names, k++, mkChar(aremtypes[param->arem]));
+	SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR(aremtypes[param->arem]));
     }
     if (param->ext) {
-	SET_VECTOR_ELT(qual, k, q = allocVector(REALSXP, set->rnb));
+	SET_VECTOR_ELT(qual, k, q = NEW_NUMERIC(set->rnb));
 	for (i = 0; i < set->rnb; i++) REAL(q)[i] = set->ext[i];
 	if (param->target == TT_RULE) 
-	    SET_STRING_ELT(names, k++, mkChar("lhs.support"));
-	else SET_STRING_ELT(names, k++, mkChar("transIdenticalToItemsets"));
+	    SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR("lhs.support"));
+	else SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR("transIdenticalToItemsets"));
     }
 
     if (param->target == TT_RULE) {
-	SET_VECTOR_ELT(qual, k, q = allocVector(REALSXP, set->rnb));
+	SET_VECTOR_ELT(qual, k, q = NEW_NUMERIC(set->rnb));
 	for (i = 0; i < set->rnb; i++) REAL(q)[i] = set->lift[i];
-	SET_STRING_ELT(names, k++, mkChar("lift"));
+	SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR("lift"));
     }	
 
-    rownames = PROTECT(allocVector(INTSXP, set->rnb));
+    rownames = PROTECT(NEW_INTEGER(set->rnb));
     for (i = 0; i < set->rnb; i++) INTEGER(rownames)[i] = i+1;
     setAttrib(qual, install("row.names"), rownames);
     UNPROTECT(1);
     setAttrib(qual, install("names"), names);
     UNPROTECT(1);
-    PROTECT(class = allocVector(STRSXP, 1)); 
-    SET_STRING_ELT(class, 0, mkChar("data.frame")); 
+    PROTECT(class = NEW_CHARACTER(1)); 
+    SET_STRING_ELT(class, 0, CREATE_STRING_VECTOR("data.frame")); 
     classgets(qual, class); 
     SET_SLOT(ans, install("quality"), qual);
     UNPROTECT(3); 
@@ -927,18 +927,18 @@ SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
     if (param->trans) {
 	trans = PROTECT(NEW_OBJECT(MAKE_CLASS("ngCMatrix")));
 
-	tp = PROTECT(allocVector(INTSXP, set->trtotal));
+	tp = PROTECT(NEW_INTEGER(set->trtotal));
 	for (i = 0; i < set->trtotal; i++) INTEGER(tp)[i] = set->trans[i];
 	SET_SLOT(trans, install("i"), tp); 
 	UNPROTECT(1);
 
-	tp = PROTECT(allocVector(INTSXP, set->rnb+1));
+	tp = PROTECT(NEW_INTEGER(set->rnb+1));
 	INTEGER(tp)[0] = 0;
 	for (i = 0; i < set->rnb; i++) INTEGER(tp)[i+1] = set->trnb[i];
 	SET_SLOT(trans, install("p"),  tp);
 	UNPROTECT(1);
 
-	tp = PROTECT(allocVector(INTSXP, 2));
+	tp = PROTECT(NEW_INTEGER(2));
 	INTEGER(tp)[0] = set->tacnt;
 	INTEGER(tp)[1] = set->rnb;
 	/* SET_SLOT(trans, install("Dim"), duplicate(tp)); */
@@ -950,7 +950,7 @@ SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
 	tidLists = PROTECT(NEW_OBJECT(MAKE_CLASS("tidLists")));
 	SET_SLOT(tidLists, install("data"), trans);
 
-	SET_SLOT(ans, install("tidLists"), tidLists);
+  	SET_SLOT(ans, install("tidLists"), tidLists);
 	UNPROTECT(2);
     }
 
@@ -1044,7 +1044,7 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
 		warning("No additional measure available.\n");
 		LOGICAL(GET_SLOT(parms, install("aval")))[0] = param.aval= 0;
 		param.arem = EM_NONE;
-		SET_SLOT(parms, install("arem"), ScalarString(mkChar("none")));
+		SET_SLOT(parms, install("arem"), ScalarString(CREATE_STRING_VECTOR("none")));
 	}
 	if (param.arem == EM_NONE)   {       /* if no add. rule eval. measure, */
 		REAL(GET_SLOT(parms, install("minval")))[0] = param.minval = 0;
@@ -1097,7 +1097,7 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
   createRules(istree, &param);
 	ruleset->cnt = is_cnt(itemset);
 	ruleset->tacnt = in.tnb;
- 	SET_SLOT(parms, install("maxlen"), allocVector(INTSXP, 1)); 
+ 	SET_SLOT(parms, install("maxlen"), NEW_INTEGER(1)); 
  	INTEGER(GET_SLOT(parms, install("maxlen")))[0] = maxlen;
 	
 	t = clock();
