@@ -454,13 +454,15 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
     r = PROTECT(allocVector(VECSXP, 2));
 
     SET_VECTOR_ELT(r, 0, (r0 = NEW_OBJECT(MAKE_CLASS("ngCMatrix"))));
-    setAttrib(r0, install("p"), (r1 = allocVector(INTSXP, n + 1)));
+    setAttrib(r0, install("p"), PROTECT(r1 = allocVector(INTSXP, n + 1)));
     memcpy(INTEGER(r1), pr, sizeof(int) * (n + 1));
     free(pr); pr = NULL;
+    UNPROTECT(1);
 
-    setAttrib(r0, install("i"), (r1 = allocVector(INTSXP, ni)));
+    setAttrib(r0, install("i"), PROTECT(r1 = allocVector(INTSXP, ni)));
     memcpy(INTEGER(r1), ir, sizeof(int) * ni);
     free(ir); ir = NULL;
+    UNPROTECT(1);
 
     r1 = getAttrib(r0, install("Dim"));
     INTEGER(r1)[0] = nc;
@@ -547,7 +549,8 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
     r = x;
     x = PROTECT(allocS4Object());
     copyMostAttrib(r, x);
-    setAttrib(x, install("i"), duplicate(getAttrib(r, install("i"))));
+    setAttrib(x, install("i"), PROTECT(duplicate(getAttrib(r, install("i")))));
+    UNPROTECT(1);
 
     px = getAttrib(x, install("p"));
     r0 = getAttrib(x, install("i"));
@@ -592,13 +595,13 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
     //      it is not declared visible to avoid problems
     //      under Windoze.
     r = PROTECT(LCONS(install(".Call"),
-		LCONS(mkString("R_pnindex"),
-		LCONS(x,
+	PROTECT(LCONS(PROTECT(mkString("R_pnindex")),
+	PROTECT(LCONS(x,
 		LCONS(R_NilValue,
-		LCONS(ScalarLogical(FALSE), R_NilValue))))));
+		LCONS(ScalarLogical(FALSE), R_NilValue))))))));
     r = eval(r, R_GlobalEnv);
 
-    UNPROTECT(1);
+    UNPROTECT(4);
 
     R_qsort_int_I(INTEGER(PROTECT(r)), j0, 1, LENGTH(px)-1);
 

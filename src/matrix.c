@@ -31,8 +31,9 @@ SEXP R_transpose_ngCMatrix(SEXP x) {
     /* use new-style S4 object */
     PROTECT(r = NEW_OBJECT(MAKE_CLASS("ngCMatrix")));
 
-    setAttrib(r, install("p"), (pr = allocVector(INTSXP, nr+1)));
-    setAttrib(r, install("i"), (ir = allocVector(INTSXP, LENGTH(ix))));
+    setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, nr+1)));
+    setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix))));
+    UNPROTECT(2);
 
     memset(INTEGER(pr), 0, sizeof(int) * (nr+1));
 
@@ -48,11 +49,13 @@ SEXP R_transpose_ngCMatrix(SEXP x) {
 	l = f;
     }
 
-    setAttrib(r, install("Dim"), (ir = allocVector(INTSXP, 2)));
+    setAttrib(r, install("Dim"), PROTECT(ir = allocVector(INTSXP, 2)));
+    UNPROTECT(1);
     INTEGER(ir)[0] = LENGTH(px)-1;
     INTEGER(ir)[1] = nr;
 
-    setAttrib(r, install("Dimnames"), (ir = allocVector(VECSXP, 2)));
+    setAttrib(r, install("Dimnames"), PROTECT(ir = allocVector(VECSXP, 2)));
+    UNPROTECT(1);
     ix = getAttrib(x, install("Dimnames"));
     SET_VECTOR_ELT(ir, 0, VECTOR_ELT(ix, 1));
     SET_VECTOR_ELT(ir, 1, VECTOR_ELT(ix, 0));
@@ -242,8 +245,9 @@ SEXP R_colSubset_ngCMatrix(SEXP x, SEXP s) {
     ix = getAttrib(x, install("i"));
     
     PROTECT(r = NEW_OBJECT(MAKE_CLASS(inherits(x, "ngCMatrix") ? "ngCMatrix" : "sgCMatrix")));
-    setAttrib(r, install("p"), (pr = allocVector(INTSXP, LENGTH(s)+1)));
-    setAttrib(r, install("i"), (ir = allocVector(INTSXP, n)));
+    setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(s)+1)));
+    setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, n)));
+    UNPROTECT(2);
     
     n = INTEGER(pr)[0] = 0;
     for (i = 0; i < LENGTH(s); i++) {
@@ -253,14 +257,16 @@ SEXP R_colSubset_ngCMatrix(SEXP x, SEXP s) {
 	INTEGER(pr)[i+1] = n;
     }
 
-    setAttrib(r, install("Dim"), (ir = allocVector(INTSXP, 2)));
+    setAttrib(r, install("Dim"), PROTECT(ir = allocVector(INTSXP, 2)));
+    UNPROTECT(1);
     INTEGER(ir)[0] = INTEGER(getAttrib(x, install("Dim")))[0];
     INTEGER(ir)[1] = LENGTH(s);
     
     if (isNull((ix = VECTOR_ELT(dx, 1)))) 
 	setAttrib(r, install("Dimnames"), dx);
     else {
-	setAttrib(r, install("Dimnames"), (ir = allocVector(VECSXP, 2)));
+	setAttrib(r, install("Dimnames"), PROTECT(ir = allocVector(VECSXP, 2)));
+	UNPROTECT(1);
 	setAttrib(ir, R_NamesSymbol, getAttrib(dx, R_NamesSymbol));
 	SET_VECTOR_ELT(ir, 0, VECTOR_ELT(dx, 0));
 	if (LENGTH(s) > 0) {
@@ -391,8 +397,9 @@ SEXP R_cbind_ngCMatrix(SEXP x, SEXP y) {
     iy = getAttrib(y, install("i"));
 
     PROTECT(r = NEW_OBJECT(MAKE_CLASS(inherits(x, "ngCMatrix") ? "ngCMatrix" : "sgCMatrix")));
-    setAttrib(r, install("p"), (pr = allocVector(INTSXP, LENGTH(px)+LENGTH(py)-1)));
-    setAttrib(r, install("i"), (ir = allocVector(INTSXP, LENGTH(ix)+LENGTH(iy))));
+    setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(px)+LENGTH(py)-1)));
+    setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix)+LENGTH(iy))));
+    UNPROTECT(2);
 
     memcpy(INTEGER(pr), INTEGER(px), sizeof(int) * LENGTH(px));
     n = LENGTH(px);
@@ -403,13 +410,15 @@ SEXP R_cbind_ngCMatrix(SEXP x, SEXP y) {
     memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * LENGTH(ix));
     memcpy(INTEGER(ir)+LENGTH(ix), INTEGER(iy), sizeof(int) * LENGTH(iy));
 
-    setAttrib(r, install("Dim"), (ir = allocVector(INTSXP, 2)));
+    setAttrib(r, install("Dim"), PROTECT(ir = allocVector(INTSXP, 2)));
+    UNPROTECT(1);
     INTEGER(ir)[0] = nr;
     INTEGER(ir)[1] = LENGTH(pr)-1;
 
     /* c.f. cbind Matrix */
     
-    setAttrib(r, install("Dimnames"), (ir = allocVector(VECSXP, 2)));
+    setAttrib(r, install("Dimnames"), PROTECT(ir = allocVector(VECSXP, 2)));
+    UNPROTECT(1);
 
     ix = getAttrib(x, install("Dimnames"));
     iy = getAttrib(y, install("Dimnames"));
@@ -493,7 +502,8 @@ SEXP R_recode_ngCMatrix(SEXP x, SEXP s) {
 
     PROTECT(r = NEW_OBJECT(MAKE_CLASS(c ? "ngCMatrix" : "sgCMatrix")));
     setAttrib(r, install("p"), px);
-    setAttrib(r, install("i"), (ir = allocVector(INTSXP, LENGTH(ix))));
+    setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix))));
+    UNPROTECT(1);
 
     f = 0;
     for (i = 1; i < LENGTH(px); i++) {
@@ -507,11 +517,13 @@ SEXP R_recode_ngCMatrix(SEXP x, SEXP s) {
 	f = l;
     }
 
-    setAttrib(r, install("Dim"), (ir = allocVector(INTSXP, 2)));
+    setAttrib(r, install("Dim"), PROTECT(ir = allocVector(INTSXP, 2)));
+    UNPROTECT(1);
     INTEGER(ir)[0] = nr;
     INTEGER(ir)[1] = LENGTH(px)-1;
 
-    setAttrib(r, install("Dimnames"), (ir = allocVector(VECSXP, 2)));
+    setAttrib(r, install("Dimnames"), PROTECT(ir = allocVector(VECSXP, 2)));
+    UNPROTECT(1);
     px = getAttrib(x, install("Dimnames"));
     if (isNull((ix = VECTOR_ELT(px, 0))))
 	SET_VECTOR_ELT(ir, 0, ix);
@@ -559,13 +571,15 @@ SEXP R_or_ngCMatrix(SEXP x, SEXP y) {
     iy = getAttrib(y, install("i"));
 
     PROTECT(r = NEW_OBJECT(MAKE_CLASS("ngCMatrix")));
-    setAttrib(r, install("p"), (pr = allocVector(INTSXP, LENGTH(px))));
+    setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(px))));
+    UNPROTECT(1);
 
     n = LENGTH(ix) + LENGTH(iy);
     if (n > (i = nr * (LENGTH(px) - 1)))
 	n = i;
 
-    setAttrib(r, install("i"), (ir = allocVector(INTSXP, n)));
+    setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, n)));
+    UNPROTECT(1);
 
     n = kx = ky = INTEGER(pr)[0] = 0;
     for (i = 1; i < LENGTH(px); i++) {
@@ -588,17 +602,19 @@ SEXP R_or_ngCMatrix(SEXP x, SEXP y) {
 
     if (n < LENGTH(ir)) {
 	PROTECT(ix = ir);
-	setAttrib(r, install("i"), (ir = allocVector(INTSXP, n)));
+	setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, n)));
 	memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * n);
 
-	UNPROTECT(1);
+	UNPROTECT(2);
     }
     /* fixme */
-    setAttrib(r, install("Dim"), (ir = allocVector(INTSXP, 2)));
+    setAttrib(r, install("Dim"), PROTECT(ir = allocVector(INTSXP, 2)));
+    UNPROTECT(1);
     INTEGER(ir)[0] = nr;
     INTEGER(ir)[1] = LENGTH(px)-1;
 
-    setAttrib(r, install("Dimnames"), (ir = allocVector(VECSXP, 2)));
+    setAttrib(r, install("Dimnames"), PROTECT(ir = allocVector(VECSXP, 2)));
+    UNPROTECT(1);
 
     ix = getAttrib(x, install("Dimnames"));
     iy = getAttrib(y, install("Dimnames"));

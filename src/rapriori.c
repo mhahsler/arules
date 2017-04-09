@@ -1044,7 +1044,8 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
 		warning("No additional measure available.\n");
 		LOGICAL(GET_SLOT(parms, install("aval")))[0] = param.aval= 0;
 		param.arem = EM_NONE;
-		SET_SLOT(parms, install("arem"), ScalarString(CREATE_STRING_VECTOR("none")));
+		SET_SLOT(parms, install("arem"), PROTECT(ScalarString(CREATE_STRING_VECTOR("none"))));
+	  UNPROTECT(1);
 	}
 	if (param.arem == EM_NONE)   {       /* if no add. rule eval. measure, */
 		REAL(GET_SLOT(parms, install("minval")))[0] = param.minval = 0;
@@ -1097,7 +1098,8 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
   createRules(istree, &param);
 	ruleset->cnt = is_cnt(itemset);
 	ruleset->tacnt = in.tnb;
- 	SET_SLOT(parms, install("maxlen"), NEW_INTEGER(1)); 
+ 	SET_SLOT(parms, install("maxlen"), PROTECT(NEW_INTEGER(1)));
+ 	UNPROTECT(1);
  	INTEGER(GET_SLOT(parms, install("maxlen")))[0] = maxlen;
 	
 	t = clock();

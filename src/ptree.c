@@ -341,16 +341,18 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
 	PROTECT(r = allocVector(VECSXP, 6));
 	
 	SET_VECTOR_ELT(r, 0, (o = NEW_OBJECT(MAKE_CLASS("ngCMatrix"))));
-	SET_SLOT(o, install("p"),   (pl = allocVector(INTSXP, np+1)));
-	SET_SLOT(o, install("i"),   (il = allocVector(INTSXP, ni)));
-	SET_SLOT(o, install("Dim"), (p  = allocVector(INTSXP, 2)));
+	SET_SLOT(o, install("p"),   PROTECT(pl = allocVector(INTSXP, np+1)));
+	SET_SLOT(o, install("i"),   PROTECT(il = allocVector(INTSXP, ni)));
+	SET_SLOT(o, install("Dim"), PROTECT(p  = allocVector(INTSXP, 2)));
+	UNPROTECT(3);
 	INTEGER(p)[0] = nr;
 	INTEGER(p)[1] = np;
 
 	SET_VECTOR_ELT(r, 1, (o = NEW_OBJECT(MAKE_CLASS("ngCMatrix"))));
-	SET_SLOT(o, install("p"),   (pr = allocVector(INTSXP, np+1)));
-	SET_SLOT(o, install("i"),   (ir = allocVector(INTSXP, np)));
-	SET_SLOT(o, install("Dim"), (p  = allocVector(INTSXP, 2)));
+	SET_SLOT(o, install("p"),   PROTECT(pr = allocVector(INTSXP, np+1)));
+	SET_SLOT(o, install("i"),   PROTECT(ir = allocVector(INTSXP, np)));
+	SET_SLOT(o, install("Dim"), PROTECT(p  = allocVector(INTSXP, 2)));
+	UNPROTECT(3);
 	INTEGER(p)[0] = nr;
 	INTEGER(p)[1] = np;
 	
