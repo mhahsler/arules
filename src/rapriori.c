@@ -941,17 +941,17 @@ SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
 	tp = PROTECT(allocVector(INTSXP, 2));
 	INTEGER(tp)[0] = set->tacnt;
 	INTEGER(tp)[1] = set->rnb;
-	SET_SLOT(trans, install("Dim"), duplicate(tp));
+	/* SET_SLOT(trans, install("Dim"), duplicate(tp)); */
+	SET_SLOT(trans, install("Dim"), tp);
 	UNPROTECT(1);
 
 	sort_ngCMatrix(trans);
 
 	tidLists = PROTECT(NEW_OBJECT(MAKE_CLASS("tidLists")));
 	SET_SLOT(tidLists, install("data"), trans);
-	UNPROTECT(1);
 
 	SET_SLOT(ans, install("tidLists"), tidLists);
-	UNPROTECT(1);
+	UNPROTECT(2);
     }
 
     UNPROTECT(1);
@@ -1104,12 +1104,13 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
 	if (param.verbose) Rprintf("creating S4 object  ... ");
 	ans = PROTECT(returnObject(ruleset, dim, &param, itemInfo));
 	cleanup();
-        UNPROTECT(1);
 	
 	if (param.verbose) {
 		Rprintf("done ");
 		Rprintf("[%.2fs].\n", SEC_SINCE(t));
 	}
+	
+  UNPROTECT(1);
 	return ans;
 }
 
