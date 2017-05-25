@@ -51,7 +51,8 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
    
     ## deal with multiple measures
     if(length(measure) > 1) return(as.data.frame(sapply(measure, FUN = 
-        function(m) interestMeasure(x, m, transactions, reuse, ...))))
+        function(m) interestMeasure(x, m, transactions, reuse, ...),
+      USE.NAMES = TRUE, simplify = FALSE)))
     
     ## first see if we already have it:
     if(reuse && !is.null(quality(x)[[measure]])) return(quality(x)[[measure]])
@@ -170,9 +171,9 @@ setMethod("interestMeasure",  signature(x = "rules"),
     
     measure <- builtin_measures[ind]
    
-    ## deal with multiple measures
     if(length(measure) > 1) return(as.data.frame(sapply(measure, FUN = 
-        function(m) interestMeasure(x, m, transactions, reuse, ...))))
+        function(m) interestMeasure(x, m, transactions, reuse, ...), 
+      USE.NAMES = TRUE, simplify = FALSE)))
     
     ## first see if we already have it:
     if(reuse && !is.null(quality(x)[[measure]])) return(quality(x)[[measure]])

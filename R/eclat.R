@@ -79,13 +79,17 @@ eclat <-  function(data, parameter = NULL, control = NULL)
     result@items@itemsetInfo <- data.frame()
      
     ## make sure quality is a data.frame
-    result@quality <- as.data.frame(result@quality,)
-    
+    result@quality <- as.data.frame(result@quality)
+
+    ## add count to quality
+    quality(result)$count <- quality(result)$support*length(data)
+        
     ## add some reflectance 
     call <- match.call()
-    result@info <- list(data = call$data,
-        ntransactions = length(data),
-        support = parameter@support
+    result@info <- list(
+      data = call$data,
+      ntransactions = length(data),
+      support = parameter@support
     ) 
     
     ## make sure tid list itemInfo is ok

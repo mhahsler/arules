@@ -1,9 +1,17 @@
 # arules 1.5-2.1 (xx/xx/2017)
 
+## New Features
+* apriori and eclat return now count (absolute support count) in the 
+  quality data.frame.
+
+## Bug Fixes
+* Improved PROTECT placement in C source code.
+* itemMeasures for single rules/itemssets now returns a proper data.frame 
+   (reported by lordbitin).
+
 # arules 1.5-2 (03/12/2017)
 
 ## New Features
-
 * apriori: maxtime = 0 disables the time limit. 
 * is.subset/is.superset uses now fast and memory efficient C code 
    for sparse computation (contributed by Ian Johnson). 

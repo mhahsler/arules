@@ -164,7 +164,7 @@ the proportion of transactions that do not contain \eqn{X}.
     
     Range: \eqn{[-1, 1]}}
 
-\item{"counterexample", example and counterexample rate}{
+\item{"counterexample", example and counter-example rate}{
     \eqn{\frac{supp(X \cup Y) - supp(X \cup \overline{Y})}{supp(X \cup Y)}}{(supp(X & Y) - supp(X & !Y)) / supp(X & Y)}
     
     Range: \eqn{[0, 1]}}

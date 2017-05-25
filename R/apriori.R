@@ -66,12 +66,16 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
 
     ## add some reflectance
     call <- match.call()
-    result@info <- list(data = call$data,
+    result@info <- list(
+        data = call$data,
         ntransactions = length(data),
         support = parameter@support,
         confidence = parameter@confidence    
     )    
 
+    ## add count to quality
+    quality(result)$count <- quality(result)$support*length(data)
+    
     if (is(result, "rules"))  { 
       ## validate sparse Matrix (this takes care of sorting vector i)
       validObject(result@lhs@data)

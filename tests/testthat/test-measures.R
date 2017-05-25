@@ -45,6 +45,9 @@ m1 <- interestMeasure(fsets, transactions = trans)
 m2 <- interestMeasure(fsets, transactions = trans, reuse = FALSE)
 expect_equal(m1, m2)
 
+## check if single itemset returns a single row
+m3 <- interestMeasure(fsets[1], transactions = trans)
+expect_equal(nrow(m3), 1L)
 
 ###################################################################
 # test measures for rules
@@ -54,6 +57,10 @@ rules <- apriori(trans, parameter=list(supp=0.01, conf = 0.5),
 
 ## calculate all measures (just to see if one creates an error)
 m1 <- interestMeasure(rules, transactions = trans)
+
+## check if single rule returns a single row
+m2 <- interestMeasure(rules[1], transactions = trans)
+expect_equal(nrow(m2), 1L)
 
 ## coverage
 expect_equal(coverage(rules), support(lhs(rules), trans = trans))

@@ -32,7 +32,7 @@ C implementations of the association mining algorithms Apriori and Eclat.
 #### In-database analytics
 
 * [ibmdbR](https://cran.r-project.org/package=ibmdbR): IBM in-database analytics for R can calculate association rules from a database table.
-* [rfml](https://cran.r-project.org/package=rfml): Mine frequent itemsets or association rules using a MarkLogic server (in-database analytics). 
+* [rfml](https://cran.r-project.org/package=rfml): Mine frequent itemsets or association rules using a MarkLogic server. 
 
 #### Interface
 
