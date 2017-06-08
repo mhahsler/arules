@@ -58,7 +58,8 @@ install.packages("arules")
 ```
 __Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/arules/build/artifacts) or install from GitHub (needs devtools). 
 ```R 
-install_git("mhahsler/arules")
+library("devtools")
+install_github("mhahsler/arules")
 ``` 
 
 ## Usage

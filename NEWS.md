@@ -9,6 +9,7 @@
 * itemMeasures for single rules/itemssets now returns a proper data.frame 
    (reported by lordbitin).
 
+
 # arules 1.5-2 (03/12/2017)
 
 ## New Features
