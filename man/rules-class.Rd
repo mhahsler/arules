@@ -47,7 +47,8 @@ elements. Duplicated elements can be removed with \code{\link{unique}}.
     \item{\code{rhs}:}{Object of class
       \code{\linkS4class{itemMatrix}};
       the right-hand-sides of the rules (consequents)} 
-    \item{\code{quality}:}{a data.frame}
+    \item{\code{quality}:}{a data.frame; typically contains measures
+    like support, confidence and count (i.e., the absolute support count)}
   }
 }
 \section{Extends}{

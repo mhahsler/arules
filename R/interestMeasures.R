@@ -390,7 +390,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "collectiveStrength") return(f11*f00/(f1x*fx1+f0x+fx0) * 
       (N^2 -f1x*fx1-f0x*fx0)/(N-f11-f00))
   if(measure == "jaccard") return(f11/(f1x+fx1-f11))
-  if(measure == "kappa") return((N*f11+N*f00-f1x*fx1-f0x*fx0)/N^2-f1x*fx1-f0x*fx0)
+  if(measure == "kappa") return((N*f11+N*f00-f1x*fx1-f0x*fx0)/(N^2-f1x*fx1-f0x*fx0))
   if(measure == "lambda") {
     max_x0x1 <- apply(cbind(fx1, fx0), 1, max)
     lambda <- (apply(cbind(f11, f10), 1, max) + apply(cbind(f01, f00), 1, max) -
@@ -421,7 +421,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "confirmedConfidence") return(1 - 2*f10/f1x)
   if(measure == "casualSupport") return((f1x+fx1-2*f10)/N)
   if(measure == "casualConfidence") return(1 - f10/N * (1/f1x + 1/fx1))
-  if(measure == "leastContradiction") return((f1x - 2*f10)/fx1)
+  if(measure == "leastContradiction") return((f1x - f10)/fx1)
   if(measure == "centeredConfidence") return(fx0/N - f10/f1x)
   if(measure == "varyingLiaison") return((f1x-f10)/(f1x*fx1/N) - 1)
   if(measure == "yuleQ") {

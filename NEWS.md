@@ -8,6 +8,8 @@
 * Improved PROTECT placement in C source code.
 * itemMeasures for single rules/itemssets now returns a proper data.frame 
    (reported by lordbitin).
+* itemMeasures: Added missing parentheses in kappa calculation and fixed
+    equation for least contradiction (reported by Feng Chen). 
 
 
 # arules 1.5-2 (03/12/2017)
