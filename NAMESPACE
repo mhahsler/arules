@@ -63,6 +63,7 @@ exportClasses(
 exportMethods(
   "%in%",
   "%ain%",
+  "%oin%",
   "%pin%",
   "LIST",
   "DATAFRAME",

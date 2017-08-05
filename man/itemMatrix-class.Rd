@@ -22,6 +22,8 @@
 \alias{\%pin\%,itemMatrix,character-method}
 \alias{\%ain\%}
 \alias{\%ain\%,itemMatrix,character-method}
+\alias{\%oin\%}
+\alias{\%oin\%,itemMatrix,character-method}
 \alias{itemLabels<-,itemMatrix-method}
 \alias{itemLabels,itemMatrix-method}
 \alias{itemLabels<-}
@@ -142,6 +144,11 @@ See \code{\link{itemCoding}} to learn how to encode and recode itemMatrix object
         matches the strings in \code{table} against the item labels 
         in \code{x} and returns a logical vector indicating if
         a row (itemset) in \code{x} contains \emph{all} of the
+        items specified in \code{table}.}
+    \item{\%oin\%}{\code{signature(x = "itemMatrix", table = "character")}; 
+        matches the strings in \code{table} against the item labels 
+        in \code{x} and returns a logical vector indicating if
+        a row (itemset) in \code{x} contains \emph{only}
         items specified in \code{table}.}
     \item{\%pin\%}{\code{signature(x = "itemMatrix", table = "character")}; 
         matches the strings in \code{table} against the item labels 

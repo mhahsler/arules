@@ -230,6 +230,16 @@ setMethod("%ain%", signature(x = "itemMatrix", table = "character"),
   }
 )
 
+## all items have to be in
+setMethod("%oin%", signature(x = "itemMatrix", table = "character"),
+  function(x, table) {
+    pos <- match(table, itemLabels(x))
+    if (any(is.na(pos))) 
+      stop("table contains an unknown item label" )
+    size(x[, -pos]) == 0
+  }
+)
+
 ## partial in  
 setMethod("%pin%", signature(x = "itemMatrix", table = "character"),
   function(x, table) {

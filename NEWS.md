@@ -3,6 +3,7 @@
 ## New Features
 * apriori and eclat return now count (absolute support count) in the 
   quality data.frame.
+* Added %oin% to find transactions/itemsets that ONLY contain certain items.
 
 ## Bug Fixes
 * Improved PROTECT placement in C source code.

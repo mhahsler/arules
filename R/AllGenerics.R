@@ -33,6 +33,9 @@ setGeneric("%pin%",
 setGeneric("%ain%",
     function(x, table) standardGeneric("%ain%"))
 
+setGeneric("%oin%",
+    function(x, table) standardGeneric("%oin%"))
+
 setGeneric("LIST",
     function(from, ...) standardGeneric("LIST"))
 
