@@ -1,4 +1,4 @@
-# arules 1.5-2.1 (xx/xx/2017)
+# arules 1.5-3 (08/31/2017)
 
 ## New Features
 * apriori and eclat return now count (absolute support count) in the 

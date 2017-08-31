@@ -230,7 +230,7 @@ setMethod("%ain%", signature(x = "itemMatrix", table = "character"),
   }
 )
 
-## all items have to be in
+## only items can to be in
 setMethod("%oin%", signature(x = "itemMatrix", table = "character"),
   function(x, table) {
     pos <- match(table, itemLabels(x))

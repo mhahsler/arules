@@ -55,8 +55,6 @@ data("IncomeESL")
   Hastie, T., Tibshirani, R. \& Friedman, J. (2001)
   \emph{The Elements of Statistical Learning}.
   Springer-Verlag.
-  (\url{http://www-stat.stanford.edu/~tibs/ElemStatLearn/};
-  called \sQuote{Marketing})
 }
 \author{Michael Hahsler}
 \examples{
