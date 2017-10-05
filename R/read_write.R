@@ -66,7 +66,7 @@ function(file, format = c("basket", "single"), sep = "", cols = NULL,
         if (rm.duplicates)
             data <- .rm.duplicates(data)
         
-        return(as(data,"transactions"))   
+        return(as(data, "transactions"))   
     }
     
     ## If format is "single", have lines with TIDs and IIDs in the
@@ -94,13 +94,17 @@ function(file, format = c("basket", "single"), sep = "", cols = NULL,
     what[cols] <- ""
     entries <- scan(file = file, sep = sep, quote = quote, what = what, flush = TRUE,
                     quiet = TRUE, skip = skip)
+   
+    tids <- factor(entries[[cols[1]]])
+    items <- factor(entries[[cols[2]]])
     
-    entries <- split(entries[[cols[2]]], entries[[cols[1]]])
+    ## Note: rm.duplicates is automatically done
     
-    if (rm.duplicates)
-        entries <- .rm.duplicates(entries)
+    ngT <- new("ngTMatrix", i = as.integer(items)-1L, j = as.integer(tids)-1L, 
+      Dim = c(length(levels(items)), length(levels(tids))), 
+      Dimnames = list(levels(items), levels(tids)))
     
-    as(entries, "transactions")
+    return(as(as(ngT, "ngCMatrix"), "transactions"))
 }
 
 ## write transactions and associations
@@ -120,7 +124,8 @@ setMethod("write", signature(x = "transactions"),
 	    
 	    dat <- unlist(list(lapply(l, paste, collapse=sep)))
 	    write(dat, file=file, ...)
-	  } else { 
+	  } else { ## format single 
+	    
 	    l <- LIST(x)
 	    dat <- data.frame(transactionID=rep(names(l),lapply(l, length)), 
 	      item=unlist(l), row.names=NULL)
