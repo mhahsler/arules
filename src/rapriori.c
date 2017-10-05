@@ -269,18 +269,9 @@ int aremcode(const char* arem)
 const char* msgs(int code, ...)
 {                               /* --- print an error message */
   const char *msg = NULL;              /* error message */
-  char* buff = NULL;		/* for work around with sprintf */ 
 
-  if (code < E_UNKNOWN) code = E_UNKNOWN;
-  if (code < 0) {               /* if to report an error, */
-	  msg = errmsgs[-code];       /* get the error message */
-	  if (!msg) msg = errmsgs[-E_UNKNOWN];
-  }
-  /* if (code > 0) msg = (const char*)code; */
-  if (code > 0) {
-      sprintf(buff, "%i",code);
-      msg = buff; 
-  }
+  if (code < E_UNKNOWN || code > 0) code = E_UNKNOWN;
+	msg = errmsgs[-code];       /* get the error message */
 
   return msg;
 }  /* msgs() */
