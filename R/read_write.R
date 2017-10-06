@@ -102,9 +102,12 @@ function(file, format = c("basket", "single"), sep = "", cols = NULL,
     
     ngT <- new("ngTMatrix", i = as.integer(items)-1L, j = as.integer(tids)-1L, 
       Dim = c(length(levels(items)), length(levels(tids))), 
-      Dimnames = list(levels(items), levels(tids)))
+      Dimnames = list(levels(items), NULL))
     
-    return(as(as(ngT, "ngCMatrix"), "transactions"))
+    trans <- as(as(ngT, "ngCMatrix"), "transactions")
+    transactionInfo(trans) <- data.frame(transactionID = levels(tids))
+    
+    return(trans)
 }
 
 ## write transactions and associations
@@ -127,7 +130,7 @@ setMethod("write", signature(x = "transactions"),
 	  } else { ## format single 
 	    
 	    l <- LIST(x)
-	    dat <- data.frame(transactionID=rep(names(l),lapply(l, length)), 
+	    dat <- data.frame(transactionID=rep(labels(l),lapply(l, length)), 
 	      item=unlist(l), row.names=NULL)
 	    write.table(dat, file = file, sep=sep, quote=quote, 
 	      row.names = FALSE, col.names = FALSE, ...)
