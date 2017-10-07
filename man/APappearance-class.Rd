@@ -83,10 +83,11 @@ is <- apriori(Adult, parameter = list(support= 0.1, target="frequent"),
   default="none"))
 inspect(head(is))
   
-## find only rules with small or large income in the right-hand-side.
+## find only rules with income-related variables in the right-hand-side.
+incomeItems <- grep("^income=", itemLabels(Adult), value = TRUE)
+incomeItems
 rules <- apriori(Adult, parameter = list(support=0.2, confidence = 0.5), 
-  appearance = list(rhs = c("income=small", "income=large"),
-  default="lhs"))
+  appearance = list(rhs = incomeItems, default="lhs"))
 inspect(head(rules))
 
 ## for more complicated restrictions you have to mine all rules/itemsets and

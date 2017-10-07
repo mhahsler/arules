@@ -338,7 +338,7 @@ the proportion of transactions that do not contain \eqn{X}.
   Range: \eqn{[0, \infty]}{[0, Inf]} (1 means independence)}
 
 \item{"maxConfidence" (Wu et al. 2010)}{
-  Null-invariant measure defined as \eqn{max{conf(X->Y), conf(X->Y)}}.
+  Null-invariant measure defined as \eqn{max(conf(X \Rightarrow Y), conf(X \Rightarrow Y))}{max{conf(X->Y), conf(X->Y)}}.
   
   Range: \eqn{[0, 1]}
 }

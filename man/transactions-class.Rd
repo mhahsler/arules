@@ -214,5 +214,7 @@ a_df3
 trans4 <- as(split(a_df3[,"item"], a_df3[,"TID"]), "transactions")
 trans4
 inspect(trans4)
+## Note: This is very slow for large datasets. It is faster read transactions
+## in this format from disk using read.transactions() with format = "single".
 }
 \keyword{classes}
