@@ -15,7 +15,7 @@ Description: Provides the infrastructure for representing,
     C implementations of the association mining algorithms Apriori and Eclat
     by C. Borgelt.
 Classification/ACM: G.4, H.2.8, I.5.1
-URL: http://mhahsler.github.io/arules/, http://lyle.smu.edu/IDA/arules
+URL: https://github.com/mhahsler/arules, http://lyle.smu.edu/IDA/arules
 BugReports: https://github.com/mhahsler/arules
 Depends: R (>= 3.3.2), Matrix (>= 1.2-0)
 Imports: stats, methods, graphics, utils

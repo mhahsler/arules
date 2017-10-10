@@ -12,8 +12,8 @@ C implementations of the association mining algorithms Apriori and Eclat.
 
 ### arules core packages: 
 
-* [arules](http://mhahsler.github.io/arules/): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
-* [arulesViz](http://mhahsler.github.io/arulesViz/): Visualization of association rules. 
+* [arules](https://cran.r-project.org/package=arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
+* [arulesViz](https://cran.r-project.org/package=arulesViz): Visualization of association rules. 
 * [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification algorithms based on association rules (includes CBA).  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences):
    Mining frequent sequences (cSPADE).
