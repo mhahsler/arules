@@ -4,7 +4,7 @@
 * Improved speed for read.transactions with format = "single" significantly.
 
 ## Bug Fixes
-* Fixed null pointer in error mesage code.
+* Fixed null pointer in error message code.
 
 # arules 1.5-3 (08/31/2017)
 

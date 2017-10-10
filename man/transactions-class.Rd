@@ -64,7 +64,9 @@
 \details{
 Transactions can be created by coercion from lists
 containing transactions, but also from matrix and data.frames.
-However, you will need to prepare your data first. Association rule mining can only use items and does not work with continuous variables. 
+However, you will need to prepare your data first (see coercion methods in the
+Methods Section and the Example Section below for details on the needed format). 
+Association rule mining can only use items and does not work with continuous variables. 
 
 For example, an item describing a person (i.e., the considered object called a transaction) could be \emph{tall}. The fact that the person is tall would be encoded in the transaction containing the item \emph{tall}. This is typically encoded in a transaction-by-items matrix by a \code{TRUE} value. This is why \code{as.transaction} can deal with logical columns, because it assumes the column stands for an item. The function also can convert columns with nominal values (i.e., factors) into a series of binary items (one for each level). So if you have nominal variables then you need to make sure they are factors (and not characters or numbers) using something like 
 
@@ -205,7 +207,7 @@ inspect(trans3)
 as(trans3, "data.frame")
 
 ## example 4: creating transactions from a data.frame with 
-## transaction IDs and items 
+## transaction IDs and items (by converting it into a list of transactions first) 
 a_df3 <- data.frame(
   TID = c(1,1,2,2,2,3), 
   item=c("a","b","a","b","c", "b")
@@ -214,7 +216,8 @@ a_df3
 trans4 <- as(split(a_df3[,"item"], a_df3[,"TID"]), "transactions")
 trans4
 inspect(trans4)
-## Note: This is very slow for large datasets. It is faster read transactions
-## in this format from disk using read.transactions() with format = "single".
+## Note: This is very slow for large datasets. It is much faster to 
+## read transactions in this format from disk using read.transactions() 
+## with format = "single".
 }
 \keyword{classes}
