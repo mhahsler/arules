@@ -122,9 +122,10 @@
   expect_warning(expect_equal(length(f[c(TRUE, NA, FALSE)]),
     sum(rep(c(TRUE,NA,FALSE), length.out=length(f)), na.rm = TRUE))) # recycle
     
-  # head
+  # head and tail
   expect_identical(r[1:5], head(r, n = 5))
   expect_identical(r[1:6], head(r))
+  expect_identical(r[1:2], head(r[1:2]))
   expect_identical(r[0], head(r, n = 0))
   expect_identical(r[1:(length(r)-10)], head(r, n = -10))
   expect_identical(r[1:length(r)], head(r, n = length(r)))
@@ -132,7 +133,13 @@
   expect_identical(sort(r, by = "lift")[1:5], head(r, n = 5, by = "lift"))
   expect_identical(sort(r, by = "lift", decreasing = FALSE)[1:5], 
     head(r, n = 5, by = "lift", decreasing = FALSE))
-  
+  expect_identical(head(r[0]), r[0]) # empty rule set
+   
+  expect_identical(r[tail(1:length(r), n =5)], tail(r, n = 5))
+  expect_identical(r[1:2], tail(r[1:2]))
+  expect_identical(r[0], tail(r, n = 0))
+  expect_identical(sort(r, by = "lift")[tail(1:length(r), n =5)], tail(r, n = 5, by = "lift"))
+  expect_identical(tail(r[0]), r[0]) # empty rule set
   
   # match, %in%, %pin%
   expect_identical(match(r[2:10], r), 2:10)
@@ -145,4 +152,4 @@
     TRUE, TRUE, FALSE, FALSE, TRUE)) 
   expect_error(rhs(r[1:10]) %pin% "")
   expect_warning(rhs(r[1:10]) %pin% c("1", "2"))
-   
+  
