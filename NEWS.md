@@ -5,6 +5,8 @@
 
 ## Bug Fixes
 * Fixed null pointer in error message code.
+* head does now not result in an error for empty rule sets 
+  (bug reported by cornejom).
 
 # arules 1.5-3 (08/31/2017)
 
