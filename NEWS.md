@@ -1,4 +1,4 @@
-# arules 1.5-3.1 (xx/xx/2017)
+# arules 1.5-4 (10/12/2017)
 
 ## New Features
 * Improved speed for read.transactions with format = "single" significantly.
