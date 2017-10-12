@@ -41,8 +41,31 @@ setAs("list", "APappearance",
         stop(paste(names(from)[!names(from) %in% c(args, other)], 
                 "is an unknown appearance indicator, use:", 
                 paste(args, collapse=" "), collapse=", "))
-        if (is.null(from$default)) from$default = "both"
-
+       
+        ## cannot set items and lhs, rhs or both
+        if(!is.null(from$items) && 
+            (!is.null(from$lhs) || !is.null(from$rhs) || !is.null(from$both))) {
+          stop("Cannot set appearance for mining association rules (lhs, rhs, both) and frequent itemset mining (items) at the same time!")
+        }
+         
+        ## guess default
+        if (is.null(from$default)) {
+          if(is.null(from$lhs) 
+            && is.null(from$rhs)) from$default = "both"
+          if(!is.null(from$lhs) 
+            && is.null(from$rhs)) from$default = "rhs"
+          if(is.null(from$lhs) 
+            && !is.null(from$rhs)) from$default = "lhs"
+          
+          if(!is.null(from$rhs)
+            && !is.null(from$lhs)) from$default = "none"
+          
+          if(!is.null(from$both)) from$default = "none"
+          
+          ## for itemsets
+          if(!is.null(from$items)) from$default = "none"
+        }
+          
         set <- c()
         items <- c()
         for (i in 1:length(args)) {
@@ -57,6 +80,11 @@ setAs("list", "APappearance",
             set <- c(set, length(add_items))
         }
 
+        ## check for items in multiple positions (crashes C code!)
+        if(any(dup <- duplicated(items))) 
+          stop("The following items cannot be specified in multiple appearance locations: ",
+          paste(from$labels[items[dup]+1L], collapse = ", "))
+        
         ## check NA's
         return(new("APappearance", default = from$default, 
                 items = as.integer(items),

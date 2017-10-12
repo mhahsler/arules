@@ -33,11 +33,24 @@ expect_identical(length(r), 18L)
 
 ### test appearance
 r <- apriori(trans, parameter=list(supp=0.25, conf=0),
-  appearance=list(rhs=c("a","b"), default= "lhs"), 
-  control=list(verb=FALSE))
+  appearance=list(rhs=c("a","b")), control=list(verb=FALSE))
 
 expect_identical(length(r), 6L)
 #inspect(r)
+
+r <- apriori(trans, parameter=list(supp=0.25, conf=0),
+  appearance=list(lhs= c("a", "b"), rhs="c"), 
+  control=list(verb=FALSE))
+expect_identical(length(r), 2L)
+
+r <- apriori(trans, parameter=list(supp=0.25, conf=0),
+  appearance=list(none= c("a", "b")), 
+  control=list(verb=FALSE))
+expect_identical(length(r), 3L)
+
+expect_error(as(list(rhs=c("a","b"), lhs = "a", 
+  labels=itemLabels(trans)), "APappearance"))
+
 
 ### test lhs.support
 r <- apriori(trans, parameter=list(supp=0.25, conf=0, 

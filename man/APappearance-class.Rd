@@ -28,12 +28,17 @@
       character vectors giving the labels of the items
 	    which can appear in the specified place
         (rhs, lhs or both for rules and items for itemsets).
-      The special place none specifies, that the items mentioned there cannot
-      appear in the rule/itemset.}
-    \item{\code{default}:}{one of \code{"both"}, \code{"lhs"},
-      \code{"rhs"}, \code{"none"} (the default is \code{"both"}). 
+      none specifies, that the items mentioned there cannot
+      appear anywhere in the rule/itemset. Note that items cannot be specified
+in more than one place (i.e., you cannot specify an item in lhs and rhs, but have 
+to specify it as both).}
+    \item{\code{default}:}{
+      one of \code{"both"}, \code{"lhs"},
+      \code{"rhs"}, \code{"none"}. 
       Specified the default appearance for all items not 
-      explicitly mentioned in the other elements of the list.}
+      explicitly mentioned in the other elements of the list.
+      Leave unspecified and the code will guess the correct setting.
+      }
   }
 
   Objects can also be created by calls of the form 
@@ -70,28 +75,26 @@
 \examples{
 data("Adult")
 
-## find only frequent itemsets which do not contain  small or large income
+## find only frequent itemsets which do not contain small or large income
 is <- apriori(Adult, parameter = list(support= 0.1, target="frequent"), 
-  appearance = list(none = c("income=small", "income=large"),
-  default="both"))
+  appearance = list(none = c("income=small", "income=large")))
 itemFrequency(items(is))["income=small"]
 itemFrequency(items(is))["income=large"]
 
-## find itemsets that only contain small or large income and young age
+## find itemsets that only contain small or large income, or young age
 is <- apriori(Adult, parameter = list(support= 0.1, target="frequent"), 
-  appearance = list(items = c("income=small", "income=large", "age=Young"),
-  default="none"))
+  appearance = list(items = c("income=small", "income=large", "age=Young")))
 inspect(head(is))
   
 ## find only rules with income-related variables in the right-hand-side.
 incomeItems <- grep("^income=", itemLabels(Adult), value = TRUE)
 incomeItems
 rules <- apriori(Adult, parameter = list(support=0.2, confidence = 0.5), 
-  appearance = list(rhs = incomeItems, default="lhs"))
+  appearance = list(rhs = incomeItems))
 inspect(head(rules))
 
-## for more complicated restrictions you have to mine all rules/itemsets and
-## then filter the results afterwards
+## Note: For more complicated restrictions you have to mine all rules/itemsets and
+## then filter the results afterwards.
 }
 \seealso{
   \code{\link{apriori}}

@@ -2,6 +2,8 @@
 
 ## New Features
 * Improved speed for read.transactions with format = "single" significantly.
+* Appearance for apriori now guesses the default parameter automatically and 
+  does some more checking, making the specification of templates easier.
 
 ## Bug Fixes
 * Fixed null pointer in error message code.

@@ -46,7 +46,7 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
       cat("\nAlgorithmic control:\n")
       print(control)
     }
-    
+   
     ## sanity check for support (abs. support >1)
     abs_supp <- as.integer(parameter@support * length(data))
     if(control@verbose) {
