@@ -18,11 +18,8 @@
 \alias{dimnames<-,itemMatrix,list-method}
 \alias{\%in\%,itemMatrix,character-method}
 \alias{\%in\%,itemMatrix,itemMatrix-method}
-\alias{\%pin\%}
 \alias{\%pin\%,itemMatrix,character-method}
-\alias{\%ain\%}
 \alias{\%ain\%,itemMatrix,character-method}
-\alias{\%oin\%}
 \alias{\%oin\%,itemMatrix,character-method}
 \alias{itemLabels<-,itemMatrix-method}
 \alias{itemLabels,itemMatrix-method}
