@@ -1,3 +1,5 @@
+# arules 1.5-4.1 (xx/xx/2017)
+
 # arules 1.5-4 (10/12/2017)
 
 ## New Features
