@@ -26,7 +26,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
       significantly since only very little (or no) transaction counting 
       is necessary if support, confidence and lift are already available.
       Use \code{reuse=FALSE} to force counting (might be very slow but
-      is necessary if you use a differnt set of transactions than was used 
+      is necessary if you use a different set of transactions than was used 
       for mining).}
   \item{\dots}{ further arguments for the measure calculation. }
 }
@@ -66,6 +66,12 @@ For itemsets \eqn{X} the following measures are implemented:
   a measure of generality of the itemset. 
 
 Range: \eqn{[0, 1]}}
+
+\item{"count"}{
+  
+  Absolute support count of the itemset. 
+
+Range: \eqn{[0, \infty]}}
 }
 
 
@@ -140,6 +146,12 @@ the proportion of transactions that do not contain \eqn{X}.
   Defined as \eqn{\frac{supp(X \cup Y)}{\sqrt{(supp(X)supp(Y))}}}{supp(X & Y)/sqrt(supp(X)supp(Y))}
 
   Range: \eqn{[0, 1]}}
+
+\item{"count"}{
+  
+  Absolute support count of the rule. 
+
+Range: \eqn{[0, \infty]}}
   
 \item{"coverage", cover, LHS-support}{ Support of the left-hand-side of the rule, 
     i.e., \eqn{supp(X)}.
@@ -541,7 +553,7 @@ head(m)
 t(interestMeasure(head(rules, 5), transactions = Income))
 
 ## calculate measures on a differnt set of transactions (I use a sample here)
-## Note: reuse = TRUE (default) would just retun the stored support on the
+## Note: reuse = TRUE (default) would just return the stored support on the
 ##	data set used for mining
 newTrans <- sample(Income, 100)
 m2 <- interestMeasure(rules, "support", transactions = newTrans, reuse = FALSE) 
