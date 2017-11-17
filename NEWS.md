@@ -1,5 +1,11 @@
 # arules 1.5-4.1 (xx/xx/2017)
 
+## New Features
+* Added (absolut support) "count" as an interest measure. 
+
+## Bug Fixes
+* Fixed bug in subset with signature itemMatrix, itemMatrix (reported by rwdvc).
+
 # arules 1.5-4 (10/12/2017)
 
 ## New Features

@@ -217,7 +217,7 @@ setMethod("%in%", signature(x = "itemMatrix", table = "character"),
 )
 
 setMethod("%in%", signature(x = "itemMatrix", table = "itemMatrix"),
-  function(x, table) x %in% itemLabels(table)
+  function(x, table) x %in% unlist(as(table, "list"))
 )
 
 ## all items have to be in
