@@ -134,7 +134,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
       measure <- add$method
     }
     
-    builtin_measures <- c("support", "coverage", "confidence", "lift",
+    builtin_measures <- c("support", "count", "coverage", "confidence", "lift",
       "leverage", "hyperLift", "hyperConfidence", "fishersExactTest", 
       "improvement",
       "chiSquared", "cosine", "conviction", "gini", "oddsRatio", "phi",
@@ -181,6 +181,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
     ## calculate measure 
     if(measure == "support") return(support(generatingItemsets(x), 
       transactions, type = "relative"))
+    if(measure == "count") return(support(generatingItemsets(x), 
+      transactions, type = "absolute"))
     if(measure == "coverage") return(coverage(x, transactions, reuse))
     if(measure == "confidence") return(
       interestMeasure(x, "support", transactions, reuse) /
