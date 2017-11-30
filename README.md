@@ -15,7 +15,7 @@ C implementations of the association mining algorithms Apriori and Eclat.
 
 * [arules](https://cran.r-project.org/package=arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
 * [arulesViz](https://cran.r-project.org/package=arulesViz): Visualization of association rules. 
-* [arulesCBA](http://github.com/ianjjohnson/arulesCBA): Classification algorithms based on association rules (includes CBA).  
+* [arulesCBA](https://cran.r-project.org/package=arulesCBA): Classification algorithms based on association rules (includes CBA).  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences):
    Mining frequent sequences (cSPADE).
 
@@ -23,7 +23,7 @@ C implementations of the association mining algorithms Apriori and Eclat.
 
 #### Additional mining algorithms 
 
-* [arulesNBMiner](http://github.com/mhahsler/arulesNBMiner):
+* [arulesNBMiner](https://cran.r-project.org/package=arulesNBMiner):
   Mining NB-frequent itemsets and NB-precise rules.
 * [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for filtered top-k association discovery.
 * [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL's association rule mining algorithm.
