@@ -12,6 +12,7 @@
 \alias{items<-}
 \alias{itemInfo,itemsets-method}
 \alias{itemLabels,itemsets-method}
+\alias{itemLabels<-,itemsets-method}
 \alias{labels,itemsets-method}
 \alias{itemLabels,itemsets-method}
 %\alias{length,itemsets-method}

@@ -54,6 +54,14 @@ setMethod("labels", signature(object = "itemsets"),
 setMethod("itemLabels", signature(object = "itemsets"),
     function(object) itemLabels(object@items))
 
+setReplaceMethod("itemLabels", signature(object = "itemsets"),
+  function(object, value) {
+    itemLabels(items(object)) <- value
+    object
+  }
+)
+
+
 ##************************************************
 ## accessors
 

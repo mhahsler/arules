@@ -13,6 +13,7 @@
 \alias{generatingItemsets,rules-method}
 \alias{labels,rules-method}
 \alias{itemLabels,rules-method}
+\alias{itemLabels<-,rules-method}
 %\alias{length,rules-method}
 \alias{lhs<-,rules-method}
 \alias{lhs,rules-method}

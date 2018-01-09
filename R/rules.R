@@ -74,6 +74,16 @@ setMethod("labels", signature(object = "rules"),
 setMethod("itemLabels", signature(object = "rules"),
     function(object)itemLabels(lhs(object)))
 
+setReplaceMethod("itemLabels", signature(object = "rules"),
+  function(object, value) {
+    #itemLabels(lhs(object)) <- value
+    ### this low level operation avoids the validity check
+    itemLabels(object@lhs) <- value
+    itemLabels(rhs(object)) <- value
+    object
+  }
+)
+
 ##************************************************
 ## accessors
 

@@ -2,6 +2,7 @@
 
 ## New Features
 * Added (absolut support) "count" as an interest measure. 
+* itemLabels can now be assigned for rules and itemsets. 
 
 ## Bug Fixes
 * Fixed bug in subset with signature itemMatrix, itemMatrix (reported by rwdvc).

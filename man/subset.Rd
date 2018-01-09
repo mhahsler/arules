@@ -4,10 +4,6 @@
 \alias{subset,itemsets-method}
 \alias{subset,itemMatrix-method}
 \alias{subset,rules-method}
-\alias{\%in\%}
-\alias{\%ain\%}
-\alias{\%pin\%}
-\alias{\%oin\%}
 \title{Subsetting Itemsets, Rules and Transactions}
 \description{
   Provides the generic function \code{subset} and S4 methods to subset
