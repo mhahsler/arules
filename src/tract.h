@@ -196,8 +196,8 @@ extern void        tat_show    (TATREE *tat);
 #define tat_size(t)       ((t)->size)
 #define tat_item(t,i)     ((t)->items[i])
 #define tat_items(t)      ((t)->items)
-#ifndef ARCH64
-#define tat_child(t,i)    (((TATREE**)((t)->items +(t)->size))[i])
-#endif
-
+/*#ifndef ARCH64
+*#define tat_child(t,i)    (((TATREE**)((t)->items +(t)->size))[i])
+*#endif
+*/
 #endif

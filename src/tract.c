@@ -687,7 +687,6 @@ void tat_delete (TATREE *tat)
 }  /* tat_delete() */
 
 /*--------------------------------------------------------------------*/
-#ifdef ARCH64
 
 TATREE* tat_child (TATREE *tat, int index)
 {                               /* --- go to a child node */
@@ -695,11 +694,16 @@ TATREE* tat_child (TATREE *tat, int index)
 
   assert(tat                    /* check the function arguments */
      && (index >= 0) && (index < tat->size));
+#ifdef ARCH64                   /* address must be a multiple of 8 */
   s = (tat->size & 1) ? tat->size : (tat->size +1);
-  return ((TATREE**)(tat->items +s))[index];
+#else                         
+  s = tat->size;
+#endif
+  TATREE ** children = (TATREE**)(tat->items +s);
+  return children[index];
+  /* return ((TATREE**)(tat->items +s))[index]; */
 }  /* tat_child */              /* return the child node/subtree */
 
-#endif
 /*--------------------------------------------------------------------*/
 #ifndef NDEBUG
 
