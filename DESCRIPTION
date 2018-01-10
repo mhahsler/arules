@@ -1,6 +1,6 @@
 Package: arules
-Version: 1.5-4.1
-Date: 2017-xx-xx
+Version: 1.5-5
+Date: 2018-01-09
 Title: Mining Association Rules and Frequent Itemsets
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 		email = "mhahsler@lyle.smu.edu"),
@@ -16,7 +16,7 @@ Description: Provides the infrastructure for representing,
 Classification/ACM: G.4, H.2.8, I.5.1
 URL: https://github.com/mhahsler/arules, http://lyle.smu.edu/IDA/arules
 BugReports: https://github.com/mhahsler/arules
-Depends: R (>= 3.3.2), Matrix (>= 1.2-0)
+Depends: R (>= 3.4.0), Matrix (>= 1.2-0)
 Imports: stats, methods, graphics, utils
 Suggests: pmml, XML, arulesViz, testthat
 License: GPL-3
