@@ -1,5 +1,6 @@
 \name{is.redundant}
 \alias{is.redundant}
+\alias{redundant}
 \alias{is.redundant,rules-method}
 %
 %
