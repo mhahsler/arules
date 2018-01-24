@@ -313,7 +313,7 @@ setMethod("inspect", signature(x = "itemMatrix"),
 ## tidLists are easy so we use sprintf
 setMethod("inspect", signature(x = "tidLists"),
   function(x, ...) {
-    print(data.frame(items = itemLabels(x), transationIDs = labels(x), 
+    print(data.frame(items = itemLabels(x), transactionIDs = labels(x), 
       row.names = NULL), right = FALSE)
   }
 )

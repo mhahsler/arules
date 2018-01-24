@@ -26,8 +26,11 @@ eclat(data, parameter = NULL, control = NULL)
   Calls the C implementation of the Eclat algorithm by Christian 
   Borgelt for mining frequent itemsets. 
 
-  Note for control parameter \code{tidLists=TRUE}: 
-  Since storing transaction ID lists is very memory intensive, 
+  Eclat can also return the transaction IDs for each found itemset using 
+  \code{tidLists=TRUE} as a parameter and the result can be retrieved 
+  as a \code{\linkS4class{tidLists}} object with method
+  \code{tidLists()} for class \code{\linkS4class{itemsets}}. 
+  Note that storing transaction ID lists is very memory intensive, 
   creating transaction ID lists only works for minimum
   support values which create a relatively small number of itemsets. 
   See also \code{\link{supportingTransactions}}.
