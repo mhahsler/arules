@@ -158,7 +158,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "yuleQ",
       "yuleY",
       "lerman",
-      "implicationIndex"
+      "implicationIndex",
+      "importance"
     )
     
     if(missing(measure)) measure <- builtin_measures
@@ -391,6 +392,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "leverage") return(f11/N - (f1x*fx1/N^2))
   if(measure == "collectiveStrength") return(f11*f00/(f1x*fx1+f0x+fx0) * 
       (N^2 -f1x*fx1-f0x*fx0)/(N-f11-f00))
+  if(measure == "importance") return(log(
+    ((f11+1)*(f0x+2))/((f01+1)*(f1x+2)), base = 10))
   if(measure == "jaccard") return(f11/(f1x+fx1-f11))
   if(measure == "kappa") return((N*f11+N*f00-f1x*fx1-f0x*fx0)/(N^2-f1x*fx1-f0x*fx0))
   if(measure == "lambda") {

@@ -277,6 +277,17 @@ Range: \eqn{[0, \infty]}}
 
   Range: \eqn{[0, 1]} (0 means independence)}
 
+\item{"importance" (MS Analysis Services)}{
+  Log likelihood of the right-hand side of the rule, 
+  given the left-hand side of the rule.
+  
+  \eqn{log_{10}(L(X \Rightarrow Y) / L(X \Rightarrow \bar{Y}))}{log10(L(X -> Y) / L(X -> not Y))}
+  
+  where \eqn{L} is the Laplace corrected confidence.
+  
+  Range: \eqn{[-Inf, Inf]}}
+
+
 \item{"improvement" (Bayardo et al., 2000)}{
   The  improvement of a rule is 
   the minimum difference between its confidence and the confidence of any
@@ -319,8 +330,9 @@ Range: \eqn{[0, \infty]}}
   
   Range: \eqn{[0, 1]}}
 
-\item{"laplace", L (Tan and Kumar 2000)}{
-  Estimates confidence (decreases with lower support). 
+\item{"laplace", Laplace corrected confidence, L (Tan and Kumar 2000)}{
+  Estimates confidence with increasing each count by 1. 
+  Prevents counts of 0 and L decreases with lower support. 
   
   Range: \eqn{[0, 1]}}
 

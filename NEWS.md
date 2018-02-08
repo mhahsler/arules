@@ -1,6 +1,7 @@
 # arules 1.5-5.1 (xx/xx/2018)
 
 * Fixed typo in inspect for tidLists (reported by Carlos Chavarria). 
+* Added interest measure "importance".
 
 # arules 1.5-5 (01/09/2018)
 
