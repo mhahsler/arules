@@ -204,6 +204,10 @@ setMethod("show", signature(object = "transactions"),
   }
 )
 
+setMethod("items", signature(x = "transactions"),
+  function(x) as(x, "itemMatrix")
+)
+
 setMethod("summary", signature(object = "transactions"),
   function(object)
     new("summary.transactions",

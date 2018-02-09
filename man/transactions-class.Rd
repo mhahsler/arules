@@ -13,6 +13,7 @@
 \alias{coerce,ngCMatrix,transactions-method}
 %\alias{image,transactions-method}
 \alias{labels,transactions-method}
+\alias{items,transactions-method}
 \alias{dimnames,transactions-method}
 \alias{dimnames<-,transactions,list-method}
 \alias{show,transactions-method}
@@ -126,6 +127,9 @@ See \code{\link{itemCoding}} to learn how to encode and recode transaction sets.
       stored as rows and transactions are columns!}
     \item{dimnames, rownames, colnames}{\code{signature(x = "transactions")};
       returns row (transactionID) and column (item) names.}
+    \item{items}{\code{signature(x = "transactions")};
+      returns the items in the transactions as an 
+      \code{\linkS4class{itemMatrix}}.}
     \item{labels}{\code{signature(x = "transactions")};
       returns the labels for the itemsets in each transaction 
       (see \code{itemMatrix}).} 
