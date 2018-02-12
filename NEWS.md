@@ -1,8 +1,14 @@
 # arules 1.5-5.1 (xx/xx/2018)
 
+## Major Changes
+* the default method for discretize is now "frequency".
+
 ## New Features
 * Added interest measure "importance".
 * Added method items for transactions.
+
+## Internal Changes
+* discretize uses now cut in R-base.
 
 ## Bug Fixes
 * Fixed typo in inspect for tidLists (reported by Carlos Chavarria). 

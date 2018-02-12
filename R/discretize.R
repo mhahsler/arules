@@ -19,8 +19,8 @@
 
 ### discretize continuous variables
 
-discretize <- function(x, method="interval", categories=3, labels=NULL, 
-  ordered =FALSE, onlycuts = FALSE, ...) {
+discretize <- function(x, method = "frequency", categories = 3, labels = NULL, 
+  ordered = FALSE, onlycuts = FALSE, ...) {
   
   
   methods = c("interval", "frequency", "cluster", "fixed")
@@ -28,34 +28,31 @@ discretize <- function(x, method="interval", categories=3, labels=NULL,
   method <- methods[pmatch(tolower(method), methods)]
   if(is.na(method)) stop("Unknown method!")
   
-  res <- switch(method,
-    interval = {
-      categories <- seq(from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), 
-        length.out=categories+1)
-      if(onlycuts) categories else .cut2(x, cuts=categories, 
-        oneval=FALSE, ...)
-    },
-    
-    frequency = .cut2(x, g=categories, onlycuts=onlycuts, ...),
-    
+  breaks <- switch(method,
+    interval = seq(from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), 
+        length.out=categories+1),
+
+    frequency = quantile(x, probs = seq(0,1, length.out = categories+1)),
+
     cluster = {
       cl <-  stats::kmeans(stats::na.omit(x), categories, ...)
       centers <- sort(cl$centers[,1])
-      categories <- as.numeric(c(min(x, na.rm=TRUE), head(centers, 
+      as.numeric(c(min(x, na.rm=TRUE), head(centers, 
         length(centers)-1) + diff(centers)/2, max(x, na.rm=TRUE)))
-      if(onlycuts) categories else .cut2(x, cuts=categories, ...)
     },
     
-    fixed = {
-      x[x<min(categories) | x>max(categories)] <- NA
-      if(onlycuts) categories else .cut2(x, cuts=categories, ...)
-    }
+    fixed = categories
   )
-    
-  if(onlycuts) return(res)
+     
+  ### fix first and last to Inf
+  if(method != "fixed") {
+    breaks[1] <- -Inf
+    breaks[length(breaks)] <- Inf
+  }
   
-  if(ordered) res <- as.ordered(res)
-  if(!is.null(labels)) levels(res) <- labels
-  res
+  if(onlycuts) return(as.vector(breaks))
+  
+  cut(x, breaks = breaks, labels = labels, 
+        include.lowest = TRUE, ordered_result = ordered, ...)
 }
 
