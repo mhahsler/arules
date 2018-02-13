@@ -31,14 +31,16 @@ discretizeDF(df, methods = NULL, default = NULL)
   \item{\dots}{for method "cluster" further arguments are passed on to
   \code{kmeans}. }.
   \item{df}{data.frame; each numeric column in the data.frame is discretized.}
-  \item{methods}{named list of lists; discretization parameters 
+  \item{methods}{named list of lists or a data.frame; 
+    the named list contains list of discretization parameters 
     (see parameters of \code{discretize}) for each numeric column
     (see details). If no specific discretization is specified for a column,
     then the default settings for \code{discretize} are used.
-    Note: the names have to match exactly.}
+    Note: the names have to match exactly.
+    If a data.frame is specified, then the discretization breaks in this 
+    data.frame are applied to \code{df}.}
   \item{default}{named list; parameters for \code{discretize}
-    used for all columns not specified in \code{methods}.
-    }
+    used for all columns not specified in \code{methods}.}
 }
 \details{
 \code{discretize} only implements unsupervised discretization. See packages \pkg{arulesCBA}, \pkg{discretization} or \pkg{RWeka} for supervised 
@@ -47,6 +49,10 @@ discretization.
 \code{discretizeDF} applies discretization to each numeric column. 
 Individual discretization parameters can be specified in the form:
 \code{methods = list(column_name1 = list(method = ,...), column_name2 = list(...))}.
+
+\code{rediscretizeDF} discretizes a new data.frame using the same breaks 
+as an existing data.frame discretized with \code{discretizeDF}.
+
 }
 \value{
 A factor representing the categorized continuous variable
@@ -110,6 +116,13 @@ irisDisc <- discretizeDF(iris, methods = list(
     labels = c("narrow", "wide"))
   ))
 head(irisDisc)
+
+### discretize new data using the same discretization scheme as the
+###   data.frame supplied in methods. Note: NAs may occure if a new 
+###   value falls outside the range of values observed in the 
+###   originally discretized table (use argument infinity = TRUE in 
+###   discretize to prevent this case.) 
+discretizeDF(iris[sample(1:nrow(iris), 5),], methods = irisDisc)
 }
 \author{Michael Hahsler}
 \keyword{manip}

@@ -9,6 +9,8 @@
 * Added method items for transactions.
 * Added discretizeDF to apply discretization to all numeric 
   column in a data.frame.
+* Added rediscretizeDF to discretize a new data.frame using the same
+  breaks as in an existing data.frame.
 
 ## Bug Fixes
 * Fixed typo in inspect for tidLists (reported by Carlos Chavarria). 
