@@ -8,19 +8,25 @@ This function implements several basic unsupervised methods to convert continuou
 can be discretized (i.e., all numeric columns are discretized).
 }
 \usage{
-discretize(x, method = "frequency", categories = 3, labels = NULL,     
-  ordered = FALSE, onlycuts = FALSE, ...)
+discretize(x, method = "frequency", breaks = 3, 
+  labels = NULL, include.lowest = TRUE, right = TRUE, dig.lab = 3,
+  ordered_result = FALSE, infinity = FALSE, onlycuts = FALSE, ...)
 
-discretizeDF(df, methods = list())
+discretizeDF(df, methods = NULL, default = NULL)
 }
 \arguments{
   \item{x}{a numeric vector (continuous variable).}
   \item{method}{ discretization method. Available are: "interval" (equal interval width), "frequency" (equal frequency), "cluster" (k-means clustering) and
   "fixed" (categories specifies interval boundaries).}
-  \item{categories}{ number of categories or a vector with boundaries 
-    (all values outside the boundaries will be set to NA). }
-  \item{labels}{ character vector; names for categories.}
-  \item{ordered}{ logical; return a factor with ordered levels? }
+  \item{breaks}{ either number of categories or a vector with boundaries for 
+  discretization (all values outside the boundaries will be set to NA). }
+  \item{labels}{ character vector; labels for the levels of the resulting category. By default, labels are constructed using "(a,b]" interval notation. If \code{labels = FALSE}, simple integer codes are returned instead of a factor..}
+  \item{include.lowest}{ logical; should the first interval be closed to the left?}
+  \item{right}{ logical; should the intervals be closed on the right (and open on the left) or vice versa?}
+  \item{dig.lab}{ integer; number of digits used to create labels.}
+  \item{ordered_result}{ logical; return a ordered factor? }
+  \item{infinity}{ logical; should the first/last break boundary changed to 
+  +/-Inf? }
   \item{onlycuts}{ logical; return only computed interval boundaries? }
   \item{\dots}{for method "cluster" further arguments are passed on to
   \code{kmeans}. }.
@@ -28,7 +34,11 @@ discretizeDF(df, methods = list())
   \item{methods}{named list of lists; discretization parameters 
     (see parameters of \code{discretize}) for each numeric column
     (see details). If no specific discretization is specified for a column,
-    then the default settings for \code{discretize} are used.}
+    then the default settings for \code{discretize} are used.
+    Note: the names have to match exactly.}
+  \item{default}{named list; parameters for \code{discretize}
+    used for all columns not specified in \code{methods}.
+    }
 }
 \details{
 \code{discretize} only implements unsupervised discretization. See packages \pkg{arulesCBA}, \pkg{discretization} or \pkg{RWeka} for supervised 
@@ -39,13 +49,10 @@ Individual discretization parameters can be specified in the form:
 \code{methods = list(column_name1 = list(method = ,...), column_name2 = list(...))}.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-A factor representing the categorized continuous variable or, if 
-  \code{onlycuts=TRUE}, a vector with the interval boundaries.
+A factor representing the categorized continuous variable
+  with attribute \code{"discretized:breaks"} indicating the used breaks
+  or, if \code{onlycuts = TRUE}, a vector with the calculated 
+  interval boundaries.
   
 \code{discretizeDF} returns a discretized data.frame.
 }
@@ -63,29 +70,29 @@ layout(mat = rbind(1:2,3:4))
 
 ### convert continuous variables into categories (there are 3 types of flowers)
 ### the default method is equal frequency
-table(discretize(x, categories = 3))
+table(discretize(x, breaks = 3))
 hist(x, breaks = 20, main = "Equal Frequency")
-abline(v = discretize(x, categories = 3, 
+abline(v = discretize(x, breaks = 3, 
   onlycuts = TRUE), col = "red")
 # Note: the frequencies are not exactly equal because of ties in the data 
 
 ### equal interval width
-table(discretize(x, method = "interval", categories = 3))
+table(discretize(x, method = "interval", breaks = 3))
 hist(x, breaks = 20, main = "Equal Interval length")
-abline(v = discretize(x, method = "interval", categories = 3, 
+abline(v = discretize(x, method = "interval", breaks = 3, 
   onlycuts = TRUE), col = "red")
 
 ### k-means clustering 
-table(discretize(x, method = "cluster", categories = 3))
+table(discretize(x, method = "cluster", breaks = 3))
 hist(x, breaks = 20, main = "K-Means")
-abline(v = discretize(x, method = "cluster", categories = 3, 
+abline(v = discretize(x, method = "cluster", breaks = 3, 
   onlycuts = TRUE), col = "red")
 
 ### user-specified (with labels)
-table(discretize(x, method = "fixed", categories = c(-Inf,.8, Inf), 
+table(discretize(x, method = "fixed", breaks = c(-Inf,.8, Inf), 
     labels = c("small", "large")))
 hist(x, breaks = 20, main = "Fixed")
-abline(v = discretize(x, method = "fixed", categories = c(-Inf,.8,Inf), 
+abline(v = discretize(x, method = "fixed", breaks = c(-Inf,.8,Inf), 
     onlycuts = TRUE), col = "red")
 
 par(def.par)  # reset to default
@@ -97,9 +104,9 @@ head(irisDisc)
 
 ### specify discretization for the petal columns
 irisDisc <- discretizeDF(iris, methods = list(
-  Petal.Length = list(method = "frequency", categories = 3, 
+  Petal.Length = list(method = "frequency", breaks = 3, 
     labels = c("short", "medium", "long")),
-  Petal.Width = list(method = "frequency", categories = 2, 
+  Petal.Width = list(method = "frequency", breaks = 2, 
     labels = c("narrow", "wide"))
   ))
 head(irisDisc)

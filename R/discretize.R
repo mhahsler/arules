@@ -19,9 +19,9 @@
 
 ### discretize continuous variables
 
-discretize <- function(x, method = "frequency", categories = 3, labels = NULL, 
-  ordered = FALSE, onlycuts = FALSE, ...) {
-  
+discretize <- function(x, method = "frequency", breaks = 3, 
+  labels = NULL, include.lowest = TRUE, right = TRUE, dig.lab = 3,
+  ordered_result = FALSE, infinity = FALSE, onlycuts = FALSE, ...) {
   
   methods = c("interval", "frequency", "cluster", "fixed")
   
@@ -30,41 +30,46 @@ discretize <- function(x, method = "frequency", categories = 3, labels = NULL,
   
   breaks <- switch(method,
     interval = seq(from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), 
-        length.out=categories+1),
+        length.out=breaks+1),
 
-    frequency = quantile(x, probs = seq(0,1, length.out = categories+1)),
+    frequency = quantile(x, probs = seq(0,1, length.out = breaks+1)),
 
     cluster = {
-      cl <-  stats::kmeans(stats::na.omit(x), categories, ...)
+      cl <-  stats::kmeans(stats::na.omit(x), breaks, ...)
       centers <- sort(cl$centers[,1])
       as.numeric(c(min(x, na.rm=TRUE), head(centers, 
         length(centers)-1) + diff(centers)/2, max(x, na.rm=TRUE)))
     },
     
-    fixed = categories
+    fixed = breaks
   )
      
-  ### fix first and last to Inf
-  if(method != "fixed") {
+  ### fix first and last to -/+Inf
+  if(infinity) {
     breaks[1] <- -Inf
     breaks[length(breaks)] <- Inf
   }
   
   if(onlycuts) return(as.vector(breaks))
   
-  cut(x, breaks = breaks, labels = labels, 
-        include.lowest = TRUE, ordered_result = ordered)
+  structure(
+    cut(x, breaks = breaks, labels = labels, 
+      include.lowest = include.lowest, right = right, 
+      ordered_result = ordered_result),
+    'discretized:breaks' = as.vector(breaks)
+  )  
 }
 
 
-discretizeDF <- function(df, methods = list()) {
+discretizeDF <- function(df, methods = NULL, default = NULL) {
   for(i in colnames(df)) {
     if(is.logical(df[[i]])) next
     if(is.numeric(df[[i]])) {
-      if(!is.null(methods[[i]])) df[[i]] <- do.call("discretize", 
-        c(list(x = df[[i]]), methods[[i]]))
-      else df[[i]] <- discretize(df[[i]])
+      args <- default
+      if(!is.null(methods[[i]])) args <- methods[[i]]
+      df[[i]] <- do.call("discretize", c(list(x = df[[i]]), args))
     }
+    
     if(!is.factor(df[[i]])) df[[i]] <- as.factor(df[[i]])
   }
   
