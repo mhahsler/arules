@@ -1,13 +1,17 @@
 \name{discretize}
 \alias{discretize}
+\alias{discretizeDF}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Convert a Continuous Variable into a Categorical Variable}
 \description{
-This function implements several basic unsupervized methods to convert continuous variables into a categorical variables (factor) suitable for association rule mining.
+This function implements several basic unsupervised methods to convert continuous variables into a categorical variables (factor) suitable for association rule mining. For convenience, a whole data.frame 
+can be discretized (i.e., all numeric columns are discretized).
 }
 \usage{
-discretize(x, method="frequency", categories = 3, labels = NULL,     
+discretize(x, method = "frequency", categories = 3, labels = NULL,     
   ordered = FALSE, onlycuts = FALSE, ...)
+
+discretizeDF(df, methods = list())
 }
 \arguments{
   \item{x}{a numeric vector (continuous variable).}
@@ -20,9 +24,19 @@ discretize(x, method="frequency", categories = 3, labels = NULL,
   \item{onlycuts}{ logical; return only computed interval boundaries? }
   \item{\dots}{for method "cluster" further arguments are passed on to
   \code{kmeans}. }.
+  \item{df}{data.frame; each numeric column in the data.frame is discretized.}
+  \item{methods}{named list of lists; discretization parameters 
+    (see parameters of \code{discretize}) for each numeric column
+    (see details). If no specific discretization is specified for a column,
+    then the default settings for \code{discretize} are used.}
 }
 \details{
-\code{discretize} only implements unsupervised discretization. See packages \pkg{discretization} or \pkg{RWeka} for supervised discretization.
+\code{discretize} only implements unsupervised discretization. See packages \pkg{arulesCBA}, \pkg{discretization} or \pkg{RWeka} for supervised 
+discretization.
+
+\code{discretizeDF} applies discretization to each numeric column. 
+Individual discretization parameters can be specified in the form:
+\code{methods = list(column_name1 = list(method = ,...), column_name2 = list(...))}.
 }
 \value{
 %%  ~Describe the value returned
@@ -32,6 +46,8 @@ discretize(x, method="frequency", categories = 3, labels = NULL,
 %% ...
 A factor representing the categorized continuous variable or, if 
   \code{onlycuts=TRUE}, a vector with the interval boundaries.
+  
+\code{discretizeDF} returns a discretized data.frame.
 }
 %\references{
 %}
@@ -75,13 +91,18 @@ abline(v = discretize(x, method = "fixed", categories = c(-Inf,.8,Inf),
 par(def.par)  # reset to default
 
 ### prepare the iris data set for association rule mining
-for(i in 1:4) iris[,i] <- discretize(iris[,i], method = "frequency", 
-  categories=3)
+### use default discretization
+irisDisc <- discretizeDF(iris)
+head(irisDisc)
 
-trans <- as(iris, "transactions")
-inspect(head(trans, 1))
-
-as(head(trans, 3), "matrix")
+### specify discretization for the petal columns
+irisDisc <- discretizeDF(iris, methods = list(
+  Petal.Length = list(method = "frequency", categories = 3, 
+    labels = c("short", "medium", "long")),
+  Petal.Width = list(method = "frequency", categories = 2, 
+    labels = c("narrow", "wide"))
+  ))
+head(irisDisc)
 }
 \author{Michael Hahsler}
 \keyword{manip}

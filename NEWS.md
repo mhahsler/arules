@@ -6,6 +6,8 @@
 ## New Features
 * Added interest measure "importance".
 * Added method items for transactions.
+* Added discretizeDF to apply discretization to all numeric 
+  column in a data.frame.
 
 ## Internal Changes
 * discretize uses now cut in R-base.

@@ -53,6 +53,20 @@ discretize <- function(x, method = "frequency", categories = 3, labels = NULL,
   if(onlycuts) return(as.vector(breaks))
   
   cut(x, breaks = breaks, labels = labels, 
-        include.lowest = TRUE, ordered_result = ordered, ...)
+        include.lowest = TRUE, ordered_result = ordered)
 }
 
+
+discretizeDF <- function(df, methods = list()) {
+  for(i in colnames(df)) {
+    if(is.logical(df[[i]])) next
+    if(is.numeric(df[[i]])) {
+      if(!is.null(methods[[i]])) df[[i]] <- do.call("discretize", 
+        c(list(x = df[[i]]), methods[[i]]))
+      else df[[i]] <- discretize(df[[i]])
+    }
+    if(!is.factor(df[[i]])) df[[i]] <- as.factor(df[[i]])
+  }
+  
+  df
+}

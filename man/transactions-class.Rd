@@ -223,5 +223,16 @@ inspect(trans4)
 ## Note: This is very slow for large datasets. It is much faster to 
 ## read transactions in this format from disk using read.transactions() 
 ## with format = "single".
+
+## example 5: create transactions from a dataset with numeric variables
+## using discretization.
+data(iris)
+
+irisDisc <- discretizeDF(iris)
+head(irisDisc)
+trans5 <- as(irisDisc, "transactions")
+trans5
+inspect(head(trans5))
+
 }
 \keyword{classes}

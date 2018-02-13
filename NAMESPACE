@@ -43,6 +43,7 @@ export(
   "weclat",
   "hits",
   "discretize",
+  "discretizeDF",
   "addAggregate",
   "filterAggregate"
   )
