@@ -20,7 +20,7 @@ useDynLib("arules", .registration = TRUE)
 import("methods")
 
 importFrom("stats", "predict", "aggregate", "as.dist", "cor", 
-  "rpois", "p.adjust")  ## we want to add methods
+  "rpois", "p.adjust", "quantile")  ## we want to add methods
 
 importFrom("utils", "write.table")  ## we want to add methods
 
