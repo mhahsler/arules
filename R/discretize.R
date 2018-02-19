@@ -20,13 +20,23 @@
 ### discretize continuous variables
 
 discretize <- function(x, method = "frequency", breaks = 3, 
-  labels = NULL, include.lowest = TRUE, right = TRUE, dig.lab = 3,
-  ordered_result = FALSE, infinity = FALSE, onlycuts = FALSE, ...) {
+  labels = NULL, include.lowest = TRUE, right = FALSE, dig.lab = 3,
+  ordered_result = FALSE, infinity = FALSE, onlycuts = FALSE, categories = NULL, ...) {
+  
+  if(!is.null(categories)) {
+    warning("Parameter categories is deprecated. Use breaks instead!")
+    breaks <- categories
+  }
   
   methods = c("interval", "frequency", "cluster", "fixed")
   
   method <- methods[pmatch(tolower(method), methods)]
   if(is.na(method)) stop("Unknown method!")
+      
+  if(method == "fixed" && length(breaks) < 2) 
+    stop("fixed needs at least two values for breaks.")
+  if(method != "fixed" && (length(breaks) != 1 || breaks < 1))
+    stop("breaks needs to be a single positive integer for this method.")
   
   breaks <- switch(method,
     interval = seq(from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), 
@@ -43,7 +53,10 @@ discretize <- function(x, method = "frequency", breaks = 3,
     
     fixed = breaks
   )
-     
+    
+  if(any(duplicated(breaks))) 
+    stop("Some breaks are not unique, use fewer breaks for the data.")
+  
   ### fix first and last to -/+Inf
   if(infinity) {
     breaks[1] <- -Inf
@@ -56,7 +69,8 @@ discretize <- function(x, method = "frequency", breaks = 3,
     cut(x, breaks = breaks, labels = labels, 
       include.lowest = include.lowest, right = right, 
       ordered_result = ordered_result),
-    'discretized:breaks' = as.vector(breaks)
+    'discretized:breaks' = as.vector(breaks),
+    'discretized:method' = method
   )  
 }
 

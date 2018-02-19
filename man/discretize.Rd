@@ -9,16 +9,20 @@ can be discretized (i.e., all numeric columns are discretized).
 }
 \usage{
 discretize(x, method = "frequency", breaks = 3, 
-  labels = NULL, include.lowest = TRUE, right = TRUE, dig.lab = 3,
-  ordered_result = FALSE, infinity = FALSE, onlycuts = FALSE, ...)
+  labels = NULL, include.lowest = TRUE, right = FALSE, dig.lab = 3,
+  ordered_result = FALSE, infinity = FALSE, onlycuts = FALSE, 
+  categories, ...)
 
 discretizeDF(df, methods = NULL, default = NULL)
 }
 \arguments{
   \item{x}{a numeric vector (continuous variable).}
-  \item{method}{ discretization method. Available are: "interval" (equal interval width), "frequency" (equal frequency), "cluster" (k-means clustering) and
-  "fixed" (categories specifies interval boundaries).}
-  \item{breaks}{ either number of categories or a vector with boundaries for 
+  \item{method}{ discretization method. Available are: \code{"interval"} (equal interval width), \code{"frequency"} (equal frequency), \code{"cluster"} (k-means clustering) and
+  \code{"fixed"} (categories specifies interval boundaries).
+  Note that equal frequency does not achieve perfect equally sized groups if the data conains duplicated values.}
+  \item{breaks, categories}{ 
+  \bold{\code{categories} is deprecated, use \code{breaks}.}
+  either number of categories or a vector with boundaries for 
   discretization (all values outside the boundaries will be set to NA). }
   \item{labels}{ character vector; labels for the levels of the resulting category. By default, labels are constructed using "(a,b]" interval notation. If \code{labels = FALSE}, simple integer codes are returned instead of a factor..}
   \item{include.lowest}{ logical; should the first interval be closed to the left?}
