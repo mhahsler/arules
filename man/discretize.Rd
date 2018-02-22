@@ -19,7 +19,7 @@ discretizeDF(df, methods = NULL, default = NULL)
   \item{x}{a numeric vector (continuous variable).}
   \item{method}{ discretization method. Available are: \code{"interval"} (equal interval width), \code{"frequency"} (equal frequency), \code{"cluster"} (k-means clustering) and
   \code{"fixed"} (categories specifies interval boundaries).
-  Note that equal frequency does not achieve perfect equally sized groups if the data conains duplicated values.}
+  Note that equal frequency does not achieve perfect equally sized groups if the data contains duplicated values.}
   \item{breaks, categories}{ 
   \bold{\code{categories} is deprecated, use \code{breaks}.}
   either number of categories or a vector with boundaries for 
@@ -61,8 +61,9 @@ as an existing data.frame discretized with \code{discretizeDF}.
 \value{
 A factor representing the categorized continuous variable
   with attribute \code{"discretized:breaks"} indicating the used breaks
-  or, if \code{onlycuts = TRUE}, a vector with the calculated 
-  interval boundaries.
+  or and \code{"discretized:method"} giving the used method. If 
+  \code{onlycuts = TRUE} is used, a vector with the calculated 
+  interval boundaries is returned.
   
 \code{discretizeDF} returns a discretized data.frame.
 }
