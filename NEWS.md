@@ -12,6 +12,7 @@
 
 ## Bug Fixes
 * Fixed typo in inspect for tidLists (reported by Carlos Chavarria). 
+* Fixed bug in %in% for itemMatrix (reported by Henrique Lemos)
 
 # arules 1.5-5 (01/09/2018)
 

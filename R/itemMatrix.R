@@ -207,6 +207,10 @@ setAs("ngCMatrix", "itemMatrix",
 ## in itemInfo) note this is not what we would expect for
 ## %in% in R! but match below works the R-way
 
+setMethod("%in%", signature(x = "itemMatrix", table = "itemMatrix"),
+  function(x, table) !is.na(match(x, table))
+)
+
 setMethod("%in%", signature(x = "itemMatrix", table = "character"),
   function(x, table) {
     pos <- match(table, itemLabels(x))
@@ -214,10 +218,6 @@ setMethod("%in%", signature(x = "itemMatrix", table = "character"),
       stop("table contains an unknown item label" )
     size(x[, pos]) > 0
   }
-)
-
-setMethod("%in%", signature(x = "itemMatrix", table = "itemMatrix"),
-  function(x, table) x %in% unlist(as(table, "list"))
 )
 
 ## all items have to be in
