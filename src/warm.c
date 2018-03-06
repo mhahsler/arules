@@ -691,8 +691,6 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
 	l0 = l;
 	R_CheckUserInterrupt();
     }
-    if (!isNull(R_fun))
-	UNPROTECT(1);
 
     r0 = getAttrib(x, install("Dimnames"));
     setAttrib(r, R_NamesSymbol, VECTOR_ELT(r0, 1));
@@ -703,6 +701,10 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
 	    (double) nj / (ni - LENGTH(px) + 1),
 	    ((double) t2 - t1) / CLOCKS_PER_SEC);
 #endif
+    
+    if (!isNull(R_fun))
+	UNPROTECT(1);
+    
     UNPROTECT(5);
 
     return r;

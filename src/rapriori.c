@@ -334,16 +334,29 @@ int is_readapp_R (ITEMSET *iset, SEXP app)
 	  for (j = 0; j < set[i]; j++) {
 		  item = nim_add(iset->nimap, translateChar(STRING_ELT(items, h)), sizeof(ITEM));
 		  /* item = nim_add(iset->nimap, CHAR(STRING_ELT(items, h)), sizeof(ITEM)); */
-		  if (item == EXISTS) return E_DUPITEM;  /* add the new item */
-		  if (item == NULL)   return E_NOMEM;    /* to the name/id map */
+		  if (item == EXISTS) {
+                      UNPROTECT(1);
+		      return E_DUPITEM;  /* add the new item */
+		  }
+		      
+		  if (item == NULL) {
+                      UNPROTECT(1);
+		      return E_NOMEM;    /* to the name/id map */
+		  }
+
 		  item->frq = 0;              /* clear the frequency counters */
 		  item->xfq = 0;              /* (occurrence and sum of t.a. sizes) */
 		  if (i<4) item->app = appcode_i(i);  /* get the appearance indicator */
 		  else item->app = appcode_i(0);  /* items have code 0 */
-		  if (item->app <  0)  return E_UNKAPP;
+		  if (item->app <  0) { 
+                      UNPROTECT(1);
+		      return E_UNKAPP;
+		  }
+		      
 		  h++;
 	  }
   }
+  
   UNPROTECT(1);
   return 0;                     /* return 'ok' */
 }  /* is_readapp_R() */
