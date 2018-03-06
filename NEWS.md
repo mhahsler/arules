@@ -1,4 +1,4 @@
-# arules 1.5-5.1 (xx/xx/2018)
+# arules 1.6-0 (2/28/2018)
 
 ## Major Changes
 * discretize: the default method is now "frequency" and categories was 
@@ -8,7 +8,7 @@
 * Added interest measure "importance".
 * Added method items for transactions.
 * Added discretizeDF to apply discretization to all numeric 
-  column in a data.frame.
+  columns in a data.frame.
 
 ## Bug Fixes
 * Fixed typo in inspect for tidLists (reported by Carlos Chavarria). 

@@ -24,7 +24,7 @@ discretize <- function(x, method = "frequency", breaks = 3,
   ordered_result = FALSE, infinity = FALSE, onlycuts = FALSE, categories = NULL, ...) {
   
   if(!is.null(categories)) {
-    warning("Parameter categories is deprecated. Use breaks instead!")
+    warning("Parameter categories is deprecated. Use breaks instead! Also, the default method is now frequency!")
     breaks <- categories
   }
   

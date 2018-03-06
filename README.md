@@ -103,7 +103,7 @@ summary(rules)
 ```
 set of 52 rules
 
-rule length distribution (lhs + rhs):
+rule length distribution (lhs + rhs):sizes
  1  2  3  4 
  2 13 24 13 
 
@@ -111,13 +111,13 @@ rule length distribution (lhs + rhs):
   1.000   2.000   3.000   2.923   3.250   4.000 
 
 summary of quality measures:
-    support         confidence          lift       
- Min.   :0.5084   Min.   :0.9031   Min.   :0.9844  
- 1st Qu.:0.5415   1st Qu.:0.9155   1st Qu.:0.9937  
- Median :0.5974   Median :0.9229   Median :0.9997  
- Mean   :0.6436   Mean   :0.9308   Mean   :1.0036  
- 3rd Qu.:0.7426   3rd Qu.:0.9494   3rd Qu.:1.0057  
- Max.   :0.9533   Max.   :0.9583   Max.   :1.0586  
+    support         confidence          lift            count      
+ Min.   :0.5084   Min.   :0.9031   Min.   :0.9844   Min.   :24832  
+ 1st Qu.:0.5415   1st Qu.:0.9155   1st Qu.:0.9937   1st Qu.:26447  
+ Median :0.5974   Median :0.9229   Median :0.9997   Median :29178  
+ Mean   :0.6436   Mean   :0.9308   Mean   :1.0036   Mean   :31433  
+ 3rd Qu.:0.7426   3rd Qu.:0.9494   3rd Qu.:1.0057   3rd Qu.:36269  
+ Max.   :0.9533   Max.   :0.9583   Max.   :1.0586   Max.   :46560  
 
 mining info:
   data ntransactions support confidence
