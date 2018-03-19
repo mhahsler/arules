@@ -1,4 +1,5 @@
 \name{hierarchy}
+\alias{hierarchy}
 \alias{aggregate}
 \alias{aggregate,itemMatrix-method}
 \alias{aggregate,itemsets-method}
@@ -39,7 +40,7 @@ filterAggregate(x)
   itemInfo data.frame (\code{"labels"} is reserved for the item labels). 
   
   \bold{Aggregation:} To perform analysis at a group level of the item hierarchy,
-  \code{agregate()} produces a new
+  \code{aggregate()} produces a new
   object with items aggregated to a given group level. A group-level item
   is present if one or more of the items in the group are present in 
   the original object.
@@ -89,10 +90,12 @@ Groceries
 ## Groceries contains a hierarchy stored in itemInfo
 head(itemInfo(Groceries))
 
-## aggregate by level2
+## aggregate by level2: items will become labels at level2
+## Note that the number of items is therefore reduced to 55
 Groceries_level2 <- aggregate(Groceries, by = "level2")
 Groceries_level2
 head(itemInfo(Groceries_level2)) ## labels are alphabetically sorted!
+
 
 ## compare orginal and aggregated transactions
 inspect(head(Groceries, 2))
@@ -116,14 +119,19 @@ inspect(rules[1])
 rules_level2 <- aggregate(rules, by = "level2")
 inspect(rules_level2[1])
 
-## mine multi-level rules
+## mine multi-level rules:
+## (1) add aggregate items. These items are followed by a *
 Groceries_multilevel <- addAggregate(Groceries, "level2")
 summary(Groceries_multilevel)
+inspect(head(Groceries_multilevel))
 
 rules <- apriori(Groceries_multilevel, 
-  parameter = list(support = 0.01, conf =.9))
+  parameter = list(support = 0.01, conf = .9))
 inspect(head(rules, by = "lift"))
-## filter spurious rules 
+## this contains many spurous rules of type 'item X => aggregare of item X'
+## with a confidence of 1 and high lift.
+
+## filter spurious rules resulting from the aggregation 
 rules <- filterAggregate(rules)
 inspect(head(rules, by = "lift"))
 }
