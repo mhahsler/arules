@@ -73,7 +73,9 @@ A factor representing the categorized continuous variable
 %}
 \examples{
 data(iris)
-x <- iris[,4]
+x <- iris[,1]
+
+### look at the distribution before discretizing
 hist(x, breaks = 20, main = "Data")
 
 def.par <- par(no.readonly = TRUE) # save default
@@ -100,10 +102,10 @@ abline(v = discretize(x, method = "cluster", breaks = 3,
   onlycuts = TRUE), col = "red")
 
 ### user-specified (with labels)
-table(discretize(x, method = "fixed", breaks = c(-Inf,.8, Inf), 
+table(discretize(x, method = "fixed", breaks = c(-Inf, 6, Inf), 
     labels = c("small", "large")))
 hist(x, breaks = 20, main = "Fixed")
-abline(v = discretize(x, method = "fixed", breaks = c(-Inf,.8,Inf), 
+abline(v = discretize(x, method = "fixed", breaks = c(-Inf, 6, Inf), 
     onlycuts = TRUE), col = "red")
 
 par(def.par)  # reset to default

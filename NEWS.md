@@ -1,3 +1,9 @@
+# arules 1.6-0.1 (xx/xx/2018)
+
+## Bug Fixes
+* discretize now handles NAs in equal frequency (reported by yarik1988).
+
+
 # arules 1.6-0 (2/28/2018)
 
 ## Major Changes

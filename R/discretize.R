@@ -42,7 +42,8 @@ discretize <- function(x, method = "frequency", breaks = 3,
     interval = seq(from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), 
         length.out=breaks+1),
 
-    frequency = quantile(x, probs = seq(0,1, length.out = breaks+1)),
+    frequency = quantile(x, probs = seq(0,1, length.out = breaks+1), 
+                         na.rm = TRUE),
 
     cluster = {
       cl <-  stats::kmeans(stats::na.omit(x), breaks, ...)
