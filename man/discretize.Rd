@@ -53,10 +53,6 @@ discretization.
 \code{discretizeDF} applies discretization to each numeric column. 
 Individual discretization parameters can be specified in the form:
 \code{methods = list(column_name1 = list(method = ,...), column_name2 = list(...))}.
-
-\code{rediscretizeDF} discretizes a new data.frame using the same breaks 
-as an existing data.frame discretized with \code{discretizeDF}.
-
 }
 \value{
 A factor representing the categorized continuous variable
