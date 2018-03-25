@@ -55,4 +55,12 @@ expect_equal(as.numeric(table(d)), c(28, 32))
 d <- discretize(nums2, method = "frequency", breaks = 6)
 expect_equal(as.numeric(table(d)), c(10, 9, 9, 10, 9, 13))
 
+# missing values
+nums1[3:5] <- NA
+d <- discretize(nums1, method = "interval")
+expect_equal(sum(is.na(d)), 3L)
+d <- discretize(nums1, method = "frequency")
+expect_equal(sum(is.na(d)), 3L)
+d <- discretize(nums1, method = "cluster")
+expect_equal(sum(is.na(d)), 3L)
 
