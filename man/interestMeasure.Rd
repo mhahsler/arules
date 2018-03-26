@@ -379,12 +379,12 @@ Range: \eqn{[0, \infty]}}
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates that Y is not associated to X)}
   
-\item{"phi", correlation coefficient \eqn{\phi}{phi} (Tan et al. 2004}{ 
+\item{"phi", correlation coefficient \eqn{\phi}{phi} (Tan et al., 2004}{ 
   Equivalent to Pearsons Product Moment Correlation Coefficient \eqn{\rho}{rho}.
     
   Range: \eqn{[-1, 1]} (0 when X and Y are independent)}
 
-\item{"ralambrodrainy", Ralambrodrainy Measure (Diatta et al, 2007)}{
+\item{"ralambrodrainy", Ralambrodrainy Measure (Diatta et al., 2007)}{
     
     Range: \eqn{[0, 1]}}
 
@@ -397,7 +397,7 @@ Range: \eqn{[0, \infty]}}
     
     Range: \eqn{[0, 1]}}
 
-\item{"rulePowerFactor", rule power factor (Ochin and Kumar, 2016)}{
+\item{"rulePowerFactor", rule power factor (Ochin et al., 2016)}{
 
     Product of support and confidence. Can be seen as rule confidence weighted
     by support. 
@@ -504,7 +504,7 @@ discovered associations. In \emph{KDD '99: Proceedings of the fifth ACM SIGKDD
 international conference on Knowledge discovery and data mining}, pages
 125--134.  ACM Press, 1999.
 
-Ochin, Suresh, and  Kumar, Nisheeth Joshi (2016). Rule Power Factor: A New Interest Measure in Associative Classification. \emph{6th International Conference On Advances In Computing and Communications, ICACC 2016,} 6-8 September 2016, Cochin, India.
+Ochin, Suresh Kumar, and Nisheeth Joshi (2016). Rule Power Factor: A New Interest Measure in Associative Classification. \emph{6th International Conference On Advances In Computing and Communications, ICACC 2016,} 6-8 September 2016, Cochin, India.
 
 Omiecinski, Edward R. (2003). Alternative interest measures for mining
 associations in databases. \emph{IEEE Transactions on Knowledge and Data
