@@ -30,6 +30,9 @@
 setMethod("length", signature(x = "itemsets"),
     function(x) length(x@items))
 
+setMethod("nitems", signature(x = "itemsets"),
+          function(x) ncol(items(x)))
+
 setMethod("size", signature(x = "itemsets"),
     function(x) size(x@items))
 

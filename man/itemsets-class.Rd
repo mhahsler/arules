@@ -13,6 +13,7 @@
 \alias{itemInfo,itemsets-method}
 \alias{itemLabels,itemsets-method}
 \alias{itemLabels<-,itemsets-method}
+\alias{nitems,itemsets-method}
 \alias{labels,itemsets-method}
 \alias{itemLabels,itemsets-method}
 %\alias{length,itemsets-method}
@@ -78,6 +79,9 @@
       returns the item labels used to encode the itemsets as
       a character vector. The index for each label is the column
       index of the item in the binary matrix.}
+    \item{nitems}{\code{signature(x = "itemsets")}; number of all possible 
+      items in the 
+      binary matrix representation of the object.}
     \item{summary}{\code{signature(object = "itemsets")}}
     \item{tidLists}{\code{signature(object = "itemsets")};
       returns the transaction ID list}

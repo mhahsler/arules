@@ -8,6 +8,8 @@
 \alias{coerce,rules,data.frame-method}
 \alias{itemInfo,rules-method}
 \alias{itemLabels,rules-method}
+\alias{itemLabels<-,rules-method}
+\alias{nitems,rules-method}
 \alias{items,rules-method}
 \alias{generatingItemsets}
 \alias{generatingItemsets,rules-method}
@@ -61,6 +63,15 @@ elements. Duplicated elements can be removed with \code{\link{unique}}.
    %   extracts a subset of rules and the associated quality measures}
     \item{coerce}{\code{signature(from = "rules", to = "data.frame")}; 
       represents the set of rules as a \code{data.frame}}
+    \item{generatingItemsets}{\code{signature(x = "rules")};
+      returns a collection of the itemsets which generated the rules, one 
+      itemset for each rule. Note that the collection can be a multiset and 
+      contain duplicated
+      elements. Use \code{unique} to remove duplicates and obtain a 
+      proper set. Technically this method produces the same as the 
+      result of method \code{items()}, 
+      but wrapped into an
+      \code{\linkS4class{itemsets}} object with support information.}  
     \item{itemInfo}{\code{signature(object = "rules")};  
       returns the whole item information data frame including item
       labels}
@@ -71,21 +82,15 @@ elements. Duplicated elements can be removed with \code{\link{unique}}.
       lhs and rhs (i.e., the itemsets
       which generated the rule) as an 
       \code{\linkS4class{itemMatrix}}}
-    \item{generatingItemsets}{\code{signature(x = "rules")};
-      returns a collection of the itemsets which generated the rules (one 
-      itemset for each rule). Note that the collection can be a multiset and 
-      contain duplicated
-      elements. Use \code{unique} to remove duplicates and obtain a 
-      proper set.}  
+    \item{itemLabels}{\code{signature(object = "rules")};
+      returns the item labels as a character vector.
+      The index for each label is the column index of the item in the
+      binary matrix.}
     \item{labels}{\code{signature(object = "rules")};
       returns labels for the rules ("{lhs} => {rhs}") as a
       \code{character} vector. The representation can be customized using 
       the additional parameter \code{ruleSep} and parameters for \code{label}
       defined in \code{\linkS4class{itemMatrix}}} 
-   \item{itemLabels}{\code{signature(object = "rules")};
-      returns the item labels as a character vector.
-      The index for each label is the column index of the item in the
-      binary matrix.}
 %   \item{length}{\code{signature(x = "rules")};
 %      returns the number of rules stored in the the set}
     \item{lhs}{\code{signature(x = "rules")};
@@ -94,6 +99,8 @@ elements. Duplicated elements can be removed with \code{\link{unique}}.
     \item{lhs<-}{\code{signature(x = "rules")};
       replaces the \code{\linkS4class{itemMatrix}}
       representing the left-hand-side of the rules (antecedents)}
+    \item{nitems}{\code{signature(x = "rules")}; number of all possible items in the 
+      binary matrix representation of the object.}
     \item{rhs}{\code{signature(x = "rules")};
       returns the \code{\linkS4class{itemMatrix}}
       representing the right-hand-side of the rules (consequents)}

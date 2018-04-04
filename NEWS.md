@@ -3,6 +3,9 @@
 ## Bug Fixes
 * discretize now handles NAs in equal frequency (reported by yarik1988).
 
+## New Features
+* rules and itemsets gained a method for nitems.
+
 
 # arules 1.6-0 (2/28/2018)
 

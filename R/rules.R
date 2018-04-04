@@ -48,6 +48,9 @@ setMethod("initialize", "rules",
 setMethod("length", signature(x = "rules"),
     function(x) length(x@lhs))
 
+setMethod("nitems", signature(x = "rules"),
+          function(x) ncol(lhs(x)))
+
 setMethod("size", signature(x = "rules"),
     function(x) size(x@lhs) + size(x@rhs))
 
