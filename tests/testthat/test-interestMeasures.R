@@ -1,7 +1,7 @@
 library("arules")
 library("testthat")
 
-context("measures")
+context("interestMeasures")
 
 options(digits=2)
 
@@ -49,6 +49,13 @@ expect_equal(m1, m2)
 m3 <- interestMeasure(fsets[1], transactions = trans)
 expect_equal(nrow(m3), 1L)
 
+## check for empty itemset
+m4 <- interestMeasure(fsets[0], transactions = trans)
+expect_equal(nrow(m4), 0L)
+
+m5 <- interestMeasure(fsets[0], transactions = trans, reuse = FALSE)
+expect_equal(nrow(m5), 0L)
+
 ###################################################################
 # test measures for rules
 
@@ -67,6 +74,12 @@ expect_equal(coverage(rules), support(lhs(rules), trans = trans))
 expect_equal(coverage(rules, trans = trans, reuse = FALSE), 
   support(lhs(rules), trans = trans))
 
+## check for empty ruleset
+m4 <- interestMeasure(rules[0], transactions = trans)
+expect_equal(nrow(m4), 0L)
+
+m5 <- interestMeasure(rules[0], transactions = trans, reuse = TRUE)
+expect_equal(nrow(m5), 0L)
 
 ## is.redundant (this test does not help much)!
 context("is.redundant")
@@ -85,7 +98,6 @@ s_tid <- support(rules, trans, control=list(method="tidlist"))
 s_ptree <- support(rules, trans, control=list(method="ptree"))
 expect_equal(s_tid, s_ptree)
 expect_equal(s_tid, quality(rules)$support)
-
 
 ## FIXME: test others
 

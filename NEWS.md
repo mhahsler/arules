@@ -2,6 +2,7 @@
 
 ## Bug Fixes
 * discretize now handles NAs in equal frequency (reported by yarik1988).
+* interestMeasure: fixed error when an itemset/rules object of length 0 is provided.
 
 ## New Features
 * rules and itemsets gained a method for nitems.

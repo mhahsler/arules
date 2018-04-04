@@ -77,7 +77,10 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
   
   ## create an itemset list
   itemset_list <- LIST(items(x), decode = FALSE)
-  
+ 
+  ## catch empty itemset
+  if(length(itemset_list) < 1) return(numeric(0))
+   
   ## calculate all-confidence for existing (frequent) itemsets.
   ##
   ## Edward R. Omiecinski. Alternative interest measures for mining 
@@ -175,6 +178,9 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if(length(measure) > 1) return(as.data.frame(sapply(measure, FUN = 
         function(m) interestMeasure(x, m, transactions, reuse, ...), 
       USE.NAMES = TRUE, simplify = FALSE)))
+  
+    ## catch empty ruleset
+    if(length(x) < 1) return(numeric(0))
     
     ## first see if we already have it:
     if(reuse && !is.null(quality(x)[[measure]])) return(quality(x)[[measure]])
