@@ -81,7 +81,7 @@ SEXP R_transpose_ngCMatrix(SEXP x) {
  */
 
 SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
-  int i, j, fx, lx, fy, ly, kx, ky, ki, kj, nr, nc, s = 1, y_null = 0;
+  int i, j, fx, lx, fy, ly, kx, ky, ki, kj, nr, nc, s = 1, nprotect = 0;
   SEXP r, px, ix, py, iy, d1, d2, n1, n2;
   
   if (!inherits(x, "ngCMatrix"))
@@ -89,8 +89,10 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
   if (TYPEOF(t) != LGLSXP)
     error("'t' not of storage class logical");
   
-  if (LOGICAL(t)[0] == FALSE)
+  if (LOGICAL(t)[0] == FALSE) {
     PROTECT(x = R_transpose_ngCMatrix(x));
+    nprotect++;
+  }
   
   nr = nc = INTEGER(getAttrib(x, install("Dim")))[0];
   px = py = getAttrib(x, install("p"));
@@ -98,10 +100,11 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
   
   d1 = getAttrib(x, install("Dimnames"));
   PROTECT(n1 = getAttrib(d1, R_NamesSymbol));
+  nprotect++;
+  
   d1 = VECTOR_ELT(d1, 0);
   
   if (isNull(y)) {
-    y_null = 1;
     y = x;
     n2 = n1;
     d2 = d1;
@@ -109,8 +112,10 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
     if (!inherits(y, "ngCMatrix"))
       error("'y' not of class 'ngCMatrix'");
     
-    if (LOGICAL(t)[0] == FALSE)
+    if (LOGICAL(t)[0] == FALSE){
       PROTECT(y = R_transpose_ngCMatrix(y));
+      nprotect++;
+    }
     
     if (INTEGER(getAttrib(x, install("Dim")))[1] !=
         INTEGER(getAttrib(y, install("Dim")))[1]) {
@@ -126,12 +131,14 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
     
     d2 = getAttrib(y, install("Dimnames"));
     PROTECT(n2 = getAttrib(d2, R_NamesSymbol));
+    nprotect++;
     d2 = VECTOR_ELT(d2, 0);
     
     s  = 0;
   }
   
   PROTECT(r = allocMatrix(INTSXP, nr, nc));
+  nprotect++;
   memset(INTEGER(r), 0, sizeof(int) * nr * nc);
   
   fx = fy = 0;
@@ -166,10 +173,7 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
     }
   }
   
-  UNPROTECT(2);  // n1, r 
-  if (LOGICAL(t)[0] == FALSE) UNPROTECT(1); // x
-  if (y_null == 0 && LOGICAL(t)[0] == FALSE) UNPROTECT(1); // y
-  if (y_null == 0) UNPROTECT(1); // n2
+  UNPROTECT(nprotect);
   
   return r;
 }
