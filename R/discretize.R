@@ -75,33 +75,34 @@ discretize <- function(x, method = "frequency", breaks = 3,
   )  
 }
 
-
 discretizeDF <- function(df, methods = NULL, default = NULL) {
   
   ### methods is a data.frame to get the discretization info from
   if(is.data.frame(methods)) return(.rediscretizeDF(methods, df))
   
   for(i in colnames(df)) {
-    if(is.logical(df[[i]])) next
-    if(is.numeric(df[[i]])) {
-      args <- default
-      if(!is.null(methods[[i]])) args <- methods[[i]]
-      df[[i]] <- do.call("discretize", c(list(x = df[[i]]), args))
-    }
+    if(!is.numeric(df[[i]])) next
+    args <- if(is.null(methods[[i]])) default else methods[[i]]
+    
+    ### skip columns with method na
+    if(!is.null(args) && (is.null(args$method) || args$method == "none")) next
+    
+    df[[i]] <- do.call("discretize", c(list(x = df[[i]]), args))
   }
   
   df
 }
 
-
 .rediscretizeDF <- function(data, newdata) {
   
   if(!all(colnames(data) == colnames(newdata))) stop("columns in data and newdata do not conform!")
   
-  cps <- lapply(data, FUN = function(x) { 
-    list(breaks = attr(x, "discretized:breaks"), method = "fixed", 
-      labels = levels(x))
-    })
+  cps <- lapply(data, FUN = function(x) {
+    breaks <- attr(x, "discretized:breaks")
+    if(is.null(breaks)) NULL
+    else list(breaks = breaks, method = "fixed", labels = levels(x))
+  })
   
-  discretizeDF(newdata, methods = cps)
+  discretizeDF(newdata, methods = cps, default = list(method = "none"))
 }
+

@@ -53,6 +53,8 @@ discretization.
 \code{discretizeDF} applies discretization to each numeric column. 
 Individual discretization parameters can be specified in the form:
 \code{methods = list(column_name1 = list(method = ,...), column_name2 = list(...))}.
+If no discretization method is specified for a column, then the discretization in default
+is applied (\code{NULL} invokes the default method in \code{discretize()}). The special method \code{"none"} can be specified to suppress discretization for a column.
 }
 \value{
 A factor representing the categorized continuous variable
@@ -111,13 +113,20 @@ par(def.par)  # reset to default
 irisDisc <- discretizeDF(iris)
 head(irisDisc)
 
-### specify discretization for the petal columns
+### discretize all numeric columns differently
+irisDisc <- discretizeDF(iris, default = list(method = "interval", breaks = 2, 
+  labels = c("small", "large")))
+head(irisDisc)
+
+### specify discretization for the petal columns and don't discretize the others
 irisDisc <- discretizeDF(iris, methods = list(
   Petal.Length = list(method = "frequency", breaks = 3, 
     labels = c("short", "medium", "long")),
   Petal.Width = list(method = "frequency", breaks = 2, 
     labels = c("narrow", "wide"))
-  ))
+  ),
+  default = list(method = "none")
+  )
 head(irisDisc)
 
 ### discretize new data using the same discretization scheme as the
