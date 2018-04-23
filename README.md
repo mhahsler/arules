@@ -145,6 +145,13 @@ inspect(head(rules, by = "lift"))
      capital-gain=None}            => {native-country=United-States} 0.7194628  0.9202807 1.025469
 ```
 
+
+## Support
+
+Please report bugs [here on GitHub.](https://github.com/mhahsler/arules/issues)
+Questions should be posted on [stackoverflow and tagged with arules](https://stackoverflow.com/questions/tagged/arules).
+
+
 ## References
 
 * [Intro article with examples](https://cran.r-project.org/package=arules/vignettes/arules.pdf) by Michael Hahsler, Bettina Gr&uuml;n, Kurt Hornik and
