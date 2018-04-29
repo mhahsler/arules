@@ -77,8 +77,10 @@ setAs("data.frame", "transactions",
     }
     
     ## check that everything is factor
-    if (!all((p <- sapply(from, is.factor))))
-      stop("column(s) ", paste(which(!p), collapse=", "), " not logical or a factor. Discretize the columns first.")
+    if (!all((p <- sapply(from, is.factor)))) {
+      warning("Column(s) ", paste(which(!p), collapse=", "), " not logical or factor. Applying default discretization (see '? discretizeDF').", call. = FALSE)
+      from <- discretizeDF(from)
+    }
     
     p <- seq(nrow(from))
     x <- lapply(from, function(x)

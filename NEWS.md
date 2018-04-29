@@ -3,6 +3,9 @@
 ## New Features
 * discretizeDF now understands the method "none" which skips discretization.
 
+## Changes
+* transactions: numeric columns are now discretized during coersion using discretizeDF (with a warning).
+
 # arules 1.6-1 (04/04/2018)
 
 ## Bug Fixes
