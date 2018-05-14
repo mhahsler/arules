@@ -373,7 +373,9 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
       double supp, conf;
       char   *apps    = NULL;       /* item appearance indicator vector */
       clock_t     t,tt,tc,x;        /* timer for measurements */
-      
+      int maxlen_warn = param->maxlen;
+        
+        
       tacnt = in->tnb;
       /* --- set transactions --- */
       t = clock();                /* start the timer */
@@ -470,7 +472,8 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
         /* Check if we run into limits */
         if(ist_height(istree) >= param->maxlen){
           /* if (param->verbose) Rprintf(" *stopping (maxlen reached)*"); */
-          Rf_warning("Mining stopped (maxlen reached). Only patterns up to a length of %d returned!", param->maxlen);
+          if(ist_height(istree) >= maxlen_warn)
+            Rf_warning("Mining stopped (maxlen reached). Only patterns up to a length of %d returned!", param->maxlen);
           break;
         }
         
