@@ -56,7 +56,7 @@ discretize <- function(x, method = "frequency", breaks = 3,
   )
     
   if(any(duplicated(breaks))) 
-    stop("Some breaks are not unique, use fewer breaks for the data.")
+    stop("Some breaks are not unique. Change breaks or consider using method 'fixed'.")
   
   ### fix first and last to -/+Inf
   if(infinity) {

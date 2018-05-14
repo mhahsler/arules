@@ -1,10 +1,11 @@
 \name{discretize}
 \alias{discretize}
+\alias{binning}
 \alias{discretizeDF}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Convert a Continuous Variable into a Categorical Variable}
 \description{
-This function implements several basic unsupervised methods to convert continuous variables into a categorical variables (factor) suitable for association rule mining. For convenience, a whole data.frame 
+This function implements several basic unsupervised methods to convert a continuous variable into a categorical variable (factor) using different binning strategies. For convenience, a whole data.frame 
 can be discretized (i.e., all numeric columns are discretized).
 }
 \usage{
