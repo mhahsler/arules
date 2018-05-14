@@ -6,6 +6,9 @@
 ## Changes
 * transactions: numeric columns are now discretized during coersion using discretizeDF (with a warning).
 
+## Bug Fixes
+* The spurious warning for reaching maxlen in apriori is now removed (reported by Ryan J. Cole).
+
 # arules 1.6-1 (04/04/2018)
 
 ## Bug Fixes
