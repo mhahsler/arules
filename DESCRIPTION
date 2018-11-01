@@ -20,7 +20,7 @@ Depends: R (>= 3.4.0), Matrix (>= 1.2-0)
 Imports: stats, methods, graphics, utils
 Suggests: pmml, XML, arulesViz, testthat
 License: GPL-3
-Copyright: The code for apriori and eclat in src/rapriori.c was obtained from
+Copyright: The source code for Apriori and Eclat was obtained from
     http://www.borgelt.net/ and is Copyright (C) 1996-2003 Christian Borgelt.
     All other code is Copyright (C) Michael Hahsler, Christian Buchta,
     Bettina Gruen and Kurt Hornik.
