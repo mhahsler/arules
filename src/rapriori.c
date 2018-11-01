@@ -473,13 +473,13 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
         if(ist_height(istree) >= param->maxlen){
           /* if (param->verbose) Rprintf(" *stopping (maxlen reached)*"); */
           if(ist_height(istree) >= maxlen_warn)
-            Rf_warning("Mining stopped (maxlen reached). Only patterns up to a length of %d returned!", param->maxlen);
+            if (param->verbose) Rf_warning("Mining stopped (maxlen reached). Only patterns up to a length of %d returned!", param->maxlen);
           break;
         }
         
         if(SEC_SINCE(t) > param->maxtime && param->maxtime > 0) {
           /* if (param->verbose) Rprintf(" *stopping (time limit)*"); */
-          Rf_warning("Mining stopped (time limit reached). Only patterns up to a length of %d returned!", 
+          if (param->verbose) Rf_warning("Mining stopped (time limit reached). Only patterns up to a length of %d returned!", 
                      ist_height(istree));
           break;
         }
@@ -1044,11 +1044,11 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     else param.rsdef = IST_BODY;
     
     if ((param.target == TT_HEDGE) & param.ext) {
-      warning("No extended measure available.\n");
+      Rf_warning("No extended measure available.\n");
       LOGICAL(GET_SLOT(parms, install("ext")))[0] = param.ext = 0;
     }
     if ((param.target != TT_RULE) & param.aval) {
-      warning("No additional measure available.\n");
+      Rf_warning("No additional measure available.\n");
       LOGICAL(GET_SLOT(parms, install("aval")))[0] = param.aval= 0;
       param.arem = EM_NONE;
       SET_SLOT(parms, install("arem"), PROTECT(ScalarString(CREATE_STRING_VECTOR("none"))));
@@ -1057,7 +1057,7 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     if (param.arem == EM_NONE)   {       /* if no add. rule eval. measure, */
     REAL(GET_SLOT(parms, install("minval")))[0] = param.minval = 0;
       if (param.aval) {
-        warning("No additional measure available.\n");		
+        Rf_warning("No additional measure available.\n");		
         LOGICAL(GET_SLOT(parms, install("aval")))[0] = param.aval = 0;
         /* clear the corresp. output flag */
       }
@@ -1074,7 +1074,7 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
           
         }/* rule specific settings */
         if ((param.filter <= -1) || (param.filter >= 1)) {
-          warning("Parameter 'filter' set to 0.\n");
+          Rf_warning("Parameter 'filter' set to 0.\n");
           REAL(GET_SLOT(control, install("filter")))[0] = param.filter = 0;
           
         }
