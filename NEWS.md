@@ -2,6 +2,7 @@
 
 ## New Features
 * discretizeDF now understands the method "none" which skips discretization.
+* discretizeDF now reports which column produces the problem.
 
 ## Changes
 * transactions: numeric columns are now discretized during coersion using discretizeDF (with a warning).

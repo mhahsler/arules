@@ -32,7 +32,7 @@ discretize <- function(x, method = "frequency", breaks = 3,
   
   method <- methods[pmatch(tolower(method), methods)]
   if(is.na(method)) stop("Unknown method!")
-      
+  
   if(method == "fixed" && length(breaks) < 2) 
     stop("fixed needs at least two values for breaks.")
   if(method != "fixed" && (length(breaks) != 1 || breaks < 1))
@@ -40,11 +40,11 @@ discretize <- function(x, method = "frequency", breaks = 3,
   
   breaks <- switch(method,
     interval = seq(from=min(x, na.rm=TRUE), to=max(x, na.rm=TRUE), 
-        length.out=breaks+1),
-
+      length.out=breaks+1),
+    
     frequency = quantile(x, probs = seq(0,1, length.out = breaks+1), 
-                         na.rm = TRUE),
-
+      na.rm = TRUE),
+    
     cluster = {
       cl <-  stats::kmeans(stats::na.omit(x), breaks, ...)
       centers <- sort(cl$centers[,1])
@@ -54,9 +54,11 @@ discretize <- function(x, method = "frequency", breaks = 3,
     
     fixed = breaks
   )
-    
-  if(any(duplicated(breaks))) 
-    stop("Some breaks are not unique. Change breaks or consider using method 'fixed'.")
+  
+  if(any(duplicated(breaks))){ 
+    stop("The calculated breaks are: ", paste(breaks, collapse = ", "), "\n  Some breaks are not unique. Change the number of breaks or consider using method 'fixed'.")
+  }
+
   
   ### fix first and last to -/+Inf
   if(infinity) {
@@ -87,7 +89,9 @@ discretizeDF <- function(df, methods = NULL, default = NULL) {
     ### skip columns with method na
     if(!is.null(args) && (is.null(args$method) || args$method == "none")) next
     
-    df[[i]] <- do.call("discretize", c(list(x = df[[i]]), args))
+    if(is(err <- try(
+      df[[i]] <- do.call("discretize", c(list(x = df[[i]]), args)), 
+      silent = TRUE), "try-error")) stop("Problem with column ", i, "\n", err)
   }
   
   df
