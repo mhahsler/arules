@@ -1,6 +1,7 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <Rdefines.h>
+#include "newS4object.h"
 
 // Compute auto- or cross-similarities over the columns
 // of ngCMatrix objects, using optional element weights.
@@ -45,7 +46,7 @@ SEXP R_similarity_ngCMatrix(SEXP x, SEXP y, SEXP R_method, SEXP R_weight) {
   py = getAttrib(y, install("p"));
   iy = getAttrib(y, install("i"));
   
-  PROTECT(r = NEW_OBJECT(MAKE_CLASS((m) ? "dgCMatrix" : "dsCMatrix")));
+  PROTECT(r = NEW_OBJECT_OF_CLASS((m) ? "dgCMatrix" : "dsCMatrix"));
   
   if (!m) {
     setAttrib(r, install("uplo"), PROTECT(mkString("L")));
@@ -194,13 +195,13 @@ SEXP R_similarity_ngCMatrix(SEXP x, SEXP y, SEXP R_method, SEXP R_weight) {
   ir = getAttrib(r, install("Dimnames"));
   
   PROTECT(ix = getAttrib(x, install("Dimnames")));
-  SET_VECTOR_ELT(ir, 0, VECTOR_ELT(ix, 1));
-  UNPROTECT(1);
+  SET_VECTOR_ELT(ir, 0, PROTECT(VECTOR_ELT(ix, 1)));
+  UNPROTECT(2);
   PROTECT(ix = getAttrib(ix, R_NamesSymbol));
   
   PROTECT(iy = getAttrib(y, install("Dimnames")));
-  SET_VECTOR_ELT(ir, 1, VECTOR_ELT(iy, 1));
-  UNPROTECT(1);
+  SET_VECTOR_ELT(ir, 1, PROTECT(VECTOR_ELT(iy, 1)));
+  UNPROTECT(2);
   PROTECT(iy = getAttrib(iy, R_NamesSymbol));
   
   if (!isNull(iy) || !isNull(ix)) {

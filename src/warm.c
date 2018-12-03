@@ -1,6 +1,7 @@
 #include <R.h>
 #include <Rdefines.h>
 #include <time.h>
+#include "newS4object.h"
 
 // Iterate a bipartite graph of transactions (itemsets) and
 // items using the HITS algorithm with tolerance FLT_EPSILON.
@@ -278,7 +279,7 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
   // shortcuts
   if (nr == 0 || nc == 0 || nc < minlen) {
     r = PROTECT(allocVector(VECSXP, 2));
-    SET_VECTOR_ELT(r, 0, (r0 = NEW_OBJECT(MAKE_CLASS("ngCMatrix"))));
+    SET_VECTOR_ELT(r, 0, (r0 = NEW_OBJECT_OF_CLASS("ngCMatrix")));
     INTEGER(getAttrib(r0, install("Dim")))[0] = nc;
     SET_VECTOR_ELT(r, 1, allocVector(REALSXP, 0));
 #ifdef _TIME_H
@@ -453,7 +454,7 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
   
   r = PROTECT(allocVector(VECSXP, 2));
   
-  SET_VECTOR_ELT(r, 0, (r0 = NEW_OBJECT(MAKE_CLASS("ngCMatrix"))));
+  SET_VECTOR_ELT(r, 0, (r0 = NEW_OBJECT_OF_CLASS("ngCMatrix")));
   setAttrib(r0, install("p"), PROTECT(r1 = allocVector(INTSXP, n + 1)));
   memcpy(INTEGER(r1), pr, sizeof(int) * (n + 1));
   free(pr); pr = NULL;

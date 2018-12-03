@@ -1,6 +1,7 @@
 #include <R.h>
 #include <R_ext/Utils.h>
 #include <Rdefines.h>
+#include "newS4object.h"
 
 /* arraySubscript.c */
 SEXP _int_arraySubscript(int, SEXP, const char *, const char *, SEXP,
@@ -29,7 +30,7 @@ SEXP R_transpose_ngCMatrix(SEXP x) {
   ix = getAttrib(x, install("i"));
   
   /* use new-style S4 object */
-  PROTECT(r = NEW_OBJECT(MAKE_CLASS("ngCMatrix")));
+  PROTECT(r = NEW_OBJECT_OF_CLASS("ngCMatrix"));
   
   setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, nr+1)));
   setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix))));
@@ -252,7 +253,7 @@ SEXP R_colSubset_ngCMatrix(SEXP x, SEXP s) {
   
   ix = getAttrib(x, install("i"));
   
-  PROTECT(r = NEW_OBJECT(MAKE_CLASS(inherits(x, "ngCMatrix") ? "ngCMatrix" : "sgCMatrix")));
+  PROTECT(r = NEW_OBJECT_OF_CLASS(inherits(x, "ngCMatrix") ? "ngCMatrix" : "sgCMatrix"));
   setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(s)+1)));
   setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, n)));
   UNPROTECT(2);
@@ -404,7 +405,7 @@ SEXP R_cbind_ngCMatrix(SEXP x, SEXP y) {
   ix = getAttrib(x, install("i"));
   iy = getAttrib(y, install("i"));
   
-  PROTECT(r = NEW_OBJECT(MAKE_CLASS(inherits(x, "ngCMatrix") ? "ngCMatrix" : "sgCMatrix")));
+  PROTECT(r = NEW_OBJECT_OF_CLASS(inherits(x, "ngCMatrix") ? "ngCMatrix" : "sgCMatrix"));
   setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(px)+LENGTH(py)-1)));
   setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix)+LENGTH(iy))));
   
@@ -506,7 +507,7 @@ SEXP R_recode_ngCMatrix(SEXP x, SEXP s) {
   
   c  = inherits(x, "ngCMatrix");
   
-  PROTECT(r = NEW_OBJECT(MAKE_CLASS(c ? "ngCMatrix" : "sgCMatrix")));
+  PROTECT(r = NEW_OBJECT_OF_CLASS(c ? "ngCMatrix" : "sgCMatrix"));
   setAttrib(r, install("p"), px);
   setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix))));
   UNPROTECT(1);
@@ -576,7 +577,7 @@ SEXP R_or_ngCMatrix(SEXP x, SEXP y) {
   py = getAttrib(y, install("p"));
   iy = getAttrib(y, install("i"));
   
-  PROTECT(r = NEW_OBJECT(MAKE_CLASS("ngCMatrix")));
+  PROTECT(r = NEW_OBJECT_OF_CLASS("ngCMatrix"));
   setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(px))));
   
   n = LENGTH(ix) + LENGTH(iy);
