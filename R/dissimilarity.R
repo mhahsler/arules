@@ -39,18 +39,19 @@ setMethod("dissimilarity", signature(x = "matrix"),
   function(x, y = NULL, method = NULL, args = NULL) {
     ## Compute dissimilarities on binary data
     
-    ## check input
-    if (any(x != 0 && x !=1)) 
-      stop("x is not a binary matrix!")
+    ## make sure the input is a 0-1 matrix or a logical matrix
+    is.zeroone <- function(x) (all(x == 0 | x == 1))
     
-    ## cross dissimilarities?
+    storage.mode(x) <- "numeric"
+    if (!is.zeroone(x)) stop("x is not a binary matrix (0-1 or logical)!")
+    
+    ## cross dissimilarities? Check y
     if (!is.null(y)) {
-      if (!is.matrix(y))
-        stop("'y' not a matrix")
+      if (!is.matrix(y)) stop("'y' not a matrix")
+      storage.mode(y) <- "numeric"
+      if (!is.zeroone(y)) stop("y is not a binary matrix (0-1 or logical)!") 
       cross <- TRUE
-    }
-    else 
-      cross <- FALSE
+    } else cross <- FALSE
     
     builtin_methods <- c("affinity", "jaccard", "matching", "dice", 
       "cosine", "euclidean", "pearson", "phi")
