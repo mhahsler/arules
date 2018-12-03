@@ -1,4 +1,4 @@
-# arules 1.6-1.1
+# arules 1.6-2 (12/02/2018)
 
 ## New Features
 * discretizeDF now understands the method "none" which skips discretization.
@@ -9,6 +9,7 @@
 
 ## Bug Fixes
 * The spurious warning for reaching maxlen in apriori is now removed (reported by Ryan J. Cole).
+* Fixed matrix check in function dissimilarity. 
 
 # arules 1.6-1 (04/04/2018)
 
