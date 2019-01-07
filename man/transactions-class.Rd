@@ -220,9 +220,15 @@ a_df3
 trans4 <- as(split(a_df3[,"item"], a_df3[,"TID"]), "transactions")
 trans4
 inspect(trans4)
+
 ## Note: This is very slow for large datasets. It is much faster to 
-## read transactions in this format from disk using read.transactions() 
-## with format = "single".
+## read transactions using read.transactions() with format = "single".
+## This can be done using an anonymous file.
+write.table(a_df3, file = tmp <- file(), row.names = FALSE)
+trans4 <- read.transactions(tmp, format = "single",
+  header = TRUE, cols = c("TID", "item"))
+close(tmp)
+inspect(trans4)
 
 ## example 5: create transactions from a dataset with numeric variables
 ## using discretization.

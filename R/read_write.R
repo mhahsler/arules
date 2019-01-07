@@ -36,7 +36,7 @@
 }
 
 read.transactions <-
-function(file, format = c("basket", "single"), sep = "", cols = NULL, 
+function(file, format = c("basket", "single"), header = FALSE, sep = "", cols = NULL, 
   rm.duplicates = FALSE, quote = "\"'", skip = 0, encoding="unknown") {
 
     format <- match.arg(format)
@@ -46,6 +46,8 @@ function(file, format = c("basket", "single"), sep = "", cols = NULL,
           scan(text = l, what='character',
           sep = sep, quote = quote, quiet = TRUE, encoding=encoding))
         
+        if(header) skip <- skip + 1
+          
         ## skip
         if(skip>0) data <- data[-(1:skip)]
         
@@ -74,18 +76,22 @@ function(file, format = c("basket", "single"), sep = "", cols = NULL,
 
     ## If cols is a character vector of length 2 we assume the file
     ## has a header with colnames (added by F. Leisch)
-    if(is(cols, "character") && (length(cols) == 2)){
-        colnames <- scan(file = file, what="", sep = sep, quote = quote,
-                         quiet = TRUE, skip = skip, nlines=1)
+    if(header) {
+      colnames <- scan(file = file, what="", sep = sep, quote = quote,
+        quiet = TRUE, skip = skip, nlines=1)
+      skip <- skip + 1
+      if(is(cols, "character")){
         cols <- match(cols, colnames)
         if(any(is.na(cols)))
-            stop("'cols' does not match 2 entries in header of file.")
-        skip <- skip + 1
+          stop("'cols' does not match entries in header of file.")
+      }
     }
-
+        
     ## Else we get the numbers of the columns directly
-    if (!(is(cols, "numeric") && (length(cols) == 2)))
-        stop("'cols' must be a numeric or character vector of length 2 for 'single'.")
+    if(length(cols) != 2) 
+      stop("'cols' must be a vector of length 2 for 'single'.")
+    if(!is(cols, "numeric"))
+      stop("'cols' must be a numeric or character (for header = TRUE).")
     
     cols <- as(cols, "integer")
     ## Thanks to BDR for indicating how to only read in the relevant

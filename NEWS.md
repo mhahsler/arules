@@ -1,3 +1,8 @@
+# arules 1.6-2-1 (xx/xx/2019)
+
+## New Features
+* read.transactions gained parameter header to read files with column headers.
+
 # arules 1.6-2 (12/02/2018)
 
 ## New Features

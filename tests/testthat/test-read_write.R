@@ -24,7 +24,6 @@ expect_equal(dim(tr), c(3L, 3L))
 write(tr, format = "single")
 write(tr, format = "basket")
 
-
 ## create a demo file using single format for the example
 ## column 1 contains the transaction ID and column 2 contains one item
 data <- paste(
