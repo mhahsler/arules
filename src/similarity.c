@@ -196,13 +196,13 @@ SEXP R_similarity_ngCMatrix(SEXP x, SEXP y, SEXP R_method, SEXP R_weight) {
   
   PROTECT(ix = getAttrib(x, install("Dimnames")));
   SET_VECTOR_ELT(ir, 0, PROTECT(VECTOR_ELT(ix, 1)));
-  UNPROTECT(2);
-  PROTECT(ix = getAttrib(ix, R_NamesSymbol));
+  UNPROTECT(1);
+  ix = getAttrib(ix, R_NamesSymbol);
   
   PROTECT(iy = getAttrib(y, install("Dimnames")));
   SET_VECTOR_ELT(ir, 1, PROTECT(VECTOR_ELT(iy, 1)));
-  UNPROTECT(2);
-  PROTECT(iy = getAttrib(iy, R_NamesSymbol));
+  UNPROTECT(1);
+  iy = getAttrib(iy, R_NamesSymbol);
   
   if (!isNull(iy) || !isNull(ix)) {
     setAttrib(ir, R_NamesSymbol, (pr = allocVector(STRSXP, 2)));
