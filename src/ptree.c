@@ -1,6 +1,8 @@
 #include <R.h>
 #include <Rdefines.h>
 #include <time.h>
+#include "newS4object.h"
+
 
 /*
  support counting and rule generation for user-supplied
@@ -347,8 +349,7 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
     PROTECT(r = allocVector(VECSXP, 6));
     nprotect++;
     
-    SET_VECTOR_ELT(r, 0, PROTECT(o = NEW_OBJECT(MAKE_CLASS("ngCMatrix"))));
-    nprotect++;
+    SET_VECTOR_ELT(r, 0, o = NEW_OBJECT_OF_CLASS("ngCMatrix"));
     SET_SLOT(o, install("p"),   PROTECT(pl = allocVector(INTSXP, np+1)));
     nprotect++;
     SET_SLOT(o, install("i"),   PROTECT(il = allocVector(INTSXP, ni)));
@@ -358,8 +359,7 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
     INTEGER(p)[0] = nr;
     INTEGER(p)[1] = np;
     
-    SET_VECTOR_ELT(r, 1, PROTECT(o = NEW_OBJECT(MAKE_CLASS("ngCMatrix"))));
-    nprotect++;
+    SET_VECTOR_ELT(r, 1, o = NEW_OBJECT_OF_CLASS("ngCMatrix"));
     SET_SLOT(o, install("p"),   PROTECT(pr = allocVector(INTSXP, np+1)));
     nprotect++;
     SET_SLOT(o, install("i"),   PROTECT(ir = allocVector(INTSXP, np)));
