@@ -1,53 +1,38 @@
-
 citation(auto = meta)
 
 bibentry(bibtype = "article",
-         title = paste("arules -- {A} Computational Environment for Mining",
-                       "Association Rules and Frequent Item Sets"),
-         author = {
-             c(person("Michael", "Hahsler",
-                               email = "mhahsler@lyle.smu.edu"),
-                        person("Bettina", "Gruen",
-                               email = "Bettina.Gruen@wu.ac.at"),
-                        person("Kurt", "Hornik",
-                               email = "Kurt.Hornik@R-project.org"))
-         },
-         year = 2005,
-         journal = "Journal of Statistical Software",
-         volume = 14,
-         number = 15,
-         pages = "1--25",
-         url = "http://dx.doi.org/10.18637/jss.v014.i15",
-         month = "October",
-         issn = "1548-7660",
-         textVersion = {
-             paste(paste("Michael Hahsler, Bettina Gruen and",
-                         "Kurt Hornik (2005),",
-                         "arules - A Computational Environment for",
-                         "Mining Association Rules and Frequent Item Sets."),
-                   "Journal of Statistical Software 14/15.",
-                   "URL: http://dx.doi.org/10.18637/jss.v014.i15.",
-                   sep = "  ")
-         })
+  title = paste("arules -- {A} Computational Environment for Mining",
+    "Association Rules and Frequent Item Sets"),
+  author = {
+    c(person("Michael", "Hahsler",
+      email = "mhahsler@lyle.smu.edu"),
+      person("Bettina", "Gruen",
+        email = "Bettina.Gruen@wu.ac.at"),
+      person("Kurt", "Hornik",
+        email = "Kurt.Hornik@R-project.org"))
+  },
+  year = 2005,
+  journal = "Journal of Statistical Software",
+  volume = 14,
+  number = 15,
+  pages = "1--25",
+  url = "http://dx.doi.org/10.18637/jss.v014.i15",
+  month = "October",
+  issn = "1548-7660"
+  )
 
 bibentry(bibtype = "article",
-         title = paste("The arules R-Package Ecosystem: Analyzing Interesting Patterns from Large Transaction Datasets"),
-         author = {
-             c(person("Michael", "Hahsler",
-                               email = "mhahsler@lyle.smu.edu"),
-                        person("Sudheer", "Chelluboina"),
-                        person("Kurt", "Hornik"),
-                        person("Christian", "Buchta"))
-         },
-         year = 2011,
-         journal = "Journal of Machine Learning Research",
-         volume = 12,
-         pages = "1977--1981",
-         url = "http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html",
-         textVersion = {
-             paste(paste("Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta (2011),",
-                "The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets."),
-                "Journal of Machine Learning Research, 12:1977--1981.",
-                "URL: http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html.",
-                sep = "  ")
-         })
+  title = paste("The arules R-Package Ecosystem: Analyzing Interesting Patterns from Large Transaction Datasets"),
+  author = {
+    c(person("Michael", "Hahsler",
+      email = "mhahsler@lyle.smu.edu"),
+      person("Sudheer", "Chelluboina"),
+      person("Kurt", "Hornik"),
+      person("Christian", "Buchta"))
+  },
+  year = 2011,
+  journal = "Journal of Machine Learning Research",
+  volume = 12,
+  pages = "1977--1981",
+  url = "http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html"
+  )
