@@ -82,7 +82,7 @@ inspect(tr)
 
 ## create a demo file using single format with column headers
 data <- paste(
-  "item_id;trans_id"
+  "item_id;trans_id",
   "item1;trans1", 
   "item1;trans2",
   "item2;trans2", 
