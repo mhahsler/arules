@@ -24,6 +24,9 @@ expect_equal(dim(tr), c(3L, 3L))
 write(tr, format = "single")
 write(tr, format = "basket")
 
+## tidy up
+unlink("demo_basket")
+
 ## create a demo file using single format for the example
 ## column 1 contains the transaction ID and column 2 contains one item
 data <- paste(
@@ -41,9 +44,27 @@ tr <- read.transactions("demo_single", format = "single",
 # inspect(tr)
 expect_equal(dim(tr), c(2L, 2L))
 
+## use single with col headers 
+data <- paste(
+  "trans_id filler item_id",
+  "trans1 stuff \"item 1\"", 
+  "trans2 that 'item 1'",
+  "trans2 is_not_important item2", 
+  sep ="\n")
+#cat(data)
+write(data, file = "demo_single")
+
+## read demo data columns 1 and 3 + skip first line
+tr <- read.transactions("demo_single", format = "single", 
+  cols = c("trans_id", "item_id"), header = TRUE)
+# inspect(tr)
+expect_equal(dim(tr), c(2L, 2L))
+
 ## tidy up
-unlink("demo_basket")
 unlink("demo_single")
+
+
+
 
 context("write transactions")
 
@@ -53,7 +74,7 @@ tr2 <- read.transactions("demo_write")
 # inspect(tr)
 # inspect(tr2)
 
-## NOTE: write basket looses transactionID
+## NOTE: write basket loses transactionID
 transactionInfo(tr2) <- transactionInfo(tr)
 itemsetInfo(tr2) <- itemsetInfo(tr)
 expect_equal(tr, tr2)
@@ -64,4 +85,5 @@ tr2 <- read.transactions("demo_write", format = "single", cols = c(1,2))
 expect_equal(tr, tr2)
 
 unlink("demo_write")
+
 
