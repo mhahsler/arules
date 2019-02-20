@@ -91,7 +91,7 @@ function(file, format = c("basket", "single"), header = FALSE, sep = "", cols = 
     if(length(cols) != 2) 
       stop("'cols' must be a vector of length 2 for 'single'.")
     if(!is(cols, "numeric"))
-      stop("'cols' must be a numeric or character (for header = TRUE).")
+      stop("'cols' must be a numeric (character is only allowed for header = TRUE).")
     
     cols <- as(cols, "integer")
     ## Thanks to BDR for indicating how to only read in the relevant
