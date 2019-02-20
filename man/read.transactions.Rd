@@ -61,7 +61,7 @@ data <- paste(
 cat(data)
 write(data, file = "demo_basket")
 
-## read demo data (skip comment line)
+## read demo data (skip first line)
 tr <- read.transactions("demo_basket", format = "basket", sep=",", skip = 1)
 inspect(tr)
 
@@ -80,6 +80,20 @@ write(data, file = "demo_single")
 tr <- read.transactions("demo_single", format = "single", cols = c(1,2))
 inspect(tr)
 
+## create a demo file using single format with column headers
+data <- paste(
+  "item_id;trans_id"
+  "item1;trans1", 
+  "item1;trans2",
+  "item2;trans2", 
+  sep ="\n")
+cat(data)
+write(data, file = "demo_single")
+
+## read demo data
+tr <- read.transactions("demo_single", format = "single", 
+  header = TRUE, sep = ";", cols = c("trans_id","item_id"))
+inspect(tr)
 
 ## tidy up
 unlink("demo_basket")
