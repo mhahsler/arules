@@ -40,11 +40,10 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
 
     if(control@verbose) {
       cat("Apriori\n")
-      ## print parameter
       cat("\nParameter specification:\n")
-      print(parameter)
+      show(parameter)
       cat("\nAlgorithmic control:\n")
-      print(control)
+      show(control)
     }
    
     ## sanity check for support (abs. support >1)

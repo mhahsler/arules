@@ -63,9 +63,9 @@ weclat <- function(data, parameter = NULL, control = NULL) {
   
   if (control@verbose) {
     cat("\nparameter specification:\n")
-    print(parameter)
+    show(parameter)
     cat("\nalgorithmic control:\n")
-    print(control)
+    show(control)
     cat("\n")
   }
   ## r <- .Call(R_transpose_ngCMatrix, data@data)

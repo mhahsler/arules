@@ -36,11 +36,10 @@ eclat <-  function(data, parameter = NULL, control = NULL)
     
     if(control@verbose) {
       cat("Eclat\n")
-      ## print parameter
       cat("\nparameter specification:\n")
-      print(parameter)
+      show(parameter)
       cat("\nalgorithmic control:\n")
-      print(control)
+      show(control)
     }
 
     ## sanity check for support (abs. support >1)
