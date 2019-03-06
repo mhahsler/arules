@@ -510,7 +510,7 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
   int i, i0, j, k, kt, kz, f, f0, l, l0, m, n, nr, nc, ni, nj;
   int *ix, *pt, *it, *pz, *iz, *j0;
   double z, *w;
-  SEXP r, r0, px;
+  SEXP r, r0, px, fun;
 #ifdef _TIME_H
   time_t t0 = clock(), t1, t2;
   if (LOGICAL(R_verbose)[0] == TRUE)
@@ -611,7 +611,7 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
   r  = PROTECT(allocVector(REALSXP, LENGTH(px)-1));
   
   if (!isNull(R_fun))
-    R_fun = PROTECT(LCONS(R_fun, LCONS(R_NilValue,
+    fun = PROTECT(LCONS(R_fun, LCONS(R_NilValue,
                                        VectorToPairList(R_args))));
 #ifdef _TIME_H
   t1 = clock();
@@ -660,17 +660,20 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
     }
     z = 0;
     if (j > 0) {
-      if (!isNull(R_fun)) {
+      if (!isNull(fun)) {
         SEXP r;
         n = pz[j] - pz[j-1];
-        SETCAR(CDR(R_fun), (r0 = allocVector(REALSXP, n)));
+        SETCAR(CDR(fun), (r0 = allocVector(REALSXP, n)));
         n = 0;
         for (k = pz[j-1]; k < pz[j]; k++)
           REAL(r0)[n++] = w[iz[k]];
-        r = eval(R_fun, R_GlobalEnv);
+        r = eval(fun, R_GlobalEnv);
         if (!isNull(r)) {
-          if (LENGTH(r) != 1)
-            error("not a scalar return value");
+	    if (LENGTH(r) != 1) {
+		if (!isNull(R_fun)) UNPROTECT(1);
+		UNPROTECT(5);
+		error("not a scalar return value");
+	    }
           switch (TYPEOF(r)) {
           case REALSXP:
             z = REAL(r)[0];
@@ -679,7 +682,9 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
             z = (double) INTEGER(r)[0];
             break;
           default:
-            error("not a numeric return value");
+	    if (!isNull(R_fun)) UNPROTECT(1);
+	    UNPROTECT(5);
+	    error("not a numeric return value");
           }
         }
       } else
@@ -703,8 +708,7 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
             ((double) t2 - t1) / CLOCKS_PER_SEC);
 #endif
   
-  if (!isNull(R_fun))
-    UNPROTECT(1);
+  if (!isNull(R_fun)) UNPROTECT(1);
   
   UNPROTECT(5);
   

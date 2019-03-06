@@ -328,7 +328,11 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
   items = PROTECT(AS_CHARACTER(GET_SLOT(app, install("items"))));
   
   iset->app = appcode(def);    /* get default appearance code */
-  if (iset->app < 0)    return E_UNKAPP;
+  if (iset->app < 0) {
+      UNPROTECT(1);
+      return E_UNKAPP;
+  }
+
   h = 0;
   for (i = 0; i < 5; i++) {
     for (j = 0; j < set[i]; j++) {
