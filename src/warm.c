@@ -510,7 +510,7 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
   int i, i0, j, k, kt, kz, f, f0, l, l0, m, n, nr, nc, ni, nj;
   int *ix, *pt, *it, *pz, *iz, *j0;
   double z, *w;
-  SEXP r, r0, px, fun;
+  SEXP r, r0, px, fun = R_fun;
 #ifdef _TIME_H
   time_t t0 = clock(), t1, t2;
   if (LOGICAL(R_verbose)[0] == TRUE)
