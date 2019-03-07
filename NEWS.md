@@ -5,7 +5,7 @@
 
 ## Bug Fixes
 * Fixed PROTECT placement in C code discovered by rchk.
-
+* S4 objects use now show instead of print.
 
 # arules 1.6-2 (12/02/2018)
 
