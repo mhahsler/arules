@@ -81,7 +81,7 @@ eclat <-  function(data, parameter = NULL, control = NULL)
     result@quality <- as.data.frame(result@quality)
 
     ## add count to quality
-    quality(result)$count <- quality(result)$support*length(data)
+    quality(result)$count <- as.integer(round(quality(result)$support*length(data)))
         
     ## add some reflectance 
     call <- match.call()
