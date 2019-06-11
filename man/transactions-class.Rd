@@ -67,13 +67,14 @@ Transactions can be created by coercion from lists
 containing transactions, but also from matrix and data.frames.
 However, you will need to prepare your data first (see coercion methods in the
 Methods Section and the Example Section below for details on the needed format). 
-Association rule mining can only use items and does not work with continuous variables. 
 
-For example, an item describing a person (i.e., the considered object called a transaction) could be \emph{tall}. The fact that the person is tall would be encoded in the transaction containing the item \emph{tall}. This is typically encoded in a transaction-by-items matrix by a \code{TRUE} value. This is why \code{as.transaction} can deal with logical columns, because it assumes the column stands for an item. The function also can convert columns with nominal values (i.e., factors) into a series of binary items (one for each level). So if you have nominal variables then you need to make sure they are factors (and not characters or numbers) using something like 
+\bold{Continuous variables:} Association rule mining can only use items and does not work with continuous variables. Continuous variables need to be discretized first. An item resulting from discretization might be \emph{age>18} and the column contains only \code{TRUE} or \code{FALSE}. Alternatively it can be a factor with levels \emph{age<=18}, \emph{50=>age>18} and \emph{age>50}. These will be automatically converted into 3 items, one for each level. Have a look at the function \code{\link{discretize}} for automatic discretization.
+
+\bold{Logical variables:} A logical variable describing a person could be \emph{tall} indicating if the person is tall using the values \code{TRUE} and \code{FALSE}. The fact that the person is tall would be encoded in the transaction containing the item \emph{tall} while not tall persons would not have this item. Therefore, for logical variables, the \code{TRUE} value is converted into an item with the name of the variable and for the \code{FALSE} values no item is created. 
+
+\bold{Factors:} The function also can convert columns with nominal values (i.e., factors) into a series of binary items (one for each level constructed as \code{`variable name`=`level`}). Note that nominal variables need to be encoded as factors (and not characters or numbers). This can be done with 
 
 \code{data[,"a_nominal_var"] <- factor(data[,"a_nominal_var"])}.
-
-Continuous variables need to be discretized first. An item resulting from discretization might be \emph{age>18} and the column contains only \code{TRUE} or \code{FALSE}. Alternatively it can be a factor with levels \emph{age<=18}, \emph{50=>age>18} and \emph{age>50}. These will be automatically converted into 3 items, one for each level. Have a look at the function \code{\link{discretize}} for automatic discretization.
 
 Complete examples for how to prepare data can be found in the man pages for \code{\link{Income}} and
 \code{\link{Adult}}.
