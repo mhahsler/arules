@@ -46,7 +46,7 @@ setMethod("size", signature(x = "itemMatrix"),
     ## diff(x@data@p) is nearly as fast as colSums(x@data).
     
     ## FIXME: Add transactionID or itemsetID as names
-    cnt <- .Call(R_colSums_ngCMatrix, x@data)
+    cnt <- .Call("R_colSums_ngCMatrix", x@data, PACKAGE = "arules")
     cnt
   }
 )
@@ -134,11 +134,11 @@ setAs("itemMatrix", "list",
 setMethod("LIST", signature(from = "itemMatrix"),
   function(from, decode = TRUE) {
     if (decode) {
-      to <- .Call(R_asList_ngCMatrix, from@data, itemLabels(from))
+      to <- .Call("R_asList_ngCMatrix", from@data, itemLabels(from), PACKAGE = "arules")
       names(to) <- itemsetInfo(from)[["itemsetID"]]
       to
     } else
-      .Call(R_asList_ngCMatrix, from@data, NULL)
+      .Call("R_asList_ngCMatrix", from@data, NULL, PACKAGE = "arules")
   }
 )
 
@@ -291,7 +291,7 @@ setMethod("[", signature(x = "itemMatrix", i = "ANY", j = "ANY", drop = "ANY"),
       
       i <- .translate_index(i, rownames(x), nrow(x))
       ## faster than: x@data <- x@data[,i, drop=FALSE]
-      x@data <- .Call(R_colSubset_ngCMatrix, x@data, i)
+      x@data <- .Call("R_colSubset_ngCMatrix", x@data, i, PACKAGE = "arules")
       
       ### only subset if we have rows
       if(nrow(x@itemsetInfo)) x@itemsetInfo <- x@itemsetInfo[i,, drop = FALSE]
@@ -311,7 +311,7 @@ setMethod("[", signature(x = "itemMatrix", i = "ANY", j = "ANY", drop = "ANY"),
       
       j <- .translate_index(j, colnames(x), ncol(x))
       ## faster than: x@data <- x@data[j,, drop=FALSE]
-      x@data <- .Call(R_rowSubset_ngCMatrix, x@data, j)
+      x@data <- .Call("R_rowSubset_ngCMatrix", x@data, j, PACKAGE = "arules")
         
       x@itemInfo <- x@itemInfo[j,, drop = FALSE]
     }
@@ -341,12 +341,12 @@ setMethod("c", signature(x = "itemMatrix"),
           y@itemInfo[n,, drop = FALSE])
       }
       if (any(k != seq_len(length(k))))
-        y@data <- .Call(R_recode_ngCMatrix, y@data, k)
+        y@data <- .Call("R_recode_ngCMatrix", y@data, k, PACKAGE = "arules")
       if (y@data@Dim[1] <  x@data@Dim[1])
         y@data@Dim[1] <- x@data@Dim[1]
       
       ## this is faste than x@data <- cbind(x@data, y@data)
-      x@data <- .Call(R_cbind_ngCMatrix, x@data, y@data)
+      x@data <- .Call("R_cbind_ngCMatrix", x@data, y@data, PACKAGE = "arules")
     }
     validObject(x, complete = TRUE)
     x
@@ -360,7 +360,7 @@ setMethod("merge", signature(x="itemMatrix"),
     if(nrow(x)!=nrow(y)) stop("The number of rows in x and y do not conform!")
     
     ## this is faster than dc <- rbind(x@data, y@data) 
-    dc <- t(.Call(R_cbind_ngCMatrix, t(x@data), t(y@data)))
+    dc <- t(.Call("R_cbind_ngCMatrix", t(x@data), t(y@data), PACKAGE = "arules"))
     
     ## fix itemInfo
     iix <- itemInfo(x)
@@ -383,7 +383,7 @@ setMethod("merge", signature(x="itemMatrix"),
 setMethod("duplicated", signature(x = "itemMatrix"),
   function(x, incomparables = FALSE) {
     ## use a prefix tree
-    i <- .Call(R_pnindex, x@data, NULL, FALSE)
+    i <- .Call("R_pnindex", x@data, NULL, FALSE, PACKAGE = "arules")
     duplicated(i)
   }
 )
@@ -403,10 +403,10 @@ setMethod("match", signature(x = "itemMatrix", table = "itemMatrix"),
       table@data@Dim[1] <- table@data@Dim[1] + length(n)
     }
     if (any(k != seq_len(length(k))))
-      x@data <- .Call(R_recode_ngCMatrix, x@data, k)
+      x@data <- .Call("R_recode_ngCMatrix", x@data, k, PACKAGE = "arules")
     if (x@data@Dim[1] <  table@data@Dim[1])
       x@data@Dim[1] <- table@data@Dim[1]
-    i <- .Call(R_pnindex, table@data, x@data, FALSE)
+    i <- .Call("R_pnindex", table@data, x@data, FALSE, PACKAGE = "arules")
     match(i, seq_len(length(table)), nomatch = nomatch, 
       incomparables = incomparables)
   }
