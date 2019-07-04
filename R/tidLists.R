@@ -68,7 +68,7 @@ setMethod("length", signature(x = "tidLists"),
 
 ## produces a vector of element sizes
 setMethod("size", signature(x = "tidLists"),
-  function(x) .Call(R_colSums_ngCMatrix, x@data))
+  function(x) .Call("R_colSums_ngCMatrix", x@data, PACKAGE = "arules"))
 
 ##*******************************************************
 ## show/summary
@@ -143,7 +143,7 @@ setMethod("c", signature(x = "tidLists"),
       
       if(ncol(x) != ncol(y)) stop("transactions not conforming.")
       
-      dat <- .Call(R_cbind_ngCMatrix, dat, y@data)
+      dat <- .Call("R_cbind_ngCMatrix", dat, y@data, PACKAGE = "arules")
       itemI <- rbind(itemI, itemInfo(y))
     }
     
@@ -167,7 +167,7 @@ setMethod("[", signature(x = "tidLists", i = "ANY", j = "ANY", drop = "ANY"),
       } 
       
       i <- .translate_index(i, rownames(x), nrow(x)) 
-      x@data <- .Call(R_colSubset_ngCMatrix, x@data, i)
+      x@data <- .Call("R_colSubset_ngCMatrix", x@data, i, PACKAGE = "arules")
       
       x@itemInfo <- x@itemInfo[i,, drop = FALSE]
     }
@@ -180,7 +180,7 @@ setMethod("[", signature(x = "tidLists", i = "ANY", j = "ANY", drop = "ANY"),
       } 
       
       j <- .translate_index(j, colnames(x), ncol(x))
-      x@data <- .Call(R_rowSubset_ngCMatrix, x@data, j)
+      x@data <- .Call("R_rowSubset_ngCMatrix", x@data, j, PACKAGE = "arules")
       
       x@transactionInfo <- x@transactionInfo[j,, drop = FALSE]
     }
@@ -202,11 +202,11 @@ setMethod("LIST", signature(from = "tidLists"),
       i <- from@transactionInfo[["transactionID"]]
       if (!is.null(i))
         i <- as.character(i)
-      to <- .Call(R_asList_ngCMatrix, from@data, i)
+      to <- .Call("R_asList_ngCMatrix", from@data, i, PACKAGE = "arules")
       names(to) <- from@itemInfo[["labels"]]
       to
     } else
-      .Call(R_asList_ngCMatrix, from@data, NULL)
+      .Call("R_asList_ngCMatrix", from@data, NULL, PACKAGE = "arules")
   }
 )
 

@@ -50,5 +50,5 @@ setMethod("is.closed", signature(x = "itemsets"),
             cnt <- as.integer(round(supp * ntrans))
         }
             
-        .Call(R_pnclosed, x@items@data, as.integer(cnt), FALSE)
+        .Call("R_pnclosed", x@items@data, as.integer(cnt), FALSE, PACKAGE = "arules")
     })

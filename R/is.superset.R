@@ -51,8 +51,8 @@ setMethod("is.subset", signature(x = "itemMatrix"),
 
     if(sparse) return(.is.subset_sparse(x, y, proper))
 
-    if (is.null(y)) m <- .Call(R_crosstab_ngCMatrix, x@data, NULL, FALSE)
-    else m <- .Call(R_crosstab_ngCMatrix, x@data, y@data, FALSE)
+    if (is.null(y)) m <- .Call("R_crosstab_ngCMatrix", x@data, NULL, FALSE, PACKAGE = "arules")
+    else m <- .Call("R_crosstab_ngCMatrix", x@data, y@data, FALSE, PACKAGE = "arules")
 
     m <- m == size(x)
 
@@ -81,7 +81,7 @@ setMethod("is.subset", signature(x = "associations"),
   if(is.null(y)) y <- x
 
   p <- as.integer(rep(0, x@data@Dim[2]+1))
-  i <- .Call(R_is_subset, x@data@p, x@data@i, x@data@Dim, 
+  i <- .Call("R_is_subset", x@data@p, x@data@i, x@data@Dim, 
     y@data@p, y@data@i, y@data@Dim, 
     as.logical(proper), p, PACKAGE = "arules")
 

@@ -114,7 +114,7 @@ setMethod("recode", signature(x = "itemMatrix"),
 
         ## recode items
         if (any(k != seq(length(k))))
-            x@data <- .Call(R_recode_ngCMatrix, x@data, k)
+            x@data <- .Call("R_recode_ngCMatrix", x@data, k, PACKAGE = "arules")
 
         ## enlarge
         if (x@data@Dim[1] <  length(itemLabels))

@@ -37,14 +37,14 @@ setMethod("itemFrequency", signature(x = "itemMatrix"),
         stop("transactions do not contain weights. Add a weight column to transactionInfo.")
       
       weight <- as.numeric(transactionInfo(x)[["weight"]])
-      support <- .Call(R_rowWSums_ngCMatrix, x@data, weight)
+      support <- .Call("R_rowWSums_ngCMatrix", x@data, weight, PACKAGE = "arules")
       total <- sum(weight)
       
     }else {
       ## we could also use rowSums
       ##support <- tabulate(x@data@i + 1L, nbins = x@data@Dim[1])
       
-      support <- .Call(R_rowSums_ngCMatrix, x@data)
+      support <- .Call("R_rowSums_ngCMatrix", x@data, PACKAGE = "arules")
       total <- length(x)
     }
     

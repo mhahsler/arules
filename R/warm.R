@@ -28,7 +28,7 @@ hits <- function(data, iter = 16L, tol = NULL,
   data <- as(data, "transactions")
   type <- match.arg(type)
   
-  r <- .Call(R_hits_ngCMatrix, data@data, iter, tol, verbose)
+  r <- .Call("R_hits_ngCMatrix", data@data, iter, tol, verbose, PACKAGE = "arules")
   names(r) <- transactionInfo(data)[["transactionID"]]
   
   switch(type,
@@ -70,11 +70,12 @@ weclat <- function(data, parameter = NULL, control = NULL) {
   }
   ## r <- .Call(R_transpose_ngCMatrix, data@data)
   r <- selectMethod("t", class(data@data))(data@data)
-  r <- .Call(R_weclat_ngCMatrix, r, weight,
+  r <- .Call("R_weclat_ngCMatrix", r, weight,
     parameter@support,
     parameter@minlen,
     parameter@maxlen,
-    control@verbose)
+    control@verbose,
+    PACKAGE = "arules")
   names(r) <- c("data", "support")
   validObject(r$data)
   

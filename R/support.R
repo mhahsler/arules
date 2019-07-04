@@ -58,7 +58,7 @@ setMethod("support", signature(x = "itemMatrix"),
     }
     if (any(k != seq_len(length(k))))
       transactions@data <-
-      .Call(R_recode_ngCMatrix, transactions@data, k)
+      .Call("R_recode_ngCMatrix", transactions@data, k, PACKAGE = "arules")
     if (transactions@data@Dim[1] <  x@data@Dim[1])
       transactions@data@Dim[1] <- x@data@Dim[1]
     
@@ -116,7 +116,7 @@ support.tidlists <- function(x, transactions, control = NULL) {
   
   tid <- as(transactions, "tidLists")
   
-  support <- .Call(R_tid_support ,tid@data, x@data)
+  support <- .Call("R_tid_support" ,tid@data, x@data, PACKAGE = "arules")
   
   #names(supports) <- labels(x)
   support
@@ -126,17 +126,17 @@ support.ptree <- function(x, transactions, control = NULL) {
   reduce  <- if(is.null(control$r))    FALSE else control$r
   verbose <- if(is.null(control$v))    FALSE else control$v
   
-  .Call(R_pncount, x@data, transactions@data, TRUE, reduce, verbose)
+  .Call("R_pncount", x@data, transactions@data, TRUE, reduce, verbose, PACKAGE = "arules")
 }
       
 support.weighted <- function(x, transactions, control = NULL) {
   verbose <- if(is.null(control$v))    FALSE else control$v
   weights <- as.numeric(transactionInfo(transactions)[["weight"]])
   
-  .Call(R_wcount_ngCMatrix, x@data, 
+  .Call("R_wcount_ngCMatrix", x@data, 
     #t(transactions@data), 
     selectMethod("t", class(transactions@data))(transactions@data), 
-    weights, NULL, NULL, verbose)
+    weights, NULL, NULL, verbose, PACKAGE = "arules")
 }
 
 ## wrapper method for associations

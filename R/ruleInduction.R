@@ -180,7 +180,7 @@ ruleInduction.apriori <- function(x, transactions, confidence = 0.8,
 
 ruleInduction.tidlists <- function(x, transactions, confidence = 0.8, verbose = FALSE) {
     tid <- as(transactions, "tidLists")
-    data <- .Call(R_tid_rules ,tid@data, x@items@data)
+    data <- .Call("R_tid_rules" ,tid@data, x@items@data, PACKAGE = "arules")
     names(data) <- c("support", "confidence",
         "lhs_i", "lhs_p", "rhs_i", "rhs_p", "Dim")
 
@@ -202,7 +202,7 @@ ruleInduction.tidlists <- function(x, transactions, confidence = 0.8, verbose = 
 
 ruleInduction.ptree <- 
 function(x, transactions, confidence = 0.8, reduce = FALSE, verbose = FALSE) {
-    r <- .Call(R_pncount, x@items@data, transactions@data, FALSE, reduce, verbose)
+    r <- .Call("R_pncount", x@items@data, transactions@data, FALSE, reduce, verbose, PACKAGE = "arules")
     
     names(r) <- c("data.lhs","data.rhs","support","confidence","lift", "itemset")
     
@@ -228,7 +228,7 @@ function(x, confidence = 0.8, verbose = FALSE) {
     if (is.null(quality(x)$support))
         stop("cannot induce rules because support is missing! Specify transactions.")
 
-    r <- data.frame(.Call(R_pnrindex, x@items@data, verbose))
+    r <- data.frame(.Call("R_pnrindex", x@items@data, verbose, PACKAGE = "arules"))
     names(r) <- c("i", "li", "ri")
 
     if (!all(r$li) || !all(r$ri))
