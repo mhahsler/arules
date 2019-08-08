@@ -148,7 +148,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "maxconfidence",
       "rulePowerFactor",
        
-      "ralambrodrainy",
+      "ralambondrainy",
       "descriptiveConfirm",
       "confirmedConfidence",
       "sebag",
@@ -423,7 +423,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "laplace") return((f11 + 1)/(f1x + 2))
   if(measure == "certainty") return((f11/f1x - fx1/N)/(1 - fx1/N))
   if(measure == "addedValue") return(f11/f1x - fx1/N)
-  if(measure == "ralambrodrainy") return(f10/N)
+  if(measure == "ralambondrainy") return(f10/N)
   if(measure == "descriptiveConfirm") return((f1x-2*f10)/N)
   if(measure == "sebag") return((f1x-f10)/f10)
   if(measure == "counterexample") return((f11-f10)/f11)

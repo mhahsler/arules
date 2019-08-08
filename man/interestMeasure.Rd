@@ -384,7 +384,7 @@ Range: \eqn{[0, \infty]}}
     
   Range: \eqn{[-1, 1]} (0 when X and Y are independent)}
 
-\item{"ralambrodrainy", Ralambrodrainy Measure (Diatta et al., 2007)}{
+\item{"ralambondrainy", Ralambondrainy Measure (Diatta et al., 2007)}{
     
     Range: \eqn{[0, 1]}}
 
