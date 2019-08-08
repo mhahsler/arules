@@ -2,6 +2,7 @@
 
 ## Bug Fixes
 * Fixed rounding bug affecting is.closed (reported by clcazer)
+* Fixed TYPO in Ralambodrainy Measure (reported by andreijl)
 
 # arules 1.6-3 (03/06/2019)
 
