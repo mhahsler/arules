@@ -13,4 +13,8 @@ vignettes/*.html
 vignettes/*.pdf
 .Rproj.user
 
+*.o
+*.so
+*.Rproj
+
 Work
