@@ -1,4 +1,4 @@
-# arules 1.6-3.1 (xx/xx/2019)
+# arules 1.6-4 (08/27/2019)
 
 ## Bug Fixes
 * Fixed rounding bug affecting is.closed (reported by clcazer).

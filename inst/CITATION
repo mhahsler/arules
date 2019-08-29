@@ -16,7 +16,7 @@ bibentry(bibtype = "article",
   volume = 14,
   number = 15,
   pages = "1--25",
-  url = "http://dx.doi.org/10.18637/jss.v014.i15",
+  doi = "10.18637/jss.v014.i15",
   month = "October",
   issn = "1548-7660"
   )

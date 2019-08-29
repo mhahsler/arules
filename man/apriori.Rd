@@ -78,6 +78,10 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
   207--216,
   Washington D.C.
   
+  Christian Borgelt (2012) Frequent Item Set Mining. 
+  \emph{Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery} 
+  2(6):437-456. J. Wiley & Sons, Chichester, United Kingdom 2012. \doi{10.1002/widm.1074}
+
   Christian Borgelt and Rudolf Kruse (2002) Induction of Association Rules:
   Apriori Implementation. \emph{15th Conference on Computational
     Statistics} (COMPSTAT 2002, Berlin, Germany) Physica Verlag,
@@ -87,7 +91,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
   Eclat.  \emph{Workshop of Frequent Item Set Mining Implementations}
   (FIMI 2003, Melbourne, FL, USA).
 
-  APRIORI Implementation: \url{www.borgelt.net/apriori.html}
+  APRIORI Implementation: \url{http://www.borgelt.net/apriori.html}
 }
 \author{Michael Hahsler and Bettina Gruen}
 \examples{
