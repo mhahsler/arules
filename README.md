@@ -7,9 +7,10 @@
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/arules?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/arules)
 
 The arules package for R provides the infrastructure for representing,
-manipulating and analyzing transaction data and patterns (frequent
-itemsets and association rules). Also provides interfaces to
-C implementations of the association mining algorithms Apriori and Eclat.
+manipulating and analyzing transaction data and patterns
+using [frequent itemsets and association rules](https://en.wikipedia.org/wiki/Association_rule_learning). Also provides a wide range of 
+[interest measures](https://michael.hahsler.net/research/association_rules/measures.html) and mining algorithms including an interfaces to
+Borgelt's C implementations of the association mining algorithms [Apriori](http://www.borgelt.net/apriori.html) and [Eclat](http://www.borgelt.net/eclat.html).
 
 ### arules core packages: 
 
@@ -43,8 +44,14 @@ C implementations of the association mining algorithms Apriori and Eclat.
 #### Classification 
 
 * [arc](https://cran.r-project.org/package=arc): Alternative CBA implementation. 
+* [inTrees](https://cran.r-project.org/package=inTrees): Interpret Tree Ensembles provides functions for: extracting, measuring and pruning rules; selecting a compact rule set; summarizing rules into a learner.
 * [rCBA](https://cran.r-project.org/package=rCBA): Alternative CBA implementation.
+* [qCBA](https://cran.r-project.org/package=qCBA): Quantitative Classification by Association Rules.
 * [sblr](https://cran.r-project.org/package=sbrl): Scalable Bayesian rule lists algorithm for classification.
+
+#### Outlier Detection
+
+* [fpmoutliers](https://cran.r-project.org/package=fpmoutliers): Frequent Pattern Mining Outliers.
 
 #### Recommendation/Prediction
 
