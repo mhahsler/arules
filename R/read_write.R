@@ -78,7 +78,7 @@ function(file, format = c("basket", "single"), header = FALSE, sep = "", cols = 
     ## has a header with colnames (added by F. Leisch)
     if(header) {
       colnames <- scan(file = file, what="", sep = sep, quote = quote,
-        quiet = TRUE, skip = skip, nlines=1)
+        quiet = TRUE, skip = skip, nlines=1, encoding = encoding)
       skip <- skip + 1
       if(is(cols, "character")){
         cols <- match(cols, colnames)
@@ -99,7 +99,7 @@ function(file, format = c("basket", "single"), header = FALSE, sep = "", cols = 
     what <- vector("list", length = max(cols))
     what[cols] <- ""
     entries <- scan(file = file, sep = sep, quote = quote, what = what, flush = TRUE,
-                    quiet = TRUE, skip = skip)
+                    quiet = TRUE, skip = skip, encoding = encoding)
    
     tids <- factor(entries[[cols[1]]])
     items <- factor(entries[[cols[2]]])

@@ -1,8 +1,15 @@
+# arules 1.6-4.1 (xx/xx/2019)
+
+## Bug Fixes
+* read.transations: Parameter encoding is now correcty passed on to scan (reported by Sisi-Wiciel).
+
+
 # arules 1.6-4 (08/27/2019)
 
 ## Bug Fixes
 * Fixed rounding bug affecting is.closed (reported by clcazer).
 * Fixed TYPO in Ralambondrainy Measure (reported by andreijl).
+
 
 # arules 1.6-3 (03/06/2019)
 
@@ -12,6 +19,7 @@
 ## Bug Fixes
 * Fixed PROTECT placement in C code discovered by rchk.
 * S4 objects use now show instead of print.
+
 
 # arules 1.6-2 (12/02/2018)
 
