@@ -13,7 +13,7 @@ Description: Provides the infrastructure for representing,
     manipulating and analyzing transaction data and patterns (frequent
     itemsets and association rules). Also provides
     C implementations of the association mining algorithms Apriori and Eclat. 
-    See Christian Borgelt (2012) <doi:10.1002/widm.1074>.
+    Hahsler, Gruen and Hornik (2005) <doi:10.18637/jss.v014.i15>.
 Classification/ACM: G.4, H.2.8, I.5.1
 URL: https://github.com/mhahsler/arules
 BugReports: https://github.com/mhahsler/arules/issues
