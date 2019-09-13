@@ -24,15 +24,26 @@ inspect(x, ...)
   \code{\link{itemMatrix-class}},
   \code{\link{itemsets-class}},
   \code{\link{rules-class}},
-  \code{\link{transactions-class}}
+  \code{\link{transactions-class}},
+  \code{\link{DATAFRAME}}
+}
+\value{
+Nothing is returned. This function is purely used for displaying object details. Use coercion with
+\code{as} to a list or a data.frame or the accessor functions provided for the object (see See Also section).
 }
 \author{Michael Hahsler and Kurt Hornik}
 \examples{
 data("Adult")
 rules <- apriori(Adult)
-inspect(rules[1000])
 
-inspect(rules[1000], ruleSep = "---->", itemSep = " + ", setStart = "", setEnd ="", 
+## display some rules
+inspect(rules[1000:1001])
+inspect(rules[1000:1001], ruleSep = "~~>", itemSep = " + ", setStart = "", setEnd = "", 
   linebreak = FALSE)
+
+## to get rules in readable format, use coercion or DATAFRAME with additional parameters.
+as(rules[1000:1001], "data.frame")
+DATAFRAME(rules[1000:1001])
+DATAFRAME(rules[1000:1001], separate = TRUE, setStart = "", setEnd = "")
 }
 \keyword{print}
