@@ -9,8 +9,8 @@
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
 using [frequent itemsets and association rules](https://en.wikipedia.org/wiki/Association_rule_learning). Also provides a wide range of 
-[interest measures](https://michael.hahsler.net/research/association_rules/measures.html) and mining algorithms including an interfaces to
-Borgelt's C implementations of the association mining algorithms [Apriori](http://www.borgelt.net/apriori.html) and [Eclat](http://www.borgelt.net/eclat.html).
+[interest measures](https://michael.hahsler.net/research/association_rules/measures.html) and mining algorithms including a interfaces and the code of
+Borgelt's efficient C implementations of the association mining algorithms [Apriori](http://www.borgelt.net/apriori.html) and [Eclat](http://www.borgelt.net/eclat.html).
 
 ### arules core packages: 
 
