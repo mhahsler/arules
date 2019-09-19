@@ -56,7 +56,7 @@ discretize <- function(x, method = "frequency", breaks = 3,
   )
   
   if(any(duplicated(breaks))){ 
-    stop("The calculated breaks are: ", paste(breaks, collapse = ", "), "\n  Some breaks are not unique. Change the number of breaks or consider using method 'fixed'.")
+    stop("The calculated breaks are: ", paste(breaks, collapse = ", "), "\n  Some breaks are not unique. Look at the distribution of the data (e.g., histogram) to determine appropriate breaks and use the discretization method 'fixed'.")
   }
 
   
