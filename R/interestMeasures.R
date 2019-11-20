@@ -36,7 +36,7 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
       measure <- add$method
     }
     
-    builtin_measures <- c("support", 
+    builtin_measures <- c("support", "count", 
       "allConfidence", "crossSupportRatio", "lift")
     
     if(missing(measure)) measure <- builtin_measures
@@ -59,7 +59,8 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
     
     ## calculate measures
     if(measure == "support") return(support(x, transactions))
-   
+    if(measure == "count") return(support(x, 
+      transactions, type = "absolute")) 
     ## all other measures are basic measures
     return(.basicItemsetMeasures(x, measure, transactions, reuse, ...))
   })

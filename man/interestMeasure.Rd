@@ -119,7 +119,7 @@ the proportion of transactions that do not contain \eqn{X}.
 
 \item{"certainty", certainty factor, CF, Loevinger (Berzal et al., 2002)}{
   The certainty factor is a measure of variation of the probability that 
-  Y is in a transaction when only considering transactions with X. An inreasing CF   
+  Y is in a transaction when only considering transactions with X. An increasing CF   
   means a decrease of the probability that Y is not in a transaction that X 
   is in. Negative CFs have a similar interpretation.
 
@@ -303,7 +303,7 @@ Range: \eqn{[0, \infty]}}
   Range: \eqn{[-1, 1]} (0 for independence)}
 
 \item{"jMeasure", J-measure, J (Smyth and Goodman, 1991)}{ 
-  Measures cross entrophy.
+  Measures cross entropy.
 
   Range: \eqn{[0, 1]} (0 for independence)}
 
@@ -354,7 +354,7 @@ Range: \eqn{[0, \infty]}}
   and what would be expected if X and Y where statistically dependent. It can
   be interpreted as the gap to independence.
   
-  Range: \eqn{[-1, 1]} (0 indicates intependence)}
+  Range: \eqn{[-1, 1]} (0 indicates independence)}
 
 \item{"lift", interest factor (Brin et al. 1997)}{
   Lift quantifies dependence between X and Y by \eqn{\frac{supp(X \cup Y)}{supp(X)supp(Y)}}{supp(X&Y)/(supp(X)supp(Y))}.
@@ -380,7 +380,7 @@ Range: \eqn{[0, \infty]}}
   Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates that Y is not associated to X)}
   
 \item{"phi", correlation coefficient \eqn{\phi}{phi} (Tan et al., 2004}{ 
-  Equivalent to Pearsons Product Moment Correlation Coefficient \eqn{\rho}{rho}.
+  Equivalent to Pearson's Product Moment Correlation Coefficient \eqn{\rho}{rho}.
     
   Range: \eqn{[-1, 1]} (0 when X and Y are independent)}
 
@@ -564,11 +564,18 @@ head(m)
 ## table with the measures as rows
 t(interestMeasure(head(rules, 5), transactions = Income))
 
-## calculate measures on a differnt set of transactions (I use a sample here)
+## calculate measures on a different set of transactions (I use a sample here)
 ## Note: reuse = TRUE (default) would just return the stored support on the
 ##	data set used for mining
 newTrans <- sample(Income, 100)
 m2 <- interestMeasure(rules, "support", transactions = newTrans, reuse = FALSE) 
 head(m2)
+
+## calculate all available measures for the 5 frequent itemsets with highest support
+its <- apriori(Income, parameter = list(target = "frequent itemsets"))
+its <- head(its, 5, by = "support")
+inspect(its)
+
+interestMeasure(its, transactions = Income)
 }
 \keyword{models}

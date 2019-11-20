@@ -2,7 +2,7 @@
 
 ## Bug Fixes
 * read.transations: Parameter encoding is now correcty passed on to scan (reported by Sisi-Wiciel).
-
+* interestMeasure was not calculating count for itemsets (reported by clcazer).
 
 # arules 1.6-4 (08/27/2019)
 
