@@ -6,8 +6,7 @@
 \title{Find Significant Rules}
 \description{
   Provides the generic functions and the S4 method \code{is.significant} 
-  to find rules where the LHS and the RHS depend on each other. This uses
-  Fisher's exact test and corrects for multiple comparisons.
+  to find significant associations and an implementation for rules.
 }
 \usage{
 is.significant(x, transactions, method = "fisher", 
@@ -22,14 +21,22 @@ is.significant(x, transactions, method = "fisher",
   \item{adjust}{method to adjust for multiple comparisons. Options are
   \code{"none", "bonferroni", "holm", "fdr"}, etc. (see \code{\link[stats]{p.adjust}})}
 }
-%\details{
-%}
+\details{
+  The implementation for association rules 
+  uses Fisher's exact test with correction for multiple comparisons
+  to test the null hypothesis that the LHS and the RHS of the rule are independent.
+  Significant rules have a p-value less then the specified significance level alpha 
+  (the null hypothesis of independence is rejected.).
+}
 \value{
 returns a logical vector indicating which rules are significant.
 }
 \seealso{
   \code{\link{interestMeasure}},
   \code{\link[stats]{p.adjust}}
+}
+\references{
+Hahsler, Michael and Kurt Hornik (2007). New probabilistic interest measures for association rules. \emph{Intelligent Data Analysis}, 11(5):437--455.
 }
 \examples{
 data("Income")
