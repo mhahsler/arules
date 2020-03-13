@@ -59,6 +59,7 @@ Weighted Association Rules: Model and Algorithm,
 \emph{Proceedings of ACM SIGKDD}
 }
 \examples{
+## Example 1: SunBai data
 data(SunBai)
 SunBai
 
@@ -73,6 +74,32 @@ inspect(sort(s))
 ## create rules using weighted support (satisfying a minimum 
 ## weighted confidence of 90%).
 r <- ruleInduction(s, confidence = .9)
+inspect(r)
+
+## Example 2: Find association rules in weighted data
+trans <-  list(
+    c("A", "B", "C", "D", "E"),
+    c("C", "F", "G"),
+    c("A", "B"),
+    c("A"),
+    c("C", "F", "G", "H"),
+    c("A", "G", "H")
+)
+
+## convert list to transactions
+trans <-  as(trans, "transactions")
+
+## add weight information
+transactionInfo(trans) <- data.frame(weights = c(5, 10, 6, 7, 5, 1))
+inspect(trans)
+
+## mine weightd support itemsets 
+s <- weclat(trans, parameter = list(support = 0.3),
+		       control = list(verbose = TRUE))
+inspect(sort(s))
+
+## create association rules
+r <- ruleInduction(s, confidence = .5)
 inspect(r)
 }
 \keyword{models}
