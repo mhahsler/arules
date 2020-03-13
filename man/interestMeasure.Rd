@@ -6,8 +6,8 @@
 \description{
 Provides the generic function \code{interestMeasure} and the needed S4 method 
 to calculate various additional interest measures for existing sets of
-itemsets or rules. Definitions and equations can be found in
-\href{http://michael.hahsler.net/research/association_rules/measures.html}{Hahsler (2015)}.
+itemsets or rules. A searchable list of definitions, equations and references for all available interest measures can be found here: 
+\href{http://michael.hahsler.net/research/association_rules/measures.html}{A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules} (Hahsler, 2015).
 }
 \usage{
 interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
