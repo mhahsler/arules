@@ -1,5 +1,8 @@
 # arules 1.6-4.1 (xx/xx/2019)
 
+## New Features
+* minor improvements of the manual pages.
+
 ## Bug Fixes
 * read.transations: Parameter encoding is now correcty passed on to scan (reported by Sisi-Wiciel).
 * interestMeasure was not calculating count for itemsets (reported by clcazer).
