@@ -387,8 +387,9 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## see Tan et al. Introduction to Data Mining, 2006
 
 .basicRuleMeasure <- function(x, measure, counts, 
-  significance = FALSE, compliment = TRUE, ...) {
+  significance = FALSE, compliment = TRUE, k = 2, ...) {
   ### significance and compliment are only used by chi-squared
+  ### k is the number of classes used by laplace
   
   N   <- counts$N
   f1x <- counts$f1x
@@ -432,7 +433,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   )
   if(measure == "jMeasure") return(f11/N * log(N*f11/(f1x*fx1)) + 
       f10/N * log(N*f10/(f1x*fx0)))
-  if(measure == "laplace") return((f11 + 1)/(f1x + 2))
+  if(measure == "laplace") return((f11 + 1)/(f1x + k))
   if(measure == "certainty") return((f11/f1x - fx1/N)/(1 - fx1/N))
   if(measure == "addedValue") return(f11/f1x - fx1/N)
   if(measure == "ralambondrainy") return(f10/N)

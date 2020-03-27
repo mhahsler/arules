@@ -1,8 +1,9 @@
-# arules 1.6-4.1 (xx/xx/2019)
+# arules 1.6-4.1 (xx/xx/2019) (will be released as 1.6-5)
 
 ## New Features
 * improved speed for calculating interestMeasures for rules with no avaialble quality information or reuse = FALSE.
 * minor improvements of the manual pages.
+* interest measure laplace gained parameter k for the number of classes.
 
 ## Bug Fixes
 * read.transations: Parameter encoding is now correcty passed on to scan (reported by Sisi-Wiciel).

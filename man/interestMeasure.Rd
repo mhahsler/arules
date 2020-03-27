@@ -330,8 +330,9 @@ Range: \eqn{[0, \infty]}}
   
   Range: \eqn{[0, 1]}}
 
-\item{"laplace", Laplace corrected confidence, L (Tan and Kumar 2000)}{
-  Estimates confidence with increasing each count by 1. 
+\item{"laplace", Laplace corrected confidence/accuracy, L (Tan and Kumar 2000)}{
+  Estimates confidence with increasing each count by 1. The parameter \code{k} can be used
+  to specify the number of classes (default is 2).
   Prevents counts of 0 and L decreases with lower support. 
   
   Range: \eqn{[0, 1]}}
