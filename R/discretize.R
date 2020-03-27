@@ -99,7 +99,7 @@ discretizeDF <- function(df, methods = NULL, default = NULL) {
 
 .rediscretizeDF <- function(data, newdata) {
   
-  if(!all(colnames(data) == colnames(newdata))) stop("columns in data and newdata do not conform!")
+  if(!all(colnames(data) == colnames(newdata))) stop("column names in the new data are not the same as in the discretized data.")
   
   cps <- lapply(data, FUN = function(x) {
     breaks <- attr(x, "discretized:breaks")

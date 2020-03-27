@@ -1,6 +1,7 @@
 # arules 1.6-4.1 (xx/xx/2019)
 
 ## New Features
+* improved speed for calculating interestMeasures for rules with no avaialble quality information or reuse = FALSE.
 * minor improvements of the manual pages.
 
 ## Bug Fixes

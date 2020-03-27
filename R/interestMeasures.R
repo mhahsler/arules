@@ -25,6 +25,7 @@
 
 
 ## measures for itemsets
+## FIXME: the code for itemsets can be made faster (see code for rules)
 
 setMethod("interestMeasure",  signature(x = "itemsets"),
   function(x, measure, transactions = NULL, reuse = TRUE, ...) {
@@ -175,7 +176,33 @@ setMethod("interestMeasure",  signature(x = "rules"),
         measure[is.na(ind)][1]), domain = NA)
     
     measure <- builtin_measures[ind]
+
+    ## remove quality information if we do not want to reuse! Then we can start reusing
+    if(!reuse) quality(x) <- data.frame(1:length(x))[,0]
+    reuse <- TRUE
+    
+    ## first see if we already have it:
+    if(length(measure) == 1 && !is.null(quality(x)[[measure]])) return(quality(x)[[measure]])
+    
+    ## precalculate some measures once (most measures can be calculated using support, confidence, and lift)
    
+    ## if we have no support then we probably have nothing! Count it with a single p-tree
+    if(is.null(quality(x)[["support"]])) { 
+      s <- support(c(items(x), lhs(x), rhs(x)), transactions = transactions)
+      quality(x)[["support"]] <- s[seq(length(x))]
+      quality(x)[["coverage"]] <- s[length(x) + seq(length(x))]
+      quality(x)[["confidence"]] <- quality(x)[["support"]]/quality(x)[["coverage"]]
+      quality(x)[["rhsSupport"]] <- s[2*length(x) + seq(length(x))]
+      quality(x)[["lift"]] <- quality(x)[["confidence"]]/quality(x)[["rhsSupport"]]
+    }
+    
+    if(is.null(quality(x)[["coverage"]])) 
+      quality(x)[["coverage"]] <- coverage(x, transactions = transactions)
+    if(is.null(quality(x)[["confidence"]])) 
+      quality(x)[["confidence"]] <- quality(x)[["support"]]/quality(x)[["coverage"]]
+    if(is.null(quality(x)[["lift"]])) 
+      quality(x)[["lift"]] <- quality(x)[["confidence"]] / .rhsSupport(x, transactions = transactions)
+      
     if(length(measure) > 1) return(as.data.frame(sapply(measure, FUN = 
         function(m) interestMeasure(x, m, transactions, reuse, ...), 
       USE.NAMES = TRUE, simplify = FALSE)))
@@ -186,39 +213,20 @@ setMethod("interestMeasure",  signature(x = "rules"),
     ## first see if we already have it:
     if(reuse && !is.null(quality(x)[[measure]])) return(quality(x)[[measure]])
     
-    ## calculate measure 
-    if(measure == "support") return(support(generatingItemsets(x), 
-      transactions, type = "relative"))
-    if(measure == "count") return(support(generatingItemsets(x), 
-      transactions, type = "absolute"))
-    if(measure == "coverage") return(coverage(x, transactions, reuse))
-    if(measure == "confidence") return(
-      interestMeasure(x, "support", transactions, reuse) /
-        interestMeasure(x, "coverage", transactions, reuse))
-    if(measure == "lift") return(
-      interestMeasure(x, "support", transactions, reuse) /
-        (interestMeasure(x, "coverage", transactions, reuse) 
-          * support(rhs(x), transactions)))
-    if(measure == "rulePowerFactor") return(
-      interestMeasure(x, "support", transactions, reuse) * 
-        interestMeasure(x, "confidence", transactions, reuse))
-    if(measure == "improvement") return(
-      .improvement(x, transactions, reuse, ...))
-    if(measure == "hyperLift") return(
-      .hyperLift(x, transactions, reuse, ...))
-    if(measure == "hyperConfidence") return(
-      .hyperConfidence(x, transactions, reuse, ...))
-    if(measure == "fishersExactTest") return(
-      .hyperConfidence(x, transactions, reuse, significance=TRUE, ...))
+    ## calculate measure (support, confidence, lift and coverage are already handled)
+    if(measure == "count") return(round(quality(x)[["support"]] * length(transactions)))
+    if(measure == "rulePowerFactor") return(quality(x)[["support"]] * quality(x)[["confidence"]]) 
+    if(measure == "improvement") return(.improvement(x, transactions, reuse, ...))
+    if(measure == "hyperLift") return(.hyperLift(x, transactions, reuse, ...))
+    if(measure == "hyperConfidence") return(.hyperConfidence(x, transactions, reuse, ...))
+    if(measure == "fishersExactTest") return(.hyperConfidence(x, transactions, reuse, significance=TRUE, ...))
     if(measure == "RLD") return(.RLD(x, transactions, reuse))
     if(measure == "imbalance") return(.imbalance(x, transactions, reuse))
     if(measure == "kulczynski") return(.kulc(x, transactions, reuse))
     if(measure == "maxconfidence") return(.maxConf(x, transactions, reuse))
     
-    
     ## all other measures are implemented here (counts is in ...)
-    ret <- .basicRuleMeasure(x, measure, 
-      counts = .getCounts(x, transactions, reuse), ...)
+    ret <- .basicRuleMeasure(x, measure, counts = .getCounts(x, transactions, reuse), ...)
     
     ## make all bad values NA
     ret[!is.finite(ret)] <- NA
@@ -226,7 +234,6 @@ setMethod("interestMeasure",  signature(x = "rules"),
     
     stop("Specified measure not implemented.")
   })
-
 
 ## calculate hyperlift for existing rules.
 ##
@@ -333,9 +340,9 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## count helpers
 .getCounts <- function(x, transactions, reuse = TRUE){
   N <- length(transactions)
-  f11 <- interestMeasure(x, "support", transactions, reuse) * N
-  f1x <- interestMeasure(x, "coverage", transactions, reuse) * N
-  fx1 <- .rhsSupport(x, transactions, reuse) * N
+  f11 <- round(interestMeasure(x, "support", transactions, reuse) * N)
+  f1x <- round(interestMeasure(x, "coverage", transactions, reuse) * N)
+  fx1 <- round(.rhsSupport(x, transactions, reuse) * N)
   f0x <- N - f1x
   fx0 <- N - fx1
   f10 <- f1x - f11
@@ -356,7 +363,11 @@ setMethod("interestMeasure",  signature(x = "rules"),
   q <- quality(x)
   if(reuse && !is.null(q$confidence) && !is.null(q$lift)) 
     rhsSupport <- q$confidence / q$lift
-  else rhsSupport <- support(rhs(x), transactions)
+  else { 
+    if(all(diff(rhs(x)@data@p) == 1)) 
+      rhsSupport <- unname(itemFrequency(transactions)[rhs(x)@data@i+1L]) ### this is a lot faster for single items in the RHS
+    else rhsSupport <- support(rhs(x), transactions) ### multiple items in the RHS
+  }
   
   ## for consequents with only one item this might be faster
   ## cons <- unlist(LIST(rhs(x), decode = FALSE))
