@@ -598,11 +598,11 @@ SEXP R_or_ngCMatrix(SEXP x, SEXP y) {
           ky++;
         INTEGER(ir)[n++] = INTEGER(ix)[kx++];
       }
-      while (kx < lx)
-        INTEGER(ir)[n++] = INTEGER(ix)[kx++];
-      while (ky < ly)
-        INTEGER(ir)[n++] = INTEGER(iy)[ky++];
-      INTEGER(pr)[i] = n;
+    while (kx < lx)
+      INTEGER(ir)[n++] = INTEGER(ix)[kx++];
+    while (ky < ly)
+      INTEGER(ir)[n++] = INTEGER(iy)[ky++];
+    INTEGER(pr)[i] = n;
   }
   
   if (n < LENGTH(ir)) {

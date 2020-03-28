@@ -231,8 +231,8 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
         for (k = f, f = n; k < l; k++)
           if ((j = o[INTEGER(it)[k]]) > -1)
             INTEGER(iz)[n++] = j;
-          R_isort(INTEGER(iz)+f, n-f);
-          f = l;
+        R_isort(INTEGER(iz)+f, n-f);
+        f = l;
       }
       INTEGER(pz)[i] = n;
     }
@@ -703,9 +703,9 @@ SEXP R_pnclosed(SEXP R_x, SEXP R_c, SEXP R_v) {
         nbfree();
         error("invalid count");
       }
-      pnsmax(nb[*x], x, n, n);
-      f = l;
-      R_CheckUserInterrupt();
+    pnsmax(nb[*x], x, n, n);
+    f = l;
+    R_CheckUserInterrupt();
   }
   
   PROTECT(r = allocVector(LGLSXP, LENGTH(px)-1));

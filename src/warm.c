@@ -384,7 +384,7 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
           for (kx = px[k-1]; kx < px[k]; kx++)
             iz[i++] = ix[kx];
         }
-        pz[j] = i;
+      pz[j] = i;
     }
     
     if (j >= minlen &&
@@ -650,7 +650,7 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
             }
             kt++;
           }
-          nj++;
+        nj++;
       } else	    // copy
         for (kt = pt[k]; kt < pt[k+1]; kt++)
           iz[n++] = it[kt];
@@ -735,9 +735,9 @@ SEXP R_na_zero(SEXP x) {
       }
       REAL(x)[k] = 0;
     }
-    if (dup)
-      UNPROTECT(1);
-    return x;
+  if (dup)
+    UNPROTECT(1);
+  return x;
 }
 
 //
