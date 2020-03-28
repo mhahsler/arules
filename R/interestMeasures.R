@@ -23,9 +23,18 @@
 ## Functions for additional interest measures
 ##
 
+## find N from associations or if not available then from transactions
+.getN <- function(x, transactions) {
+  N <- info(x)$ntransactions
+  if(is.null(N)) {
+    if(is.null(transactions)) 
+      stop("transaction data needed. Please specify the transactions used to mine the itemsets!")
+    N <- length(transactions) 
+  }
+  N
+}
 
 ## measures for itemsets
-## FIXME: the code for itemsets can be made faster (see code for rules)
 
 setMethod("interestMeasure",  signature(x = "itemsets"),
   function(x, measure, transactions = NULL, reuse = TRUE, ...) {
@@ -49,7 +58,11 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
         measure[is.na(ind)][1]), domain = NA)
     
     measure <- builtin_measures[ind]
-   
+    
+    ## remove quality information if we do not want to reuse! Then we can start reusing
+    if(!reuse) quality(x) <- data.frame(support = support(x, transactions = transactions))
+    reuse <- TRUE
+    
     ## deal with multiple measures
     if(length(measure) > 1) return(as.data.frame(sapply(measure, FUN = 
         function(m) interestMeasure(x, m, transactions, reuse, ...),
@@ -59,9 +72,8 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
     if(reuse && !is.null(quality(x)[[measure]])) return(quality(x)[[measure]])
     
     ## calculate measures
-    if(measure == "support") return(support(x, transactions))
-    if(measure == "count") return(support(x, 
-      transactions, type = "absolute")) 
+    #if(measure == "support") return(support(x, transactions))
+    if(measure == "count") return(round(quality(x)[["support"]] * .getN(x, transactions)))
     ## all other measures are basic measures
     return(.basicItemsetMeasures(x, measure, transactions, reuse, ...))
   })
@@ -214,7 +226,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if(reuse && !is.null(quality(x)[[measure]])) return(quality(x)[[measure]])
     
     ## calculate measure (support, confidence, lift and coverage are already handled)
-    if(measure == "count") return(round(quality(x)[["support"]] * length(transactions)))
+    if(measure == "count") return(round(quality(x)[["support"]] * .getN(x, transactions)))
     if(measure == "rulePowerFactor") return(quality(x)[["support"]] * quality(x)[["confidence"]]) 
     if(measure == "improvement") return(.improvement(x, transactions, reuse, ...))
     if(measure == "hyperLift") return(.hyperLift(x, transactions, reuse, ...))
@@ -339,7 +351,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
 
 ## count helpers
 .getCounts <- function(x, transactions, reuse = TRUE){
-  N <- length(transactions)
+  N <- .getN(x, transactions)
   f11 <- round(interestMeasure(x, "support", transactions, reuse) * N)
   f1x <- round(interestMeasure(x, "coverage", transactions, reuse) * N)
   fx1 <- round(.rhsSupport(x, transactions, reuse) * N)
@@ -355,29 +367,16 @@ setMethod("interestMeasure",  signature(x = "rules"),
 }
 
 .rhsSupport <- function(x, transactions, reuse = TRUE){
-  
-  if(is.null(transactions)) stop("transactions missing. Please specify the data used to mine the rules as transactions!")
-  
-  #N <- length(transactions)
-  
   q <- quality(x)
+  
   if(reuse && !is.null(q$confidence) && !is.null(q$lift)) 
     rhsSupport <- q$confidence / q$lift
   else { 
+    if(is.null(transactions)) stop("transactions missing. Please specify the data used to mine the rules as transactions!")
     if(all(diff(rhs(x)@data@p) == 1)) 
       rhsSupport <- unname(itemFrequency(transactions)[rhs(x)@data@i+1L]) ### this is a lot faster for single items in the RHS
     else rhsSupport <- support(rhs(x), transactions) ### multiple items in the RHS
   }
-  
-  ## for consequents with only one item this might be faster
-  ## cons <- unlist(LIST(rhs(x), decode = FALSE))
-  ## that's low-level but way faster!
-  #cons <- x@rhs@data@i+1
-  ## check that the consequents are all singletons
-  #if (length(cons) != length(x)) stop("this implementation only works for
-  #    rules with one item in the rhs.")
-  #c_Y <- itemFrequency(transactions, type = "absolute")[cons]
-  #names(c_Y) <- NULL
   
   return(rhsSupport)
 }
