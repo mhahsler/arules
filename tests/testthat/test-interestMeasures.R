@@ -423,3 +423,4 @@ m_previous <- structure(list(
   row.names = c(NA, -52L), class = "data.frame")
 
 expect_identical(m_previous, round(m_r, 3))
+

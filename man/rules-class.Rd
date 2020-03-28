@@ -31,11 +31,7 @@
 
 \title{Class rules --- A Set of Rules}
 \description{
-The \code{rules} class represents a set of rules.
-
-Note that the class can also represent a multiset of rules with duplicated
-elements. Duplicated elements can be removed with \code{\link{unique}}.
-
+The \code{rules} class represents a set of rules. 
 }
 \section{Objects from the Class}{
   Objects are the result of calling the function \code{\link{apriori}}.
@@ -113,6 +109,12 @@ elements. Duplicated elements can be removed with \code{\link{unique}}.
     \item{summary}{\code{signature(object = "rules")}}
   }
 }
+\details{
+Rules can store multiset with duplicated
+elements. Duplicated elements can be removed with \code{\link{unique}}.
+
+See \code{\link{itemCoding}} to learn how to manually create a rule.
+}
 \seealso{
 \code{\link{[-methods}},
 \code{\link{apriori}},
@@ -126,6 +128,7 @@ elements. Duplicated elements can be removed with \code{\link{unique}}.
 \code{\link{subset}},
 \code{\link{associations-class}},
 \code{\link{itemMatrix-class}},
+\code{\link{itemCoding}}
 }
 \author{Michael Hahsler}
 \examples{
