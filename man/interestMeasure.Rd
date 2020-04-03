@@ -31,69 +31,66 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   \item{\dots}{ further arguments for the measure calculation. }
 }
 \details{
-For itemsets \eqn{X} the following measures are implemented:  
+\bold{The following measures are implemented for itemsets \eqn{X}:}  
 \describe{
 \item{"allConfidence" (Omiencinski, 2003)}{
-  
+ 
   Is defined on itemsets as the
   minimum confidence of all possible rule generated from the itemset. 
-
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#all-confidence}{All-Confidence}
+  
   Range: \eqn{[0, 1]}}
 
 \item{"crossSupportRatio", cross-support ratio (Xiong et al., 2003)}{ 
   
   Defined on itemsets as the ratio of the support of the least frequent item 
-  to the support of the most frequent item, i.e., 
-  \eqn{\frac{min(supp(x \in X))}{max(supp(x \in X))}}{min(supp(x in X)) / max(supp(x in X))}. Cross-support patterns have 
+  to the support of the most frequent item.
+  Cross-support patterns have 
   a ratio smaller than a set threshold. Normally many found patterns are 
   cross-support patterns which contain frequent as well as rare items. Such 
   patterns often tend to be spurious. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#crossSupport}{Cross-Support Ratio}
 
   Range: \eqn{[0, 1]}}
 
 \item{"lift"}{
   
-  Probability (support) of the itemset over the product of the probabilities 
+  Lift is typically only defined for rules. In a similar way, we use the
+  probability (support) of the itemset over the product of the probabilities 
   of all items in the itemset, i.e., 
-  \eqn{\frac{supp(X)}{\prod_{x \in X} supp(X)}}{supp(X)/(supp(x_1) supp(x_2) ... supp(x_n))}. This is a measure 
-  of dependence similar to lift for rules. 
+  \eqn{\frac{supp(X)}{\prod_{x \in X} supp(X)}}{supp(X)/(supp(x_1) supp(x_2) ... supp(x_n))}. 
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (1 indicated independence)}
 
 \item{"support", supp (Agrawal et al., 1996)}{
   
-  Support is an estimate of \eqn{P(X)}
-  a measure of generality of the itemset. 
+  Support is an estimate of \eqn{P(X)}, a measure of generality of the itemset. It is estimated by 
+  the number of transactions that contain the itemset over the total number of transactions in the data set.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#support}{Support}
 
-Range: \eqn{[0, 1]}}
+  Range: \eqn{[0, 1]}}
 
 \item{"count"}{
   
-  Absolute support count of the itemset. 
+  Absolute support count of the itemset, i.e., the number of transactions that contain the itemset. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html}{Support Count}
 
-Range: \eqn{[0, \infty]}}
+  Range: \eqn{[0, \infty]}}
 }
 
 
-For rules \eqn{X \Rightarrow Y}{X -> Y} the following measures are implemented.
-In the following we use the notation 
-\eqn{supp(X \Rightarrow Y) = supp(X \cup Y)}{supp(X -> Y) = supp(X & Y)} to indicate the support
-of the union of the itemsets \eqn{X} and \eqn{Y}, i.e., the proportion of 
-the transactions that contain both itemsets. 
-We also use \eqn{\overline{X}}{!X} as the complement itemset to \eqn{X}
-with \eqn{supp(\overline{X}) = 1 - supp(X)}{supp(!X) = 1 - supp(X)}, i.e.,
-the proportion of transactions that do not contain \eqn{X}.
+\bold{The following measures are implemented for rules of the form \eqn{X \Rightarrow Y}{X -> Y}:}
 
 \describe{
 
-\item{"addedValue", added Value, AV, Pavillon index, 
-  centered confidence (Tan et al., 2002)}{ 
+\item{"addedValue", added Value, AV, Pavillon index, centered confidence (Tan et al., 2002)}{ 
   
-  Defined as \eqn{conf(X \Rightarrow Y) - supp(Y)}{conf(X -> Y) - supp(Y)}
+  Defined as the rule confidence minus the rules support. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#addedValue}{Added Value}
 
   Range: \eqn{[-.5, 1]}}
 
-\item{"chiSquared", \eqn{\chi^2}{X^2} (Liu et al., 1999)}{ 
+\item{"chiSquared", \eqn{\chi^2}{X^2} statistic (Liu et al., 1999)}{ 
 
   The chi-squared statistic 
   to test for independence between the lhs and rhs of the rule.
@@ -101,6 +98,8 @@ the proportion of transactions that do not contain \eqn{X}.
   freedom (2x2 contingency table) at \eqn{\alpha=0.05}{alpha=0.05} 
   is \eqn{3.84}; higher chi-squared
   values indicate that the lhs and the rhs are not independent.  
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#chisquared}{Chi-Squared statistic}
+  
   %Note that if
   %any cell in the contingency table has an expected value below \eqn{5}, the
   %chi-square value is set to \code{NA} 
@@ -122,74 +121,81 @@ the proportion of transactions that do not contain \eqn{X}.
   Y is in a transaction when only considering transactions with X. An increasing CF   
   means a decrease of the probability that Y is not in a transaction that X 
   is in. Negative CFs have a similar interpretation.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#certainty}{Certainty Factor}
 
   Range: \eqn{[-1, 1]} (0 indicates independence)}
 
 \item{"collectiveStrength"}{Collective strength (S). 
 
+  Collective strength gives 0 for perfectly negative correlated items, infinity for perfectly positive correlated    items, and 1 if the items co-occur as expected under independence.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#collective}{Collective Strength}
+
   Range: \eqn{[0, \infty]}{[0, Inf]}}
 
-\item{"confidence", conf (Agrawal et al., 1996)}{ 
-  Rule confidence is an estimate of \eqn{P(Y|X)} calculated as 
-    \eqn{\frac{supp(X \Rightarrow Y)}{supp(X)}}{supp(X -> Y)/supp(X)}. Confidence is a measure of validity. 
+\item{"confidence", Strength, conf (Agrawal et al., 1996)}{ 
+   Confidence is a measure of rule validity. Rule confidence is an estimate of \eqn{P(Y|X)}.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#confidence}{Confidence}
   
   Range \eqn{[0, 1]}}
 
 \item{"conviction" (Brin et al. 1997)}{ 
   
-  Defined as 
-  \eqn{\frac{supp(X)supp(\overline{Y})}{supp(X \cup \overline{Y})}}{supp(X)supp(!Y)/supp(X & !Y)}. 
+  Conviction was developed as an alternative to lift that also incorporates the direction of the rule. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#conviction}{Conviction}
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates unrelated items)}
 
 \item{"cosine" (Tan et al., 2004)}{
-  Defined as \eqn{\frac{supp(X \cup Y)}{\sqrt{(supp(X)supp(Y))}}}{supp(X & Y)/sqrt(supp(X)supp(Y))}
+  
+  A measure if correlation between the items in X and Y.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#cosine}{Cosine}
 
-  Range: \eqn{[0, 1]}}
+  Range: \eqn{[0, 1]}(\eqn{.5} indicates no correlation)}
 
 \item{"count"}{
   
-  Absolute support count of the rule. 
-
-Range: \eqn{[0, \infty]}}
+  Absolute support count of the rule, i.e., the number of transactions that contain all items in the rule. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html}{Support Count}
   
-\item{"coverage", cover, LHS-support}{ Support of the left-hand-side of the rule, 
-    i.e., \eqn{supp(X)}.
-    A measure of to how often the rule can be applied.
+  Range: \eqn{[0, \infty]}}
+  
+\item{"coverage", cover, LHS-support}{ 
+    
+    It measures the probability that a rule applies to a randomly selected transaction. It is estimated by the proportion of transactions that contain the antecedent (LHS) of the rule. Therefore, coverage is sometimes called antecedent support or LHS support.
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#coverage}{Coverage}
     
     Range: \eqn{[0, 1]}}
 
 
 \item{"confirmedConfidence", descriptive confirmed confidence (Kodratoff, 1999)}{
-    Confidence confirmed by its negative as \eqn{conf(X \Rightarrow Y) - conf(X \Rightarrow \overline{Y})}{conf(X -> Y) - conf(X -> !Y)}.
+
+    How much higher is the confidence of a rule compared to the confidence of the rule \eqn{X \Rightarrow \overline{Y}}{X -> !Y}. 
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#confirmedConfidence}{Descriptive Confirmed Confidence}
     
     Range: \eqn{[-1, 1]}}
 
 \item{"casualConfidence", casual confidence (Kodratoff, 1999)}{
-    Confidence reinforced by negatives given by 
-    \eqn{\frac{1}{2}(conf(X \Rightarrow Y) + conf(\overline{Y} \Rightarrow \overline{X}))}{1/2 (conf(X -> Y) + conf(!Y -> !X))}.
+    Confidence reinforced by the confidence of the rule \eqn{\overline{X} \Rightarrow \overline{Y}}{!X -> !Y}.
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#casualConfidence}{Casual Confidence}
     
     Range: \eqn{[0, 1]}}
 
 \item{"casualSupport", casual support (Kodratoff, 1999)}{
-    Support improved by negatives given by \eqn{supp(X \cup Y) - supp(\overline{X} \cup \overline{Y})}{supp(X & Y) - supp(!X & !Y)}.
+    Support reinforced by the support of the rule \eqn{\overline{X} \Rightarrow \overline{Y}}{!X -> !Y}.
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#casualSupport}{Casual Support}
     
     Range: \eqn{[-1, 1]}}
 
 \item{"counterexample", example and counter-example rate}{
-    \eqn{\frac{supp(X \cup Y) - supp(X \cup \overline{Y})}{supp(X \cup Y)}}{(supp(X & Y) - supp(X & !Y)) / supp(X & Y)}
+
+    Rate of the examples minus the rate of counter examples (i.e., \eqn{X \Rightarrow \overline{Y}}{X -> !Y}). 
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#counterexample}{Example and Counter-example Rate}
     
     Range: \eqn{[0, 1]}}
 
-
-\item{"descriptiveConfirm", descriptive-confirm (Kodratoff, 1999)}{
-    Defined by \eqn{supp(X \cup Y) - supp(X \cup \overline{Y})}{supp(X & Y) - supp(X & !Y)}.   
-      
-    Range: \eqn{[0, 1]}}
-
 \item{"doc", difference of confidence (Hofmann and Wilhelm, 2001)}{
-  Defined as 
-  \eqn{conf(X \Rightarrow Y) - conf(\overline{X} \Rightarrow Y)}{conf(X -> Y)-conf(!X -> Y)}.
+  Defined as the difference in confidence of the rule and the rule \eqn{\overline{X} \Rightarrow Y}{!X -> Y}
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#doc}{Difference of Confidence}
     
     Range: \eqn{[-1, 1]}}
 
@@ -198,123 +204,100 @@ Range: \eqn{[0, \infty]}}
   where sample sizes are small.
   By default complementary effects are mined, substitutes can be found
   by using the parameter \code{complements = FALSE}. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#fishersExactTest}{Fisher's Exact Test}
   
   Note that it is equal to hyper-confidence with \code{significance=TRUE}.
   
   Range: \eqn{[0, 1]} (p-value scale)}
 
 \item{"gini", Gini index (Tan et al., 2004)}{ 
-  Measures quadratic entropy.
+  Measures quadratic entropy of a rule.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#gini}{Gini index}
   
-  Range: \eqn{[0, 1]} (0 for independence)}
+  Range: \eqn{[0, 1]} (0 means the rule provides no information for the data set)}
+
+\item{"hyperConfidence" (Hahsler and Hornik, 2007)}{
+  Confidence level that the observed co-occurrence count of the LHS and RHS is too high 
+  given the expected count using the hypergeometric model.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#hyperConf}{Hyper-Confidence}
+  
+  Hyper-confidence reports the confidence level by default and the 
+  significance level if \code{significance=TRUE} is used.
+  
+  By default complementary effects are mined, substitutes (too low co-occurrence counts) can be found
+  by using the parameter \code{complements = FALSE}. 
+  
+  
+  Range: \eqn{[0, 1]}}
+  
 
 \item{"hyperLift" (Hahsler and Hornik, 2007)}{ 
-  Adaptation of the lift measure which is more robust for low counts. It is 
-  based on the idea that under
-  independence the count \eqn{c_{XY}} of the transactions which contain all items
-  in a rule \eqn{X \Rightarrow Y}{X -> Y} follows a hypergeometric distribution 
-  (represented by the random variable \eqn{C_{XY}}) with
-  the parameters given by the counts  \eqn{c_X} and  \eqn{c_Y}.
+  Adaptation of the lift measure which evaluates the deviation from independence
+  using a quantile of the hypergeometric distribution defined by the counts of the LHS and RHS. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#hyperLift}{Hyper-Lift}
   
-  %Lift is defined for the rule \eqn{X \Rightarrow Y}{X -> Y} as:
-  %\deqn{\mathrm{lift}(X \Rightarrow Y) = \frac{P(X \cup Y)}{P(X)P(Y)} 
-  %= \frac{c_{XY}}{E[C_{XY}]},}{lift(X -> Y) = P(X+Y)/(P(X)*P(Y)) = c_XY / E[C_XY],}
-%  
-%  where \eqn{E[C_{XY}] = c_X c_Y / m} with \eqn{m} being the number
-%  of transactions in the database.
-
-  Hyper-lift is defined as:
-  \deqn{\mathrm{hyperlift}(X \Rightarrow Y) = \frac{c_{XY}}{Q_{\delta}[C_{XY}]},}{hyperlift(X -> Y) = c_XY / Q_d[C_XY],}
-
-  where  \eqn{Q_{\delta}[C_{XY}]}{Q_d[C_XY]} is the
-  quantile of the hypergeometric distribution given by \eqn{\delta}{d}.
-  The quantile can be given
+  The used quantile can be given
   as parameter \code{d} (default: \code{d=0.99}).
 
   Range: \eqn{[0, \infty]}{[0, Inf]} (1 indicates independence)}
   
-\item{"hyperConfidence" (Hahsler and Hornik, 2007)}{
-  Confidence level for observation of too high/low counts 
-  for rules \eqn{X \Rightarrow Y}{X -> Y} using the hypergeometric model.
-  Since the counts are drawn from a hypergeometric distribution 
-  (represented by the random variable \eqn{C_{XY}}) with
-  known parameters given by the counts  \eqn{c_X} and  \eqn{c_Y},
-  we can calculate a confidence interval for the observed counts 
-  \eqn{c_{XY}} stemming from the distribution. Hyper-confidence
-  reports the confidence level 
-  (significance level if \code{significance=TRUE} is used) for
-  \describe{
-  \item{complements -}{
-    \eqn{1 - P[C_{XY} >= c_{XY} | c_X, c_Y]}
-  }
-  \item{substitutes -}{
-    \eqn{1 - P[C_{XY} < c_{XY} | c_X, c_Y]}.
-  }
-  }
-  A confidence level of, e.g., \eqn{> 0.95} indicates that
-  there is only a  5\% chance that the count for the rule was generated
-  randomly.
-  
-  By default complementary effects are mined, substitutes can be found
-  by using the parameter \code{complements = FALSE}. 
-  
-  Range: \eqn{[0, 1]}}
-  
 \item{"imbalance", imbalance ratio, IR (Wu, Chen and Han, 2010)}{
-  IR is defined as
-  \eqn{\frac{|supp(X) - supp(Y)|}{supp(X) + supp(Y) - supp(X \Rightarrow Y))}}{|supp(X) - supp(Y)|/(supp(X) + supp(Y) - supp(X -> Y))}
-  gauges the degree of imbalance between two events 
+  IR measures the degree of imbalance between the two events 
   that the lhs and the rhs are contained in a transaction.
   The ratio is close to 0 if the conditional probabilities are similar (i.e., 
   very balanced) and
   close to 1 if they are very different. 
+  See also: \href{https://michael.hahsler.net/research/association_rules/measures.html#imbalance}{Imbalance ratio}
   
   Range: \eqn{[0, 1]} (0 indicates a balanced rule)}
 
 \item{"implicationIndex", implication index (Gras, 1996)}{
-  Defined as \eqn{\sqrt{N} \frac{supp(X \cup \overline{Y}) - supp(X)supp(\overline{Y})}{\sqrt{supp(X)supp(\overline{Y})}}}{sqrt(N) (supp(X & !Y) - supp(X)supp(!Y))/ sqrt(supp(X)supp(!Y))}.
-  Represents a variation of the Lerman similarity.
+  
+  A variation of the Lerman similarity.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#implicationIndex}{Implication Index}
 
   Range: \eqn{[0, 1]} (0 means independence)}
 
 \item{"importance" (MS Analysis Services)}{
   Log likelihood of the right-hand side of the rule, 
-  given the left-hand side of the rule.
-  
-  \eqn{log_{10}(L(X \Rightarrow Y) / L(X \Rightarrow \bar{Y}))}{log10(L(X -> Y) / L(X -> not Y))}
-  
-  where \eqn{L} is the Laplace corrected confidence.
+  given the left-hand side of the rule using Laplace corrected confidence.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#importance}{Importance}
   
   Range: \eqn{[-Inf, Inf]}}
-
 
 \item{"improvement" (Bayardo et al., 2000)}{
   The  improvement of a rule is 
   the minimum difference between its confidence and the confidence of any
   more general rule (i.e., a rule with the same consequent but one or 
-  more items removed in the LHS). Defined as
-  \eqn{min_{X' \subset X}(conf(X \Rightarrow Y) - conf(X' \Rightarrow Y)}{min_X' subset X ((conf(X -> Y) - conf(X' -> Y))}
+  more items removed in the LHS). 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#improvement}{Improvement}
   
   Range: \eqn{[0, 1]}}
 
 \item{"jaccard", Jaccard coefficient (Tan and Kumar, 2000) sometimes also called Coherence (Wu et al., 2010)}{
-  Null-invariant measure defined as \eqn{\frac{supp(X \cup Y)}{supp(X) + supp(Y) - supp(X \cup Y)}}{supp(X & Y) / (supp(X) + supp(Y) - supp(X & Y))}
+  Null-invariant measure of dependence defined as the Jaccard similarity between the two sets of transactions
+  that contain the items in X and Y, respectively.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#jaccard}{Jaccard coefficient}
 
   Range: \eqn{[-1, 1]} (0 for independence)}
 
 \item{"jMeasure", J-measure, J (Smyth and Goodman, 1991)}{ 
-  Measures cross entropy.
+  A scaled measures of cross entropy to measure the information content of a rule.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#jMeasure}{J-Measure}
 
-  Range: \eqn{[0, 1]} (0 for independence)}
+  Range: \eqn{[0, 1]} (0 indicates X does not provide information for Y)}
 
-\item{"kappa" (Tan and Kumar, 2000)}{
-  Defined as \eqn{\frac{supp(X \cup Y) + supp(\overline{X} \cup \overline{Y}) - supp(X)supp(Y) - supp(\overline{X})supp(\overline{Y})}{1- supp(X)supp(Y) - supp(\overline{X})supp(\overline{Y})}}{(supp(X & Y) + supp(!X & !Y) - supp(X)supp(Y) - supp(!X)supp(!Y))/(1- supp(X)supp(Y) - supp(!X)supp(!Y))}
+\item{"kappa" Cohen's Kappa (Tan and Kumar, 2000)}{
+  Cohen's Kappa of the rule (seen as a classifier) given as the rules observed rule accuracy (i.e., confidence)      corrected by the expected accuracy (of a random classifier).
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#kappa}{Cohen's Kappa}
   
-  Range: \eqn{[-1,1]} (0 means independence)}
+  Range: \eqn{[-1,1]} (0 means the rule is not better than a random classifier)}
 
 
 \item{"klosgen", Klosgen (Tan and Kumar, 2000)}{
+  
   Defined as \eqn{\sqrt{supp(X \cup Y)} conf(X \Rightarrow Y) - supp(Y)}{sqrt(supp(X & Y)) conf(X -> Y) - supp(Y)}
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#klosgen}{Klosgen measure}
 
   Range: \eqn{[-1, 1]} (0 for independence)}
 
@@ -322,78 +305,101 @@ Range: \eqn{[0, \infty]}}
 
   Calculate the null-invariant Kulczynski measure with a preference for 
   skewed patterns. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#kulczynski}{Kulczynski measure}
   
-  Range: \eqn{[0, 1]}}
+  Range: \eqn{[0, 1]}}  
 
-\item{"lambda", Goodman-Kruskal \eqn{\lambda}{lambda}, predictive association 
+\item{"lambda", Goodman-Kruskal's \eqn{\lambda}{lambda}, predictive association 
   (Tan and Kumar, 2000)}{
+  
+  Goodman and Kruskal's lambda to assess the association between the LHS and RHS of the rule.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#lambda}{Goodman-Kruskal's Lambda}
   
   Range: \eqn{[0, 1]}}
 
 \item{"laplace", Laplace corrected confidence/accuracy, L (Tan and Kumar 2000)}{
-  Estimates confidence with increasing each count by 1. The parameter \code{k} can be used
+  Estimates confidence by increasing each count by 1. Parameter \code{k} can be used
   to specify the number of classes (default is 2).
   Prevents counts of 0 and L decreases with lower support. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#laplace}{Laplace corrected confidence/accuracy}
   
   Range: \eqn{[0, 1]}}
 
 \item{"leastContradiction", least contradiction (Aze and Kodratoff, 2004}{
-    \eqn{\frac{supp(X \cup Y) - supp(X \cup \overline{Y})}{supp(Y)}}{(supp(X \ Y) - supp(X & !Y)) / supp(Y)}.
+
+    Probability of finding a matching transaction minus the probability of finding a contradicting transaction normalized by the probability of finding a transaction containing Y. 
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#leastContradiction}{Least Contradiction}
     
     Range: \eqn{[-1, 1]}}
 
 \item{"lerman", Lerman similarity (Lerman, 1981)}{
+  
   Defined as \eqn{\sqrt{N} \frac{supp(X \cup Y) - supp(X)supp(Y)}{\sqrt{supp(X)supp(Y)}}}{sqrt(N) (supp(X & Y) - supp(X)supp(Y))/ sqrt(supp(X)supp(Y))}
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#lerman}{Lerman similarity}
 
   Range: \eqn{[0, 1]}}
 
 
-\item{"leverage", PS (Piatetsky-Shapiro 1991)}{
-   PS is defined as 
-   \eqn{supp(X \Rightarrow Y) - supp(X)supp(Y)}{supp(X->Y) - (supp(X) supp(Y))}.
-  It measures the difference of X and Y appearing together in the data set 
+\item{"leverage", Piatetsky-Shapiro Measure, PS (Piatetsky-Shapiro 1991)}{
+   
+  PS measures the difference of X and Y appearing together in the data set 
   and what would be expected if X and Y where statistically dependent. It can
   be interpreted as the gap to independence.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#leverage}{Leverage}
   
   Range: \eqn{[-1, 1]} (0 indicates independence)}
 
 \item{"lift", interest factor (Brin et al. 1997)}{
-  Lift quantifies dependence between X and Y by \eqn{\frac{supp(X \cup Y)}{supp(X)supp(Y)}}{supp(X&Y)/(supp(X)supp(Y))}.
   
-  Range: \eqn{[0, \infty]}{[0, Inf]} (1 means independence)}
+  Lift quantifies dependence between X and Y by comparing the probability that X and Y are contained in a transaction to the expected probability under independence (i.e., the product of the probabilities that X is contained in a transaction times the probability that Y is contained in a transaction).
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#lift}{Lift}
+  
+  Range: \eqn{[0, \infty]}{[0, Inf]} (1 means independence between LHS and RHS)}
 
 \item{"maxConfidence" (Wu et al. 2010)}{
-  Null-invariant measure defined as \eqn{max(conf(X \Rightarrow Y), conf(X \Rightarrow Y))}{max{conf(X->Y), conf(X->Y)}}.
+  Null-invariant symmetric measure defined as the larger of the confidence of the rule or the rule
+  with X and Y exchanged.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#maxConf}{MaxConfidence}
   
   Range: \eqn{[0, 1]}
 }
 
 \item{"mutualInformation", uncertainty, M (Tan et al., 2002)}{
   Measures the information gain for Y provided by X.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#mutualInformation}{Mutual Information}
   
-  Range: \eqn{[0, 1]} (0 for independence)}
+  Range: \eqn{[0, 1]} (0 means that X does not provide information for Y)}
 
 \item{"oddsRatio", odds ratio \eqn{\alpha}{alpha} (Tan et al., 2004)}{
 
   The odds of finding X in transactions which contain Y divided by
   the odds of finding X in transactions which do not contain Y.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#oddsRatio}{Odds Ratio}
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates that Y is not associated to X)}
   
 \item{"phi", correlation coefficient \eqn{\phi}{phi} (Tan et al., 2004}{ 
-  Equivalent to Pearson's Product Moment Correlation Coefficient \eqn{\rho}{rho}.
+  Correlation coefficient between the transactions containing X and Y  represented as two binary vectors. Phi correlation is equivalent to Pearson's Product Moment Correlation Coefficient \eqn{\rho}{rho} with 0-1 values.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#phi}{Phi Correlation Coefficient}
     
   Range: \eqn{[-1, 1]} (0 when X and Y are independent)}
 
 \item{"ralambondrainy", Ralambondrainy Measure (Diatta et al., 2007)}{
     
+    The measure is defined as the probability that a transaction contains X but not Y. A smaller value is better.
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#ralambondrainy}{Ralambondrainy Measure}
+    
     Range: \eqn{[0, 1]}}
 
 \item{"RLD", relative linkage disequilibrium (Kenett and Salini, 2008)}{
 
-    RLD evaluates the deviation
+    RLD is an association measure motivated by
+indices used in population genetics. It evaluates the deviation
     of the support of the whole rule from the support expected under 
-    independence given the supports of the LHS and the RHS. The code was
+    independence given the supports of the LHS and the RHS. 
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#rld}{Relative linkage disequilibrium}
+    
+    The code was
     contributed by Silvia Salini. 
     
     Range: \eqn{[0, 1]}}
@@ -402,35 +408,42 @@ Range: \eqn{[0, \infty]}}
 
     Product of support and confidence. Can be seen as rule confidence weighted
     by support. 
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#rpf}{Rule Power Factor}
     
     Range: \eqn{[0, 1]}}
 
-\item{"sebag", Sebag measure (Sebag and Schoenauer, 1988)}{
-    Defined as \eqn{\frac{supp(X \cup Y)}{supp(X \cup \overline{Y})}}{supp(X & Y)/supp(X & !Y)}
+\item{"sebag", Sebag-Schoenauer measure (Sebag and Schoenauer, 1988)}{
+    
+    Confidence of a rule divided by the confidence of the rule  \eqn{X \Rightarrow \overline{Y}}{X -> !Y}.
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#sebag}{Sebag-Schoenauer measure}
     
     Range: \eqn{[0, 1]}}
     
 \item{"support", supp (Agrawal et al., 1996)}{ 
   Support is an estimate of \eqn{P(X \cup Y)}{P(X & Y)} and 
   measures the generality of the rule. 
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#support}{Support}
 
   Range: \eqn{[0, 1]}}
 
 \item{"varyingLiaison", varying rates liaison (Bernard and Charron, 1996)}{ 
-  Defined as \eqn{\frac{supp(X \cup Y)}{supp(X)supp(Y)}-1}{(supp(X & Y) / (supp(X)supp(Y))) - 1}. 
-  Is equivalent to \eqn{lift(X \Rightarrow Y) -1}{lift(X -> Y) -1} 
+
+  Defined as the lift of a rule minus 1 so 0 represents independence.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#varyingLiaison}{Varying Rates Liaison}
   
-  Range: \eqn{[-1, 1]} (0 for independence)}
+  Range: \eqn{[-1, \infty]} (0 for independence)}
 
 \item{"yuleQ", Yule's Q (Tan and Kumar, 2000)}{
   Defined as \eqn{\frac{\alpha-1}{\alpha+1}}{(alpha-1)/(alpha+1)} where
   \eqn{\alpha}{alpha} is the odds ratio.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#yule}{Yule's Q}
   
   Range: \eqn{[-1, 1]}}
 
 \item{"yuleY", Yule's Y (Tan and Kumar, 2000)}{
   Defined as \eqn{\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}}{(sqrt(alpha)-1)/(sqrt(alpha)+1)} where
   \eqn{\alpha}{alpha} is the odds ratio.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#yule}{Yule's Y}
   
   Range: \eqn{[-1, 1]}}
 
@@ -442,7 +455,7 @@ Range: \eqn{[0, \infty]}}
    in the set of associations \code{x}. 
 
    If more than one measures are specified, the result is a data.frame 
-   containing the different measures for each association.
+   containing the different measures for each association as columns.
    
    \code{NA} is returned for rules/itemsets for which a certain measure is not 
    defined.
@@ -482,6 +495,8 @@ pages 255--264, Tucson, Arizona, USA.
 
 Diatta, J., H. Ralambondrainy, and A. Totohasina (2007). Towards a unifying probabilistic implicative normalized quality measure for association rules. In \emph{Quality Measures in Data Mining,} 237--250, 2007.
 
+Gras R (1996). L'implication statistique. Nouvelle methode exploratoire de donnees. La Pensee Sauvage, Grenoble.
+
 Hahsler, Michael and Kurt Hornik (2007). New probabilistic interest measures for association rules. \emph{Intelligent Data Analysis}, 11(5):437--455.
 
 Hofmann, Heike and Adalbert Wilhelm (2001). Visual comparison of association rules. 
@@ -489,7 +504,7 @@ Hofmann, Heike and Adalbert Wilhelm (2001). Visual comparison of association rul
 
 Kenett, Ron and Silvia Salini (2008). Relative Linkage Disequilibrium: A New
 measure for association rules. In \emph{8th Industrial Conference on 
-Data Mining ICDM 2008,} July 16--18, 2008, Leipzig/Germany.
+Data Mining ICDM 2008,} July 16--18, 2008, Leipzig/Germany. 
 
 Kodratoff, Y. (1999). Comparing Machine Learning and Knowledge Discovery in 
 Databases: An Application to Knowledge Discovery in Texts. 
