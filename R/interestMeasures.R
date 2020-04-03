@@ -61,6 +61,7 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
     
     ## remove quality information if we do not want to reuse! Then we can start reusing
     if(!reuse) quality(x) <- data.frame(support = support(x, transactions = transactions))
+    else if(is.null(quality(x)[["support"]])) quality(x)[["support"]] <- support(x, transactions = transactions)
     reuse <- TRUE
     
     ## deal with multiple measures
@@ -106,12 +107,11 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
   ## all-confidence(Z) = supp(Z) / max(supp(i elem Z))
   
   if(measure == "allConfidence") {
-    supp <- interestMeasure(x, "support", transactions, reuse)
-    m <- supp / sapply(itemset_list, function(i) max(itemSupport[i]))
+    m <- quality(x)[["support"]] / sapply(itemset_list, function(i) max(itemSupport[i]))
   
     ### deal with 1-itemsets
     is1 <- size(x)==1
-    m[is1] <- supp[is1]  
+    m[is1] <- quality(x)[["support"]][is1]  
   }
   
   ## calculate the cross-support ratio 
@@ -126,13 +126,11 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
   ##
   
   if(measure == "crossSupportRatio")
-    m <-  
-    sapply(itemset_list, function(i) min(itemSupport[i])) /
-    sapply(itemset_list, function(i) max(itemSupport[i]))
+    m <- sapply(itemset_list, function(i) min(itemSupport[i])) /
+      sapply(itemset_list, function(i) max(itemSupport[i]))
   
   if(measure == "lift")
-    m <- interestMeasure(x, "support", transactions, reuse) /
-    sapply(itemset_list, function(i) prod(itemSupport[i]))
+    m <- quality(x)[["support"]] / sapply(itemset_list, function(i) prod(itemSupport[i]))
 
   m[!is.finite(m)] <- NA
   
@@ -163,7 +161,6 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "rulePowerFactor",
        
       "ralambondrainy",
-      "descriptiveConfirm",
       "confirmedConfidence",
       "sebag",
       "counterexample",
@@ -436,12 +433,11 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "certainty") return((f11/f1x - fx1/N)/(1 - fx1/N))
   if(measure == "addedValue") return(f11/f1x - fx1/N)
   if(measure == "ralambondrainy") return(f10/N)
-  if(measure == "descriptiveConfirm") return((f1x-2*f10)/N)
   if(measure == "sebag") return((f1x-f10)/f10)
   if(measure == "counterexample") return((f11-f10)/f11)
   # needs alpha
   #if(measure == "wang") return(1/N * (1-alpha) * f1x - f10)
-  if(measure == "confirmedConfidence") return(1 - 2*f10/f1x)
+  if(measure == "confirmedConfidence") return((f11-f10)/f1x)
   if(measure == "casualSupport") return((f1x+fx1-2*f10)/N)
   if(measure == "casualConfidence") return(1 - f10/N * (1/f1x + 1/fx1))
   if(measure == "leastContradiction") return((f1x - f10)/fx1)

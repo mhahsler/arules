@@ -1,13 +1,16 @@
-# arules 1.6-4.1 (xx/xx/2019) (will be released as 1.6-5)
+# arules 1.6-5 (03/02/2020)
 
 ## New Features
-* improved speed for calculating interestMeasures for rules with no avaialble quality information or reuse = FALSE.
-* minor improvements of the manual pages.
-* interest measure laplace gained parameter k for the number of classes.
+* improved speed for calculating interestMeasures for rules and itemsets with no available 
+  quality information or reuse = FALSE.
+* Manual pages for associations were improved with examples for itemCoding.
+* MAnual page for interestMeasures is now linked with the associated web page.
+* interest measure laplace (Laplace confidence) gained parameter k for the number of classes.
 
 ## Bug Fixes
-* read.transations: Parameter encoding is now correcty passed on to scan (reported by Sisi-Wiciel).
+* read.transactions: Parameter encoding is now correctly passed on to scan (reported by Sisi-Wiciel).
 * interestMeasure was not calculating count for itemsets (reported by clcazer).
+* removed the duplicated interest measure: "descriptiveConfirm" use "confirmedConfidence" instead.
 
 # arules 1.6-4 (08/27/2019)
 

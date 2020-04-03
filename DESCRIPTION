@@ -1,6 +1,6 @@
 Package: arules
 Version: 1.6-5
-Date: 2019-xx-xx
+Date: 2020-03-02
 Title: Mining Association Rules and Frequent Itemsets
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 		email = "mhahsler@lyle.smu.edu"),

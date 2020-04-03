@@ -47,8 +47,8 @@ eclat(data, parameter = NULL, control = NULL)
   Mohammed J. Zaki, Srinivasan Parthasarathy, Mitsunori Ogihara, and Wei
   Li. (1997)
   \emph{New algorithms for fast discovery of association rules}.
-  Technical Report 651, Computer Science Department, University of
-  Rochester, Rochester, NY 14627.
+  KDD'97: Proceedings of the Third International Conference on Knowledge Discovery and Data Mining,
+  August 1997, Pages 283-286. 
   
   Christian Borgelt (2003) Efficient Implementations of Apriori and
   Eclat. \emph{Workshop of Frequent Item Set Mining Implementations}

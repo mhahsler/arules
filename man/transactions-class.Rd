@@ -31,9 +31,7 @@
   Transactions}
 \description{
   The \code{transactions} class represents transaction data used for
-  mining itemsets or rules.  It is a direct extension of class
-  \code{\linkS4class{itemMatrix}} to store a binary incidence
-  matrix, item labels, and optionally transaction IDs and user IDs.
+  mining itemsets or rules.  
 }
 \section{Objects from the Class}{
   Objects are created by coercion from objects of other classes 
@@ -63,6 +61,10 @@
 }
 
 \details{
+Transactions are  a direct extension of class
+\code{\linkS4class{itemMatrix}} to store a binary incidence
+matrix, item labels, and optionally transaction IDs and user IDs.
+
 Transactions can be created by coercion from lists
 containing transactions, but also from matrix and data.frames.
 However, you will need to prepare your data first (see coercion methods in the
@@ -241,5 +243,13 @@ trans5 <- as(irisDisc, "transactions")
 trans5
 inspect(head(trans5))
 
+## example 6: create transactions manually (with the same items as in trans5)
+trans6 <- as(encode(list(
+  c("Sepal.Length=[4.3,5.4)", "Species=setosa"),
+  c("Sepal.Length=[4.3,5.4)", "Species=setosa")
+  ), itemLabels = itemLabels(trans5)
+), "transactions")
+
+inspect(trans6)
 }
 \keyword{classes}

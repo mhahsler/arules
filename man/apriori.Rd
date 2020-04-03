@@ -74,9 +74,8 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
 \references{
   R. Agrawal, T. Imielinski, and A. Swami (1993) Mining association rules
   between sets of items in large databases. In \emph{Proceedings of the
-    ACM SIGMOD International Conference on Management of Data}, pages
-  207--216,
-  Washington D.C.
+  ACM SIGMOD International Conference on Management of Data}, pages
+  207--216, Washington D.C. \doi{10.1145/170035.170072}
   
   Christian Borgelt (2012) Frequent Item Set Mining. 
   \emph{Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery} 
@@ -84,7 +83,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
 
   Christian Borgelt and Rudolf Kruse (2002) Induction of Association Rules:
   Apriori Implementation. \emph{15th Conference on Computational
-    Statistics} (COMPSTAT 2002, Berlin, Germany) Physica Verlag,
+  Statistics} (COMPSTAT 2002, Berlin, Germany) Physica Verlag,
   Heidelberg, Germany.
 
   Christian Borgelt (2003) Efficient Implementations of Apriori and

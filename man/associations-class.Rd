@@ -24,9 +24,16 @@
 \title{Class associations - A Set of Associations}
 \description{
   The \code{associations} class is a virtual class which is extended to
-  represent mining result (e.g., sets of itemsets or rules).  The class
+  represent mining result (e.g., sets of \code{\link{itemsets}} or \code{\link{rules}}).  The class
   provides accessors for the quality slot and a method for sorting the
   associations.
+}
+\details{
+The implementations of \code{associations} store itemsets (e.g., the LHS and RHS of a rule) as objects of class \code{\link{itemMatrix}} (i.e., sparse binary matrices). Quality measures (e.g., support) are stored in a data.frame accessable via method \code{quality}.
+
+Associations can store multisets with duplicated
+elements. Duplicated elements can result from combining several sets of associations. 
+Use \code{\link{unique}} to remove duplicate associations.
 }
 \section{Objects from the Class}{
   A virtual class: No objects may be created from it.}
