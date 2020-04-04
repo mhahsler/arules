@@ -366,9 +366,10 @@ setMethod("interestMeasure",  signature(x = "rules"),
 .rhsSupport <- function(x, transactions, reuse = TRUE){
   q <- quality(x)
   
-  if(reuse && !is.null(q$confidence) && !is.null(q$lift)) 
+  if(reuse && !is.null(q$confidence) && !is.null(q$lift)) { 
     rhsSupport <- q$confidence / q$lift
-  else { 
+    rhsSupport[is.na(rhsSupport)] <- 0 ### in case lift was NaN (0/0)
+  } else { 
     if(is.null(transactions)) stop("transactions missing. Please specify the data used to mine the rules as transactions!")
     if(all(diff(rhs(x)@data@p) == 1)) 
       rhsSupport <- unname(itemFrequency(transactions)[rhs(x)@data@i+1L]) ### this is a lot faster for single items in the RHS
