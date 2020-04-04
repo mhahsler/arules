@@ -1,4 +1,4 @@
-# arules 1.6-5 (03/02/2020)
+# arules 1.6-5 (04/03/2020)
 
 ## New Features
 * improved speed for calculating interestMeasures for rules and itemsets with no available 
