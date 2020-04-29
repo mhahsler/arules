@@ -1,5 +1,6 @@
 # arules 1.6-5.1 (xx/xx/2020)
-* added interestMeasure rhsSupport
+* added interestMeasure rhsSupport.
+* added interestMeasure stdLift.
 
 
 # arules 1.6-5 (04/03/2020)

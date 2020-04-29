@@ -422,6 +422,14 @@ indices used in population genetics. It evaluates the deviation
     See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#sebag}{Sebag-Schoenauer measure}
     
     Range: \eqn{[0, 1]}}
+
+\item{"stdLift", Standardized Lift (McNicholas et al, 2008)}{
+    
+    Standardized lift uses the minimum and maximum lift can reach for each rule to standardize lift between 0 and 1. By default, the measure is corrected for minimum support and minimum confidence. Correction can be disabled by using the argument \code{correct = FALSE}.
+    
+    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#stdLift}{Standardized Lift}
+    
+    Range: \eqn{[0, 1]}}
     
 \item{"support", supp (Agrawal et al., 1996)}{ 
   Support is an estimate of \eqn{P(X \cup Y)}{P(X & Y)} and 
@@ -470,7 +478,7 @@ A Probabilistic Comparison of Commonly Used Interest Measures for Association Ru
 
 Agrawal, R., H Mannila, R Srikant, H Toivonen, AI Verkamo (1996).
 Fast Discovery of Association Rules.
-\emph{Advances in Knowledge Discovery and Data Mining} 12 (1), 307--328.
+\emph{Advances in Knowledge Discovery and Data Mining} 12(1):307--328.
 
 Aze, J. and Y. Kodratoff (2004). 
 Extraction de pepites de connaissances dans les donnees: Une nouvelle 
@@ -484,7 +492,7 @@ Mathematiques et Sciences Humaines, Volume 135 (1996), p. 5--18.
 
 Bayardo, R. , R. Agrawal, and D. Gunopulos (2000). 
 Constraint-based rule mining
-in large, dense databases.  \emph{Data Mining and Knowledge Discovery},
+in large, dense databases.  \emph{Data Mining and Knowledge Discovery,}
 4(2/3):217--240.
 
 Berzal, Fernando, Ignacio Blanco, Daniel Sanchez and Maria-Amparo Vila (2002).
@@ -492,19 +500,24 @@ Measuring the accuracy and interest of
 association rules: A new framework.
 \emph{Intelligent Data Analysis} 6, 221--235.
 
+Bing, Liu, Wynne Hsu, and Yiming Ma (1999). Pruning and summarizing the
+discovered associations. In \emph{KDD '99: Proceedings of the fifth ACM SIGKDD
+international conference on Knowledge discovery and data mining,} pages
+125--134.  ACM Press, 1999.
+
 Brin, Sergey, Rajeev Motwani, Jeffrey D. Ullman, and Shalom Tsur (1997). Dynamic
 itemset counting and implication rules for market basket data. In \emph{SIGMOD
-1997, Proceedings ACM SIGMOD International Conference on Management of Data},
+1997, Proceedings ACM SIGMOD International Conference on Management of Data,}
 pages 255--264, Tucson, Arizona, USA.
 
 Diatta, J., H. Ralambondrainy, and A. Totohasina (2007). Towards a unifying probabilistic implicative normalized quality measure for association rules. In \emph{Quality Measures in Data Mining,} 237--250, 2007.
 
 Gras R (1996). L'implication statistique. Nouvelle methode exploratoire de donnees. La Pensee Sauvage, Grenoble.
 
-Hahsler, Michael and Kurt Hornik (2007). New probabilistic interest measures for association rules. \emph{Intelligent Data Analysis}, 11(5):437--455.
+Hahsler, Michael and Kurt Hornik (2007). New probabilistic interest measures for association rules. \emph{Intelligent Data Analysis,} 11(5):437--455.
 
 Hofmann, Heike and Adalbert Wilhelm (2001). Visual comparison of association rules. 
-\emph{Computational Statistics}, 16(3):399--415.
+\emph{Computational Statistics,} 16(3):399--415.
 
 Kenett, Ron and Silvia Salini (2008). Relative Linkage Disequilibrium: A New
 measure for association rules. In \emph{8th Industrial Conference on 
@@ -519,19 +532,17 @@ Kulczynski, S. (1927). Die Pflanzenassoziationen der Pieninen.
 
 Lerman, I.C. (1981). Classification et analyse ordinale des donnees. Paris. 
 
-Liu, Bing, Wynne Hsu, and Yiming Ma (1999). Pruning and summarizing the
-discovered associations. In \emph{KDD '99: Proceedings of the fifth ACM SIGKDD
-international conference on Knowledge discovery and data mining}, pages
-125--134.  ACM Press, 1999.
+McNicholas, P.D.,  T.B. Murphy, M. O'Regan (2008). Standardising the lift of an association rule, \emph{Computational Statistics & Data Analysis,} 52(10):4712--4721, ISSN 0167-9473,
+\doi{10.1016/j.csda.2008.03.013}.
 
 Ochin, Suresh Kumar, and Nisheeth Joshi (2016). Rule Power Factor: A New Interest Measure in Associative Classification. \emph{6th International Conference On Advances In Computing and Communications, ICACC 2016,} 6-8 September 2016, Cochin, India.
 
 Omiecinski, Edward R. (2003). Alternative interest measures for mining
 associations in databases. \emph{IEEE Transactions on Knowledge and Data
-Engineering}, 15(1):57--69, Jan/Feb 2003.
+Engineering,} 15(1):57--69, Jan/Feb 2003.
 
 Piatetsky-Shapiro, G. (1991). Discovery, analysis, and presentation of strong
-rules. In: \emph{Knowledge Discovery in Databases}, pages 229--248.
+rules. In: \emph{Knowledge Discovery in Databases,} pages 229--248.
 
 Sebag, M. and M. Schoenauer (1988). 
 Generation of rules with certainty and confidence factors from incomplete 
@@ -541,23 +552,23 @@ Gesellschaft fuer Mathematik und Datenverarbeitung mbH, 28.1--28.20.
 
 Smyth, Padhraic and Rodney M. Goodman (1991).
 Rule Induction Using Information Theory.
-\emph{Knowledge Discovery in Databases}, 159--176.
+\emph{Knowledge Discovery in Databases,} 159--176.
 
 Tan, Pang-Ning and Vipin Kumar (2000). Interestingness Measures for Association Patterns: A Perspective. TR 00-036, Department of Computer Science
 and Engineering University of Minnesota.  
 
-Tan, Pang-Ning, Vipin Kumar, and Jaideep Srivastava (2002). Selecting the right interestingness measure for association patterns. In \emph{Proceedings of the eighth ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '02)}, ACM, 32--41.
+Tan, Pang-Ning, Vipin Kumar, and Jaideep Srivastava (2002). Selecting the right interestingness measure for association patterns. In \emph{Proceedings of the eighth ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '02),} ACM, 32--41.
 
 Tan, Pang-Ning, Vipin Kumar, and Jaideep Srivastava (2004). Selecting the right
-objective measure for association analysis. \emph{Information Systems},
+objective measure for association analysis. \emph{Information Systems,}
 29(4):293--313.
 
-Wu, T., Y. Chen, and J. Han (2010). Re-examination of interestingness measures in pattern mining: A unified framework. \emph{Data Mining and Knowledge Discovery}, 21(3):371-397, 2010.
+Wu, T., Y. Chen, and J. Han (2010). Re-examination of interestingness measures in pattern mining: A unified framework. \emph{Data Mining and Knowledge Discovery,} 21(3):371-397, 2010.
 
 Xiong, Hui, Pang-Ning Tan, and Vipin Kumar (2003). Mining strong affinity
 association patterns in data sets with skewed support distribution. In Bart
 Goethals and Mohammed J. Zaki, editors, \emph{Proceedings of the IEEE
-International Conference on Data Mining}, November 19--22, 2003, Melbourne,
+International Conference on Data Mining,} November 19--22, 2003, Melbourne,
 Florida, pages 387--394.
 }
 

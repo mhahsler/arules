@@ -174,7 +174,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "yuleY",
       "lerman",
       "implicationIndex",
-      "importance"
+      "importance",
+      "stdLift"
     )
     
     if(missing(measure)) measure <- builtin_measures
@@ -235,6 +236,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if(measure == "imbalance") return(.imbalance(x, transactions, reuse))
     if(measure == "kulczynski") return(.kulc(x, transactions, reuse))
     if(measure == "maxconfidence") return(.maxConf(x, transactions, reuse))
+    if(measure == "stdLift") return(.stdLift(x, transactions, reuse, ...))
     
     ## all other measures are implemented here (counts is in ...)
     ret <- .basicRuleMeasure(x, measure, counts = .getCounts(x, transactions, reuse), ...)
@@ -567,4 +569,42 @@ setMethod("interestMeasure",  signature(x = "rules"),
   Y <- .rhsSupport(x, transactions = transactions, reuse = reuse)
   
   pmax(XY/X, XY/Y)
+}
+
+## Standardising the Lift of an Association Rule
+# by McNicholas, 2008, DOI: 10.1016/j.csda.2008.03.013
+
+.stdLift <- function(rules, transactions = NULL, reuse = TRUE, correct = TRUE) {
+  measures <- interestMeasure(rules, 
+    c("support", "confidence", "lift", "coverage", "rhsSupport"), 
+    transactions = transactions, reuse = reuse)
+  
+  n <- info(rules)$ntransactions
+  if(is.null(n)) {
+    if(is.null(transactions)) 
+      stop("rules do not contain info from transactions. transactions are needed.")
+    n <- length(transactions)
+  }
+  
+  supp_A <- measures$coverage
+  supp_B <- measures$rhsSupport 
+  
+  # upper bound of lift
+  lambda <- pmax(supp_A + supp_B - 1, 1/n)/(supp_A * supp_B) 
+  
+  # correct lambda for min. confidence and min. support
+  if(correct) {
+    c <- info(rules)$confidence
+    s <- info(rules)$support
+    
+    if(is.null(c) || is.null(s)) stop("support or confidence info not available in rules. Use uncorrected std_lift instead.")
+    lambda <- pmax(lambda, 4*s/(1+s)^2, s/(supp_A * supp_B), c/supp_B)     
+  }
+  
+  # lower bound of lift
+  upsilon <- 1/pmax(supp_A, supp_B)
+  
+  stdLift <- (measures$lift - lambda) / (upsilon - lambda)
+  stdLift[is.nan(stdLift)] <- 1
+  stdLift
 }
