@@ -149,7 +149,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       measure <- add$method
     }
     
-    builtin_measures <- c("support", "count", "coverage", "confidence", "lift",
+    builtin_measures <- c("support", "confidence", "lift", "count",
+      "coverage", "rhsSupport", 
       "leverage", "hyperLift", "hyperConfidence", "fishersExactTest", 
       "improvement",
       "chiSquared", "cosine", "conviction", "gini", "oddsRatio", "phi",
@@ -224,6 +225,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     
     ## calculate measure (support, confidence, lift and coverage are already handled)
     if(measure == "count") return(round(quality(x)[["support"]] * .getN(x, transactions)))
+    if(measure == "rhsSupport") return(.rhsSupport(x, transactions))
     if(measure == "rulePowerFactor") return(quality(x)[["support"]] * quality(x)[["confidence"]]) 
     if(measure == "improvement") return(.improvement(x, transactions, reuse, ...))
     if(measure == "hyperLift") return(.hyperLift(x, transactions, reuse, ...))

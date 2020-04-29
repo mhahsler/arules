@@ -391,6 +391,10 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
     
     Range: \eqn{[0, 1]}}
 
+\item{"rhsSupport", Support of the rule consequent}{
+    
+    Range: \eqn{[0, 1]}}
+
 \item{"RLD", relative linkage disequilibrium (Kenett and Salini, 2008)}{
 
     RLD is an association measure motivated by

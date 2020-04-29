@@ -1,10 +1,14 @@
+# arules 1.6-5.1 (xx/xx/2020)
+* added interestMeasure rhsSupport
+
+
 # arules 1.6-5 (04/03/2020)
 
 ## New Features
 * improved speed for calculating interestMeasures for rules and itemsets with no available 
   quality information or reuse = FALSE.
 * Manual pages for associations were improved with examples for itemCoding.
-* MAnual page for interestMeasures is now linked with the associated web page.
+* Manual page for interestMeasures is now linked with the associated web page.
 * interest measure laplace (Laplace confidence) gained parameter k for the number of classes.
 
 ## Bug Fixes
