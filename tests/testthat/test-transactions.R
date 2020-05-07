@@ -67,8 +67,12 @@ data("Groceries")
 ## add a complement-items for "whole milk" and "other vegetables"
 g2 <- addComplement(Groceries, c("whole milk", "other vegetables"))
 g2 <- addComplement(g2, "coffee", "NO coffee")
+
 expect_equal(nitems(g2), nitems(Groceries)+3L)
 expect_identical(as.logical(as(g2[, "!whole milk"], "matrix")), 
   !as.logical(as(g2[, "whole milk"], "matrix")))
+
+
+itemInfo(g2) <- itemInfo(g2)[,  ! colnames(itemInfo(g2)) %in% c("variables", "levels")]
 expect_identical(g2[,1:nitems(Groceries)], Groceries)
 

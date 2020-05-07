@@ -911,7 +911,7 @@ SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
     SET_VECTOR_ELT(qual, k, q = NEW_NUMERIC(set->rnb));
     for (i = 0; i < set->rnb; i++) REAL(q)[i] = set->ext[i];
     if (param->target == TT_RULE) 
-      SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR("lhs.support"));
+      SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR("coverage"));
     else SET_STRING_ELT(names, k++, CREATE_STRING_VECTOR("transIdenticalToItemsets"));
   }
   

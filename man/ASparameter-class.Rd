@@ -57,8 +57,7 @@
       }
     }
     \item{\code{ext}:}{a logical indicating whether to
-      produce extended information on quality measures (e.g.,
-      lhs.support) (default: \code{FALSE})}
+      report coverage (i.e., LHS-support) as an extended quality measure (default: \code{TRUE})}
   }
 
   Additional slots for Apriori in \code{APparameter}:
@@ -79,6 +78,8 @@
 	\item{\code{"info"}:}{information difference to prior}
 	\item{\code{"chi2"}:}{normalized \eqn{\chi^2} measure}
       }
+    \bold{Note:} The measure is only reported if \code{aval} is set to \code{TRUE}. Use
+    \code{minval} to set minimum thresholds on the measures.
     }
     \item{\code{aval}:}{a logical indicating whether to
       return the additional rule evaluation measure selected with
@@ -87,12 +88,12 @@
       minimal value of additional evaluation measure selected with
       \code{arem} (default: \eqn{0.1})}
     \item{\code{originalSupport}:}{a logical indicating whether to
-      use for minimum support the original definition of the support of
-      a rule (lhs and rhs) instead of lhs support.  Make sure to use
-      \code{ext = TRUE} if \code{originalSupport} is set to \code{FALSE}
-      (default: \code{TRUE})}
+      use the original definition of minimum support 
+      (support of the LHS and RHS of the rule). If set to \code{FALSE}
+      then a minimum threshold on coverage (i.e., the support of the LHS) is used 
+      instead. (default: \code{TRUE})}
     \item{\code{maxtime}:}{ Time limit in seconds for checking subsets. 
-    \code{maxtime=0} disables the time limit.  
+    \code{maxtime = 0} disables the time limit.  
       (default: 5 seconds)}
   }
   

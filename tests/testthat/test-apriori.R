@@ -57,7 +57,7 @@ r <- apriori(trans, parameter=list(supp=0.25, conf=0,
   originalSupp=FALSE, ext=TRUE),
   control=list(verb=FALSE))
 
-expect_true("lhs.support" %in% colnames(quality(r)))
+expect_true("coverage" %in% colnames(quality(r)))
 #inspect(r[1:2])
 
 

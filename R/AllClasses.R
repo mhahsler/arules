@@ -183,7 +183,7 @@ setClass("ASparameter",
     support = 0.1,
     minlen  = 1L,
     maxlen  = 5L,
-    ext     = FALSE),
+    ext     = TRUE),
   
   validity = function(object) {
     if (!object@target %in% .types()) 

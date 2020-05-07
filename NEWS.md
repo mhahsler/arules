@@ -3,6 +3,10 @@
 ## New Features
 * added interestMeasure rhsSupport.
 * added interestMeasure stdLift.
+* addComplement now adds variables and levels to indicate what items are complments.
+
+## Changes
+* apriori and eclat now by default also reports coverage (ext defaults to TRUE and lhs.support is now called coverage).
 
 ## Bug Fixes
 * DATAFRAME now works if itemsetInfo is empty.
