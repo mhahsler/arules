@@ -6,7 +6,7 @@
   Provides the generic function \code{addComplement} and the S4 methods for
   transactions. This function adds for given items complement items. That is
   it adds an artificial item to each transactions which does not
-  contain the original item.
+  contain the original item. Such items are also called negative items (Antonie et al, 2014).
   }
 \usage{
 addComplement(x, labels, complementLabels=NULL)
@@ -26,7 +26,11 @@ addComplement(x, labels, complementLabels=NULL)
   \code{\link{transactions-class}},
   \code{\link{merge}}
 }
+\references{
+Antonie L., Li J., Zaiane O. (2014) Negative Association Rules. In: Aggarwal C., Han J. (eds) \emph{Frequent Pattern Mining,} Springer International Publishing, pp. 135-145. \doi{10.1007/978-3-319-07821-2_6}
+}
 \author{Michael Hahsler}
+
 \examples{
 data("Groceries")
 
