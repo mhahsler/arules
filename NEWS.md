@@ -1,7 +1,11 @@
 # arules 1.6-5.1 (xx/xx/2020)
+
+## New Features
 * added interestMeasure rhsSupport.
 * added interestMeasure stdLift.
 
+## Bug Fixes
+* DATAFRAME now works if itemsetInfo is empty.
 
 # arules 1.6-5 (04/03/2020)
 

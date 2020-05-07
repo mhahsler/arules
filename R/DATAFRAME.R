@@ -56,9 +56,10 @@ setMethod("DATAFRAME", signature(from = "itemMatrix"),
   function(from, ...) {
     is <- labels(from, ...)
     
-    data.frame(
-      items = factor(is, levels = unique(is)),
-      itemsetInfo(from)       
-    )
+    df <- data.frame(items = factor(is, levels = unique(is)))
+    if(nrow(itemsetInfo(from)) == nrow(df))  df <- cbind(df, itemsetInfo(from))
+    
+    df
   }
 )
+    
