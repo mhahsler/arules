@@ -19,21 +19,27 @@
 
 
 setMethod("addComplement", signature(x = "transactions"),
-  function(x, labels, complementLabels=NULL) {
+  function(x, labels, complementLabels = NULL) {
     
     ### default names for complements
     if(is.null(complementLabels)) 
-      complementLabels <- paste("!", labels, sep="")
+      complementLabels <- paste0("!", labels)
     
-    ### add complements
-    add <- sapply(labels, function(y) !(x %in% y))
+    ### find labels
+    orig <- match(labels, itemLabels(x))
+    
+    ### add complements (this needs lots of memory for many items)
+    add <- !as(x[, orig], "matrix")
     colnames(add) <- complementLabels
     tr <- as(add, "transactions")
     
     ### add variables and levels to original items
     if(is.null(itemInfo(x)$variables)) itemInfo(x)$variables <- itemLabels(x)
-    if(is.null(itemInfo(x)$levels)) itemInfo(x)$levels <- factor(rep(TRUE, ncol(x)), levels = c (TRUE, FALSE))
-     
+    if(is.null(itemInfo(x)$levels)) 
+      itemInfo(x)$levels <- factor(rep(NA, ncol(x)), levels = c (TRUE, FALSE))
+   
+    ### add TRUE/FALSE levels to the items with compliments  
+    itemInfo(x)$levels[orig] <- TRUE
     itemInfo(tr)$variables <- labels
     itemInfo(tr)$levels <- factor(rep(FALSE, ncol(tr)), levels = c (TRUE, FALSE))
     

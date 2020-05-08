@@ -99,14 +99,12 @@ setMethod("encode", signature(x = "list"),
 ## recode to make compatible
 setMethod("recode", signature(x = "itemMatrix"),
     function(x, itemLabels = NULL, match = NULL) {
-        if (!is.null(match)) {
-            if (!is(match, "itemMatrix"))
-                stop("'match' not of class itemMatrix")
-            if (!is.null(itemLabels))
-                stop("'match' and 'itemLabels' cannot both be specified")
-            itemLabels <- itemLabels(match)
-        }
-
+        if(!is.null(itemLabels) && !is.null(match))
+            stop("'match' and 'itemLabels' cannot both be specified")
+        if(is.null(itemLabels)) 
+            if(is.null(match))  stop("Either 'match' or 'itemLabels' has to be specified")
+        else itemLabels <- itemLabels(match)            
+        
         k <- match(itemLabels(x), itemLabels)
         if (any(is.na(k)))
             stop ("All item labels in x must be contained in ",

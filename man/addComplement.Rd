@@ -36,10 +36,12 @@ data("Groceries")
 
 ## add a complement-items for "whole milk" and "other vegetables"
 g2 <- addComplement(Groceries, c("whole milk", "other vegetables"))
+g2
+tail(itemInfo(g2))
 inspect(head(g2, 3))
 
 ## use a custom label for the complement-item
-g2 <- addComplement(g2, "coffee", "NO coffee")
+g2 <- addComplement(g2, "coffee", complementLabels = "NO coffee")
 inspect(head(g2, 3))
 }
 \keyword{manip}
