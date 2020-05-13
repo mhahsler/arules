@@ -275,7 +275,6 @@ setMethod("interestMeasure",  signature(x = "rules"),
   c_XY <- counts$f11
   c_X <- counts$f1x
   c_Y <- counts$fx1
-  t <- length(transactions)
   
   Q <- stats::qhyper(d, m = c_Y, n = t - c_Y, k = c_X, lower.tail = TRUE)
   hyperlift <- c_XY / Q

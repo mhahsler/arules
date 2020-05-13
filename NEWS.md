@@ -7,9 +7,11 @@
 
 ## Changes
 * apriori and eclat now by default also reports coverage (ext defaults to TRUE and lhs.support is now called coverage).
+* addComplement now adds variables and levels itemInfo.
 
 ## Bug Fixes
 * DATAFRAME now works if itemsetInfo is empty.
+* interestMeasure hyperlift now works without specifying transactions. 
 
 # arules 1.6-5 (04/03/2020)
 

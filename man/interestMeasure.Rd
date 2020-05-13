@@ -233,8 +233,9 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 
 \item{"hyperLift" (Hahsler and Hornik, 2007)}{ 
   Adaptation of the lift measure which evaluates the deviation from independence
-  using a quantile of the hypergeometric distribution defined by the counts of the LHS and RHS. 
+  using a quantile of the hypergeometric distribution defined by the counts of the LHS and RHS. HyperLift can be used to calculate confidence intervals for the lift measure. 
   See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#hyperLift}{Hyper-Lift}
+  
   
   The used quantile can be given
   as parameter \code{d} (default: \code{d=0.99}).
