@@ -4,8 +4,9 @@
 \description{
   Mine frequent itemsets, association rules or association hyperedges
   using the Apriori algorithm.  The Apriori algorithm employs level-wise
-  search for frequent itemsets.  The implementation of Apriori used
-  includes some improvements (e.g., a prefix tree and item sorting).
+  search for frequent itemsets.  The used C implementation of Apriori by 
+  Christian Borgelt includes some improvements (e.g., a prefix tree and 
+  item sorting).
 }
 \usage{
 apriori(data, parameter = NULL, appearance = NULL, control = NULL)
@@ -32,10 +33,13 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
     algorithm (item sorting, report progress (verbose), etc.)}
 }
 \details{
-  Calls the C implementation of the Apriori algorithm by Christian
-  Borgelt for mining frequent itemsets, rules or hyperedges.
+  \bold{Automatic conversion to transactions.}
+  If a data.frame is specified as \code{x}, then the data is automatically converted 
+  into transactions by discretizing numeric data using \code{discretizeDF} and then 
+  coercion to transactions. The discretization may fail if the data is not well behaved.
+  Consult the manual page for \code{discretizeDF} for details.
 
-  \bold{Note:} Apriori only creates rules with one item in the RHS (Consequent)! The default value in \code{\linkS4class{APparameter}} for \code{minlen} is 1. This
+  \bold{Apriori only creates rules with one item in the RHS (Consequent)!} The default value in \code{\linkS4class{APparameter}} for \code{minlen} is 1. This
   means that rules with only one item (i.e., an empty antecedent/LHS) like
   
   \deqn{\{\} => \{beer\}}{{} => {beer}}

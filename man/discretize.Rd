@@ -48,8 +48,18 @@ discretizeDF(df, methods = NULL, default = NULL)
     used for all columns not specified in \code{methods}.}
 }
 \details{
-\code{discretize} only implements unsupervised discretization. See packages \pkg{arulesCBA}, \pkg{discretization} or \pkg{RWeka} for supervised 
-discretization.
+Discretize calculates breaks between intervals using various methods and then uses 
+\code{\link{cut}} to convert the numeric values into intervals represented as a factor.
+
+Discretization may fail for several reasons. Some reasons are
+\itemize{
+\item A variable contains only a single value. In this case, the variable should be dropped or directly converted into a factor with a single level (see \code{\link{factor}}).
+\item Some caclulated breaks are not unique. This can happen for method frequency with very skewed data (e.g., a large portion of the values is 0). In this case, non-unique breaks are dropped with a warning. It would be probably better to look at the histogram of the data and decide on breaks for the method fixed.
+}
+
+\code{discretize} only implements unsupervised discretization. See 
+\code{\link[arulesCBA]{discretizeDF.supervised}} in
+package \pkg{arulesCBA} for supervised discretization.
 
 \code{discretizeDF} applies discretization to each numeric column. 
 Individual discretization parameters can be specified in the form:
@@ -68,8 +78,10 @@ A factor representing the categorized continuous variable
 }
 %\references{
 %}
-%\seealso{
-%}
+\seealso{
+\code{\link{cut}},
+\code{\link[arulesCBA]{discretizeDF.supervised}}.
+}
 \examples{
 data(iris)
 x <- iris[,1]

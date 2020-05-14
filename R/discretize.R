@@ -56,7 +56,10 @@ discretize <- function(x, method = "frequency", breaks = 3,
   )
   
   if(any(duplicated(breaks))){ 
-    stop("The calculated breaks are: ", paste(breaks, collapse = ", "), "\n  Some breaks are not unique. Look at the distribution of the data (e.g., histogram) to determine appropriate breaks and use the discretization method 'fixed'.")
+    warning("The calculated breaks are: ", paste(breaks, collapse = ", "), "\n  Only unique breaks are used reducing the number of intervals. Look at ? discretize for details.")
+    
+    breaks <- unique(breaks)
+    if(length(breaks) < 2) stop("Less than 2 uniques breaks left. Maybe the variable has only one value!")
   }
 
   
