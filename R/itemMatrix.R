@@ -165,7 +165,7 @@ setAs("list", "itemMatrix",
     i <- factor(i)
     
     p <- new("ngCMatrix", p   = c(0L, p),
-      i   = c(i) - 1L,
+      i   = as.integer(i) - 1L,
       Dim = c(length(levels(i)), length(p)))
     
     

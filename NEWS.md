@@ -13,6 +13,7 @@
 ## Bug Fixes
 * DATAFRAME now works if itemsetInfo is empty.
 * interestMeasure hyperlift now works without specifying transactions. 
+* Changed c() to as.integer() for factors (R has changed).
 
 # arules 1.6-5 (04/03/2020)
 
