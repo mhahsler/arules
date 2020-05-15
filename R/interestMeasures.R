@@ -599,7 +599,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if(!is.null(c) && !is.null(s)) 
       lambda <- pmax(lambda, 4*s/(1+s)^2, s/(supp_A * supp_B), c/supp_B)     
     else
-      warning("minimum support or confidence not available in info(x). Using uncorrected std_lift instead.")
+      warning("minimum support or confidence not available in info(x). Using uncorrected stdLift instead.")
   }
   
   # lower bound of lift
