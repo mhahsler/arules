@@ -41,7 +41,15 @@ tail(itemInfo(g2))
 inspect(head(g2, 3))
 
 ## use a custom label for the complement-item
-g2 <- addComplement(g2, "coffee", complementLabels = "NO coffee")
+g3 <- addComplement(g2, "coffee", complementLabels = "NO coffee")
 inspect(head(g2, 3))
+
+## add complements for all items (this is excessive for this dataset)
+g4 <- addComplement(Groceries, itemLabels(Groceries))
+g4
+
+## add complements for all items with a minimum support of 0.1
+g5 <- addComplement(Groceries, names(which(itemFrequency(Groceries) >= 0.1)))
+g5
 }
 \keyword{manip}
