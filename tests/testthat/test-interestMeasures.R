@@ -65,6 +65,11 @@ rules <- apriori(trans, parameter=list(supp=0.01, conf = 0.5),
 ## calculate all measures (just to see if one creates an error)
 m1 <- interestMeasure(rules, transactions = trans)
 
+## ruleset without quality data.frame
+rules2 <- rules
+quality(rules2) <- quality(rules)[,0]
+mr2 <- interestMeasure(rules2, transactions = trans)
+
 ## check if single rule returns a single row
 m2 <- interestMeasure(rules[1], transactions = trans)
 expect_equal(nrow(m2), 1L)
