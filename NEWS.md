@@ -1,3 +1,5 @@
+# arules 1.6-6.1 (xx/xx/2020)
+
 # arules 1.6-6 (05/14/2020)
 
 ## New Features
