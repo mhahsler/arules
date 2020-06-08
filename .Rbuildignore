@@ -11,3 +11,4 @@ Work
 docs
 _pkgdown.yml
 _config.yml
+^\.github$
