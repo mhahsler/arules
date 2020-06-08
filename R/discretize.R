@@ -28,7 +28,7 @@ discretize <- function(x, method = "frequency", breaks = 3,
     breaks <- categories
   }
   
-  methods = c("interval", "frequency", "cluster", "fixed")
+  methods <- c("interval", "frequency", "cluster", "fixed")
   
   method <- methods[pmatch(tolower(method), methods)]
   if(is.na(method)) stop("Unknown method!")
@@ -75,8 +75,8 @@ discretize <- function(x, method = "frequency", breaks = 3,
     cut(x, breaks = breaks, labels = labels, 
       include.lowest = include.lowest, right = right, 
       ordered_result = ordered_result),
-    'discretized:breaks' = as.vector(breaks),
-    'discretized:method' = method
+    "discretized:breaks" = as.vector(breaks),
+    "discretized:method" = method
   )  
 }
 

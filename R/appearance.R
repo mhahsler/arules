@@ -35,8 +35,8 @@ setAs("list", "APappearance",
         if (is.null(from$labels)) 
         stop("labels are missing")
 
-        args = c("lhs", "rhs", "both", "none", "items")
-        other = c("default", "labels")
+        args <- c("lhs", "rhs", "both", "none", "items")
+        other <- c("default", "labels")
         if(!all(names(from) %in% c(args, other))) 
         stop(paste(names(from)[!names(from) %in% c(args, other)], 
                 "is an unknown appearance indicator, use:", 
@@ -51,24 +51,24 @@ setAs("list", "APappearance",
         ## guess default
         if (is.null(from$default)) {
           if(is.null(from$lhs) 
-            && is.null(from$rhs)) from$default = "both"
+            && is.null(from$rhs)) from$default <- "both"
           if(!is.null(from$lhs) 
-            && is.null(from$rhs)) from$default = "rhs"
+            && is.null(from$rhs)) from$default <- "rhs"
           if(is.null(from$lhs) 
-            && !is.null(from$rhs)) from$default = "lhs"
+            && !is.null(from$rhs)) from$default <- "lhs"
           
           if(!is.null(from$rhs)
-            && !is.null(from$lhs)) from$default = "none"
+            && !is.null(from$lhs)) from$default <- "none"
           
-          if(!is.null(from$both)) from$default = "none"
+          if(!is.null(from$both)) from$default <- "none"
           
           ## for itemsets
-          if(!is.null(from$items)) from$default = "none"
+          if(!is.null(from$items)) from$default <- "none"
         }
           
         set <- c()
         items <- c()
-        for (i in 1:length(args)) {
+        for (i in seq_len(length(args))) {
             indicator <- from[[args[i]]]
             if(is.null(indicator)) add_items <- NULL
             else if(!all(indicator %in% from$labels))

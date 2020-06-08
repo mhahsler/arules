@@ -189,7 +189,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     measure <- builtin_measures[ind]
 
     ## remove quality information if we do not want to reuse! Then we can start reusing
-    if(!reuse) quality(x) <- data.frame(1:length(x))[,0]
+    if(!reuse) quality(x) <- data.frame(seq_len(length(x)))[,0]
     reuse <- TRUE
     
     ## first see if we already have it:
@@ -468,7 +468,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "chiSquared") {
     
     chi2 <- c()
-    for(i in 1:length(x)) {
+    for(i in seq_len(length(x))) {
       fo <- matrix(c(f00[i], f01[i], f10[i], f11[i]), ncol=2)
       fe <- tcrossprod(c(fx0[i], fx1[i]), c(f0x[i], f1x[i])) /N
       ## check if approximation is ok
@@ -502,7 +502,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   f00 <- counts$f00
   
   RLD <- numeric(length(x))
-  for(i in 1:length(x)) {
+  for(i in seq_len(length(x))) {
     D <- (f11[i]*f00[i]-f10[i]*f01[i])/N
     if (D > 0) 
       if (f01[i] < f10[i]) RLD[i] <- D/(D+f01[i])

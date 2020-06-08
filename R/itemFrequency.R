@@ -62,7 +62,7 @@ setMethod("itemFrequency", signature(x = "tidLists"),
     type <- match.arg(type)
     
     supports <-  size(x)
-    names(supports) <- 1:length(supports)
+    names(supports) <- seq_len(length(supports))
     
     switch(type,
       relative =  supports/dim(x)[2],

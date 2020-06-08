@@ -137,7 +137,7 @@ random.transactions <- function(
 
         if(patLen < 1) return(numeric(0))
 
-        return(patternToAdd[sample(1:length(patternToAdd), patLen)])
+        return(patternToAdd[sample(seq_len(length(patternToAdd)), patLen)])
     }
 
 
@@ -145,7 +145,7 @@ random.transactions <- function(
     choosePatterns <- function(n) {
         if(n == 0) return(numeric(0))
 
-        take <- sample(1:length(patterns), n, prob = pWeights)
+        take <- sample(seq_len(length(patterns)), n, prob = pWeights)
         trans <- c()
         for(i in 1:n) {
             trans <- c(trans,corrPattern(take[i]))
@@ -350,7 +350,7 @@ random.patterns <- function(
                 && stats::runif(1) > 0.5) break 
 
             ## pick the items and add them to the transactions
-            patternToAdd <- patternToAdd[sample(1:length(patternToAdd), patLen)]
+            patternToAdd <- patternToAdd[sample(seq_len(length(patternToAdd)), patLen)]
             trans <- unique(sort(c(trans, patternToAdd)))  
         }
         transactions[[i]] <- trans

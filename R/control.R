@@ -45,7 +45,7 @@ setMethod("initialize", "AScontrol",
         if (!missing(sort)) {
             if (sort - as.integer(sort)) stop("sort = ", sort, 
                 " can not be coerced to integer without error.")
-            sort = as.integer(sort)
+            sort <- as.integer(sort)
             .Object <- callNextMethod(.Object, sort = sort, ...)
         }
         else .Object <- callNextMethod(.Object, ...)

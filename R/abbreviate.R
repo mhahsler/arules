@@ -51,7 +51,7 @@ setMethod("abbreviate", signature(names.arg = "rules"),
 setMethod("abbreviate", signature(names.arg = "itemsets"),
   function(names.arg, minlength = 4, ..., 
     method = "both.sides"){
-    names.arg@items = abbreviate(items(names.arg), minlength = minlength, 
+    names.arg@items <- abbreviate(items(names.arg), minlength = minlength, 
       ..., method = method)
     names.arg
   })

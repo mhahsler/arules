@@ -81,7 +81,7 @@ setMethod("head", signature(x = "associations"),
   function (x, n = 6L, by = NULL, decreasing = TRUE, ...) {
     if(length(x) < 1) return(x)
     if(!is.null(by)) o <- sort(x, by = by, decreasing = decreasing, order = TRUE)
-    else o <- 1:length(x)
+    else o <- seq_len(length(x))
     
     x[head(o, n = n, ...)]
   })
@@ -90,7 +90,7 @@ setMethod("tail", signature(x = "associations"),
   function (x, n = 6L, by = NULL, decreasing = TRUE, ...) {
     if(length(x) < 1) return(x)
     if(!is.null(by)) o <- sort(x, by = by, decreasing = decreasing, order = TRUE)
-    else o <- 1:length(x)
+    else o <- seq_len(length(x))
     
     x[tail(o, n = n, ...)]
   })

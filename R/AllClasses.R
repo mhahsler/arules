@@ -308,7 +308,7 @@ setClass("ECcontrol",
 setClass("associations",
   representation(quality = "data.frame", info = "list", "VIRTUAL"))
 
-setMethod(initialize, "associations", function(.Object, ...) { 
+setMethod(initialize, "associations", function(.Object, ...) {
   .Object <- callNextMethod()
   
   ## fix empty data.frame in itemsetInfo

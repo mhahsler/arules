@@ -290,7 +290,7 @@ setMethod("dissimilarity", signature(x = "associations"),
   tlists <- LIST(as(trans, "tidLists"), decode = FALSE)
   
   tids <- list()
-  for(i in 1:length(I)) {
+  for(i in seq_len(length(I))) {
     v <- I[[i]]
     tids[[i]] <- tlists[[v[1]]]
     if(length(v)>1) for(j in 2:length(v)) {
