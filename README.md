@@ -153,6 +153,9 @@ inspect(head(rules, by = "lift"))
      capital-gain=None}            => {native-country=United-States} 0.7194628  0.9202807 1.025469
 ```
 
+## Usage from Python
+
+See [Getting started with R arules using Python.](https://rawgit.com/mhahsler/arules/master/Python/arules_python.html)
 
 ## Support
 
