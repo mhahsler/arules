@@ -155,7 +155,7 @@ inspect(head(rules, by = "lift"))
 
 ## Usage from Python
 
-See [Getting started with R arules using Python.](https://rawgit.com/mhahsler/arules/master/Python/arules_python.html)
+See [Getting started with R arules using Python.](http://mhahsler.github.io/arules/Python/arules_python.html)
 
 ## Support
 
