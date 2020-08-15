@@ -59,12 +59,13 @@ data <- paste(
   "item2, item3", 
   sep="\n")
 cat(data)
-write(data, file = "demo_basket")
+write(data, file = "demo_basket.txt")
 
-## read demo data (skip first line)
-tr <- read.transactions("demo_basket", format = "basket", sep=",", skip = 1)
+## read demo data (skip the comment in the first line)
+tr <- read.transactions("demo_basket.txt", format = "basket", sep=",", skip = 1)
 inspect(tr)
-
+## make always sure that the items were properly separated
+itemLabels(tr)
 
 ## create a demo file using single format for the example
 ## column 1 contains the transaction ID and column 2 contains one item
@@ -74,10 +75,10 @@ data <- paste(
   "trans2 item2", 
   sep ="\n")
 cat(data)
-write(data, file = "demo_single")
+write(data, file = "demo_single.txt")
 
 ## read demo data
-tr <- read.transactions("demo_single", format = "single", cols = c(1,2))
+tr <- read.transactions("demo_single.txt", format = "single", cols = c(1,2))
 inspect(tr)
 
 ## create a demo file using single format with column headers
@@ -88,15 +89,15 @@ data <- paste(
   "item2;trans2", 
   sep ="\n")
 cat(data)
-write(data, file = "demo_single")
+write(data, file = "demo_single.txt")
 
 ## read demo data
-tr <- read.transactions("demo_single", format = "single", 
+tr <- read.transactions("demo_single.txt", format = "single", 
   header = TRUE, sep = ";", cols = c("trans_id","item_id"))
 inspect(tr)
 
 ## tidy up
-unlink("demo_basket")
-unlink("demo_single")
+unlink("demo_basket.txt")
+unlink("demo_single.txt")
 }
 \keyword{file}
