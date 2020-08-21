@@ -280,7 +280,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   that contain the items in X and Y, respectively.
   See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#jaccard}{Jaccard coefficient}
 
-  Range: \eqn{[-1, 1]} (0 for independence)}
+  Range: \eqn{[0, 1]} (0 for independence)}
 
 \item{"jMeasure", J-measure, J (Smyth and Goodman, 1991)}{ 
   A scaled measures of cross entropy to measure the information content of a rule.
