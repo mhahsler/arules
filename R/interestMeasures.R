@@ -179,7 +179,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       
       "dependence",
       "novelty",
-      "satisfaction"
+      "satisfaction",
+      "interestingness"
     )
     
     if(missing(measure)) measure <- builtin_measures
@@ -414,6 +415,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "oddsRatio") return(f11*f00/(f10*f01))
   if(measure == "phi") return((N*f11-f1x*fx1) / sqrt(f1x*fx1*f0x*fx0))
   if(measure == "leverage") return(f11/N - (f1x*fx1/N^2))
+  if(measure == "interestingness") return( ((f11/N) / (f1x/N)) * ((f11/N) / (fx1/N)) * (1- ((f11/N)/N) ) ) # f11/N == support(X->Y), taken from https://hal.inria.fr/hal-03084029
   if(measure == "novelty") return(f11/N - (f1x*fx1/N^2)) # same as leverage
   if(measure == "dependence") return(abs(f11/f1x - fx1/N)) # just the absolute of added Value
   if(measure == "collectiveStrength") return(f11*f00/(f1x*fx1+f0x+fx0) * 
