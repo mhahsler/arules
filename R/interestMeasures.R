@@ -175,7 +175,11 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "lerman",
       "implicationIndex",
       "importance",
-      "stdLift"
+      "stdLift",
+      
+      "dependence",
+      "novelty",
+      "satisfaction"
     )
     
     if(missing(measure)) measure <- builtin_measures
@@ -403,12 +407,15 @@ setMethod("interestMeasure",  signature(x = "rules"),
   
   if(measure == "cosine") return(f11 / sqrt(f1x*fx1))
   if(measure == "conviction") return(f1x*fx0 /(N*f10))
+  if(measure == "satisfaction") return(((f1x*fx0 /(N*f10))-1)/(f1x*fx0 /(N*f10)) ) # (conv(X->Y)-1)/conv(X->Y)
   if(measure == "gini") return(
     f1x/N * ((f11/f1x)^2 + (f10/f1x)^2) - (fx1/N)^2 +
       f0x/N * ((f01/f0x)^2 + (f00/f0x)^2) - (fx0/N)^2)
   if(measure == "oddsRatio") return(f11*f00/(f10*f01))
   if(measure == "phi") return((N*f11-f1x*fx1) / sqrt(f1x*fx1*f0x*fx0))
   if(measure == "leverage") return(f11/N - (f1x*fx1/N^2))
+  if(measure == "novelty") return(f11/N - (f1x*fx1/N^2)) # same as leverage
+  if(measure == "dependence") return(abs(f11/f1x - fx1/N)) # just the absolute of added Value
   if(measure == "collectiveStrength") return(f11*f00/(f1x*fx1+f0x+fx0) * 
       (N^2 -f1x*fx1-f0x*fx0)/(N-f11-f00))
   if(measure == "importance") return(log(
@@ -439,6 +446,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if(measure == "ralambondrainy") return(f10/N)
   if(measure == "sebag") return((f1x-f10)/f10)
   if(measure == "counterexample") return((f11-f10)/f11)
+  
+  
   # needs alpha
   #if(measure == "wang") return(1/N * (1-alpha) * f1x - f10)
   if(measure == "confirmedConfidence") return((f11-f10)/f1x)
