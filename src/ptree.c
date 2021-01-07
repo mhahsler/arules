@@ -822,7 +822,8 @@ SEXP R_pnmax(SEXP R_x, SEXP R_c, SEXP R_v) {
   
   pvl = REAL(R_c) - 1;
   
-  e = R_NegInf;
+  //MFH: e = R_NegInf;
+  e = 0;
   f = 0;
   for (i = 1; i < LENGTH(px); i++) {
     l = INTEGER(px)[i];
@@ -849,7 +850,8 @@ SEXP R_pnmax(SEXP R_x, SEXP R_c, SEXP R_v) {
     l = INTEGER(px)[i];
     n = l-f;
     if (n == 0) {
-      REAL(r)[i-1] = R_NegInf;	
+      //REAL(r)[i-1] = R_NegInf;	
+      REAL(r)[i-1] = 0;	
       continue;
     }
     x   = INTEGER(ix)+f;

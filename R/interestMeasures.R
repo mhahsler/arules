@@ -175,7 +175,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "lerman",
       "implicationIndex",
       "importance",
-      "stdLift"
+      "stdLift",
+      "boost"
     )
     
     if(missing(measure)) measure <- builtin_measures
@@ -225,6 +226,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if(reuse && !is.null(quality(x)[[measure]])) return(quality(x)[[measure]])
     
     ## calculate measure (support, confidence, lift and coverage are already handled)
+    if(measure == "boost") return(.conf_boost(x, transactions, reuse, ...))
     if(measure == "count") return(round(quality(x)[["support"]] * .getN(x, transactions)))
     if(measure == "rhsSupport") return(.rhsSupport(x, transactions))
     if(measure == "rulePowerFactor") return(quality(x)[["support"]] * quality(x)[["confidence"]]) 
@@ -341,13 +343,19 @@ setMethod("interestMeasure",  signature(x = "rules"),
     q2 <- q[pos]
     ### FALSE is for verbose
     qsubmax <- .Call(R_pnmax, lhs(x[pos])@data, q2, FALSE)
-  
+    
     imp[pos] <- q2 - qsubmax
   }
 
   imp
 }
 
+.conf_boost <- function(x, transactions = NULL, reuse = TRUE) {
+  imp <- .improvement(x, transactions, reuse)
+  conf <- interestMeasure(x, "confidence", transactions, reuse)
+  
+  conf/(conf - imp)
+}
 
 ## count helpers
 .getCounts <- function(x, transactions, reuse = TRUE){

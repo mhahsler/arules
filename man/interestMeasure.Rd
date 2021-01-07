@@ -90,6 +90,15 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 
   Range: \eqn{[-.5, 1]}}
 
+\item{"boost", confidence boost (Balcazar, 2013)}{ 
+  
+  Confidence boost is the ratio of the confidence of a rule to the confidence of any more general rule (i.e., a rule with the same consequent but one or more items removed in the LHS). 
+  Values larger than 1 mean the new rule boosts the confidence compared to the best more general rule. The measure is related to the improvement measure.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#boost}{Confidence boost}
+
+  Range: \eqn{[0, \infty]}{[0, Inf]}}
+
+
 \item{"chiSquared", \eqn{\chi^2}{X^2} statistic (Liu et al., 1999)}{ 
 
   The chi-squared statistic 
@@ -271,6 +280,9 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   the minimum difference between its confidence and the confidence of any
   more general rule (i.e., a rule with the same consequent but one or 
   more items removed in the LHS). 
+  Special case: We define improvement for a rules with an empty LHS 
+  as its confidence.
+  
   See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#improvement}{Improvement}
   
   Range: \eqn{[0, 1]}}
