@@ -121,9 +121,10 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   Called with \code{significance=TRUE}, the p-value of the test for 
   independence is returned instead of the chi-squared statistic.  
   For p-values, substitutes effects can be tested using 
-  the parameter \code{complements = FALSE}.  
+  the parameter \code{complements = FALSE}.
+  Correction for multiple comparisons can be done using \code{\link{p.adjust}}.
   
-  Range: \eqn{[0, \infty]}{[0, Inf]}} or p-value scale
+  Range: \eqn{[0, \infty]}{[0, Inf]} or p-value scale}
 
 \item{"certainty", certainty factor, CF, Loevinger (Berzal et al., 2002)}{
   The certainty factor is a measure of variation of the probability that 
@@ -216,6 +217,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#fishersExactTest}{Fisher's Exact Test}
   
   Note that it is equal to hyper-confidence with \code{significance=TRUE}.
+  Correction for multiple comparisons can be done using \code{\link{p.adjust}}.
   
   Range: \eqn{[0, 1]} (p-value scale)}
 
@@ -499,14 +501,16 @@ approche et une etude de sensibilite au bruit. In
 \emph{Mesures de Qualite pour la fouille de donnees. 
 Revue des Nouvelles Technologies de l'Information, RNTI.}
 
-Bernard, Jean-Marc and Charron, Camilo (1996).
-L'analyse implicative bayesienne, une methode pour l'etude des dependances orientees. II : modele logique sur un tableau de contingence
-Mathematiques et Sciences Humaines, Volume 135 (1996), p. 5--18. 
+Jose L. Balcazar. Formal and computational properties of the confidence boost of association rules. \emph{ACM Transactions on Knowledge Discovery from Data,} 7(4), December 2013. 
 
 Bayardo, R. , R. Agrawal, and D. Gunopulos (2000). 
 Constraint-based rule mining
 in large, dense databases.  \emph{Data Mining and Knowledge Discovery,}
 4(2/3):217--240.
+
+Bernard, Jean-Marc and Charron, Camilo (1996).
+L'analyse implicative bayesienne, une methode pour l'etude des dependances orientees. II : modele logique sur un tableau de contingence
+Mathematiques et Sciences Humaines, Volume 135 (1996), p. 5--18. 
 
 Berzal, Fernando, Ignacio Blanco, Daniel Sanchez and Maria-Amparo Vila (2002).
 Measuring the accuracy and interest of
