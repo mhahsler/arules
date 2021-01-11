@@ -1,7 +1,7 @@
 # arules 1.6-6.1 (xx/xx/2020)
 
 ## New Features
-* Added interest measure confidence boost (boost).
+* Added interest measure confidence boost (boost) with help from Jens Harbers, Cordes & Graefe KG.
 
 ## Bug Fixes
 * interest measure improvement now does not produce inf values if no subset rule can be found. 
