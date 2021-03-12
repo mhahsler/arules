@@ -4,7 +4,6 @@
 [![Rdoc](https://www.rdocumentation.org/badges/version/arules)](https://www.rdocumentation.org/packages/arules) 
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/arules)](https://cran.r-project.org/package=arules)
 [![R build status](https://github.com/mhahsler/arules/workflows/R-CMD-check/badge.svg)](https://github.com/mhahsler/arules/actions)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/arules?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/arules)
 
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
@@ -64,10 +63,9 @@ __Stable CRAN version:__ install from within R with
 ```R
 install.packages("arules")
 ```
-__Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/arules/build/artifacts) or install from GitHub (needs devtools). 
+__Current development version:__ install from GitHub (needs devtools and [Rtools for Windows] (https://cran.r-project.org/bin/windows/Rtools/)). 
 ```R 
-library("devtools")
-install_github("mhahsler/arules")
+devtools::install_github("mhahsler/arules")
 ``` 
 
 ## Usage
