@@ -54,7 +54,7 @@ eclat(data, parameter = NULL, control = NULL)
   Eclat. \emph{Workshop of Frequent Item Set Mining Implementations}
   (FIMI 2003, Melbourne, FL, USA).
 
-  ECLAT Implementation: \url{https://www.borgelt.net/eclat.html}
+  ECLAT Implementation: \url{https://borgelt.net/eclat.html}
 }
 \seealso{
   \code{\link{ECparameter-class}},

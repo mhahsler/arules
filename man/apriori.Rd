@@ -94,7 +94,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
   Eclat.  \emph{Workshop of Frequent Item Set Mining Implementations}
   (FIMI 2003, Melbourne, FL, USA).
 
-  APRIORI Implementation: \url{https://www.borgelt.net/apriori.html}
+  APRIORI Implementation: \url{https://borgelt.net/apriori.html}
 }
 \author{Michael Hahsler and Bettina Gruen}
 \examples{
