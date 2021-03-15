@@ -117,7 +117,7 @@
   Christian Borgelt (2004)
   \emph{Apriori --- Finding Association Rules/Hyperedges with the Apriori
     Algorithm}.
-  \url{http://www.borgelt.net/apriori.html}
+  \url{https://www.borgelt.net/apriori.html}
 }
 \seealso{
   \code{\link{apriori}},

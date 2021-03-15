@@ -1,4 +1,4 @@
-# arules 1.6-6.1 (xx/xx/2020)
+# arules 1.6-7 (03/12/2021)
 
 ## New Features
 * Added interest measure confidence boost (boost) with help from Jens Harbers, Cordes & Graefe KG.

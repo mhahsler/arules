@@ -19,7 +19,7 @@ read.PMML(file)
 Write delegates to package pmml.
 }
 \references{
-  PMML home page: \url{http://www.dmg.org}
+  PMML home page: \url{http://dmg.org}
 }
 \seealso{
   \code{\link[pmml]{pmml}}.

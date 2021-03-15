@@ -152,7 +152,7 @@ inspect(head(rules, by = "lift"))
 
 ## Usage from Python
 
-See [Getting started with R arules using Python.](http://mhahsler.github.io/arules/Python/arules_python.html)
+See [Getting started with R arules using Python.](https://mhahsler.github.io/arules/Python/arules_python.html)
 
 ## Support
 
@@ -162,7 +162,7 @@ Questions should be posted on [stackoverflow and tagged with arules](https://sta
 
 ## References
 
-* Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta. [The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets.](http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html) _Journal of Machine Learning Research,_ 12:1977-1981, 2011.
-* Michael Hahsler, Bettina Gr&uuml;n and Kurt Hornik. [arules - A Computational Environment for Mining Association Rules and Frequent Item Sets.](http://dx.doi.org/10.18637/jss.v014.i15) _Journal of Statistical Software,_ 14(15), 2005.
+* Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta. [The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets.](https://jmlr.csail.mit.edu/papers/v12/hahsler11a.html) _Journal of Machine Learning Research,_ 12:1977-1981, 2011.
+* Michael Hahsler, Bettina Gr&uuml;n and Kurt Hornik. [arules - A Computational Environment for Mining Association Rules and Frequent Item Sets.](https://dx.doi.org/10.18637/jss.v014.i15) _Journal of Statistical Software,_ 14(15), 2005.
 * Hahsler, Michael. 
 [A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://michael.hahsler.net/research/association_rules/measures.html), 2015, URL: https://michael.hahsler.net/research/association_rules/measures.html.

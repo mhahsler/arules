@@ -63,7 +63,7 @@ to specify it as both).}
   Christian Borgelt (2004)
   \emph{Apriori --- Finding Association Rules/Hyperedges with the Apriori
     Algorithm}.
-  \url{http://www.borgelt.net/apriori.html}
+  \url{https://www.borgelt.net/apriori.html}
 
   M. Klemettinen, H. Mannila, P. Ronkainen, H. Toivonen and A. I. Verkamo (1994).
   Finding Interesting Rules from Large Sets of Discovered Association Rules. 
