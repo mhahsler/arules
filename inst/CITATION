@@ -34,5 +34,5 @@ bibentry(bibtype = "article",
   journal = "Journal of Machine Learning Research",
   volume = 12,
   pages = "1977--1981",
-  url = "http://jmlr.csail.mit.edu/papers/v12/hahsler11a.html"
+  url = "https://jmlr.csail.mit.edu/papers/v12/hahsler11a.html"
   )

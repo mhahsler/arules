@@ -19,7 +19,7 @@ read.PMML(file)
 Write delegates to package pmml.
 }
 \references{
-  PMML home page: \url{http://dmg.org}
+  PMML 4.4 - Association Rules. \url{http://dmg.org/pmml/v4-4/AssociationRules.html}
 }
 \seealso{
   \code{\link[pmml]{pmml}}.

@@ -23,7 +23,7 @@ Object of class \code{transactions}.
 \source{
   The data 
   set was obtained from the UCI Machine Learning Repository at
-  \url{http://archive.ics.uci.edu/ml/datasets/Mushroom}.
+  \url{https://archive.ics.uci.edu/ml/datasets/Mushroom}.
 }
 \references{
 Alfred A. Knopf (1981). Mushroom records drawn from The Audubon Society Field Guide to North American Mushrooms. G. H. Lincoff (Pres.), New York.

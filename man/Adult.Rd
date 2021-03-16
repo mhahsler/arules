@@ -16,7 +16,7 @@ data("AdultUCI")
 }
 \details{
   The \dQuote{Adult} database was extracted from the census bureau database
-  found at \url{http://www.census.gov/} in 1994 by
+  found at \url{https://www.census.gov/} in 1994 by
   Ronny Kohavi and Barry Becker, Data Mining and Visualization, Silicon
   Graphics. It was originally used to predict whether income exceeds USD 50K/yr
   based on census data. We added the attribute \code{income} with levels
@@ -103,7 +103,7 @@ data("AdultUCI")
   }
 }
 \source{
-  \url{http://www.ics.uci.edu/~mlearn/MLRepository.html}
+  \url{https://www.ics.uci.edu/~mlearn/MLRepository.html}
 }
 \references{
   A. Asuncion \& D. J. Newman (2007):
