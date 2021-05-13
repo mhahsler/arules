@@ -1,3 +1,10 @@
+# arules 1.6-7.1 (xx/xx/2021)
+
+
+
+## Bug Fixes
+* fixed addAggregate problem with character (reported by javiercoh).
+
 # arules 1.6-7 (03/12/2021)
 
 ## New Features

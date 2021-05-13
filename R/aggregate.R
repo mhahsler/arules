@@ -93,7 +93,7 @@ addAggregate <- function(x, by, postfix="*") {
     rep(2L, times = nitems(x_aggr)))
   
   itemInfo(x_m)[["aggregateID"]] <- c(nitems(x) + 
-      as.integer(itemInfo(x)[[by]]), 
+      as.integer(as.factor(itemInfo(x)[[by]])), 
     rep(0, times = nitems(x_aggr)))
   
   x_m

@@ -55,7 +55,8 @@ filterAggregate(x)
   
   \bold{Multi-level analysis:} To analyze relationships between 
   individual items 
-  and item groups, \code{addAggregate()} creates a new transactions object
+  and item groups at the same time, \code{addAggregate()} can be used to 
+  create a new transactions object
   which contains both, the original items and group-level items (marked with
   a given postfix). In association rule mining, all items are handled 
   the same, which means that we will produce a large number of rules
@@ -63,7 +64,7 @@ filterAggregate(x)
   
             \deqn{item A => group of item A}
 
-  with a confidence of 1. This happens also to itemsets 
+  with a confidence of 1. This will also happen if you mine itemsets. 
   \code{filterAggregate()} can be used to
   filter these spurious rules or itemsets.
 }
