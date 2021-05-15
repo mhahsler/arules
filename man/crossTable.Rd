@@ -14,9 +14,9 @@ crossTable(x, ...)
 \arguments{
   \item{x}{ object to be cross-tabulated 
     (\code{transactions} or \code{itemMatrix}).}
-  \item{measure}{ measure to return. Default is co-occurence counts. } 
+  \item{measure}{ measure to return. Default is co-occurrence counts. } 
   \item{sort}{ sort the items by support. } 
-  \item{...}{ aditional arguments. } 
+  \item{...}{ additional arguments. } 
 }
 \value{
   A symmetric matrix of n time n, where n is the number of items times 

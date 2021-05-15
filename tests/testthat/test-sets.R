@@ -90,3 +90,14 @@ expect_false(is.element(rules[15], r1))
 
 # union(setA,setB)= setA + setB - intersect(setA,setB)
 expect_equal(length(union(r1, r2)), length(c(r1, r2)) - length(intersect(r1, r2)))
+
+# Test setequal with incompatible itemMatrices containing the same itemsets
+d1 <- as(data, "itemMatrix")
+expect_true(setequal(d1,d1))
+
+d2 <- merge(d1[,6:7], d1[,1:5])
+compatible(d1, d2)
+expect_warning(expect_true(setequal(d1,d2)))
+expect_warning(expect_true(setequal(union(d1, d2), intersect(d1, d2))))
+
+

@@ -1,6 +1,14 @@
 # arules 1.6-7.1 (xx/xx/2021)
 
+## New Feature
+* Added new method compatible to itemMatrix to check if the item coding  is compatible 
+  between two objects.
+* c() now produces a warning if two itemMatrices with different itemCoding are combined.
+* encode and recode accept now for itemLabels also objects with an itemLabels method.
+* recode is now also available for association (itemsets and rules). 
 
+## Changes
+* recode: parameter match is now deprecated.
 
 ## Bug Fixes
 * fixed addAggregate problem with character (reported by javiercoh).
@@ -69,7 +77,7 @@
 * discretizeDF now reports which column produces the problem.
 
 ## Changes
-* transactions: numeric columns are now discretized during coersion using discretizeDF (with a warning).
+* transactions: numeric columns are now discretized during coercion using discretizeDF (with a warning).
 
 ## Bug Fixes
 * The spurious warning for reaching maxlen in apriori is now removed (reported by Ryan J. Cole).
@@ -104,7 +112,7 @@
 # arules 1.5-5 (01/09/2018)
 
 ## New Features
-* Added (absolut support) "count" as an interest measure. 
+* Added (absolute support) "count" as an interest measure. 
 * itemLabels can now be assigned for rules and itemsets. 
 
 ## Bug Fixes
@@ -132,7 +140,7 @@
 
 ## Bug Fixes
 * Improved PROTECT placement in C source code.
-* itemMeasures for single rules/itemssets now returns a proper data.frame 
+* itemMeasures for single rules/itemsets now returns a proper data.frame 
    (reported by lordbitin).
 * itemMeasures: Added missing parentheses in kappa calculation and fixed
     equation for least contradiction (reported by Feng Chen). 
@@ -252,7 +260,7 @@
 * subset extraction: added checks, handles now NAs and recycles for logical.
 * read.transactions gained arguments skip and quote and some defaults for
   read and write (uses now quotes and no rownames by default) have changed.
-* itemMatrix: coersion from matrix checks now for 0-1 matrix with a warning.
+* itemMatrix: coercion from matrix checks now for 0-1 matrix with a warning.
 * APRIORI and ECLAT report now absolute minimum support.
 * APRIORI: out-of-memory while rule building does now result in an error and
   not a memory fault.

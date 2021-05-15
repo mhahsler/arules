@@ -29,7 +29,7 @@
   associations.
 }
 \details{
-The implementations of \code{associations} store itemsets (e.g., the LHS and RHS of a rule) as objects of class \code{\link{itemMatrix}} (i.e., sparse binary matrices). Quality measures (e.g., support) are stored in a data.frame accessable via method \code{quality}.
+The implementations of \code{associations} store itemsets (e.g., the LHS and RHS of a rule) as objects of class \code{\link{itemMatrix}} (i.e., sparse binary matrices). Quality measures (e.g., support) are stored in a data.frame accessible via method \code{quality}.
 
 Associations can store multisets with duplicated
 elements. Duplicated elements can result from combining several sets of associations. 

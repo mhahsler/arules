@@ -9,7 +9,7 @@
   It contains 
   information about 8124 mushrooms (transactions). 
   4208 (51.8\%) are edible and 3916 (48.2\%)
-  are poisonous. The data contains 22 nomoinal features plus the class attribure 
+  are poisonous. The data contains 22 nominal features plus the class attribute 
   (edible or not). These features were translated into 114 items. 
   
 }

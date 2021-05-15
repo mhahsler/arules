@@ -27,7 +27,7 @@
   The binary matching operators or often used in \code{\link{subset}}.
   }
 \usage{
-match(x,  table, nomatch = NA_integer_, incomparables = NULL)
+match(x, table, nomatch = NA_integer_, incomparables = NULL)
 
 x \%in\% table
 x \%pin\% table

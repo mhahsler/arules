@@ -164,5 +164,4 @@ Questions should be posted on [stackoverflow and tagged with arules](https://sta
 
 * Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta. [The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets.](https://jmlr.csail.mit.edu/papers/v12/hahsler11a.html) _Journal of Machine Learning Research,_ 12:1977-1981, 2011.
 * Michael Hahsler, Bettina Gr&uuml;n and Kurt Hornik. [arules - A Computational Environment for Mining Association Rules and Frequent Item Sets.](https://dx.doi.org/10.18637/jss.v014.i15) _Journal of Statistical Software,_ 14(15), 2005.
-* Hahsler, Michael. 
-[A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://michael.hahsler.net/research/association_rules/measures.html), 2015, URL: https://michael.hahsler.net/research/association_rules/measures.html.
+* Hahsler, Michael. [A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://michael.hahsler.net/research/association_rules/measures.html), 2015, URL: https://michael.hahsler.net/research/association_rules/measures.html.

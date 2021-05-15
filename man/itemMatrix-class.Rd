@@ -51,8 +51,10 @@
   itemsets or transactions) and the corresponding item labels.
 }
 \details{
-Sets of itemsets are represented as sparse binary matrices.
-If you work with several itemMatrices at the same time (e.g.,
+Sets of itemsets (or transactions) are represented as a compressed sparse binary matrix.
+Columns represent items and rows are the set/transactions. In the compressed form, each itemset is a vector of column indices (called item IDs) representing the items.
+
+\bold{Note:} If you work with several itemMatrices at the same time (e.g.,
 several transaction sets, lhs and rhs of a rule, etc.),
 then the encoding (itemLabes and order of the items in the binary matrix) 
 in the different itemMatrices is important and needs to conform.
@@ -205,37 +207,72 @@ See \code{\link{itemCoding}} to learn how to encode and recode itemMatrix object
 \examples{
 set.seed(1234)
   
-## Generate random data and coerce data to itemMatrix.
-m <- matrix(runif(100000)>0.8, ncol=20)
-dimnames(m) <- list(NULL, paste("item", c(1:20), sep=""))
-i <- as(m, "itemMatrix")
+## Generate a logical matrix with 5000 random itemsets for 20 items
+m <- matrix(runif(5000*20)>0.8, ncol=20, 
+            dimnames = list(NULL, paste("item", c(1:20), sep="")))
+head(m)
 
-## Get the number of elements (rows) in the itemMatrix.
-length(i)
+## Coerce the logical matrix into an itemMatrix object
+imatrix <- as(m, "itemMatrix")
+imatrix
+
+## An itemMatrix contains a set of itemsets (each row is an itemset). 
+## The length of the set is the number of rows. 
+length(imatrix)
+
+## The sparese matrix also has regular matrix  dimensions.
+dim(imatrix)
+nrow(imatrix)
+ncol(imatrix)
+
+## Subsetting: Get first 5 elements (rows) of the itemMatrix. This can be done in 
+## several ways.
+imatrix[1:5]            ### get elements 1:5
+imatrix[1:5, ]          ### Matrix subsetting for rows 1:5
+head(imatrix, n = 5)    ### head()
 
 ## Get first 5 elements (rows) of the itemMatrix as list.
-as(i[1:5], "list")
+as(imatrix[1:5], "list")
 
 ## Get first 5 elements (rows) of the itemMatrix as matrix.
-as(i[1:5], "matrix")
+as(imatrix[1:5], "matrix")
 
 ## Get first 5 elements (rows) of the itemMatrix as sparse ngCMatrix.
-## Warning: for efficiency reasons, the ngCMatrix you get is transposed!
-as(i[1:5], "ngCMatrix")
+## Warning: For efficiency reasons, the ngCMatrix is transposed!
+as(imatrix[1:5], "ngCMatrix")
 
 ## Get labels for the first 5 itemsets (first default and then with 
 ## custom formating)
-labels(i[1:5])
-labels(i[1:5], itemSep = " + ", setStart = "", setEnd = "")
+labels(imatrix[1:5])
+labels(imatrix[1:5], itemSep = " + ", setStart = "", setEnd = "")
 
-## create itemsets from itemMatrix  
-is <- new("itemsets", items = i[1:3])
-inspect(is)
+## Create itemsets manually from an itemMatrix. Itemsets contain items in the form of 
+## an itemMatrix and additional quality measures (not supplied in the example).
+is <- new("itemsets", items = imatrix)
+is
+inspect(head(is, n = 3))
 
-## create rules (rhs and lhs cannot share items so I use 
-## itemSetdiff here). Also assign (random) support.
-rules <- new("rules", lhs=itemSetdiff(i[4:6],i[1:3]), rhs=i[1:3],
-  quality = data.frame(support = runif(3)))
-inspect(rules) 
+
+## Create rules manually. I use imatrix[4:6] for the lhs of the rules and 
+## imatrix[1:3] for the rhs. Rhs and lhs cannot share items so I use 
+## itemSetdiff here. I also assign missing values for the quality measures support
+## and confidence.
+rules <- new("rules", 
+             lhs = itemSetdiff(imatrix[4:6], imatrix[1:3]), 
+             rhs = imatrix[1:3],
+             quality = data.frame(support = c(NA, NA, NA), 
+                                  confidence =  c(NA, NA, NA)
+          ))
+rules
+inspect(rules)
+
+## Manually create a itemMatrix with an item encoding that matches imatrix (20 items in order
+## item1, item2, ..., item20)
+itemset_list <- list(c("item1","item2"),
+                     c("item3"))
+
+imatrix_new <- encode(itemset_list, itemLabels = imatrix)
+imatrix_new
+compatible(imatrix_new, imatrix)
 }
 \keyword{classes}

@@ -16,7 +16,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
     \code{\linkS4class{transactions}} or any data structure
     which can be coerced into
     \code{\linkS4class{transactions}} (e.g., a binary
-    matrix or data.frame).}
+    matrix or a data.frame).}
   \item{parameter}{object of class
     \code{\linkS4class{APparameter}} or named list.
     The default behavior is to mine rules with minimum support of 0.1,
@@ -33,7 +33,10 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
     algorithm (item sorting, report progress (verbose), etc.)}
 }
 \details{
-  \bold{Automatic conversion to transactions.}
+  \bold{Warning about automatic conversion of matrices or data.frames to transactions.}
+  It is preferred to coerce data to transactions manually before calling \code{apriori} to have control over item coding. This is especially important when you are working with multiple datasets or several subsets of the same dataset. To read about item coding, see
+  \code{\link{itemCoding}}.
+  
   If a data.frame is specified as \code{x}, then the data is automatically converted 
   into transactions by discretizing numeric data using \code{discretizeDF} and then 
   coercion to transactions. The discretization may fail if the data is not well behaved.
@@ -99,6 +102,10 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
 \author{Michael Hahsler and Bettina Gruen}
 \examples{
 data("Adult")
+## Note: Adult is alread a transactions dataset if you are using a data.frame then 
+##       you should coerce it first to transactions using:
+##                    yourTrans <- as(yourData, "transactions")
+
 ## Mine association rules.
 rules <- apriori(Adult, 
 	parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
@@ -108,6 +115,7 @@ summary(rules)
   \code{\link{APparameter-class}},
   \code{\link{APcontrol-class}},
   \code{\link{APappearance-class}},
+  \code{\link{itemCoding}},
   \code{\link{transactions-class}},
   \code{\link{itemsets-class}},
   \code{\link{rules-class}}

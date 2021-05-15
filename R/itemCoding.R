@@ -36,7 +36,9 @@ setMethod("encode", signature(x = "character"),
         ## regular encoding
         r <- which(itemLabels %in% x)
         if (length(r) < length(x))
-            stop("Unknown item label(s) in ", deparse(x))
+            warning("The following item labels are not available in itemLabels: ",
+                paste(setdiff(x, itemLabels), collapse = ", "), 
+                "\nItems with missing labels are dropped!", call. = FALSE)
         r
     }
 )
@@ -47,20 +49,21 @@ setMethod("encode", signature(x = "numeric"),
         if (itemMatrix == TRUE) 
             return(encode(list(x), itemLabels, itemMatrix == TRUE))
 
-        
         ## handle empty sets
         if (length(x)==0) return(integer(0))
             
         ## regular encoding
         r <- range(x)
         if (r[1] < 1 || r[2] > length(itemLabels))
-            stop("Invalid range in ", deparse(x))
+            stop("Invalid item ID in ", deparse(x), call. = FALSE)
+        
+        ## deal with numeric
         if (!is.integer(x)) {
-            if (!all.equal(x, (i <- as.integer(x))))
-                stop("Invalid numeric values in ", deparse(x))
-            i
-        } else
-            x
+            if (any(x %% 1 != 0))
+                stop("Invalid item ID (needs to be integer) in ", deparse(x), call. = FALSE)
+            x <- as.integer(x)
+        }
+        x
     }
 )
 
@@ -68,6 +71,10 @@ setMethod("encode", signature(x = "numeric"),
 ##       directly in internal code.
 setMethod("encode", signature(x = "list"),
     function(x, itemLabels, itemMatrix = TRUE) {
+        if(is(itemLabels, "itemMatrix") || 
+                is(itemLabels, "association")) itemLabels <- itemLabels(itemLabels)
+        
+        # this calls encode for character
         i <- lapply(x, encode, itemLabels, itemMatrix = FALSE)
         if (itemMatrix == FALSE) 
             return(i)
@@ -99,22 +106,32 @@ setMethod("encode", signature(x = "list"),
 ## recode to make compatible
 setMethod("recode", signature(x = "itemMatrix"),
     function(x, itemLabels = NULL, match = NULL) {
+        
+        ### FIXME: Deprecated
+        if(!is.null(match)) message("recode: parameter 'match' is deprecated. Use 'itemLabels' instead.")
+        
         if(!is.null(itemLabels) && !is.null(match))
             stop("'match' and 'itemLabels' cannot both be specified")
         if(is.null(itemLabels)) 
             if(is.null(match))  stop("Either 'match' or 'itemLabels' has to be specified")
         else itemLabels <- itemLabels(match)            
+        ### END 
         
+        if(is(itemLabels, "itemMatrix") || 
+                is(itemLabels, "association")) itemLabels <- itemLabels(itemLabels)
+        
+	    ## nothing to do
+	    if(identical(itemLabels(x), itemLabels)) return(x)
+
         k <- match(itemLabels(x), itemLabels)
         if (any(is.na(k)))
-            stop ("All item labels in x must be contained in ",
-                  "'itemLabels' or 'match'.")
+            stop ("All item labels in x must be contained in 'itemLabels'.", call. = FALSE)
 
         ## recode items
         if (any(k != seq(length(k))))
             x@data <- .Call(R_recode_ngCMatrix, x@data, k)
 
-        ## enlarge
+        ## enlarge matrix for additional items
         if (x@data@Dim[1] <  length(itemLabels))
             x@data@Dim[1] <- length(itemLabels)
 
@@ -128,5 +145,28 @@ setMethod("recode", signature(x = "itemMatrix"),
         x
     }
 )	
+
+setMethod("recode", signature(x = "itemsets"),
+    function(x, itemLabels = NULL, match = NULL) {
+        x@items <- recode(x@items, itemLabels, match)
+        x
+    }
+)
+
+setMethod("recode", signature(x = "rules"),
+    function(x, itemLabels = NULL, match = NULL) {
+        x@lhs <- recode(x@lhs, itemLabels, match)
+        x@rhs <- recode(x@rhs, itemLabels, match)
+        x
+    }
+)   
+
+setMethod("compatible", signature(x = "itemMatrix"),
+    function(x, y) identical(itemLabels(x), itemLabels(y))
+)
+
+setMethod("compatible", signature(x = "associations"),
+    function(x, y) identical(itemLabels(x), itemLabels(y))
+)
 
 ###

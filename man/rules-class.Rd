@@ -110,10 +110,10 @@ The \code{rules} class represents a set of rules.
   }
 }
 \details{
-Rules are usually created by calling an assoication rule mining algorithm like \code{\link{apriori}}.
+Rules are usually created by calling an association rule mining algorithm like \code{\link{apriori}}.
 Rules store the LHS and the RHS separately as objects of class \code{\link{itemMatrix}}. 
 
-To create rules manualy, the itemMatrix for the LHS and the RHS
+To create rules manually, the itemMatrix for the LHS and the RHS
 of the rules can be created using \code{\link{itemCoding}}.
 Note the two matrices 
 need to have the itemLabels (i.e., columns of the sparse matrix) in the same order.  

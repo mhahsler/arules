@@ -382,7 +382,9 @@ itemsets.  The matrix entries represent the presence (1) or absence (0)
 of an item in a particular itemset.  An example of a binary incidence
 matrix containing itemsets for the example database in
 Figure~\ref{table:supermarket} on Page~\pageref{table:supermarket} is
-shown in Figure~\ref{fig:itemsetMatrix}.  Note that we need to store
+shown in Figure~\ref{fig:itemsetMatrix}. The order in which the items are stores (i.e., the order of the columns) is called in \pkg{arules} the \emph{item coding} and 
+is important when working directly with the binary matrix.  
+Note also that we need to store
 collections of itemsets with possibly duplicated elements (identical
 rows), i.e, itemsets containing exactly the same items. This is
 necessary, since a transaction database can contain different
@@ -457,7 +459,7 @@ Technically, \func{length} returns the number of rows in the matrix
 which is equal to the first element returned by \func{dim}.
 %\pkg{arules} also provides set operations including \func{union},
 %\func{intersect} and \func{setequal}.
-Identical itemsets can be found with \func{duplicated}, and duplications
+Identical itemsets can be found with \func{duplicated}, and duplicates
 can be removed with \func{unique}.  \func{match} can be used to find
 matching elements in two collections of itemsets.
 
@@ -537,7 +539,7 @@ Transaction data are normally recorded by point-of-sale
 scanners and often consists of tuples of the form:
 
 \begin{displaymath}
-<\emph{transaction ID}, \emph{item ID}, \ldots >
+<\emph{transaction ID}, \emph{item ID}, \emph{item ID},  \ldots >
 \end{displaymath}
 
 All tuples with the same transaction ID form a single transaction which
@@ -1117,6 +1119,33 @@ predicting memberships for new data.
 
 A small example can be found in~\cite{arules:Hahsler+Hornik:2007b}.
 
+\subsection{Support for Item Hierarchies}
+
+Often an item hierarchy is available for datasets used for association rule mining. For example in a supermarket dataset items like "bread" and "beagle" might belong to the item group (category) "baked goods." Transactions can store item hierarchies as additional columns in the \code{itemInfo} \code{data.frame}. 
+\pkg{arules} provides support to use an item hierarchy to perform analysis at 
+ a group level of the item hierarchy using \code{aggregate()}, and to
+perform multi-level analysis to uncover relationships between individual items and item groups with \code{addAggregate()}. See \code{? hierarchy} for details and examples.
+
+
+\subsection{Item Coding}
+Several applications require taking care of how the items are represented in the binary matrices used in transactions and associations. The order in which items are 
+used as columns in objects of class \code{itemMatrix} is called in \pkg{arules} the
+\emph{item coding}. Situations where consistent item coding is important include:
+
+\begin{itemize}
+\item Mining several different data sets or different subsets of a data set (e.g., samples) and
+performing computations on the resulting associations (e.g., comparing or combining rules).
+\item Creating transactions, itemsets or association rules manually.
+\end{itemize}
+
+The item coding is typically determined when data is coerced to transactions with 
+\code{as(x, "transactions")} and this process can lead to different item codings for 
+slightly different data sets. The methods \func{encode} and \func{recode} can be used to create and change the item coding to make the representation of transactions, itemsets and rules compatible. To check if two objects use the same item coding, method \func{compatible}
+can be used.
+
+More information and examples on item coding can be found in the manual page \code{? itemCoding}.
+
+
 \section{Examples}
 \label{sec:examples}
 
@@ -1268,7 +1297,7 @@ data, the attributes were used to predict the income level of
 individuals.  We added the attribute \code{income} with levels
 \code{small} and \code{large}, representing an income of
 $\le$~USD~50,000 and $>$~USD~50,000, respectively.  This data is
-included in \pkg{arules} as the data set \code{AdultUCI}.
+included in \pkg{arules} as a \code{data.frame} the data set \code{AdultUCI}.
 
 
 <<data>>=
@@ -1280,7 +1309,9 @@ AdultUCI[1:2,]
 
 \code{AdultUCI} contains a mixture of categorical and metric attributes and
 needs some preparations before it can be transformed into
-transaction data suitable for association mining.
+transaction data suitable for association mining. While the \code{apriori} function
+will try to convert the data.frame to transactions by performing discretization of numbers, it is typically preferred to prepare the data and coerce the dataset into transactions manually.
+
 First, we remove the two attributes \code{fnlwgt} and
 \code{education-num}. The first attribute is a weight calculated
 by the creators of the data set from control data provided by
@@ -1324,19 +1355,17 @@ AdultUCI[[ "capital-loss"]] <- ordered(cut(AdultUCI[[ "capital-loss"]],
     labels = c("none", "low", "high"))
 @
 
-Now, the data can be automatically recoded as
-a binary incidence matrix by coercing the data set to
-\class{transactions}.
+Now, the data can be coerced to
+\class{transactions} resulting in
+a binary incidence matrix appropriate for association rule mining.
 
 <<coerce>>=
 Adult <- as(AdultUCI, "transactions")
 Adult
 @
 
-The remaining \Sexpr{dim(Adult)[2]} categorical attributes were
-automatically recoded into \Sexpr{dim(Adult)[2]}
-binary items. During encoding the item labels were generated in the
-form of 
+The remaining categorical attributes were
+automatically recoded into binary items. During encoding the item labels were generated in the form of 
 \texttt{<\emph{variable name}>=<\emph{category label}>}. 
 Note that for cases with missing values all items corresponding to the 
 attributes with the missing values were set to zero.

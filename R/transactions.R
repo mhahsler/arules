@@ -59,7 +59,7 @@ setMethod("LIST", signature(from = "transactions"),
   function(from, decode = TRUE) {
     l <- LIST(as(from, "itemMatrix"), decode)
     if(decode) names(l) <- transactionInfo(from)$transactionID
-  l  
+    l  
   })
 
 setAs("data.frame", "transactions",

@@ -45,6 +45,9 @@ setGeneric("DATAFRAME",
 setGeneric("addComplement",
     function(x, labels, complementLabels=NULL) standardGeneric("addComplement"))
 
+setGeneric("compatible",
+  function(x, y) standardGeneric("compatible"))
+
 setGeneric("coverage",
     function(x, transactions = NULL, reuse = TRUE) standardGeneric("coverage"))
 

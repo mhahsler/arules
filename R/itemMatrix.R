@@ -133,12 +133,9 @@ setAs("itemMatrix", "list",
 
 setMethod("LIST", signature(from = "itemMatrix"),
   function(from, decode = TRUE) {
-    if (decode) {
-      to <- .Call(R_asList_ngCMatrix, from@data, itemLabels(from))
-      names(to) <- itemsetInfo(from)[["itemsetID"]]
-      to
-    } else
-      .Call(R_asList_ngCMatrix, from@data, NULL)
+    l <- .Call(R_asList_ngCMatrix, from@data, if(decode) itemLabels(from) else NULL)
+    if(decode) names(l) <- itemsetInfo(from)[["itemsetID"]]
+    l
   }
 )
 
@@ -331,21 +328,30 @@ setMethod("c", signature(x = "itemMatrix"),
     for (y in args) {
       if (!is(y, "itemMatrix"))
         stop("can only combine itemMatrix")
-      x@itemsetInfo <- .combineMeta(x, y, "itemsetInfo")
-      k <- match(itemLabels(y), itemLabels(x))
-      n <- which(is.na(k))
-      if (length(n)) {
-        k[n] <- x@data@Dim[1] + seq(length(n))
-        x@data@Dim[1] <- x@data@Dim[1] + length(n)
-        x@itemInfo <- rbind(x@itemInfo, 
-          y@itemInfo[n,, drop = FALSE])
-      }
-      if (any(k != seq_len(length(k))))
-        y@data <- .Call(R_recode_ngCMatrix, y@data, k)
-      if (y@data@Dim[1] <  x@data@Dim[1])
-        y@data@Dim[1] <- x@data@Dim[1]
       
-      ## this is faste than x@data <- cbind(x@data, y@data)
+      x@itemsetInfo <- .combineMeta(x, y, "itemsetInfo")
+      
+      if(!compatible(x, y)) {
+        warning("Item coding not compatible, recoding item matrices.")
+        
+        # expand x if y has additional items
+        k <- match(itemLabels(y), itemLabels(x))
+        n <- which(is.na(k))
+        if (length(n)) {
+          k[n] <- x@data@Dim[1] + seq(length(n))
+          x@data@Dim[1] <- x@data@Dim[1] + length(n)
+          x@itemInfo <- rbind(x@itemInfo, 
+            y@itemInfo[n,, drop = FALSE])
+        }
+        
+        # recode y to match x
+        if (any(k != seq_len(length(k))))
+          y@data <- .Call(R_recode_ngCMatrix, y@data, k)
+        if (y@data@Dim[1] <  x@data@Dim[1])
+          y@data@Dim[1] <- x@data@Dim[1]
+      }
+      
+      ## this is faster than x@data <- cbind(x@data, y@data)
       x@data <- .Call(R_cbind_ngCMatrix, x@data, y@data)
     }
     validObject(x, complete = TRUE)
@@ -396,16 +402,22 @@ setMethod("unique", signature(x = "itemMatrix"),
 ## and uses more efficient prefix tree C code
 setMethod("match", signature(x = "itemMatrix", table = "itemMatrix"),
   function(x, table, nomatch = NA_integer_, incomparables = NULL) {
-    k <- match(itemLabels(x), itemLabels(table))
-    n <- which(is.na(k))
-    if (length(n)) {
-      k[n] <- table@data@Dim[1] + seq(length(n))
-      table@data@Dim[1] <- table@data@Dim[1] + length(n)
+    
+    if(!compatible(x, table)) {
+      warning("Item coding not compatible, recoding item matrices first.")
+      
+      k <- match(itemLabels(x), itemLabels(table))
+      n <- which(is.na(k))
+      if (length(n)) {
+        k[n] <- table@data@Dim[1] + seq(length(n))
+        table@data@Dim[1] <- table@data@Dim[1] + length(n)
+      }
+      if (any(k != seq_len(length(k))))
+        x@data <- .Call(R_recode_ngCMatrix, x@data, k)
+      if (x@data@Dim[1] <  table@data@Dim[1])
+        x@data@Dim[1] <- table@data@Dim[1]
     }
-    if (any(k != seq_len(length(k))))
-      x@data <- .Call(R_recode_ngCMatrix, x@data, k)
-    if (x@data@Dim[1] <  table@data@Dim[1])
-      x@data@Dim[1] <- table@data@Dim[1]
+    
     i <- .Call(R_pnindex, table@data, x@data, FALSE)
     match(i, seq_len(length(table)), nomatch = nomatch, 
       incomparables = incomparables)

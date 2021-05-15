@@ -10,9 +10,14 @@
 \alias{encode,character-method}
 \alias{recode}
 \alias{recode,itemMatrix-method}
+\alias{recode,itemsets-method}
+\alias{recode,rules-method}
+\alias{compatible}
+\alias{compatible,itemMatrix-method}
+\alias{compatible,associations-method}
 \title{Item Coding --- Conversion between Item Labels and Column IDs}
 \description{
-  Provides the generic functions and the S4 methods to translate between the binary representation in the itemMatrix format (used in transactions, rules and itemsets), item labels and numeric item IDs (i.e., the column numbers in the binary representation).
+  The order in which items are stored in an \code{itemMatrix} is called the \emph{item coding}. The following generic functions and S4 methods are used to translate between the binary representation in the itemMatrix format (used in transactions, rules and itemsets), item labels and numeric item IDs (i.e., the column numbers in the binary representation).
 }
 \usage{
 encode(x, \ldots)
@@ -20,8 +25,12 @@ encode(x, \ldots)
 \S4method{encode}{character}(x, itemLabels, itemMatrix = TRUE)
 \S4method{encode}{numeric}(x, itemLabels, itemMatrix = TRUE)
 
+compatible(x, y)
+
 recode(x, \ldots)
 \S4method{recode}{itemMatrix}(x, itemLabels = NULL, match = NULL)
+\S4method{recode}{itemsets}(x, itemLabels = NULL, match = NULL)
+\S4method{recode}{rules}(x, itemLabels = NULL, match = NULL)
 
 decode(x, \ldots)
 \S4method{decode}{list}(x, itemLabels)
@@ -33,13 +42,12 @@ decode(x, \ldots)
   an object of class \code{itemMatrix} (for \code{recode}).}
 \item{itemLabels}{a vector of character strings used for coding where 
   the position of an item label in the vector gives the item's column ID.  
-  The used \code{itemLabels} vector can be obtained from \code{itemMatrix},  
-  \code{transactions} and \code{associations} by the 
-  method \code{itemLabels}.}
+  Alternatively, a \code{itemMatrix},  
+  \code{transactions} or \code{associations} object can be specified and the item labels or these objects are used.}
 \item{itemMatrix}{return an object of class \code{itemMatrix} otherwise
   an object of the same class as \code{x} is returned.}
-\item{match}{an \code{itemMatrix} object whose item coding \code{x} 
-	should match.}
+\item{y}{ an object of class \code{itemMatrix}, \code{transactions} or \code{associations} to compare item coding to \code{x}. }
+\item{match}{ deprecated: used \code{itemLabels} instead.}
   \item{\ldots}{further arguments.}
 }
 \value{
@@ -52,16 +60,24 @@ For \code{encode} with \code{itemMatrix = TRUE} an object
   list or a vector.
 }
 \details{
+
+\bold{Item compatibility:}
+If you deal with several datasets or different subsets of the same dataset and want to combine or compate the found itemsets or rules, then you need to make sure that all transaction sets have a compatible item coding. That is, the sparse matrices representing the items have columns for the same items in exactly the same order. The coercion to transactions with \code{as(x, "transactions")} will create the item coding by adding items when they are encountered in the dataset. This can lead to different item codings (different order, missing items) for even only slightly different datasets. You can use the method \code{compatible} to check if two sets have the same item coding. 
+
+If you work with many sets, then you should first define a common item coding by creating a vector with all possible item labels and then use either \code{encode} to create transactions or \code{recode} to make a different set compatible.
+
+The following function help with creating and changing the item coding to make them compatible.
+
 \code{encode} converts from readable item labels to an itemMatrix using a
 given coding. With this method it is possible to create several compatible
 \code{itemMatrix} objects (i.e., use the same binary representation for
 items) from data.
 
-\code{recode} recodes an itemMatrix object so its coding is compatible
-with another itemMatrix object specified in \code{match} (i.e., the colums are reordered to match).
-
-\code{decode} converts from the colun IDs used in the temMatrix representation to
+\code{decode} converts from the column IDs used in the itemMatrix representation to
 item labels. \code{decode} is used by \code{\link{LIST}}.
+
+\code{recode} recodes an itemMatrix object so its coding is compatible
+with another itemMatrix object specified in \code{itemLabels} (i.e., the columns are reordered to match).
 }
 
 \seealso{
@@ -74,57 +90,104 @@ item labels. \code{decode} is used by \code{\link{LIST}}.
 data("Adult")
 
 ## Example 1: Manual decoding
-## get code
+## Extract the item coding as a vector of item labels.
 iLabels <- itemLabels(Adult)
 head(iLabels)
 
-## get undecoded list and decode in a second step
+## get undecoded list (itemIDs)
 list <- LIST(Adult[1:5], decode = FALSE)
 list
 
+## decode itemIDs by replacing them with the appropriate item label
 decode(list, itemLabels = iLabels)
 
-## Example 2: Manually create an itemMatrix 
+
+## Example 2: Manually create an itemMatrix using iLabels as the common item coding
 data <- list(
     c("income=small", "age=Young"),
     c("income=large", "age=Middle-aged")
     )
 
-iM <- encode(data, iLabels)
+# Option a: encode to match the item coding in Adult
+iM <- encode(data, itemLabels = Adult)
 iM
-
 inspect(iM)
+compatible(iM, Adult)
 
-## use the itemMatrix to create transactions
-as(iM, "transactions")
+# Option b: coercion plus recode to make it compatible to Adult 
+#           (note: the coding has 115 item columns after recode)
+iM <- as(data, "itemMatrix")
+iM
+compatible(iM, Adult)
+
+iM <- recode(iM, itemLabels = Adult)
+iM
+compatible(iM, Adult)
 
 
-## Example 3: use recode
+## Example 3: use recode to make itemMatrices compatible
 ## select first 100 transactions and all education-related items
 sub <- Adult[1:100, itemInfo(Adult)$variables ==  "education"]
 itemLabels(sub)
 image(sub)
 
+## After choosing only a subset of items (columns), the item coding is now 
+## no longer compatible with the Adult dataset
+compatible(sub, Adult)
+
 ## recode to match Adult again
-sub.recoded <- recode(sub, match = Adult)
+sub.recoded <- recode(sub, itemLabels = Adult)
 image(sub.recoded)
+
 
 ## Example 4: manually create 2 new transaction for the Adult data set
 ##            Note: check itemLabels(Adult) to see the available labels for items
-twoTransactions <- as(encode(list(
-    c("age=Young", "relationship=Unmarried"), 
-    c("age=Senior")
-  ), itemLabels = itemLabels(Adult)),
-  "transactions")
+twoTransactions <- as(
+    encode(list(
+        c("age=Young", "relationship=Unmarried"), 
+        c("age=Senior")
+      ), itemLabels = Adult),
+    "transactions")
 
+twoTransactions
 inspect(twoTransactions)
 
-## Example 5: manually create a rule and calculate interest measures
+
+## Example 5: Use a common item coding
+
+# coercion to transactions will produce different item codings
+trans1 <- as(list(
+        c("age=Young", "relationship=Unmarried"), 
+        c("age=Senior")
+      ), "transactions")
+trans1
+
+trans2 <- as(list(
+        c("age=Middle-aged", "relationship=Married"), 
+        c("relationship=Unmarried", "age=Young")
+      ), "transactions")
+trans2
+
+compatible(trans1, trans2)
+
+# produce common item coding (all item labels in the two sets)
+commonItemLabels <- union(itemLabels(trans1), itemLabels(trans2))
+commonItemLabels
+
+trans1 <- recode(trans1, itemLabels = commonItemLabels)
+trans1
+trans2 <- recode(trans2, itemLabels = commonItemLabels)
+trans2
+
+compatible(trans1, trans2)
+
+
+## Example 6: manually create a rule and calculate interest measures
 aRule <- new("rules", 
   lhs = encode(list(c("age=Young", "relationship=Unmarried")), 
-    itemLabels = itemLabels(Adult)),
+    itemLabels = Adult),
   rhs = encode(list(c("income=small")), 
-    itemLabels = itemLabels(Adult))
+    itemLabels = Adult)
 )
 
 quality(aRule) <- interestMeasure(aRule, 

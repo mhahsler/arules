@@ -22,7 +22,7 @@ is.superset(x, y = NULL, proper = FALSE, sparse = TRUE, ...)
     the super or subset structure within set \code{x} is calculated.}
   \item{proper}{a logical indicating if all or just proper super or subsets.}
   \item{sparse}{a logical indicating if a sparse (ngCMatrix) rather than a 
-  dense logical matrix sgould be returned. Sparse computation 
+  dense logical matrix should be returned. Sparse computation 
   preserves a significant amount of memory and is much faster for large sets.}
   \item{\dots}{ currently unused.}
 }

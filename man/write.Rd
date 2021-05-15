@@ -41,7 +41,7 @@ write(x, file = "",\dots)
   Note: To save and load associations in compact form, use \code{save} and
   \code{load} from the \pkg{base} package.  Alternatively, association can be
   written to disk in PMML (Predictive Model Markup Language)
-  via \code{write.PMML}. This requiresvpackages \pkg{pmml}.
+  via \code{write.PMML}. This requires package \pkg{pmml}.
 }
 \seealso{
 \code{\link{read.transactions}} for reading transactions from a file,
