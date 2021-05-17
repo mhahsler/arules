@@ -1,15 +1,15 @@
-# arules 1.6-7.1 (xx/xx/2021)
+# arules 1.6-8 (05/17/2021)
 
 ## New Feature
 * transactions have now a constructor function called transactions().
-* Added new method compatible to itemMatrix to check if the item coding  is compatible 
+* Added new method compatible() to itemMatrix to check if the item coding is compatible 
   between two objects.
 * c() now produces a warning if two itemMatrices with different itemCoding are combined.
 * encode and recode accept now for itemLabels also objects with an itemLabels method.
-* recode is now also available for association (itemsets and rules). 
+* recode is now also available for associations (itemsets and rules). 
 
 ## Changes
-* recode: parameter match is now deprecated.
+* recode: parameter match is now deprecated. Use itemLabels
 
 ## Bug Fixes
 * fixed addAggregate problem with character (reported by javiercoh).
