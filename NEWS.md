@@ -1,6 +1,7 @@
 # arules 1.6-7.1 (xx/xx/2021)
 
 ## New Feature
+* transactions have now a constructor function called transactions().
 * Added new method compatible to itemMatrix to check if the item coding  is compatible 
   between two objects.
 * c() now produces a warning if two itemMatrices with different itemCoding are combined.

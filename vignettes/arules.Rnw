@@ -1139,6 +1139,7 @@ performing computations on the resulting associations (e.g., comparing or combin
 \end{itemize}
 
 The item coding is typically determined when data is coerced to transactions with 
+\code{transactions(x)} or
 \code{as(x, "transactions")} and this process can lead to different item codings for 
 slightly different data sets. The methods \func{encode} and \func{recode} can be used to create and change the item coding to make the representation of transactions, itemsets and rules compatible. To check if two objects use the same item coding, method \func{compatible}
 can be used.
@@ -1355,12 +1356,11 @@ AdultUCI[[ "capital-loss"]] <- ordered(cut(AdultUCI[[ "capital-loss"]],
     labels = c("none", "low", "high"))
 @
 
-Now, the data can be coerced to
-\class{transactions} resulting in
+Now, the data can create transactions by using the constructor function. This results in
 a binary incidence matrix appropriate for association rule mining.
 
 <<coerce>>=
-Adult <- as(AdultUCI, "transactions")
+Adult <- transactions(AdultUCI)
 Adult
 @
 

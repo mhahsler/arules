@@ -87,7 +87,7 @@ IncomeESL[["number of children"]] <- factor(
   levels = 0 : 1 , labels = c("0", "1+"))
 	
 ##  creating transactions
-Income <- as(IncomeESL, "transactions")
+Income <- transactions(IncomeESL)
 Income
 }
 \keyword{datasets}

@@ -34,7 +34,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
 }
 \details{
   \bold{Warning about automatic conversion of matrices or data.frames to transactions.}
-  It is preferred to coerce data to transactions manually before calling \code{apriori} to have control over item coding. This is especially important when you are working with multiple datasets or several subsets of the same dataset. To read about item coding, see
+  It is preferred to create transactions manually before calling \code{apriori} to have control over item coding. This is especially important when you are working with multiple datasets or several subsets of the same dataset. To read about item coding, see
   \code{\link{itemCoding}}.
   
   If a data.frame is specified as \code{x}, then the data is automatically converted 
@@ -101,12 +101,30 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
 }
 \author{Michael Hahsler and Bettina Gruen}
 \examples{
-data("Adult")
-## Note: Adult is alread a transactions dataset if you are using a data.frame then 
-##       you should coerce it first to transactions using:
-##                    yourTrans <- as(yourData, "transactions")
+## Example 1: Create transaction data and mine association rules
+a_list <- list(
+      c("a","b","c"),
+      c("a","b"),
+      c("a","b","d"),
+      c("c","e"),
+      c("a","b","d","e")
+      )
 
-## Mine association rules.
+## Set transaction names
+names(a_list) <- paste("Tr",c(1:5), sep = "")
+a_list
+
+## Use the constructor to create transactions
+trans1 <- transactions(a_list)
+trans1
+
+rules <- apriori(trans1)
+inspect(rules)
+
+## Example 2: Mine association rules from an existing transactions dataset 
+##   using different minimum support and minimum confidence thresholds
+data("Adult")
+
 rules <- apriori(Adult, 
 	parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
 summary(rules)

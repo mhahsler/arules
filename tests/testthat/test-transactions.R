@@ -28,6 +28,9 @@ expect_identical(data, as(trans, "list"))
 expect_identical(transactionInfo(trans)$transactionID, names(data))
 expect_identical(sort(itemInfo(trans)$labels), sort(unique(unique(unlist(data)))))
 
+## test constructor
+expect_identical(transactions(data), trans)
+
 ## combine
 expect_equal(c(trans, trans), as(c(data, data),"transactions"))
 

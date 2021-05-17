@@ -87,7 +87,7 @@ trans <-  list(
 )
 
 ## convert list to transactions
-trans <-  as(trans, "transactions")
+trans <-  transactions(trans)
 
 ## add weight information
 transactionInfo(trans) <- data.frame(weights = c(5, 10, 6, 7, 5, 1))

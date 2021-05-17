@@ -142,7 +142,7 @@ AdultUCI[[ "capital-loss"]] <- ordered(cut(AdultUCI[[ "capital-loss"]],
   Inf)), labels = c("None", "Low", "High"))
 
 ## create transactions
-Adult <- as(AdultUCI, "transactions")
+Adult <- transactions(AdultUCI)
 Adult
 
 }
