@@ -131,26 +131,43 @@ mining info:
 
 Inspect rules with the highest lift.
 ```R
-inspect(head(rules, by = "lift"))
+inspect(head(rules, n = 3, by = "lift"))
 ```
 
 ```
-    lhs                               rhs                              support confidence     lift
-[1] {sex=Male,                                                                                    
-     native-country=United-States} => {race=White}                   0.5415421  0.9051090 1.058554
-[2] {sex=Male,                                                                                    
-     capital-loss=None,                                                                           
-     native-country=United-States} => {race=White}                   0.5113632  0.9032585 1.056390
-[3] {race=White}                   => {native-country=United-States} 0.7881127  0.9217231 1.027076
-[4] {race=White,                                                                                  
-     capital-loss=None}            => {native-country=United-States} 0.7490480  0.9205626 1.025783
-[5] {race=White,                                                                                  
-     sex=Male}                     => {native-country=United-States} 0.5415421  0.9204803 1.025691
-[6] {race=White,                                                                                  
-     capital-gain=None}            => {native-country=United-States} 0.7194628  0.9202807 1.025469
+    lhs                               rhs                            support confidence coverage lift count
+[1] {sex=Male,                                                                                             
+     native-country=United-States} => {race=White}                      0.54       0.91     0.60  1.1 26450
+[2] {sex=Male,                                                                                             
+     capital-loss=None,                                                                                    
+     native-country=United-States} => {race=White}                      0.51       0.90     0.57  1.1 24976
+[3] {race=White}                   => {native-country=United-States}    0.79       0.92     0.86  1.0 38493
 ```
 
-## Usage from Python
+## Using arule and tidyverse
+
+arules works seemlessly with [tidyverse](https://www.tidyverse.org/). For example, dplyr can be used for cleaning and preparing the transactions and then functions in arules can be used with `%>%`.
+
+```R
+library("tidyverse")
+library("arules")
+data("Adult")
+
+rules <- Adult %>% apriori(parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
+rules %>% head(n = 3, by = "lift") %>% inspect
+```
+
+```
+    lhs                               rhs                            support confidence coverage lift count
+[1] {sex=Male,                                                                                             
+     native-country=United-States} => {race=White}                      0.54       0.91     0.60  1.1 26450
+[2] {sex=Male,                                                                                             
+     capital-loss=None,                                                                                    
+     native-country=United-States} => {race=White}                      0.51       0.90     0.57  1.1 24976
+[3] {race=White}                   => {native-country=United-States}    0.79       0.92     0.86  1.0 38493
+```
+
+## Usage arules from Python
 
 See [Getting started with R arules using Python.](https://mhahsler.github.io/arules/Python/arules_python.html)
 
