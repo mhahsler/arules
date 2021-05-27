@@ -23,7 +23,7 @@
 ## read/write PMML
 
 write.PMML <- function(x, file) {
-    if(!.installed("pmml")) stop("Package 'pmml' needs to be  installed!")
+    check_installed("pmml")
 
     ### FIXME: Otherwise pmml does not find XML
     #require("pmml")
@@ -32,7 +32,7 @@ write.PMML <- function(x, file) {
 }
 
 read.PMML <- function(file) {
-    if(!.installed("XML")) stop("Package 'XML' needs to be installed!")
+    check_installed("XML")
 
     doc <- XML::xmlRoot(XML::xmlTreeParse(file))
 

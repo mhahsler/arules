@@ -1,4 +1,8 @@
-# arules 1.6-8i.1 (xx/xx/2021)
+# arules 1.6-8.1 (xx/xx/2021)
+
+## Changes
+* we use now a better check for installed suggested packages.
+
 
 # arules 1.6-8 (05/17/2021)
 
