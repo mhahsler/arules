@@ -3,6 +3,8 @@
 ## Changes
 * we use now a better check for installed suggested packages.
 
+## Bug Fixes
+* fixed mistake in man page for weclat. Weight column needs to be called weight (reported by Alexander Ruth).
 
 # arules 1.6-8 (05/17/2021)
 
