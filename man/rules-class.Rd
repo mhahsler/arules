@@ -160,16 +160,16 @@ labels(rules.sub[1:3])
 labels(rules.sub[1:3], itemSep = " + ", setStart = "", setEnd="", 
   ruleSep = " ---> ")
 
-## Create a rules for the Adult dataset manually and calcualte some interest Measures
+## Manually create rules using the item coding in Adult and calculate some interest measures
 twoRule <- new("rules", 
   lhs = encode(list(
       c("age=Young", "relationship=Unmarried"),
       c("age=Old")
-    ), itemLabels = itemLabels(Adult)),
+    ), itemLabels = Adult),
   rhs = encode(list(
       c("income=small"),
       c("income=large")
-      ), itemLabels = itemLabels(Adult))
+      ), itemLabels = Adult)
 )
 
 quality(twoRule) <- interestMeasure(twoRule, 

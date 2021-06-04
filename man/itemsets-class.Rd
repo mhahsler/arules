@@ -133,12 +133,12 @@ as(items(fsets.top5), "matrix")
 ## Warning: for efficiency reasons, the ngCMatrix you get is transposed 
 as(items(fsets.top5), "ngCMatrix")
 
-## Create a rules for the Adult dataset manually and calcualte some interest Measures
+## Manually create itemsets with the item coding in the Adult dataset and calculate some interest measures
 twoitemsets <- new("itemsets", 
   items = encode(list(
       c("age=Young", "relationship=Unmarried"),
       c("age=Old")
-    ), itemLabels = itemLabels(Adult))
+    ), itemLabels = Adult)
 )
 
 quality(twoitemsets) <- data.frame(support = interestMeasure(twoitemsets, 
