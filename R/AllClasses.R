@@ -19,7 +19,6 @@
 
 ##**********************************************************
 ## itemMatrix
-
 setClass("itemMatrix",
   representation(
     data        = "ngCMatrix", 

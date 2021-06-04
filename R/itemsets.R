@@ -24,6 +24,13 @@
 ##
 ## a set of itemsets, subclass of associations
 
+itemsets <- function(items, itemLabels, quality = data.frame()) {
+  new("itemsets", 
+    items = encode(items, itemLabels = itemLabels),
+    quality = quality
+  )
+}
+
 
 ##************************************************
 ## dimensions

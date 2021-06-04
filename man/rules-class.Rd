@@ -36,7 +36,17 @@ The \code{rules} class represents a set of rules.
 \section{Objects from the Class}{
   Objects are the result of calling the function \code{\link{apriori}}.
   Objects can also be created by calls of the form
-  \code{new("rules", ...)}.
+  
+  \code{new("rules", ...)} 
+  
+  or by using the constructor function 
+  
+  \code{rules(lhs, rhs, itemLabels, quality = data.frame())}. 
+  
+  \code{lhs} and \code{rhs} need to be a list 
+  describing the items (using labels or item ids) and \code{itemLabels} needs to be a vector of all possible item 
+  labels (character) or a transactions object to copy the item coding (see \code{\link{itemCoding}} 
+  for details).
 }
 \section{Slots}{
   \describe{
@@ -161,20 +171,21 @@ labels(rules.sub[1:3], itemSep = " + ", setStart = "", setEnd="",
   ruleSep = " ---> ")
 
 ## Manually create rules using the item coding in Adult and calculate some interest measures
-twoRule <- new("rules", 
-  lhs = encode(list(
-      c("age=Young", "relationship=Unmarried"),
-      c("age=Old")
-    ), itemLabels = Adult),
-  rhs = encode(list(
-      c("income=small"),
-      c("income=large")
-      ), itemLabels = Adult)
+twoRules <- rules( 
+  lhs = list(
+    c("age=Young", "relationship=Unmarried"),
+    c("age=Old")
+  ),
+  rhs = list(
+    c("income=small"),
+    c("income=large")
+  ), 
+  itemLabels = Adult
 )
 
-quality(twoRule) <- interestMeasure(twoRule, 
+quality(twoRules) <- interestMeasure(twoRules, 
   measure = c("support", "confidence", "lift"), transactions = Adult)
 
-inspect(twoRule)
+inspect(twoRules)
 }
 \keyword{classes}

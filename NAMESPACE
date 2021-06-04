@@ -46,7 +46,9 @@ export(
   "discretizeDF",
   "addAggregate",
   "filterAggregate",
-  "transactions"
+  "transactions",
+  "rules",
+  "itemsets"
   )
 
 exportClasses(

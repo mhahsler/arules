@@ -32,7 +32,17 @@
   (e.g., with \code{target="frequent itemsets"} in the parameter list) 
   or \code{\link{eclat}}.
   Objects can also be created by calls of the form
-  \code{new("itemsets", ...)}. 
+ 
+  \code{new("itemsets", ...)} 
+  
+  or by using the constructor function 
+  
+  \code{itemsets(items, itemLabels, quality = data.frame())}. 
+  
+  \code{items} need to be a list 
+  describing the items (using labels or item ids) and \code{itemLabels} needs to be a vector of all possible item 
+  labels (character) or a transactions object to copy the item coding (see \code{\link{itemCoding}} 
+    for details).
 }
 \section{Slots}{
   \describe{
@@ -133,13 +143,13 @@ as(items(fsets.top5), "matrix")
 ## Warning: for efficiency reasons, the ngCMatrix you get is transposed 
 as(items(fsets.top5), "ngCMatrix")
 
-## Manually create itemsets with the item coding in the Adult dataset and calculate some interest measures
-twoitemsets <- new("itemsets", 
-  items = encode(list(
-      c("age=Young", "relationship=Unmarried"),
-      c("age=Old")
-    ), itemLabels = Adult)
-)
+## Manually create itemsets with the item coding in the Adult dataset 
+## and calculate some interest measures
+twoitemsets <- itemsets( 
+  items = list(
+    c("age=Young", "relationship=Unmarried"),
+    c("age=Old")
+  ), itemLabels = Adult)
 
 quality(twoitemsets) <- data.frame(support = interestMeasure(twoitemsets, 
   measure = c("support"), transactions = Adult))

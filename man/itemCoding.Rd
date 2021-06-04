@@ -152,20 +152,31 @@ twoTransactions <- as(
 twoTransactions
 inspect(twoTransactions)
 
+## the same using the transactions constructor function instead
+twoTransactions <- transactions(
+    list(
+        c("age=Young", "relationship=Unmarried"), 
+        c("age=Senior")
+    ), itemLabels = Adult)
+
+twoTransactions
+inspect(twoTransactions)
 
 ## Example 5: Use a common item coding
 
-# coercion to transactions will produce different item codings
-trans1 <- as(list(
+# Creation of transactions separately will produce different item codings
+trans1 <- transactions(
+    list(
         c("age=Young", "relationship=Unmarried"), 
         c("age=Senior")
-      ), "transactions")
+    ))
 trans1
 
-trans2 <- as(list(
+trans2 <- transactions(
+    list(
         c("age=Middle-aged", "relationship=Married"), 
         c("relationship=Unmarried", "age=Young")
-      ), "transactions")
+    ))
 trans2
 
 compatible(trans1, trans2)
@@ -182,12 +193,20 @@ trans2
 compatible(trans1, trans2)
 
 
-## Example 6: manually create a rule and calculate interest measures
+## Example 6: manually create a rule using the item coding in Adult 
+## and calculate interest measures
 aRule <- new("rules", 
   lhs = encode(list(c("age=Young", "relationship=Unmarried")), 
     itemLabels = Adult),
   rhs = encode(list(c("income=small")), 
     itemLabels = Adult)
+)
+
+## shorter version using the rules constructor
+aRule <- rules( 
+  lhs = list(c("age=Young", "relationship=Unmarried")),
+  rhs = list(c("income=small")), 
+  itemLabels = Adult
 )
 
 quality(aRule) <- interestMeasure(aRule, 

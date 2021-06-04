@@ -36,8 +36,14 @@
 \section{Objects from the Class}{
   Objects are created by coercion from objects of other classes 
   (see Examples section) or by
-  calls of the form \code{new("transactions", ...)}.
- }
+  calls of the form 
+  
+  \code{new("transactions", ...)}
+  
+  or by using the constructor function 
+  
+  \code{transactions(x, itemLabels = NULL, transactionInfo = NULL)}.
+}
 \section{Slots}{
   \describe{
     \item{\code{itemsetInfo}:}{a data.frame

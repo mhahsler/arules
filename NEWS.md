@@ -1,5 +1,8 @@
 # arules 1.6-8.1 (xx/xx/2021)
 
+## New Feature
+* rules and itemsets have now a constructor.
+
 ## Changes
 * we use now a better check for installed suggested packages.
 * Removed option "chiSquared" from crossTable.

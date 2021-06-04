@@ -24,8 +24,15 @@
 ##
 ## a set of rules, subclass of associations
 
-## initialize (to make sure lhs and rhs agree!)
+rules <- function(rhs, lhs, itemLabels, quality = data.frame()) {
+  new("rules", 
+    lhs = encode(lhs, itemLabels = itemLabels),
+    rhs = encode(rhs, itemLabels = itemLabels),
+    quality = quality
+  )
+}
 
+## initialize (to make sure lhs and rhs agree!)
 setMethod("initialize", "rules",
   function(.Object, lhs, rhs, ...) {
     if(!identical(colnames(lhs), colnames(rhs))) {
