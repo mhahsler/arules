@@ -26,7 +26,7 @@
 
 
 setMethod("inspect", signature(x = "itemsets"),
-  function(x, itemSep = ",", setStart = "{", setEnd = "}", linebreak = NULL,
+  function(x, itemSep = ", ", setStart = "{", setEnd = "}", linebreak = NULL,
     ...) {
     
     n_of_itemsets <- length(x)
@@ -91,7 +91,7 @@ setMethod("inspect", signature(x = "itemsets"),
   })
 
 setMethod("inspect", signature(x = "rules"),
-  function(x, itemSep = ",", setStart = "{", setEnd = "}", ruleSep = "=>",
+  function(x, itemSep = ", ", setStart = "{", setEnd = "}", ruleSep = "=>",
     linebreak = NULL, ...) {
     
     n_of_rules <- length(x)
@@ -190,7 +190,7 @@ setMethod("inspect", signature(x = "rules"),
 
 
 setMethod("inspect", signature(x = "transactions"),
-  function(x, itemSep = ",", setStart = "{", setEnd = "}", linebreak = NULL,
+  function(x, itemSep = ", ", setStart = "{", setEnd = "}", linebreak = NULL,
     ...) {
     
     n_of_itemsets <- length(x)
@@ -256,7 +256,7 @@ setMethod("inspect", signature(x = "transactions"),
   })
 
 setMethod("inspect", signature(x = "itemMatrix"),
-  function(x, itemSep = ",", setStart = "{", setEnd = "}", linebreak = NULL,
+  function(x, itemSep = ", ", setStart = "{", setEnd = "}", linebreak = NULL,
     ...) {
     
     n_of_itemsets <- length(x)
