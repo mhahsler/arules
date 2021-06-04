@@ -1,6 +1,6 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
 #			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,41 +24,33 @@
 ##
 
 setMethod("crossTable", signature(x = "itemMatrix"),
-  function(x, measure = c("count", "support", "probability", "lift", "chiSquared"), 
+  function(x,
+    measure = c("count", "support", "probability", "lift"),
     sort = FALSE) {
-    
     measure <- match.arg(measure)
     
     m <- .Call(R_crosstab_ngCMatrix, x@data, NULL, TRUE)
     if (is.null(dimnames(m)))
       dimnames(m) <- list(itemLabels(x), itemLabels(x))
     
-    if(sort) {
+    if (sort) {
       o <- order(diag(m), decreasing = TRUE)
-      m <- m[o,o]
+      m <- m[o, o]
     }
     
-    if(measure=="count") return(m)
+    if (measure == "count")
+      return(m)
     
-    p <- m/nrow(x)
-    if(measure=="support" || measure=="probability") return(p)
+    p <- m / nrow(x)
+    if (measure %in% c("support", "probability"))
+      return(p)
     
-    if(measure=="lift") {
+    if (measure == "lift") {
       p_items <- diag(p)
       diag(p) <- NA
       e <- outer(p_items, p_items, "*")
-      return(p/e)
-    }
-    
-    if(measure=="chiSquared") {
-      p_items <- diag(p)
-      diag(p) <- NA
-      e <- outer(p_items, p_items, "*")
-      return((p-e)^2/e)
+      return(p / e)
     }
     
     stop("Unknown measure!")
-  }
-)
-
-###
+  })

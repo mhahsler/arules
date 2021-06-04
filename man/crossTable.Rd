@@ -4,12 +4,13 @@
 \title{Cross-tabulate joint occurrences across pairs of items}
 \description{
   Provides the generic function \code{crossTable} and the S4 method to 
-  cross-tabulate joint occurrences across pairs of items.
+  cross-tabulate joint occurrences across all pairs of items.
 }
 \usage{
 crossTable(x, ...) 
-\S4method{crossTable}{itemMatrix}(x, measure = c("count", "support", "probability", 
-  "lift", "chiSquared"), sort = FALSE)
+
+\S4method{crossTable}{itemMatrix}(x, measure = c("count", "support", "probability", "lift"), 
+  sort = FALSE)
 }
 \arguments{
   \item{x}{ object to be cross-tabulated 
@@ -38,10 +39,6 @@ sp[1:5,1:5]
 
 lift <- crossTable(Groceries, measure="lift", sort=TRUE)
 lift[1:5,1:5]
-
-chi2 <- crossTable(Groceries, measure="chiSquared", sort=TRUE)
-chi2[1:5,1:5]
-
 }
 \author{Michael Hahsler}
 \keyword{models}
