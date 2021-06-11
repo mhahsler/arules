@@ -143,7 +143,7 @@ setMethod("write", signature(x = "transactions"),
       l <- LIST(x)
       dat <- data.frame(transactionID = rep(labels(l),lapply(l, length)), 
         item = unlist(l), row.names = NULL)
-      write.table(dat, file = file, sep = sep, quote = quote, 
+      utils::write.table(dat, file = file, sep = sep, quote = quote, 
         row.names = FALSE, col.names = FALSE, ...)
     }
     invisible(dat)
@@ -152,6 +152,6 @@ setMethod("write", signature(x = "transactions"),
 
 setMethod("write", signature(x = "associations"),
   function(x, file = "", sep= " ", quote = TRUE, ...) 
-    write.table(as(x, "data.frame"), file = file, 
+    utils::write.table(as(x, "data.frame"), file = file, 
       sep = sep, quote = quote, ...)
 )

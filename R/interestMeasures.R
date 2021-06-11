@@ -74,7 +74,8 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
       quality(x) <-
       data.frame(support = support(x, transactions = transactions))
     else if (is.null(quality(x)[["support"]]))
-      quality(x)[["support"]] <- support(x, transactions = transactions)
+      quality(x)[["support"]] <-
+      support(x, transactions = transactions)
     reuse <- TRUE
     
     ## deal with multiple measures
@@ -203,6 +204,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "conviction",
       "gini",
       "oddsRatio",
+      "oddsRatioCI",
       "phi",
       "doc",
       "RLD",
@@ -235,7 +237,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "implicationIndex",
       "importance",
       "stdLift",
-      "boost"
+      "boost",
+      "table"
     )
     
     if (missing(measure))
@@ -258,7 +261,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     reuse <- TRUE
     
     ## first see if we already have it:
-    if (length(measure) == 1 &&
+    if (length(measure) == 1L &&
         !is.null(quality(x)[[measure]]))
       return(quality(x)[[measure]])
     
@@ -272,7 +275,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       quality(x)[["coverage"]] <- s[length(x) + seq(length(x))]
       quality(x)[["confidence"]] <-
         quality(x)[["support"]] / quality(x)[["coverage"]]
-      quality(x)[["rhsSupport"]] <- s[2 * length(x) + seq(length(x))]
+      quality(x)[["rhsSupport"]] <-
+        s[2 * length(x) + seq(length(x))]
       quality(x)[["lift"]] <-
         quality(x)[["confidence"]] / quality(x)[["rhsSupport"]]
     }
@@ -287,7 +291,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
       quality(x)[["lift"]] <-
       quality(x)[["confidence"]] / .rhsSupport(x, transactions = transactions)
     
-    if (length(measure) > 1)
+    if (length(measure) > 1L)
       return(as.data.frame(
         sapply(
           measure,
@@ -338,10 +342,11 @@ setMethod("interestMeasure",  signature(x = "rules"),
     
     ## all other measures are implemented here (counts is in ...)
     ret <-
-      .basicRuleMeasure(x, measure, counts = .getCounts(x, transactions, reuse), ...)
+      .basicRuleMeasure(x, measure, transactions = transactions, reuse = reuse, ...)
     
-    ## make all bad values NA
-    ret[!is.finite(ret)] <- NA
+    ## make all bad values NA (does not work for measures that return data.frames)
+    #if (is.vector(ret)) ret[!is.finite(ret)] <- NA
+    
     return(ret)
     
     stop("Specified measure not implemented.")
@@ -449,11 +454,10 @@ setMethod("interestMeasure",  signature(x = "rules"),
 .improvement <- function(x,
   transactions = NULL,
   reuse = TRUE,
-  quality_measure = "confidence") {
+  improvementMeasure = "confidence") {
   ## Note: improvement is defined for confidence, but could also used with
   ## other measures
-  q <- interestMeasure(x, quality_measure, transactions, reuse)
-  #conf <- quality(x)$confidence
+  q <- interestMeasure(x, improvementMeasure, transactions, reuse)
   imp <- numeric(length(x))
   
   ### do it by unique rhs
@@ -482,7 +486,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
 }
 
 ## count helpers
-.getCounts <- function(x, transactions, reuse = TRUE) {
+.getCounts <- function(x, transactions, reuse = TRUE, smoothCounts = 0) {
   N <- .getN(x, transactions)
   f11 <-
     round(interestMeasure(x, "support", transactions, reuse) * N)
@@ -494,6 +498,21 @@ setMethod("interestMeasure",  signature(x = "rules"),
   f10 <- f1x - f11
   f01 <- fx1 - f11
   f00 <- f0x - f01
+  
+  if (smoothCounts > 0) {
+    N <- N + 4 * smoothCounts
+    f11 <- f11 + smoothCounts
+    f10 <- f10 + smoothCounts
+    f01 <- f01 + smoothCounts
+    f00 <- f00 + smoothCounts
+    
+    f0x <- f0x + 2 * smoothCounts
+    fx0 <- fx0 + 2 * smoothCounts
+    f1x <- f1x + 2 * smoothCounts
+    fx1 <- fx1 + 2 * smoothCounts
+  }
+  
+  
   list(
     f11 = f11,
     f1x = f1x,
@@ -513,7 +532,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   if (reuse && !is.null(q$confidence) && !is.null(q$lift)) {
     rhsSupport <- q$confidence / q$lift
     ### in case lift was NaN (0/0)
-    rhsSupport[is.na(rhsSupport)] <- 0 
+    rhsSupport[is.na(rhsSupport)] <- 0
   } else {
     if (is.null(transactions))
       stop(
@@ -522,7 +541,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if (all(diff(rhs(x)@data@p) == 1))
       ### this is a lot faster for single items in the RHS
       rhsSupport <-
-        unname(itemFrequency(transactions)[rhs(x)@data@i + 1L]) 
+        unname(itemFrequency(transactions)[rhs(x)@data@i + 1L])
     else
       rhsSupport <-
         support(rhs(x), transactions) ### multiple items in the RHS
@@ -536,13 +555,18 @@ setMethod("interestMeasure",  signature(x = "rules"),
 
 .basicRuleMeasure <- function(x,
   measure,
-  counts,
+  transactions,
+  reuse,
+  smoothCounts = 0,
   significance = FALSE,
   compliment = TRUE,
   k = 2,
-  ...) {
+  confidenceLevel = .95) {
   ### significance and compliment are only used by chi-squared
   ### k is the number of classes used by laplace
+  
+  # smoothCounts adds smoothCounts to the count in each cell to avoid counts of 0
+  counts <- .getCounts(x, transactions, reuse, smoothCounts = smoothCounts)
   
   N   <- counts$N
   f1x <- counts$f1x
@@ -554,6 +578,13 @@ setMethod("interestMeasure",  signature(x = "rules"),
   f01 <- counts$f01
   f00 <- counts$f00
   
+  if (measure == "table")
+    return(data.frame(
+      n11 = f11,
+      n01 = f01,
+      n10 = f10,
+      n00 = f00
+    ))
   if (measure == "cosine")
     return(f11 / sqrt(f1x * fx1))
   if (measure == "conviction")
@@ -563,6 +594,18 @@ setMethod("interestMeasure",  signature(x = "rules"),
         f0x / N * ((f01 / f0x) ^ 2 + (f00 / f0x) ^ 2) - (fx0 / N) ^ 2)
   if (measure == "oddsRatio")
     return(f11 * f00 / (f10 * f01))
+  if (measure == "oddsRatioCI") {
+    or <- f11 * f00 / (f10 * f01)
+    
+    w <-
+      stats::qnorm(1 - (1 - confidenceLevel) / 2) * sqrt(1 / f11 + 1 / f10 + 1 /
+          f01 + 1 / f00)
+    
+    return(data.frame(
+      lowerBound = or * exp(-1 * w),
+      upperBound = or * exp(w)
+    ))
+  }
   if (measure == "phi")
     return((N * f11 - f1x * fx1) / sqrt(f1x * fx1 * f0x * fx0))
   if (measure == "leverage")
@@ -585,16 +628,12 @@ setMethod("interestMeasure",  signature(x = "rules"),
     return(lambda)
   }
   if (measure == "mutualInformation")
-    return(
-      (
-        f00 / N * log(N * f00 / (f0x * fx0)) +
-          f01 / N * log(N * f01 / (f0x * fx1)) +
-          f10 / N * log(N * f10 / (f1x * fx0)) +
-          f11 / N * log(N * f11 / (f1x * fx1))
-      ) / pmin(
-        -1 * (f0x / N * log(f0x / N) + f1x / N * log(f1x / N)), 
-        -1 * (fx0 / N * log(fx0 / N) + fx1 / N * log(fx1 / N)))
-      )
+    return((
+      f00 / N * log(N * f00 / (f0x * fx0)) +
+        f01 / N * log(N * f01 / (f0x * fx1)) +
+        f10 / N * log(N * f10 / (f1x * fx0)) +
+        f11 / N * log(N * f11 / (f1x * fx1))
+    ) / pmin(-1 * (f0x / N * log(f0x / N) + f1x / N * log(f1x / N)),-1 * (fx0 / N * log(fx0 / N) + fx1 / N * log(fx1 / N))))
   if (measure == "jMeasure")
     return(f11 / N * log(N * f11 / (f1x * fx1)) +
         f10 / N * log(N * f10 / (f1x * fx0)))
@@ -656,7 +695,11 @@ setMethod("interestMeasure",  signature(x = "rules"),
       ##if(any(fe < 5)) chi2[i] <- NA
       ##else
       #chi2[i] <- sum((fo - fe) ^ 2 / fe)
-      chi2[i] <- stats::chisq.test(fo, correct = FALSE)$statistic
+      
+      # warning about approximation
+      suppressWarnings(
+        chi2[i] <- stats::chisq.test(fo, correct = FALSE)$statistic
+      )
     }
     
     ## the chi square test has 1 df for a 2x2 contingency table.

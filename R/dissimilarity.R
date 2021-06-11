@@ -77,7 +77,7 @@ setMethod("dissimilarity", signature(x = "matrix"),
       x <- x / pmax(rowSums(x), 1)
       
       if(!cross) {
-        dist <- 1 - as.dist(x %*% affinities %*% t(x))
+        dist <- 1 - stats::as.dist(x %*% affinities %*% t(x))
       }else{
         y <- y / pmax(rowSums(y), 1)
         dist <- new("ar_cross_dissimilarity", 
@@ -96,15 +96,15 @@ setMethod("dissimilarity", signature(x = "matrix"),
     } else if(ind == 7 || ind==8) {
       if(!cross) {
         ## warnings for zero variance!
-        suppressWarnings(cm <- cor(t(x), method = "pearson"))
+        suppressWarnings(cm <- stats::cor(t(x), method = "pearson"))
         ## pairwise complete is very slow
-        #cm <- cor(t(x), method = "pearson",
+        #cm <- stats::cor(t(x), method = "pearson",
         #	  use="pairwise.complete.obs")
         cm[cm < 0 | is.na(cm)] <- 0
-        dist <- as.dist(1 - cm)
+        dist <- stats::as.dist(1 - cm)
       } else {
-        suppressWarnings(cm <- cor(t(x), t(y), method = "pearson")) 
-        #cm <- cor(t(x), t(y), method = "pearson", 
+        suppressWarnings(cm <- stats::cor(t(x), t(y), method = "pearson")) 
+        #cm <- stats::cor(t(x), t(y), method = "pearson", 
         #	use="pairwise.complete.obs")
         cm[cm < 0 | is.na(cm)] <- 0
         dist <- new("ar_cross_dissimilarity", 1 - cm) 
@@ -170,7 +170,7 @@ setMethod("dissimilarity", signature(x = "matrix"),
     
     if(!cross) {
       # return a S3 "dist" object just add "ar_dissimilarity"
-      dist <- as.dist(dist)
+      dist <- stats::as.dist(dist)
       attr(dist, "method") <- method
       #class(dist) <- c("ar_dissimilarity", class(dist))
       return(dist)
@@ -243,7 +243,7 @@ setMethod("dissimilarity", signature(x = "associations"),
           }
         }
         
-        dist <- as.dist(m)
+        dist <- stats::as.dist(m)
         attr(dist, "method") <- method
         return(dist)
         
@@ -268,7 +268,7 @@ setMethod("dissimilarity", signature(x = "associations"),
           }
         }
         
-        dist <- as.dist(m)
+        dist <- stats::as.dist(m)
         attr(dist, "method") <- method
         return(dist)
         

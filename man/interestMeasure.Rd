@@ -28,7 +28,9 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
       Use \code{reuse=FALSE} to force counting (might be very slow but
       is necessary if you use a different set of transactions than was used 
       for mining).}
-  \item{\dots}{ further arguments for the measure calculation. }
+  \item{\dots}{ further arguments for the measure calculation. Many measures are based on counts. These measures accept the 
+    additional parameter \code{smoothCounts} which adds a "pseudo count" of \code{smoothCounts} to each count. This implements
+    addaptive smoothing (Laplace smoothing) for counts which also avoids counts of zero which can lead to issues with many measures.}
 }
 \details{
 \bold{The following measures are implemented for itemsets \eqn{X}:}  
@@ -118,9 +120,9 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   Fisher's Exact Test might be more appropriate 
   (see below).
   
-  Called with \code{significance=TRUE}, the p-value of the test for 
+  Called with \code{significance = TRUE}, the p-value of the test for 
   independence is returned instead of the chi-squared statistic.  
-  For p-values, substitutes effects can be tested using 
+  For p-values, substitution effects (the ocurrence of one item makes the ocurrance of another item less likely) can be tested using 
   the parameter \code{complements = FALSE}.
   Correction for multiple comparisons can be done using \code{\link{p.adjust}}.
   
@@ -282,8 +284,12 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   the minimum difference between its confidence and the confidence of any
   more general rule (i.e., a rule with the same consequent but one or 
   more items removed in the LHS). 
+  
   Special case: We define improvement for a rules with an empty LHS 
   as its confidence.
+  
+  The idea of improvement can be generalized to other measures than confidence. Other measures like
+  lift can be specified with the extra parameter \code{improvementMeasure}. 
   
   See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#improvement}{Improvement}
   
@@ -385,13 +391,22 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   
   Range: \eqn{[0, 1]} (0 means that X does not provide information for Y)}
 
-\item{"oddsRatio", odds ratio \eqn{\alpha}{alpha} (Tan et al., 2004)}{
+\item{"oddsRatio", odds ratio (Tan et al., 2004)}{
 
   The odds of finding X in transactions which contain Y divided by
   the odds of finding X in transactions which do not contain Y.
   See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#oddsRatio}{Odds Ratio}
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates that Y is not associated to X)}
+  
+\item{"oddsRatioCI", odds ratio confidence interval (Li et al., 2014)}{
+
+  Calculates the lower and upper bounds of the confidence interval around the odds ratio (using a normal approximation).
+  The used confidence level defaults to 0.95, but can be adjusted with the additional 
+  parameter \code{confidenceLevel}.
+  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#oddsRatio}{Odds Ratio}
+  
+  Range: \eqn{[0, \infty]}{[0, Inf]}}
   
 \item{"phi", correlation coefficient \eqn{\phi}{phi} (Tan et al., 2004}{ 
   Correlation coefficient between the transactions containing X and Y  represented as two binary vectors. Phi correlation is equivalent to Pearson's Product Moment Correlation Coefficient \eqn{\rho}{rho} with 0-1 values.
@@ -452,6 +467,13 @@ indices used in population genetics. It evaluates the deviation
   See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#support}{Support}
 
   Range: \eqn{[0, 1]}}
+
+\item{"table"}{ 
+  Returns the counts for the contingency table. The values are labeled \eqn{n_{XY}}{n_XY}
+  where \eqn{X} and \eqn{Y} represent the presence (1) or absence (0) of the LHS and RHS of the rule, respectively.
+  If several measures are specified, then the counts have the prefix \code{table.}
+  
+  Range: counts}
 
 \item{"varyingLiaison", varying rates liaison (Bernard and Charron, 1996)}{ 
 
@@ -548,6 +570,9 @@ Kulczynski, S. (1927). Die Pflanzenassoziationen der Pieninen.
 \emph{Bulletin International de l'Academie Polonaise des Sciences et des Lettres, Classe des Sciences Mathematiques et Naturelles B,} 57--203. 
 
 Lerman, I.C. (1981). Classification et analyse ordinale des donnees. Paris. 
+
+Li, J., Jixue Liu, Hannu Toivonen, Kenji Satou, Youqiang Sun, and Bingyu Sun (2014). Discovering statistically non-redundant subgroups. Knowledge-Based Systems. 67 (September, 2014), 315--327. 
+\doi{10.1016/j.knosys.2014.04.030}
 
 McNicholas, P.D.,  T.B. Murphy, M. O'Regan (2008). Standardising the lift of an association rule, \emph{Computational Statistics & Data Analysis,} 52(10):4712--4721, ISSN 0167-9473,
 \doi{10.1016/j.csda.2008.03.013}.

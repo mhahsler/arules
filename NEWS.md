@@ -2,6 +2,13 @@
 
 ## New Feature
 * rules and itemsets have now a constructor.
+* interestMeasure for rules has now measure "table" which returns the contingency table. 
+* interestMeasure for rules has now measure "oddsRatioCI" which calculates the confidence 
+  interval around the odds Ratio.
+* interestMeasure for contingency table-based measures now accept the additional parameter smoothCounts 
+  which is added to each count to avoid counts of zero (Laplace smoothing). 
+* is_redundant now accepts as measure "oddsRatioCI" which uses the confidence interval for odds ratios of supersets 
+  for pruning.
 
 ## Changes
 * we use now a better check for installed suggested packages.

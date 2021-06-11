@@ -39,7 +39,7 @@ setMethod("is.significant", signature(x = "rules"),
         transactions = transactions,
         reuse = TRUE, significance = TRUE)
     
-    if(adjust != "none") p <- p.adjust(p, method = adjust)
+    if(adjust != "none") p <- stats::p.adjust(p, method = adjust)
     p <= alpha
   })
 
