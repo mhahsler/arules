@@ -23,11 +23,11 @@
 ## confidence of their proper sub-rules (i.e., have a negative improvement).
 
 setMethod("is.redundant", signature(x = "rules"),
-  function(x, measure = "confidence", ...) {
-    if (measure == "oddsRatioCI")
-      .improvementCI(x, transactions = NULL, reuse = TRUE, ...) <= 0
+  function(x, measure = "confidence", confint = FALSE, level = 0.95, ...) {
+    if (confint)
+      .improvementCI(x, measure = measure, level = level, ...) <= 0
     else
-      interestMeasure(x, measure = "improvement", transactions = NULL, reuse = TRUE, 
+      interestMeasure(x, measure = "improvement", 
         improvementMeasure = measure, ...) <= 0
   }
 )
@@ -38,15 +38,16 @@ setMethod("is.redundant", signature(x = "rules"),
 # Is the supersets oddsRatio sign. larger than all its subsets?
 # I.e., the superset's lower bound needs to be larger than the subset's upper bound
 .improvementCI <- function(x,
-  transactions = NULL,
-  reuse = TRUE,
-  confidenceLevel = 0.9,
-  smoothCounts = 1) {
+  measure,
+  level = 0.95,
+  ...) {
 
-  q <- interestMeasure(x, "oddsRatioCI", transactions, reuse, 
-    confidenceLevel = confidenceLevel, smoothCounts = smoothCounts)
+  q <- confint(x, 
+    measure,
+    level = level,
+    ...)
+    
   # q is a data.frame with lowerBound and upperBound
-  
   imp <- numeric(length(x))
   
   ### do it by unique rhs

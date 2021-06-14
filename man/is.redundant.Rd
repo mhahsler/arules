@@ -11,15 +11,20 @@
 }
 \usage{
 is.redundant(x, ...)
-\S4method{is.redundant}{rules}(x, measure = "confidence", ...)
+
+\S4method{is.redundant}{rules}(x, measure = "confidence", 
+  confint = FALSE, level = 0.95, ...)
 }
 \arguments{
   \item{x}{ a set of rules.}
   \item{measure}{ measure used to check for redundancy. }
-  \item{...}{ additional arguments. }
+  \item{confint}{ should confidence intervals be used to the redundancy check? }
+  \item{level}{ confidence level for the confidence interval.  }
+  \item{...}{ additional arguments are passed on to \code{\link{interestMeasure}}, or, for
+    \code{confint = TRUE} to \code{\link{confint}}. }
 }
 \details{
-\bold{Improvement-based redundancy:}
+\bold{Simple mprovement-based redundancy:} (\code{confint = FALSE})
 A rule can be defined as redundant if a more general rules with the same or a higher 
 confidence exists.
 That is, a more specific rule is redundant if it is only equally or even less 
@@ -36,8 +41,8 @@ negative or zero \emph{improvement} as defined by Bayardo et al. (2000).
 The idea of improvement can be extended other measures besides confidence. 
 Any other measure availabe for function \code{\link{interestMeasure}} (e.g., lift) can be specified in \code{measure}.
 
-\bold{Confidence interval or the odds-ratio-based redundancy:} Li et al (2014)
-propose to use the confidence interval (CI) 
+\bold{Confidence interval or the odds-ratio-based redundancy:}  (\code{confint = TRUE})  
+Li et al (2014) propose to use the confidence interval (CI) 
 of the odds ratio (OR) of rules to define redundancy. A more specific rule is 
 redundant if it does not provide a significantly higher OR than any more general rule. 
 Using confidence intervals as error bounds, a
@@ -45,19 +50,18 @@ more specific rule is redundant if its OR CI overlaps with the CI of any more ge
 the lower bound of the more specific rule's CI is lower than the upper bound of any more general rule's
 CI). This type of redundancy detection is more powerful than improvement since it takes differences in counts due to randomness in the dataset into account. 
 
-The CI of the OR can be used by specifying \code{measure = "oddsRatioCI"}.
-The default used confidence level is 0.95 and can be changed with the additional parameter \code{confidenceLevel}.
-
 The odds ratio and the CI are based on counts which can be zero and which leads to numerical problems. In addition
 to the method described by Li et al (2014), we
-use additive smoothing (Laplace smoothing) to alleviate this problem. The default setting adds 1 to each count.
+use additive smoothing (Laplace smoothing) to alleviate this problem. The default setting adds 1 to each count (see
+  \code{\link{confint}}).
 A different pseudocount (smoothing parameter) can be defined using the additional parameter \code{smoothCounts}. Smoothing can be disabled using \code{smoothCounts = 0}.
 }
 \value{
 returns a logical vector indicating which rules are redundant.
 }
 \seealso{
-\code{\link{interestMeasure}}
+\code{\link{interestMeasure}},
+\code{\link{confint}}
 }
 \references{
 Bayardo, R. , R. Agrawal, and D. Gunopulos (2000). Constraint-based rule mining in large, dense databases. \emph{Data Mining and Knowledge Discovery,} 4(2/3):217--240.
@@ -78,20 +82,14 @@ rules <- sort(rules, by = "improvement")
 inspect(rules)
 is.redundant(rules)
 
-## redundant rules using improvement of confidence
-inspect(rules[is.redundant(rules)])
-
-## non-redundant rules
+## find non-redundant rules
 rules_non_redundant <- rules[!is.redundant(rules)]
 inspect(rules_non_redundant)
 ## Note: a few rules have a very small improvement over the rule {} => {language in home=english}
 
-## use the CI of the odds ratio 
-## (the first call shows how to specify count smoothing and the confidence level)
-inspect(rules[is.redundant(rules, measure = "oddsRatioCI", 
-  smoothCounts = 1, confidenceLevel = 0.95)])
-inspect(rules[!is.redundant(rules, measure = "oddsRatioCI")])
-## No rule has a significantly better OR than the simple rule {} => {language in home=english}
+## use the confidence value for the odds ratio () 
+inspect(rules[!is.redundant(rules, measure = "oddsRatio", 
+  confint = TRUE, level = 0.95, smoothCounts = 1)])
 }
 \author{Michael Hahsler and Christian Buchta}
 \keyword{manip}

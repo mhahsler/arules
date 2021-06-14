@@ -3,7 +3,7 @@ useDynLib("arules", .registration = TRUE)
 import("methods")
 import("graphics")
 
-importFrom("stats", "predict", "aggregate")
+importFrom("stats", "predict", "aggregate", "confint")
 
 importFrom("Matrix", "summary", "image", "t", 
   "head", "tail", "drop0", "diag")
@@ -121,3 +121,5 @@ exportMethods(
 
 S3method(plot, associations)
 S3method(plot, itemMatrix)
+
+S3method(confint, rules)

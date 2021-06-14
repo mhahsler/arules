@@ -204,7 +204,6 @@ setMethod("interestMeasure",  signature(x = "rules"),
       "conviction",
       "gini",
       "oddsRatio",
-      "oddsRatioCI",
       "phi",
       "doc",
       "RLD",
@@ -594,18 +593,6 @@ setMethod("interestMeasure",  signature(x = "rules"),
         f0x / N * ((f01 / f0x) ^ 2 + (f00 / f0x) ^ 2) - (fx0 / N) ^ 2)
   if (measure == "oddsRatio")
     return(f11 * f00 / (f10 * f01))
-  if (measure == "oddsRatioCI") {
-    or <- f11 * f00 / (f10 * f01)
-    
-    w <-
-      stats::qnorm(1 - (1 - confidenceLevel) / 2) * sqrt(1 / f11 + 1 / f10 + 1 /
-          f01 + 1 / f00)
-    
-    return(data.frame(
-      lowerBound = or * exp(-1 * w),
-      upperBound = or * exp(w)
-    ))
-  }
   if (measure == "phi")
     return((N * f11 - f1x * fx1) / sqrt(f1x * fx1 * f0x * fx0))
   if (measure == "leverage")
