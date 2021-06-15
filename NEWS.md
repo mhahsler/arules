@@ -3,6 +3,7 @@
 ## New Feature
 * rules and itemsets have now a constructor.
 * interestMeasure for rules has now measure "table" which returns the contingency table. 
+* new interest measure "riskRatio" was added. 
 * interestMeasure for contingency table-based measures now accept the additional parameter smoothCounts 
   which is added to each count to avoid counts of zero (Laplace smoothing). 
 * new method for stats confint to calcualte confidence intervals for some interest measures added.
