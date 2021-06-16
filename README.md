@@ -9,13 +9,13 @@ The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
 using [frequent itemsets and association rules](https://en.wikipedia.org/wiki/Association_rule_learning). Also provides a wide range of 
 [interest measures](https://michael.hahsler.net/research/association_rules/measures.html) and mining algorithms including a interfaces and the code of
-Borgelt's efficient C implementations of the association mining algorithms [Apriori](https://borgelt.net/apriori.html) and [Eclat](https://borgelt.net/eclat.html).
+Christian Borgelt's popular and efficient C implementations of the association mining algorithms [Apriori](https://borgelt.net/apriori.html) and [Eclat](https://borgelt.net/eclat.html).
 
 ### arules core packages: 
 
 * [arules](https://cran.r-project.org/package=arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
-* [arulesViz](https://cran.r-project.org/package=arulesViz): Visualization of association rules. 
-* [arulesCBA](https://cran.r-project.org/package=arulesCBA): Classification algorithms based on association rules (includes CBA).  
+* [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of association rules. 
+* [arulesCBA](https://github.com/ianjjohnson/arulesCBA): Classification algorithms based on association rules (includes CBA).  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences):
    Mining frequent sequences (cSPADE).
 
@@ -23,7 +23,7 @@ Borgelt's efficient C implementations of the association mining algorithms [Apri
 
 #### Additional mining algorithms 
 
-* [arulesNBMiner](https://cran.r-project.org/package=arulesNBMiner):
+* [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner):
   Mining NB-frequent itemsets and NB-precise rules.
 * [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for filtered top-k association discovery.
 * [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL's association rule mining algorithm.
@@ -54,7 +54,7 @@ Borgelt's efficient C implementations of the association mining algorithms [Apri
 
 #### Recommendation/Prediction
 
-* [recommenerlab](https://cran.r-project.org/package=recommenderlab): Supports creating predictions using association rules.
+* [recommenerlab](https://github.com/mhahsler/recommenderlab): Supports creating predictions using association rules.
 
 
 ## Installation
