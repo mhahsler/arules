@@ -13,18 +13,20 @@
 is.redundant(x, ...)
 
 \S4method{is.redundant}{rules}(x, measure = "confidence", 
-  confint = FALSE, level = 0.95, ...)
+  confint = FALSE, level = 0.95, smoothCounts = 1, ...)
 }
 \arguments{
   \item{x}{ a set of rules.}
   \item{measure}{ measure used to check for redundancy. }
   \item{confint}{ should confidence intervals be used to the redundancy check? }
-  \item{level}{ confidence level for the confidence interval.  }
+  \item{level}{ confidence level for the confidence interval. Only used when \code{confint = TRUE}. }
+  \item{smoothCounts}{adds a "pseudo count" to each count in the used contingency table. This implements
+  addaptive smoothing (Laplace smoothing) for counts and avoids zero counts.}
   \item{...}{ additional arguments are passed on to \code{\link{interestMeasure}}, or, for
     \code{confint = TRUE} to \code{\link{confint}}. }
 }
 \details{
-\bold{Simple mprovement-based redundancy:} (\code{confint = FALSE})
+\bold{Simple improvement-based redundancy:} (\code{confint = FALSE})
 A rule can be defined as redundant if a more general rules with the same or a higher 
 confidence exists.
 That is, a more specific rule is redundant if it is only equally or even less 
@@ -39,9 +41,10 @@ This is equivalent to a
 negative or zero \emph{improvement} as defined by Bayardo et al. (2000).
 
 The idea of improvement can be extended other measures besides confidence. 
-Any other measure availabe for function \code{\link{interestMeasure}} (e.g., lift) can be specified in \code{measure}.
+Any other measure availabe for function \code{\link{interestMeasure}} (e.g., lift or the odds ratio) 
+can be specified in \code{measure}.
 
-\bold{Confidence interval or the odds-ratio-based redundancy:}  (\code{confint = TRUE})  
+\bold{Confidence interval-based redundancy:}  (\code{confint = TRUE})
 Li et al (2014) propose to use the confidence interval (CI) 
 of the odds ratio (OR) of rules to define redundancy. A more specific rule is 
 redundant if it does not provide a significantly higher OR than any more general rule. 
@@ -55,6 +58,9 @@ to the method described by Li et al (2014), we
 use additive smoothing (Laplace smoothing) to alleviate this problem. The default setting adds 1 to each count (see
   \code{\link{confint}}).
 A different pseudocount (smoothing parameter) can be defined using the additional parameter \code{smoothCounts}. Smoothing can be disabled using \code{smoothCounts = 0}.
+
+Confidence interval-based redundancy checks can also be used for other measures with a confidence interval
+like confidence (see \code{\link{confint}}).
 }
 \value{
 returns a logical vector indicating which rules are redundant.
@@ -82,14 +88,24 @@ rules <- sort(rules, by = "improvement")
 inspect(rules)
 is.redundant(rules)
 
-## find non-redundant rules
+## find non-redundant rules using improvement of confidence 
+## Note: a few rules have a very small improvement over the rule {} => {language in home=english}
 rules_non_redundant <- rules[!is.redundant(rules)]
 inspect(rules_non_redundant)
-## Note: a few rules have a very small improvement over the rule {} => {language in home=english}
 
-## use the confidence value for the odds ratio () 
+## use non-overlapping confidence intervals for the confidence measure instead
+## Note: a fewer rules have a significantly higher confidence
+inspect(rules[!is.redundant(rules, measure = "confidence", 
+  confint = TRUE, level = 0.95)])
+
+## find non-redundant rules using improvement of the odds ratio.
+quality(rules)$oddsRatio <-  interestMeasure(rules, measure = "oddsRatio", smoothCounts = 1)
+inspect(rules[!is.redundant(rules, measure = "oddsRatio")])
+
+## use the confidence interval for the odds ratio. 
+## We see that no rule has a significantly better odds ratio than the most general rule.
 inspect(rules[!is.redundant(rules, measure = "oddsRatio", 
-  confint = TRUE, level = 0.95, smoothCounts = 1)])
+  confint = TRUE, level = 0.95)])
 }
 \author{Michael Hahsler and Christian Buchta}
 \keyword{manip}

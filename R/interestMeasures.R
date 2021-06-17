@@ -25,13 +25,13 @@
 
 ## find N from associations or if not available then from transactions
 .getN <- function(x, transactions) {
-  N <- info(x)$ntransactions
-  if (is.null(N)) {
+  n <- info(x)$ntransactions
+  if (is.null(n)) {
     if (is.null(transactions))
       stop("transaction data needed. Please specify the transactions used to mine the itemsets!")
-    N <- length(transactions)
+    n <- length(transactions)
   }
-  N
+  n
 }
 
 ## measures for itemsets
@@ -71,12 +71,11 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
     
     ## remove quality information if we do not want to reuse! Then we can start reusing
     if (!reuse)
-      quality(x) <-
-      data.frame(support = support(x, transactions = transactions))
-    else if (is.null(quality(x)[["support"]]))
+      quality(x) <- data.frame(seq_len(length(x)))[, 0]
+    
+    if (is.null(quality(x)[["support"]]))
       quality(x)[["support"]] <-
       support(x, transactions = transactions)
-    reuse <- TRUE
     
     ## deal with multiple measures
     if (length(measure) > 1)
@@ -85,31 +84,26 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
           measure,
           FUN =
             function(m)
-              interestMeasure(x, m, transactions, reuse, ...),
+              interestMeasure(x, m, transactions, reuse = TRUE, ...),
           USE.NAMES = TRUE,
           simplify = FALSE
         )
       ))
     
     ## first see if we already have it:
-    if (reuse &&
-        !is.null(quality(x)[[measure]]))
+    if (!is.null(quality(x)[[measure]]))
       return(quality(x)[[measure]])
     
     ## calculate measures
-    #if(measure == "support") return(support(x, transactions))
     if (measure == "count")
       return(round(quality(x)[["support"]] * .getN(x, transactions)))
     ## all other measures are basic measures
-    return(.basicItemsetMeasures(x, measure, transactions, reuse, ...))
+    return(.basicItemsetMeasures(x, measure, transactions, ...))
   })
-
-
 
 .basicItemsetMeasures <- function(x,
   measure,
   transactions = NULL,
-  reuse = TRUE,
   ...) {
   if (is.null(transactions))
     stop("transaction data needed. Please specify the transactions used to mine the itemsets!")
@@ -260,15 +254,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
     ## remove quality information if we do not want to reuse! Then we can start reusing
     if (!reuse)
       quality(x) <- data.frame(seq_len(length(x)))[, 0]
-    reuse <- TRUE
-    
-    ## first see if we already have it:
-    if (length(measure) == 1L &&
-        !is.null(quality(x)[[measure]]))
-      return(quality(x)[[measure]])
     
     ## precalculate some measures once (most measures can be calculated using support, confidence, and lift)
-    
     ## if we have no support then we probably have nothing! Count it with a single p-tree
     if (is.null(quality(x)[["support"]])) {
       s <-
@@ -299,7 +286,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
           measure,
           FUN =
             function(m)
-              interestMeasure(x, m, transactions = transactions, reuse = reuse, ...),
+              interestMeasure(x, m, transactions = transactions, reuse = TRUE, ...),
           USE.NAMES = TRUE,
           simplify = FALSE
         )
@@ -309,14 +296,14 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if (length(x) < 1)
       return(numeric(0))
     
-    ## first see if we already have it:
-    if (reuse &&
-        !is.null(quality(x)[[measure]]))
+    ## first see if we already have a basic measure. All others we recalculate.
+    if (measure %in% c("support", "confidence", "coverage", "lift")
+      && !is.null(quality(x)[[measure]]))
       return(quality(x)[[measure]])
     
     ## calculate measure (support, confidence, lift and coverage are already handled)
     if (measure == "boost")
-      return(.conf_boost(x, transactions = transactions, reuse = reuse, ...))
+      return(.conf_boost(x, transactions = transactions, ...))
     if (measure == "count")
       return(round(quality(x)[["support"]] * .getN(x, transactions)))
     if (measure == "rhsSupport")
@@ -324,27 +311,30 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if (measure == "rulePowerFactor")
       return(quality(x)[["support"]] * quality(x)[["confidence"]])
     if (measure == "improvement")
-      return(.improvement(x, transactions = transactions, reuse = reuse, ...))
+      return(.improvement(x, transactions = transactions, ...))
     if (measure == "hyperLift")
-      return(.hyperLift(x, transactions = transactions, reuse = reuse, ...))
+      return(.hyperLift(x, transactions = transactions, ...))
     if (measure == "hyperConfidence")
-      return(.hyperConfidence(x, transactions = transactions, reuse = reuse, ...))
+      return(.hyperConfidence(x, transactions = transactions, ...))
     if (measure == "fishersExactTest")
-      return(.hyperConfidence(x, transactions = transactions, reuse = reuse, significance = TRUE, ...))
+      return(.hyperConfidence(x,
+        transactions = transactions,
+        significance = TRUE,
+        ...))
     if (measure == "RLD")
-      return(.RLD(x, transactions = transactions, reuse = reuse, ...))
+      return(.RLD(x, transactions = transactions, ...))
     if (measure == "imbalance")
-      return(.imbalance(x, transactions = transactions, reuse = reuse, ...))
+      return(.imbalance(x, transactions = transactions, ...))
     if (measure == "kulczynski")
-      return(.kulc(x, transactions = transactions, reuse = reuse, ...))
+      return(.kulc(x, transactions = transactions, ...))
     if (measure == "maxconfidence")
-      return(.maxConf(x, transactions = transactions, reuse = reuse, ...))
+      return(.maxConf(x, transactions = transactions, ...))
     if (measure == "stdLift")
-      return(.stdLift(x, transactions = transactions, reuse = reuse, ...))
+      return(.stdLift(x, transactions = transactions, ...))
     
     ## all other measures are implemented here (counts is in ...)
     ret <-
-      .basicRuleMeasure(x, measure, transactions = transactions, reuse = reuse, ...)
+      .basicRuleMeasure(x, measure, transactions = transactions, ...)
     
     ## make all bad values NA (does not work for measures that return data.frames)
     #if (is.vector(ret)) ret[!is.finite(ret)] <- NA
@@ -371,19 +361,19 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## c_Y = count(Y)
 ##
 ## this implements only hyperlift for rules with a single item in the consequent
-.hyperLift <- function(x, d = 0.99, ...) {
+.hyperLift <- function(x, level = 0.99, ...) {
   counts <- .getCounts(x, ...)
   
   with(counts, {
     Q <-
       stats::qhyper(
-        d,
-        m = fx1,
-        n = N - fx1,
-        k = f1x,
+        level,
+        m = nx1,
+        n = n - nx1,
+        k = n1x,
         lower.tail = TRUE
       )
-    f11 / Q
+    n11 / Q
   })
 }
 
@@ -412,10 +402,10 @@ setMethod("interestMeasure",  signature(x = "rules"),
       ## c_XY - 1 so we get P[C_XY < c_XY] instead of P[C_XY <= c_XY]
       res <- with(counts, {
         stats::phyper(
-          f11 - 1,
-          m = fx1,
-          n = N - fx1,
-          k = f1x,
+          n11 - 1,
+          m = nx1,
+          n = n - nx1,
+          k = n1x,
           lower.tail = !significance
         )
       })
@@ -425,10 +415,10 @@ setMethod("interestMeasure",  signature(x = "rules"),
       ## empty LHS causes a div by zero -> NAN
       suppressWarnings(res <- with(counts, {
         stats::phyper(
-          f11,
-          m = fx1,
-          n = N - f1x,
-          k = f1x,
+          n11,
+          m = nx1,
+          n = n - n1x,
+          k = n1x,
           lower.tail = significance
         )
       }))
@@ -465,7 +455,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   imp
 }
 
-.conf_boost <- function(x, ...){
+.conf_boost <- function(x, ...) {
   conf <- interestMeasure(x, "confidence", ...)
   imp <- .improvement(x, ...)
   
@@ -475,52 +465,55 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## count helpers
 .getCounts <-
   function(x,
-    transactions,
+    transactions = NULL,
     reuse = TRUE,
     smoothCounts = 0) {
-    N <- .getN(x, transactions)
-    f11 <-
-      round(interestMeasure(x, "support", transactions, reuse) * N)
-    f1x <-
-      round(interestMeasure(x, "coverage", transactions, reuse) * N)
-    fx1 <- round(.rhsSupport(x, transactions, reuse) * N)
-    f0x <- N - f1x
-    fx0 <- N - fx1
-    f10 <- f1x - f11
-    f01 <- fx1 - f11
-    f00 <- f0x - f01
+    if (smoothCounts < 0)
+      stop("smoothCount needs to be >= 0!")
+    
+    q <- interestMeasure(x, c("support", "coverage", "rhsSupport"), transactions = transactions, reuse = reuse)
+    
+    n <- .getN(x, transactions)
+    n11 <- round(q$support * n)
+    n1x <- round(q$coverage * n)
+    nx1 <- round(q$rhsSupport * n)
+    n0x <- n - n1x
+    nx0 <- n - nx1
+    n10 <- n1x - n11
+    n01 <- nx1 - n11
+    n00 <- n0x - n01
     
     if (smoothCounts > 0) {
-      N <- N + 4 * smoothCounts
-      f11 <- f11 + smoothCounts
-      f10 <- f10 + smoothCounts
-      f01 <- f01 + smoothCounts
-      f00 <- f00 + smoothCounts
+      n <- n + 4 * smoothCounts
+      n11 <- n11 + smoothCounts
+      n10 <- n10 + smoothCounts
+      n01 <- n01 + smoothCounts
+      n00 <- n00 + smoothCounts
       
-      f0x <- f0x + 2 * smoothCounts
-      fx0 <- fx0 + 2 * smoothCounts
-      f1x <- f1x + 2 * smoothCounts
-      fx1 <- fx1 + 2 * smoothCounts
+      n0x <- n0x + 2 * smoothCounts
+      nx0 <- nx0 + 2 * smoothCounts
+      n1x <- n1x + 2 * smoothCounts
+      nx1 <- nx1 + 2 * smoothCounts
     }
     
     
     list(
-      f11 = f11,
-      f1x = f1x,
-      fx1 = fx1,
-      f0x = f0x,
-      fx0 = fx0,
-      f10 = f10,
-      f01 = f01,
-      f00 = f00,
-      N = N
+      n11 = n11,
+      n1x = n1x,
+      nx1 = nx1,
+      n0x = n0x,
+      nx0 = nx0,
+      n10 = n10,
+      n01 = n01,
+      n00 = n00,
+      n = n
     )
   }
 
-.rhsSupport <- function(x, transactions, reuse = TRUE) {
+.rhsSupport <- function(x, transactions) {
   q <- quality(x)
   
-  if (reuse && !is.null(q$confidence) && !is.null(q$lift)) {
+  if (!is.null(q$confidence) && !is.null(q$lift)) {
     rhsSupport <- q$confidence / q$lift
     ### in case lift was NaN (0/0)
     rhsSupport[is.na(rhsSupport)] <- 0
@@ -547,7 +540,6 @@ setMethod("interestMeasure",  signature(x = "rules"),
 .basicRuleMeasure <- function(x,
   measure,
   transactions = NULL,
-  reuse = TRUE,
   smoothCounts = 0,
   significance = FALSE,
   compliment = TRUE,
@@ -557,114 +549,114 @@ setMethod("interestMeasure",  signature(x = "rules"),
   
   # smoothCounts adds smoothCounts to the count in each cell to avoid counts of 0
   counts <-
-    .getCounts(x, transactions, reuse, smoothCounts = smoothCounts)
+    .getCounts(x, transactions, smoothCounts = smoothCounts)
   
   # note return in with just assigns to m
   m <- with(counts, {
     if (measure == "table")
       return(data.frame(
-        n11 = f11,
-        n01 = f01,
-        n10 = f10,
-        n00 = f00
+        n11 = n11,
+        n01 = n01,
+        n10 = n10,
+        n00 = n00
       ))
     if (measure == "cosine")
-      return(f11 / sqrt(f1x * fx1))
+      return(n11 / sqrt(n1x * nx1))
     if (measure == "conviction")
-      return(f1x * fx0 / (N * f10))
+      return(n1x * nx0 / (n * n10))
     if (measure == "gini")
-      return(f1x / N * ((f11 / f1x) ^ 2 + (f10 / f1x) ^ 2) - (fx1 / N) ^ 2 +
-          f0x / N * ((f01 / f0x) ^ 2 + (f00 / f0x) ^ 2) - (fx0 / N) ^ 2)
+      return(n1x / n * ((n11 / n1x) ^ 2 + (n10 / n1x) ^ 2) - (nx1 / n) ^ 2 +
+          n0x / n * ((n01 / n0x) ^ 2 + (n00 / n0x) ^ 2) - (nx0 / n) ^ 2)
     if (measure == "oddsRatio")
-      return(f11 * f00 / (f10 * f01))
+      return(n11 * n00 / (n10 * n01))
     if (measure == "relativeRisk")
-      return((f11 / f1x) / (f01 / f0x))
+      return((n11 / n1x) / (n01 / n0x))
     if (measure == "phi")
-      return((N * f11 - f1x * fx1) / sqrt(f1x * fx1 * f0x * fx0))
+      return((n * n11 - n1x * nx1) / sqrt(n1x * nx1 * n0x * nx0))
     if (measure == "leverage")
-      return(f11 / N - (f1x * fx1 / N ^ 2))
+      return(n11 / n - (n1x * nx1 / n ^ 2))
     if (measure == "collectiveStrength")
-      return(f11 * f00 / (f1x * fx1 + f0x + fx0) *
-          (N ^ 2 - f1x * fx1 - f0x * fx0) / (N - f11 - f00))
+      return(n11 * n00 / (n1x * nx1 + n0x + nx0) *
+          (n ^ 2 - n1x * nx1 - n0x * nx0) / (n - n11 - n00))
     if (measure == "importance")
-      return(log(((f11 + 1) * (f0x + 2)) / ((f01 + 1) * (f1x + 2)), base = 10))
+      return(log(((n11 + 1) * (n0x + 2)) / ((n01 + 1) * (n1x + 2)), base = 10))
     if (measure == "jaccard")
-      return(f11 / (f1x + fx1 - f11))
+      return(n11 / (n1x + nx1 - n11))
     if (measure == "kappa")
-      return((N * f11 + N * f00 - f1x * fx1 - f0x * fx0) / (N ^ 2 - f1x * fx1 -
-          f0x * fx0))
+      return((n * n11 + n * n00 - n1x * nx1 - n0x * nx0) / (n ^ 2 - n1x * nx1 -
+          n0x * nx0))
     if (measure == "lambda") {
-      max_x0x1 <- apply(cbind(fx1, fx0), 1, max)
+      max_x0x1 <- apply(cbind(nx1, nx0), 1, max)
       lambda <-
-        (apply(cbind(f11, f10), 1, max) + apply(cbind(f01, f00), 1, max) -
-            max_x0x1) / (N - max_x0x1)
+        (apply(cbind(n11, n10), 1, max) + apply(cbind(n01, n00), 1, max) -
+            max_x0x1) / (n - max_x0x1)
       return(lambda)
     }
     if (measure == "mutualInformation")
       return((
-        f00 / N * log(N * f00 / (f0x * fx0)) +
-          f01 / N * log(N * f01 / (f0x * fx1)) +
-          f10 / N * log(N * f10 / (f1x * fx0)) +
-          f11 / N * log(N * f11 / (f1x * fx1))
-      ) / pmin(-1 * (f0x / N * log(f0x / N) + f1x / N * log(f1x / N)),-1 * (fx0 / N * log(fx0 / N) + fx1 / N * log(fx1 / N))))
+        n00 / n * log(n * n00 / (n0x * nx0)) +
+          n01 / n * log(n * n01 / (n0x * nx1)) +
+          n10 / n * log(n * n10 / (n1x * nx0)) +
+          n11 / n * log(n * n11 / (n1x * nx1))
+      ) / pmin(-1 * (n0x / n * log(n0x / n) + n1x / n * log(n1x / n)), -1 * (nx0 / n * log(nx0 / n) + nx1 / n * log(nx1 / n))))
     if (measure == "jMeasure")
-      return(f11 / N * log(N * f11 / (f1x * fx1)) +
-          f10 / N * log(N * f10 / (f1x * fx0)))
+      return(n11 / n * log(n * n11 / (n1x * nx1)) +
+          n10 / n * log(n * n10 / (n1x * nx0)))
     if (measure == "laplace")
-      return((f11 + 1) / (f1x + k))
+      return((n11 + 1) / (n1x + k))
     if (measure == "certainty")
-      return((f11 / f1x - fx1 / N) / (1 - fx1 / N))
+      return((n11 / n1x - nx1 / n) / (1 - nx1 / n))
     if (measure == "addedValue")
-      return(f11 / f1x - fx1 / N)
+      return(n11 / n1x - nx1 / n)
     if (measure == "ralambondrainy")
-      return(f10 / N)
+      return(n10 / n)
     if (measure == "sebag")
-      return((f1x - f10) / f10)
+      return((n1x - n10) / n10)
     if (measure == "counterexample")
-      return((f11 - f10) / f11)
+      return((n11 - n10) / n11)
     # needs alpha
-    #if(measure == "wang") return(1/N * (1-alpha) * f1x - f10)
+    #if(measure == "wang") return(1/n * (1-alpha) * n1x - n10)
     if (measure == "confirmedConfidence")
-      return((f11 - f10) / f1x)
+      return((n11 - n10) / n1x)
     if (measure == "casualSupport")
-      return((f1x + fx1 - 2 * f10) / N)
+      return((n1x + nx1 - 2 * n10) / n)
     if (measure == "casualConfidence")
-      return(1 - f10 / N * (1 / f1x + 1 / fx1))
+      return(1 - n10 / n * (1 / n1x + 1 / nx1))
     if (measure == "leastContradiction")
-      return((f1x - f10) / fx1)
+      return((n1x - n10) / nx1)
     if (measure == "centeredConfidence")
-      return(fx0 / N - f10 / f1x)
+      return(nx0 / n - n10 / n1x)
     if (measure == "varyingLiaison")
-      return((f1x - f10) / (f1x * fx1 / N) - 1)
+      return((n1x - n10) / (n1x * nx1 / n) - 1)
     if (measure == "yuleQ") {
-      OR <- f11 * f00 / (f10 * f01)
+      OR <- n11 * n00 / (n10 * n01)
       return((OR - 1) / (OR + 1))
     }
     if (measure == "yuleY") {
-      OR <- f11 * f00 / (f10 * f01)
+      OR <- n11 * n00 / (n10 * n01)
       return((sqrt(OR) - 1) / (sqrt(OR) + 1))
     }
     if (measure == "lerman")
-      return((f11 - f1x * fx1 / N) / sqrt(f1x * fx1 / N))
+      return((n11 - n1x * nx1 / n) / sqrt(n1x * nx1 / n))
     if (measure == "implicationIndex")
-      return((f10 - f1x * fx0 / N) / sqrt(f1x * fx0 / N))
+      return((n10 - n1x * nx0 / n) / sqrt(n1x * nx0 / n))
     
     ## difference in confidence (conf(X -> Y) - conf(not X -> Y))
     ## Heike Hofmann and Adalbert Wilhelm. Visual comparison of association
     ## rules. Computational Statistics, 16(3):399-415, 2001.
     if (measure == "doc")
-      return((f11 / f1x) - (f01 / f0x))
+      return((n11 / n1x) - (n01 / n0x))
     
     ## chi-squared is from Bing Liu, Wynne Hsu, and Yiming Ma (1999)
     if (measure == "chiSquared") {
       chi2 <- numeric(length(x))
       
       for (i in seq_len(length(x))) {
-        fo <- matrix(c(f00[i], f01[i], f10[i], f11[i]), ncol = 2)
-        #fe <- tcrossprod(c(fx0[i], fx1[i]), c(f0x[i], f1x[i])) / N
+        fo <- matrix(c(n00[i], n01[i], n10[i], n11[i]), ncol = 2)
+        #fe <- tcrossprod(c(nx0[i], nx1[i]), c(n0x[i], n1x[i])) / n
         ## check if approximation is ok
         ## we don't do this now
-        ##if(any(fe < 5)) chi2[i] <- NA
+        ##if(any(fe < 5)) chi2[i] <- nA
         ##else
         #chi2[i] <- sum((fo - fe) ^ 2 / fe)
         
@@ -701,17 +693,17 @@ setMethod("interestMeasure",  signature(x = "rules"),
   RLD <- with(counts, {
     RLD <- numeric(length(x))
     for (i in seq_len(length(x))) {
-      D <- (f11[i] * f00[i] - f10[i] * f01[i]) / N
+      D <- (n11[i] * n00[i] - n10[i] * n01[i]) / n
       if (D > 0)
-        if (f01[i] < f10[i])
-          RLD[i] <- D / (D + f01[i])
+        if (n01[i] < n10[i])
+          RLD[i] <- D / (D + n01[i])
       else
-        RLD[i] <- D / (D + f10[i])
+        RLD[i] <- D / (D + n10[i])
       else
-        if (f11[i] < f00[i])
-          RLD[i] <- D / (D - f11[i])
+        if (n11[i] < n00[i])
+          RLD[i] <- D / (D - n11[i])
         else
-          RLD[i] <- D / (D - f00[i])
+          RLD[i] <- D / (D - n00[i])
     }
     RLD
   })
@@ -724,23 +716,21 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## Imbalance ratio see Wu, Chen and J. Han 2010
 # IR = abs(P(Y|X)-P(X|Y))/(P(Y|X)+P(X|Y) - P(Y|X)P(X|Y))
 # IR = abs(supp(X)-supp(Y))/(supp(X)+supp(Y)-supp(X->Y))
-.imbalance <- function(x, transactions, reuse = TRUE) {
+.imbalance <- function(x, transactions) {
   if (is.null(transactions))
     stop("transactions missing. Please specify the data used to mine the rules as transactions!")
   
   XY <- interestMeasure(x,
     measure = "support",
-    transactions = transactions,
-    reuse = reuse)
+    transactions = transactions)
   
   ## lhs support
   X <- interestMeasure(x,
     measure = "coverage",
-    transactions = transactions,
-    reuse = reuse)
+    transactions = transactions)
   
   ## rhs support
-  Y <- .rhsSupport(x, transactions = transactions, reuse = reuse)
+  Y <- .rhsSupport(x, transactions = transactions)
   
   imbalance <- abs(X - Y) / (X + Y - XY)
   imbalance
@@ -749,42 +739,38 @@ setMethod("interestMeasure",  signature(x = "rules"),
 ## Kulczynski measure see Wu, Chen and Han (2007)
 # Kulc = 1/2 (conf(X->Y) + conf(Y->X))
 # Kulc = supp(X->Y)/2  (1/supp(X) + 1/supp(Y))
-.kulc <- function(x, transactions, reuse = TRUE) {
+.kulc <- function(x, transactions) {
   if (is.null(transactions))
     stop("transactions missing. Please specify the data used to mine the rules as transactions!")
   
   XY <- interestMeasure(x,
     measure = "support",
-    transactions  = transactions,
-    reuse = reuse)
+    transactions  = transactions)
   ## lhs support
   X <- interestMeasure(x,
     measure = "coverage",
-    transactions = transactions,
-    reuse = reuse)
+    transactions = transactions)
   ## rhs support
-  Y <- .rhsSupport(x, transactions = transactions, reuse = reuse)
+  Y <- .rhsSupport(x, transactions = transactions)
   
   XY / 2 * (1 / X + 1 / Y)
 }
 
 ## Maximum Confidence measure see T. Wu et al. 2010
 # maxConf = max{supp(X,Y)/supp(X), supp(X,Y)/supp(Y)}
-.maxConf <- function(x, transactions, reuse = TRUE) {
+.maxConf <- function(x, transactions) {
   if (is.null(transactions))
     stop("transactions missing. Please specify the data used to mine the rules as transactions!")
   
   XY <- interestMeasure(x,
     measure = "support",
-    transactions  = transactions,
-    reuse = reuse)
+    transactions  = transactions)
   ## lhs support
   X <- interestMeasure(x,
     measure = "coverage",
-    transactions = transactions,
-    reuse = reuse)
+    transactions = transactions)
   ## rhs support
-  Y <- .rhsSupport(x, transactions = transactions, reuse = reuse)
+  Y <- .rhsSupport(x, transactions = transactions)
   
   pmax(XY / X, XY / Y)
 }
@@ -795,14 +781,10 @@ setMethod("interestMeasure",  signature(x = "rules"),
 .stdLift <-
   function(rules,
     transactions = NULL,
-    reuse = TRUE,
     correct = TRUE) {
-    measures <- interestMeasure(
-      rules,
+    measures <- interestMeasure(rules,
       c("support", "confidence", "lift", "coverage", "rhsSupport"),
-      transactions = transactions,
-      reuse = reuse
-    )
+      transactions = transactions)
     
     n <- info(rules)$ntransactions
     if (is.null(n)) {

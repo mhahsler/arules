@@ -6,13 +6,15 @@
 * new interest measure "riskRatio" was added. 
 * interestMeasure for contingency table-based measures now accept the additional parameter smoothCounts 
   which is added to each count to avoid counts of zero (Laplace smoothing). 
-* new method for stats confint to calcualte confidence intervals for some interest measures added.
-* is_redundant now can also use confidence intervals for supersets pruning.
+* new method for stats confint to calculate confidence intervals for some interest measures added.
+* is_redundant now can also use confidence intervals do determine statistical redundancy.
 
 ## Changes
 * we use now a better check for installed suggested packages.
 * Removed option "chiSquared" from crossTable.
 * inspect uses now a space after the comma.
+* interestMeasures: reuse = TRUE now only reuses the basic measures of "support", "confidence", "coverage" and
+  "lift". All other measures are recalculated to account for possible differences in additional parameters.
 
 ## Bug Fixes
 * fixed mistake in man page for weclat. Weight column needs to be called weight (reported by Alexander Ruth).

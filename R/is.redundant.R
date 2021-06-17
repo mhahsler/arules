@@ -1,6 +1,6 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
 #			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
@@ -23,31 +23,33 @@
 ## confidence of their proper sub-rules (i.e., have a negative improvement).
 
 setMethod("is.redundant", signature(x = "rules"),
-  function(x, measure = "confidence", confint = FALSE, level = 0.95, ...) {
+  function(x,
+    measure = "confidence",
+    confint = FALSE,
+    level = 0.95,
+    smoothCounts = 1,
+    ...) {
     if (confint)
-      .improvementCI(x, measure = measure, level = level, ...) <= 0
+      .improvementCI(x, measure = measure, level = level, smoothCounts = smoothCounts, ...) <= 0
     else
-      interestMeasure(x, measure = "improvement", 
-        improvementMeasure = measure, ...) <= 0
-  }
-)
-
-
-### TODO: The empty LHS rule has a OR of NaN! Should it be f11/f10?
+      interestMeasure(x, measure = "improvement",
+        improvementMeasure = measure, smoothCounts = smoothCounts, ...) <= 0
+  })
 
 # Is the supersets oddsRatio sign. larger than all its subsets?
 # I.e., the superset's lower bound needs to be larger than the subset's upper bound
 .improvementCI <- function(x,
   measure,
   level = 0.95,
+  smoothCounts = 0.5,
   ...) {
-
-  q <- confint(x, 
+  q <- confint(x,
     measure,
     level = level,
+    smoothCounts = smoothCounts,
     ...)
-    
-  # q is a data.frame with lowerBound and upperBound
+  
+  # q is a data.frame with lowerLimit and upperLimit
   imp <- numeric(length(x))
   
   ### do it by unique rhs
@@ -57,9 +59,10 @@ setMethod("is.redundant", signature(x = "rules"),
     pos <- which(rr == r)
     
     ### FALSE is for verbose
-    qsubmax <- .Call(R_pnmax, lhs(x[pos])@data, q$upperBound[pos], FALSE)
+    qsubmax <-
+      .Call(R_pnmax, lhs(x[pos])@data, q$upperLimit[pos], FALSE)
     
-    imp[pos] <- q$lowerBound[pos] - qsubmax
+    imp[pos] <- q$lowerLimit[pos] - qsubmax
   }
   
   imp

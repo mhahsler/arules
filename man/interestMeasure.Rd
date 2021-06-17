@@ -28,9 +28,10 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
       Use \code{reuse=FALSE} to force counting (might be very slow but
       is necessary if you use a different set of transactions than was used 
       for mining).}
-  \item{\dots}{ further arguments for the measure calculation. Many measures are based on counts. These measures accept the 
+  \item{\dots}{ further arguments for the measure calculation. Many measures are based on counts.
+  These measures accept the 
     additional parameter \code{smoothCounts} which adds a "pseudo count" of \code{smoothCounts} to each count. This implements
-    addaptive smoothing (Laplace smoothing) for counts which also avoids counts of zero which can lead to issues with many measures.}
+    addaptive smoothing (Laplace smoothing) for counts. Use \code{smoothCounts = 1} to avoid NaN values resulting from division by a zero count.}
 }
 \details{
 \bold{The following measures are implemented for itemsets \eqn{X}:}  
@@ -251,7 +252,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   
   
   The used quantile can be given
-  as parameter \code{d} (default: \code{d=0.99}).
+  as parameter \code{level} (default: \code{level = 0.99}).
 
   Range: \eqn{[0, \infty]}{[0, Inf]} (1 indicates independence)}
   
