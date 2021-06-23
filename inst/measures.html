@@ -263,7 +263,14 @@ div.tocify {
 <p><strong>Note on probability estimation:</strong> The used probability estimates will be very poor for itemsets with low observed frequencies. This needs to be always taken into account since it affects most measured discussed below.</p>
 <p><strong>Note on null-transactions:</strong> Transaction datasets typically contain a large number of transactions that do not contain either <span class="math inline">\(X\)</span> or <span class="math inline">\(Y\)</span>. These transactions are called null-transactions, and it is desirable that measures of rule strength are not influenced by a change in the number of null-transactions. However, most measures are affected by the number of null-transactions since the total number of transactions is used for probability estimation. Measures that are not influenced by a change in the number of null-transactions are called null-invariant see <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Tan et al., 2004</a> and <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Wu et al., 2010</a>)</p>
 <p>Good overviews of different association rule measures are provided by <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004"> Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis. Information Systems, 29(4):293-313, 2004 </a> and <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Geng:2006">Liqiang Geng and Howard J. Hamilton. Interestingness measures for data mining: A survey. ACM Computing Surveys, 38(3):9, 2006.</a></p>
-<p><strong>Implementation:</strong> All measures discussed on this page are implemented in the freely available R-extension package <a href="https://github.com/mhahsler/arules">arules</a> in function <a href="https://www.rdocumentation.org/packages/arules/topics/interestMeasure">interestMeasure()</a>. For corrections and missing measures on this page or in arules, please <a href="https://github.com/mhahsler/arules/issues">open an issue here</a> or contact <a href="http://michael.hahsler.net">me</a> directly.</p>
+<div id="implementation" class="section level3">
+<h3>Implementation</h3>
+<p>All measures discussed on this page are implemented in the freely available R-extension package <a href="https://github.com/mhahsler/arules">arules</a> in function <a href="https://www.rdocumentation.org/packages/arules/topics/interestMeasure">interestMeasure()</a>.</p>
+</div>
+<div id="corrections-and-feedback" class="section level3">
+<h3>Corrections and Feedback</h3>
+<p>For corrections and missing measures on this page or in arules, please <a href="https://github.com/mhahsler/arules/issues">open an issue here</a> or contact <a href="http://michael.hahsler.net">me</a> directly.</p>
+</div>
 </div>
 <div id="measures-for-itemsets" class="section level1">
 <h1>Measures for Itemsets</h1>
@@ -875,7 +882,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2,h3",
+      selectors: "h1,h2",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {

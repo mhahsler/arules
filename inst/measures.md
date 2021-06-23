@@ -5,6 +5,7 @@ author: "Michael Hahsler"
 output:
   html_document:
     toc: yes
+    toc_depth: 2
     toc_float:
       collapsed: no
 ---
@@ -13,7 +14,7 @@ output:
 
 <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" style="float:left; margin:4px;" alt = "CC BY-SA 4.0" />
 This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution Share Alike 4.0 International License.</a>
-Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: http://michael.hahsler.net/research/association_rules/measures.html**
+Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: https://mhahsler.github.io/arules/inst/measures**
 
 
 # Introduction
@@ -89,10 +90,12 @@ and
 Good overviews of different association rule measures are provided by <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004"> Pang-Ning   Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis. Information Systems, 29(4):293-313, 2004 </a>
 and <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Geng:2006">Liqiang Geng and Howard J. Hamilton. Interestingness measures for data mining: A survey. ACM Computing Surveys, 38(3):9, 2006.</a>
 
-**Implementation:**
+### Implementation
 All measures discussed on this page are implemented in the freely available R-extension package
 <a href="https://github.com/mhahsler/arules">arules</a>
 in function <a href="https://www.rdocumentation.org/packages/arules/topics/interestMeasure">interestMeasure()</a>.
+
+### Corrections and Feedback
 For corrections and missing measures on this page or in arules, 
 please <a href="https://github.com/mhahsler/arules/issues">open an issue here</a> or contact 
 <a href="http://michael.hahsler.net">me</a> directly.
