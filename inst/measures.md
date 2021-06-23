@@ -329,7 +329,7 @@ distribution.
 
 **Notes:** The contingency tables for some rules may 
 contain cells with low expected values (less then 5) and thus
-[Fisher's exact test](#fishers_exact_test) 
+[Fisher's exact test](#fishers-exact-test) 
 might be more appropriate.
 Each rule represents a statistical test, and 
 <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"> correction for multiple comparisons</a> may be necessary.
@@ -501,7 +501,7 @@ $$
 $$
 
 The p-value is related to [hyper-confidence](#hyper-confidence).
-Compared to the [Chi-squared test](#chi-squared), [Fisher's exact test](fishers_exact_test)
+Compared to the [Chi-squared test](#chi-squared), Fisher's exact test
 also applies when cells have low expected counts.
 Note that each rule represents a statistical test, and 
 [correction for multiple comparisons](https://en.wikipedia.org/wiki/Multiple_comparisons_problem) 
@@ -543,7 +543,7 @@ A confidence level of, e.g., $> 0.95$ indicates that
 there is only a  5% chance that the high count for the rule has occurred 
 randomly. Hyper-confidence is equivalent to 
 the statistic used to calculate the p-value in 
-[Fisher's exact test](fishers_exact_test). 
+[Fisher's exact test](#fishers-exact-test). 
 Note that each rule represents a statistical test and 
 [correction for multiple comparisons](https://en.wikipedia.org/wiki/Multiple_comparisons_problem) 
 may be necessary.
@@ -606,7 +606,7 @@ $$
 ## Implication Index
 **Reference:** Gras R., L'implication statistique. Nouvelle methode exploratoire de donnees. La Pensee Sauvage, Grenoble. 1996.
 
-A variation of the [Lerman similarity](#lerman_similarity) defined as 
+A variation of the [Lerman similarity](#lerman-similarity) defined as 
 
 $$
 gras(X \Rightarrow Y) 
@@ -628,7 +628,7 @@ importance(X \Rightarrow Y)
 = log_{10}(L(X \Rightarrow Y) / L(X \Rightarrow \overline{Y}))
 $$
 
-where $L$ is the [Laplace corrected confidence](#laplace_corrected_confidence).
+where $L$ is the [Laplace corrected confidence](#laplace-corrected-confidence).
 
 **Range:** $[-\infty, \infty]$
 
@@ -696,7 +696,7 @@ $$
 ## Klosgen
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
-Defined as a scaled version of the [added value measure](#added_value).
+Defined as a scaled version of the [added value measure](#added-value).
 
 $$
 klosgen(X \Rightarrow Y) 
@@ -815,7 +815,7 @@ then filter the found item sets using the leverage
 constraint. Because of this property, leverage also can suffer
 from the rare item problem.
 
-Leverage is a unnormalized version of the [phi correlation coefficient](phi_correlation_coefficient).
+Leverage is a unnormalized version of the [phi correlation coefficient](#phi-correlation-coefficient).
 
 **Range:** $[-1, 1]$ (0 indicates independence)
 
@@ -846,7 +846,7 @@ independent. A lift value of 1 indicates independence between
 $X$ and $Y$. 
 For statistical tests, see the 
 [Chi-squared test statistic](#chi-squared),
-[Fisher's exact test](#fishers_exact_test), and
+[Fisher's exact test](#fishers-exact-test), and
 [hyper-confidence](#hyper-confidence).
 
 Lift is not downward closed and does not suffer from the
@@ -1069,6 +1069,6 @@ Defined as
 $$ Q(X \Rightarrow Y) = \frac{\alpha-1}{\alpha+1} $$
 $$ Y(X \Rightarrow Y) = \frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1} $$
 
-where $\alpha = OR(X \Rightarrow Y)$ is the [odds ratio](#odds_ratio) of the rule.
+where $\alpha = OR(X \Rightarrow Y)$ is the [odds ratio](#odds-ratio) of the rule.
 
 **Range:** $[-1, 1]$

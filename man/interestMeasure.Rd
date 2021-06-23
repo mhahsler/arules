@@ -54,7 +54,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   a ratio smaller than a set threshold. Normally many found patterns are 
   cross-support patterns which contain frequent as well as rare items. Such 
   patterns often tend to be spurious. 
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#cross-support_ratio}{Cross-Support Ratio}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#cross-support-ratio}{Cross-Support Ratio}
 
   Range: \eqn{[0, 1]}}
 
@@ -91,7 +91,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 \item{"addedValue", added Value, AV, Pavillon index, centered confidence}{ 
   
   Defined as the rule confidence minus the rule's support. 
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#adde_value}{Added Value}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#added-value}{Added Value}
 
   Range: \eqn{[-.5, 1]}}
 
@@ -99,7 +99,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   
   Confidence boost is the ratio of the confidence of a rule to the confidence of any more general rule (i.e., a rule with the same consequent but one or more items removed in the LHS). 
   Values larger than 1 mean the new rule boosts the confidence compared to the best, more general rule. The measure is related to the improvement measure.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Confidence_Boost}{Confidence boost}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#confidence-boost}{Confidence boost}
 
   Range: \eqn{[0, \infty]}{[0, Inf]}}
 
@@ -136,7 +136,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   Y is in a transaction when only considering transactions with X. An increasing CF   
   means a decrease of the probability that Y is not in a transaction that X 
   is in. Negative CFs have a similar interpretation.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Certainty_Factor}{Certainty Factor}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#certainty-factor}{Certainty Factor}
 
   Range: \eqn{[-1, 1]} (0 indicates independence)
   }
@@ -144,7 +144,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 \item{"collectiveStrength", Collective strength, S}{ 
 
   Collective strength gives 0 for perfectly negative correlated items, infinity for perfectly positive correlated    items, and 1 if the items co-occur as expected under independence.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Collective_Strength}{Collective Strength}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#collective-strength}{Collective Strength}
 
   Range: \eqn{[0, \infty]}{[0, Inf]}}
 
@@ -186,32 +186,32 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 \item{"confirmedConfidence", descriptive confirmed confidence}{
 
     How much higher is the confidence of a rule compared to the confidence of the rule \eqn{X \Rightarrow \overline{Y}}{X -> !Y}. 
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Descriptive_Confirmed_Confidence}{Descriptive Confirmed Confidence}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#descriptive-confirmed-confidence}{Descriptive Confirmed Confidence}
     
     Range: \eqn{[-1, 1]}}
 
 \item{"casualConfidence", casual confidence}{
     Confidence reinforced by the confidence of the rule \eqn{\overline{X} \Rightarrow \overline{Y}}{!X -> !Y}.
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Casual_Confidence}{Casual Confidence}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#casual-confidence}{Casual Confidence}
     
     Range: \eqn{[0, 1]}}
 
 \item{"casualSupport", casual support}{
     Support reinforced by the support of the rule \eqn{\overline{X} \Rightarrow \overline{Y}}{!X -> !Y}.
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Casual_Support}{Casual Support}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#casual-support}{Casual Support}
     
     Range: \eqn{[-1, 1]}}
 
 \item{"counterexample", example and counter-example rate}{
 
     Rate of the examples minus the rate of counter examples (i.e., \eqn{X \Rightarrow \overline{Y}}{X -> !Y}). 
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Example_and_Counter-Example_Rate}{Example and Counter-example Rate}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#example-and-counter-example-rate}{Example and Counter-example Rate}
     
     Range: \eqn{[0, 1]}}
 
 \item{"doc", difference of confidence}{
   Defined as the difference in confidence of the rule and the rule \eqn{\overline{X} \Rightarrow Y}{!X -> Y}
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Difference_of_Confidence}{Difference of Confidence}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#difference-of-confidence}{Difference of Confidence}
     
     Range: \eqn{[-1, 1]}}
 
@@ -220,7 +220,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   where sample sizes are small.
   By default complementary effects are mined, substitutes can be found
   by using the parameter \code{complements = FALSE}. 
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Fishers_Exact_Test}{Fisher's Exact Test}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#fishers-exact-test}{Fisher's Exact Test}
   
   Note that it is equal to hyper-confidence with \code{significance=TRUE}.
   Correction for multiple comparisons can be done using \code{\link{p.adjust}}.
@@ -229,14 +229,14 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 
 \item{"gini", Gini index}{ 
   Measures quadratic entropy of a rule.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Gini_Index}{Gini index}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#gini-index}{Gini index}
   
   Range: \eqn{[0, 1]} (0 means the rule provides no information for the data set)}
 
 \item{"hyperConfidence"}{
   Confidence level that the observed co-occurrence count of the LHS and RHS is too high 
   given the expected count using the hypergeometric model.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Hyper-Confidence}{Hyper-Confidence}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#hyper-confidence}{Hyper-Confidence}
   
   Hyper-confidence reports the confidence level by default and the 
   significance level if \code{significance=TRUE} is used.
@@ -251,7 +251,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 \item{"hyperLift"}{ 
   Adaptation of the lift measure which evaluates the deviation from independence
   using a quantile of the hypergeometric distribution defined by the counts of the LHS and RHS. HyperLift can be used to calculate confidence intervals for the lift measure. 
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Hyper-Lift}{Hyper-Lift}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#hyper-lift}{Hyper-Lift}
   
   
   The used quantile can be given
@@ -265,14 +265,14 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   The ratio is close to 0 if the conditional probabilities are similar (i.e., 
   very balanced) and
   close to 1 if they are very different. 
-  See also: \href{https://mhahsler.github.io/arules/inst/measures#Imbalance_Ratio}{Imbalance ratio}
+  See also: \href{https://mhahsler.github.io/arules/inst/measures#imbalance-ratio}{Imbalance ratio}
   
   Range: \eqn{[0, 1]} (0 indicates a balanced rule)}
 
 \item{"implicationIndex", implication index}{
   
   A variation of the Lerman similarity.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Implication_Index}{Implication Index}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#implication-index}{Implication Index}
 
   Range: \eqn{[0, 1]} (0 means independence)}
 
@@ -302,7 +302,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 \item{"jaccard", Jaccard coefficient, sometimes also called Coherence}{
   Null-invariant measure of dependence defined as the Jaccard similarity between the two sets of transactions
   that contain the items in X and Y, respectively.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Jaccard_Coefficient}{Jaccard coefficient}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#jaccard-coefficient}{Jaccard coefficient}
 
   Range: \eqn{[0, 1]}}
 
@@ -345,21 +345,21 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   Estimates confidence by increasing each count by 1. Parameter \code{k} can be used
   to specify the number of classes (default is 2).
   Prevents counts of 0 and L decreases with lower support. 
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Laplace_Corrected_Confidence}{Laplace corrected confidence/accuracy}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#laplace-corrected-confidence}{Laplace corrected confidence/accuracy}
   
   Range: \eqn{[0, 1]}}
 
 \item{"leastContradiction", least contradiction}{
 
     Probability of finding a matching transaction minus the probability of finding a contradicting transaction normalized by the probability of finding a transaction containing Y. 
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Least_Contradiction}{Least Contradiction}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#least-contradiction}{Least Contradiction}
     
     Range: \eqn{[-1, 1]}}
 
 \item{"lerman", Lerman similarity}{
   
   Defined as \eqn{\sqrt{N} \frac{supp(X \cup Y) - supp(X)supp(Y)}{\sqrt{supp(X)supp(Y)}}}{sqrt(N) (supp(X & Y) - supp(X)supp(Y))/ sqrt(supp(X)supp(Y))}
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Lerman_Similarity}{Lerman similarity}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#lerman-similarity}{Lerman similarity}
 
   Range: \eqn{[0, 1]}}
 
@@ -383,14 +383,14 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 \item{"maxConfidence"}{
   Null-invariant symmetric measure defined as the larger of the confidence of the rule or the rule
   with X and Y exchanged.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#MaxConfidence}{MaxConfidence}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#maxconfidence}{MaxConfidence}
   
   Range: \eqn{[0, 1]}
 }
 
 \item{"mutualInformation", uncertainty, M}{
   Measures the information gain for Y provided by X.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Mutual_Information}{Mutual Information}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#mutual-information}{Mutual Information}
   
   Range: \eqn{[0, 1]} (0 means that X does not provide information for Y)}
 
@@ -399,7 +399,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   The odds of finding X in transactions which contain Y divided by
   the odds of finding X in transactions which do not contain Y.
   For zero counts, Haldane-Anscombe correction (adding .5 to all zells) is applied.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Odds_Ratio}{Odds Ratio}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#odds_ratio}{Odds Ratio}
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates that Y is not associated to X)}
   
@@ -408,13 +408,13 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   Calculates the lower and upper bounds of the confidence interval around the odds ratio (using a normal approximation).
   The used confidence level defaults to 0.95, but can be adjusted with the additional 
   parameter \code{confidenceLevel}.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Odds_Ratio}{Odds Ratio}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#odds-ratio}{Odds Ratio}
   
   Range: \eqn{[0, \infty]}{[0, Inf]}}
   
 \item{"phi", correlation coefficient \eqn{\phi}{phi}}{ 
-  Correlation coefficient between the transactions containing X and Y  represented as two binary vectors. Phi correlation is equivalent to Pearson's Product Moment Correlation Coefficient \eqn{\rho}{rho} with 0-1 values.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Phi_Correlation_Coefficient}{Phi Correlation Coefficient}
+  Correlation coefficient between the transactions containing X and Y represented as two binary vectors. Phi correlation is equivalent to Pearson's Product Moment Correlation Coefficient \eqn{\rho}{rho} with 0-1 values.
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#phi-correlation-coefficient}{Phi Correlation Coefficient}
     
   Range: \eqn{[-1, 1]} (0 when X and Y are independent)}
 
@@ -435,7 +435,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 indices used in population genetics. It evaluates the deviation
     of the support of the whole rule from the support expected under 
     independence given the supports of the LHS and the RHS. 
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Relative_Linkage_Disequilibrium}{Relative linkage disequilibrium}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#relative-linkage-disequilibrium}{Relative linkage disequilibrium}
     
     The code was
     contributed by Silvia Salini. 
@@ -446,14 +446,14 @@ indices used in population genetics. It evaluates the deviation
 
     Product of support and confidence. Can be seen as rule confidence weighted
     by support. 
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Rule_Power_Factor}{Rule Power Factor}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#rule-power-factor}{Rule Power Factor}
     
     Range: \eqn{[0, 1]}}
 
 \item{"sebag", Sebag-Schoenauer measure}{
     
     Confidence of a rule divided by the confidence of the rule  \eqn{X \Rightarrow \overline{Y}}{X -> !Y}.
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Sebag-Schoenauer}{Sebag-Schoenauer measure}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#sebag-schoenauer}{Sebag-Schoenauer measure}
     
     Range: \eqn{[0, 1]}}
 
@@ -461,7 +461,7 @@ indices used in population genetics. It evaluates the deviation
     
     Standardized lift uses the minimum and maximum lift can reach for each rule to standardize lift between 0 and 1. By default, the measure is corrected for minimum support and minimum confidence. Correction can be disabled by using the argument \code{correct = FALSE}.
     
-    See details: \href{https://mhahsler.github.io/arules/inst/measures#Standardized_Lift}{Standardized Lift}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#standardized-lift}{Standardized Lift}
     
     Range: \eqn{[0, 1]}}
     
@@ -482,21 +482,21 @@ indices used in population genetics. It evaluates the deviation
 \item{"varyingLiaison", varying rates liaison}{ 
 
   Defined as the lift of a rule minus 1 so 0 represents independence.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Varying_Rates_Liaison}{Varying Rates Liaison}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Varying-Rates-Liaison}{Varying Rates Liaison}
   
   Range: \eqn{[-1, \infty]} (0 for independence)}
 
 \item{"yuleQ", Yule's Q}{
   Defined as \eqn{\frac{\alpha-1}{\alpha+1}}{(alpha-1)/(alpha+1)} where
   \eqn{\alpha}{alpha} is the odds ratio.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Yules_Q_and_Yules_Y}{Yule's Q}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#yules-q-and-yules-y}{Yule's Q}
   
   Range: \eqn{[-1, 1]}}
 
 \item{"yuleY", Yule's Y}{
   Defined as \eqn{\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}}{(sqrt(alpha)-1)/(sqrt(alpha)+1)} where
   \eqn{\alpha}{alpha} is the odds ratio.
-  See details: \href{https://mhahsler.github.io/arules/inst/measures#Yules_Q_and_Yules_Y}{Yule's Y}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#yules-q-and-yules-y}{Yule's Y}
   
   Range: \eqn{[-1, 1]}}
 

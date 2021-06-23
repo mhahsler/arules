@@ -374,7 +374,7 @@ P(X \cap Y) + P(\overline{X} \cap \overline{Y})\]</span></p>
 \]</span></p>
 <p><span class="math inline">\(O_i\)</span> is the observed count of contingency table cell <span class="math inline">\(i\)</span> and <span class="math inline">\(E_i\)</span> is the expected count given the marginals.<br />
 The statistic has approximately a <span class="math inline">\(\chi^2\)</span> distribution with 1 degree of freedom (for a 2x2 contingency table). The critical value for <span class="math inline">\(\alpha=0.05\)</span> is <span class="math inline">\(3.84\)</span>; higher chi-squared values indicate that the null-hypothesis of independence between LHS and the RHS should be rejected (i.e., the rule is not spurious). Larger chi-squared values indicate stronger evidence that the rule represents a strong relationship. The statistic can be converted into a p-value using the <span class="math inline">\(\chi^2\)</span> distribution.</p>
-<p><strong>Notes:</strong> The contingency tables for some rules may contain cells with low expected values (less then 5) and thus <a href="#fishers_exact_test">Fisher’s exact test</a> might be more appropriate. Each rule represents a statistical test, and <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"> correction for multiple comparisons</a> may be necessary.</p>
+<p><strong>Notes:</strong> The contingency tables for some rules may contain cells with low expected values (less then 5) and thus <a href="#fishers-exact-test">Fisher’s exact test</a> might be more appropriate. Each rule represents a statistical test, and <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"> correction for multiple comparisons</a> may be necessary.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, \infty]\)</span></p>
 </div>
 <div id="collective-strength" class="section level2">
@@ -462,7 +462,7 @@ doc(X \Rightarrow Y)
 <p><span class="math display">\[
 \textrm{p-value} = P(C_{XY} \ge n_{XY}) 
 \]</span></p>
-<p>The p-value is related to <a href="#hyper-confidence">hyper-confidence</a>. Compared to the <a href="#chi-squared">Chi-squared test</a>, <a href="fishers_exact_test">Fisher’s exact test</a> also applies when cells have low expected counts. Note that each rule represents a statistical test, and <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">correction for multiple comparisons</a> may be necessary.</p>
+<p>The p-value is related to <a href="#hyper-confidence">hyper-confidence</a>. Compared to the <a href="#chi-squared">Chi-squared test</a>, Fisher’s exact test also applies when cells have low expected counts. Note that each rule represents a statistical test, and <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">correction for multiple comparisons</a> may be necessary.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span> (p-value scale)</p>
 </div>
 <div id="gini-index" class="section level2">
@@ -484,7 +484,7 @@ P(Y)^2 - P(\overline{Y})^2
 \textrm{hyper-conf}(X \Rightarrow Y) 
 = 1 - P[C_{XY} \ge n_{XY} | n_X, n_Y]
 \]</span></p>
-<p>A confidence level of, e.g., <span class="math inline">\(&gt; 0.95\)</span> indicates that there is only a 5% chance that the high count for the rule has occurred randomly. Hyper-confidence is equivalent to the statistic used to calculate the p-value in <a href="fishers_exact_test">Fisher’s exact test</a>. Note that each rule represents a statistical test and <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">correction for multiple comparisons</a> may be necessary.</p>
+<p>A confidence level of, e.g., <span class="math inline">\(&gt; 0.95\)</span> indicates that there is only a 5% chance that the high count for the rule has occurred randomly. Hyper-confidence is equivalent to the statistic used to calculate the p-value in <a href="#fishers-exact-test">Fisher’s exact test</a>. Note that each rule represents a statistical test and <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">correction for multiple comparisons</a> may be necessary.</p>
 <p>Hyper-Confidence can also be used to evaluate that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are complementary (i.e., the count is too low to have occurred randomly).</p>
 <p><span class="math display">\[ 
 \textrm{hyper-conf}_\textrm{complement}(X \Rightarrow Y) 
@@ -519,7 +519,7 @@ IB(X \Rightarrow Y)
 <div id="implication-index" class="section level2">
 <h2>Implication Index</h2>
 <p><strong>Reference:</strong> Gras R., L’implication statistique. Nouvelle methode exploratoire de donnees. La Pensee Sauvage, Grenoble. 1996.</p>
-<p>A variation of the <a href="#lerman_similarity">Lerman similarity</a> defined as</p>
+<p>A variation of the <a href="#lerman-similarity">Lerman similarity</a> defined as</p>
 <p><span class="math display">\[
 gras(X \Rightarrow Y) 
 = \sqrt{N} \frac{supp(X \cup \overline{Y}) - supp(X)supp(\overline{Y})}{\sqrt{supp(X)supp(\overline{Y})}}
@@ -585,7 +585,7 @@ P(\overline{X})P(\overline{Y})}
 <div id="klosgen" class="section level2">
 <h2>Klosgen</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
-<p>Defined as a scaled version of the <a href="#added_value">added value measure</a>.</p>
+<p>Defined as a scaled version of the <a href="#added-value">added value measure</a>.</p>
 <p><span class="math display">\[
 klosgen(X \Rightarrow Y) 
 = \sqrt{supp(X \cup Y)}\,(conf(X \Rightarrow Y) - supp(Y)) 
@@ -662,7 +662,7 @@ PS(X \Rightarrow Y) = leverage(X \Rightarrow Y)
 \]</span></p>
 <p>Leverage measures the difference of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> appearing together in the data set and what would be expected if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> were statistically dependent. The rationale in a sales setting is to find out how many more units (items <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> together) are sold than expected from the independent sells.</p>
 <p>Using minimum leverage thresholds incorporates at the same time an implicit frequency constraint. E.g., for setting a min. leverage thresholds to 0.01% (corresponds to 10 occurrences in a data set with 100,000 transactions) one first can use an algorithm to find all itemsets with min. support of 0.01% and then filter the found item sets using the leverage constraint. Because of this property, leverage also can suffer from the rare item problem.</p>
-<p>Leverage is a unnormalized version of the <a href="phi_correlation_coefficient">phi correlation coefficient</a>.</p>
+<p>Leverage is a unnormalized version of the <a href="#phi-correlation-coefficient">phi correlation coefficient</a>.</p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span> (0 indicates independence)</p>
 </div>
 <div id="lift" class="section level2">
@@ -678,7 +678,7 @@ PS(X \Rightarrow Y) = leverage(X \Rightarrow Y)
 = \frac{P(X \cap Y)}{P(X)P(Y)}
 = n \frac{n_{XY}}{n_X n_Y}
 \]</span></p>
-<p>Lift measures how many times more often <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> occur together than expected if they were statistically independent. A lift value of 1 indicates independence between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. For statistical tests, see the <a href="#chi-squared">Chi-squared test statistic</a>, <a href="#fishers_exact_test">Fisher’s exact test</a>, and <a href="#hyper-confidence">hyper-confidence</a>.</p>
+<p>Lift measures how many times more often <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> occur together than expected if they were statistically independent. A lift value of 1 indicates independence between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. For statistical tests, see the <a href="#chi-squared">Chi-squared test statistic</a>, <a href="#fishers-exact-test">Fisher’s exact test</a>, and <a href="#hyper-confidence">hyper-confidence</a>.</p>
 <p>Lift is not downward closed and does not suffer from the rare item problem. However, lift is susceptible to noise in small databases. Rare itemsets with low counts (low probability), which by chance occur a few times (or only once) together, can produce enormous lift values.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, \infty]\)</span> (1 means independence)</p>
 </div>
@@ -831,7 +831,7 @@ VRL(X \Rightarrow Y) = lift(X \Rightarrow Y) -1
 <h2>Yule’s Q and Yule’s Y</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Defined as <span class="math display">\[ Q(X \Rightarrow Y) = \frac{\alpha-1}{\alpha+1} \]</span> <span class="math display">\[ Y(X \Rightarrow Y) = \frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1} \]</span></p>
-<p>where <span class="math inline">\(\alpha = OR(X \Rightarrow Y)\)</span> is the <a href="#odds_ratio">odds ratio</a> of the rule.</p>
+<p>where <span class="math inline">\(\alpha = OR(X \Rightarrow Y)\)</span> is the <a href="#odds-ratio">odds ratio</a> of the rule.</p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span></p>
 </div>
 </div>
