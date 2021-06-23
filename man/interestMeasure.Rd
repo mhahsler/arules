@@ -7,7 +7,7 @@
 Provides the generic function \code{interestMeasure} and the needed S4 method 
 to calculate various additional interest measures for existing sets of
 itemsets or rules. A searchable list of definitions, equations and references for all available interest measures can be found here: 
-\href{https://michael.hahsler.net/research/association_rules/measures.html}{A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules} (Hahsler, 2015).
+\href{https://mhahsler.github.io/arules/inst/measures}{A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules} (Hahsler, 2015).
 }
 \usage{
 interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
@@ -28,23 +28,25 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
       Use \code{reuse=FALSE} to force counting (might be very slow but
       is necessary if you use a different set of transactions than was used 
       for mining).}
-  \item{\dots}{ further arguments for the measure calculation. Many measures are based on counts.
-  These measures accept the 
-    additional parameter \code{smoothCounts} which adds a "pseudo count" of \code{smoothCounts} to each count. This implements
-    addaptive smoothing (Laplace smoothing) for counts. Use \code{smoothCounts = 1} to avoid NaN values resulting from division by a zero count.}
+  \item{\dots}{ further arguments for the measure calculation. Many measures are based on contingency table counts
+    and zero counts can produce NaN values (division by zero). This issue can be resolved by using the 
+    additional parameter \code{smoothCounts} which performs additive smoothing by adds a "pseudo count" of
+    \code{smoothCounts} to each count in the contingency table. Use \code{smoothCounts = 1} or larger values for 
+    Laplace smoothing. Use \code{smoothCounts = .5} for Haldane-Anscombe correction often used for chi-squared, 
+    phi correlation and related measures. }
 }
 \details{
 \bold{The following measures are implemented for itemsets \eqn{X}:}  
 \describe{
-\item{"allConfidence" (Omiencinski, 2003)}{
+\item{"allConfidence"}{
  
   Is defined on itemsets as the
   minimum confidence of all possible rule generated from the itemset. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#all-confidence}{All-Confidence}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#all-confidence}{All-Confidence}
   
   Range: \eqn{[0, 1]}}
 
-\item{"crossSupportRatio", cross-support ratio (Xiong et al., 2003)}{ 
+\item{"crossSupportRatio", cross-support ratio}{ 
   
   Defined on itemsets as the ratio of the support of the least frequent item 
   to the support of the most frequent item.
@@ -52,7 +54,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   a ratio smaller than a set threshold. Normally many found patterns are 
   cross-support patterns which contain frequent as well as rare items. Such 
   patterns often tend to be spurious. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#crossSupport}{Cross-Support Ratio}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#cross-support_ratio}{Cross-Support Ratio}
 
   Range: \eqn{[0, 1]}}
 
@@ -65,44 +67,44 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (1 indicated independence)}
 
-\item{"support", supp (Agrawal et al., 1996)}{
+\item{"support", supp}{
   
   Support is an estimate of \eqn{P(X)}, a measure of generality of the itemset. It is estimated by 
   the number of transactions that contain the itemset over the total number of transactions in the data set.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#support}{Support}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#support}{Support}
 
   Range: \eqn{[0, 1]}}
 
 \item{"count"}{
   
   Absolute support count of the itemset, i.e., the number of transactions that contain the itemset. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html}{Support Count}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#support}{Support Count}
 
   Range: \eqn{[0, \infty]}}
 }
 
 
-\bold{The following measures are implemented for rules of the form \eqn{X \Rightarrow Y}{X -> Y}:}
+\bold{The following measures are implemented for rules of the form \eqn{X \Rightarrow Y}{X => Y}:}
 
 \describe{
 
-\item{"addedValue", added Value, AV, Pavillon index, centered confidence (Tan et al., 2002)}{ 
+\item{"addedValue", added Value, AV, Pavillon index, centered confidence}{ 
   
-  Defined as the rule confidence minus the rules support. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#addedValue}{Added Value}
+  Defined as the rule confidence minus the rule's support. 
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#adde_value}{Added Value}
 
   Range: \eqn{[-.5, 1]}}
 
-\item{"boost", confidence boost (Balcazar, 2013)}{ 
+\item{"boost", confidence boost}{ 
   
   Confidence boost is the ratio of the confidence of a rule to the confidence of any more general rule (i.e., a rule with the same consequent but one or more items removed in the LHS). 
   Values larger than 1 mean the new rule boosts the confidence compared to the best, more general rule. The measure is related to the improvement measure.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#boost}{Confidence boost}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Confidence_Boost}{Confidence boost}
 
   Range: \eqn{[0, \infty]}{[0, Inf]}}
 
 
-\item{"chiSquared", \eqn{\chi^2}{X^2} statistic (Liu et al., 1999)}{ 
+\item{"chiSquared", \eqn{\chi^2}{X^2} statistic}{ 
 
   The chi-squared statistic 
   to test for independence between the lhs and rhs of the rule.
@@ -110,7 +112,7 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   freedom (2x2 contingency table) at \eqn{\alpha=0.05}{alpha=0.05} 
   is \eqn{3.84}; higher chi-squared
   values indicate that the lhs and the rhs are not independent.  
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#chisquared}{Chi-Squared statistic}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#chi-squared}{Chi-Squared statistic}
   
   %Note that if
   %any cell in the contingency table has an expected value below \eqn{5}, the
@@ -129,111 +131,112 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   
   Range: \eqn{[0, \infty]}{[0, Inf]} or p-value scale}
 
-\item{"certainty", certainty factor, CF, Loevinger (Berzal et al., 2002)}{
+\item{"certainty", certainty factor, CF, Loevinger}{
   The certainty factor is a measure of variation of the probability that 
   Y is in a transaction when only considering transactions with X. An increasing CF   
   means a decrease of the probability that Y is not in a transaction that X 
   is in. Negative CFs have a similar interpretation.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#certainty}{Certainty Factor}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Certainty_Factor}{Certainty Factor}
 
-  Range: \eqn{[-1, 1]} (0 indicates independence)}
+  Range: \eqn{[-1, 1]} (0 indicates independence)
+  }
 
-\item{"collectiveStrength"}{Collective strength (S). 
+\item{"collectiveStrength", Collective strength, S}{ 
 
   Collective strength gives 0 for perfectly negative correlated items, infinity for perfectly positive correlated    items, and 1 if the items co-occur as expected under independence.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#collective}{Collective Strength}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Collective_Strength}{Collective Strength}
 
   Range: \eqn{[0, \infty]}{[0, Inf]}}
 
-\item{"confidence", Strength, conf (Agrawal et al., 1996)}{ 
+\item{"confidence", Strength, conf}{ 
    Confidence is a measure of rule validity. Rule confidence is an estimate of \eqn{P(Y|X)}.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#confidence}{Confidence}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#confidence}{Confidence}
   
-  Range \eqn{[0, 1]}}
+  Range: \eqn{[0, 1]}}
 
-\item{"conviction" (Brin et al. 1997)}{ 
+\item{"conviction"}{ 
   
   Conviction was developed as an alternative to lift that also incorporates the direction of the rule. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#conviction}{Conviction}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#conviction}{Conviction}
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates unrelated items)}
 
-\item{"cosine" (Tan et al., 2004)}{
+\item{"cosine"}{
   
   A measure if correlation between the items in X and Y.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#cosine}{Cosine}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#cosine}{Cosine}
 
   Range: \eqn{[0, 1]}(\eqn{.5} indicates no correlation)}
 
 \item{"count"}{
   
   Absolute support count of the rule, i.e., the number of transactions that contain all items in the rule. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html}{Support Count}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#support}{Support Count}
   
   Range: \eqn{[0, \infty]}}
   
 \item{"coverage", cover, LHS-support}{ 
     
     It measures the probability that a rule applies to a randomly selected transaction. It is estimated by the proportion of transactions that contain the antecedent (LHS) of the rule. Therefore, coverage is sometimes called antecedent support or LHS support.
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#coverage}{Coverage}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#coverage}{Coverage}
     
     Range: \eqn{[0, 1]}}
 
 
-\item{"confirmedConfidence", descriptive confirmed confidence (Kodratoff, 1999)}{
+\item{"confirmedConfidence", descriptive confirmed confidence}{
 
     How much higher is the confidence of a rule compared to the confidence of the rule \eqn{X \Rightarrow \overline{Y}}{X -> !Y}. 
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#confirmedConfidence}{Descriptive Confirmed Confidence}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Descriptive_Confirmed_Confidence}{Descriptive Confirmed Confidence}
     
     Range: \eqn{[-1, 1]}}
 
-\item{"casualConfidence", casual confidence (Kodratoff, 1999)}{
+\item{"casualConfidence", casual confidence}{
     Confidence reinforced by the confidence of the rule \eqn{\overline{X} \Rightarrow \overline{Y}}{!X -> !Y}.
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#casualConfidence}{Casual Confidence}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Casual_Confidence}{Casual Confidence}
     
     Range: \eqn{[0, 1]}}
 
-\item{"casualSupport", casual support (Kodratoff, 1999)}{
+\item{"casualSupport", casual support}{
     Support reinforced by the support of the rule \eqn{\overline{X} \Rightarrow \overline{Y}}{!X -> !Y}.
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#casualSupport}{Casual Support}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Casual_Support}{Casual Support}
     
     Range: \eqn{[-1, 1]}}
 
 \item{"counterexample", example and counter-example rate}{
 
     Rate of the examples minus the rate of counter examples (i.e., \eqn{X \Rightarrow \overline{Y}}{X -> !Y}). 
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#counterexample}{Example and Counter-example Rate}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Example_and_Counter-Example_Rate}{Example and Counter-example Rate}
     
     Range: \eqn{[0, 1]}}
 
-\item{"doc", difference of confidence (Hofmann and Wilhelm, 2001)}{
+\item{"doc", difference of confidence}{
   Defined as the difference in confidence of the rule and the rule \eqn{\overline{X} \Rightarrow Y}{!X -> Y}
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#doc}{Difference of Confidence}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Difference_of_Confidence}{Difference of Confidence}
     
     Range: \eqn{[-1, 1]}}
 
-\item{"fishersExactTest", Fisher's exact test (Hahsler and Hornik, 2007)}{
+\item{"fishersExactTest", Fisher's exact test}{
   p-value of Fisher's exact test used in the analysis of contingency tables 
   where sample sizes are small.
   By default complementary effects are mined, substitutes can be found
   by using the parameter \code{complements = FALSE}. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#fishersExactTest}{Fisher's Exact Test}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Fishers_Exact_Test}{Fisher's Exact Test}
   
   Note that it is equal to hyper-confidence with \code{significance=TRUE}.
   Correction for multiple comparisons can be done using \code{\link{p.adjust}}.
   
   Range: \eqn{[0, 1]} (p-value scale)}
 
-\item{"gini", Gini index (Tan et al., 2004)}{ 
+\item{"gini", Gini index}{ 
   Measures quadratic entropy of a rule.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#gini}{Gini index}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Gini_Index}{Gini index}
   
   Range: \eqn{[0, 1]} (0 means the rule provides no information for the data set)}
 
-\item{"hyperConfidence" (Hahsler and Hornik, 2007)}{
+\item{"hyperConfidence"}{
   Confidence level that the observed co-occurrence count of the LHS and RHS is too high 
   given the expected count using the hypergeometric model.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#hyperConf}{Hyper-Confidence}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Hyper-Confidence}{Hyper-Confidence}
   
   Hyper-confidence reports the confidence level by default and the 
   significance level if \code{significance=TRUE} is used.
@@ -245,10 +248,10 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   Range: \eqn{[0, 1]}}
   
 
-\item{"hyperLift" (Hahsler and Hornik, 2007)}{ 
+\item{"hyperLift"}{ 
   Adaptation of the lift measure which evaluates the deviation from independence
   using a quantile of the hypergeometric distribution defined by the counts of the LHS and RHS. HyperLift can be used to calculate confidence intervals for the lift measure. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#hyperLift}{Hyper-Lift}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Hyper-Lift}{Hyper-Lift}
   
   
   The used quantile can be given
@@ -256,31 +259,31 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 
   Range: \eqn{[0, \infty]}{[0, Inf]} (1 indicates independence)}
   
-\item{"imbalance", imbalance ratio, IR (Wu, Chen and Han, 2010)}{
+\item{"imbalance", imbalance ratio, IR}{
   IR measures the degree of imbalance between the two events 
   that the lhs and the rhs are contained in a transaction.
   The ratio is close to 0 if the conditional probabilities are similar (i.e., 
   very balanced) and
   close to 1 if they are very different. 
-  See also: \href{https://michael.hahsler.net/research/association_rules/measures.html#imbalance}{Imbalance ratio}
+  See also: \href{https://mhahsler.github.io/arules/inst/measures#Imbalance_Ratio}{Imbalance ratio}
   
   Range: \eqn{[0, 1]} (0 indicates a balanced rule)}
 
-\item{"implicationIndex", implication index (Gras, 1996)}{
+\item{"implicationIndex", implication index}{
   
   A variation of the Lerman similarity.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#implicationIndex}{Implication Index}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Implication_Index}{Implication Index}
 
   Range: \eqn{[0, 1]} (0 means independence)}
 
-\item{"importance" (MS Analysis Services)}{
+\item{"importance"}{
   Log likelihood of the right-hand side of the rule, 
   given the left-hand side of the rule using Laplace corrected confidence.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#importance}{Importance}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#importance}{Importance}
   
   Range: \eqn{[-Inf, Inf]}}
 
-\item{"improvement" (Bayardo et al., 2000)}{
+\item{"improvement"}{
   The  improvement of a rule is 
   the minimum difference between its confidence and the confidence of any
   more general rule (i.e., a rule with the same consequent but one or 
@@ -292,133 +295,133 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
   The idea of improvement can be generalized to other measures than confidence. Other measures like
   lift can be specified with the extra parameter \code{improvementMeasure}. 
   
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#improvement}{Improvement}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#improvement}{Improvement}
   
   Range: \eqn{[0, 1]}}
 
-\item{"jaccard", Jaccard coefficient (Tan and Kumar, 2000) sometimes also called Coherence (Wu et al., 2010)}{
+\item{"jaccard", Jaccard coefficient, sometimes also called Coherence}{
   Null-invariant measure of dependence defined as the Jaccard similarity between the two sets of transactions
   that contain the items in X and Y, respectively.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#jaccard}{Jaccard coefficient}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Jaccard_Coefficient}{Jaccard coefficient}
 
   Range: \eqn{[0, 1]}}
 
-\item{"jMeasure", J-measure, J (Smyth and Goodman, 1991)}{ 
+\item{"jMeasure", J-measure, J}{ 
   A scaled measures of cross entropy to measure the information content of a rule.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#jMeasure}{J-Measure}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#j-measure}{J-Measure}
 
   Range: \eqn{[0, 1]} (0 indicates X does not provide information for Y)}
 
 \item{"kappa" Cohen's Kappa (Tan and Kumar, 2000)}{
-  Cohen's Kappa of the rule (seen as a classifier) given as the rules observed rule accuracy (i.e., confidence)      corrected by the expected accuracy (of a random classifier).
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#kappa}{Cohen's Kappa}
+  Cohen's Kappa of the rule (seen as a classifier) given as the rule's observed rule accuracy (i.e., confidence)      corrected by the expected accuracy (of a random classifier).
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#kappa}{Cohen's Kappa}
   
   Range: \eqn{[-1,1]} (0 means the rule is not better than a random classifier)}
 
 
-\item{"klosgen", Klosgen (Tan and Kumar, 2000)}{
+\item{"klosgen"}{
   
   Defined as \eqn{\sqrt{supp(X \cup Y)} conf(X \Rightarrow Y) - supp(Y)}{sqrt(supp(X & Y)) conf(X -> Y) - supp(Y)}
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#klosgen}{Klosgen measure}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#klosgen}{Klosgen measure}
 
   Range: \eqn{[-1, 1]} (0 for independence)}
 
-\item{"kulczynski" (Wu, Chen and Han, 2010; Kulczynski, 1927)}{
+\item{"kulczynski", kulc}{
 
   Calculate the null-invariant Kulczynski measure with a preference for 
   skewed patterns. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#kulczynski}{Kulczynski measure}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#kulczynski}{Kulczynski measure}
   
   Range: \eqn{[0, 1]}}  
 
-\item{"lambda", Goodman-Kruskal's \eqn{\lambda}{lambda}, predictive association 
-  (Tan and Kumar, 2000)}{
+\item{"lambda", Goodman-Kruskal's \eqn{\lambda}{lambda}, predictive association}{
   
   Goodman and Kruskal's lambda to assess the association between the LHS and RHS of the rule.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#lambda}{Goodman-Kruskal's Lambda}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#lambda}{Goodman-Kruskal's Lambda}
   
   Range: \eqn{[0, 1]}}
 
-\item{"laplace", Laplace corrected confidence/accuracy, L (Tan and Kumar 2000)}{
+\item{"laplace", Laplace corrected confidence/accuracy, L}{
   Estimates confidence by increasing each count by 1. Parameter \code{k} can be used
   to specify the number of classes (default is 2).
   Prevents counts of 0 and L decreases with lower support. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#laplace}{Laplace corrected confidence/accuracy}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Laplace_Corrected_Confidence}{Laplace corrected confidence/accuracy}
   
   Range: \eqn{[0, 1]}}
 
-\item{"leastContradiction", least contradiction (Aze and Kodratoff, 2004}{
+\item{"leastContradiction", least contradiction}{
 
     Probability of finding a matching transaction minus the probability of finding a contradicting transaction normalized by the probability of finding a transaction containing Y. 
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#leastContradiction}{Least Contradiction}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Least_Contradiction}{Least Contradiction}
     
     Range: \eqn{[-1, 1]}}
 
-\item{"lerman", Lerman similarity (Lerman, 1981)}{
+\item{"lerman", Lerman similarity}{
   
   Defined as \eqn{\sqrt{N} \frac{supp(X \cup Y) - supp(X)supp(Y)}{\sqrt{supp(X)supp(Y)}}}{sqrt(N) (supp(X & Y) - supp(X)supp(Y))/ sqrt(supp(X)supp(Y))}
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#lerman}{Lerman similarity}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Lerman_Similarity}{Lerman similarity}
 
   Range: \eqn{[0, 1]}}
 
 
-\item{"leverage", Piatetsky-Shapiro Measure, PS (Piatetsky-Shapiro 1991)}{
+\item{"leverage", Piatetsky-Shapiro Measure, PS}{
    
   PS measures the difference of X and Y appearing together in the data set 
   and what would be expected if X and Y where statistically dependent. It can
   be interpreted as the gap to independence.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#leverage}{Leverage}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#leverage}{Leverage}
   
   Range: \eqn{[-1, 1]} (0 indicates independence)}
 
-\item{"lift", interest factor (Brin et al. 1997)}{
+\item{"lift", interest factor}{
   
   Lift quantifies dependence between X and Y by comparing the probability that X and Y are contained in a transaction to the expected probability under independence (i.e., the product of the probabilities that X is contained in a transaction times the probability that Y is contained in a transaction).
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#lift}{Lift}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#lift}{Lift}
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (1 means independence between LHS and RHS)}
 
-\item{"maxConfidence" (Wu et al. 2010)}{
+\item{"maxConfidence"}{
   Null-invariant symmetric measure defined as the larger of the confidence of the rule or the rule
   with X and Y exchanged.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#maxConf}{MaxConfidence}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#MaxConfidence}{MaxConfidence}
   
   Range: \eqn{[0, 1]}
 }
 
-\item{"mutualInformation", uncertainty, M (Tan et al., 2002)}{
+\item{"mutualInformation", uncertainty, M}{
   Measures the information gain for Y provided by X.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#mutualInformation}{Mutual Information}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Mutual_Information}{Mutual Information}
   
   Range: \eqn{[0, 1]} (0 means that X does not provide information for Y)}
 
-\item{"oddsRatio", odds ratio (Tan et al., 2004)}{
+\item{"oddsRatio", odds ratio}{
 
   The odds of finding X in transactions which contain Y divided by
   the odds of finding X in transactions which do not contain Y.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#oddsRatio}{Odds Ratio}
+  For zero counts, Haldane-Anscombe correction (adding .5 to all zells) is applied.
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Odds_Ratio}{Odds Ratio}
   
   Range: \eqn{[0, \infty]}{[0, Inf]} (\eqn{1} indicates that Y is not associated to X)}
   
-\item{"oddsRatioCI", odds ratio confidence interval (Li et al., 2014)}{
+\item{"oddsRatioCI", odds ratio confidence interval}{
 
   Calculates the lower and upper bounds of the confidence interval around the odds ratio (using a normal approximation).
   The used confidence level defaults to 0.95, but can be adjusted with the additional 
   parameter \code{confidenceLevel}.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#oddsRatio}{Odds Ratio}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Odds_Ratio}{Odds Ratio}
   
   Range: \eqn{[0, \infty]}{[0, Inf]}}
   
-\item{"phi", correlation coefficient \eqn{\phi}{phi} (Tan et al., 2004}{ 
+\item{"phi", correlation coefficient \eqn{\phi}{phi}}{ 
   Correlation coefficient between the transactions containing X and Y  represented as two binary vectors. Phi correlation is equivalent to Pearson's Product Moment Correlation Coefficient \eqn{\rho}{rho} with 0-1 values.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#phi}{Phi Correlation Coefficient}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Phi_Correlation_Coefficient}{Phi Correlation Coefficient}
     
   Range: \eqn{[-1, 1]} (0 when X and Y are independent)}
 
-\item{"ralambondrainy", Ralambondrainy Measure (Diatta et al., 2007)}{
+\item{"ralambondrainy", Ralambondrainy Measure}{
     
     The measure is defined as the probability that a transaction contains X but not Y. A smaller value is better.
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#ralambondrainy}{Ralambondrainy Measure}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#ralambondrainy}{Ralambondrainy Measure}
     
     Range: \eqn{[0, 1]}}
 
@@ -426,46 +429,46 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
     
     Range: \eqn{[0, 1]}}
 
-\item{"RLD", relative linkage disequilibrium (Kenett and Salini, 2008)}{
+\item{"RLD", relative linkage disequilibrium}{
 
     RLD is an association measure motivated by
 indices used in population genetics. It evaluates the deviation
     of the support of the whole rule from the support expected under 
     independence given the supports of the LHS and the RHS. 
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#rld}{Relative linkage disequilibrium}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Relative_Linkage_Disequilibrium}{Relative linkage disequilibrium}
     
     The code was
     contributed by Silvia Salini. 
     
     Range: \eqn{[0, 1]}}
 
-\item{"rulePowerFactor", rule power factor (Ochin et al., 2016)}{
+\item{"rulePowerFactor", rule power factor}{
 
     Product of support and confidence. Can be seen as rule confidence weighted
     by support. 
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#rpf}{Rule Power Factor}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Rule_Power_Factor}{Rule Power Factor}
     
     Range: \eqn{[0, 1]}}
 
-\item{"sebag", Sebag-Schoenauer measure (Sebag and Schoenauer, 1988)}{
+\item{"sebag", Sebag-Schoenauer measure}{
     
     Confidence of a rule divided by the confidence of the rule  \eqn{X \Rightarrow \overline{Y}}{X -> !Y}.
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#sebag}{Sebag-Schoenauer measure}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Sebag-Schoenauer}{Sebag-Schoenauer measure}
     
     Range: \eqn{[0, 1]}}
 
-\item{"stdLift", Standardized Lift (McNicholas et al, 2008)}{
+\item{"stdLift", Standardized Lift}{
     
     Standardized lift uses the minimum and maximum lift can reach for each rule to standardize lift between 0 and 1. By default, the measure is corrected for minimum support and minimum confidence. Correction can be disabled by using the argument \code{correct = FALSE}.
     
-    See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#stdLift}{Standardized Lift}
+    See details: \href{https://mhahsler.github.io/arules/inst/measures#Standardized_Lift}{Standardized Lift}
     
     Range: \eqn{[0, 1]}}
     
-\item{"support", supp (Agrawal et al., 1996)}{ 
+\item{"support", supp}{ 
   Support is an estimate of \eqn{P(X \cup Y)}{P(X & Y)} and 
   measures the generality of the rule. 
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#support}{Support}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#support}{Support}
 
   Range: \eqn{[0, 1]}}
 
@@ -476,24 +479,24 @@ indices used in population genetics. It evaluates the deviation
   
   Range: counts}
 
-\item{"varyingLiaison", varying rates liaison (Bernard and Charron, 1996)}{ 
+\item{"varyingLiaison", varying rates liaison}{ 
 
   Defined as the lift of a rule minus 1 so 0 represents independence.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#varyingLiaison}{Varying Rates Liaison}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Varying_Rates_Liaison}{Varying Rates Liaison}
   
   Range: \eqn{[-1, \infty]} (0 for independence)}
 
-\item{"yuleQ", Yule's Q (Tan and Kumar, 2000)}{
+\item{"yuleQ", Yule's Q}{
   Defined as \eqn{\frac{\alpha-1}{\alpha+1}}{(alpha-1)/(alpha+1)} where
   \eqn{\alpha}{alpha} is the odds ratio.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#yule}{Yule's Q}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Yules_Q_and_Yules_Y}{Yule's Q}
   
   Range: \eqn{[-1, 1]}}
 
-\item{"yuleY", Yule's Y (Tan and Kumar, 2000)}{
+\item{"yuleY", Yule's Y}{
   Defined as \eqn{\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}}{(sqrt(alpha)-1)/(sqrt(alpha)+1)} where
   \eqn{\alpha}{alpha} is the odds ratio.
-  See details: \href{https://michael.hahsler.net/research/association_rules/measures.html#yule}{Yule's Y}
+  See details: \href{https://mhahsler.github.io/arules/inst/measures#Yules_Q_and_Yules_Y}{Yule's Y}
   
   Range: \eqn{[-1, 1]}}
 
@@ -511,108 +514,10 @@ indices used in population genetics. It evaluates the deviation
    defined.
 }
 \references{
+A complete list of references for each individual measure is available in the following document:
+
 Hahsler, Michael (2015). 
-A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: \url{https://michael.hahsler.net/research/association_rules/measures.html}.
-
-Agrawal, R., H Mannila, R Srikant, H Toivonen, AI Verkamo (1996).
-Fast Discovery of Association Rules.
-\emph{Advances in Knowledge Discovery and Data Mining} 12(1):307--328.
-
-Aze, J. and Y. Kodratoff (2004). 
-Extraction de pepites de connaissances dans les donnees: Une nouvelle 
-approche et une etude de sensibilite au bruit. In 
-\emph{Mesures de Qualite pour la fouille de donnees. 
-Revue des Nouvelles Technologies de l'Information, RNTI.}
-
-Jose L. Balcazar. Formal and computational properties of the confidence boost of association rules. \emph{ACM Transactions on Knowledge Discovery from Data,} 7(4), December 2013. 
-
-Bayardo, R. , R. Agrawal, and D. Gunopulos (2000). 
-Constraint-based rule mining
-in large, dense databases.  \emph{Data Mining and Knowledge Discovery,}
-4(2/3):217--240.
-
-Bernard, Jean-Marc and Charron, Camilo (1996).
-L'analyse implicative bayesienne, une methode pour l'etude des dependances orientees. II : modele logique sur un tableau de contingence
-Mathematiques et Sciences Humaines, Volume 135 (1996), p. 5--18. 
-
-Berzal, Fernando, Ignacio Blanco, Daniel Sanchez and Maria-Amparo Vila (2002).
-Measuring the accuracy and interest of
-association rules: A new framework.
-\emph{Intelligent Data Analysis} 6, 221--235.
-
-Bing, Liu, Wynne Hsu, and Yiming Ma (1999). Pruning and summarizing the
-discovered associations. In \emph{KDD '99: Proceedings of the fifth ACM SIGKDD
-international conference on Knowledge discovery and data mining,} pages
-125--134.  ACM Press, 1999.
-
-Brin, Sergey, Rajeev Motwani, Jeffrey D. Ullman, and Shalom Tsur (1997). Dynamic
-itemset counting and implication rules for market basket data. In \emph{SIGMOD
-1997, Proceedings ACM SIGMOD International Conference on Management of Data,}
-pages 255--264, Tucson, Arizona, USA.
-
-Diatta, J., H. Ralambondrainy, and A. Totohasina (2007). Towards a unifying probabilistic implicative normalized quality measure for association rules. In \emph{Quality Measures in Data Mining,} 237--250, 2007.
-
-Gras R (1996). L'implication statistique. Nouvelle methode exploratoire de donnees. La Pensee Sauvage, Grenoble.
-
-Hahsler, Michael and Kurt Hornik (2007). New probabilistic interest measures for association rules. \emph{Intelligent Data Analysis,} 11(5):437--455.
-
-Hofmann, Heike and Adalbert Wilhelm (2001). Visual comparison of association rules. 
-\emph{Computational Statistics,} 16(3):399--415.
-
-Kenett, Ron and Silvia Salini (2008). Relative Linkage Disequilibrium: A New
-measure for association rules. In \emph{8th Industrial Conference on 
-Data Mining ICDM 2008,} July 16--18, 2008, Leipzig/Germany. 
-
-Kodratoff, Y. (1999). Comparing Machine Learning and Knowledge Discovery in 
-Databases: An Application to Knowledge Discovery in Texts. 
-\emph{Lecture Notes on AI (LNAI) - Tutorial series}.
-
-Kulczynski, S. (1927). Die Pflanzenassoziationen der Pieninen. 
-\emph{Bulletin International de l'Academie Polonaise des Sciences et des Lettres, Classe des Sciences Mathematiques et Naturelles B,} 57--203. 
-
-Lerman, I.C. (1981). Classification et analyse ordinale des donnees. Paris. 
-
-Li, J., Jixue Liu, Hannu Toivonen, Kenji Satou, Youqiang Sun, and Bingyu Sun (2014). Discovering statistically non-redundant subgroups. Knowledge-Based Systems. 67 (September, 2014), 315--327. 
-\doi{10.1016/j.knosys.2014.04.030}
-
-McNicholas, P.D.,  T.B. Murphy, M. O'Regan (2008). Standardising the lift of an association rule, \emph{Computational Statistics & Data Analysis,} 52(10):4712--4721, ISSN 0167-9473,
-\doi{10.1016/j.csda.2008.03.013}.
-
-Ochin, Suresh Kumar, and Nisheeth Joshi (2016). Rule Power Factor: A New Interest Measure in Associative Classification. \emph{6th International Conference On Advances In Computing and Communications, ICACC 2016,} 6-8 September 2016, Cochin, India.
-
-Omiecinski, Edward R. (2003). Alternative interest measures for mining
-associations in databases. \emph{IEEE Transactions on Knowledge and Data
-Engineering,} 15(1):57--69, Jan/Feb 2003.
-
-Piatetsky-Shapiro, G. (1991). Discovery, analysis, and presentation of strong
-rules. In: \emph{Knowledge Discovery in Databases,} pages 229--248.
-
-Sebag, M. and M. Schoenauer (1988). 
-Generation of rules with certainty and confidence factors from incomplete 
-and incoherent learning bases. In \emph{Proceedings of the European 
-Knowledge Acquisition Workshop (EKAW'88)}, 
-Gesellschaft fuer Mathematik und Datenverarbeitung mbH, 28.1--28.20.
-
-Smyth, Padhraic and Rodney M. Goodman (1991).
-Rule Induction Using Information Theory.
-\emph{Knowledge Discovery in Databases,} 159--176.
-
-Tan, Pang-Ning and Vipin Kumar (2000). Interestingness Measures for Association Patterns: A Perspective. TR 00-036, Department of Computer Science
-and Engineering University of Minnesota.  
-
-Tan, Pang-Ning, Vipin Kumar, and Jaideep Srivastava (2002). Selecting the right interestingness measure for association patterns. In \emph{Proceedings of the eighth ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '02),} ACM, 32--41.
-
-Tan, Pang-Ning, Vipin Kumar, and Jaideep Srivastava (2004). Selecting the right
-objective measure for association analysis. \emph{Information Systems,}
-29(4):293--313.
-
-Wu, T., Y. Chen, and J. Han (2010). Re-examination of interestingness measures in pattern mining: A unified framework. \emph{Data Mining and Knowledge Discovery,} 21(3):371-397, 2010.
-
-Xiong, Hui, Pang-Ning Tan, and Vipin Kumar (2003). Mining strong affinity
-association patterns in data sets with skewed support distribution. In Bart
-Goethals and Mohammed J. Zaki, editors, \emph{Proceedings of the IEEE
-International Conference on Data Mining,} November 19--22, 2003, Melbourne,
-Florida, pages 387--394.
+A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: \url{https://mhahsler.github.io/arules/inst/measures}.
 }
 
 \seealso{ \code{\link{itemsets-class}}, \code{\link{rules-class}} }

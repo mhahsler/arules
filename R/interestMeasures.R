@@ -471,7 +471,13 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if (smoothCounts < 0)
       stop("smoothCount needs to be >= 0!")
     
-    q <- interestMeasure(x, c("support", "coverage", "rhsSupport"), transactions = transactions, reuse = reuse)
+    q <-
+      interestMeasure(
+        x,
+        c("support", "coverage", "rhsSupport"),
+        transactions = transactions,
+        reuse = reuse
+      )
     
     n <- .getN(x, transactions)
     n11 <- round(q$support * n)
@@ -552,135 +558,136 @@ setMethod("interestMeasure",  signature(x = "rules"),
     .getCounts(x, transactions, smoothCounts = smoothCounts)
   
   # note return in with just assigns to m
-  m <- with(counts, {
-    if (measure == "table")
-      return(data.frame(
-        n11 = n11,
-        n01 = n01,
-        n10 = n10,
-        n00 = n00
-      ))
-    if (measure == "cosine")
-      return(n11 / sqrt(n1x * nx1))
-    if (measure == "conviction")
-      return(n1x * nx0 / (n * n10))
-    if (measure == "gini")
-      return(n1x / n * ((n11 / n1x) ^ 2 + (n10 / n1x) ^ 2) - (nx1 / n) ^ 2 +
-          n0x / n * ((n01 / n0x) ^ 2 + (n00 / n0x) ^ 2) - (nx0 / n) ^ 2)
-    if (measure == "oddsRatio")
-      return(n11 * n00 / (n10 * n01))
-    if (measure == "relativeRisk")
-      return((n11 / n1x) / (n01 / n0x))
-    if (measure == "phi")
-      return((n * n11 - n1x * nx1) / sqrt(n1x * nx1 * n0x * nx0))
-    if (measure == "leverage")
-      return(n11 / n - (n1x * nx1 / n ^ 2))
-    if (measure == "collectiveStrength")
-      return(n11 * n00 / (n1x * nx1 + n0x + nx0) *
-          (n ^ 2 - n1x * nx1 - n0x * nx0) / (n - n11 - n00))
-    if (measure == "importance")
-      return(log(((n11 + 1) * (n0x + 2)) / ((n01 + 1) * (n1x + 2)), base = 10))
-    if (measure == "jaccard")
-      return(n11 / (n1x + nx1 - n11))
-    if (measure == "kappa")
-      return((n * n11 + n * n00 - n1x * nx1 - n0x * nx0) / (n ^ 2 - n1x * nx1 -
-          n0x * nx0))
-    if (measure == "lambda") {
-      max_x0x1 <- apply(cbind(nx1, nx0), 1, max)
-      lambda <-
-        (apply(cbind(n11, n10), 1, max) + apply(cbind(n01, n00), 1, max) -
-            max_x0x1) / (n - max_x0x1)
-      return(lambda)
-    }
-    if (measure == "mutualInformation")
-      return((
-        n00 / n * log(n * n00 / (n0x * nx0)) +
-          n01 / n * log(n * n01 / (n0x * nx1)) +
-          n10 / n * log(n * n10 / (n1x * nx0)) +
-          n11 / n * log(n * n11 / (n1x * nx1))
-      ) / pmin(-1 * (n0x / n * log(n0x / n) + n1x / n * log(n1x / n)), -1 * (nx0 / n * log(nx0 / n) + nx1 / n * log(nx1 / n))))
-    if (measure == "jMeasure")
-      return(n11 / n * log(n * n11 / (n1x * nx1)) +
-          n10 / n * log(n * n10 / (n1x * nx0)))
-    if (measure == "laplace")
-      return((n11 + 1) / (n1x + k))
-    if (measure == "certainty")
-      return((n11 / n1x - nx1 / n) / (1 - nx1 / n))
-    if (measure == "addedValue")
-      return(n11 / n1x - nx1 / n)
-    if (measure == "ralambondrainy")
-      return(n10 / n)
-    if (measure == "sebag")
-      return((n1x - n10) / n10)
-    if (measure == "counterexample")
-      return((n11 - n10) / n11)
-    # needs alpha
-    #if(measure == "wang") return(1/n * (1-alpha) * n1x - n10)
-    if (measure == "confirmedConfidence")
-      return((n11 - n10) / n1x)
-    if (measure == "casualSupport")
-      return((n1x + nx1 - 2 * n10) / n)
-    if (measure == "casualConfidence")
-      return(1 - n10 / n * (1 / n1x + 1 / nx1))
-    if (measure == "leastContradiction")
-      return((n1x - n10) / nx1)
-    if (measure == "centeredConfidence")
-      return(nx0 / n - n10 / n1x)
-    if (measure == "varyingLiaison")
-      return((n1x - n10) / (n1x * nx1 / n) - 1)
-    if (measure == "yuleQ") {
-      OR <- n11 * n00 / (n10 * n01)
-      return((OR - 1) / (OR + 1))
-    }
-    if (measure == "yuleY") {
-      OR <- n11 * n00 / (n10 * n01)
-      return((sqrt(OR) - 1) / (sqrt(OR) + 1))
-    }
-    if (measure == "lerman")
-      return((n11 - n1x * nx1 / n) / sqrt(n1x * nx1 / n))
-    if (measure == "implicationIndex")
-      return((n10 - n1x * nx0 / n) / sqrt(n1x * nx0 / n))
-    
-    ## difference in confidence (conf(X -> Y) - conf(not X -> Y))
-    ## Heike Hofmann and Adalbert Wilhelm. Visual comparison of association
-    ## rules. Computational Statistics, 16(3):399-415, 2001.
-    if (measure == "doc")
-      return((n11 / n1x) - (n01 / n0x))
-    
-    ## chi-squared is from Bing Liu, Wynne Hsu, and Yiming Ma (1999)
-    if (measure == "chiSquared") {
-      chi2 <- numeric(length(x))
+  m <- with(counts,
+    {
+      if (measure == "table")
+        return(data.frame(
+          n11 = n11,
+          n01 = n01,
+          n10 = n10,
+          n00 = n00
+        ))
+      if (measure == "cosine")
+        return(n11 / sqrt(n1x * nx1))
+      if (measure == "conviction")
+        return(n1x * nx0 / (n * n10))
+      if (measure == "gini")
+        return(n1x / n * ((n11 / n1x) ^ 2 + (n10 / n1x) ^ 2) - (nx1 / n) ^ 2 +
+            n0x / n * ((n01 / n0x) ^ 2 + (n00 / n0x) ^ 2) - (nx0 / n) ^ 2)
+      if (measure == "oddsRatio")
+        return(n11 * n00 / (n10 * n01))
+      if (measure == "relativeRisk")
+        return((n11 / n1x) / (n01 / n0x))
+      if (measure == "phi")
+        return((n * n11 - n1x * nx1) / sqrt(n1x * nx1 * n0x * nx0))
+      if (measure == "leverage")
+        return(n11 / n - (n1x * nx1 / n ^ 2))
+      if (measure == "collectiveStrength")
+        return(n11 * n00 / (n1x * nx1 + n0x + nx0) *
+            (n ^ 2 - n1x * nx1 - n0x * nx0) / (n - n11 - n00))
+      if (measure == "importance")
+        return(log(((n11 + 1) * (n0x + 2)) / ((n01 + 1) * (n1x + 2)), base = 10))
+      if (measure == "jaccard")
+        return(n11 / (n1x + nx1 - n11))
+      if (measure == "kappa")
+        return((n * n11 + n * n00 - n1x * nx1 - n0x * nx0) / (n ^ 2 - n1x * nx1 -
+            n0x * nx0))
+      if (measure == "lambda") {
+        max_x0x1 <- apply(cbind(nx1, nx0), 1, max)
+        lambda <-
+          (apply(cbind(n11, n10), 1, max) + apply(cbind(n01, n00), 1, max) -
+              max_x0x1) / (n - max_x0x1)
+        return(lambda)
+      }
+      if (measure == "mutualInformation")
+        return((
+          n00 / n * log(n * n00 / (n0x * nx0)) +
+            n01 / n * log(n * n01 / (n0x * nx1)) +
+            n10 / n * log(n * n10 / (n1x * nx0)) +
+            n11 / n * log(n * n11 / (n1x * nx1))
+        ) / pmin(-1 * (n0x / n * log(n0x / n) + n1x / n * log(n1x / n)),-1 * (nx0 / n * log(nx0 / n) + nx1 / n * log(nx1 / n))))
+      if (measure == "jMeasure")
+        return(n11 / n * log(n * n11 / (n1x * nx1)) +
+            n10 / n * log(n * n10 / (n1x * nx0)))
+      if (measure == "laplace")
+        return((n11 + 1) / (n1x + k))
+      if (measure == "certainty")
+        return((n11 / n1x - nx1 / n) / (1 - nx1 / n))
+      if (measure == "addedValue")
+        return(n11 / n1x - nx1 / n)
+      if (measure == "ralambondrainy")
+        return(n10 / n)
+      if (measure == "sebag")
+        return((n1x - n10) / n10)
+      if (measure == "counterexample")
+        return((n11 - n10) / n11)
+      # needs alpha
+      #if(measure == "wang") return(1/n * (1-alpha) * n1x - n10)
+      if (measure == "confirmedConfidence")
+        return((n11 - n10) / n1x)
+      if (measure == "casualSupport")
+        return((n1x + nx1 - 2 * n10) / n)
+      if (measure == "casualConfidence")
+        return(1 - n10 / n * (1 / n1x + 1 / nx1))
+      if (measure == "leastContradiction")
+        return((n1x - n10) / nx1)
+      if (measure == "centeredConfidence")
+        return(nx0 / n - n10 / n1x)
+      if (measure == "varyingLiaison")
+        return((n1x - n10) / (n1x * nx1 / n) - 1)
+      if (measure == "yuleQ") {
+        OR <- n11 * n00 / (n10 * n01)
+        return((OR - 1) / (OR + 1))
+      }
+      if (measure == "yuleY") {
+        OR <- n11 * n00 / (n10 * n01)
+        return((sqrt(OR) - 1) / (sqrt(OR) + 1))
+      }
+      if (measure == "lerman")
+        return((n11 - n1x * nx1 / n) / sqrt(n1x * nx1 / n))
+      if (measure == "implicationIndex")
+        return((n10 - n1x * nx0 / n) / sqrt(n1x * nx0 / n))
       
-      for (i in seq_len(length(x))) {
-        fo <- matrix(c(n00[i], n01[i], n10[i], n11[i]), ncol = 2)
-        #fe <- tcrossprod(c(nx0[i], nx1[i]), c(n0x[i], n1x[i])) / n
-        ## check if approximation is ok
-        ## we don't do this now
-        ##if(any(fe < 5)) chi2[i] <- nA
-        ##else
-        #chi2[i] <- sum((fo - fe) ^ 2 / fe)
+      ## difference in confidence (conf(X -> Y) - conf(not X -> Y))
+      ## Heike Hofmann and Adalbert Wilhelm. Visual comparison of association
+      ## rules. Computational Statistics, 16(3):399-415, 2001.
+      if (measure == "doc")
+        return((n11 / n1x) - (n01 / n0x))
+      
+      ## chi-squared is from Bing Liu, Wynne Hsu, and Yiming Ma (1999)
+      if (measure == "chiSquared") {
+        chi2 <- numeric(length(x))
         
-        # warning about approximation
-        suppressWarnings(chi2[i] <-
-            stats::chisq.test(fo, correct = FALSE)$statistic)
+        for (i in seq_len(length(x))) {
+          fo <- matrix(c(n00[i], n01[i], n10[i], n11[i]), ncol = 2)
+          #fe <- tcrossprod(c(nx0[i], nx1[i]), ic(n0x[i], n1x[i])) / n
+          ## check if approximation is ok
+          ## we don't do this now
+          ##if(any(fe < 5)) chi2[i] <- nA
+          ##else
+          #chi2[i] <- sum((fo - fe) ^ 2 / fe)
+          
+          # warning about approximation
+          suppressWarnings(chi2[i] <-
+              stats::chisq.test(fo, correct = FALSE)$statistic)
+        }
+        
+        ## the chi square test has 1 df for a 2x2 contingency table.
+        ## The critical value at alpha=0.05 is:
+        ## qchisq(0.05, df =1, lower.tail=FALSE)
+        ## [1] 3.841459
+        if (!significance)
+          return(chi2)
+        else
+          return(stats::pchisq(
+            q = chi2,
+            df = 1,
+            lower.tail = !compliment
+          ))
       }
       
-      ## the chi square test has 1 df for a 2x2 contingency table.
-      ## The critical value at alpha=0.05 is:
-      ## qchisq(0.05, df =1, lower.tail=FALSE)
-      ## [1] 3.841459
-      if (!significance)
-        return(chi2)
-      else
-        return(stats::pchisq(
-          q = chi2,
-          df = 1,
-          lower.tail = !compliment
-        ))
-    }
-    
-    stop("Specified measure not implemented.")
-  })
+      stop("Specified measure not implemented.")
+    })
   
   m
 }
@@ -697,8 +704,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       if (D > 0)
         if (n01[i] < n10[i])
           RLD[i] <- D / (D + n01[i])
-      else
-        RLD[i] <- D / (D + n10[i])
+        else
+          RLD[i] <- D / (D + n10[i])
       else
         if (n11[i] < n00[i])
           RLD[i] <- D / (D - n11[i])

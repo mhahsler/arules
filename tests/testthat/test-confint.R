@@ -12,19 +12,21 @@ rules <- apriori(Adult,
     target = "rules"
   ))
 
-measures <- c(
-  "count",
+measures <- c("count",
   "confidence",
-  "confidence_normal",
+  "chiSquared",
+  "kappa",
   "lift",
   "oddsRatio",
-  "oddsRatio_normal",
-  "support",
-  "support_normal"
-)
+  "phi",
+  "support")
+
+# smooth = .5 is Haldane-Anscombe correction
 
 for (m in measures) {
-  ci <- cbind(measure = interestMeasure(rules, gsub("\\_\\w+", "", m)), confint(rules, m, smoothCounts = 0))
+  cat("CI for", m, "\n")
+  ci <- cbind(measure = interestMeasure(rules, m, smooth = .5), confint(rules, m))
+  print(ci)
   expect_false(any(ci[,1] < ci[,2] | ci[,1] > ci[,3] | ci[,2] > ci[,3], na.rm = TRUE), info = m)
 }
 

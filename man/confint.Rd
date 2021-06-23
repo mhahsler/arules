@@ -8,16 +8,26 @@ Confidence Intervals for Association Interest Measures
 Computes confidence intervals for interest Measures used in association rule mining.
 }
 \usage{
-\method{confint}{rules}(object, parm = "oddsRatio", level = 0.95, 
-  smoothCounts = 0, transactions = NULL, reuse = TRUE, ...)
+\method{confint}{rules}(object, parm = "oddsRatio", level = 0.95, measure = NULL, 
+  method = "wald", smoothCounts = 0, transactions = NULL, reuse = TRUE, ...)
 }
 \arguments{
   \item{object}{ an object of class rules. }
-  \item{parm}{ name of the interest measures (i.e., parameter). Confidence intervals are currently 
-    available for the measures "support", "count", "confidence", "oddsRatio".}
+  \item{parm, measure}{ name of the interest measures (i.e., parameter). Confidence intervals are currently 
+    available for the measures 
+    "support", 
+    "count", 
+    "confidence",
+    "chiSquared",
+    "kappa",
+    "lift",
+    "oddsRatio", and
+    "phi".
+    \code{measure} can be used instead of \code{parm}.}
   \item{level}{ the confidence level required. }
-  \item{smoothCounts}{ pseudo count for addaptive smoothing (Laplace smoothing). Adds one to each count to avoids 
-    counts of zero, which can lead to issues with many measures.}
+  \item{method}{ method to calculate the confidence interval. Typically available are "exact" (binomial proportion, Fisher's exact confidence interval) and "wald" (adjusted Wald interval).}
+  \item{smoothCounts}{ pseudo count for addaptive smoothing (Laplace smoothing). Note that this count smoothing is 
+    performed in addition to the corrections already included when calculating the confidence interval. }
    \item{transactions}{ the transaction data set used to mine
     the associations or a set of different transactions to calculate
     the confidence interval for (Note: you need to set \code{reuse = FALSE} in the
@@ -29,28 +39,16 @@ Computes confidence intervals for interest Measures used in association rule min
       for mining).}
     \item{...}{Additional parameters are ignored with a warning.}
 }
-\details{
-\bold{support/count:} The confidence interval is calculared using the Poisson distribution.
-
-\bold{confidence:} The binomial
-  proportion confidence interval is calculated for confidence (Clopper and Pearson). 
-
-\bold{lift:} Uses the confidence interval for confidence divided by the observed proportion of transactions that 
-  contain Y.
-  
-\bold{odds ratio:} Fisher's exact confidence interval for the odds ratio is used.
-  The normal approximation for the odds ratio is also available.
-
-\bold{Normal approximations:} Approximations for the confidence intervals for the following measures
-are implemented: "support_normal", "confidence_normal", and "oddsRatio_normal".
-
-Note that these approximations
-are only appropriate for large counts.
-
-}
+%'
+%\details{
+%}
 \value{
-Returns a data.frame with one row for each rule and two columns containing the lower and upper limit of 
-the confidence interval.
+Returns a data.frame with one row for each rule and the two columns "lowerLimit" and "upperLimit" with 
+the interval. The data frame has the attributes:
+
+\item{measure}{ the interest measure. }
+\item{level}{ the confidence level}
+\item{method}{ desciption of the used method to calculate the confidence interval. }
 }
 %\references{
 %}
@@ -69,28 +67,25 @@ rules <- apriori(Income, parameter = list(support = 0.5),
 # calculate the confidence interval 
 ci <- confint(rules, "oddsRatio")
 ci
+attributes(ci)
 
-# add the odds ratio and the confidence intervals to the quality slot of the rules.
+
+# add the odds ratio (with smoothCounts = .5 to perform Haldane-Anscombe correction) 
+# and the confidence intervals (which are by default corrected) to the quality slot of the rules.
 quality(rules) <- cbind(
   quality(rules), 
-  oddsRatio = interestMeasure(rules, "oddsRatio"), 
+  oddsRatio = interestMeasure(rules, "oddsRatio", smoothCounts = .5), 
   oddsRatio = ci)
 
 rules <- sort(rules, by = "oddsRatio")
 inspect(rules)
 
-# The Nan value can be avoided by using smoothCount = 1 for interestMeasure and to avoid the Inf for
-# confint.
+# use confidence intervals for lift to find rules with a lift significantly larger then 1. 
+# The confidence level is decreased to 0.9 to have 5% above the upper limit and we check
+# if the interval does not cover 1 (i.e., the lower limit is larger than 1).
+ci <- confint(rules, "lift", level = 0.9)
+ci
 
-# remove old values so they are not reused
-# recalculate with additive count smoothing.
-quality(rules) <- cbind(
-  quality(rules), 
-  oddsRatio_smoothed = interestMeasure(rules, "oddsRatio", smoothCounts = 1), 
-  oddsRatio_smoothed = confint(rules, "oddsRatio", smoothCounts = 1)
-  )
-
-rules <- sort(rules, by = "oddsRatio_smoothed")
-inspect(rules)
+inspect(rules[ci[, "lowerLimit"] > 1])
 }
 \keyword{manip}
