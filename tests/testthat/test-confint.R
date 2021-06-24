@@ -14,7 +14,7 @@ rules <- apriori(Adult,
 
 measures <- c("count",
   "confidence",
-  "chiSquared",
+  #"chiSquared",
   "kappa",
   "lift",
   "oddsRatio",

@@ -18,7 +18,6 @@ Computes confidence intervals for interest Measures used in association rule min
     "support", 
     "count", 
     "confidence",
-    "chiSquared",
     "kappa",
     "lift",
     "oddsRatio", and
