@@ -43,6 +43,8 @@
   or by using the constructor function 
   
   \code{transactions(x, itemLabels = NULL, transactionInfo = NULL)}.
+  
+  See Examples Section for creating transactions from data.
 }
 \section{Slots}{
   \describe{
@@ -175,7 +177,7 @@ See \code{\link{itemCoding}} to learn how to encode and recode transaction sets.
 }
 \author{Michael Hahsler}
 \examples{
-## Example 1: creating transactions form a list
+## Example 1: creating transactions form a list (each element is a transaction)
 a_list <- list(
       c("a","b","c"),
       c("a","b"),
@@ -197,18 +199,19 @@ trans1
 summary(trans1)
 image(trans1)
 
-## Example 2: creating transactions from a matrix
+## Example 2: creating transactions from a 0-1 matrix with 5 transactions (rows) and 
+##            5 items (columns)
 a_matrix <- matrix(c(
-  1,1,1,0,0,
-	1,1,0,0,0,
-	1,1,0,1,0,
-	0,0,1,0,1,
-	1,1,0,1,1
+  1, 1, 1, 0, 0,
+	1, 1, 0, 0, 0,
+	1, 1, 0, 1, 0,
+	0, 0, 1, 0, 1,
+	1, 1, 0, 1, 1
   ), ncol = 5)
 
 ## Set item names (columns) and transaction labels (rows)
-colnames(a_matrix) <- c("a","b","c","d","e")
-rownames(a_matrix) <- paste("Tr",c(1:5), sep = "")
+colnames(a_matrix) <- c("a", "b", "c", "d", "e")
+rownames(a_matrix) <- paste("Tr", c(1:5), sep = "")
 
 a_matrix
 
@@ -222,7 +225,7 @@ a_df <- data.frame(
 	age   = as.factor(c(6, 8, NA, 9, 16)), 
 	grade = as.factor(c("A", "C", "F", NA, "C")),
   pass  = c(TRUE, TRUE, FALSE, TRUE, TRUE))  
-## Note: factors are translated differently to logicals and NAs are ignored
+## Note: factors are translated differently than logicals and NAs are ignored
 a_df
 
 ## Create transactions
@@ -230,17 +233,17 @@ trans3 <- transactions(a_df)
 inspect(trans3)
 
 ## Note that coercing the transactions back to a data.frame does not recreate the 
-## original data.frame.
+## original data.frame, but represents the transactions as sets of items
 as(trans3, "data.frame")
 
 ## Example 4: creating transactions from a data.frame with 
 ## transaction IDs and items (by converting it into a list of transactions first) 
 a_df3 <- data.frame(
-  TID = c(1,1,2,2,2,3), 
-  item=c("a","b","a","b","c", "b")
+  TID = c(1, 1, 2, 2, 2, 3), 
+  item=c("a", "b", "a", "b", "c", "b")
   )
 a_df3
-trans4 <- transactions(split(a_df3[,"item"], a_df3[,"TID"]))
+trans4 <- transactions(split(a_df3[, "item"], a_df3[, "TID"]))
 trans4
 inspect(trans4)
 

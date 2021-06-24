@@ -15,7 +15,7 @@ output:
 
 <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" style="float:left; margin:4px;" alt = "CC BY-SA 4.0" />
 This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution Share Alike 4.0 International License.</a>
-Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: https://mhahsler.github.io/arules/inst/measures**
+Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: https://mhahsler.github.io/arules/docs/measures**
 
 
 # Introduction
