@@ -22,6 +22,8 @@
 ## Functions for calculating confidence intervals for interest measures
 ##
 
+
+
 confint.rules <- function(object,
   parm = "oddsRatio",
   level = 0.95,
@@ -37,8 +39,6 @@ confint.rules <- function(object,
   
   measures <- c("count",
     "confidence",
-    #"chiSquared",
-    "kappa",
     "lift",
     "oddsRatio",
     "phi",
@@ -53,6 +53,15 @@ confint.rules <- function(object,
   if (level < 0 ||
       level > 1)
     stop("the confidence level needs to be in [0, 1].")
+  z <- stats::qnorm((1 + level) / 2)
+  
+  ci.prop <- function(f, n, z) {
+    p <- f / n
+    se <- sqrt(p * (1 - p) / n)
+    
+    data.frame(lowerLimit = pmax(p - z * se, 0),
+      upperLimit = pmin(p + z * se, 1))
+  }
   
   counts <-
     .getCounts(
@@ -77,7 +86,6 @@ confint.rules <- function(object,
         MARGIN = 1,
         FUN = function(ns)
           stats::binom.test(ns["n11"], ns["n"] , conf.level = level)$conf.int * ns["n"]
-          #stats::poisson.test(ns["n11"], conf.level = level)$conf.int
       )
       
       ci <- data.frame(lowerLimit = ci[1, ], upperLimit = ci[2, ])
@@ -85,16 +93,7 @@ confint.rules <- function(object,
         "Exact binomial proportion confidence interval for support (Clopper and Pearson)."
       
     } else {
-      cnts <- with(counts, data.frame(n11, n))
-      
-      ci <- apply(
-        cnts,
-        MARGIN = 1,
-        FUN = function(ns)
-          CIprop1(alpha = 1 - level, ns["n11"], ns["n"])[1, c("LL", "UL")] * ns["n"]
-      )
-      
-      ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
+      ci <- ci.prop(counts[["n11"]], counts[["n"]], z) * counts[["n"]]
       desc <-
         "Adjusted Wald population proportion confidence interval for support."
     }
@@ -120,16 +119,7 @@ confint.rules <- function(object,
     }
     
     else if (method == "wald") {
-      cnts <- with(counts, data.frame(n11, n))
-      
-      ci <- apply(
-        cnts,
-        MARGIN = 1,
-        FUN = function(ns)
-          CIprop1(alpha = 1 - level, ns["n11"], ns["n"])[1, c("LL", "UL")]
-      )
-      
-      ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
+      ci <- ci.prop(counts[["n11"]], counts[["n"]], z)
       desc <-
         "Adjusted Wald population proportion confidence interval for support."
     }
@@ -155,118 +145,29 @@ confint.rules <- function(object,
     }
     
     else if (method  == "wald") {
-      cnts <- with(counts, data.frame(n11, n1x))
-      
-      ci <- apply(
-        cnts,
-        MARGIN = 1,
-        FUN = function(ns)
-          CIprop1(alpha = 1 - level, ns["n11"], ns["n1x"])[1, c("LL", "UL")]
-      )
-      
-      ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
+      ci <- ci.prop(counts[["n11"]], counts[["n1x"]], z)
       desc <-
-        "Adjusted Wald population proportion confidence interval for confidence."
-    }
-    
-    
-    else if (method == "wilson") {
-      cnts <- with(counts, data.frame(n11, n1x))
-      
-      ci <- apply(
-        cnts,
-        MARGIN = 1,
-        FUN = function(ns)
-          CIprop1(alpha = 1 - level, ns["n11"], ns["n1x"])[2, c("LL", "UL")]
-      )
-      
-      ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
-      desc <-
-        "Wilson confidence interval for population proportion with continuity correction."
-      
+        "Wald population proportion confidence interval for confidence."
     }
   }
   
   #####################################################3
-  else if (measure == "kappa") {
-    method <- match.arg(method, choices = c("wald"))
-    
-    cnts <- with(counts, data.frame(n00, n01, n10, n11)) + .5
-    
-    ci <- apply(
-      cnts,
-      MARGIN = 1,
-      FUN = function(ns)
-        CIagree2x2(alpha = 1 - level, ns["n00"], ns["n01"], ns["n10"], ns["n11"])[3, c("LL", "UL")]
-    )
-    
-    ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
-    desc <-
-      "Adjusted Wald confidence interval for Cohen's kappa."
-  }
-  
   else if (measure == "lift") {
     method <- match.arg(method, choices = c("wald"))
-     
+    
     if (method == "wald") {
-       lift <- with(counts, n * n11 / (n1x * nx1))
-       z <- stats::qnorm(1 - (1 - level) / 2)
-       
-       # estimate SE using the delta method
-       w <- z * with(counts,
-         sqrt(n11 / n * ((n11 / n) ^ 2 * n00 / n + n10 / n * n01 / n) / ((n1x /
-             n) ^ 2 * (nx1 / n) ^ 2)) / sqrt(n))
-       
-       ci <- data.frame(
-            lowerLimit = lift - w,
-            upperLimit = lift + w
-          )
-       desc <- "Wald confidence interval for lift." 
-      }
+      lift <- with(counts, n * n11 / (n1x * nx1))
+      
+      # estimate SE using the delta method
+      se <- with(counts,
+        sqrt(n11 / n * ((n11 / n) ^ 2 * n00 / n + n10 / n * n01 / n) / ((n1x /
+            n) ^ 2 * (nx1 / n) ^ 2)) / sqrt(n))
+      
+      ci <- data.frame(lowerLimit = lift - z * se,
+        upperLimit = lift + z * se)
+      desc <- "Wald confidence interval for lift."
+    }
   }
-  
-  #####################################################3
-  # we calculate confidence intervals for the proportions in the transactions with x and the proportions in
-  # the transactions for Y and return the larger interval.
-  # else if (measure == "lift") {
-  #   method <- match.arg(method, choices = c("wald", "exact"))
-  #   
-  #   if (method == "exact") {
-  #     n <- counts$n
-  #     cnts <- with(counts, data.frame(n11, n1x, nx1))
-  #     
-  #     ci <- apply(
-  #       cnts,
-  #       MARGIN = 1,
-  #       FUN = function(ns)
-  #         stats::binom.test(ns["n11"], min(ns["n1x"], ns["nx1"]), conf.level = level)$conf.int /
-  #         (max(ns["n1x"], ns["nx1"]) / n)
-  #       
-  #     )
-  #     
-  #     ci <- data.frame(lowerLimit = ci[1, ], upperLimit = ci[2, ])
-  #     desc <-
-  #       "Smaller of the two exact binomial proportion confidence intervals (Clopper and Pearson)."
-  #   } else {
-  #     ### Wald
-  #     n <- counts$n
-  #     cnts <- with(counts, data.frame(n11, n1x, nx1))
-  #     
-  #     ci <- apply(
-  #       cnts,
-  #       MARGIN = 1,
-  #       FUN = function(ns) {
-  #         # min/max chooses the narrower CI
-  #         CIprop1(alpha = 1 - level, ns["n11"], min(ns["n1x"], ns["nx1"]))[1, c("LL", "UL")] /
-  #           (max(ns["n1x"], ns["nx1"]) / n)
-  #       }
-  #     )
-  #     
-  #     ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
-  #     desc <- "Smaller of the two adjusted Wald proportion confidence intervals (proportion with the narrower interval)."
-  #     
-  #   }
-  # }
   
   #####################################################3
   else if (measure == "oddsRatio") {
@@ -275,33 +176,21 @@ confint.rules <- function(object,
     if (method == "wald") {
       cnts <- with(counts, data.frame(n00, n01, n10, n11))
       
-      ci <- apply(
-        cnts,
-        MARGIN = 1,
-        FUN = function(ns)
-          CIodds(alpha = 1 - level, ns["n00"], ns["n01"], ns["n10"], ns["n11"])[1, c("LL", "UL")]
+      # use:
+      # smoothCounts = 0 for Woolf interval
+      # smoothCounts = 0.5 for Haldane-Anscombe-Gart interval
+      
+      or <- with(cnts, n11 * n00 / (n01 * n10))
+      se.log <-
+        with(cnts, sqrt(1 / n00 + 1 / n01 + 1 / n10 + 1 / n11))
+      
+      ci <- data.frame(
+        lowerLimit = exp(log(or) - z * se.log),
+        upperLimit = exp(log(or) + z * se.log)
       )
-      
-      ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
       desc <-
-        "Adjusted Wald confidence interval for odds ratio."
-      
+        "Wald confidence interval for odds ratio."
     }
-    
-    # # normal approximation
-    # if (measure == "oddsRatio_normal") {
-    #   or <- with(counts, n11 * n00 / (n01 * n10))
-    #   z <- stats::qnorm(1 - (1 - level) / 2)
-    #
-    #   w <- with(counts,
-    #     z * sqrt(1 / n11 + 1 / n01 + 1 /
-    #         n10 + 1 / n00))
-    #
-    #   return(data.frame(
-    #     lowerLimit = or * exp(-1 * w),
-    #     upperLimit = or * exp(w)
-    #   ))
-    # }
     
     else if (method == "exact") {
       # Exact Fisher's confidence interval
@@ -326,63 +215,40 @@ confint.rules <- function(object,
   else if (measure == "phi") {
     method <- match.arg(method, choices = c("wald"))
     
-    cnts <- with(counts, cbind(n00, n01, n10, n11))
-    
-    ci <- apply(
-      cnts,
-      MARGIN = 1,
-      FUN = function(ns) {
-        # Haldane-Anscombe correction
-        if (any(ns == 0))
-          ns <- ns + .5
-        CIphi(alpha = 1 - level, ns["n00"], ns["n01"], ns["n10"], ns["n11"])[1, c("LL", "UL")]
-      }
+    cnts <- with(
+      counts,
+      data.frame(
+        p00 = n00 / n,
+        p01 = n01 / n,
+        p10 = n10 / n,
+        p11 = n11 / n,
+        
+        p0x = n0x / n,
+        p1x = n1x / n,
+        px0 = nx0 / n,
+        px1 = nx1 / n
+      )
     )
+    n <- counts$n
     
-    ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
+    phi <-
+      with(cnts, (p11 * p00 - p10 * p01) / sqrt(p1x * p0x * px1 * px0))
+    v1 <- 1 - phi ^ 2
+    v2 <- phi + .5 * phi ^ 3
+    v3 <-
+      with(cnts, (p0x - p1x) * (px0 - px1) / sqrt(p0x * p1x * px0 * px1))
+    v4 <- with(cnts,
+      (.75 * phi ^ 2) * ((p0x - p1x) ^ 2 / (p0x * p1x) + (px0 - px1) ^ 2 / (px0 *
+          px1)))
+    se <- sqrt((v1 + v2 * v3 + v4) / n)
+    
+    ci <- data.frame(lowerLimit = phi - z * se,
+      upperLimit = phi + z * se)
+    
     desc <-
-      "Adjusted Wald confidence interval for the phi coefficient."
+      "Wald confidence interval for the phi coefficient."
   }
   
-  
-  # #####################################################3
-  # else if (measure == "chiSquared") {
-  #   method <- match.arg(method, choices = c("wald"))
-  #   
-  #   chi2 <- numeric(length(object))
-  #   
-  #   for (i in seq_len(length(object))) {
-  #     # Haldane-Anscombe correction (+.5)
-  #     fo <-
-  #       matrix(c(counts$n11[i], counts$n01[i], counts$n10[i], counts$n00[i]),
-  #         ncol = 2) + .5
-  #     
-  #     #fe <- tcrossprod(c(nx0[i], nx1[i]), c(n0x[i], n1x[i])) / n
-  #     ## check if approximation is ok
-  #     ## we don't do this now
-  #     ##if(any(fe < 5)) chi2[i] <- nA
-  #     ##else
-  #     #chi2[i] <- sum((fo - fe) ^ 2 / fe)
-  #     
-  #     # warning about approximation
-  #     suppressWarnings(chi2[i] <-
-  #         stats::chisq.test(fo, correct = FALSE)$statistic)
-  #   }
-  #   
-  #   z <- stats::qnorm(1 - (1 - level) / 2)
-  #   
-  #   # SE(chi-squared(k)) = \sqrt(2k)
-  #   # k = 1 for 2 x 2 tables
-  #   w <- z * sqrt(2) / sqrt(counts$n)
-  #   
-  #   ci <-
-  #     data.frame(lowerLimit = chi2 - w,
-  #       upperLimit = chi2 + w)
-  #   desc <-
-  #     "Adjusted Wald confidence interval for the chi-squared statistic."
-  #   
-  # }
-   
   if (is.null(ci) || is.null(desc))
     stop("Problem with calculating the CI for ", measure)
   
@@ -393,5 +259,4 @@ confint.rules <- function(object,
     method = method,
     desc = desc
   )
-  
 }

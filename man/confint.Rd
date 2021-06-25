@@ -18,15 +18,14 @@ Computes confidence intervals for interest Measures used in association rule min
     "support", 
     "count", 
     "confidence",
-    "kappa",
     "lift",
     "oddsRatio", and
     "phi".
     \code{measure} can be used instead of \code{parm}.}
   \item{level}{ the confidence level required. }
   \item{method}{ method to calculate the confidence interval. Typically available are "exact" (binomial proportion, Fisher's exact confidence interval) and "wald" (adjusted Wald interval).}
-  \item{smoothCounts}{ pseudo count for addaptive smoothing (Laplace smoothing). Note that this count smoothing is 
-    performed in addition to the corrections already included when calculating the confidence interval. }
+  \item{smoothCounts}{ pseudo count for addaptive smoothing (Laplace smoothing). Often a pseudo counts
+  of .5 is used for smoothing. }
    \item{transactions}{ the transaction data set used to mine
     the associations or a set of different transactions to calculate
     the confidence interval for (Note: you need to set \code{reuse = FALSE} in the
