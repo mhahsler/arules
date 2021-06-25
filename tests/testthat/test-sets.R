@@ -60,9 +60,7 @@ expect_equal(quality(is)$isMaximal, c(F, T, F, T, T))
 
 ### is.closed
 db <- as(data, "transactions")
-expect_warning(
-  is <- eclat(db, parameter = list(supp = 0), control = list(verbose = FALSE))
-)
+is <- eclat(db, parameter = list(supp = 0), control = list(verbose = FALSE))
 
 quality(is) <- cbind(quality(is), isClosed = is.closed(is))
 #inspect(is)

@@ -25,9 +25,12 @@
 ## a set of rules, subclass of associations
 
 rules <- function(rhs, lhs, itemLabels, quality = data.frame()) {
+  if (!is(lhs, "itemMatrix")) lhs <- encode(lhs, itemLabels = itemLabels)
+  if (!is(rhs, "itemMatrix")) rhs <- encode(rhs, itemLabels = itemLabels)
+  
   new("rules", 
-    lhs = encode(lhs, itemLabels = itemLabels),
-    rhs = encode(rhs, itemLabels = itemLabels),
+    lhs = lhs,
+    rhs = rhs,
     quality = quality
   )
 }
@@ -37,7 +40,7 @@ setMethod("initialize", "rules",
   function(.Object, lhs, rhs, ...) {
     if(!identical(colnames(lhs), colnames(rhs))) {
       warning("item labels in lhs and rhs do not match. recoding rhs!")
-      rhs <- recode(rhs, match=lhs)
+      rhs <- recode(rhs, itemLabels = lhs)
     }
     
     .Object@lhs <- lhs

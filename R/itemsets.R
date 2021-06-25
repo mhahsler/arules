@@ -25,8 +25,10 @@
 ## a set of itemsets, subclass of associations
 
 itemsets <- function(items, itemLabels, quality = data.frame()) {
+  if (!is(items, "itemMatrix")) items <- encode(items, itemLabels = itemLabels)
+  
   new("itemsets", 
-    items = encode(items, itemLabels = itemLabels),
+    items = items,
     quality = quality
   )
 }

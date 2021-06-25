@@ -7,7 +7,7 @@
   class clustering along with bottom-up lattice traversal.
 }
 \usage{
-eclat(data, parameter = NULL, control = NULL)
+eclat(data, parameter = NULL, control = NULL, ...)
 }
 \arguments{
  \item{data}{object of class
@@ -21,6 +21,7 @@ eclat(data, parameter = NULL, control = NULL)
   \item{control}{object of class
     \code{\linkS4class{ECcontrol}} or named list for
     algorithmic controls.}
+  \item{...}{Additional arguments are added to the parameter list. }
 }
 \details{
   Calls the C implementation of the Eclat algorithm by Christian 

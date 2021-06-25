@@ -21,12 +21,12 @@ trans <- transactions(data)
 # Data Engineering, 15(1):57-69, Jan/Feb 2003.
 
 # complains about low support
-expect_warning(fsets <-
+fsets <-
     eclat(
       trans,
       parameter = list(supp = 0),
       control = list(verb = FALSE)
-    ))
+    )
 
 # add all-confidence
 quality(fsets)$allConfidence <-

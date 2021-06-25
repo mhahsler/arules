@@ -820,7 +820,9 @@ SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
     ans = PROTECT(NEW_OBJECT_OF_CLASS("itemsets"));
     len = 2;
   }
-  
+ 
+  /* MFH: we want the external measure only for rules to get coverage */ 
+  if (param->target != TT_RULE) param->ext = 0;
   
   if (param->aval) len++;
   if (param->ext) len++;

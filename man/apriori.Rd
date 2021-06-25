@@ -9,7 +9,7 @@
   item sorting).
 }
 \usage{
-apriori(data, parameter = NULL, appearance = NULL, control = NULL)
+apriori(data, parameter = NULL, appearance = NULL, control = NULL, ...)
 }
 \arguments{
   \item{data}{object of class
@@ -31,6 +31,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
     \code{\linkS4class{APcontrol}} or named list.
     Controls the algorithmic performance of the mining 
     algorithm (item sorting, report progress (verbose), etc.)}
+  \item{...}{Additional arguments are added to the parameter list. }
 }
 \details{
   \bold{Warning about automatic conversion of matrices or data.frames to transactions.}
@@ -74,6 +75,7 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL)
   interrupts are only checked when the subset size increases, so it may take
   some time till the execution actually stops.
 }
+%'
 \value{
   Returns an object of class \code{\linkS4class{rules}} or
   \code{\linkS4class{itemsets}}.

@@ -8,6 +8,7 @@
   which is added to each count to avoid counts of zero (Laplace smoothing). 
 * new method for stats confint to calculate confidence intervals for some interest measures added.
 * is_redundant now can also use confidence intervals do determine statistical redundancy.
+* apriori and eclat gain ... additional arguments are now added to the parameter list.
 
 ## Changes
 * we use now a better check for installed suggested packages.
@@ -15,9 +16,11 @@
 * inspect uses now a space after the comma.
 * interestMeasures: reuse = TRUE now only reuses the basic measures of "support", "confidence", "coverage" and
   "lift". All other measures are recalculated to account for possible differences in additional parameters.
+* apriori and eclat now store the call in the info slot of the created associations.
 
 ## Bug Fixes
 * fixed mistake in man page for weclat. Weight column needs to be called weight (reported by Alexander Ruth).
+* frequent itemsets now do not report "transIdenticalToItemsets" (reported by galadrielbriere). 
 
 # arules 1.6-8 (05/17/2021)
 

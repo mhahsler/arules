@@ -25,7 +25,7 @@
 ## Call the APRIORI algorithm
 
 
-apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
+apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL, ...)
   {
     ## prepare data
     data <- as(data, "transactions")
@@ -36,7 +36,7 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
     appearance <- as(appearance, "APappearance")   
     
     control <- as(control, "APcontrol")
-    parameter <- as(parameter, "APparameter")
+    parameter <- as(c(parameter, list(...)), "APparameter")
 
     if(control@verbose) {
       cat("Apriori\n")
@@ -69,7 +69,8 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL)
         data = call$data,
         ntransactions = length(data),
         support = parameter@support,
-        confidence = parameter@confidence    
+        confidence = parameter@confidence,
+        call = deparse1(call)[1]
     )    
 
     ## add count to quality

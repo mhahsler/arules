@@ -25,13 +25,13 @@
 
 
 
-eclat <-  function(data, parameter = NULL, control = NULL)
+eclat <-  function(data, parameter = NULL, control = NULL, ...)
   {
     
     ## prepare data
     data <- as(data, "transactions")
     items <- data@data
-    parameter <- as(parameter, "ECparameter")
+    parameter <- as(c(parameter, list(...)), "ECparameter")
     control <- as(control, "ECcontrol")
     
     if(control@verbose) {
@@ -47,11 +47,7 @@ eclat <-  function(data, parameter = NULL, control = NULL)
     if(control@verbose) {
       cat("\nAbsolute minimum support count:", abs_supp,"\n\n")
     }
-    if(abs_supp < 2) warning(sprintf("You chose a very low absolute support count of %d. You might run out of memory! Increase minimum support.\n", abs_supp), 
-        immediate.=TRUE)
-
-
-
+    
     ## the C code of eclat dies when no item is frequent so we do this
     if(max(itemFrequency(data)) <= parameter@support) {
       if(control@verbose) cat("eclat - zero frequent items\n")
@@ -88,7 +84,8 @@ eclat <-  function(data, parameter = NULL, control = NULL)
     result@info <- list(
       data = call$data,
       ntransactions = length(data),
-      support = parameter@support
+      support = parameter@support,
+      call = deparse1(call)[1]
     ) 
     
     ## make sure tid list itemInfo is ok
