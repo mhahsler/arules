@@ -24,8 +24,8 @@ This document contains a collection of commonly used measures of
 significance and interestingness (sometimes also called strength) 
 for association rules and itemsets.
 <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Agrawal:1993">
-Agrawal, Imielinski, and Swami (1993)</a> introduced the problem of association
-rule mining in the following way: 
+Agrawal, Imielinski, and Swami (1993)</a> introduced the problem of [association
+rule mining](https://en.wikipedia.org/wiki/Association_rule_learning) in the following way: 
 
 Let $I=\{i_1, i_2,\ldots,i_m\}$ be a set of $m$ binary attributes called
 **items.**  Let $D = \{t_1, t_2, \ldots, t_n\}$ be a set of
@@ -88,13 +88,15 @@ see
 and 
 <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Wu et al., 2010</a>)
 
-Good overviews of different association rule measures are provided by <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004"> Pang-Ning   Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis. Information Systems, 29(4):293-313, 2004 </a>
+Good overview articles about different association rule measures are provided by <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004"> Pang-Ning   Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis. Information Systems, 29(4):293-313, 2004 </a>
 and <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Geng:2006">Liqiang Geng and Howard J. Hamilton. Interestingness measures for data mining: A survey. ACM Computing Surveys, 38(3):9, 2006.</a>
+Michael Hahsler maintains a comprehensive [Annotated Bibliography on Association Rule Mining](https://michael.hahsler.net/research/bib/association_rules/).
+
 
 ### Implementation
 All measures discussed on this page are implemented in the freely available R-extension package
 <a href="https://github.com/mhahsler/arules">arules</a>
-in function <a href="https://www.rdocumentation.org/packages/arules/topics/interestMeasure">interestMeasure()</a>.
+in function <a href="https://search.r-project.org/CRAN/refmans/arules/html/interestMeasure.html">interestMeasure()</a>.
 
 ### Corrections and Feedback
 For corrections and missing measures on this page or in arules, 
