@@ -63,6 +63,8 @@ confint.rules <- function(object,
       upperLimit = pmin(p + z * se, 1))
   }
   
+  ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.level = level)$conf.int)
+  
   counts <-
     .getCounts(
       object,
@@ -79,15 +81,7 @@ confint.rules <- function(object,
     method <- match.arg(method, choices = c("wald", "exact"))
     
     if (method == "exact") {
-      cnts <- with(counts, data.frame(n11, n))
-      
-      ci <- apply(
-        cnts,
-        MARGIN = 1,
-        FUN = function(ns)
-          stats::binom.test(ns["n11"], ns["n"] , conf.level = level)$conf.int * ns["n"]
-      )
-      
+      ci <- ci.prop.binom(counts[["n11"]], counts[["n"]], level) * counts[["n"]]
       ci <- data.frame(lowerLimit = ci[1, ], upperLimit = ci[2, ])
       desc <-
         "Exact binomial proportion confidence interval for support (Clopper and Pearson)."
@@ -104,16 +98,8 @@ confint.rules <- function(object,
     method <- match.arg(method, choices = c("wald", "exact"))
     
     if (method == "exact") {
-      cnts <- with(counts, data.frame(n11, n))
-      
-      ci <- apply(
-        cnts,
-        MARGIN = 1,
-        FUN = function(ns)
-          stats::binom.test(ns["n11"], ns["n"] , conf.level = level)$conf.int
-      )
-      
-      ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
+      ci <- ci.prop.binom(counts[["n11"]], counts[["n"]], level)
+      ci <- data.frame(lowerLimit = ci[1, ], upperLimit = ci[2, ])
       desc <-
         "Exact binomial proportion confidence interval for support (Clopper and Pearson)."
     }
@@ -130,16 +116,8 @@ confint.rules <- function(object,
     method <- match.arg(method, choices = c("wald", "wilson", "exact"))
     
     if (method == "exact") {
-      cnts <- with(counts, data.frame(n11, n1x))
-      
-      ci <- apply(
-        cnts,
-        MARGIN = 1,
-        FUN = function(ns)
-          stats::binom.test(ns["n11"], ns["n1x"] , conf.level = level)$conf.int
-      )
-      
-      ci <- data.frame(lowerLimit = ci[1,], upperLimit = ci[2,])
+      ci <- ci.prop.binom(counts[["n11"]], counts[["n1x"]], level)
+      ci <- data.frame(lowerLimit = ci[1, ], upperLimit = ci[2, ])
       desc <-
         "Exact binomial proportion confidence interval for confidence (Clopper and Pearson)."
     }
