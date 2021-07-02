@@ -49,7 +49,7 @@ setMethod("is.redundant", signature(x = "rules"),
     smoothCounts = smoothCounts,
     ...)
   
-  # q is a data.frame with lowerLimit and upperLimit
+  # q is a data.frame with LL and UL
   imp <- numeric(length(x))
   
   ### do it by unique rhs
@@ -60,9 +60,9 @@ setMethod("is.redundant", signature(x = "rules"),
     
     ### FALSE is for verbose
     qsubmax <-
-      .Call(R_pnmax, lhs(x[pos])@data, q$upperLimit[pos], FALSE)
+      .Call(R_pnmax, lhs(x[pos])@data, q[pos, "UL"], FALSE)
     
-    imp[pos] <- q$lowerLimit[pos] - qsubmax
+    imp[pos] <- q[pos, "LL"] - qsubmax
   }
   
   imp
