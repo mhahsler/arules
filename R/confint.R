@@ -219,7 +219,7 @@ ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.le
       desc <- "Delta method confidence interval for log of lift (Doob, 1935)."
       lift <- p1 / ((p1 + p2) * (p1 + p3)) 
       z <- stats::qnorm((1 + level) / 2)
-      se.log <- sqrt( p1^2 * (1 - p1 - p2 - p3) + p2 * p3 / (p1 * (p1 + p2) * (p1 + p3))) / sqrt(n)
+      se.log <- sqrt((p1^2 * (1 - p1 - p2 - p3) + p2 * p3) / (p1 * (p1 + p2) * (p1 + p3))) / sqrt(n)
       ci <- cbind(LL = lift / exp(z * se.log),
         UL = lift * exp(z * se.log))
     }
