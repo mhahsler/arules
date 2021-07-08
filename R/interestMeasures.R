@@ -62,8 +62,11 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
       tolower(measure),
       tolower(measuresItemsets)
     ))))
-      stop(gettextf("Value '%s' is an invalid measure for itemsets.",
-        measure[is.na(ind)][1]),
+      stop(
+        gettextf("Invalid measure(s) for rules: %s",
+          paste(measure[is.na(ind)], collapse = ", ")), 
+        gettextf("\n\n  Available measures: %s",
+          paste(measuresItemsets, collapse = ", ")), 
         domain = NA)
     
     measure <- measuresItemsets[ind]
@@ -140,7 +143,7 @@ setMethod("interestMeasure",  signature(x = "itemsets"),
   
   ## calculate the cross-support ratio
   ## used to eliminate cross support patterns which contain item with
-  ## extremely differnt support. These patterns tend to be spurious
+  ## extremely different support. These patterns tend to be spurious
   ## (i.e., one item which occurs in virtually all transactions and some very
   ##  rare items)
   ##
@@ -245,8 +248,11 @@ setMethod("interestMeasure",  signature(x = "rules"),
       tolower(measure),
       tolower(measuresRules)
     ))))
-      stop(gettextf("Value '%s' is an invalid measure for rules.",
-        measure[is.na(ind)][1]),
+      stop(
+        gettextf("Invalid measure(s) for rules: %s",
+          paste(measure[is.na(ind)], collapse = ", ")), 
+        gettextf("\n\n  Available measures: %s",
+          paste(measuresRules, collapse = ", ")), 
         domain = NA)
     
     measure <- measuresRules[ind]
@@ -324,7 +330,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
     if (measure == "stdLift")
       return(.stdLift(x, transactions = transactions, ...))
     
-    ## all other measures are implemented here (counts is in ...)
+    ## all other measures are implemented here (i is in ...)
     ret <-
       .basicRuleMeasure(x, measure, transactions = transactions, ...)
     
