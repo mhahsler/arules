@@ -2,7 +2,6 @@
 
 [![CRAN
 version](https://www.r-pkg.org/badges/version/arules)](https://cran.r-project.org/package=arules)
-[![Rdoc](https://www.rdocumentation.org/badges/version/arules)](https://www.rdocumentation.org/packages/arules)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/arules)](https://cran.r-project.org/package=arules)
 [![R build
@@ -11,13 +10,15 @@ status](https://github.com/mhahsler/arules/workflows/R-CMD-check/badge.svg)](htt
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns using [frequent
 itemsets and association
-rules](https://en.wikipedia.org/wiki/Association_rule_learning). Also
-provides a wide range of [interest
+rules](https://en.wikipedia.org/wiki/Association_rule_learning). The
+package also provides a wide range of [interest
 measures](https://mhahsler.github.io/arules/docs/measures) and mining
 algorithms including a interfaces and the code of Christian Borgelt’s
 popular and efficient C implementations of the association mining
 algorithms [Apriori](https://borgelt.net/apriori.html) and
-[Eclat](https://borgelt.net/eclat.html).
+[Eclat](https://borgelt.net/eclat.html). Examples can be found in
+[Chapter 5 of the web book R Companion for Introduction to Data
+Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
 
 ## arules core packages:
 
@@ -95,8 +96,7 @@ install.packages("arules")
 ```
 
 **Current development version:** install from GitHub (needs devtools and
-\[Rtools for Windows\]
-(<https://cran.r-project.org/bin/windows/Rtools/>)).
+[Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/)).
 
 ``` r
 devtools::install_github("mhahsler/arules")
@@ -108,18 +108,6 @@ Load package and mine some association rules.
 
 ``` r
 library("arules")
-```
-
-    ## Loading required package: Matrix
-
-    ## 
-    ## Attaching package: 'arules'
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     abbreviate, write
-
-``` r
 data("IncomeESL")
 
 trans <- transactions(IncomeESL)
@@ -211,24 +199,6 @@ transactions and then functions in arules can be used with `%>%`.
 
 ``` r
 library("tidyverse")
-```
-
-    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-
-    ## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-    ## ✓ tibble  3.1.2     ✓ dplyr   1.0.7
-    ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-    ## ✓ readr   1.4.0     ✓ forcats 0.5.1
-
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## x tidyr::expand() masks Matrix::expand()
-    ## x dplyr::filter() masks stats::filter()
-    ## x dplyr::lag()    masks stats::lag()
-    ## x tidyr::pack()   masks Matrix::pack()
-    ## x dplyr::recode() masks arules::recode()
-    ## x tidyr::unpack() masks Matrix::unpack()
-
-``` r
 library("arules")
 data("IncomeESL")
 
@@ -255,7 +225,7 @@ rules <- trans %>% apriori(parameter = list(supp = 0.1, conf = 0.9, target = "ru
     ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
+    ## checking subsets of size 1 2 3 4 5 6 done [0.03s].
     ## writing ... [457 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 

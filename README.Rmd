@@ -9,15 +9,16 @@ output:
 # arules --- Mining Association Rules and Frequent Itemsets with R
 
 [![CRAN version](https://www.r-pkg.org/badges/version/arules)](https://cran.r-project.org/package=arules)
-[![Rdoc](https://www.rdocumentation.org/badges/version/arules)](https://www.rdocumentation.org/packages/arules) 
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/arules)](https://cran.r-project.org/package=arules)
 [![R build status](https://github.com/mhahsler/arules/workflows/R-CMD-check/badge.svg)](https://github.com/mhahsler/arules/actions)
 
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
-using [frequent itemsets and association rules](https://en.wikipedia.org/wiki/Association_rule_learning). Also provides a wide range of 
+using [frequent itemsets and association rules](https://en.wikipedia.org/wiki/Association_rule_learning).
+The package also provides a wide range of 
 [interest measures](https://mhahsler.github.io/arules/docs/measures) and mining algorithms including a interfaces and the code of
 Christian Borgelt's popular and efficient C implementations of the association mining algorithms [Apriori](https://borgelt.net/apriori.html) and [Eclat](https://borgelt.net/eclat.html).
+Examples can be found in [Chapter 5 of the web book R Companion for Introduction to Data Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
 
 ## arules core packages: 
 
@@ -71,7 +72,8 @@ __Stable CRAN version:__ install from within R with
 ```{r eval=FALSE}
 install.packages("arules")
 ```
-__Current development version:__ install from GitHub (needs devtools and [Rtools for Windows] (https://cran.r-project.org/bin/windows/Rtools/)). 
+__Current development version:__ install from GitHub (needs devtools and 
+[Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/)). 
 ```{r eval=FALSE}
 devtools::install_github("mhahsler/arules")
 ``` 
@@ -79,7 +81,8 @@ devtools::install_github("mhahsler/arules")
 ## Usage
 
 ```{r echo=FALSE}
-options(digits=2)
+options(digits = 2)
+knitr::opts_chunk$set(tidy = TRUE, message = FALSE)
 ```
 
 Load package and mine some association rules. 
