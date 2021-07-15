@@ -144,37 +144,7 @@ rules <- apriori(trans, parameter = list(supp = 0.1, conf = 0.9, target = "rules
     ## writing ... [457 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 
-Show basic statistics.
-
-``` r
-summary(rules)
-```
-
-    ## set of 457 rules
-    ## 
-    ## rule length distribution (lhs + rhs):sizes
-    ##   2   3   4   5   6 
-    ##  17 130 218  88   4 
-    ## 
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##     2.0     3.0     4.0     3.9     4.0     6.0 
-    ## 
-    ## summary of quality measures:
-    ##     support       confidence      coverage         lift          count     
-    ##  Min.   :0.10   Min.   :0.90   Min.   :0.10   Min.   :1.04   Min.   : 900  
-    ##  1st Qu.:0.11   1st Qu.:0.92   1st Qu.:0.12   1st Qu.:1.08   1st Qu.: 982  
-    ##  Median :0.12   Median :0.95   Median :0.13   Median :1.11   Median :1103  
-    ##  Mean   :0.14   Mean   :0.95   Mean   :0.15   Mean   :1.41   Mean   :1273  
-    ##  3rd Qu.:0.15   3rd Qu.:0.97   3rd Qu.:0.16   3rd Qu.:1.65   3rd Qu.:1377  
-    ##  Max.   :0.61   Max.   :1.00   Max.   :0.65   Max.   :2.62   Max.   :5495  
-    ## 
-    ## mining info:
-    ##   data ntransactions support confidence
-    ##  trans          8993     0.1        0.9
-    ##                                                                               call
-    ##  apriori(data = trans, parameter = list(supp = 0.1, conf = 0.9, target = "rules"))
-
-Inspect rules with the highest lift.
+Inspect the rules with the highest lift.
 
 ``` r
 inspect(head(rules, n = 3, by = "lift"))
@@ -244,9 +214,9 @@ rules %>% head(n = 3, by = "lift") %>% inspect()
     ##      type of home=house,                                                                         
     ##      language in home=english} => {marital status=married}    0.11       0.96     0.11  2.6   988
 
-## Usage arules from Python
+## Using arules from Python
 
-See [Getting started with R arules using
+See [Getting started with arules using
 Python.](https://mhahsler.github.io/arules/docs/python/arules_python.html)
 
 ## Support

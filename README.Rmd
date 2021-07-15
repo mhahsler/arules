@@ -96,13 +96,7 @@ trans
 rules <- apriori(trans, parameter = list(supp = 0.1, conf = 0.9, target = "rules"))
 ```
 
-
-Show basic statistics.
-```{r }
-summary(rules)
-```
-
-Inspect rules with the highest lift.
+Inspect the rules with the highest lift.
 ```{r }
 inspect(head(rules, n = 3, by = "lift"))
 ```
@@ -122,9 +116,9 @@ rules <- trans %>% apriori(parameter = list(supp = 0.1, conf = 0.9, target = "ru
 rules %>% head(n = 3, by = "lift") %>% inspect()
 ```
 
-## Usage arules from Python
+## Using arules from Python
 
-See [Getting started with R arules using Python.](https://mhahsler.github.io/arules/docs/python/arules_python.html)
+See [Getting started with arules using Python.](https://mhahsler.github.io/arules/docs/python/arules_python.html)
 
 ## Support
 
