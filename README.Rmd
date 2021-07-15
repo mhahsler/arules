@@ -1,0 +1,136 @@
+---
+title: "arules --- Mining Association Rules and Frequent Itemsets with R"
+author: Michael Hahsler
+output:
+  md_document:
+    variant: markdown_github
+---
+
+# arules --- Mining Association Rules and Frequent Itemsets with R
+
+[![CRAN version](https://www.r-pkg.org/badges/version/arules)](https://cran.r-project.org/package=arules)
+[![Rdoc](https://www.rdocumentation.org/badges/version/arules)](https://www.rdocumentation.org/packages/arules) 
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/arules)](https://cran.r-project.org/package=arules)
+[![R build status](https://github.com/mhahsler/arules/workflows/R-CMD-check/badge.svg)](https://github.com/mhahsler/arules/actions)
+
+The arules package for R provides the infrastructure for representing,
+manipulating and analyzing transaction data and patterns
+using [frequent itemsets and association rules](https://en.wikipedia.org/wiki/Association_rule_learning). Also provides a wide range of 
+[interest measures](https://mhahsler.github.io/arules/docs/measures) and mining algorithms including a interfaces and the code of
+Christian Borgelt's popular and efficient C implementations of the association mining algorithms [Apriori](https://borgelt.net/apriori.html) and [Eclat](https://borgelt.net/eclat.html).
+
+## arules core packages: 
+
+* [arules](https://cran.r-project.org/package=arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
+* [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of association rules. 
+* [arulesCBA](https://github.com/ianjjohnson/arulesCBA): Classification algorithms based on association rules (includes CBA).  
+* [arulesSequences](https://cran.r-project.org/package=arulesSequences):
+   Mining frequent sequences (cSPADE).
+
+## Other related packages:
+
+### Additional mining algorithms 
+
+* [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner):
+  Mining NB-frequent itemsets and NB-precise rules.
+* [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for filtered top-k association discovery.
+* [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL's association rule mining algorithm.
+* [RSarules](https://cran.r-project.org/package=RSarules): Mining algorithm which randomly samples association rules with one pre-chosen item as the consequent from a transaction dataset.
+
+
+### In-database analytics
+
+* [ibmdbR](https://cran.r-project.org/package=ibmdbR): IBM in-database analytics for R can calculate association rules from a database table.
+* [rfml](https://cran.r-project.org/package=rfml): Mine frequent itemsets or association rules using a MarkLogic server. 
+
+### Interface
+
+* [rattle](https://cran.r-project.org/package=rattle): Provides a graphical user interface for association rule mining.
+* [pmml](https://cran.r-project.org/package=pmml): Generates PMML (predictive model markup language) for association rules.
+
+### Classification 
+
+* [arc](https://cran.r-project.org/package=arc): Alternative CBA implementation. 
+* [inTrees](https://cran.r-project.org/package=inTrees): Interpret Tree Ensembles provides functions for: extracting, measuring and pruning rules; selecting a compact rule set; summarizing rules into a learner.
+* [rCBA](https://cran.r-project.org/package=rCBA): Alternative CBA implementation.
+* [qCBA](https://cran.r-project.org/package=qCBA): Quantitative Classification by Association Rules.
+* [sblr](https://cran.r-project.org/package=sbrl): Scalable Bayesian rule lists algorithm for classification.
+
+### Outlier Detection
+
+* [fpmoutliers](https://cran.r-project.org/package=fpmoutliers): Frequent Pattern Mining Outliers.
+
+### Recommendation/Prediction
+
+* [recommenerlab](https://github.com/mhahsler/recommenderlab): Supports creating predictions using association rules.
+
+
+## Installation
+
+__Stable CRAN version:__ install from within R with
+```{r eval=FALSE}
+install.packages("arules")
+```
+__Current development version:__ install from GitHub (needs devtools and [Rtools for Windows] (https://cran.r-project.org/bin/windows/Rtools/)). 
+```{r eval=FALSE}
+devtools::install_github("mhahsler/arules")
+``` 
+
+## Usage
+
+```{r echo=FALSE}
+options(digits=2)
+```
+
+Load package and mine some association rules. 
+```{r }
+library("arules")
+data("IncomeESL")
+
+trans <- transactions(IncomeESL)
+trans
+
+rules <- apriori(trans, parameter = list(supp = 0.1, conf = 0.9, target = "rules"))
+```
+
+
+Show basic statistics.
+```{r }
+summary(rules)
+```
+
+Inspect rules with the highest lift.
+```{r }
+inspect(head(rules, n = 3, by = "lift"))
+```
+
+## Using arule and tidyverse
+
+arules works seamlessly with [tidyverse](https://www.tidyverse.org/). For example, dplyr can be used for cleaning and preparing the transactions and then functions in arules can be used with `%>%`.
+
+```{r }
+library("tidyverse")
+library("arules")
+data("IncomeESL")
+
+trans <- IncomeESL %>% transactions()
+
+rules <- trans %>% apriori(parameter = list(supp = 0.1, conf = 0.9, target = "rules"))
+rules %>% head(n = 3, by = "lift") %>% inspect()
+```
+
+## Usage arules from Python
+
+See [Getting started with R arules using Python.](https://mhahsler.github.io/arules/docs/python/arules_python.html)
+
+## Support
+
+Please report bugs [here on GitHub.](https://github.com/mhahsler/arules/issues)
+Questions should be posted on [stackoverflow and tagged with arules](https://stackoverflow.com/questions/tagged/arules).
+
+
+## References
+
+* Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta. [The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets.](https://jmlr.csail.mit.edu/papers/v12/hahsler11a.html) _Journal of Machine Learning Research,_ 12:1977-1981, 2011.
+* Michael Hahsler, Bettina Gr&uuml;n and Kurt Hornik. [arules - A Computational Environment for Mining Association Rules and Frequent Item Sets.](https://dx.doi.org/10.18637/jss.v014.i15) _Journal of Statistical Software,_ 14(15), 2005.
+* Hahsler, Michael. [A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://michael.hahsler.net/research/association_rules/measures.html), 2015, URL: https://michael.hahsler.net/research/association_rules/measures.html.
