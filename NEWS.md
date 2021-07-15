@@ -9,7 +9,7 @@
 * interestMeasure for contingency table-based measures now accept the additional parameter smoothCounts 
   which is added to each count to avoid counts of zero (Laplace smoothing). 
 * new method for stats confint to calculate confidence intervals for some interest measures added.
-* is_redundant now can also use confidence intervals do determine statistical redundancy.
+* is_redundant can now also use confidence intervals do determine statistical redundancy.
 * apriori and eclat gain ... additional arguments are now added to the parameter list.
 
 ## Changes
