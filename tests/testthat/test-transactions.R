@@ -51,6 +51,21 @@ l <- LIST(trans, decode = FALSE)
 expect_identical(length(l), nrow(trans))
 expect_identical(as(trans, "ngCMatrix")@i+1L, unlist(l))
 
+## test creating transactions in long format
+a_df3 <- data.frame(
+  TID =  c( 1,   1,   2,   2,   2,   3 ), 
+  item = factor(c("a", "b", "a", "b", "c", "b"))
+)
+a_df3
+tr <- transactions(a_df3, format = "long", cols = c("TID", "item"))
+tr
+expect_equal(dim(tr), c(3L, 3L))
+expect_equal(LIST(tr), list(`1` = c("a", "b"), `2` = c("a", "b", "c"), `3` = "b"))
+
+lf <- toLongFormat(tr)
+lf
+expect_equal(unname(lf), unname(a_df3))
+
 ###########################################################################
 ### compare transactions with items b, c, d 
 

@@ -26,15 +26,27 @@
 
 ##*****************************************************
 ## constructor
-transactions <- function(x, itemLabels = NULL, transactionInfo = NULL) {
-  trans <- as(x, "transactions")
+transactions <- function(x, itemLabels = NULL, transactionInfo = NULL, format = "wide", cols = NULL) {
+  format <- match.arg(format, c("wide", "long"))
+  
+  if(format == "wide") {
+    trans <- as(x, "transactions")
+  } else {
+    if (is.null(cols)) cols <- 1:2
+    utils::write.table(x[, cols], file = tmp <- file(), row.names = FALSE)
+    trans <- read.transactions(tmp, format = "single",
+      header = TRUE, cols = 1:2)
+    close(tmp)
+    
+  }
+  
   if(!is.null(itemLabels)) trans <- recode(trans, itemLabels = itemLabels)
   if(!is.null(transactionInfo)) transactionInfo(trans) <- transactionInfo
   trans
 }
 
 ##*****************************************************
-## coercions
+## coercion
 setAs("matrix", "transactions",
   function(from)
     new("transactions", as(from, "itemMatrix"), 
@@ -151,6 +163,10 @@ setAs("transactions", "data.frame",
   }
 )
 
+setMethod("toLongFormat", signature(from = "transactions"),
+  function(from, cols = c("TID", "item"), decode = TRUE) callNextMethod(from, cols = cols, decode = decode)
+)
+
 ## no t for associations
 setMethod("t", signature(x = "transactions"),
   function(x) stop("Object not transposable! Use as(x, \"tidLists\") for coercion to tidLists."))
@@ -221,7 +237,7 @@ setMethod("items", signature(x = "transactions"),
 setMethod("summary", signature(object = "transactions"),
   function(object)
     new("summary.transactions",
-      summary(as(object, "itemMatrix")),
+      callNextMethod(),
       itemsetInfo = head(object@itemsetInfo, 3))
 )
 

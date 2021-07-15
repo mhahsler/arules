@@ -197,6 +197,23 @@ setAs("ngCMatrix", "itemMatrix",
   }
 )
 
+setMethod("toLongFormat", signature(from = "itemMatrix"),
+  function(from, cols = c("ID", "item"), decode = TRUE) {
+    
+    from_list <- LIST(from, decode = FALSE) 
+    tids <- unlist(lapply(seq(length(from_list)), FUN = function(i) rep(i, times = length(from_list[[i]]))))
+    items <- unlist(from_list)
+    
+    if (decode)
+      items <- factor(items, labels = itemLabels(from))
+    
+    df <- data.frame(tids, items)
+    
+    colnames(df) <- cols
+    df
+  }
+)
+
 
 
 ##*******************************************************

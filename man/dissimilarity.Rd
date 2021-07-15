@@ -4,7 +4,7 @@
 \alias{dissimilarity,matrix-method}
 \alias{dissimilarity,itemMatrix-method}
 \alias{dissimilarity,associations-method}
-\title{Dissimilarity Computation}
+\title{Dissimilarity Matrix Computation for Associations and Transactions}
 \description{
   Provides the generic function \code{dissimilarity} and the S4 methods to
   compute and returns distances for binary data in a \code{matrix},
@@ -42,7 +42,7 @@ dissimilarity(x, y = NULL, method = NULL, args = NULL, \ldots)
        \item{\code{"cosine"}:}{ the \emph{cosine} distance.} 
        \item{\code{"dice"}:}{ the \emph{Dice's coefficient} defined
          by Dice (1945). Similar to \emph{Jaccard} but gives double the
-	     weight to agreeing items.}
+	     weight to agreeing items.} %'
        \item{\code{"euclidean"}:}{ the \emph{euclidean} distance.} 
        \item{\code{"jaccard"}:}{ the number of items which occur in both 
          elements divided by the total number of items in the 

@@ -172,6 +172,9 @@ setGeneric("size",
 
 setGeneric("tidLists", function(x) standardGeneric("tidLists"))
 
+setGeneric("toLongFormat",
+  function(from, ...) standardGeneric("toLongFormat"))
+
 setGeneric("transactionInfo",
     function(x) standardGeneric("transactionInfo"))
 

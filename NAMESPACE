@@ -11,35 +11,37 @@ importClassesFrom("Matrix", "dgCMatrix", "ngCMatrix")
 importMethodsFrom("Matrix", "crossprod", "rowSums", "colSums")
 
 export(
-  "read.transactions", 
-  "read.PMML", 
-  "write.PMML", 
-  "random.transactions", 
-  "random.patterns",
+  "addAggregate",
   "apriori", 
-  "eclat",
-  "weclat",
-  "hits",
   "discretize",
   "discretizeDF",
-  "addAggregate",
+  "eclat",
   "filterAggregate",
-  "transactions",
+  "hits",
+  "itemsets",
+  "random.transactions", 
+  "random.patterns",
+  "read.transactions", 
+  "read.PMML", 
   "rules",
-  "itemsets"
+  "toLongFormat",
+  "transactions",
+  "write.PMML", 
+  "weclat"
   )
 
 exportClasses(
-  "itemMatrix", "summary.itemMatrix",
-  "transactions", "summary.transactions",
-  "tidLists", "summary.tidLists", 
-  "associations", "summary.associations",
-  "itemsets", "summary.itemsets",
-  "rules", "summary.rules",
   "ASparameter", "AScontrol",
   "APparameter", "APcontrol", "APappearance",
   "ECparameter", "ECcontrol",
-  "ar_similarity", "ar_cross_dissimilarity", "dist"
+  "ar_similarity", "ar_cross_dissimilarity", 
+  #"dist",
+  "associations", "summary.associations",
+  "itemMatrix", "summary.itemMatrix",
+  "itemsets", "summary.itemsets",
+  "transactions", "summary.transactions",
+  "tidLists", "summary.tidLists", 
+  "rules", "summary.rules"
 )
 
 exportMethods(

@@ -19,6 +19,7 @@
 \alias{show,transactions-method}
 \alias{transactionInfo<-,transactions-method}
 \alias{transactionInfo,transactions-method}
+\alias{toLongFormat,transactions-method}
 \alias{transactionInfo<-}
 \alias{transactionInfo}
 \alias{t,transactions-method}
@@ -42,7 +43,10 @@
   
   or by using the constructor function 
   
-  \code{transactions(x, itemLabels = NULL, transactionInfo = NULL)}.
+  \code{transactions(x, itemLabels = NULL, transactionInfo = NULL, format = "wide", cols = NULL)}.
+  
+  Format "wide" is a regular data.frame where each row contains an object. Format "long" is a data.frame 
+  with one column with transaction IDs and one with an item. cols is a numeric or character vector of length two giving the numbers or names of the columns (fields) with the transaction and item ids, respectively.
   
   See Examples Section for creating transactions from data.
 }
@@ -157,6 +161,7 @@ See \code{\link{itemCoding}} to learn how to encode and recode transaction sets.
       replaces the transaction information with a new data.frame.}
     \item{transactionInfo}{\code{signature(x = "transactions")};
       returns the transaction information as a data.frame.}
+    \item{toLongFormat}{\code{signature(object = "transactions")}; convert the transactions to long format (a data.frame with two columns, tid and item). Column names can be specified as a character vector of length 2 called \code{cols}.}
     \item{show}{\code{signature(object = "transactions")}}
     \item{summary}{\code{signature(object = "transactions")}}
   }
@@ -220,7 +225,7 @@ trans2 <- transactions(a_matrix)
 trans2
 inspect(trans2)
 
-## Example 3: creating transactions from data.frame
+## Example 3: creating transactions from data.frame (wide format)
 a_df <- data.frame(
 	age   = as.factor(c(6, 8, NA, 9, 16)), 
 	grade = as.factor(c("A", "C", "F", NA, "C")),
@@ -237,24 +242,18 @@ inspect(trans3)
 as(trans3, "data.frame")
 
 ## Example 4: creating transactions from a data.frame with 
-## transaction IDs and items (by converting it into a list of transactions first) 
+## transaction IDs and items (long format) 
 a_df3 <- data.frame(
-  TID = c(1, 1, 2, 2, 2, 3), 
-  item=c("a", "b", "a", "b", "c", "b")
-  )
+  TID =  c( 1,   1,   2,   2,   2,   3 ), 
+  item = c("a", "b", "a", "b", "c", "b")
+)
 a_df3
-trans4 <- transactions(split(a_df3[, "item"], a_df3[, "TID"]))
+trans4 <- transactions(a_df3, format = "long", cols = c("TID", "item"))
 trans4
 inspect(trans4)
 
-## Note: This is very slow for large datasets. It is much faster to 
-## read transactions using read.transactions() with format = "single".
-## This can be done using an anonymous file.
-write.table(a_df3, file = tmp <- file(), row.names = FALSE)
-trans4 <- read.transactions(tmp, format = "single",
-  header = TRUE, cols = c("TID", "item"))
-close(tmp)
-inspect(trans4)
+## convert transactions back into long format.
+toLongFormat(trans4)
 
 ## Example 5: create transactions from a dataset with numeric variables
 ## using discretization.

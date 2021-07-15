@@ -1,6 +1,8 @@
 # arules 1.6-8.1 (xx/xx/2021)
 
 ## New Feature
+* constructor transactions() con now also create transactions from data in long format (tid, item).
+* toLongFormat converts transactions into a long format data.frame.
 * rules and itemsets have now a constructor.
 * interestMeasure for rules has now measure "table" which returns the contingency table. 
 * new interest measure "riskRatio" was added. 
@@ -21,6 +23,7 @@
 ## Bug Fixes
 * fixed mistake in man page for weclat. Weight column needs to be called weight (reported by Alexander Ruth).
 * frequent itemsets now do not report "transIdenticalToItemsets" (reported by galadrielbriere). 
+* fixed read.transactions reading in single format with header from a connection. First item is no longer dropped.
 
 # arules 1.6-8 (05/17/2021)
 

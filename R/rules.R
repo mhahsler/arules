@@ -85,14 +85,14 @@ setMethod("labels", signature(object = "rules"),
               labels(object@rhs, ...), sep = ""))
 
 setMethod("itemLabels", signature(object = "rules"),
-    function(object)itemLabels(lhs(object)))
+    function(object) itemLabels(lhs(object)))
 
 setReplaceMethod("itemLabels", signature(object = "rules"),
   function(object, value) {
-    #itemLabels(lhs(object)) <- value
-    ### this low level operation avoids the validity check
+    ### these low level operation avoids the validity check till all labels are changed
     itemLabels(object@lhs) <- value
-    itemLabels(rhs(object)) <- value
+    itemLabels(object@rhs) <- value
+    validObject(object)
     object
   }
 )

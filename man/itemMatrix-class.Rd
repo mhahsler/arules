@@ -41,6 +41,8 @@
 \alias{summary,itemMatrix-method}
 %compat
 \alias{t,ngCMatrix-method}
+\alias{toLongFormat}
+\alias{toLongFormat,itemMatrix-method}
 \alias{plot.itemMatrix}
 
 \title{Class itemMatrix --- Sparse Binary Incidence Matrix to Represent Sets
@@ -176,6 +178,7 @@ See \code{\link{itemCoding}} to learn how to encode and recode itemMatrix object
       \code{setEnd}.}
     \item{nitems}{\code{signature(x = "itemMatrix")}; returns the number 
       of items (number in columns) in the itemMatrix.}
+    \item{toLongFormat}{\code{signature(object = "itemMatrix")}; convert the transactions to long format (a data.frame with two columns, tid and item). Column names can be specified as a character vector of length 2 called \code{cols}.}  
     \item{show}{\code{signature(object = "itemMatrix")}}
     \item{summary}{\code{signature(object = "itemMatrix")}}
   }
