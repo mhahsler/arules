@@ -19,6 +19,7 @@
 * interestMeasures: reuse = TRUE now only reuses the basic measures of "support", "confidence", "coverage" and
   "lift". All other measures are recalculated to account for possible differences in additional parameters.
 * apriori and eclat now store the call in the info slot of the created associations.
+* set methods are now also exported as S3 methods using package generics so they do not conflict with tidyverse (dplyr). 
 
 ## Bug Fixes
 * fixed mistake in man page for weclat. Weight column needs to be called weight (reported by Alexander Ruth).

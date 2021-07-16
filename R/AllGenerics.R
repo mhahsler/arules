@@ -18,12 +18,10 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-## create new generics
-## FIXME: this complains because we add ... 
+## create new generics (we need ... for the first two)
 setGeneric("abbreviate", function(names.arg, ...) 
   base::abbreviate(names.arg, ...))
 
-## FIXME: this complains because we add ... 
 setGeneric("write",
     function(x, file = "", ...) base::write(x, file, ...))
 
@@ -43,7 +41,7 @@ setGeneric("DATAFRAME",
     function(from, ...) standardGeneric("DATAFRAME"))
 
 setGeneric("addComplement",
-    function(x, labels, complementLabels=NULL) standardGeneric("addComplement"))
+    function(x, labels, complementLabels = NULL) standardGeneric("addComplement"))
 
 setGeneric("compatible",
   function(x, y) standardGeneric("compatible"))
@@ -203,6 +201,7 @@ setGeneric("subset")
 # setGeneric("t") # is generic in Matrix
 setGeneric("union")
 setGeneric("unique")
+
 
 ##***************************************************************
 ## for clustering

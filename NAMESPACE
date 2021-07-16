@@ -2,9 +2,7 @@ useDynLib("arules", .registration = TRUE)
 
 import("methods")
 import("graphics")
-
 importFrom("stats", "predict", "aggregate", "confint")
-
 importFrom("Matrix", "summary", "image", "t", 
   "head", "tail", "drop0", "diag")
 importClassesFrom("Matrix", "dgCMatrix", "ngCMatrix")
@@ -35,7 +33,6 @@ exportClasses(
   "APparameter", "APcontrol", "APappearance",
   "ECparameter", "ECcontrol",
   "ar_similarity", "ar_cross_dissimilarity", 
-  #"dist",
   "associations", "summary.associations",
   "itemMatrix", "summary.itemMatrix",
   "itemsets", "summary.itemsets",
@@ -125,3 +122,16 @@ S3method(plot, associations)
 S3method(plot, itemMatrix)
 
 S3method(confint, rules)
+
+# register S4 methods also as S3 methods to avoid name clashes with other packages
+importFrom("generics", "union", "intersect", "setequal", "setdiff", "is.element")
+S3method("union", "associations")
+S3method("union", "itemMatrix")
+S3method("intersect", "associations")
+S3method("intersect", "itemMatrix")
+S3method("setequal", "associations")
+S3method("setequal", "itemMatrix")
+S3method("setdiff", "associations")
+S3method("setdiff", "itemMatrix")
+S3method("is.element", "associations")
+S3method("is.element", "itemMatrix")

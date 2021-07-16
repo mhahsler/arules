@@ -31,14 +31,15 @@
   itemMatrix. 
 }
 \usage{
-union(x, y)
-intersect(x, y)
-setequal(x, y)
-setdiff(x, y)
-is.element(el, set)
+union(x, y, ...)
+intersect(x, y, ...)
+setequal(x, y, ...)
+setdiff(x, y, ...)
+is.element(el, set, ...)
 }
 \arguments{
   \item{x,y, el, set}{ sets of associations or itemMatrix objects.}
+  \item{...}{ Other arguments are unused.}
 }
 \details{
 All S4 methods for set operations are defined for the 
