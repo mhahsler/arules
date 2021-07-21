@@ -83,10 +83,10 @@ number of null-transactions since the total number of transactions is
 used for probability estimation. Measures that are not 
 influenced by a change in the number of null-transactions are 
 called null-invariant 
-see 
+(see 
 <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Tan et al., 2004</a> 
 and 
-<a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Wu et al., 2010</a>)
+<a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Wu et al., 2010</a>).
 
 Good overview articles about different association rule measures are provided by <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004"> Pang-Ning   Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis. Information Systems, 29(4):293-313, 2004 </a>
 and <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Geng:2006">Liqiang Geng and Howard J. Hamilton. Interestingness measures for data mining: A survey. ACM Computing Surveys, 38(3):9, 2006.</a>
