@@ -17,17 +17,19 @@
 static const char* ttypes[] = {
   /* TT_SET      0 */  "set",
   /* TT_MFSET    1 */  "set",
-  /* TT_CLSET    2 */  "set",
-  /* TT_RULE     3 */  "rule",
-  /* TT_HEDGE    4 */  "hyperedge",
+  /* TT_GRSET    2 */  "set",
+  /* TT_CLSET    3 */  "set",
+  /* TT_RULE     4 */  "rule",
+  /* TT_HEDGE    5 */  "hyperedge",
 };
 
 static const char* ttarget[] = {
   /* TT_SET      0 */  "frequent itemsets",
   /* TT_MFSET    1 */  "maximally frequent itemsets",
-  /* TT_CLSET    2 */  "closed frequent itemsets",
-  /* TT_RULE     3 */  "rules",
-  /* TT_HEDGE    4 */  "hyperedgesets",
+  /* TT_GRSET    2 */  "generator frequent itemsets",
+  /* TT_CLSET    3 */  "closed frequent itemsets",
+  /* TT_RULE     4 */  "rules",
+  /* TT_HEDGE    5 */  "hyperedgesets",
 };
 
 
@@ -81,9 +83,10 @@ static const char* aremtypes[] = {
 /* --- target types --- */
 #define TT_SET        0         /* frequent item sets */
 #define TT_MFSET      1         /* maximally frequent item sets */
-#define TT_CLSET      2         /* closed item sets */
-#define TT_RULE       3         /* association rules */
-#define TT_HEDGE      4         /* association hyperedges */
+#define TT_GRSET      2         /* generator item sets */
+#define TT_CLSET      3         /* closed item sets */
+#define TT_RULE       4         /* association rules */
+#define TT_HEDGE      5         /* association hyperedges */
 
 /* --- error codes --- */
 #define E_OPTION    (-5)        /* unknown option */
@@ -419,7 +422,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
       k = (int)ceil(tacnt *supp *conf);
       else                        /* if rule supp. = body&head support */
       k = (int)ceil(tacnt *supp);
-      n = is_recode(itemset, k, param->sort, map);
+      n = is_recode(itemset, k, param->sort, map,param->target==TT_GRSET,tacnt);
       if (taset) {                /* sort and recode the items and */
       tas_recode(taset, map, n); /* recode the loaded transactions */
       maxcnt = tas_max(taset);  /* get the new maximal t.a. size */
@@ -545,11 +548,11 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
           if (param->verbose) Rprintf(" done [%.2fs].\n", SEC_SINCE(t));
           
           /* --- filter found item sets --- */
-          if ((param->target == TT_MFSET) || (param->target == TT_CLSET)) {
+          if ((param->target == TT_MFSET) || (param->target == TT_CLSET)|| (param->target == TT_GRSET)) {
             if (param->verbose) Rprintf("filtering %s item sets ... ",
-                (param->target == TT_MFSET) ? "maximal" : "closed");
+                (param->target == TT_MFSET) ? "maximal" : (param->target == TT_GRSET) ? "generator" : "closed");
             t = clock();                /* filter the item sets */
-          ist_filter(istree, (param->target == TT_MFSET) ? IST_MAXFRQ : IST_CLOSED);
+          ist_filter(istree, (param->target == TT_MFSET) ? IST_MAXFRQ : (param->target == TT_GRSET) ? IST_GENERATOR :IST_CLOSED);
           if (param->verbose) Rprintf("done [%.2fs].\n", SEC_SINCE(t));
           }                             /* (filter takes longer than print) */
           
@@ -998,8 +1001,9 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     param.smax = *REAL(GET_SLOT(parms, install("smax")));          /* maximal support    'S' */
     /* target type (sets/rules/h.edges) 't'*/  
     target = translateChar(STRING_ELT(GET_SLOT(parms, install("target")), 0)); 
-    /* target = CHAR(STRING_ELT(GET_SLOT(parms, install("target")), 0)); */ 
+    /* target = CHAR(STRING_ELT(GET_SLOT(parms, install("target")), 0)); */
     param.target = targetcode(target);
+    
     /* additional rule evaluation measure 'e'*/  
     arem = translateChar(STRING_ELT(GET_SLOT(parms, install("arem")), 0)); 
     /* arem = CHAR(STRING_ELT(GET_SLOT(parms, install("arem")), 0)); */ 
@@ -1019,13 +1023,13 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     param.trans = 0;
     
     load = *LOGICAL(GET_SLOT(control, install("load")));            /* flag for loading transactions 'l'*/
-    
     switch (param.target) {             /* check and translate target type */
     case 0: param.target = TT_SET;               break;
     case 1: param.target = TT_MFSET;             break;
-    case 2: param.target = TT_CLSET;             break;
-    case 3: param.target = TT_RULE;              break;
-    case 4: param.target = TT_HEDGE;             break;
+    case 2: param.target = TT_GRSET;             break;
+    case 3: param.target = TT_CLSET;             break;
+    case 4: param.target = TT_RULE;              break;
+    case 5: param.target = TT_HEDGE;             break;
     default : cleanup(); error(msgs(E_TARGET, target)); break;
     }
     if (param.supp > 1)                 /* check the minimal support */

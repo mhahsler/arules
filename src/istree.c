@@ -403,8 +403,9 @@ static ISNODE* _child (ISTREE *ist, ISNODE *node, int index,
     set[1] = k;                 /* add the candidate item to the set */
     for (curr = node; curr->parent; curr = curr->parent) {
       s_set = _getsupp(curr->parent, set, cnt);
-      if (s_set <  s_min)       /* get the item set support and */
+      if (s_set <  s_min)      /* get the item set support and */
         break;                  /* if it is too low, abort the loop */
+      
       if (s_set >= s_sub)       /* if some subset has enough support */
         body |= 4;              /* for a rule body, set the body flag */
       *--set = ID(curr); cnt++; /* add id of current node to the set */
@@ -958,27 +959,56 @@ void ist_filter (ISTREE *ist, int mode)
   assert(ist);                  /* check the function argument */
   s_min = (int)ceil(ist->tacnt *ist->supp);
   if (s_min <= 0) s_min = 1;    /* get minimal support */
-  for (n = 1; n < ist->lvlcnt; n++) {
-    for (node = ist->levels[n]; node; node = node->succ) {
-      for (i = 0; i < node->size; i++) {
-        if (node->cnts[i] < s_min)
-          continue;             /* skip infrequent item sets */
-        supp = (mode == IST_CLOSED) ? node->cnts[i] : -1;
-        if (node->offset >= 0) k = node->offset +i;
-        else                   k = node->cnts[node->size +i];
-        set    = ist->buf +ist->lvlvsz;
-        *--set = k;        _clrsupp(node->parent, set, 1, supp);
-        *--set = ID(node); _clrsupp(node->parent, set, 1, supp);
-        k = 2;                  /* clear counters in parent node */
-        for (curr = node->parent; curr->parent; curr = curr->parent) {
-          _clrsupp(curr->parent, set, k, supp);
-          *--set = ID(curr); k++;
-        }                       /* climb up the tree and use the */
+  if (mode == IST_GENERATOR)
+    for (n = ist->lvlcnt-1; n > 0; n--) {
+      for (node = ist->levels[n]; node; node = node->succ) {
+        for (i = 0; i < node->size; i++) {
+          if (node->cnts[i] < s_min)
+            continue;             /* skip infrequent item sets */
+        
+          if (node->offset >= 0) k = node->offset +i;
+          else                   k = node->cnts[node->size +i];
+          set    = ist->buf +ist->lvlvsz;
+          *--set = k;       
+          if( _getsupp(node->parent, set, 1)==node->cnts[i])
+            node->cnts[i]=-(node->cnts[i] & ~F_SKIP);
+          *--set = ID(node); 
+          if( _getsupp(node->parent, set, 1)==node->cnts[i])
+            node->cnts[i]=-(node->cnts[i] & ~F_SKIP);
+          k = 2;                  /* clear counters in parent node */
+          for (curr = node->parent; curr->parent; curr = curr->parent) {
+            if(_getsupp(curr->parent, set, k)==node->cnts[i]){
+              node->cnts[i]=-(node->cnts[i] & ~F_SKIP);
+              break;
+            }
+            *--set = ID(curr); k++;
+          }
+        }
+      }
+    }
+    else
+      for (n = 1; n < ist->lvlcnt; n++) {
+        for (node = ist->levels[n]; node; node = node->succ) {
+          for (i = 0; i < node->size; i++) {
+                if (node->cnts[i] < s_min)
+                  continue;             /* skip infrequent item sets */
+
+          supp = (mode == IST_CLOSED) ? node->cnts[i] : -1;
+          if (node->offset >= 0) k = node->offset +i;
+          else                   k = node->cnts[node->size +i];
+          set    = ist->buf +ist->lvlvsz;
+          *--set = k;        _clrsupp(node->parent, set, 1, supp);
+          *--set = ID(node); _clrsupp(node->parent, set, 1, supp);
+          k = 2;                  /* clear counters in parent node */
+          for (curr = node->parent; curr->parent; curr = curr->parent) {
+            _clrsupp(curr->parent, set, k, supp);
+            *--set = ID(curr); k++;
+        }/* climb up the tree and use the */
       }                         /* constructed (partial) item sets */
     }                           /* as paths to find the counters */
-  }                             /* that have to be cleared */
-}  /* ist_filter() */
-
+              /* that have to be cleared */
+   }  /* ist_filter() */
+}
 /*--------------------------------------------------------------------*/
 
 void ist_init (ISTREE *ist, int minlen, int arem, double minval)

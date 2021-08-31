@@ -109,7 +109,7 @@ extern int         is_readapp (ITEMSET *iset, FILE *file);
 extern int         is_read    (ITEMSET *iset, FILE *file);
 
 extern int         is_recode  (ITEMSET *iset, int minfrq, int dir,
-                               int *map);
+                               int *map,int mode, int fullS);
 extern int         is_filter  (ITEMSET *iset, const char *marks);
 extern int         is_tsize   (ITEMSET *iset);
 extern int*        is_tract   (ITEMSET *iset);

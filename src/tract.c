@@ -323,7 +323,7 @@ int is_read (ITEMSET *iset, FILE *file)
 
 /*--------------------------------------------------------------------*/
 
-int is_recode (ITEMSET *iset, int minfrq, int dir, int *map)
+int is_recode (ITEMSET *iset, int minfrq, int dir, int *map, int mode, int fullS)
 {                               /* --- recode items w.r.t. frequency */
   int  i, k, n, t;              /* loop variables, buffer */
   ITEM *item;                   /* to traverse the items */
@@ -346,7 +346,7 @@ int is_recode (ITEMSET *iset, int minfrq, int dir, int *map)
 
   for (n = nim_cnt(iset->nimap); --n >= 0; ) {
     item = (ITEM*)nim_byid(iset->nimap, n);
-    if (item->frq < minfrq)     /* determine frequent items and */
+    if ((item->frq < minfrq) || (mode && item->frq==fullS))     /* determine frequent items and */
       item->app = APP_NONE;     /* set all others to 'ignore' */
     else if (item->app != APP_NONE)
       break;                    /* in addition, skip all items */
