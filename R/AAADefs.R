@@ -20,10 +20,10 @@
 ## common definitions for arules
 .types <- function(method = "apriori") {
     targets     <- c("frequent itemsets", "maximally frequent itemsets", 
-        "closed frequent itemsets", "rules", "hyperedgesets")
+                     "generator frequent itemsets","closed frequent itemsets", "rules", "hyperedgesets")
     methods     <- c("apriori", "eclat")
     method      <- match.arg(tolower(method), methods)
-    if (method == "eclat") return(targets[1:3])
+    if (method == "eclat") return(targets[1:4])
     else return(targets)
 }
 
