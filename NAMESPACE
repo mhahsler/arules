@@ -83,6 +83,7 @@ exportMethods(
   "is.closed",
   "is.element",
   "is.maximal",
+  "is.generator",
   "is.subset",
   "is.superset",
   "labels", 

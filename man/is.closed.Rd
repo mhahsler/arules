@@ -6,9 +6,12 @@
 \title{Find Closed Itemsets}
 \description{
 Provides the generic function and the S4 method \code{is.closed} for finding
-closed itemsets.  The closure of an itemset is its largest proper superset
+closed itemsets. Closed itemsets are used as a concise representation of frequent itemsets.
+The closure of an itemset is its largest proper superset
 which has the same support (is contained in exactly the same transactions). An
 itemset is closed, if it is its own closure (Pasquier et al. 1999).
+
+Closed frequent itemsets can also be mined directly using \code{link{apriori}} or \code{link{eclat}} with target "closed frequent itemsets".
 }
 \usage{
 is.closed(x)
@@ -20,7 +23,9 @@ is.closed(x)
 for each element in \code{x} if it is a closed itemset.
 }
 \seealso{
-\code{\link{itemsets-class}}
+\code{\link{itemsets-class}},
+\code{\link{is.maximal}},
+\code{\link{is.generator}}
 }
 \references{
 Nicolas Pasquier, Yves Bastide, Rafik Taouil, and Lotfi Lakhal (1999).

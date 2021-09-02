@@ -50,5 +50,5 @@ setMethod("is.closed", signature(x = "itemsets"),
             cnt <- as.integer(round(supp * ntrans))
         }
             
-        .Call(R_pnclosed, x@items@data, as.integer(cnt), FALSE)
+        structure(.Call(R_pnclosed, x@items@data, as.integer(cnt), FALSE), names = labels(x))
     })
