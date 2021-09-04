@@ -11,6 +11,7 @@
 * new method for stats confint to calculate confidence intervals for some interest measures added.
 * is_redundant can now also use confidence intervals do determine statistical redundancy.
 * apriori and eclat gain ... additional arguments are now added to the parameter list.
+* added new function is.generators to find itemset generators.
 
 ## Changes
 * we use now a better check for installed suggested packages.

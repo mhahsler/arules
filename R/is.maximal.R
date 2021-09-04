@@ -26,7 +26,7 @@ setMethod("is.maximal", signature(x = "itemMatrix"),
         u <- unique(x)
         m <- .Call(R_pncount, u@data, u@data, TRUE, TRUE, FALSE) == 1
         i <- match(x, u)
-        m[i]
+        structure(m[i], names = labels(x))
 })
 
 setMethod("is.maximal", signature(x = "itemsets"),

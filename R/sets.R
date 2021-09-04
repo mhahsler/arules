@@ -24,27 +24,27 @@
 ##
 
 # we now export S3 and S4 versions
-union.itemMatrix <- union.associations <- function(x, y) 
+union.itemMatrix <- union.associations <- function(x, y, ...) 
     unique(c(x, y)) 
 setMethod("union", "associations", union.associations)
 setMethod("union", "itemMatrix", union.itemMatrix)
 
-intersect.itemMatrix <- intersect.associations <- function(x, y) 
+intersect.itemMatrix <- intersect.associations <- function(x, y, ...) 
     unique(y[match(x, y, 0L)]) 
 setMethod("intersect", "associations", intersect.associations)
 setMethod("intersect", "itemMatrix", intersect.itemMatrix)
 
-setequal.itemMatrix <- setequal.associations <- function(x, y) 
+setequal.itemMatrix <- setequal.associations <- function(x, y, ...) 
     all(c(match(x, y, 0L) > 0L, match(y, x, 0L) > 0L))
 setMethod("setequal", "associations", setequal.associations)
 setMethod("setequal", "itemMatrix", setequal.itemMatrix)
 
-setdiff.itemMatrix <- setdiff.associations <- function(x, y) 
+setdiff.itemMatrix <- setdiff.associations <- function(x, y, ...) 
     unique(if (length(x) || length(y)) x[match(x, y, 0L) == 0L] else x)
 setMethod("setdiff", "associations", setdiff.associations)
 setMethod("setdiff", "itemMatrix", setdiff.itemMatrix)
 
-is.element.itemMatrix <- is.element.associations <- function(el, set) 
+is.element.itemMatrix <- is.element.associations <- function(el, set, ...) 
     match(el, set, 0L) > 0L
 setMethod("is.element", "associations", is.element.associations)
 setMethod("is.element", "itemMatrix", is.element.itemMatrix)

@@ -99,6 +99,9 @@ setGeneric("itemFrequency",
 setGeneric("itemFrequencyPlot",
     function(x, ...) standardGeneric("itemFrequencyPlot"))
 
+setGeneric("is.generator",
+  function(x) standardGeneric("is.generator"))
+
 setGeneric("is.superset",
     function(x, y = NULL, proper = FALSE, sparse = TRUE, ...) standardGeneric("is.superset"))
 
