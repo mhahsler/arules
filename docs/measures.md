@@ -822,7 +822,7 @@ Leverage is a unnormalized version of the [phi correlation coefficient](#phi-cor
 **Range:** $[-1, 1]$ (0 indicates independence)
 
 ## Lift
-**Alias:** Interest
+**Alias:** Interest, interest factor
 
 **Reference:** <a href=
 "https://michael.hahsler.net/research/bib/association_rules/#arules:Brin:1997">
@@ -831,7 +831,7 @@ itemset counting and implication rules for market basket
 data.</a> In Proc. of the ACM SIGMOD Int'l Conf. on
 Management of Data (ACM SIGMOD '97), pages 265-276, 1997.
 
-Lift was originally called interest. It is defined as
+Lift was originally called interest by Brin et al. Later, lift, the name of an equivalent measure popular in advertising and predictive modeling became more common. Lift is defined as
 
 $$
 \textrm{lift}(X \Rightarrow Y) 
