@@ -44,7 +44,7 @@
 /* --- target types --- */
 #define TT_SET        0         /* frequent item sets */
 #define TT_MFSET      1         /* maximally frequent item sets */
-#define TT_GRSET      2         /* closed item sets */
+#define TT_GRSET      2         /* generator item sets */
 #define TT_CLSET      3         /* closed item sets */
 #define TT_RULE       4         /* association rules */
 #define TT_HEDGE      5         /* association hyperedges */
