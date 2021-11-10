@@ -1,7 +1,7 @@
 # arules 1.6-8.1 (xx/xx/2021)
 
 ## New Feature
-* constructor transactions() con now also create transactions from data in long format (tid, item).
+* constructor transactions() can now also create transactions from data in long format (tid, item).
 * toLongFormat converts transactions into a long format data.frame.
 * rules and itemsets have now a constructor.
 * interestMeasure for rules has now measure "table" which returns the contingency table. 
