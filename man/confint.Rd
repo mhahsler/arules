@@ -9,7 +9,7 @@ Computes confidence intervals for interest Measures used in association rule min
 }
 \usage{
 \method{confint}{rules}(object, parm = "oddsRatio", level = 0.95, 
-  measure = NULL, method = NULL, replications = 1000,
+  measure = NULL, sides = c("two", "one"), method = NULL, replications = 1000,
   smoothCounts = 0, transactions = NULL, ...)
 }
 \arguments{
@@ -24,6 +24,7 @@ Computes confidence intervals for interest Measures used in association rule min
     "phi".
     \code{measure} can be used instead of \code{parm}.}
   \item{level}{ the confidence level required. }
+  \item{sides}{ Should a two-sided confidence interval or two one-sided limits be returned?}
   \item{method}{ method to construct the confidence interval. The available methods depends on the 
     measure and the most common method is used by default. }
   \item{smoothCounts}{ pseudo count for addaptive smoothing (Laplace smoothing). Often a pseudo counts
@@ -46,7 +47,10 @@ the interval. The matrix has the additional attributes:
 
 \item{measure}{ the interest measure.}
 \item{level}{ the confidence level}
-\item{method}{ desciption of the used method to calculate the confidence interval. The mentioned references can be found below. }
+\item{sides}{ the confidence level}
+\item{smoothCounts}{ used count smoothing. }
+\item{method}{ name of the method to create the interval }
+\item{desc}{ desciption of the used method to calculate the confidence interval. The mentioned references can be found below. }
 }
 \references{
 Wilson, E. B. (1927). "Probable inference, the law of succession, and statistical inference". Journal of the American Statistical Association. 22 (158): 209-212. \doi{10.1080/01621459.1927.10502953}
