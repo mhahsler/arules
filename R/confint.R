@@ -22,12 +22,13 @@
 ## Functions for calculating confidence intervals for interest measures
 ##
 
-## FIXME: we use smoothCount twice for simulation!
+## FIXME: we use smoothCount twice for bootstrap!
 
 confint.rules <- function(object,
   parm = "oddsRatio",
   level = 0.95,
   measure = NULL,
+  sides = c("two", "one"),
   method = NULL,
   replications = 1000,
   smoothCounts = 0,
@@ -38,6 +39,11 @@ confint.rules <- function(object,
     measure <- parm
   
   measure <- match.arg(measure, choices = measuresRules)
+  
+  # one-sided CI (adjust level)
+  level_orig <- level
+  sides <- match.arg(sides)
+  if (sides == "one") level <- 1 - (1 - level) * 2
   
   if (level < 0 ||
       level > 1)
@@ -54,20 +60,32 @@ confint.rules <- function(object,
   
   ci <- .confint_approx(counts, measure, method, level)
   
-  # fall back to simulation?
+  # fall back to bootstrap if .confint_approx does not return anything?
   if (is.null(ci))  
-    ci <- .confint_simulation(counts, measure, level, smoothCounts = smoothCounts, 
+    ci <- .confint_bootstrap(counts, measure, level, smoothCounts = smoothCounts, 
       replications = replications, ...)
-  
+ 
+  # fix level for on-sided
+  attr(ci, "level") <- level_orig
+  attr(ci, "smoothCounts") <- smoothCounts
+  attr(ci, "sides") <- sides
   ci
 }
  
-.confint_simulation <- function(counts, measure, level = 0.95, smoothCounts = 0, 
+.confint_bootstrap <- function(counts, measure, level = 0.95, smoothCounts = 0, 
   replications = 1000, ...) {
-  method <- "simulation"
-  desc <- "Simulated confidence interval using random draws from a multinomial distribution."
+  method <- "bootstrap"
+  desc <- "Confidence interval using bootstrapping (random draws from a multinomial distribution)."
   
   qs <- c((1 - level) / 2, (1 + level) / 2)
+ 
+  # make sure we have a list with all needed counts
+  if (is.matrix(counts)) {
+    nms <- colnames(counts)
+    counts <- lapply(seq_len(ncol(counts)), function(i) counts[,i])
+    names(counts) <- nms
+  }
+  if (is.null(counts$n)) counts$n <- counts$n11 + counts$n10 + counts$n01 + counts$n00
   
   n <- counts$n
   p <- cbind(counts$n11 / n, 
@@ -97,6 +115,7 @@ confint.rules <- function(object,
   )
 }
 
+
 # Tests
 ci.prop <- function(f, n, level) {
   z <- stats::qnorm((1 + level) / 2)
@@ -108,6 +127,8 @@ ci.prop <- function(f, n, level) {
 }
 
 # https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm
+# NOTE: prop.test can be used for the Wilson Score interval
+# ***** NOTE: prop.test can test differences in proportions (could be used for DOC)
 ci.prop.wilson <- function(f, n, level) {
   z_UL <- stats::qnorm((1 + level) / 2)
   z_LL <- stats::qnorm((1 - level) / 2)
@@ -124,7 +145,7 @@ ci.prop.wilson <- function(f, n, level) {
 ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.level = level)$conf.int)
 
 # Special CIs
-.confint_approx <- function(counts, measure, method = NULL, level = 0.95) {
+.confint_approx <- function(counts, measure, method = NULL, level = 0.95, smoothCounts = 0) {
   ci <- NULL
   desc <- NULL
   
@@ -134,15 +155,23 @@ ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.le
     counts <- lapply(seq_len(ncol(counts)), function(i) counts[,i])
     names(counts) <- nms
   }
-  if (is.null(counts$n)) counts$n <- counts$n11 + counts$n10 + counts$n01 + counts$n00
-  if (is.null(counts$n1x)) counts$n1x <- counts$n11 + counts$n10
-  if (is.null(counts$nx1)) counts$nx1 <- counts$n11 + counts$n01
-  if (is.null(counts$n0x)) counts$n0x <- counts$n - counts$n1x
-  if (is.null(counts$nx0)) counts$nx0 <- counts$n - counts$nx1
+  
+  if(smoothCounts != 0) {
+    counts$n11 <- counts$n11 + smoothCounts
+    counts$n10 <- counts$n10 + smoothCounts
+    counts$n01 <- counts$n01 + smoothCounts
+    counts$n00 <- counts$n00 + smoothCounts
+  }
+  
+  counts$n <- counts$n11 + counts$n10 + counts$n01 + counts$n00
+  counts$n1x <- counts$n11 + counts$n10
+  counts$nx1 <- counts$n11 + counts$n01
+  counts$n0x <- counts$n - counts$n1x
+  counts$nx0 <- counts$n - counts$nx1
   
   ###########################################################################
   if (measure == "count") {
-    method <- match.arg(method, choices = c("wilson", "normal", "exact", "simulation"))
+    method <- match.arg(method, choices = c("wilson", "normal", "exact", "bootstrap"))
     
     if (method == "exact") {
       desc <- "Exact binomial proportion confidence interval for support (Clopper and Pearson, 1934)."
@@ -154,14 +183,14 @@ ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.le
       ci <- ci.prop(counts[["n11"]], counts[["n"]], level) * counts[["n"]]
       
     } else if (method == "wilson"){
-      desc <- "Wilson population proportion confidence interval for support (Wilson, 1927)."
+      desc <- "Wilson score confidence interval for support (Wilson, 1927)."
       ci <- ci.prop.wilson(counts[["n11"]], counts[["n"]], level) * counts[["n"]]
     }
   }
   
   #####################################################3
   else if (measure == "support") {
-    method <- match.arg(method, choices = c("wilson", "normal", "exact", "simulation"))
+    method <- match.arg(method, choices = c("wilson", "normal", "exact", "bootstrap"))
     
     if (method == "exact") {
       desc <- "Exact binomial proportion confidence interval for support (Clopper and Pearson, 1934)."
@@ -173,14 +202,14 @@ ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.le
       ci <- ci.prop(counts[["n11"]], counts[["n"]], level)
       
     } else if (method == "wilson") {
-      desc <- "Wilson population proportion confidence interval for support (Wilson, 1927)."
+      desc <- "Wilson score confidence interval for support (Wilson, 1927)."
       ci <- ci.prop.wilson(counts[["n11"]], counts[["n"]], level)
     }
   }
   
   #####################################################3
   else if (measure == "confidence") {
-    method <- match.arg(method, choices = c( "wilson", "normal", "exact", "simulation"))
+    method <- match.arg(method, choices = c( "wilson", "normal", "exact", "bootstrap"))
     
     if (method == "exact") {
       desc <- "Exact binomial proportion confidence interval for confidence (Clopper and Pearson, 1934)."
@@ -192,14 +221,14 @@ ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.le
       ci <- ci.prop(counts[["n11"]], counts[["n1x"]], level)
       
     } else if (method  == "wilson") {
-      desc <- "Wilson population proportion confidence interval for confidence (Wilson, 1927)."
+      desc <- "Wilson score confidence interval for confidence (Wilson, 1927)."
       ci <- ci.prop(counts[["n11"]], counts[["n1x"]], level)
     }
   }
   
   #####################################################3
   else if (measure == "lift") {
-    method <- match.arg(method, choices = c("delta", "log_delta", "simulation"))
+    method <- match.arg(method, choices = c("delta", "log_delta", "bootstrap"))
     
     n <-  counts$n
     p1 <-  counts$n11 / n 
@@ -227,14 +256,23 @@ ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.le
   
   #####################################################3
   else if (measure == "oddsRatio") {
-    method <- match.arg(method, choices = c("woolf", "exact", "simulation"))
+    method <- match.arg(method, choices = c("woolf", "gart", "exact", "bootstrap"))
     
-    if (method == "woolf") {
-      desc <- "Woolf method confidence interval for log of the odds ratio (Woolf, 1955)."
-      n00 <- counts$n00
-      n01 <- counts$n01
-      n10 <- counts$n10
-      n11 <- counts$n11
+    if (method == "woolf" || method == "gart") {
+      
+      if(method == "woolf") {
+        desc <- "Woolf method confidence interval for log of the odds ratio (Woolf, 1955)."
+        n00 <- counts$n00
+        n01 <- counts$n01
+        n10 <- counts$n10
+        n11 <- counts$n11
+      }else{
+        desc <- "Gart method confidence interval for log of the odds ratio (Gart and Thomas, 1972)."
+        n00 <- counts$n00 + .5
+        n01 <- counts$n01 + .5
+        n10 <- counts$n10 + .5
+        n11 <- counts$n11 + .5
+      }
       
       # use:
       # smoothCounts = 0 for Woolf interval
@@ -269,7 +307,7 @@ ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.le
   #####################################################3
   else if (measure == "phi") {
     desc <- "Delta method confidence interval for the phi coefficient."
-    method <- match.arg(method, choices = c("wald", "simulation"))
+    method <- match.arg(method, choices = c("delta", "bootstrap"))
     
     n <- counts$n
     p00 <- counts$n00 / n
@@ -294,7 +332,7 @@ ci.prop.binom <- Vectorize(function(f, n, level) stats::binom.test(f, n, conf.le
       UL = phi + z * se)
   }
   
-  ### if we have no method, then we need to do simulation 
+  ### if we have no method, then we need to do bootstrap 
   if (is.null(ci)) return(NULL)
   
   structure(

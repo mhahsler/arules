@@ -36,7 +36,7 @@ apriori <-  function(data, parameter = NULL, appearance = NULL, control = NULL, 
     appearance <- as(appearance, "APappearance")   
     
     control <- as(control, "APcontrol")
-    parameter <- as(c(parameter, list(...)), "APparameter")
+    if(is.null(parameter) || !is(parameter, "APparameter")) parameter <- as(c(parameter, list(...)), "APparameter")
 
     if(control@verbose) {
       cat("Apriori\n")

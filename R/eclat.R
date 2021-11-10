@@ -31,7 +31,7 @@ eclat <-  function(data, parameter = NULL, control = NULL, ...)
     ## prepare data
     data <- as(data, "transactions")
     items <- data@data
-    parameter <- as(c(parameter, list(...)), "ECparameter")
+    if(is.null(parameter) || !is(parameter, "ACparameter")) parameter <- as(c(parameter, list(...)), "ECparameter")
     control <- as(control, "ECcontrol")
     
     if(control@verbose) {
