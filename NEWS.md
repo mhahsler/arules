@@ -1,25 +1,31 @@
 # arules 1.6-8.1 (xx/xx/2021)
 
 ## New Feature
-* constructor transactions() can now also create transactions from data in long format (tid, item).
-* toLongFormat converts transactions into a long format data.frame.
-* rules and itemsets have now a constructor.
-* interestMeasure for rules has now measure "table" which returns the contingency table. 
-* new interest measure "riskRatio" was added. 
-* interestMeasure for contingency table-based measures now accept the additional parameter smoothCounts 
-  which is added to each count to avoid counts of zero (Laplace smoothing). 
-* new method for stats confint to calculate confidence intervals for some interest measures added.
-* is_redundant can now also use confidence intervals do determine statistical redundancy.
-* apriori and eclat gain ... additional arguments are now added to the parameter list.
-* added new function is.generators to find itemset generators.
+
+* Constructors and conversion
+  * constructor transactions() can now also create transactions from data in long format (tid, item).
+  * rules and itemsets have now a constructor.
+  * toLongFormat converts transactions into a long format data.frame.
+
+* Interest measures
+  * interestMeasure for rules has now measure "table" which returns the contingency table. 
+  * new interest measure "riskRatio" was added. 
+  * interestMeasure for contingency table-based measures now accept the additional parameter smoothCounts 
+    which is added to each count to avoid counts of zero (Laplace smoothing). 
+  * new method for stats confint to calculate confidence intervals for some interest measures added.
+  * is_redundant can now also use confidence intervals to determine statistical redundancy.
+  * removed option "chiSquared" from crossTable.
+
+* Mining algorithms
+  * apriori and eclat gain ... additional arguments are now added to the parameter list.
+  * added new function is.generators to find itemset generators.
+  * apriori and eclat now store the call in the info slot of the created associations.
 
 ## Changes
 * we use now a better check for installed suggested packages.
-* Removed option "chiSquared" from crossTable.
 * inspect uses now a space after the comma.
 * interestMeasures: reuse = TRUE now only reuses the basic measures of "support", "confidence", "coverage" and
   "lift". All other measures are recalculated to account for possible differences in additional parameters.
-* apriori and eclat now store the call in the info slot of the created associations.
 * set methods are now also exported as S3 methods using package generics so they do not conflict with tidyverse (dplyr). 
 
 ## Bug Fixes
