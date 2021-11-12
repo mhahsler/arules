@@ -9,22 +9,15 @@ Computes confidence intervals for interest Measures used in association rule min
 }
 \usage{
 \method{confint}{rules}(object, parm = "oddsRatio", level = 0.95, 
-  measure = NULL, sides = c("two", "one"), method = NULL, replications = 1000,
-  smoothCounts = 0, transactions = NULL, ...)
+  measure = NULL, side = c("two.sided", "lower", "upper"), method = NULL, 
+  replications = 1000, smoothCounts = 0, transactions = NULL, ...)
 }
 \arguments{
   \item{object}{ an object of class rules. }
-  \item{parm, measure}{ name of the interest measures (i.e., parameter). Confidence intervals are currently 
-    available for the measures 
-    "support", 
-    "count", 
-    "confidence",
-    "lift",
-    "oddsRatio", and
-    "phi".
+  \item{parm, measure}{ name of the interest measures (i.e., parameter).
     \code{measure} can be used instead of \code{parm}.}
   \item{level}{ the confidence level required. }
-  \item{sides}{ Should a two-sided confidence interval or two one-sided limits be returned?}
+  \item{side}{ Should a two-sided confidence interval or a one-sided limit be returned? Lower returns an interval with only a lower limit and upper returns an interval with only an upper limit.}
   \item{method}{ method to construct the confidence interval. The available methods depends on the 
     measure and the most common method is used by default. }
   \item{smoothCounts}{ pseudo count for addaptive smoothing (Laplace smoothing). Often a pseudo counts
@@ -35,11 +28,21 @@ Computes confidence intervals for interest Measures used in association rule min
   \item{...}{Additional parameters are ignored with a warning.}
 }
 \details{
-This method creates a contingency table for each rule and then constructs a confidence intervals
+This method creates a contingency table for each rule and then constructs a confidence interval
 for the specified measures.
-
-Haldan-Anscombe correction (Haldan, 1940; Anscombe, 1956) is \code{smoothCounts = 0.5} where
-  .5 is added to each count in the contingency table. This avoids issues with zero counts.
+  
+Fast confidence interval approximations are currently 
+  available for the measures 
+  "support", 
+  "count", 
+  "confidence",
+  "lift",
+  "oddsRatio", and
+  "phi".
+For all other measures, bootstrap sampling from a multinomial distribution is used.
+  
+Haldan-Anscombe correction (Haldan, 1940; Anscombe, 1956) to avoids issues with zero counts can be 
+specified by \code{smoothCounts = 0.5}. Here .5 is added to each count in the contingency table. 
 }
 \value{
 Returns a matrix with with one row for each rule and the two columns "LL" and "UL" with 
@@ -47,7 +50,7 @@ the interval. The matrix has the additional attributes:
 
 \item{measure}{ the interest measure.}
 \item{level}{ the confidence level}
-\item{sides}{ the confidence level}
+\item{side}{ the confidence level}
 \item{smoothCounts}{ used count smoothing. }
 \item{method}{ name of the method to create the interval }
 \item{desc}{ desciption of the used method to calculate the confidence interval. The mentioned references can be found below. }
@@ -79,13 +82,14 @@ data("Income")
 rules <- apriori(Income, parameter = list(support = 0.5), 
   appearance = list(rhs = "language in home=english"))
  
-# calculate the confidence interval 
-ci <- confint(rules, "oddsRatio")
+# calculate the confidence interval for the rules' odds ratios.
+# note that we use Haldane-Anscombe correction (with smoothCounts = .5)
+# to avoid issues with 0 counts in the contingency table.
+ci <- confint(rules, "oddsRatio",  smoothCounts = .5)
 ci
-attributes(ci)
 
-# add the odds ratio (with smoothCounts = .5 to perform Haldane-Anscombe correction) 
-# and the confidence intervals (which are by default corrected) to the quality slot of the rules.
+# We add the odds ratio (with Haldane-Anscombe correction) 
+# and the confidence intervals to the quality slot of the rules.
 quality(rules) <- cbind(
   quality(rules), 
   oddsRatio = interestMeasure(rules, "oddsRatio", smoothCounts = .5), 
@@ -95,9 +99,9 @@ rules <- sort(rules, by = "oddsRatio")
 inspect(rules)
 
 # use confidence intervals for lift to find rules with a lift significantly larger then 1. 
-# The confidence level is decreased to 0.9 to have 5% above the upper limit and we check
+# We set the confidence level to 95%, create a one-sided interval and check
 # if the interval does not cover 1 (i.e., the lower limit is larger than 1).
-ci <- confint(rules, "lift", level = 0.9)
+ci <- confint(rules, "lift", level = 0.95, side = "lower")
 ci
 
 inspect(rules[ci[, "LL"] > 1])

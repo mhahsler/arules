@@ -28,7 +28,7 @@ confint.rules <- function(object,
   parm = "oddsRatio",
   level = 0.95,
   measure = NULL,
-  sides = c("two", "one"),
+  side = c("two.sided", "lower", "upper"),
   method = NULL,
   replications = 1000,
   smoothCounts = 0,
@@ -42,8 +42,8 @@ confint.rules <- function(object,
   
   # one-sided CI (adjust level)
   level_orig <- level
-  sides <- match.arg(sides)
-  if (sides == "one") level <- 1 - (1 - level) * 2
+  side <- match.arg(side)
+  if (side != "two.sided") level <- 1 - (1 - level) * 2
   
   if (level < 0 ||
       level > 1)
@@ -65,10 +65,13 @@ confint.rules <- function(object,
     ci <- .confint_bootstrap(counts, measure, level, smoothCounts = smoothCounts, 
       replications = replications, ...)
  
+  if (side == "lower") ci[, "UL"] <- +Inf
+  if (side == "upper") ci[, "LL"] <- -Inf
+  
   # fix level for on-sided
   attr(ci, "level") <- level_orig
   attr(ci, "smoothCounts") <- smoothCounts
-  attr(ci, "sides") <- sides
+  attr(ci, "side") <- side
   ci
 }
  
