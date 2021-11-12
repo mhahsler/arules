@@ -1,4 +1,4 @@
-# arules 1.6-8.1 (xx/xx/2021)
+# arules 1.7-0 (11/12/2021)
 
 ## New Feature
 
