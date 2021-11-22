@@ -388,7 +388,7 @@ static int _exists (BITMAT *bm, int *ids, int n, int supp)
 
 /*--------------------------------------------------------------------*/
 
-static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode))
+static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
 {                               /* --- search row intersections */
   int    i, k, n;               /* loop variables, bit counter */
   REDMAT *red;                  /* bit vector set for next level */
@@ -515,7 +515,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
     #ifdef BENCH                /* if benchmark version */
     ao->mcur += ((bm->sparse) ? *(bm->rows[k] -1) : n) +2;
     #endif                      /* sum the vector sizes */
-    if ((bm_count(bm, k) >= supp)&&((mode != BM_GENERATOR)||(bm_count(bm, k)<tacnt))) 
+    if (bm_count(bm, k) >= supp)
       mat->vecs[mat->cnt++] = bm->rows[k];
   }                             /* copy the qualifying rows */
   if ((mode == BM_CLOSED)       /* if to find closed */
