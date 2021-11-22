@@ -389,7 +389,7 @@ static int _exists (BITMAT *bm, int *ids, int n, int supp)
 
 /*--------------------------------------------------------------------*/
 
-static int _search (ALLONE *ao, REDMAT *mat, int depth)
+static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode))
 {                               /* --- search row intersections */
   int    i, k, n;               /* loop variables, bit counter */
   REDMAT *red;                  /* bit vector set for next level */
@@ -488,7 +488,7 @@ static int _buffers (BITMAT *bm, int mode)
 /*--------------------------------------------------------------------*/
 
 int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
-               BMREPFN report, void *data)
+               BMREPFN report, void *data, int tacnt)
 {                               /* --- find all one submatrices */
   int    k, n;                  /* loop variable, return code */
   ALLONE *ao;                   /* structure for recursive search */
