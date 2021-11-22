@@ -424,11 +424,17 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
         ?   _isect1(p+2, mat->vecs[i], mat->vecs[k], mat->len)
         :   _isect2(p+2, mat->vecs[i], mat->vecs[k])) < ao->supp)
           continue;             /* if the support is too low, skip */
-        if (ao->res) {          /* if closed/maximal item sets */
+        if (ao->res) {          /* if closed/generator/maximal item sets */
           if (!ao->res->supps){ /* mark non-maximal item sets */
             *(mat->vecs[i]-1) |= NOREPORT;
             *(mat->vecs[k]-1) |= NOREPORT; }
-	  else {               /* if closed item sets */
+	  else if (mode ==BM_GENERATOR){
+	  	  		/* if generator item sets */
+              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
+                p[1]|= NOREPORT;continue;
+              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
+	   	p[1]|= NOREPORT;continue;}
+          else {               /* if closed item sets */
             if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
               *(mat->vecs[i]-1) |= NOREPORT;
             if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
