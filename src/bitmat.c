@@ -515,11 +515,11 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
     #ifdef BENCH                /* if benchmark version */
     ao->mcur += ((bm->sparse) ? *(bm->rows[k] -1) : n) +2;
     #endif                      /* sum the vector sizes */
-    if (bm_count(bm, k) >= supp)
+    if ((bm_count(bm, k) >= supp) && ((mode != BM_GENERATOR) || (bm_count(bm, k) < tacnt)))
       mat->vecs[mat->cnt++] = bm->rows[k];
   }                             /* copy the qualifying rows */
   if ((mode == BM_CLOSED) || (mode == BM_GENERATOR)      /* if to find closed */
-  ||  (mode == BM_MAXIMAL)) {   /* or maximal item sets */
+  ||  (mode == BM_MAXIMAL)) {   /* or generator or maximal item sets */
     ao->res = bm_create(bm->rowcnt, 0, bm->sparse);
     if (!ao->res || (_buffers(ao->res, mode) != 0)) {
       free(mat); free(ao); return -1; }
