@@ -515,10 +515,11 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
     #ifdef BENCH                /* if benchmark version */
     ao->mcur += ((bm->sparse) ? *(bm->rows[k] -1) : n) +2;
     #endif                      /* sum the vector sizes */
-    if (bm_count(bm, k) >= supp)
+    if ((bm_count(bm, k) >= supp)&&((mode != BM_GENERATOR)||(bm_count(bm, k)<tacnt))) 
       mat->vecs[mat->cnt++] = bm->rows[k];
   }                             /* copy the qualifying rows */
   if ((mode == BM_CLOSED)       /* if to find closed */
+  ||  (mode == BM_GENERATOR)    /* or generator item sets */
   ||  (mode == BM_MAXIMAL)) {   /* or maximal item sets */
     ao->res = bm_create(bm->rowcnt, 0, bm->sparse);
     if (!ao->res || (_buffers(ao->res, mode) != 0)) {
@@ -527,7 +528,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
   #ifdef BENCH                  /* if benchmark version, */
   ao->mmax = ao->mcur;          /* initialize maximal memory usage */
   #endif
-  n = _search(ao, mat, 0);      /* do the recursive search */
+  n = _search(ao, mat, 0, mode);      /* do the recursive search */
   for (k = mat->cnt; --k >= 0;) /* clear 'no report' flags */
     *(mat->vecs[k] -1) &= ~NOREPORT;
   #ifdef BENCH                  /* if benchmark version, */
