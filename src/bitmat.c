@@ -427,14 +427,13 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
         if (ao->res) {          /* if closed/generator/maximal item sets */
           if (!ao->res->supps){ /* mark non-maximal item sets */
             *(mat->vecs[i]-1) |= NOREPORT;
-            *(mat->vecs[k]-1) |= NOREPORT; }
-	  else if (mode == BM_GENERATOR){
+            *(mat->vecs[k]-1) |= NOREPORT; 
+	  } else if (mode == BM_GENERATOR) {
 	    if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
               p[1]| = NOREPORT; continue;
             if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
               p[1]| = NOREPORT; continue;
-	  }
-	  else {               /* if closed item sets */
+	  } else {               /* if closed item sets */
             if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
               *(mat->vecs[i]-1) |= NOREPORT;
             if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
