@@ -326,7 +326,7 @@ int bm_count (BITMAT *bm, int row)
 static int _exists (BITMAT *bm, int *ids, int n, int supp)
 {                               /* -- check maximal/closed item sets */
   int i, k, x, m = n;           /* loop variables */
-  unsigned int b, bb;                    /* support bit mask */
+  int b, bb;                    /* support bit mask */
   int *d, *s;                   /* to traverse the bit vectors */
   int r = 0;                    /* result of intersection */
 
@@ -477,7 +477,7 @@ static int _buffers (BITMAT *bm, int mode)
   bm->buf = (int*)malloc((BLKSIZE+1) *sizeof(int)) +1;
   if (!bm->buf)   { bm_delete(bm); return -1; }
   if (mode != BM_CLOSED) return 0;
-  bm->supps = (int*)calloc((BLKSIZE << BM_SHIFT), sizeof(int));
+  bm->supps = (int*)malloc((BLKSIZE << BM_SHIFT) *sizeof(int));
   if (!bm->supps) { bm_delete(bm); return -1; }
   return 0;                     /* allocate additional buffers */
 }  /* _buffers() */
