@@ -441,7 +441,7 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
       }                         /* advance the vector pointer */
       if (red->cnt <= 0) continue; /* if the matrix is empty, cont. */
       ao->rows[depth-1] = *(mat->vecs[i]-2);
-      cnt += k = _search(ao, red, depth);
+      cnt += k = _search(ao, red, depth, mode);
       if (k < 0) break;         /* recursively search for a submatrix */
     }                           /* (i.e., frequent itemsets) */
     free(vecs); free(red);      /* delete the work buffers */
