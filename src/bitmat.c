@@ -326,7 +326,8 @@ int bm_count (BITMAT *bm, int row)
 static int _exists (BITMAT *bm, int *ids, int n, int supp)
 {                               /* -- check maximal/closed item sets */
   int i, k, x, m = n;           /* loop variables */
-  int b, bb;                    /* support bit mask */
+  // MFH: int b, bb;                    /* support bit mask */
+  unsigned int b, bb;                    /* support bit mask */
   int *d, *s;                   /* to traverse the bit vectors */
   int r = 0;                    /* result of intersection */
 
@@ -388,7 +389,7 @@ static int _exists (BITMAT *bm, int *ids, int n, int supp)
 
 /*--------------------------------------------------------------------*/
 
-static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
+static int _search (ALLONE *ao, REDMAT *mat, int depth)
 {                               /* --- search row intersections */
   int    i, k, n;               /* loop variables, bit counter */
   REDMAT *red;                  /* bit vector set for next level */
@@ -424,23 +425,15 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
         ?   _isect1(p+2, mat->vecs[i], mat->vecs[k], mat->len)
         :   _isect2(p+2, mat->vecs[i], mat->vecs[k])) < ao->supp)
           continue;             /* if the support is too low, skip */
-        if (ao->res) {          /* if closed/maximal/generator item sets */
+        if (ao->res) {          /* if closed/maximal item sets */
           if (!ao->res->supps){ /* mark non-maximal item sets */
             *(mat->vecs[i]-1) |= NOREPORT;
             *(mat->vecs[k]-1) |= NOREPORT; }
-          else {                /* if generator item sets */
-            if (mode ==BM_GENERATOR){
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
-                p[1]|= NOREPORT;continue;
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
-		p[1]|= NOREPORT;continue;
-            }
-            else{       /* if closed item sets */
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
-                *(mat->vecs[i]-1) |= NOREPORT;
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
-                *(mat->vecs[k]-1) |= NOREPORT;
-            }
+          else {                /* if closed item sets */
+            if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
+              *(mat->vecs[i]-1) |= NOREPORT;
+            if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
+              *(mat->vecs[k]-1) |= NOREPORT;
           }                     /* mark subsets if they have */
         }                       /* the same support as the superset */
         red->vecs[red->cnt++] = p+2;
@@ -449,7 +442,7 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
       }                         /* advance the vector pointer */
       if (red->cnt <= 0) continue; /* if the matrix is empty, cont. */
       ao->rows[depth-1] = *(mat->vecs[i]-2);
-      cnt += k = _search(ao, red, depth,mode);
+      cnt += k = _search(ao, red, depth);
       if (k < 0) break;         /* recursively search for a submatrix */
     }                           /* (i.e., frequent itemsets) */
     free(vecs); free(red);      /* delete the work buffers */
@@ -468,8 +461,7 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
       if      (!ao->res)        n = 0; /* if free item sets, report */
       else if (p[1] & NOREPORT) n = 1; /* skip non-closed/non-maximal */
       else n = _exists(ao->res, ao->rows, depth, p[1] & ~NOREPORT);
-      
-      if (n < 0) return -1;     /* record closed/generator/maximal item set */
+      if (n < 0) return -1;     /* record closed/maximal item set */
       if (n > 0) continue;      /* if the item set qualifies */
       k = p[1] & ~NOREPORT;     /* get the item set support */
       ao->report(ao->rows, depth, (mat->len < 0) ? k:-k, p+2, ao->data);
@@ -485,8 +477,10 @@ static int _buffers (BITMAT *bm, int mode)
 {                               /* --- add buffers to created matrix */
   bm->buf = (int*)malloc((BLKSIZE+1) *sizeof(int)) +1;
   if (!bm->buf)   { bm_delete(bm); return -1; }
-  if ((mode != BM_CLOSED)&&(mode != BM_GENERATOR)) return 0;
-  bm->supps = (int*)malloc((BLKSIZE << BM_SHIFT) *sizeof(int));
+  if (mode != BM_CLOSED) return 0;
+  // MFH: Initialize with 0
+  //bm->supps = (int*)malloc((BLKSIZE << BM_SHIFT) *sizeof(int));
+  bm->supps = (int*)calloc((BLKSIZE << BM_SHIFT), sizeof(int));
   if (!bm->supps) { bm_delete(bm); return -1; }
   return 0;                     /* allocate additional buffers */
 }  /* _buffers() */
@@ -494,7 +488,7 @@ static int _buffers (BITMAT *bm, int mode)
 /*--------------------------------------------------------------------*/
 
 int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
-               BMREPFN report, void *data, int tacnt)
+               BMREPFN report, void *data)
 {                               /* --- find all one submatrices */
   int    k, n;                  /* loop variable, return code */
   ALLONE *ao;                   /* structure for recursive search */
@@ -524,12 +518,10 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
     #ifdef BENCH                /* if benchmark version */
     ao->mcur += ((bm->sparse) ? *(bm->rows[k] -1) : n) +2;
     #endif                      /* sum the vector sizes */
-    if ((bm_count(bm, k)>= supp)&&((mode != BM_GENERATOR)||(bm_count(bm, k)<tacnt))) 
-                            /* remove full support item*/
+    if (bm_count(bm, k) >= supp)
       mat->vecs[mat->cnt++] = bm->rows[k];
   }                             /* copy the qualifying rows */
   if ((mode == BM_CLOSED)       /* if to find closed */
-  ||  (mode == BM_GENERATOR)    /* or generator item sets */
   ||  (mode == BM_MAXIMAL)) {   /* or maximal item sets */
     ao->res = bm_create(bm->rowcnt, 0, bm->sparse);
     if (!ao->res || (_buffers(ao->res, mode) != 0)) {
@@ -538,7 +530,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
   #ifdef BENCH                  /* if benchmark version, */
   ao->mmax = ao->mcur;          /* initialize maximal memory usage */
   #endif
-  n = _search(ao, mat, 0,mode);      /* do the recursive search */
+  n = _search(ao, mat, 0);      /* do the recursive search */
   for (k = mat->cnt; --k >= 0;) /* clear 'no report' flags */
     *(mat->vecs[k] -1) &= ~NOREPORT;
   #ifdef BENCH                  /* if benchmark version, */
@@ -553,7 +545,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
       bm->mem += ao->res->rowcnt
 	*((ao->res->colcnt +BM_MASK) >> BM_SHIFT);
     }                           /* add amount of memory for */
-  }                             /* closed/generator/maximal item set matrix */
+  }                             /* closed/maximal item set matrix */
   #endif
   if (ao->res) bm_delete(ao->res);
   free(mat); free(ao);          /* delete the work buffers */
