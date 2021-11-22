@@ -428,19 +428,12 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode))
           if (!ao->res->supps){ /* mark non-maximal item sets */
             *(mat->vecs[i]-1) |= NOREPORT;
             *(mat->vecs[k]-1) |= NOREPORT; }
-	  else {                /* if generator item sets */
-	    if (mode ==BM_GENERATOR){
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
-                p[1]|= NOREPORT;continue;
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
-	  	p[1]|= NOREPORT;continue;}
-            else {               /* if closed item sets */
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
-                *(mat->vecs[i]-1) |= NOREPORT;
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
-                *(mat->vecs[k]-1) |= NOREPORT;
-	    }
-          }                     /* mark subsets if they have */
+	  else {               /* if closed item sets */
+            if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
+              *(mat->vecs[i]-1) |= NOREPORT;
+            if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
+              *(mat->vecs[k]-1) |= NOREPORT;
+	  }                     /* mark subsets if they have */
         }                       /* the same support as the superset */
         red->vecs[red->cnt++] = p+2;
         *p = *(mat->vecs[k]-2); /* store and count the intersection */
