@@ -519,6 +519,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
       mat->vecs[mat->cnt++] = bm->rows[k];
   }                             /* copy the qualifying rows */
   if ((mode == BM_CLOSED)       /* if to find closed */
+  ||  (mode == BM_GENERATOR)    /* or generator */ 
   ||  (mode == BM_MAXIMAL)) {   /* or maximal item sets */
     ao->res = bm_create(bm->rowcnt, 0, bm->sparse);
     if (!ao->res || (_buffers(ao->res, mode) != 0)) {
