@@ -388,7 +388,7 @@ static int _exists (BITMAT *bm, int *ids, int n, int supp)
 
 /*--------------------------------------------------------------------*/
 
-static int _search (ALLONE *ao, REDMAT *mat, int depth,int mode)
+static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
 {                               /* --- search row intersections */
   int    i, k, n;               /* loop variables, bit counter */
   REDMAT *red;                  /* bit vector set for next level */
@@ -430,16 +430,16 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth,int mode)
             *(mat->vecs[k]-1) |= NOREPORT; }
           else {                /* if generator item sets */
             if (mode ==BM_GENERATOR){
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT)){
-                p[1]|= NOREPORT;continue;}
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT)){
-                p[1]|= NOREPORT;continue;}
+              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
+                p[1]|= NOREPORT;continue;
+              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
+		p[1]|= NOREPORT;continue;
             }
             else{       /* if closed item sets */
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT)){
-                *(mat->vecs[i]-1) |= NOREPORT;}
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT)){
-                *(mat->vecs[k]-1) |= NOREPORT;}
+              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
+                *(mat->vecs[i]-1) |= NOREPORT;
+              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
+                *(mat->vecs[k]-1) |= NOREPORT;
             }
           }                     /* mark subsets if they have */
         }                       /* the same support as the superset */
@@ -494,7 +494,7 @@ static int _buffers (BITMAT *bm, int mode)
 /*--------------------------------------------------------------------*/
 
 int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
-               BMREPFN report, void *data,int tacnt)
+               BMREPFN report, void *data, int tacnt)
 {                               /* --- find all one submatrices */
   int    k, n;                  /* loop variable, return code */
   ALLONE *ao;                   /* structure for recursive search */
@@ -524,8 +524,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
     #ifdef BENCH                /* if benchmark version */
     ao->mcur += ((bm->sparse) ? *(bm->rows[k] -1) : n) +2;
     #endif                      /* sum the vector sizes */
-    int bm_cnt=bm_count(bm, k);
-    if ((bm_cnt>= supp)&&((mode != BM_GENERATOR)||(bm_cnt<tacnt))) 
+    if ((bm_count(bm, k)>= supp)&&((mode != BM_GENERATOR)||(bm_count(bm, k)<tacnt))) 
                             /* remove full support item*/
       mat->vecs[mat->cnt++] = bm->rows[k];
   }                             /* copy the qualifying rows */
