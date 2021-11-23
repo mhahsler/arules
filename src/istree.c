@@ -405,7 +405,6 @@ static ISNODE* _child (ISTREE *ist, ISNODE *node, int index,
       s_set = _getsupp(curr->parent, set, cnt);
       if (s_set <  s_min)      /* get the item set support and */
         break;                  /* if it is too low, abort the loop */
-      
       if (s_set >= s_sub)       /* if some subset has enough support */
         body |= 4;              /* for a rule body, set the body flag */
       *--set = ID(curr); cnt++; /* add id of current node to the set */
