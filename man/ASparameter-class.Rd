@@ -49,6 +49,7 @@
       \itemize{
 	\item \code{"frequent itemsets"} 
 	\item \code{"maximally frequent itemsets"}
+	\item \code{"generator frequent itemsets"}
 	\item \code{"closed frequent itemsets"}
 	\item \code{"rules"} (only available for Apriori; 
 	     use \code{\link{ruleInduction}} for \code{eclat}.) 
