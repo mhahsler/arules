@@ -552,7 +552,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
             if (param->verbose) Rprintf("filtering %s item sets ... ",
                 (param->target == TT_MFSET) ? "maximal" : (param->target == TT_GRSET) ? "generator" : "closed");
             t = clock();                /* filter the item sets */
-          ist_filter(istree, (param->target == TT_MFSET) ? IST_MAXFRQ : IST_CLOSED);
+          ist_filter(istree, (param->target == TT_MFSET) ? IST_MAXFRQ : (param->target == TT_GRSET) ? IST_GENTOR : IST_CLOSED);
           if (param->verbose) Rprintf("done [%.2fs].\n", SEC_SINCE(t));
           }                             /* (filter takes longer than print) */
           
