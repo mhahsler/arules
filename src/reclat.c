@@ -44,9 +44,10 @@
 /* --- target types --- */
 #define TT_SET        0         /* frequent item sets */
 #define TT_MFSET      1         /* maximally frequent item sets */
-#define TT_CLSET      2         /* closed item sets */
-#define TT_RULE       3         /* association rules */
-#define TT_HEDGE      4         /* association hyperedges */
+#define TT_GRSET      2         /* generator item sets */
+#define TT_CLSET      3         /* closed item sets */
+#define TT_RULE       4         /* association rules */
+#define TT_HEDGE      5         /* association hyperedges */
 
 /* --- error codes --- */
 #define E_OPTION    (-5)        /* unknown option */
@@ -92,6 +93,7 @@ static const char* BMtarget[] = {
   /* BM_NORMAL      0 */  "frequent itemsets",
   /* BM_CLOSED      1 */  "closed frequent itemsets",
   /* BM_MAXIMAL     2 */  "maximally frequent itemsets",
+  /* BM_GENERATOR   3 */  "generator frequent itemsets",
 };
 
 /*----------------------------------------------------------------------
@@ -316,6 +318,7 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
   case 0: param.target = BM_NORMAL;            break;
   case 1: param.target = BM_CLOSED;            break;
   case 2: param.target = BM_MAXIMAL;           break;
+  case 3: param.target = BM_GENERATOR;         break;
   /* default : _cleanup(); error(msg(E_TARGET), (char *)target); break; */
   default : _cleanup(); error(msg(E_TARGET), (char)target); break;
   }
@@ -368,7 +371,7 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
     t   = clock();              /* start the timer */
     map = (int*)malloc(is_cnt(itemset) *sizeof(int));
     if (!map) {_cleanup(); error(msg(E_NOMEM));}   /* create an item identifier map */
-    n = is_recode(itemset, (int)supp, sort, map);
+    n = is_recode(itemset, (int)supp, sort, map, param.target==BM_GENERATOR, tacnt);
     tas_recode(taset, map, n);  /* recode the loaded transactions */
     free(map);                  /* delete the item identifier map */
     if (param.verbose) {
