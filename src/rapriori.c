@@ -17,17 +17,19 @@
 static const char* ttypes[] = {
   /* TT_SET      0 */  "set",
   /* TT_MFSET    1 */  "set",
-  /* TT_CLSET    2 */  "set",
-  /* TT_RULE     3 */  "rule",
-  /* TT_HEDGE    4 */  "hyperedge",
+  /* TT_GRSET    2 */  "set",
+  /* TT_CLSET    3 */  "set",
+  /* TT_RULE     4 */  "rule",
+  /* TT_HEDGE    5 */  "hyperedge",
 };
 
 static const char* ttarget[] = {
   /* TT_SET      0 */  "frequent itemsets",
   /* TT_MFSET    1 */  "maximally frequent itemsets",
-  /* TT_CLSET    2 */  "closed frequent itemsets",
-  /* TT_RULE     3 */  "rules",
-  /* TT_HEDGE    4 */  "hyperedgesets",
+  /* TT_GRSET    2 */  "generator frequent itemsets",
+  /* TT_CLSET    3 */  "closed frequent itemsets",
+  /* TT_RULE     4 */  "rules",
+  /* TT_HEDGE    5 */  "hyperedgesets",
 };
 
 
@@ -81,9 +83,10 @@ static const char* aremtypes[] = {
 /* --- target types --- */
 #define TT_SET        0         /* frequent item sets */
 #define TT_MFSET      1         /* maximally frequent item sets */
-#define TT_CLSET      2         /* closed item sets */
-#define TT_RULE       3         /* association rules */
-#define TT_HEDGE      4         /* association hyperedges */
+#define TT_GRSET      2         /* generator item sets */
+#define TT_CLSET      3         /* closed item sets */
+#define TT_RULE       4         /* association rules */
+#define TT_HEDGE      5         /* association hyperedges */
 
 /* --- error codes --- */
 #define E_OPTION    (-5)        /* unknown option */
