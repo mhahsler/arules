@@ -172,14 +172,17 @@ context("Maximal and closed itemsets")
 is_a_freq <- apriori(trans, parameter = list(target = "frequent"))
 is_a_max <- apriori(trans, parameter = list(target = "max"))
 is_a_closed <- apriori(trans, parameter = list(target = "closed"))
+is_a_gen <- apriori(trans, parameter = list(target = "generator"))
 
 is_e_freq <- eclat(trans, parameter = list(target = "frequent"))
 is_e_max <- eclat(trans, parameter = list(target = "max"))
 is_e_closed <- eclat(trans, parameter = list(target = "closed"))
+is_e_gen <- eclat(trans, parameter = list(target = "generator"))
 
 expect_true(setequal(is_a_freq, is_e_freq))
 expect_true(setequal(is_a_max, is_e_max))
 expect_true(setequal(is_a_closed, is_e_closed))
+expect_true(setequal(is_a_gen, is_e_gen))
 
 #inspect(is_a_freq)
 #inspect(is_e_freq)
