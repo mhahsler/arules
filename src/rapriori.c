@@ -17,17 +17,19 @@
 static const char* ttypes[] = {
   /* TT_SET      0 */  "set",
   /* TT_MFSET    1 */  "set",
-  /* TT_CLSET    2 */  "set",
-  /* TT_RULE     3 */  "rule",
-  /* TT_HEDGE    4 */  "hyperedge",
+  /* TT_GRSET     2 */  "set",
+  /* TT_CLSET    3 */  "set",
+  /* TT_RULE     4 */  "rule",
+  /* TT_HEDGE    5 */  "hyperedge",
 };
 
 static const char* ttarget[] = {
   /* TT_SET      0 */  "frequent itemsets",
   /* TT_MFSET    1 */  "maximally frequent itemsets",
-  /* TT_CLSET    2 */  "closed frequent itemsets",
-  /* TT_RULE     3 */  "rules",
-  /* TT_HEDGE    4 */  "hyperedgesets",
+  /* TT_GRSET     2 */  "generator frequent itemsets",
+  /* TT_CLSET    3 */  "closed frequent itemsets",
+  /* TT_RULE     4 */  "rules",
+  /* TT_HEDGE    5 */  "hyperedgesets",
 };
 
 
@@ -81,9 +83,10 @@ static const char* aremtypes[] = {
 /* --- target types --- */
 #define TT_SET        0         /* frequent item sets */
 #define TT_MFSET      1         /* maximally frequent item sets */
-#define TT_CLSET      2         /* closed item sets */
-#define TT_RULE       3         /* association rules */
-#define TT_HEDGE      4         /* association hyperedges */
+#define TT_GRSET      2         /* generator frequent item sets */
+#define TT_CLSET      3         /* closed item sets */
+#define TT_RULE       4         /* association rules */
+#define TT_HEDGE      5         /* association hyperedges */
 
 /* --- error codes --- */
 #define E_OPTION    (-5)        /* unknown option */
@@ -419,7 +422,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
       k = (int)ceil(tacnt *supp *conf);
       else                        /* if rule supp. = body&head support */
       k = (int)ceil(tacnt *supp);
-      n = is_recode(itemset, k, param->sort, map);
+      n = is_recode(itemset, k, param->sort, map, param->target == TT_GRSET, tacnt);
       if (taset) {                /* sort and recode the items and */
       tas_recode(taset, map, n); /* recode the loaded transactions */
       maxcnt = tas_max(taset);  /* get the new maximal t.a. size */
@@ -545,9 +548,9 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
           if (param->verbose) Rprintf(" done [%.2fs].\n", SEC_SINCE(t));
           
           /* --- filter found item sets --- */
-          if ((param->target == TT_MFSET) || (param->target == TT_CLSET)) {
+          if ((param->target == TT_MFSET) || (param->target == TT_CLSET) || (param->target == TT_GRSET)) {
             if (param->verbose) Rprintf("filtering %s item sets ... ",
-                (param->target == TT_MFSET) ? "maximal" : "closed");
+                (param->target == TT_MFSET) ? "maximal" : (param->target == TT_GRSET) ? "generator" : "closed");
             t = clock();                /* filter the item sets */
           ist_filter(istree, (param->target == TT_MFSET) ? IST_MAXFRQ : IST_CLOSED);
           if (param->verbose) Rprintf("done [%.2fs].\n", SEC_SINCE(t));
