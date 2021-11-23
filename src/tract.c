@@ -346,7 +346,7 @@ int is_recode (ITEMSET *iset, int minfrq, int dir, int *map, int mode, int fullS
 
   for (n = nim_cnt(iset->nimap); --n >= 0; ) {
     item = (ITEM*)nim_byid(iset->nimap, n);
-    if ((item->frq < minfrq) || (mode && item->frq==fullS))     /* determine frequent items and */
+    if ((item->frq < minfrq) || (mode && (item->frq == fullS)))     /* determine frequent items and */
       item->app = APP_NONE;     /* set all others to 'ignore' */
     else if (item->app != APP_NONE)
       break;                    /* in addition, skip all items */
