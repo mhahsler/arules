@@ -69,7 +69,7 @@ setMethod("initialize", "APparameter",
     target <- .types("apriori")[i] 
     
     # no confidence for frequent itemsets 
-    if(i>3) .Object@confidence <- confidence
+    if(i>4) .Object@confidence <- confidence
     else .Object@confidence <- as.numeric(NA)
     
     callNextMethod(.Object, minlen = minlen, 
