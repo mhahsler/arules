@@ -323,7 +323,7 @@ int is_read (ITEMSET *iset, FILE *file)
 
 /*--------------------------------------------------------------------*/
 
-int is_recode (ITEMSET *iset, int minfrq, int dir, int *map, int mode, int fullS))
+int is_recode (ITEMSET *iset, int minfrq, int dir, int *map, int mode, int fullS)
 {                               /* --- recode items w.r.t. frequency */
   int  i, k, n, t;              /* loop variables, buffer */
   ITEM *item;                   /* to traverse the items */
