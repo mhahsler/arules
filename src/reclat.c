@@ -409,7 +409,7 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
   ruleset->tacnt = in.tnb;
 
   ruleset->ttotal = 0;
-  k = bm_allone(bitmat, target, (int)supp, min, max, _report_R, NULL);
+  k = bm_allone(bitmat, target, (int)supp, min, max, _report_R, NULL, tacnt);
   if (k < 0) {_cleanup(); error(msg(E_NOMEM));}    /* search for frequent item sets */
   if (param.verbose) {
 	  Rprintf("[%d set(s)] done ", k);
