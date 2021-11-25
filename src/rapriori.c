@@ -17,7 +17,7 @@
 static const char* ttypes[] = {
   /* TT_SET      0 */  "set",
   /* TT_MFSET    1 */  "set",
-  /* TT_GRSET     2 */  "set",
+  /* TT_GRSET    2 */  "set",
   /* TT_CLSET    3 */  "set",
   /* TT_RULE     4 */  "rule",
   /* TT_HEDGE    5 */  "hyperedge",
@@ -1026,9 +1026,10 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     switch (param.target) {             /* check and translate target type */
     case 0: param.target = TT_SET;               break;
     case 1: param.target = TT_MFSET;             break;
-    case 2: param.target = TT_CLSET;             break;
-    case 3: param.target = TT_RULE;              break;
-    case 4: param.target = TT_HEDGE;             break;
+    case 2: param.target = TT_GRSET;             break;
+    case 3: param.target = TT_CLSET;             break;
+    case 4: param.target = TT_RULE;              break;
+    case 5: param.target = TT_HEDGE;             break;
     default : cleanup(); error(msgs(E_TARGET, target)); break;
     }
     if (param.supp > 1)                 /* check the minimal support */
