@@ -430,10 +430,10 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
             *(mat->vecs[i]-1) |= NOREPORT;
             *(mat->vecs[k]-1) |= NOREPORT; 
 	  } else if (mode == BM_GENERATOR){    /* if generator item sets */
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
-                p[1]| = NOREPORT;continue;
-              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT))
-                p[1]| = NOREPORT;continue;
+              if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT)){
+                p[1] |= NOREPORT;continue;}
+              if ((p[1] & ~NOREPORT) == (*(mat->vecs[k]-1) & ~NOREPORT)){
+                p[1] |= NOREPORT;continue;}
           } else {                /* if closed item sets */
             if ((p[1] & ~NOREPORT) == (*(mat->vecs[i]-1) & ~NOREPORT))
               *(mat->vecs[i]-1) |= NOREPORT;
@@ -523,7 +523,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
     #ifdef BENCH                /* if benchmark version */
     ao->mcur += ((bm->sparse) ? *(bm->rows[k] -1) : n) +2;
     #endif                      /* sum the vector sizes */
-    if ((bm_count(bm, k) >= supp) && ((mode != BM_GENERATOR) || (bm_count(bm, k) < tacnt))
+    if ((bm_count(bm, k) >= supp) && ((mode != BM_GENERATOR) || (bm_count(bm, k) < tacnt)))
       mat->vecs[mat->cnt++] = bm->rows[k];
   }                             /* copy the qualifying rows */
   if ((mode == BM_CLOSED)       /* if to find closed */
