@@ -60,7 +60,8 @@
 
 /* --- item set filter modes --- */
 #define IST_MAXFRQ  0           /* maximally frequent item sets */
-#define IST_CLOSED  1           /* closed item sets */
+#define IST_GENTOR  1           /* generator item sets */
+#define IST_CLOSED  2           /* closed item sets */
 
 /*----------------------------------------------------------------------
   Type Definitions

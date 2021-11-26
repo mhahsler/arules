@@ -23,6 +23,7 @@
 #define BM_NORMAL    0          /* all frequent item sets */
 #define BM_CLOSED    1          /* closed  item sets */
 #define BM_MAXIMAL   2          /* maximal item sets */
+#define BM_GENERATOR 3          /* generator item sets */
 
 /*----------------------------------------------------------------------
   Type Definitions
@@ -62,7 +63,7 @@ extern int     bm_addcol (BITMAT *bm,          const int *ids, int n);
 extern int     bm_count  (BITMAT *bm, int row);
 extern int     bm_ones   (BITMAT *bm, int row);
 extern int     bm_allone (BITMAT *bm, int mode, int supp,
-                          int min, int max, BMREPFN report, void *data);
+                          int min, int max, BMREPFN report, void *data, int tacnt);
 
 #ifndef NDEBUG
 extern void    bm_show   (BITMAT *bm, FILE *file, int transpose);
