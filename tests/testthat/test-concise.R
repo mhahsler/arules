@@ -15,7 +15,15 @@ its <- apriori(trans, support = 1/4, target = "frequent itemsets")
 context("is.generator")
 # with minsup = 1, frequent generator itemsets are: emptyset, b, c, d, bd, cd.
 ig <- is.generator(its)
-expect_true(setequal(names(ig)[ig], c("{b}", "{c}", "{d}", "{b,d}", "{c,d}")))
+gens <- its[ig]
+expect_true(setequal(labels(gens), c("{b}", "{c}", "{d}", "{b,d}", "{c,d}")))
+
+# generator frequent itemsets can now also ne created with apriori and eclat
+gens_ap <- apriori(trans, support = 1/4, target = "generator frequent itemsets")
+gens_ec <- eclat(trans, support = 1/4, target = "generator frequent itemsets")
+expect_true(setequal(gens, gens_ap))
+expect_true(setequal(gens, gens_ec))
+
 
 context("is.closed")
 # with minsup = 1, frequent closed itemsets are: a, ac, ad, abc, abcd.
