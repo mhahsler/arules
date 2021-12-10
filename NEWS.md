@@ -1,3 +1,13 @@
+# arules 1.7-2 (12/09/2021)
+
+## New Feature
+
+* The C APRIORI implementation can now mine frequent generator itemsets (contributed by Makh2018).
+
+## Bugfixes
+
+* deparse1() needs R 4.0.0
+
 # arules 1.7-1 (11/18/2021)
 
 ## Bugfixes
