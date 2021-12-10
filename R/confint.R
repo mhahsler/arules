@@ -51,11 +51,13 @@ confint.rules <- function(object,
     stop("the confidence level needs to be in [0, 1].")
   
   counts <-
-    .getCounts(
-      object,
-      transactions = transactions,
-      reuse = ifelse(is.null(transactions), TRUE, FALSE),
-      smoothCounts = smoothCounts
+    as.data.frame(
+      .getCounts(
+        object,
+        transactions = transactions,
+        reuse = ifelse(is.null(transactions), TRUE, FALSE),
+        smoothCounts = smoothCounts
+      )
     )
   
   # try fast approximate intervals first
@@ -255,7 +257,6 @@ ci.or.exact <-
       )
     
     ci[ci < 0] <- 0
-      
     }
     
     #####################################################
@@ -322,6 +323,7 @@ ci.or.exact <-
             p1 + p2 + p3
           )) + p2 * p3) / ((p1 + p2) ^ 3 * (p1 + p3) ^ 3),
           n, level, desc = "Delta method confidence interval for lift (Doob, 1935)."),
+        
         log_delta = ci.norm(
           p1 / ((p1 + p2) * (p1 + p3)),
           (p1 ^ 2 * (1 - p1 - p2 - p3) + p2 * p3) / (p1 * (p1 + p2) * (p1 + p3)),
@@ -341,7 +343,7 @@ ci.or.exact <-
       method <-
         match.arg(method, choices = c("woolf", "gart", "exact", "bootstrap"))
       
-      switch(
+      ci <- switch(
         method,
         woolf = {
           # smoothCounts = 0 for Woolf interval
@@ -358,8 +360,6 @@ ci.or.exact <-
             log = TRUE,
             desc = "Woolf method confidence interval for log of the odds ratio (Woolf, 1955). Delta method without count smoothing."
           )
-      
-          ci[ci < 0] <- 0
         },
         
         gart = {
@@ -382,6 +382,8 @@ ci.or.exact <-
         exact = ci.or.exact(n11, n01, n10, n00, level),
         bootstrap = NULL
       )
+      
+      ci[ci < 0] <- 0
     }
     
     #####################################################3

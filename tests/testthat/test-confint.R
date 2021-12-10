@@ -25,7 +25,8 @@ for (m in measures) {
   cat("CI for", m, "\n")
   ci <- cbind(measure = interestMeasure(rules, m, smooth = .5), confint(rules, m))
   print(ci)
-  expect_false(any(ci[,1] < ci[,2] | ci[,1] > ci[,3] | ci[,2] > ci[,3], na.rm = TRUE), info = m)
+  expect_false(any(ci[,1] < ci[,2] | ci[,1] > ci[,3] | ci[,2] > ci[,3], na.rm = TRUE), 
+    info = m)
 }
 
 # exact intervals should be tighter
