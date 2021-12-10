@@ -21,7 +21,7 @@ is <- apriori(trans, parameter=list(supp=0.25, target = "frequent"),
    control=list(verb=FALSE))
 # inspect(is)
 
-## without transactions
+## without transactions works with frequent and closed itemsets
 r1 <- ruleInduction(is)
 # inspect(r1)
 #   lhs      rhs support   confidence lift

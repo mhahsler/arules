@@ -17,46 +17,40 @@ ruleInduction(x, ...)
   \item{x}{ the set of itemsets from which rules will be induced. }
   \item{\dots}{ further arguments. }
   \item{transactions}{ the transaction dataset used to mine 
-  	the itemsets. Can be omitted if \code{x} contains a lattice 
-  	(complete set) of frequent itemsets together with their support counts. }
+  	the itemsets. Can be omitted if \code{x} contains a  
+  	(complete set) of frequent or closed itemsets together with their support counts. }
   \item{confidence}{a numeric value giving the minimum confidence for the
     rules. }  
   \item{control}{a named list with elements
-      \code{method} indicating the method (\code{"apriori"} or \code{"ptree"}),
+      \code{method} indicating the method (\code{"ptree"} or \code{"apriori"}),
      and the logical arguments \code{reduce} and
     \code{verbose} to indicate if unused items are removed and if
     the output should be verbose.
-    Currently,  \code{"ptree"} is the default method.}
+    The default is method \code{"ptree"} with reduce \code{TRUE} and verbose \code{FALSE}.}
     }
 \details{
-  If in control \code{method = "apriori"} is used, a very simple rule
-  induction method is used. All rules are mined from the transactions
+  For the default method, control with \code{method = "ptree"}, no transactions are
+  needed if \code{x} contains a complete set of frequent or closed itemsets. 
+  Support counts are stored in a ptree and then retrieved to create rules and 
+  calculate support. This is very fast. 
+  If \code{x} is incomplete, transactions need to be specified.
+  To improve speed, control \code{reduce = TRUE} is used to remove unused items
+  from the transaction data before creating the ptree. This might be slower for large
+  transaction data sets. However, this is highly recommended as the items are also 
+  reordered to reduce the counting time.
+  
+  For \code{method = "apriori"}, transactions are always required. 
+  Here, all rules are mined from the transactions
   data set using Apriori with the minimal support found in itemsets.
   And in a second step all rules which do not stem from one of the
   itemsets are removed. This procedure will be in many cases very slow
   (e.g., for itemsets with many elements or very low support).
 
-  If in control \code{method = "ptree"} is used, the transactions are
-  counted into a prefix tree and then the rules are selectively generated
-  using the counts in the tree. This is usually faster than the above
-  approach.
-
-  If in control \code{reduce = TRUE} is used, unused items are removed
-  from the data before creating rules. This might be slower for large
-  transaction data sets. However, for \code{method = "ptree"} this is
-  highly recommended as the items are further reordered to reduce the
-  counting time.
-
-  If argument \code{transactions} is missing it is assumed that \code{x}
-  contains a lattice (complete set) of frequent itemsets together with 
-  their support counts. Then rules can be induced directly without 
-  support counting. This approach is very fast.
-  
   For \code{transactions}, a set different to the data used for creating the
   original itemsets can be used, however, the new set has to conform in terms 
   of items and their order.
 
-  This method can be used to produce closed association rules defined by
+  ruleInduction can be used to produce closed association rules defined by
   Pei et al. (2000) as rules \eqn{X -> Y} where both \eqn{X} and \eqn{Y}
   are closed frequent itemsets. See Example section for code.
   
@@ -83,20 +77,22 @@ closed_is <- apriori(Adult,
 closed_is
 
 ## use rule induction to produce all closed association rules
-closed_rules <- ruleInduction(closed_is, Adult, 
+closed_rules <- ruleInduction(closed_is, 
   control = list(verbose = TRUE))
-
-## X&Y are already closed, check that X is also closed
-closed_rules[is.element(lhs(closed_rules), items(closed_is))]
 
 ## inspect the resulting closed rules
 summary(closed_rules)
 inspect(head(closed_rules, by = "lift"))
 
-## use lattice of frequent itemsets
-ec  <- eclat(Adult, parameter = list(support = 0.4))
-rec <- ruleInduction(ec)
-rec
-inspect(head(rec))
+## get rules from frequent itemsets
+frequent_is  <- eclat(Adult, parameter = list(support = 0.4))
+assoc_rules <- ruleInduction(frequent_is)
+assoc_rules
+inspect(head(assoc_rules))
+
+## for itemsets that are not complete frequent or closed itemsets, 
+## transactions need to be specified.
+some_is <- sample(frequent_is, 10)
+ruleInduction(some_is, transactions = Adult)
 }
 \keyword{models}
