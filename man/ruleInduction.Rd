@@ -18,7 +18,7 @@ ruleInduction(x, ...)
   \item{\dots}{ further arguments. }
   \item{transactions}{ the transaction dataset used to mine 
   	the itemsets. Can be omitted if \code{x} contains a  
-  	(complete set) of frequent or closed itemsets together with their support counts. }
+  	(complete set) of frequent itemsets together with their support counts. }
   \item{confidence}{a numeric value giving the minimum confidence for the
     rules. }  
   \item{control}{a named list with elements
@@ -47,8 +47,8 @@ ruleInduction(x, ...)
   (e.g., for itemsets with many elements or very low support).
 
   For \code{transactions}, a set different to the data used for creating the
-  original itemsets can be used, however, the new set has to conform in terms 
-  of items and their order.
+  original itemsets with a different support distribution can be used, however, 
+  the new set has to conform in terms of items and their order.
 
   ruleInduction can be used to produce closed association rules defined by
   Pei et al. (2000) as rules \eqn{X -> Y} where both \eqn{X} and \eqn{Y}
@@ -77,20 +77,21 @@ closed_is <- apriori(Adult,
 closed_is
 
 ## use rule induction to produce all closed association rules
-closed_rules <- ruleInduction(closed_is, 
+closed_rules <- ruleInduction(closed_is, transactions = Adult, 
   control = list(verbose = TRUE))
 
 ## inspect the resulting closed rules
 summary(closed_rules)
 inspect(head(closed_rules, by = "lift"))
 
-## get rules from frequent itemsets
+## get rules from frequent itemsets. Here, transactions does not need to be 
+## specified for rule induction.
 frequent_is  <- eclat(Adult, parameter = list(support = 0.4))
 assoc_rules <- ruleInduction(frequent_is)
 assoc_rules
 inspect(head(assoc_rules))
 
-## for itemsets that are not complete frequent or closed itemsets, 
+## for itemsets that are not a complete set of frequent itemsets, 
 ## transactions need to be specified.
 some_is <- sample(frequent_is, 10)
 ruleInduction(some_is, transactions = Adult)
