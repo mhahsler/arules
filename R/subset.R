@@ -17,21 +17,52 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#' Subsetting Itemsets, Rules and Transactions
+#' 
+#' Provides the generic function `subset()` and S4 methods to subset
+#' [associations] or [transactions] ([itemMatrix]) which meet certain conditions
+#' (e.g., contains certain items or satisfies a minimum lift).
+#' 
+#' `subset()` finds the rows/itemsets/rules of \code{x} that match the expression
+#' given in \code{subset}. Parts of \code{x} like items, lhs, rhs and the columns in the quality data.frame (e.g., support and lift) can be directly referred to by their names
+#' in \code{subset}.
+#' 
+#' Important operators to select itemsets containing items specified by their
+#' labels are 
+#' 
+#' * \code{%in%} (select itemsets matching \emph{any} given item),
+#' * \code{%ain%} (select only itemsets matching \emph{all} given item),
+#' * \code{%oin%} (select only itemsets matching \emph{only} the given item), and
+#' * \code{%pin%} (\code{%in%} with partial matching).
+#' 
+#' @aliases subset
+#' @param x object to be subsetted.
+#' @param subset logical expression indicating elements to keep.
+#' @param ... further arguments to be passed to or from other methods.
+#' @return An object of the same class as \code{x} containing only the elements
+#' which satisfy the conditions.
+#' @author Michael Hahsler
+#' @keywords manip
+#' @examples
+#' data("Adult")
+#' rules <- apriori(Adult)
+#' 
+#' ## select all rules with item "marital-status=Never-married" in 
+#' ## the right-hand-side and lift > 2
+#' rules.sub <- subset(rules, subset = rhs %in% "marital-status=Never-married" 
+#'     & lift > 2)
+#' 
+#' ## use partial matching for all items corresponding to the variable
+#' ## "marital-status"
+#' rules.sub <- subset(rules, subset = rhs %pin% "marital-status=")
+#' 
+#' ## select only rules with items "age=Young" and "workclass=Private" in
+#' ## the left-hand-side
+#' rules.sub <- subset(rules, subset = lhs %ain% 
+#'     c("age=Young", "workclass=Private"))
+setGeneric("subset")
 
-
-##*******************************************************
-## Function subset
-##
-## subset associations using constraints on interest measures 
-## or items.
-##
-## Note: parent.frame(2) is used so eval uses variables from the 
-##       calling function (fix by ceboo)
-##
-
-##****************************************************************
-## subset for itemMatrix
-
+#' @rdname subset
 setMethod("subset", signature(x = "itemMatrix"),
     function(x, subset, ...) {
         if (missing(subset)) return(x)
@@ -41,10 +72,7 @@ setMethod("subset", signature(x = "itemMatrix"),
     })
 
 
-
-##****************************************************************
-## subset for associations
-
+#' @rdname subset
 setMethod("subset", signature(x = "itemsets"),
     function(x, subset, ...) {
         if (missing(subset)) return(x)
@@ -54,6 +82,7 @@ setMethod("subset", signature(x = "itemsets"),
         x[i,]
     })
 
+#' @rdname subset
 setMethod("subset", signature(x = "rules"),
     function(x, subset, ...) {
         if (missing(subset)) return(x)
@@ -63,6 +92,3 @@ setMethod("subset", signature(x = "rules"),
             parent.frame(2))
         x[i,]
     })
-
-
-

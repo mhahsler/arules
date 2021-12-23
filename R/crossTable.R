@@ -18,11 +18,40 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
+#' Cross-tabulate joint occurrences across pairs of items
+#'
+#' Provides the generic function \code{crossTable} and the S4 method to
+#' cross-tabulate joint occurrences across all pairs of items.
+#'
+#' @aliases crossTable
+#' @family itemMatrix and transactions functions
+#' 
+#' @param x object to be cross-tabulated ([transactions] or
+#' [itemMatrix]).
+#' @param measure measure to return. Default is co-occurrence counts.
+#' @param sort sort the items by support.
+#' @param ...  additional arguments.
+#' @return A symmetric matrix of n time n, where n is the number of items times
+#' in \code{x}. The matrix contains the co-occurrence counts between pairs of
+#' items.
+#' @author Michael Hahsler
+#' @keywords models
+#' @examples
+#' data("Groceries")
+#'
+#' ct <- crossTable(Groceries, sort = TRUE)
+#' ct[1:5, 1:5]
+#'
+#' sp <- crossTable(Groceries, measure = "support", sort = TRUE)
+#' sp[1:5, 1:5]
+#'
+#' lift <- crossTable(Groceries, measure = "lift", sort = TRUE)
+#' lift[1:5, 1:5]
+#'
+setGeneric("crossTable", function(x, ...)
+  standardGeneric("crossTable"))
 
-##*******************************************************
-## Cross-tabulate joint purchases across pairs of items
-##
-
+#' @rdname crossTable
 setMethod("crossTable", signature(x = "itemMatrix"),
   function(x,
     measure = c("count", "support", "probability", "lift"),

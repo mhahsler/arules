@@ -1,6 +1,6 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
 #			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
@@ -17,56 +17,104 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#' Display Associations and Transactions in Readable Form
+#'
+#' Provides the generic function `inspect()` and S4 methods to display
+#' associations and transactions plus additional information formatted for
+#' online inspection.
+#'
+#' `inspect()` prints the results directly. I you need to create a data.frame
+#' with a human readable version, then you can use [DATAFRAME()].
+#' 
+#' @aliases inspect
+#' @family associations functions
+#' @family itemMatrix and transactions functions
+#' 
+#' @param x a set of [associations] or [transactions] or an [itemMatrix].
+#' @param ... additional arguments.
+#'  can be used to customize the output:
+#' @param setStart set start symbol
+#' @param setEnd set end symbol 
+#' @param itemSep item separator
+#' @param ruleSep rule separator
+#' @param linebreak print only one element per line in case the output lines get very long? 
+#'
+#' @return Nothing is returned. This function is purely used for displaying
+#' object details. Use coercion with \code{as} to a list or a data.frame or the
+#' accessor functions provided for the object (see See Also section).
+#' @author Michael Hahsler and Kurt Hornik
+#' @keywords print
+#' @examples
+#' data("Adult")
+#' rules <- apriori(Adult)
+#'
+#' ## display some rules
+#' inspect(rules[1000:1001])
+#' inspect(rules[1000:1001], ruleSep = "~~>", itemSep = " + ", setStart = "", setEnd = "",
+#'   linebreak = FALSE)
+#'
+#' ## to get rules in readable format, use coercion or DATAFRAME with additional parameters.
+#' as(rules[1000:1001], "data.frame")
+#' DATAFRAME(rules[1000:1001])
+#' DATAFRAME(rules[1000:1001], separate = TRUE, setStart = "", setEnd = "")
+#'
+setGeneric("inspect",
+  function(x, ...)
+    standardGeneric("inspect"))
 
-
-##*******************************************************
-## Function inspect
-##
-## print informations for associations and transactions
-
-
+#' @rdname inspect
 setMethod("inspect", signature(x = "itemsets"),
-  function(x, itemSep = ", ", setStart = "{", setEnd = "}", linebreak = NULL,
+  function(x,
+    itemSep = ", ",
+    setStart = "{",
+    setEnd = "}",
+    linebreak = NULL,
     ...) {
-    
     n_of_itemsets <- length(x)
     
-    if(n_of_itemsets == 0) return(invisible(NULL))
+    if (n_of_itemsets == 0)
+      return(invisible(NULL))
     ## Nothing to inspect here ...
     
     l <- labels(x, itemSep, setStart, setEnd)
-    if(is.null(linebreak)) 
-      linebreak <- any(nchar(l) > options("width")$width*2/3)
+    if (is.null(linebreak))
+      linebreak <- any(nchar(l) > options("width")$width * 2 / 3)
     
-    if(!linebreak) {
+    if (!linebreak) {
       out <- data.frame(items = l)
-      if(nrow(quality(x)) > 0) out <- cbind(out, quality(x))
+      if (nrow(quality(x)) > 0)
+        out <- cbind(out, quality(x))
       rownames(out) <- paste0('[', 1:n_of_itemsets, ']')
       print(out, right = FALSE)
       
     } else {
-      
-      
       ## number of rows + fix empty itemsets
-      items <- unlist(lapply(as(items(x), "list"), 
-        FUN = function(x) if(length(x) == 0) "" else x))
+      items <- unlist(lapply(
+        as(items(x), "list"),
+        FUN = function(x)
+          if (length(x) == 0)
+            ""
+        else
+          x
+      ))
       n_of_items <- size(items(x))
       n_of_items[n_of_items == 0] <- 1
       
       ## calculate begin and end positions
       entry_beg_pos <- cumsum(c(1, n_of_items[-n_of_itemsets]))
-      entry_end_pos <- entry_beg_pos+n_of_items-1
+      entry_end_pos <- entry_beg_pos + n_of_items - 1
       
       ## prepare output
       n_of_rows <- sum(n_of_items)
       quality <- quality(x)
       ## Output.
-      out <- matrix("", nrow = n_of_rows+1, ncol = 2 + NCOL(quality))
+      out <-
+        matrix("", nrow = n_of_rows + 1, ncol = 2 + NCOL(quality))
       
       ## Column 1: itemset nr.
       tmp <- rep.int("", n_of_rows + 1)
-      tmp[entry_beg_pos+1] <- paste0('[', 1:n_of_itemsets, ']') 
-      out[,1] <- format(tmp)
+      tmp[entry_beg_pos + 1] <- paste0('[', 1:n_of_itemsets, ']')
+      out[, 1] <- format(tmp)
       
       ## Column 2: items in the item sets, one per line.
       pre <- rep.int(" ", n_of_rows)
@@ -78,7 +126,7 @@ setMethod("inspect", signature(x = "itemsets"),
       
       
       ## Remaining columns: quality measures.
-      for(i in seq(length = NCOL(quality))) {
+      for (i in seq(length = NCOL(quality))) {
         tmp <- rep.int("", n_of_rows + 1)
         tmp[1] <- names(quality)[i]
         tmp[entry_end_pos + 1] <- format(quality[[i]])
@@ -87,52 +135,65 @@ setMethod("inspect", signature(x = "itemsets"),
       
       ## Output.
       cat(t(out), sep = c(rep.int(" ", NCOL(out) - 1), "\n"))
-    } 
+    }
   })
 
+#' @rdname inspect
 setMethod("inspect", signature(x = "rules"),
-  function(x, itemSep = ", ", setStart = "{", setEnd = "}", ruleSep = "=>",
-    linebreak = NULL, ...) {
-    
+  function(x,
+    itemSep = ", ",
+    setStart = "{",
+    setEnd = "}",
+    ruleSep = "=>",
+    linebreak = NULL,
+    ...) {
     n_of_rules <- length(x)
     
-    if(n_of_rules == 0) return(invisible(NULL))
+    if (n_of_rules == 0)
+      return(invisible(NULL))
     ## Nothing to inspect here ...
     
-    lhs <- labels(lhs(x), itemSep, setStart, setEnd) 
-    rhs <- labels(rhs(x), itemSep, setStart, setEnd) 
+    lhs <- labels(lhs(x), itemSep, setStart, setEnd)
+    rhs <- labels(rhs(x), itemSep, setStart, setEnd)
     
-    if(is.null(linebreak)) 
-      linebreak <- any(nchar(lhs)+nchar(rhs)+nchar(ruleSep) > 
-          options("width")$width*2/3)
+    if (is.null(linebreak))
+      linebreak <- any(nchar(lhs) + nchar(rhs) + nchar(ruleSep) >
+          options("width")$width * 2 / 3)
     
-    if(!linebreak) {
+    if (!linebreak) {
       out <- data.frame(lhs = lhs, "." = ruleSep, rhs = rhs)
-      if(nrow(quality(x)) > 0) out <- cbind(out, quality(x))
+      if (nrow(quality(x)) > 0)
+        out <- cbind(out, quality(x))
       colnames(out)[2] <- ""
       rownames(out) <- paste0('[', 1:n_of_rules, ']')
       print(out, right = FALSE)
       
     } else {
-      
       items_lhs <- as(lhs(x), "list")
       items_rhs <- as(rhs(x), "list")
       
       ### Empty RHS!
-      items_rhs <- lapply(items_rhs, FUN = function(r) 
-        if(length(r)==0) "" else r
+      items_rhs <- lapply(
+        items_rhs,
+        FUN = function(r)
+          if (length(r) == 0)
+            ""
+        else
+          r
       )
       
       quality <- quality(x)
       
       ## Rewrite empty LHSs.
       ind <- sapply(items_lhs, length) == 0
-      if(any(ind)) items_lhs[ind] <- ""
+      if (any(ind))
+        items_lhs[ind] <- ""
       
       ## Various lengths ...
       n_of_items_lhs <- sapply(items_lhs, length)
       n_of_items_rhs <- sapply(items_rhs, length)
-      entry_end_pos <- cumsum(n_of_items_lhs + n_of_items_rhs - 1) + 1
+      entry_end_pos <-
+        cumsum(n_of_items_lhs + n_of_items_rhs - 1) + 1
       entry_beg_pos <- c(1, entry_end_pos[-n_of_rules]) + 1
       entry_mid_pos <- entry_beg_pos + n_of_items_lhs - 1
       lhs_pos <- unlist(mapply(seq, entry_beg_pos, entry_mid_pos,
@@ -176,7 +237,7 @@ setMethod("inspect", signature(x = "rules"),
         format(c("rhs", paste(pre, tmp, post, sep = "")[-1]))
       
       ## Remaining columns: quality measures.
-      for(i in seq(length = NCOL(quality))) {
+      for (i in seq(length = NCOL(quality))) {
         tmp <- rep.int("", n_of_rows)
         tmp[1] <- names(quality)[i]
         tmp[entry_end_pos] <- format(quality[[i]])
@@ -188,49 +249,61 @@ setMethod("inspect", signature(x = "rules"),
   })
 
 
-
+#' @rdname inspect
 setMethod("inspect", signature(x = "transactions"),
-  function(x, itemSep = ", ", setStart = "{", setEnd = "}", linebreak = NULL,
+  function(x,
+    itemSep = ", ",
+    setStart = "{",
+    setEnd = "}",
+    linebreak = NULL,
     ...) {
-    
     n_of_itemsets <- length(x)
     
-    if(n_of_itemsets == 0) return(invisible(NULL))
+    if (n_of_itemsets == 0)
+      return(invisible(NULL))
     ## Nothing to inspect here ...
     
     l <- labels(x, itemSep, setStart, setEnd)
-    if(is.null(linebreak)) 
-      linebreak <- any(nchar(l) > options("width")$width*2/3)
+    if (is.null(linebreak))
+      linebreak <- any(nchar(l) > options("width")$width * 2 / 3)
     
-    if(!linebreak) {
+    if (!linebreak) {
       out <- data.frame(items = l)
-      if(nrow(transactionInfo(x)) > 0) 
+      if (nrow(transactionInfo(x)) > 0)
         out <- cbind(out, transactionInfo(x))
       rownames(out) <- paste0('[', 1:n_of_itemsets, ']')
       print(out, right = FALSE)
       
     } else {
-      
       ## number of rows + fix empty itemsets
-      items <- unlist(lapply(as(x, "list"), 
-        FUN = function(x) if(length(x) == 0) "" else x))
+      items <- unlist(lapply(
+        as(x, "list"),
+        FUN = function(x)
+          if (length(x) == 0)
+            ""
+        else
+          x
+      ))
       n_of_items <- size(x)
       n_of_items[n_of_items == 0] <- 1
       
       ## calculate begin and end positions
       entry_beg_pos <- cumsum(c(1, n_of_items[-n_of_itemsets]))
-      entry_end_pos <- entry_beg_pos+n_of_items-1
+      entry_end_pos <- entry_beg_pos + n_of_items - 1
       
       ## prepare output
       n_of_rows <- sum(n_of_items)
       transactionInfo <- transactionInfo(x)
       ## Output.
-      out <- matrix("", nrow = n_of_rows+1, ncol = 2 + NCOL(transactionInfo))
+      out <-
+        matrix("",
+          nrow = n_of_rows + 1,
+          ncol = 2 + NCOL(transactionInfo))
       
       ## Column 1: itemset nr.
       tmp <- rep.int("", n_of_rows + 1)
-      tmp[entry_beg_pos+1] <- paste0('[', 1:n_of_itemsets, ']') 
-      out[,1] <- format(tmp)
+      tmp[entry_beg_pos + 1] <- paste0('[', 1:n_of_itemsets, ']')
+      out[, 1] <- format(tmp)
       
       ## Column 2: items in the item sets, one per line.
       pre <- rep.int(" ", n_of_rows)
@@ -242,7 +315,7 @@ setMethod("inspect", signature(x = "transactions"),
       
       
       ## Remaining columns: transactionInfo.
-      for(i in seq(length = NCOL(transactionInfo))) {
+      for (i in seq(length = NCOL(transactionInfo))) {
         tmp <- rep.int("", n_of_rows + 1)
         tmp[1] <- names(transactionInfo)[i]
         tmp[entry_end_pos + 1] <- format(transactionInfo[[i]])
@@ -255,45 +328,55 @@ setMethod("inspect", signature(x = "transactions"),
     
   })
 
+#' @rdname inspect
 setMethod("inspect", signature(x = "itemMatrix"),
-  function(x, itemSep = ", ", setStart = "{", setEnd = "}", linebreak = NULL,
+  function(x,
+    itemSep = ", ",
+    setStart = "{",
+    setEnd = "}",
+    linebreak = NULL,
     ...) {
-    
     n_of_itemsets <- length(x)
     
-    if(n_of_itemsets == 0) return(invisible(NULL))
+    if (n_of_itemsets == 0)
+      return(invisible(NULL))
     ## Nothing to inspect here ...
     
     l <- labels(x, itemSep, setStart, setEnd)
-    if(is.null(linebreak)) 
-      linebreak <- any(nchar(l) > options("width")$width*2/3)
+    if (is.null(linebreak))
+      linebreak <- any(nchar(l) > options("width")$width * 2 / 3)
     
-    if(!linebreak) {
+    if (!linebreak) {
       out <- data.frame(items = l)
       rownames(out) <- paste0('[', 1:n_of_itemsets, ']')
       print(out, right = FALSE)
       
     } else {
-      
-      items <- unlist(lapply(as(x, "list"), 
-        FUN = function(x) if(length(x) == 0) "" else x))
+      items <- unlist(lapply(
+        as(x, "list"),
+        FUN = function(x)
+          if (length(x) == 0)
+            ""
+        else
+          x
+      ))
       
       n_of_items <- size(x)
       n_of_items[n_of_items == 0] <- 1
       
       ## calculate begin and end positions
       entry_beg_pos <- cumsum(c(1, n_of_items[-n_of_itemsets]))
-      entry_end_pos <- entry_beg_pos+n_of_items-1
+      entry_end_pos <- entry_beg_pos + n_of_items - 1
       
       ## prepare output
       n_of_rows <- sum(n_of_items)
       ## Output.
-      out <- matrix("", nrow = n_of_rows+1, ncol = 2)
+      out <- matrix("", nrow = n_of_rows + 1, ncol = 2)
       
       ## Column 1: itemset nr.
       tmp <- rep.int("", n_of_rows + 1)
-      tmp[entry_beg_pos+1] <- paste0('[', 1:n_of_itemsets, ']') 
-      out[,1] <- format(tmp)
+      tmp[entry_beg_pos + 1] <- paste0('[', 1:n_of_itemsets, ']')
+      out[, 1] <- format(tmp)
       
       ## Column 2: items in the item sets, one per line.
       pre <- rep.int(" ", n_of_rows)
@@ -310,11 +393,13 @@ setMethod("inspect", signature(x = "itemMatrix"),
   })
 
 
-## tidLists are easy so we use sprintf
+#' @rdname inspect
 setMethod("inspect", signature(x = "tidLists"),
   function(x, ...) {
-    print(data.frame(items = itemLabels(x), transactionIDs = labels(x), 
-      row.names = NULL), right = FALSE)
-  }
-)
-
+    print(data.frame(
+      items = itemLabels(x),
+      transactionIDs = labels(x),
+      row.names = NULL
+    ),
+      right = FALSE)
+  })

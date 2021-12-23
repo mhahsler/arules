@@ -17,6 +17,12 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+
+#' @rdname associations-class
+#' @name plot
+#' @aliases plot.associations plot.itemMatrix
+NULL
+
 ### produce a better error message for plot of associations
 plot.associations <- function(x, ...) stop("Needed package 'arulesViz' not installed or loaded!")
 

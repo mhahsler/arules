@@ -1,0 +1,72 @@
+#######################################################################
+# arules - Mining Association Rules and Frequent Itemsets
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
+#			Bettina Gruen and Kurt Hornik
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+
+#' Number of Items in Sets
+#'
+#' Provides the generic function `size()` and S4 methods to get the size of
+#' each element from objects based on [itemMatrix].  For
+#' example, it is used to get a vector of transaction sizes (i.e., the number
+#' of present items (ones) per element (row) of the binary incidence matrix)
+#' from an object of class [transactions]).
+#'
+#' @include itemMatrix.R
+#' @family itemMatrix and transactions functions
+#' @family associations functions
+#'
+#' @param x an object.
+#' @param ... further (unused) arguments.
+#' @return returns a numeric vector of length `length(x)`.
+#' Each element is the size of the corresponding element (row in the matrix) in
+#' object `x`. For [rules], `size()` returns the sum of the number of
+#' elements in the LHS and the RHS.
+#' @author Michael Hahsler
+#' @keywords attribute
+#' @examples
+#' data("Adult")
+#' summary(size(Adult))
+#'
+setGeneric("size",
+  function(x, ...) standardGeneric("size"))
+
+#' @rdname size
+setMethod("size", signature(x = "itemMatrix"),
+  function(x) {
+    ## if Matrix had colSums implemented efficiently,
+    ## we could use colSums(x@data). we use our own C code.
+    ## diff(x@data@p) is nearly as fast as colSums(x@data).
+    
+    ## FIXME: Add transactionID or itemsetID as names
+    cnt <- .Call(R_colSums_ngCMatrix, x@data)
+    cnt
+  })
+
+#' @rdname size
+setMethod("size", signature(x = "tidLists"),
+  function(x)
+    .Call(R_colSums_ngCMatrix, x@data))
+
+#' @rdname size
+setMethod("size", signature(x = "itemsets"),
+  function(x)
+    size(x@items))
+
+#' @rdname size
+setMethod("size", signature(x = "rules"),
+  function(x) size(x@lhs) + size(x@rhs))

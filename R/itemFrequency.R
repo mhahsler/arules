@@ -17,15 +17,39 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#' Getting Frequency/Support for Single Items
+#' 
+#' Provides the generic function `itemFrequency()` and S4 methods to get the
+#' frequency/support for all single items in an objects based on
+#' [itemMatrix].  For example, it is used to get the single
+#' item support from an object of class [transactions]
+#' without mining.
+#' 
+#' @name itemFrequency
+#' @family itemMatrix and transactions functions
+#' 
+#' @param x an object.
+#' @param ... further arguments are passed on.
+#' @param type a character string specifying if \code{"relative"}
+#' frequency/support or \code{"absolute"} frequency/support (item counts) is
+#' returned. (default: \code{"relative"}).
+#' @param weighted should support be weighted by transactions weights stored as
+#' column \code{"weight"} in transactionInfo?
+#' @return \code{itemFrequency} returns a named numeric vector.  Each element
+#' is the frequency/support of the corresponding item in object \code{x}.  The
+#' items appear in the vector in the same order as in the binary matrix in
+#' \code{x}.
+#' @author Michael Hahsler
+#' @seealso [itemFrequencyPlot()]
+#' @keywords models
+#' @examples
+#' data("Adult")
+#' itemFrequency(Adult, type = "relative")
+#' 
+setGeneric("itemFrequency",
+  function(x, ...) standardGeneric("itemFrequency"))
 
-
-##*******************************************************
-## Functions itemFrequency and itemFrequencyPlot
-##
-## to calculate item frequencies (item support) and plot item frequencies
-
-##*****************************************************
-## return item frequency in a set
+#' @rdname itemFrequency
 setMethod("itemFrequency", signature(x = "itemMatrix"),
   function(x, type = c("relative", "absolute"), weighted = FALSE) {
     type <- match.arg(type)
@@ -55,8 +79,8 @@ setMethod("itemFrequency", signature(x = "itemMatrix"),
       absolute =  support)
   })
 
-##*****************************************************
-## return item frequency in tidLists
+
+#' @rdname itemFrequency
 setMethod("itemFrequency", signature(x = "tidLists"),
   function(x, type= c("relative", "absolute")) {
     type <- match.arg(type)
@@ -70,8 +94,81 @@ setMethod("itemFrequency", signature(x = "tidLists"),
   })
 
 
-##*****************************************************
-## plot item frequency
+#' Creating a Item Frequencies/Support Bar Plot
+#' 
+#' Provides the generic function `itemFrequencyPlot()` and the S4 method to
+#' create an item frequency bar plot for inspecting the item frequency
+#' distribution for objects based on [itemMatrix] (e.g.,
+#' [transactions], or items in [itemsets]
+#' and [rules]).
+#' 
+#' 
+#' @aliases itemFrequencyPlot
+#' @family itemMatrix and transactions functions
+#' 
+#' @param x the object to be plotted.
+#' @param \dots further arguments are passed on (see
+#' [graphics::barplot()] from possible arguments).
+#' @param type a character string indicating whether item frequencies should be
+#' displayed relative of absolute.
+#' @param weighted should support be weighted by transactions weights stored as
+#' column \code{"weight"} in transactionInfo?
+#' @param support a numeric value. Only display items which have a support of
+#' at least \code{support}. If no population is given, support is calculated
+#' from \code{x} otherwise from the population. Support is interpreted relative
+#' or absolute according to the setting of \code{type}.
+#' @param topN a integer value. Only plot the \code{topN} items with the
+#' highest item frequency or lift (if \code{lift = TRUE}).  The items are
+#' plotted ordered by descending support.
+#' @param population object of same class as \code{x}; if \code{x} is a segment
+#' of a population, the population mean frequency for each item can be shown as
+#' a line in the plot.
+#' @param popCol plotting color for population.
+#' @param popLwd line width for population.
+#' @param lift a logical indicating whether to plot the lift ratio between
+#' instead of frequencies. The lift ratio is gives how many times an item is
+#' more frequent in \code{x} than in \code{population}.
+#' @param horiz a logical. If \code{horiz = FALSE} (default), the bars are
+#' drawn vertically. If \code{TRUE}, the bars are drawn horizontally.
+#' @param names a logical indicating if the names (bar labels) should be
+#' displayed?
+#' @param cex.names a numeric value for the expansion factor for axis names
+#' (bar labels).
+#' @param xlab a character string with the label for the x axis (use an empty
+#' string to force no label).
+#' @param ylab a character string with the label for the y axis (see xlab).
+#' @param mai a numerical vector giving the plots margin sizes in inches (see
+#' `? par').
+#' @return A numeric vector with the midpoints of the drawn bars; useful for
+#' adding to the graph.
+#' @author Michael Hahsler
+#' @seealso [itemFrequency()]
+#' @keywords hplot
+#' @examples
+#' data(Adult)
+#' 
+#' ## the following example compares the item frequencies
+#' ## of people with a large income (boxes) with the average in the data set
+#' Adult.largeIncome <- Adult[Adult %in% "income=large"]
+#' 
+#' ## simple plot
+#' itemFrequencyPlot(Adult.largeIncome)
+#' 
+#' ## plot with the averages of the population plotted as a line 
+#' ## (for first 72 variables/items)
+#' itemFrequencyPlot(Adult.largeIncome[, 1:72], 
+#' 	population = Adult[, 1:72])
+#' 
+#' ## plot lift ratio (frequency in x / frequency in population)
+#' ## for items with a support of 20% in the population
+#' itemFrequencyPlot(Adult.largeIncome, 
+#'         population = Adult, support = 0.2, 
+#' 	lift = TRUE, horiz = TRUE)
+#' 
+setGeneric("itemFrequencyPlot",
+  function(x, ...) standardGeneric("itemFrequencyPlot"))
+
+#' @rdname itemFrequencyPlot
 setMethod("itemFrequencyPlot", signature(x = "itemMatrix"),
   function(x, type = c("relative", "absolute"), weighted = FALSE, 
     support = NULL, topN = NULL, population = NULL, 
@@ -222,5 +319,3 @@ setMethod("itemFrequencyPlot", signature(x = "itemMatrix"),
   
   invisible(midpoints)
 }
-
-
