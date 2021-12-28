@@ -153,6 +153,7 @@ setReplaceMethod("info", signature(x = "associations"),
 #setGeneric("head") # generic in Matrix
 
 #' @describeIn associations-class returns the first n associations.
+#' @aliases head
 setMethod("head", signature(x = "associations"),
   function (x,
     n = 6L,
@@ -176,6 +177,7 @@ setMethod("head", signature(x = "associations"),
 #setGeneric("tail") # generic in Matrix
 
 #' @describeIn associations-class returns the last n associations.
+#' @aliases tail
 setMethod("tail", signature(x = "associations"),
   function (x,
     n = 6L,

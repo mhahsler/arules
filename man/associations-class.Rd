@@ -17,7 +17,9 @@
 \alias{info<-,associations-method}
 \alias{info<-}
 \alias{head,associations-method}
+\alias{head}
 \alias{tail,associations-method}
+\alias{tail}
 \alias{items,associations-method}
 \alias{items}
 \alias{items<-}
