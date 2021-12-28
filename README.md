@@ -16,7 +16,7 @@ measures](https://mhahsler.github.io/arules/docs/measures) and mining
 algorithms including the code of Christian Borgelt’s
 popular and efficient C implementations of the association mining
 algorithms [Apriori](https://borgelt.net/apriori.html) and
-[Eclat](https://borgelt.net/eclat.html). In addition the following algorithms are
+[Eclat](https://borgelt.net/eclat.html). In addition, the following algorithms are
 available via [fim4r](https://borgelt.net/fim4r.html):
 
 * Apriori

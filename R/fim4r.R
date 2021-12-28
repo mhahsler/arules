@@ -29,11 +29,12 @@
 #' Note on additional parameters for `fim4r.x` functions:
 #' 
 #' * `report` is used internally and cannot be specified.
+#' * method `"carpenter"` can only mine closed itemsets.
 #' * for `appear`, the item ID needs to be used and not the item label. 
 #'
 #' @param transactions a [transactions] object
-#' @param method the algorithm to be used. One of: "apriori", "arules", "eclat", "fpgrowth",
-#'   "carpenter", "estpsp", "fim", "genpsp", "ista", "relim", "sam"
+#' @param method the algorithm to be used. One of: "apriori", "eclat", "fpgrowth",
+#'   "carpenter" (closed itemsets only), "ista", "relim", "sam"
 #' @param target the target type. One of: "frequent", 
 #'   "closed", "maximal", "generators" or "rules".
 #' @param ... further arguments are passed on to the `fim4r.x()` in 
@@ -65,15 +66,11 @@ fim4r <-
     
     methods_rules <-
       c("apriori",
-        "arules",
         "eclat",
         "fpgrowth")
     
     methods_itemsets <-
       c("carpenter",
-        "estpsp",
-        "fim",
-        "genpsp",
         "ista",
         "relim",
         "sam")
@@ -99,14 +96,14 @@ fim4r <-
       if (utils::menu(c("Yes", "No")) != 1) {
         invokeRestart("abort")
       }
-      install.packages(fim4r_url, repos = NULL)
+      utils::install.packages(fim4r_url, repos = NULL)
     }
     
     # prepare data
     transactions <- transactions(transactions)
     tracts <- LIST(transactions, decode = FALSE)
     
-    res <- do.call(getFromNamespace(paste0("fim4r.", method), "fim4r"),
+    res <- do.call(utils::getFromNamespace(paste0("fim4r.", method), "fim4r"),
       args = c(list(
         tracts = tracts,
         target = target,

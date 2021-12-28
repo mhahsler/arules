@@ -9,8 +9,8 @@ fim4r(transactions, method = NULL, target = "frequent", ...)
 \arguments{
 \item{transactions}{a \link{transactions} object}
 
-\item{method}{the algorithm to be used. One of: "apriori", "arules", "eclat", "fpgrowth",
-"carpenter", "estpsp", "fim", "genpsp", "ista", "relim", "sam"}
+\item{method}{the algorithm to be used. One of: "apriori", "eclat", "fpgrowth",
+"carpenter" (closed itemsets only), "ista", "relim", "sam"}
 
 \item{target}{the target type. One of: "frequent",
 "closed", "maximal", "generators" or "rules".}
@@ -35,6 +35,7 @@ the \code{fim4r()} function installs the package automatically.
 Note on additional parameters for \code{fim4r.x} functions:
 \itemize{
 \item \code{report} is used internally and cannot be specified.
+\item method \code{"carpenter"} can only mine closed itemsets.
 \item for \code{appear}, the item ID needs to be used and not the item label.
 }
 }
