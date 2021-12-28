@@ -1,0 +1,143 @@
+#######################################################################
+# arules - Mining Association Rules and Frequent Itemsets
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
+#			Bettina Gruen and Kurt Hornik
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+
+#' Adult Data Set
+#' 
+#' The `AdultUCI` data set contains the questionnaire data of the
+#' _Adult_ database (originally called the _Census Income_
+#' Database) formatted as a data.frame.  The `Adult` data set contains the
+#' data already prepared and coerced to [transactions] for
+#' use with \pkg{arules}.
+#' 
+#' The Adult database was extracted from the census bureau database
+#' found at \url{https://www.census.gov/} in 1994 by Ronny Kohavi and Barry
+#' Becker, Data Mining and Visualization, Silicon Graphics. It was originally
+#' used to predict whether income exceeds USD 50K/yr based on census data. We
+#' added the attribute `income` with levels `small` and `large`
+#' (>50K).
+#' 
+#' We prepared the data set for association mining as shown in the section
+#' Examples. We removed the continuous attribute `fnlwgt` (final weight).
+#' We also eliminated `education-num` because it is just a numeric
+#' representation of the attribute `education`.  The other 4 continuous
+#' attributes we mapped to ordinal attributes as follows: 
+#' 
+#'  * age: cut into levels \code{Young} (0-25), \code{Middle-aged} (26-45),
+#' \code{Senior} (46-65) and \code{Old} (66+)
+#'  * hours-per-week: cut into levels \code{Part-time} (0-25), 
+#'  \code{Full-time} (25-40), \code{Over-time}
+#' (40-60) and \code{Too-much} (60+)
+#'  * capital-gain and capital-loss: each cut into levels \code{None} (0),
+#' \code{Low} (0 < median of the values greater zero < max) and \code{High}
+#' (>=max)
+#' 
+#' @name Adult
+#' @aliases adult Adult AdultUCI
+#' @docType data
+#' @format \code{Adult} is an object of class [transactions] 
+#' with `r data(Adult); nrow(Adult)` transactions 
+#' and `r data(Adult); ncol(Adult)` items. See below for details.
+#' 
+#' The AdultUCI data set contains a data frame with 48842
+#' observations on the following 15 variables.  
+#' \describe{ 
+#'   \item{age}{a numeric
+#' vector.} \item{workclass}{a factor with levels \code{Federal-gov},
+#' \code{Local-gov}, \code{Never-worked}, \code{Private}, \code{Self-emp-inc},
+#' \code{Self-emp-not-inc}, \code{State-gov}, and \code{Without-pay}.}
+#' \item{education}{an ordered factor with levels \code{Preschool} <
+#' \code{1st-4th} < \code{5th-6th} < \code{7th-8th} < \code{9th} < \code{10th}
+#' < \code{11th} < \code{12th} < \code{HS-grad} < \code{Prof-school} <
+#' \code{Assoc-acdm} < \code{Assoc-voc} < \code{Some-college} <
+#' \code{Bachelors} < \code{Masters} < \code{Doctorate}.}
+#' \item{education-num}{a numeric vector.} 
+#' \item{marital-status}{a factor with
+#' levels \code{Divorced}, \code{Married-AF-spouse}, \code{Married-civ-spouse},
+#' \code{Married-spouse-absent}, \code{Never-married}, \code{Separated}, and
+#' \code{Widowed}.} \item{occupation}{a factor with levels \code{Adm-clerical},
+#' \code{Armed-Forces}, \code{Craft-repair}, \code{Exec-managerial},
+#' \code{Farming-fishing}, \code{Handlers-cleaners}, \code{Machine-op-inspct},
+#' \code{Other-service}, \code{Priv-house-serv}, \code{Prof-specialty},
+#' \code{Protective-serv}, \code{Sales}, \code{Tech-support}, and
+#' \code{Transport-moving}.} 
+#' \item{relationship}{a factor with levels
+#' \code{Husband}, \code{Not-in-family}, \code{Other-relative},
+#' \code{Own-child}, \code{Unmarried}, and \code{Wife}.} 
+#' \item{race}{a factor
+#' with levels \code{Amer-Indian-Eskimo}, \code{Asian-Pac-Islander},
+#' \code{Black}, \code{Other}, and \code{White}.} 
+#' \item{sex}{a factor with levels \code{Female} and \code{Male}.} 
+#' \item{capital-gain}{a numeric vector.} 
+#' \item{capital-loss}{a numeric vector.} \item{fnlwgt}{a numeric vector.} 
+#' \item{hours-per-week}{a numeric vector.} 
+#' \item{native-country}{a factor with levels \code{Cambodia}, \code{Canada}, \code{China},
+#' \code{Columbia}, \code{Cuba}, \code{Dominican-Republic}, \code{Ecuador},
+#' \code{El-Salvador}, \code{England}, \code{France}, \code{Germany},
+#' \code{Greece}, \code{Guatemala}, \code{Haiti}, \code{Holand-Netherlands},
+#' \code{Honduras}, \code{Hong}, \code{Hungary}, \code{India}, \code{Iran},
+#' \code{Ireland}, \code{Italy}, \code{Jamaica}, \code{Japan}, \code{Laos},
+#' \code{Mexico}, \code{Nicaragua}, \code{Outlying-US(Guam-USVI-etc)},
+#' \code{Peru}, \code{Philippines}, \code{Poland}, \code{Portugal},
+#' \code{Puerto-Rico}, \code{Scotland}, \code{South}, \code{Taiwan},
+#' \code{Thailand}, \code{Trinadad&Tobago}, \code{United-States},
+#' \code{Vietnam}, and \code{Yugoslavia}.} 
+#' \item{income}{an ordered factor with
+#' levels \code{small} < \code{large}.} }
+#' @author Michael Hahsler
+#' @references A. Asuncion \& D. J. Newman (2007): UCI Repository of Machine
+#' Learning Databases.  Irvine, CA: University of California, Department of
+#' Information and Computer Science.
+#' 
+#' The data set was first cited in Kohavi, R. (1996): Scaling Up the Accuracy
+#' of Naive-Bayes Classifiers: a Decision-Tree Hybrid.  _Proceedings of
+#' the Second International Conference on Knowledge Discovery and Data Mining_.
+#' @source \url{https://www.ics.uci.edu/~mlearn/MLRepository.html}
+#' @keywords datasets
+#' @examples
+#' 
+#' data("AdultUCI")
+#' dim(AdultUCI)
+#' AdultUCI[1:2, ]
+#' 
+#' ## remove attributes
+#' AdultUCI[["fnlwgt"]] <- NULL
+#' AdultUCI[["education-num"]] <- NULL
+#' 
+#' ## map metric attributes
+#' AdultUCI[["age"]] <- ordered(cut(AdultUCI[["age"]], c(15, 25, 45, 65, 100)),
+#'   labels = c("Young", "Middle-aged", "Senior", "Old"))
+#' 
+#' AdultUCI[["hours-per-week"]] <- ordered(cut(AdultUCI[["hours-per-week"]],
+#'   c(0,25,40,60,168)),
+#'   labels = c("Part-time", "Full-time", "Over-time", "Workaholic"))
+#' 
+#' AdultUCI[["capital-gain"]] <- ordered(cut(AdultUCI[["capital-gain"]],
+#'   c(-Inf,0,median(AdultUCI[["capital-gain"]][AdultUCI[["capital-gain"]] > 0]),
+#'   Inf)), labels = c("None", "Low", "High"))
+#' 
+#' AdultUCI[["capital-loss"]] <- ordered(cut(AdultUCI[["capital-loss"]],
+#'   c(-Inf,0, median(AdultUCI[["capital-loss"]][AdultUCI[["capital-loss"]] > 0]),
+#'   Inf)), labels = c("None", "Low", "High"))
+#' 
+#' ## create transactions
+#' Adult <- transactions(AdultUCI)
+#' Adult
+#' 
+NULL

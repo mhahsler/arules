@@ -42,6 +42,7 @@
 #' This version can be used to perform weighted association rule mining (WARM).
 #'
 #' @family mining algorithms
+#' @aliases ECLAT Eclat
 #'
 #' @param data object of class [transactions] or any data
 #' structure which can be coerced into transactions (e.g.,

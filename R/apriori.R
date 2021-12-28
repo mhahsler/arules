@@ -67,6 +67,7 @@
 #' the execution actually stops.
 #'
 #' @family mining algorithms
+#' @aliases APRIORI Apriori
 #'
 #' @param data object of class [transactions] or any data
 #' structure which can be coerced into transactions (e.g.,

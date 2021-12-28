@@ -2,6 +2,8 @@
 % Please edit documentation in R/apriori.R
 \name{apriori}
 \alias{apriori}
+\alias{APRIORI}
+\alias{Apriori}
 \title{Mining Associations with the APRIORI Algorithm}
 \usage{
 apriori(data, parameter = NULL, appearance = NULL, control = NULL, ...)
@@ -137,6 +139,7 @@ Other mining algorithms:
 \code{\link{AScontrol-classes}},
 \code{\link{ASparameter-classes}},
 \code{\link{eclat}()},
+\code{\link{fim4r}()},
 \code{\link{ruleInduction}()},
 \code{\link{weclat}()}
 }

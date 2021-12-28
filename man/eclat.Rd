@@ -2,6 +2,8 @@
 % Please edit documentation in R/eclat.R
 \name{eclat}
 \alias{eclat}
+\alias{ECLAT}
+\alias{Eclat}
 \title{Mining Associations with Eclat}
 \usage{
 eclat(data, parameter = NULL, control = NULL, ...)
@@ -76,6 +78,7 @@ Other mining algorithms:
 \code{\link{AScontrol-classes}},
 \code{\link{ASparameter-classes}},
 \code{\link{apriori}()},
+\code{\link{fim4r}()},
 \code{\link{ruleInduction}()},
 \code{\link{weclat}()}
 }

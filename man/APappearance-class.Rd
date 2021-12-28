@@ -102,6 +102,7 @@ Other mining algorithms:
 \code{\link{ASparameter-classes}},
 \code{\link{apriori}()},
 \code{\link{eclat}()},
+\code{\link{fim4r}()},
 \code{\link{ruleInduction}()},
 \code{\link{weclat}()}
 }

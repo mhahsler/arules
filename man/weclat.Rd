@@ -4,6 +4,7 @@
 \alias{weclat}
 \alias{WARM}
 \alias{warm}
+\alias{WECLAT}
 \title{Mining Associations from Weighted Transaction Data with Eclat (WARM)}
 \usage{
 weclat(data, parameter = NULL, control = NULL)
@@ -101,6 +102,7 @@ Other mining algorithms:
 \code{\link{ASparameter-classes}},
 \code{\link{apriori}()},
 \code{\link{eclat}()},
+\code{\link{fim4r}()},
 \code{\link{ruleInduction}()}
 
 Other weighted association mining: 

@@ -100,7 +100,7 @@ hits <- function(data,
 #' Note that ECLAT only mines (weighted) frequent itemsets. Weighted
 #' association rules can be created using [ruleInduction()].
 #'
-#' @aliases WARM warm
+#' @aliases WARM warm WECLAT
 #' @family mining algorithms
 #' @family weighted association mining
 #'
