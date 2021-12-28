@@ -187,6 +187,8 @@ inspect(twoRules)
 
 }
 \seealso{
+Superclass: \link{associations}
+
 Other associations functions: 
 \code{\link{abbreviate}()},
 \code{\link{associations-class}},
@@ -210,8 +212,4 @@ Other associations functions:
 Michael Hahsler
 }
 \concept{associations functions}
-\keyword{#'}
-\keyword{@seealso}
-\keyword{Superclass:}
-\keyword{[associations]}
 \keyword{classes}

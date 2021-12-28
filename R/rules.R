@@ -59,7 +59,7 @@
 #' @author Michael Hahsler
 #' @keywords classes
 #' 
-#' #' @seealso 
+#' @seealso 
 #' Superclass: [associations]
 #' 
 #' @examples
