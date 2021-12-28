@@ -2,21 +2,53 @@
 % Please edit documentation in R/fim4r.R
 \name{fim4r}
 \alias{fim4r}
+\alias{fpgrowth}
+\alias{FPgrowth}
+\alias{carpenter}
+\alias{ista}
+\alias{IsTa}
+\alias{relim}
+\alias{RElim}
+\alias{sam}
+\alias{SaM}
 \title{Interface to Mining Algorithms from fim4r}
 \usage{
-fim4r(transactions, method = NULL, target = "frequent", ...)
+fim4r(
+  transactions,
+  method = NULL,
+  target = "frequent",
+  report = NULL,
+  appear = NULL,
+  ...
+)
 }
 \arguments{
 \item{transactions}{a \link{transactions} object}
 
-\item{method}{the algorithm to be used. One of: "apriori", "eclat", "fpgrowth",
-"carpenter" (closed itemsets only), "ista", "relim", "sam"}
+\item{method}{the algorithm to be used. One of:
+\itemize{
+\item \code{"apriori"}, \code{"eclat"}, \code{"fpgrowth"} can mine itemsets and rules.
+\item \code{"relim"}, \code{"sam"} can mine itemsets.
+\item \code{"carpenter"}, \code{"ista"}  can only mine closed itemset.
+}}
 
-\item{target}{the target type. One of: "frequent",
-"closed", "maximal", "generators" or "rules".}
+\item{target}{the target type. One of: \code{"frequent"},
+\code{"closed"}, \code{"maximal"}, \code{"generators"} or \code{"rules"}.}
+
+\item{report}{cannot be used via the interface.}
+
+\item{appear}{Specify item appearance in rules (only for apriori, eclat, fpgrowth
+and the target \code{"rules"}) Specify a list with two vectors (item labels and
+appearance modifiers) of the same length. Appearance modifiers are:
+\itemize{
+\item \code{"-"} (may not appear),
+\item \code{"a"} (only in rule antecedent/LHS),
+\item \code{"c"} (only in rule consequent/RHS) and
+\item \code{"x"} (may appear anywhere).
+}}
 
 \item{...}{further arguments are passed on to the \code{fim4r.x()} in
-package \pkg{fim4r} (\code{x} is the chosen method). Minimum support and
+package \pkg{fim4r} (\code{x} is the specified \code{method}). Minimum support and
 minimum confidence can be set as parameters \code{supp} and \code{conf}
 (note the range is \eqn{[0, 100]} percent).}
 }
@@ -25,32 +57,74 @@ An object of class \link{itemsets} or \link{rules}.
 }
 \description{
 Interfaces the algorithms implemented in fim4r. The algorithms include:
-apriori, arules, eclat, fpgrowth, carpenter, estpsp, fim, genpsp, ista,
-relim, sam.
+Apriori, Eclat, FPgrowth, Carpenter, IsTa, RElim and SaM.
 }
 \details{
-Note that the package \pkg{fim4r} is not available via CRAN. If needed,
-the \code{fim4r()} function installs the package automatically.
+\strong{Installation:}
+The package \pkg{fim4r} is not available via CRAN. If needed,
+the \code{fim4r()} function downloads and installs the package automatically.
 
-Note on additional parameters for \code{fim4r.x} functions:
+\strong{Additional Notes:}
 \itemize{
-\item \code{report} is used internally and cannot be specified.
-\item method \code{"carpenter"} can only mine closed itemsets.
-\item for \code{appear}, the item ID needs to be used and not the item label.
+\item Support and confidence (parameters \code{supp} and \code{conf}) are specified
+in the range \eqn{[0, 100]}.
+\item Type \code{? fim4r::fim4r} for help on additional available arguments.
+\item For \code{appear}, the item ID needs to be used and not the item label.
+\item Algorithm descriptions and references can be found on the
+web page in the References Section.
 }
 }
 \examples{
 \dontrun{
 data(Adult)
 
-# note that fim4r specifies support and confidence out of 100\%
-r <- fim4r(Adult, method = "fpgrowth", target = "rules", supp = 50, conf = 80)
-r
+# list available algorithms
+fim4r()
 
+# mine association rules with FPgrowth
+# note that fim4r specifies support and confidence out of 100\%
+r <- fim4r(Adult, method = "fpgrowth", target = "rules", supp = 70, conf = 80)
+r
 inspect(head(r, by = "lift"))
+
+# mine closed itemsets with Carpenter or IsTa
+closed <- fim4r(Adult, method = "carpenter", target = "closed", supp = 70)
+closed
+fim4r(Adult, method = "ista", target = "closed", supp = 70)
+
+# mine frequent itemset of length 2 (zmin and zmax = 2)
+freq_2 <- fim4r(Adult, method = "relim", target = "frequent", supp = 70,
+  zmin = 2, zmax = 2)
+inspect(freq_2)
+
+# mine maximal frequent itemsets
+fim4r(Adult, method = "sam", target = "maximal", supp = 70)
+
+# use item appearance. We first mine all rules and then restrict
+#   the appearance of the item capital-gain=None
+rules_all <- fim4r(Adult, method = "fpgrowth", target = "rules",
+  supp = 90, conf = 90, zmin = 2)
+inspect(rules_all)
+
+rules_no_gain <- fim4r(Adult, method = "fpgrowth", target = "rules",
+  supp = 90, conf = 90, zmin = 2,
+  appear = list(c("capital-gain=None"), c("-"))
+  )
+inspect(rules_no_gain)
 }
 }
 \references{
 Christian Borgelt, fimi4r: Frequent Item Set Mining and Association Rule Induction for R.
 \url{https://borgelt.net/fim4r.html}
 }
+\seealso{
+Other mining algorithms: 
+\code{\link{APappearance-class}},
+\code{\link{AScontrol-classes}},
+\code{\link{ASparameter-classes}},
+\code{\link{apriori}()},
+\code{\link{eclat}()},
+\code{\link{ruleInduction}()},
+\code{\link{weclat}()}
+}
+\concept{mining algorithms}
