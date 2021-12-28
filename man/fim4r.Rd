@@ -50,5 +50,6 @@ inspect(head(r, by = "lift"))
 }
 }
 \references{
-
+Christian Borgelt, fimi4r: Frequent Item Set Mining and Association Rule Induction for R.
+\url{https://borgelt.net/fim4r.html}
 }

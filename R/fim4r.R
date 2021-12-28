@@ -106,7 +106,7 @@ fim4r <-
     transactions <- transactions(transactions)
     tracts <- LIST(transactions, decode = FALSE)
     
-    res <- do.call(paste0("fim4r.", method),
+    res <- do.call(getFromNamespace(paste0("fim4r.", method), "fim4r"),
       args = c(list(
         tracts = tracts,
         target = target,
