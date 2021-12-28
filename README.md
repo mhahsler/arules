@@ -13,10 +13,21 @@ itemsets and association
 rules](https://en.wikipedia.org/wiki/Association_rule_learning). The
 package also provides a wide range of [interest
 measures](https://mhahsler.github.io/arules/docs/measures) and mining
-algorithms including a interfaces and the code of Christian Borgelt’s
+algorithms including the code of Christian Borgelt’s
 popular and efficient C implementations of the association mining
 algorithms [Apriori](https://borgelt.net/apriori.html) and
-[Eclat](https://borgelt.net/eclat.html). Examples can be found in
+[Eclat](https://borgelt.net/eclat.html). In addition the following algorithms are
+available via [fim4r](https://borgelt.net/fim4r.html):
+
+* Apriori
+* Eclat
+* Carpenter
+* FPgrowth
+* IsTa 
+* RElim 
+* SaM
+
+Code examples can be found in
 [Chapter 5 of the web book R Companion for Introduction to Data
 Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
 
@@ -39,6 +50,8 @@ Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/a
 
 -   [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner): Mining
     NB-frequent itemsets and NB-precise rules.
+-   [fim4r](https://borgelt.net/fim4r.html): Provides fast implementations for several
+      mining algorithms. An interface function called `fim4r()` is provided in `arules`.
 -   [opusminer](https://cran.r-project.org/package=opusminer): OPUS
     Miner algorithm for filtered top-k association discovery.
 -   [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to

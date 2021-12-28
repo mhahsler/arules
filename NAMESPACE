@@ -15,6 +15,7 @@ export(
   "discretizeDF",
   "eclat",
   "filterAggregate",
+  "fim4r",
   "hits",
   "itemsets",
   "random.transactions", 

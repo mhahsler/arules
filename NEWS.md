@@ -4,6 +4,10 @@
 
 * Reworked manual pages using roxygen2.
 
+## New Feature
+
+* Added interface to fim4r algorithms.
+
 # arules 1.7-2 (12/09/2021)
 
 ## New Feature
