@@ -48,17 +48,15 @@ A weighted version of ECLAT is available as function \code{\link[=weclat]{weclat
 This version can be used to perform weighted association rule mining (WARM).
 }
 \examples{
-
 data("Adult")
 ## Mine itemsets with minimum support of 0.1 and 5 or less items
 itemsets <- eclat(Adult,
 		parameter = list(supp = 0.1, maxlen = 5))
 itemsets
 
-## Create rules from the itemsets
-rules <- ruleInduction(itemsets, Adult, confidence = .9)
+## Create rules from the frequent itemsets
+rules <- ruleInduction(itemsets, confidence = .9)
 rules
-
 }
 \references{
 Mohammed J. Zaki, Srinivasan Parthasarathy, Mitsunori Ogihara,
