@@ -289,7 +289,7 @@ supp(X)
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
 <div id="count" class="section level2">
-<h2>Count</h2>
+<h2>Support Count</h2>
 <p><strong>Alias:</strong> Absolute Support Count</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, n]\)</span> where <span class="math inline">\(n\)</span> is the number of transactions.</p>
 </div>
@@ -315,6 +315,32 @@ supp(X)
 </div>
 <div id="measures-for-rules" class="section level1">
 <h1>Measures for Rules</h1>
+<div id="table" class="section level2">
+<h2>Contingency Table</h2>
+<p>A <span class="math inline">\(2 \times 2\)</span> contingency table with counts for rule <span class="math inline">\(X \Rightarrow Y\)</span> in the transaction dataset. The counts are:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center"><span class="math inline">\(Y\)</span></th>
+<th align="center"><span class="math inline">\(\overline{Y}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(X\)</span></td>
+<td align="center"><span class="math inline">\(n_{XY}\)</span></td>
+<td align="center"><span class="math inline">\(n_{X\overline{Y}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\overline{X}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{X}Y}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{X}\overline{Y}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(n_{XY}\)</span> is the number of transactions that contain all items in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. All other measures for rules can be calculated using these counts.</p>
+</div>
 <div id="confidence" class="section level2">
 <h2>Confidence</h2>
 <p><strong>Alias:</strong> Strength</p>
@@ -329,7 +355,7 @@ supp(X)
 <p>A problem with confidence is that it is sensitive to the frequency of the consequent <span class="math inline">\(Y\)</span> in the database. Caused by the way confidence is calculated, consequents with higher support will automatically produce higher confidence values even if there exists no association between the items.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="added-value" class="section level2">
+<div id="addedvalue" class="section level2">
 <h2>Added Value</h2>
 <p><strong>Alias:</strong> AV, Pavillon Index, Centered Confidence</p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
@@ -337,7 +363,7 @@ supp(X)
 <p><span class="math display">\[AV(X \Rightarrow Y)) = conf(X \Rightarrow Y) - supp(Y) = P(Y | X) - P(Y)\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([-.5, 1]\)</span></p>
 </div>
-<div id="casual-confidence" class="section level2">
+<div id="casualconfidence" class="section level2">
 <h2>Casual Confidence</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Kodratoff:2001"> Yves Kodratoff. Comparing machine learning and knowledge discovery in databases: An application to knowledge discovery in texts.</a> In Georgios Paliouras, Vangelis Karkaletsis, and Constantine D. Spyropoulos, editors, Machine Learning and Its Applications, Advanced Lectures, volume 2049 of Lecture Notes in Computer Science, pages 1-21. Springer, 2001.</p>
 <p>Confidence reinforced by negatives given by</p>
@@ -346,7 +372,7 @@ supp(X)
 \frac{1}{2} [P(Y|X) + P(\overline{Y}|\overline{X})]\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="casual-support" class="section level2">
+<div id="casualsupport" class="section level2">
 <h2>Casual Support</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Kodratoff:2001"> Yves Kodratoff. Comparing machine learning and knowledge discovery in databases: An application to knowledge discovery in texts.</a> In Georgios Paliouras, Vangelis Karkaletsis, and Constantine D. Spyropoulos, editors, Machine Learning and Its Applications, Advanced Lectures, volume 2049 of Lecture Notes in Computer Science, pages 1-21. Springer, 2001.</p>
 <p>Support improved by negatives given by</p>
@@ -355,7 +381,14 @@ supp(X \cup Y) + supp(\overline{X} \cup \overline{Y}) =
 P(X \cap Y) + P(\overline{X} \cap \overline{Y})\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 2]\)</span></p>
 </div>
-<div id="certainty-factor" class="section level2">
+<div id="centeredconfidence" class="section level2">
+<h2>Centered Confidence</h2>
+<p><strong>Alias:</strong> relative accuracy, gain</p>
+<p><strong>Reference</strong>: N Lavrac, PA Flach, and B Zupan, <a href="https://link.springer.com/chapter/10.1007%2F3-540-48751-4_17">Rule Evaluation Measures: A Unifying View</a>, Springer-Verlag, in Proceedings of the 9th International Workshop on Inductive Logic Programming, ILP ’99 (London, UK, 1999), pp. 174-185.</p>
+<p><span class="math display">\[CC(X \Rightarrow Y) = conf(X \Rightarrow Y) - supp(Y)\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([-1, 1 - 1/n]\)</span></p>
+</div>
+<div id="certainty" class="section level2">
 <h2>Certainty Factor</h2>
 <p><strong>Alias:</strong> CF, Loevinger</p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Galiano:2002"> F. Galiano, I. J. Blanco, D. Sánchez, and M. Vila. Measuring the accuracy and interest of association rules: A new framework.</a> Intelligent Data Analysis, 6:221-235, 2002.</p>
@@ -364,7 +397,7 @@ P(X \cap Y) + P(\overline{X} \cap \overline{Y})\]</span></p>
 = \frac{P(Y|X)-P(Y)}{1-P(Y)}\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span> (0 indicates independence)</p>
 </div>
-<div id="chi-squared" class="section level2">
+<div id="chisquared" class="section level2">
 <h2>Chi-Squared</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Brin:1997b"> Sergey Brin, Rajeev Motwani, and Craig Silverstein. Beyond market baskets: Generalizing association rules to correlations.</a> In SIGMOD 1997, Proceedings ACM SIGMOD International Conference on Management of Data, pages 265-276, Tucson, Arizona, USA, May 1997.</p>
 <p>For the analysis of <span class="math inline">\(2 \times 2\)</span> contingency tables, the chi-squared test statistic is a measure of the relationship between two binary variables (<span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>). The chi-squared test statistic is used as a test for independence between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. The chi-squared test statistic is:</p>
@@ -382,7 +415,7 @@ The statistic has approximately a <span class="math inline">\(\chi^2\)</span> di
 <p><strong>Notes:</strong> The contingency tables for some rules may contain cells with low expected values (less then 5) and thus <a href="#fishers-exact-test">Fisher’s exact test</a> might be more appropriate. Each rule represents a statistical test, and <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"> correction for multiple comparisons</a> may be necessary.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, \infty]\)</span></p>
 </div>
-<div id="collective-strength" class="section level2">
+<div id="collectivestrength" class="section level2">
 <h2>Collective Strength</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Aggarwal:1998"> C. C. Aggarwal and P. S. Yu. A new framework for itemset generation.</a> In PODS 98, Symposium on Principles of Database Systems, pages 18-24, Seattle, WA, USA, 1998.</p>
 <p><span class="math display">\[S(X) = \frac{1-v(X)}{1-E[v(X)]} \frac{E[v(X)]}{v(X)}
@@ -429,7 +462,7 @@ The statistic has approximately a <span class="math inline">\(\chi^2\)</span> di
 <p><span class="math display">\[cover(X \Rightarrow Y) = supp(X) = P(X)\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="descriptive-confirmed-confidence" class="section level2">
+<div id="confirmedconfidence" class="section level2">
 <h2>Descriptive Confirmed Confidence</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Confidence confirmed by the confidence of the negative rule.</p>
@@ -437,7 +470,7 @@ The statistic has approximately a <span class="math inline">\(\chi^2\)</span> di
 = P(Y|X) - P(\overline{Y}|X)\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span></p>
 </div>
-<div id="difference-of-confidence" class="section level2">
+<div id="doc" class="section level2">
 <h2>Difference of Confidence</h2>
 <p><strong>Alias:</strong> DOC, Difference of Proportions</p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Hofmann:2001"> Heike Hofmann and Adalbert F. X. Wilhelm. Visual comparison of association rules.</a> Comput. Stat., 16(3):399-415, 2001.</p>
@@ -449,7 +482,7 @@ doc(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span> (0 means statistical independence)</p>
 </div>
-<div id="example-and-counter-example-rate" class="section level2">
+<div id="counterexample" class="section level2">
 <h2>Example and Counter-Example Rate</h2>
 <p>Example rate reduced by the counter-example rate.</p>
 <p>Defined as <span class="math display">\[ecr(X \Rightarrow Y) = 
@@ -460,7 +493,7 @@ doc(X \Rightarrow Y)
 <p>The measure is related to the <a href="#sebag-schoenauer">Sebag-Schoenauer Measure</a>.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="fishers-exact-test" class="section level2">
+<div id="fishersexacttest" class="section level2">
 <h2>Fisher’s Exact Test</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Hahsler:2007">Michael Hahsler and Kurt Hornik. New probabilistic interest measures for association rules.</a> Intelligent Data Analysis, 11(5):437-455, 2007.</p>
 <p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, then the <span class="math inline">\(n_{XY}\)</span> is a realization of the random variable <span class="math inline">\(C_{XY}\)</span> which has a hypergeometric distribution with <span class="math inline">\(n_Y\)</span> draws from a population with <span class="math inline">\(n_X\)</span> successes and <span class="math inline">\(n_\overline{X}\)</span> failures. The p-value for Fisher’s one-sided exact test giving the probability of observing a contingency table with a count of at least <span class="math inline">\(n_{XY}\)</span> given the observed marginal counts is</p>
@@ -470,7 +503,7 @@ doc(X \Rightarrow Y)
 <p>The p-value is related to <a href="#hyper-confidence">hyper-confidence</a>. Compared to the <a href="#chi-squared">Chi-squared test</a>, Fisher’s exact test also applies when cells have low expected counts. Note that each rule represents a statistical test, and <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">correction for multiple comparisons</a> may be necessary.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span> (p-value scale)</p>
 </div>
-<div id="gini-index" class="section level2">
+<div id="gini" class="section level2">
 <h2>Gini Index</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Measures quadratic entropy as</p>
@@ -481,7 +514,7 @@ P(Y)^2 - P(\overline{Y})^2
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span> (0 means that the rule does not provide any information for the dataset)</p>
 </div>
-<div id="hyper-confidence" class="section level2">
+<div id="hyperconfidence" class="section level2">
 <h2>Hyper-Confidence</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Hahsler:2007">Michael Hahsler and Kurt Hornik. New probabilistic interest measures for association rules.</a> Intelligent Data Analysis, 11(5):437-455, 2007.</p>
 <p>The confidence level for observation of too high/low counts for rules <span class="math inline">\(X \Rightarrow Y\)</span> using the hypergeometric model. Since the counts are drawn from a hypergeometric distribution (represented by the random variable <span class="math inline">\(C_{XY}\)</span> with known parameters given by the counts <span class="math inline">\(n_X\)</span> and <span class="math inline">\(n_Y\)</span>, we can calculate a confidence interval for the observed counts <span class="math inline">\(n_{XY}\)</span> stemming from the distribution. Hyper-confidence reports the confidence level as</p>
@@ -497,7 +530,7 @@ P(Y)^2 - P(\overline{Y})^2
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="hyper-lift" class="section level2">
+<div id="hyperlift" class="section level2">
 <h2>Hyper-Lift</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Hahsler:2007">Michael Hahsler and Kurt Hornik. New probabilistic interest measures for association rules.</a> Intelligent Data Analysis, 11(5):437-455, 2007.</p>
 <p>Adaptation of the lift measure where instead of dividing by the expected count under independence (<span class="math inline">\(E[C_{XY}] = n_X / n \times n_Y / n\)</span>) a higher quantile of the hypergeometric count distribution is used. This is more robust for low counts and results in fewer false positives when hyper-lift is used for rule filtering. Hyper-lift is defined as:</p>
@@ -509,7 +542,7 @@ P(Y)^2 - P(\overline{Y})^2
 <span class="math inline">\(\delta\)</span> is typically chosen to use the 99 or 95% quantile.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, \infty]\)</span> (1 indicates independence)</p>
 </div>
-<div id="imbalance-ratio" class="section level2">
+<div id="imbalance" class="section level2">
 <h2>Imbalance Ratio</h2>
 <p><strong>Alias:</strong> IR</p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Tianyi Wu, Yuguo Chen, and Jiawei Han. Re-examination of interestingness measures in pattern mining: a unified framework.</a> Data Mining and Knowledge Discovery, January 2010.</p>
@@ -521,7 +554,7 @@ IB(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span> (0 indicates a balanced, typically uninteresting rule)</p>
 </div>
-<div id="implication-index" class="section level2">
+<div id="implicationindex" class="section level2">
 <h2>Implication Index</h2>
 <p><strong>Reference:</strong> Gras R., L’implication statistique. Nouvelle methode exploratoire de donnees. La Pensee Sauvage, Grenoble. 1996.</p>
 <p>A variation of the <a href="#lerman-similarity">Lerman similarity</a> defined as</p>
@@ -552,7 +585,7 @@ improvement(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="jaccard-coefficient" class="section level2">
+<div id="jaccard" class="section level2">
 <h2>Jaccard Coefficient</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>A null-invariant measure for dependence using the Jaccard similarity between the two sets of transactions that contain the items in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, respectively. Defined as</p>
@@ -563,7 +596,7 @@ jaccard(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="j-measure" class="section level2">
+<div id="jmeasure" class="section level2">
 <h2>J-Measure</h2>
 <p><a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Smyth:1991">Padhraic Smyth and R. Goodman. Rule induction using information theory.</a> In Knowledge Discovery in Databases, 1991.</p>
 <p>The J-measure is a scaled version of cross entropy to measure the information content of a rule.</p>
@@ -576,7 +609,7 @@ P(X \cap \overline{Y})log\left(\frac{P(\overline{Y}|X)}{P(\overline{Y})}\right)
 </div>
 <div id="kappa" class="section level2">
 <h2>Kappa</h2>
-<p><strong>Alias:</strong> <span class="math inline">\(\kappa\)</span></p>
+<p><strong>Alias:</strong> Cohen’s <span class="math inline">\(\kappa\)</span></p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Cohen’s kappa of the rule (seen as a classifier) given as the rules observed rule accuracy (i.e., confidence) corrected by the expected accuracy (of a random classifier). Kappa is defined as</p>
 <p><span class="math display">\[
@@ -615,7 +648,7 @@ kulc(X \Rightarrow Y)
 </div>
 <div id="lambda" class="section level2">
 <h2>Lambda</h2>
-<p><strong>Alias:</strong> Goodman-Kruskal’s Lambda, <span class="math inline">\(\lambda\)</span>, Predictive Association</p>
+<p><strong>Alias:</strong> Goodman-Kruskal’s <span class="math inline">\(\lambda\)</span>, Predictive Association</p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Goodman and Kruskal’s lambda assesses the association between the LHS and RHS of the rule.</p>
 <p><span class="math display">\[
@@ -625,7 +658,7 @@ kulc(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="laplace-corrected-confidence" class="section level2">
+<div id="laplace" class="section level2">
 <h2>Laplace Corrected Confidence</h2>
 <p><strong>Alias:</strong> Laplace Accuracy, L</p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
@@ -635,7 +668,7 @@ L(X \Rightarrow Y) = \frac{n_{XY}+1}{n_X+k},
 <p>where <span class="math inline">\(k\)</span> is the number of classes in the domain. For association rule <span class="math inline">\(k\)</span> is often set to 2. It is an approximate measure of the expected rule accuracy representing 1 - the Laplace expected error estimate of the rule. The Laplace corrected accuracy estimate decreases with lower support to account for estimation uncertainty with low counts.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="least-contradiction" class="section level2">
+<div id="leastcontradiction" class="section level2">
 <h2>Least Contradiction</h2>
 <p><strong>Reference:</strong> Aze, J. and Y. Kodratoff (2004). Extraction de pepites de connaissances dans les donnees: Une nouvelle approche et une etude de sensibilite au bruit. In Mesures de Qualite pour la fouille de donnees. Revue des Nouvelles Technologies de l’Information, RNTI.</p>
 <p><span class="math display">\[
@@ -645,7 +678,7 @@ L(X \Rightarrow Y) = \frac{n_{XY}+1}{n_X+k},
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span></p>
 </div>
-<div id="lerman-similarity" class="section level2">
+<div id="lerman" class="section level2">
 <h2>Lerman Similarity</h2>
 <p><strong>Reference:</strong> Lerman, I.C. (1981). Classification et analyse ordinale des donnees. Paris.</p>
 <p>Defined as</p>
@@ -698,7 +731,7 @@ PS(X \Rightarrow Y) = leverage(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="mutual-information" class="section level2">
+<div id="mutualinformation" class="section level2">
 <h2>Mutual Information</h2>
 <p><strong>Alias:</strong> Uncertainty</p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
@@ -710,12 +743,12 @@ M(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span> (0 means that X does not provide information for Y)</p>
 </div>
-<div id="odds-ratio" class="section level2">
+<div id="oddsratio" class="section level2">
 <h2>Odds Ratio</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>For the analysis of <span class="math inline">\(2 \times 2\)</span> contingency tables, the odds ratio is a measure of the relationship between two binary variables. It is defined as the ratio of the odds of a transaction containing Y in the groups of transactions that do and do not contain <span class="math inline">\(X\)</span>.</p>
 <p><span class="math display">\[
-OR(X \Rightarrow Y) 
+\mathrm{OR}(X \Rightarrow Y) 
 = \frac{\frac{P(Y | X)}{1 - P(Y | X)}}{\frac{P(Y | \overline{X})}{1 - P(Y | \overline{X})}} 
 = \frac{\frac{conf(X \Rightarrow Y)}{1 - conf(X \Rightarrow Y)}}{\frac{conf(\overline{X} \Rightarrow Y)}{1 - conf(\overline{X} \Rightarrow Y)}} 
 = \frac{n_{XY} n_{\overline{X}\overline{Y}}}
@@ -725,12 +758,12 @@ OR(X \Rightarrow Y)
 \omega = z_{\alpha/2} \sqrt{\frac{1}{n_{XY}} + \frac{1}{n_{X\overline{Y}}} + \frac{1}{n_{\overline{X}Y}} + \frac{1}{n_{\overline{X}\overline{Y}}}}
 \]</span></p>
 <p><span class="math display">\[
-CI(X \Rightarrow Y) = [OR(X \Rightarrow Y) \exp(-\omega), OR(X \Rightarrow Y) \exp(\omega)] 
+\mathrm{CI}(X \Rightarrow Y) = [OR(X \Rightarrow Y) \exp(-\omega), OR(X \Rightarrow Y) \exp(\omega)] 
 \]</span></p>
 <p>where <span class="math inline">\(\alpha/2\)</span> is the critical value for a confidence level of <span class="math inline">\(1-\alpha\)</span>.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, \infty]\)</span> (1 indicates that Y is not associated with X)</p>
 </div>
-<div id="phi-correlation-coefficient" class="section level2">
+<div id="phi" class="section level2">
 <h2>Phi Correlation Coefficient</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>The correlation coefficient between the transactions containing X and Y represented as two binary vectors. Phi correlation is equivalent to Pearson’s Product Moment Correlation Coefficient <span class="math inline">\(\rho\)</span> with 0-1 values and related to the <a href="#chi-squared">chi-squared test statistics</a> for <span class="math inline">\(2 \times 2\)</span> contingency tables.</p>
@@ -747,52 +780,63 @@ CI(X \Rightarrow Y) = [OR(X \Rightarrow Y) \exp(-\omega), OR(X \Rightarrow Y) \e
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Diatta:2007">Jean Diatta, Henri Ralambondrainy, and André Totohasina. Towards a Unifying Probabilistic Implicative Normalized Quality Measure for Association Rules,</a> pages 237-250. Springer Berlin Heidelberg, Berlin, Heidelberg, 2007.</p>
 <p>Defined as the support of the counter examples.</p>
 <p><span class="math display">\[ 
-ralambondrainy(X \Rightarrow Y) 
+\mathrm{ralambondrainy}(X \Rightarrow Y) 
 = \frac{n_{X\overline{Y}}}{n}
 = supp(X \Rightarrow Y)
 = P(X \cap \overline{Y})
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span> (smaller is better)</p>
 </div>
-<div id="relative-linkage-disequilibrium" class="section level2">
+<div id="rld" class="section level2">
 <h2>Relative Linkage Disequilibrium</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Kennett:2008">Ron Kenett and Silvia Salini. Relative linkage disequilibrium: A new measure for association rules.</a> In Petra Perner, editor, Advances in Data Mining. Medical Applications, E-Commerce, Marketing, and Theoretical Aspects, pages 189-199, Berlin, Heidelberg, 2008. Springer Berlin Heidelberg.</p>
 <p>RLD is an association measure motivated by indices used in population genetics. It evaluates the deviation of the support of the whole rule from the support expected under independence given the supports of X and Y.</p>
 <p><span class="math display">\[D = \frac{n_{XY} n_{\overline{X}\overline{Y}} - n_{X\overline{Y}} n_{\overline{X}Y}}{n}\]</span></p>
-<p><span class="math display">\[RLD = \begin{cases} 
+<p><span class="math display">\[\mathrm{RLD} = \begin{cases} 
  D / (D + min(n_{X\overline{Y}}, n_{\overline{X}Y})) \quad\textrm{if}\quad D&gt;0 \\
  D / (D - min(n_{XY}, n_{\overline{X}\overline{Y}}))  \quad\textrm{otherwise.}\\
 \end{cases}\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="relative-risk" class="section level2">
+<div id="relativerisk" class="section level2">
 <h2>Relative Risk</h2>
 <p><strong>Reference:</strong> Sistrom C.L. and Garvan, C.W. (2004), Proportions, Odds, and Risk, Radiology, 230:1, 12-19.</p>
 <p>For the analysis of <span class="math inline">\(2 \times 2\)</span> contingency tables, relative risk is a measure of the relationship between two binary variables. It is defined as the ratio of the proportion of transactions containing <span class="math inline">\(Y\)</span> in the two groups of transactions the do and do not contain <span class="math inline">\(X\)</span>. In epidemiology, this corresponds to the ratio of the risk of having disease <span class="math inline">\(Y\)</span> in the exposed (<span class="math inline">\(X\)</span>) and unexposed (<span class="math inline">\(\overline{X}\)</span>) groups.</p>
 <p><span class="math display">\[
-RR(X \Rightarrow Y)
+\mathrm{RR}(X \Rightarrow Y)
 = \frac{n_{XY} / n_X}{n_{\overline{X}Y} / n_\overline{X}} 
 = \frac{P(Y | X)}{P(Y | \overline{X})} 
 = \frac{conf(X \Rightarrow Y)}{conf(\overline{X} \Rightarrow Y)} 
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, \infty]\)</span> (<span class="math inline">\(RR = 1\)</span> means <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are unrelated)</p>
 </div>
-<div id="rule-power-factor" class="section level2">
+<div id="rulepowerfactor" class="section level2">
 <h2>Rule Power Factor</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Ochin:2008">Suresh Ochin and Nisheeth Joshi Kumar. Rule power factor: A new interest measure in associative classification.</a> In 6th International Conference On Advances In Computing and Communications, ICACC 2016, Cochin, India, 2016.</p>
 <p>Weights the confidence of a rule by its support. This measure favors rules with high confidence and high support at the same time.</p>
 <p>Defined as <span class="math display">\[
-rpf(X \Rightarrow Y)
+\mathrm{rpf}(X \Rightarrow Y)
 = supp(X \Rightarrow Y)\ conf(X \Rightarrow Y)
 = \frac{P(X \cap Y)^2}{P(X)}
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="sebag-schoenauer" class="section level2">
+<div id="rhssupport" class="section level2">
+<h2>Right-Hand-Side Support</h2>
+<p><strong>Alias:</strong> RHS support, consequent support</p>
+<p>Support of the right-hand-side of the rule.</p>
+<p><span class="math display">\[
+\mathrm{RHSsupp}(X \Rightarrow Y) 
+= supp(Y)
+= P(Y)
+\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
+</div>
+<div id="sebag" class="section level2">
 <h2>Sebag-Schoenauer</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Sebag:1988">M. Sebag and M. Schoenauer. Generation of rules with certainty and confidence factors from incomplete and incoherent learning bases.</a> In Proceedings of the European Knowledge Acquisition Workshop (EKAW’88), 1988.</a></p>
 <p>Defined as <span class="math display">\[
-sebag(X \Rightarrow Y)
+\mathrm{sebag}(X \Rightarrow Y)
 = \frac{conf(X \Rightarrow Y)}{conf(X \Rightarrow \overline{Y})}
 = \frac{P(Y | X)}{P(\overline{Y} | X)}
 = \frac{supp(X \cup Y)}{supp(X \cup \overline{Y})}
@@ -800,7 +844,7 @@ sebag(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="standardized-lift" class="section level2">
+<div id="stdlift" class="section level2">
 <h2>Standardized Lift</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:McNicholas:2008">P.D. McNicholas, T.B. Murphy, and M. O’Regan. Standardising the lift of an association rule.</a> Computational Statistics &amp; Data Analysis, 52(10):4712–4721, 2008.</p>
 <p>Standardized lift uses the minimum and maximum lift that can reach for each rule to standardize lift between 0 and 1. The possible range of lift is given by the minimum</p>
@@ -823,7 +867,7 @@ sebag(X \Rightarrow Y)
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
-<div id="varying-rates-liaison" class="section level2">
+<div id="varyingliaison" class="section level2">
 <h2>Varying Rates Liaison</h2>
 <p><strong>Reference:</strong> Bernard, Jean-Marc and Charron, Camilo (1996). L’analyse implicative bayesienne, une methode pour l’etude des dependances orientees. II : modele logique sur un tableau de contingence Mathematiques et Sciences Humaines, Volume 135 (1996), p. 5-18.</p>
 <p>Defined as the <a href="#lift">lift</a> of a rule minus 1 (0 represents independence).</p>
@@ -832,10 +876,17 @@ VRL(X \Rightarrow Y) = lift(X \Rightarrow Y) -1
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, \infty]\)</span> (0 for independence)</p>
 </div>
-<div id="yules-q-and-yules-y" class="section level2">
-<h2>Yule’s Q and Yule’s Y</h2>
+<div id="yuleq" class="section level2">
+<h2>Yule’s Q</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
-<p>Defined as <span class="math display">\[ Q(X \Rightarrow Y) = \frac{\alpha-1}{\alpha+1} \]</span> <span class="math display">\[ Y(X \Rightarrow Y) = \frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1} \]</span></p>
+<p>Defined as <span class="math display">\[ Q(X \Rightarrow Y) = \frac{\alpha-1}{\alpha+1} \]</span></p>
+<p>where <span class="math inline">\(\alpha = OR(X \Rightarrow Y)\)</span> is the <a href="#odds-ratio">odds ratio</a> of the rule.</p>
+<p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span></p>
+</div>
+<div id="yuley" class="section level2">
+<h2>Yule’s Y</h2>
+<p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
+<p>Defined as <span class="math display">\[ Y(X \Rightarrow Y) = \frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1} \]</span></p>
 <p>where <span class="math inline">\(\alpha = OR(X \Rightarrow Y)\)</span> is the <a href="#odds-ratio">odds ratio</a> of the rule.</p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span></p>
 </div>

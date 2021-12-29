@@ -103,7 +103,7 @@ please <a href="https://github.com/mhahsler/arules/issues">open an issue here</a
 
 # Measures for Itemsets
 
-## Support
+## Support {#support}
 **Reference:** <a href=
 "https://michael.hahsler.net/research/bib/association_rules/#arules:Agrawal:1993">
 R. Agrawal, T. Imielinski, and A. Swami. Mining associations
@@ -149,7 +149,7 @@ are used all the time and most items are rarely used).
 
 **Range:** $[0, 1]$
 
-## Count
+## Support Count {#count}
 **Alias:** Absolute Support Count
 
 **Range:** $[0, n]$ where $n$ is the number of transactions.
@@ -195,7 +195,20 @@ patterns often tend to be spurious.
 
 # Measures for Rules
 
-## Confidence
+## Contingency Table {#table} 
+
+A $2 \times 2$ contingency table with counts for rule $X \Rightarrow Y$ in
+the transaction dataset. The counts are:
+
+|                |   $Y$               |  $\overline{Y}$                |
+| :------------: | :-----------------: | :---------------------------:  |
+| $X$            | $n_{XY}$            | $n_{X\overline{Y}}$            | 
+| $\overline{X}$ | $n_{\overline{X}Y}$ | $n_{\overline{X}\overline{Y}}$ |
+
+$n_{XY}$ is the number of transactions that contain all items in $X$ and $Y$.
+All other measures for rules can be calculated using these counts.
+
+## Confidence {#confidence}
 **Alias:** Strength
 
 **Reference:** <a href=
@@ -241,7 +254,7 @@ values even if there exists no association between the items.
 **Range:** $[0, 1]$
 
 
-## Added Value
+## Added Value {#addedvalue}
 **Alias:** AV, Pavillon Index, Centered Confidence
 
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
@@ -253,7 +266,7 @@ $$AV(X \Rightarrow Y)) = conf(X \Rightarrow Y) - supp(Y) = P(Y | X) - P(Y)$$
 
 **Range:** $[-.5, 1]$
 
-## Casual Confidence
+## Casual Confidence {#casualconfidence}
 **Reference:** <a href=
 "https://michael.hahsler.net/research/bib/association_rules/#arules:Kodratoff:2001">
 Yves Kodratoff. Comparing machine learning and knowledge discovery in databases: An application to knowledge discovery in texts.</a> In Georgios Paliouras, Vangelis Karkaletsis, and Constantine D. Spyropoulos, editors, Machine Learning and Its Applications, Advanced Lectures, volume 2049 of Lecture Notes in Computer Science, pages 1-21. Springer, 2001.
@@ -266,7 +279,7 @@ $$\textrm{casual-conf} =
 
 **Range:** $[0, 1]$
 
-## Casual Support
+## Casual Support {#casualsupport}
 **Reference:** <a href=
 "https://michael.hahsler.net/research/bib/association_rules/#arules:Kodratoff:2001">
 Yves Kodratoff. Comparing machine learning and knowledge discovery in databases: An application to knowledge discovery in texts.</a> In Georgios Paliouras, Vangelis Karkaletsis, and Constantine D. Spyropoulos, editors, Machine Learning and Its Applications, Advanced Lectures, volume 2049 of Lecture Notes in Computer Science, pages 1-21. Springer, 2001.
@@ -279,7 +292,16 @@ P(X \cap Y) + P(\overline{X} \cap \overline{Y})$$
 
 **Range:** $[0, 2]$
 
-## Certainty Factor
+## Centered Confidence {#centeredconfidence}
+**Alias:** relative accuracy, gain
+
+**Reference**: N Lavrac, PA Flach, and B Zupan, [Rule Evaluation Measures: A Unifying View](https://link.springer.com/chapter/10.1007%2F3-540-48751-4_17), Springer-Verlag, in Proceedings of the 9th International Workshop on Inductive Logic Programming, ILP ’99 (London, UK, 1999), pp. 174-185.
+
+$$CC(X \Rightarrow Y) = conf(X \Rightarrow Y) - supp(Y)$$
+
+**Range:** $[-1, 1 - 1/n]$
+
+## Certainty Factor {#certainty}
 **Alias:** CF, Loevinger
 
 **Reference:** <a href=
@@ -297,7 +319,7 @@ $$CF(X \Rightarrow Y) = \frac{conf(X \Rightarrow Y)-supp(Y)}{supp(\overline{Y})}
 
 **Range:** $[-1, 1]$ (0 indicates independence)
 
-## Chi-Squared
+## Chi-Squared {#chisquared}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Brin:1997b">
 Sergey Brin, Rajeev Motwani, and Craig Silverstein. Beyond market baskets: Generalizing association rules to correlations.</a> In SIGMOD 1997, Proceedings ACM SIGMOD International Conference on Management of Data, pages 265-276, Tucson, Arizona, USA, May 1997.
 
@@ -341,7 +363,7 @@ Each rule represents a statistical test, and
   
 **Range:** $[0, \infty]$
 
-## Collective Strength
+## Collective Strength {#collectivestrength}
 **Reference:** <a href=
 "https://michael.hahsler.net/research/bib/association_rules/#arules:Aggarwal:1998">
 C. C. Aggarwal and P. S. Yu. A new framework for itemset
@@ -387,7 +409,7 @@ Values larger than 1 mean the new rule boosts the confidence compared to the bes
 
 **Range:** $[0, \infty]$ ($>1$ indicates a rule with confidence boost)
 
-## Conviction
+## Conviction {#conviction}
 **Reference:**<a href=
 "https://michael.hahsler.net/research/bib/association_rules/#arules:Brin:1997">
 Sergey Brin, Rajeev Motwani, Jeffrey D. Ullman, and Shalom
@@ -414,7 +436,7 @@ conviction is monotone in confidence and lift.
 
 **Range:** $[0, \infty]$ (1 indicates independence; rules that always hold have $\infty$)
 
-## Cosine
+## Cosine {#cosine}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 Cosine is a null-invariant measure of correlation between the items 
@@ -428,7 +450,7 @@ $$cosine(X \Rightarrow Y)
 
 **Range:** $[0, 1]$ ($0.5$ means no correlation)
 
-## Coverage
+## Coverage {#coverage}
 **Alias:** LHS Support
 
 It measures the probability that a rule $X \Rightarrow Y$ applies
@@ -442,7 +464,7 @@ $$cover(X \Rightarrow Y) = supp(X) = P(X)$$
 
 **Range:** $[0, 1]$
 
-## Descriptive Confirmed Confidence
+## Descriptive Confirmed Confidence {#confirmedconfidence}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 Confidence confirmed by the confidence of the negative rule.
@@ -452,7 +474,7 @@ $$\textrm{confirmed-conf} = conf(X \Rightarrow Y) - conf(X \Rightarrow \overline
 
 **Range:** $[-1, 1]$
 
-## Difference of Confidence
+## Difference of Confidence {#doc}
 **Alias:** DOC, Difference of Proportions
 
 **Reference:**
@@ -477,7 +499,7 @@ $$
 
 **Range:** $[-1, 1]$ (0 means statistical independence)
 
-## Example and Counter-Example Rate
+## Example and Counter-Example Rate {#counterexample}
 
 Example rate reduced by the counter-example rate.
 
@@ -492,7 +514,7 @@ The measure is related to the [Sebag-Schoenauer Measure](#sebag-schoenauer).
 
 **Range:** $[0, 1]$
 
-## Fisher's Exact Test
+## Fisher's Exact Test {#fishersexacttest}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Hahsler:2007">Michael Hahsler and Kurt Hornik. New probabilistic interest measures for association rules.</a> Intelligent Data Analysis, 11(5):437-455, 2007.
 
 If $X$ and $Y$ are independent, then the $n_{XY}$
@@ -514,7 +536,7 @@ may be necessary.
 
 **Range:** $[0, 1]$ (p-value scale)
 
-## Gini Index
+## Gini Index {#gini}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 Measures quadratic entropy as
@@ -527,7 +549,7 @@ $$
 
 **Range:** $[0, 1]$ (0 means that the rule does not provide any information for the dataset)
 
-## Hyper-Confidence
+## Hyper-Confidence {#hyperconfidence}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Hahsler:2007">Michael Hahsler and Kurt Hornik. New probabilistic interest measures for association rules.</a> Intelligent Data Analysis, 11(5):437-455, 2007.
 
 The confidence level for observation of too high/low counts
@@ -563,7 +585,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## Hyper-Lift
+## Hyper-Lift {#hyperlift}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Hahsler:2007">Michael Hahsler and Kurt Hornik. New probabilistic interest measures for association rules.</a> Intelligent Data Analysis, 11(5):437-455, 2007.
 
 Adaptation of the lift measure 
@@ -588,7 +610,7 @@ $\delta$ is typically chosen to use the 99 or 95% quantile.
 
 **Range:** $[0, \infty]$ (1 indicates independence)
 
-## Imbalance Ratio
+## Imbalance Ratio {#imbalance}
 **Alias:** IR
 
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Tianyi Wu, Yuguo Chen, and Jiawei Han. Re-examination of interestingness measures in pattern mining: a unified framework.</a> Data Mining and Knowledge Discovery, January 2010.
@@ -608,7 +630,7 @@ $$
 
 **Range:** $[0, 1]$ (0 indicates a balanced, typically uninteresting rule)
 
-## Implication Index
+## Implication Index {#implicationindex}
 **Reference:** Gras R., L'implication statistique. Nouvelle methode exploratoire de donnees. La Pensee Sauvage, Grenoble. 1996.
 
 A variation of the [Lerman similarity](#lerman-similarity) defined as 
@@ -620,7 +642,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## Importance
+## Importance {#importance}
 **Reference:** <a href="https://docs.microsoft.com/en-us/sql/analysis-services/data-mining/microsoft-association-algorithm-technical-reference">MS Analysis Services: Microsoft Association Algorithm Technical Reference.</a> 
 
 In the Microsoft Association Algorithm Technical Reference, confidence is called "probability," and
@@ -637,7 +659,7 @@ where $L$ is the [Laplace corrected confidence](#laplace-corrected-confidence).
 
 **Range:** $[-\infty, \infty]$
 
-## Improvement
+## Improvement {#improvement}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Bayardo:2000">R. Bayardo, R. Agrawal, and D. Gunopulos. Constraint-based rule mining in large, dense databases.</a> Data Mining and Knowledge Discovery, 4(2/3):217-240, 2000.
 
 The  improvement of a rule is
@@ -653,7 +675,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## Jaccard Coefficient 
+## Jaccard Coefficient {#jaccard}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 A null-invariant measure 
@@ -669,7 +691,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## J-Measure
+## J-Measure {#jmeasure}
 <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Smyth:1991">Padhraic Smyth and R. Goodman. Rule induction using information theory.</a> In Knowledge Discovery in Databases, 1991.
 
 The J-measure is a scaled version of cross entropy to measure the information content of a rule.
@@ -682,8 +704,8 @@ $$
 
 **Range:** $[0, 1]$ (0 means that $X$ does not provide information for $Y$)
 
-## Kappa 
-**Alias:** $\kappa$
+## Kappa {#kappa}
+**Alias:** Cohen's $\kappa$
 
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
@@ -698,7 +720,7 @@ $$
 
 **Range:** $[-1,1]$ (0 means the rule is not better than a random classifier)
 
-## Klosgen
+## Klosgen {#klosgen}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 Defined as a scaled version of the [added value measure](#added-value).
@@ -714,7 +736,7 @@ $$
 
 **Range:** $[-1, 1]$ (0 for independence)
 
-## Kulczynski
+## Kulczynski {#kulczynski}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Tianyi Wu, Yuguo Chen, and Jiawei Han. Re-examination of interestingness measures in pattern mining: a unified framework.</a> Data Mining and Knowledge Discovery, January 2010. Based on Kulczynski, S. 1927. Die Pflanzenassoziationen der Pieninen. Bulletin International de l'Academie Polonaise des Sciences et des Lettres, Classe des Sciences Mathematiques et Naturelles B, 57-203.
 
 Calculate the null-invariant Kulczynski measure with a 
@@ -732,8 +754,8 @@ $$
 
 **Range:** $[0, 1]$ (0.5 means neutral and typically uninteresting)
 
-## Lambda
-**Alias:** Goodman-Kruskal's Lambda, $\lambda$, Predictive Association
+## Lambda {#lambda}
+**Alias:** Goodman-Kruskal's $\lambda$, Predictive Association
 
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
@@ -747,7 +769,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## Laplace Corrected Confidence
+## Laplace Corrected Confidence {#laplace}
 **Alias:** Laplace Accuracy, L
 
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
@@ -767,7 +789,7 @@ estimation uncertainty with low counts.
 
 **Range:** $[0, 1]$
 
-## Least Contradiction
+## Least Contradiction {#leastcontradiction}
 **Reference:** Aze, J. and Y. Kodratoff (2004). Extraction de pepites de connaissances dans les donnees: Une nouvelle approche et une etude de sensibilite au bruit. In Mesures de Qualite pour la fouille de donnees. Revue des Nouvelles Technologies de l'Information, RNTI.
 
 $$
@@ -778,7 +800,7 @@ $$
 
 **Range:** $[-1, 1]$
 
-## Lerman Similarity
+## Lerman Similarity {#lerman}
 **Reference:** Lerman, I.C. (1981). Classification et analyse ordinale des donnees. Paris.
 
 Defined as 
@@ -791,7 +813,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## Leverage
+## Leverage {#leverage}
 **Alias:** Piatetsky-Shapiro, PS
 
 **Reference:** <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Piatetsky-Shapiro:1991">Piatetsky-Shapiro, G., Discovery, analysis, and
@@ -824,7 +846,7 @@ Leverage is a unnormalized version of the [phi correlation coefficient](#phi-cor
 
 **Range:** $[-1, 1]$ (0 indicates independence)
 
-## Lift
+## Lift {#lift}
 **Alias:** Interest, interest factor
 
 **Reference:** <a href=
@@ -862,7 +884,7 @@ can produce enormous lift values.
 
 **Range:** $[0, \infty]$ (1 means independence)
 
-## MaxConfidence
+## MaxConfidence {#maxconfidence}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 Symmetric, null-invariant version of confidence defined as
@@ -875,7 +897,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## Mutual Information
+## Mutual Information {#mutualinformation}
 **Alias:** Uncertainty
 
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
@@ -890,7 +912,7 @@ $$
 
 **Range:** $[0, 1]$ (0 means that X does not provide information for Y)
 
-## Odds Ratio
+## Odds Ratio {#oddsratio}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 For the analysis of
@@ -902,7 +924,7 @@ containing Y in the groups of transactions that do and do
 not contain $X$.
 
 $$
-OR(X \Rightarrow Y) 
+\mathrm{OR}(X \Rightarrow Y) 
 = \frac{\frac{P(Y | X)}{1 - P(Y | X)}}{\frac{P(Y | \overline{X})}{1 - P(Y | \overline{X})}} 
 = \frac{\frac{conf(X \Rightarrow Y)}{1 - conf(X \Rightarrow Y)}}{\frac{conf(\overline{X} \Rightarrow Y)}{1 - conf(\overline{X} \Rightarrow Y)}} 
 = \frac{n_{XY} n_{\overline{X}\overline{Y}}}
@@ -916,14 +938,14 @@ $$
 $$
 
 $$
-CI(X \Rightarrow Y) = [OR(X \Rightarrow Y) \exp(-\omega), OR(X \Rightarrow Y) \exp(\omega)] 
+\mathrm{CI}(X \Rightarrow Y) = [OR(X \Rightarrow Y) \exp(-\omega), OR(X \Rightarrow Y) \exp(\omega)] 
 $$
 
 where $\alpha/2$ is the critical value for a confidence level of $1-\alpha$.
 
 **Range:** $[0, \infty]$ (1 indicates that Y is not associated with X)
 
-## Phi Correlation Coefficient
+## Phi Correlation Coefficient {#phi}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 The correlation coefficient between the transactions containing X and Y represented as two binary vectors.
@@ -939,13 +961,13 @@ $$
 
 **Range:** $[-1, 1]$ (0 when X and Y are independent)}
 
-## Ralambondrainy
+## Ralambondrainy {#ralambondrainy}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Diatta:2007">Jean Diatta, Henri Ralambondrainy, and André Totohasina. Towards a Unifying Probabilistic Implicative Normalized Quality Measure for Association Rules,</a> pages 237-250. Springer Berlin Heidelberg, Berlin, Heidelberg, 2007.
 
 Defined as the support of the counter examples.
 
 $$ 
-ralambondrainy(X \Rightarrow Y) 
+\mathrm{ralambondrainy}(X \Rightarrow Y) 
 = \frac{n_{X\overline{Y}}}{n}
 = supp(X \Rightarrow Y)
 = P(X \cap \overline{Y})
@@ -953,7 +975,7 @@ $$
 
 **Range:** $[0, 1]$ (smaller is better)
 
-## Relative Linkage Disequilibrium
+## Relative Linkage Disequilibrium {#rld}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Kennett:2008">Ron Kenett and Silvia Salini. Relative linkage disequilibrium: A new measure for association rules.</a> In Petra Perner, editor, Advances in Data Mining. Medical Applications, E-Commerce, Marketing, and Theoretical Aspects, pages 189-199, Berlin, Heidelberg, 2008. Springer Berlin Heidelberg. 
 
 RLD is an association measure motivated by
@@ -964,14 +986,14 @@ independence given the supports of X and Y.
 
 $$D = \frac{n_{XY} n_{\overline{X}\overline{Y}} - n_{X\overline{Y}} n_{\overline{X}Y}}{n}$$
 
-$$RLD = \begin{cases} 
+$$\mathrm{RLD} = \begin{cases} 
  D / (D + min(n_{X\overline{Y}}, n_{\overline{X}Y})) \quad\textrm{if}\quad D>0 \\
  D / (D - min(n_{XY}, n_{\overline{X}\overline{Y}}))  \quad\textrm{otherwise.}\\
 \end{cases}$$
 
 **Range:** $[0, 1]$
 
-## Relative Risk
+## Relative Risk {#relativerisk}
 **Reference:** Sistrom C.L.  and Garvan, C.W. (2004), Proportions, Odds, and Risk,
 Radiology, 230:1, 12-19.
 
@@ -985,7 +1007,7 @@ ratio of the risk of having disease $Y$ in the exposed ($X$)
 and unexposed ($\overline{X}$) groups.
 
 $$
-RR(X \Rightarrow Y)
+\mathrm{RR}(X \Rightarrow Y)
 = \frac{n_{XY} / n_X}{n_{\overline{X}Y} / n_\overline{X}} 
 = \frac{P(Y | X)}{P(Y | \overline{X})} 
 = \frac{conf(X \Rightarrow Y)}{conf(\overline{X} \Rightarrow Y)} 
@@ -993,7 +1015,7 @@ $$
 
 **Range:** $[0, \infty]$ ($RR = 1$ means $X$ and $Y$ are unrelated)
 
-## Rule Power Factor
+## Rule Power Factor {#rulepowerfactor}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Ochin:2008">Suresh Ochin and Nisheeth Joshi Kumar. Rule power factor: A new interest measure in associative classification.</a> In 6th International Conference On Advances In Computing and Communications, ICACC 2016, Cochin, India, 2016.
 
 Weights the confidence of a rule by its 
@@ -1002,20 +1024,33 @@ high support at the same time.
 
 Defined as
 $$
-rpf(X \Rightarrow Y)
+\mathrm{rpf}(X \Rightarrow Y)
 = supp(X \Rightarrow Y)\ conf(X \Rightarrow Y)
 = \frac{P(X \cap Y)^2}{P(X)}
 $$
 
 **Range:** $[0, 1]$
 
-## Sebag-Schoenauer
+## Right-Hand-Side Support {#rhssupport}
+**Alias:** RHS support, consequent support
+
+Support of the right-hand-side of the rule.
+
+$$
+\mathrm{RHSsupp}(X \Rightarrow Y) 
+= supp(Y)
+= P(Y)
+$$
+
+**Range:** $[0, 1]$
+
+## Sebag-Schoenauer {#sebag}
 **Reference:**
 <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Sebag:1988">M. Sebag and M. Schoenauer. Generation of rules with certainty and confidence factors from incomplete and incoherent learning bases.</a> In Proceedings of the European Knowledge Acquisition Workshop (EKAW'88), 1988.</a>
 
 Defined as
 $$
-sebag(X \Rightarrow Y)
+\mathrm{sebag}(X \Rightarrow Y)
 = \frac{conf(X \Rightarrow Y)}{conf(X \Rightarrow \overline{Y})}
 = \frac{P(Y | X)}{P(\overline{Y} | X)}
 = \frac{supp(X \cup Y)}{supp(X \cup \overline{Y})}
@@ -1024,7 +1059,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## Standardized Lift
+## Standardized Lift {#stdlift}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:McNicholas:2008">P.D. McNicholas, T.B. Murphy, and M. O’Regan. Standardising the lift of an association rule.</a> Computational Statistics & Data Analysis, 52(10):4712--4721, 2008.
 
 Standardized lift uses the minimum and maximum lift that can reach for each rule to standardize lift between 0 and 1. The possible range of lift is
@@ -1056,7 +1091,7 @@ $$
 
 **Range:** $[0, 1]$
 
-## Varying Rates Liaison
+## Varying Rates Liaison {#varyingliaison}
 **Reference:** Bernard, Jean-Marc and Charron, Camilo (1996). L'analyse implicative bayesienne, une methode pour l'etude des dependances orientees. II : modele logique sur un tableau de contingence Mathematiques et Sciences Humaines, Volume 135 (1996), p. 5-18.
 
 Defined as the [lift](#lift) of a rule minus 1 (0 represents independence).
@@ -1067,11 +1102,20 @@ $$
 
 **Range:** $[-1, \infty]$ (0 for independence)
 
-## Yule's Q and Yule's Y
+## Yule's Q {#yuleq}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
 
 Defined as 
 $$ Q(X \Rightarrow Y) = \frac{\alpha-1}{\alpha+1} $$
+
+where $\alpha = OR(X \Rightarrow Y)$ is the [odds ratio](#odds-ratio) of the rule.
+
+**Range:** $[-1, 1]$
+
+## Yule's Y {#yuley}
+**Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293--313, 2004.
+
+Defined as 
 $$ Y(X \Rightarrow Y) = \frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1} $$
 
 where $\alpha = OR(X \Rightarrow Y)$ is the [odds ratio](#odds-ratio) of the rule.
