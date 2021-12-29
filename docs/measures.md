@@ -11,8 +11,6 @@ output:
       smooth_scroll: no
 ---
 
-
-
 <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" style="float:left; margin:4px;" alt = "CC BY-SA 4.0" />
 This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution Share Alike 4.0 International License.</a>
 Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: https://mhahsler.github.io/arules/docs/measures**
@@ -151,7 +149,12 @@ are used all the time and most items are rarely used).
 
 **Range:** $[0, 1]$
 
-## All-Confidence
+## Count
+**Alias:** Absolute Support Count
+
+**Range:** $[0, n]$ where $n$ is the number of transactions.
+
+## All-Confidence {#allconfidence}
 **Reference:**
 <a href=
 "https://michael.hahsler.net/research/bib/association_rules/#arules:Omiecinski:2003">
@@ -176,7 +179,7 @@ inside mining algorithms. All-confidence is null-invariant.
 
 **Range:** $[0, 1]$
 
-## Cross-Support Ratio 
+## Cross-Support Ratio {#crosssupportratio}
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Xiong:2003">Hui Xiong, Pang-Ning Tan, and Vipin Kumar. Mining strong affinity association patterns in data sets with skewed support distribution.</a> In Bart Goethals and Mohammed J. Zaki, editors, Proceedings of the IEEE International Conference on Data Mining, November 19-22, 2003, Melbourne, Florida, pages 387--394, November 2003.
 
 Defined on itemsets as the ratio of the support of the least frequent item
@@ -369,7 +372,7 @@ expected together.
 
 **Range:** $[0, \infty]$
 
-## Confidence Boost
+## Confidence Boost {#boost}
 **Reference:** <a href=
 "https://michael.hahsler.net/research/bib/association_rules/#arules:Balcazar:2013">
 José L. Balcázar. Formal and computational properties of the confidence boost of association rules.</a> ACM Trans. Knowl. Discov. Data, 7(4), December 2013. 
