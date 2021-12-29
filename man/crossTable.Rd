@@ -29,7 +29,7 @@ in \code{x}. The matrix contains the co-occurrence counts between pairs of
 items.
 }
 \description{
-Provides the generic function \code{crossTable} and the S4 method to
+Provides the generic function \code{crossTable()} and the S4 method to
 cross-tabulate joint occurrences across all pairs of items.
 }
 \examples{

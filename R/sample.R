@@ -22,7 +22,7 @@ setGeneric("sample")
 #' Random Samples and Permutations
 #' 
 #' Provides the generic function `sample()` and the S4 method to take a
-#' sample of the specified size from the elements of \code{x} using either with
+#' sample of the specified size from the elements of `x` using either with
 #' or without replacement.  `sample()` can be used to sample from a set of
 #' [transactions] or [associations].
 #' 
@@ -38,7 +38,7 @@ setGeneric("sample")
 #' @param replace a logical. Sample with replacement?
 #' @param prob a numeric vector of probability weights.
 #' @param ...  further arguments.
-#' @return An object of the same class as \code{x}.
+#' @return An object of the same class as `x`.
 #' @author Michael Hahsler
 #' @keywords manip
 #' @examples

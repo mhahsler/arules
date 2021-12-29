@@ -37,8 +37,8 @@
 #' 
 #' @param x the set of itemsets, rules or an itemMatrix object.
 #' @param ... further arguments.
-#' @return a logical vector with the same length as \code{x} indicating for
-#' each element in \code{x} if it is a maximal itemset.
+#' @return a logical vector with the same length as `x` indicating for
+#' each element in `x` if it is a maximal itemset.
 #' @author Michael Hahsler
 #' @seealso [is.generator()], [is.closed()]
 #' @references Mohammed J. Zaki, Srinivasan Parthasarathy, Mitsunori Ogihara,

@@ -19,7 +19,7 @@
 
 #' Methods for "[": Extraction or Subsetting in Package 'arules'
 #'
-#' Methods for \code{"["}, i.e., extraction or subsetting in package
+#' Methods for `"["`, i.e., extraction or subsetting in package
 #' \pkg{arules}. Subsetting can be done by integers containing column/row
 #' numbers, vectors of logicals or strings containing parts of item labels.
 #'
@@ -36,21 +36,21 @@
 #' @param drop ignored.
 #' 
 #' @section Methods: \describe{ \item{[}{\code{signature(x = "itemMatrix", i =
-#' "ANY", j = "ANY", drop= "ANY")}; extracts parts of an \code{itemMatrix}.
+#' "ANY", j = "ANY", drop= "ANY")}; extracts parts of an `itemMatrix`.
 #' The first argument selects rows (e.g., transactions or rules) and the second
 #' argument selects columns (items).  Either argument can be omitted to select
 #' all rows or columns.} \item{[}{\code{signature(x = "itemsets", i = "ANY", j
 #' = "ANY", drop= "ANY")}; extracts a subset of itemsets and the associated
-#' quality measures.  \code{j} has to be missing. } \item{[}{\code{signature(x
+#' quality measures.  `j` has to be missing. } \item{[}{\code{signature(x
 #' = "rules", i = "ANY", j = "ANY", drop= "ANY")}; extracts a subset of rules
-#' and the associated quality measures.  \code{j} has to be missing. }
+#' and the associated quality measures.  `j` has to be missing. }
 #' \item{[}{\code{signature(x = "transactions", i = "ANY", j = "ANY", drop=
 #' "ANY")}; extracts a subset of transactions/items from a transactions object
-#' (a binary incidence matrix).  \code{i} and \code{j} can be numeric where
-#' \code{i} selects transactions and \code{j} selects items. }
+#' (a binary incidence matrix).  `i` and `j` can be numeric where
+#' `i` selects transactions and `j` selects items. }
 #' \item{[}{\code{signature(x = "tidLists", i = "ANY", j = "ANY", drop=
-#' "ANY")}; extracts parts (transaction ID vectors) from \code{tidLists}.
-#' \code{i} selects the items or itemsets and \code{j} selects transactions in
+#' "ANY")}; extracts parts (transaction ID vectors) from `tidLists`.
+#' `i` selects the items or itemsets and `j` selects transactions in
 #' the lists.} }
 #' @author Michael Hahsler
 #' @keywords array

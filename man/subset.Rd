@@ -40,9 +40,9 @@ Important operators to select itemsets containing items specified by their
 labels are
 \itemize{
 \item \code{\%in\%} (select itemsets matching \emph{any} given item),
-\item \code{\%ain\%} (select only itemsets matching \emph{all} given item),
-\item \code{\%oin\%} (select only itemsets matching \emph{only} the given item), and
-\item \code{\%pin\%} (\code{\%in\%} with partial matching).
+\item \verb{\%ain\%} (select only itemsets matching \emph{all} given item),
+\item \verb{\%oin\%} (select only itemsets matching \emph{only} the given item), and
+\item \verb{\%pin\%} (\code{\%in\%} with partial matching).
 }
 }
 \examples{

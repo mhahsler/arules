@@ -27,7 +27,7 @@
 #' (transactions) and authorities (items) with unit arcs and free node weights.
 #' That is, a transaction weight is the sum of the (normalized) weights of the
 #' items and vice versa. The weights are estimated by iterating the model to a
-#' steady-state using a builtin convergence tolerance of \code{FLT_EPSILON} for
+#' steady-state using a builtin convergence tolerance of `FLT_EPSILON` for
 #' (the change in) the norm of the vector of authorities.
 #'
 #' @family weighted association mining
@@ -35,13 +35,13 @@
 #' @param data an object of or coercible to class [transactions].
 #' @param iter an integer value specifying the maximum number of iterations to
 #' use.
-#' @param tol convergence tolerance (default \code{FLT_EPSILON}).
+#' @param tol convergence tolerance (default `FLT_EPSILON`).
 #' @param type a string value specifying the norming of the hub weights.  For
-#' \code{"normed"} scale the weights to unit length (L2 norm), and for
-#' \code{"relative"} to unit sum.
+#' `"normed"` scale the weights to unit length (L2 norm), and for
+#' `"relative"` to unit sum.
 #' @param verbose a logical specifying if progress and runtime information
 #' should be displayed.
-#' @return A \code{numeric} vector with transaction weights for \code{data}.
+#' @return A `numeric` vector with transaction weights for `data`.
 #' @author Christian Buchta
 #' @references K. Sun and F. Bai (2008). Mining Weighted Association Rules
 #' without Preassigned Weights. _IEEE Transactions on Knowledge and Data
@@ -90,12 +90,12 @@ hits <- function(data,
 #' association rule mining (WARM).
 #'
 #' Transaction weights are stored in the [transactions] as a column called
-#' \code{weight} in [transactionInfo].
+#' `weight` in [transactionInfo].
 #'
 #' The weighted support of an itemset is the sum of the weights of the
 #' transactions that contain the itemset. An itemset is frequent if its
 #' weighted support is equal or greater than the threshold specified by
-#' \code{support} (assuming that the weights sum to one).
+#' `support` (assuming that the weights sum to one).
 #'
 #' Note that ECLAT only mines (weighted) frequent itemsets. Weighted
 #' association rules can be created using [ruleInduction()].
@@ -107,12 +107,12 @@ hits <- function(data,
 #' @param data an object that can be coerced into an object of class
 #' [transactions].
 #' @param parameter an object of class [ASparameter] (default
-#' values: \code{support = 0.1}, \code{minlen = 1L}, and \code{maxlen = 5L}) or
+#' values: `support = 0.1`, `minlen = 1L`, and `maxlen = 5L`) or
 #' a named list with corresponding components.
 #' @param control an object of class [AScontrol] (default values:
-#' \code{verbose = TRUE}) or a named list with corresponding components.
+#' `verbose = TRUE`) or a named list with corresponding components.
 #' @return Returns an object of class [itemsets]. Note that
-#' weighted support is returned in [quality] as column \code{support}.
+#' weighted support is returned in [quality] as column `support`.
 #' @note The C code can be interrupted by CTRL-C. This is convenient but comes
 #' at the price that the code cannot clean up its internal memory.
 #' @author Christian Buchta

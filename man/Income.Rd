@@ -15,38 +15,38 @@ and 50 items. See below for details.
 following 14 variables.
 \describe{
 \item{income}{an ordered factor with
-levels \code{[0,10)} < \code{[10,15)} < \code{[15,20)} < \code{[20,25)} <
-\code{[25,30)} < \code{[30,40)} < \code{[40,50)} < \code{[50,75)} <
-\code{75+}}
+levels \verb{[0,10)} < \verb{[10,15)} < \verb{[15,20)} < \verb{[20,25)} <
+\verb{[25,30)} < \verb{[30,40)} < \verb{[40,50)} < \verb{[50,75)} <
+\verb{75+}}
 \item{sex}{a factor with levels \code{male} \code{female}}
 \item{marital status}{a factor with levels \code{married}
 \code{cohabitation} \code{divorced} \code{widowed} \code{single}}
 \item{age}{an ordered factor with levels \code{14-17} < \code{18-24} <
-\code{25-34} < \code{35-44} < \code{45-54} < \code{55-64} < \code{65+}}
+\code{25-34} < \code{35-44} < \code{45-54} < \code{55-64} < \verb{65+}}
 \item{education}{an ordered factor with levels \code{grade <9} <
-\code{grades 9-11} < \code{high school graduate} < \code{college (1-3
-years)} < \code{college graduate} < \code{graduate study}}
+\verb{grades 9-11} < \verb{high school graduate} < \code{college (1-3
+years)} < \verb{college graduate} < \verb{graduate study}}
 \item{occupation}{a factor with levels \code{professional/managerial}
 \code{sales} \code{laborer} \code{clerical/service} \code{homemaker}
 \code{student} \code{military} \code{retired} \code{unemployed}}
 \item{years
-in bay area}{an ordered factor with levels \code{<1} < \code{1-3} <
-\code{4-6} < \code{7-10} < \code{>10}}
+in bay area}{an ordered factor with levels \verb{<1} < \code{1-3} <
+\code{4-6} < \code{7-10} < \verb{>10}}
 \item{dual incomes}{a factor with
-levels \code{not married} \code{yes} \code{no}}
+levels \verb{not married} \code{yes} \code{no}}
 \item{number in
 household}{an ordered factor with levels \code{1} < \code{2} < \code{3} <
-\code{4} < \code{5} < \code{6} < \code{7} < \code{8} < \code{9+}}
+\code{4} < \code{5} < \code{6} < \code{7} < \code{8} < \verb{9+}}
 \item{number of children}{an ordered factor with levels \code{0} < \code{1}
 < \code{2} < \code{3} < \code{4} < \code{5} < \code{6} < \code{7} < \code{8}
-< \code{9+}} \item{householder status}{a factor with levels \code{own}
-\code{rent} \code{live with parents/family}}
+< \verb{9+}} \item{householder status}{a factor with levels \code{own}
+\code{rent} \verb{live with parents/family}}
 \item{type of home}{a factor
 with levels \code{house} \code{condominium} \code{apartment} \code{mobile
 Home} \code{other}}
 \item{ethnic classification}{a factor with levels
-\code{american indian} \code{asian} \code{black} \code{east indian}
-\code{hispanic} \code{pacific islander} \code{white} \code{other}}
+\verb{american indian} \code{asian} \code{black} \verb{east indian}
+\code{hispanic} \verb{pacific islander} \code{white} \code{other}}
 \item{language in home}{a factor with levels \code{english} \code{spanish}
 \code{other}} }
 }

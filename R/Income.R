@@ -42,48 +42,48 @@
 #' @name Income
 #' @aliases Income income IncomeESL
 #' @docType data
-#' @format \code{Income} is an object of class [transactions] 
+#' @format `Income` is an object of class [transactions] 
 #' with `r data(Income); nrow(Income)` transactions 
 #' and `r data(Income); ncol(Income)` items. See below for details.
 #' 
-#' \code{IncomeESL} is a data frame with 8993 observations on the
+#' `IncomeESL` is a data frame with 8993 observations on the
 #' following 14 variables.  
 #' \describe{ 
 #' \item{income}{an ordered factor with
-#' levels \code{[0,10)} < \code{[10,15)} < \code{[15,20)} < \code{[20,25)} <
-#' \code{[25,30)} < \code{[30,40)} < \code{[40,50)} < \code{[50,75)} <
-#' \code{75+}} 
-#' \item{sex}{a factor with levels \code{male} \code{female}}
-#' \item{marital status}{a factor with levels \code{married}
-#' \code{cohabitation} \code{divorced} \code{widowed} \code{single}}
-#' \item{age}{an ordered factor with levels \code{14-17} < \code{18-24} <
-#' \code{25-34} < \code{35-44} < \code{45-54} < \code{55-64} < \code{65+}}
-#' \item{education}{an ordered factor with levels \code{grade <9} <
-#' \code{grades 9-11} < \code{high school graduate} < \code{college (1-3
-#' years)} < \code{college graduate} < \code{graduate study}}
-#' \item{occupation}{a factor with levels \code{professional/managerial}
-#' \code{sales} \code{laborer} \code{clerical/service} \code{homemaker}
-#' \code{student} \code{military} \code{retired} \code{unemployed}} 
+#' levels `[0,10)` < `[10,15)` < `[15,20)` < `[20,25)` <
+#' `[25,30)` < `[30,40)` < `[40,50)` < `[50,75)` <
+#' `75+`} 
+#' \item{sex}{a factor with levels `male` `female`}
+#' \item{marital status}{a factor with levels `married`
+#' `cohabitation` `divorced` `widowed` `single`}
+#' \item{age}{an ordered factor with levels `14-17` < `18-24` <
+#' `25-34` < `35-44` < `45-54` < `55-64` < `65+`}
+#' \item{education}{an ordered factor with levels `grade <9` <
+#' `grades 9-11` < `high school graduate` < \code{college (1-3
+#' years)} < `college graduate` < `graduate study`}
+#' \item{occupation}{a factor with levels `professional/managerial`
+#' `sales` `laborer` `clerical/service` `homemaker`
+#' `student` `military` `retired` `unemployed`} 
 #' \item{years
-#' in bay area}{an ordered factor with levels \code{<1} < \code{1-3} <
-#' \code{4-6} < \code{7-10} < \code{>10}} 
+#' in bay area}{an ordered factor with levels `<1` < `1-3` <
+#' `4-6` < `7-10` < `>10`} 
 #' \item{dual incomes}{a factor with
-#' levels \code{not married} \code{yes} \code{no}} 
+#' levels `not married` `yes` `no`} 
 #' \item{number in
-#' household}{an ordered factor with levels \code{1} < \code{2} < \code{3} <
-#' \code{4} < \code{5} < \code{6} < \code{7} < \code{8} < \code{9+}}
-#' \item{number of children}{an ordered factor with levels \code{0} < \code{1}
-#' < \code{2} < \code{3} < \code{4} < \code{5} < \code{6} < \code{7} < \code{8}
-#' < \code{9+}} \item{householder status}{a factor with levels \code{own}
-#' \code{rent} \code{live with parents/family}} 
+#' household}{an ordered factor with levels `1` < `2` < `3` <
+#' `4` < `5` < `6` < `7` < `8` < `9+`}
+#' \item{number of children}{an ordered factor with levels `0` < `1`
+#' < `2` < `3` < `4` < `5` < `6` < `7` < `8`
+#' < `9+`} \item{householder status}{a factor with levels `own`
+#' `rent` `live with parents/family`} 
 #' \item{type of home}{a factor
-#' with levels \code{house} \code{condominium} \code{apartment} \code{mobile
-#' Home} \code{other}} 
+#' with levels `house` `condominium` `apartment` \code{mobile
+#' Home} `other`} 
 #' \item{ethnic classification}{a factor with levels
-#' \code{american indian} \code{asian} \code{black} \code{east indian}
-#' \code{hispanic} \code{pacific islander} \code{white} \code{other}}
-#' \item{language in home}{a factor with levels \code{english} \code{spanish}
-#' \code{other}} }
+#' `american indian` `asian` `black` `east indian`
+#' `hispanic` `pacific islander` `white` `other`}
+#' \item{language in home}{a factor with levels `english` `spanish`
+#' `other`} }
 #' @author Michael Hahsler
 #' @source Impact Resources, Inc., Columbus, OH (1987).
 #' 

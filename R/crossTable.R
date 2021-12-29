@@ -20,7 +20,7 @@
 
 #' Cross-tabulate joint occurrences across pairs of items
 #'
-#' Provides the generic function \code{crossTable} and the S4 method to
+#' Provides the generic function `crossTable()` and the S4 method to
 #' cross-tabulate joint occurrences across all pairs of items.
 #'
 #' @aliases crossTable
@@ -32,7 +32,7 @@
 #' @param sort sort the items by support.
 #' @param ...  additional arguments.
 #' @return A symmetric matrix of n time n, where n is the number of items times
-#' in \code{x}. The matrix contains the co-occurrence counts between pairs of
+#' in `x`. The matrix contains the co-occurrence counts between pairs of
 #' items.
 #' @author Michael Hahsler
 #' @keywords models

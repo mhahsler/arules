@@ -23,9 +23,9 @@
 #' `is.superset()` for finding super or subsets in [associations] and
 #' [itemMatrix] objects.
 #'
-#' looks for each element in \code{x} which elements in \code{y} are supersets
+#' looks for each element in `x` which elements in `y` are supersets
 #' or subsets. Note that the method can be very slow and memory intensive if
-#' \code{x} and/or \code{y} contain many elements.
+#' `x` and/or `y` contain many elements.
 #'
 #' For rules, the union of lhs and rhs is used a the set of items.
 #'
@@ -34,18 +34,18 @@
 #' @family associations functions
 #' @family itemMatrix and transactions functions
 #'
-#' @param x,y associations or itemMatrix objects. If \code{y = NULL}, the super
-#' or subset structure within set \code{x} is calculated.
+#' @param x,y associations or itemMatrix objects. If `y = NULL`, the super
+#' or subset structure within set `x` is calculated.
 #' @param proper a logical indicating if all or just proper super or subsets.
 #' @param sparse a logical indicating if a sparse (ngCMatrix) rather than a
 #' dense logical matrix should be returned. Sparse computation preserves a
 #' significant amount of memory and is much faster for large sets.
 #' @param \dots currently unused.
 #' @return returns a logical matrix or a sparse ngCMatrix (for
-#' \code{sparse = TRUE}) with \code{length(x)} rows and \code{length(y)} columns.
-#' Each logical row vector represents which elements in \code{y} are supersets
-#' (subsets) of the corresponding element in \code{x}.  If either \code{x} or
-#' \code{y} have length zero, \code{NULL} is returned instead of a matrix.
+#' `sparse = TRUE`) with `length(x)` rows and `length(y)` columns.
+#' Each logical row vector represents which elements in `y` are supersets
+#' (subsets) of the corresponding element in `x`.  If either `x` or
+#' `y` have length zero, `NULL` is returned instead of a matrix.
 #' @author Michael Hahsler and Ian Johnson
 #' @keywords manip
 #' @examples

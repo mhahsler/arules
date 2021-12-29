@@ -66,15 +66,15 @@
 #' @param x the set of [itemsets] from which rules will be induced.
 #' @param transactions the [transactions] used to mine the itemsets. Can
 #' be omitted for method `"ptree"` (see control below), 
-#' if \code{x} contains a (complete set) of frequent itemsets
+#' if `x` contains a (complete set) of frequent itemsets
 #' together with their support counts.
 #' @param confidence a numeric value between 0 and 1 giving the minimum confidence 
 #' threshold for the rules.
-#' @param control a named list with elements \code{method} indicating the
-#' method (\code{"ptree"} or \code{"apriori"}), and the logical arguments
-#' \code{reduce} and \code{verbose} to indicate if unused items are removed and
-#' if the output should be verbose. The default method is \code{"ptree"} with
-#' reduce \code{TRUE} and verbose \code{FALSE}.
+#' @param control a named list with elements `method` indicating the
+#' method (`"ptree"` or `"apriori"`), and the logical arguments
+#' `reduce` and `verbose` to indicate if unused items are removed and
+#' if the output should be verbose. The default method is `"ptree"` with
+#' reduce `TRUE` and verbose `FALSE`.
 #' @param \dots further arguments.
 #' @return An object of class [rules].
 #' @author Christian Buchta and Michael Hahsler

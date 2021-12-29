@@ -62,9 +62,13 @@ transactionInfo(x) <- value
 
 \item{transactionInfo}{a transaction information data.frame with one row per transaction.}
 
-\item{format}{\code{"wide"} or \code{"long"} format?}
+\item{format}{\code{"wide"} or \code{"long"} format?
+Format wide is a regular data.frame where each row contains an object.
+Format "long" is a data.frame with one column with transaction IDs and one with an
+item (see \code{cols} below).}
 
-\item{cols}{columns for the data in \emph{long} format.}
+\item{cols}{a numeric or character vector of length two giving the index or names of
+the columns (fields) with the transaction and item ids in the long format.}
 
 \item{decode}{translate item IDs to item labels?}
 
@@ -96,7 +100,7 @@ discretized first. An item resulting from discretization might be
 Alternatively it can be a factor with levels \emph{age<=18},
 \emph{50=>age>18} and \emph{age>50}. These will be automatically converted
 into 3 items, one for each level. Have a look at the function
-\code{\link{discretize}} for automatic discretization.
+\code{\link[=discretize]{discretize()}} for automatic discretization.
 
 \strong{Logical variables:} A logical variable describing a person could be
 \emph{tall} indicating if the person is tall using the values \code{TRUE}
@@ -108,7 +112,7 @@ converted into an item with the name of the variable and for the
 
 \strong{Factors:} The function also can convert columns with nominal values
 (i.e., factors) into a series of binary items (one for each level
-constructed as \code{`variable name`=`level`}). Note that nominal variables
+constructed as \verb{variable name = level}). Note that nominal variables
 need to be encoded as factors (and not characters or numbers). This can be
 done with
 
@@ -145,21 +149,8 @@ be specified as a character vector of length 2 called \code{cols}.
 \section{Objects from the Class}{
 
 Objects are created by coercion from
-objects of other classes (see Examples section) or by calls of the form
-
-\code{new("transactions", ...)}
-
-or by using the constructor function
-
-\code{transactions(x, itemLabels = NULL, transactionInfo = NULL, format =
-"wide", cols = NULL)}.
-
-Format \code{"wide"} is a regular data.frame where each row contains an object.
-Format \code{"long"} is a data.frame with one column with transaction IDs and one
-with an item. cols is a numeric or character vector of length two giving the
-numbers or names of the columns (fields) with the transaction and item ids,
-respectively.
-
+objects of other classes (see Examples section), by using the constructor function
+\code{transactions()} or by calling \code{new("transactions", ...)}.
 See Examples Section for creating transactions from data.
 }
 

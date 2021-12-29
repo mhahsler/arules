@@ -52,7 +52,7 @@ match(x, table, nomatch = NA_integer_, incomparables = NULL)
 giving the position in \code{table} of the first match if there is a match,
 otherwise \code{nomatch}.
 
-\code{\%in\%}, \code{\%pin\%}, \code{\%ain\%}, \code{\%oin\%}: A logical vector,
+\code{\%in\%}, \verb{\%pin\%}, \verb{\%ain\%}, \verb{\%oin\%}: A logical vector,
 indicating if a match was located for each element of \code{x}.
 }
 \description{
@@ -66,10 +66,10 @@ returns a logical vector indicating if there is a match or not for the items
 in the itemsets (left operand) with the items in the table (right operand).
 
 \pkg{arules} defines additional binary operators for matching itemsets:
-\code{\%pin\%} uses \emph{partial} matching on the table; \code{\%ain\%}
-itemsets have to match/include \emph{all} items in the table; \code{\%oin\%}
+\verb{\%pin\%} uses \emph{partial} matching on the table; \verb{\%ain\%}
+itemsets have to match/include \emph{all} items in the table; \verb{\%oin\%}
 itemsets can \emph{only} match/include the items in the table.  The binary
-matching operators or often used in \code{\link{subset}}.
+matching operators or often used in \code{\link[=subset]{subset()}}.
 }
 \examples{
 data("Adult")

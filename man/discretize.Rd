@@ -94,7 +94,7 @@ Discretization may fail for several reasons. Some reasons are
 \itemize{
 \item A variable contains only a single value. In this case, the variable
 should be dropped or directly converted into a factor with a single level
-(see \code{\link{factor}}).
+(see \link{factor}).
 \item Some calculated breaks are not unique.
 This can happen for method frequency with very skewed data (e.g., a large
 portion of the values is 0). In this case, non-unique breaks are dropped
@@ -102,7 +102,7 @@ with a warning. It would be probably better to look at the histogram of the
 data and decide on breaks for the method fixed. }
 
 \code{discretize} only implements unsupervised discretization. See
-\code{\link[arulesCBA]{discretizeDF.supervised}} in package \pkg{arulesCBA}
+\code{\link[arulesCBA:discretizeDF.supervised]{arulesCBA::discretizeDF.supervised()}} in package \pkg{arulesCBA}
 for supervised discretization.
 
 \code{discretizeDF} applies discretization to each numeric column.

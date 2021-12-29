@@ -55,8 +55,8 @@
 #' @family associations functions
 #' 
 #' @param x a set of itemsets.
-#' @return a logical vector with the same length as \code{x} indicating for
-#' each element in \code{x} if it is a generator itemset.
+#' @return a logical vector with the same length as `x` indicating for
+#' each element in `x` if it is a generator itemset.
 #' @author Michael Hahsler
 #' @references Yves Bastide, Niolas Pasquier, Rafik Taouil, Gerd Stumme, Lotfi
 #' Lakhal (2000). Mining Minimal Non-redundant Association Rules Using Frequent

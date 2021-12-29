@@ -34,9 +34,9 @@ setGeneric("sort")
 #' consuming for large sets. With `order = TRUE` a integer vector with the
 #' order is returned instead of the reordered associations.
 #'
-#' If only the top \code{n} associations are needed then \code{head} using
-#' \code{by} performs this faster than calling \code{sort} and then \code{head}
-#' since it does it without copying and rearranging all the data.  \code{tail}
+#' If only the top `n` associations are needed then `head` using
+#' `by` performs this faster than calling `sort` and then `head`
+#' since it does it without copying and rearranging all the data.  `tail`
 #' works in the same way.
 #'
 #' @include associations.R
@@ -50,8 +50,8 @@ setGeneric("sort")
 #' @param na.last na.last is not supported for associations.  NAs are always
 #' put last.
 #' @param by a character string specifying the quality measure stored in
-#' \code{x} to be used to sort \code{x}. If a vector of character strings is
-#' specified then the additional strings are used to sort \code{x} in case of
+#' `x` to be used to sort `x`. If a vector of character strings is
+#' specified then the additional strings are used to sort `x` in case of
 #' ties.
 #' @param order should a order vector be returned instead of the sorted
 #' associations?

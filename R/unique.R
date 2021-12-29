@@ -32,7 +32,7 @@
 #' @param x an object of class [itemMatrix] or associations.
 #' @param \dots further arguments (currently unused).
 #' @param incomparables currently unused.
-#' @return An object of the same class as \code{x} with duplicated elements
+#' @return An object of the same class as `x` with duplicated elements
 #' removed.
 #' @author Michael Hahsler
 #' @keywords manip

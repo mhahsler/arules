@@ -29,16 +29,16 @@
 #' @param object medoids (no labels needed) or examples (labels needed).
 #' @param newdata objects to predict labels for.
 #' @param labels an integer vector containing the labels for the examples in
-#' \code{object}.
+#' `object`.
 #' @param blocksize a numeric scalar indicating how much memory predict can use
-#' for big \code{x} and/or \code{y} (approx. in MB). This is only a crude
+#' for big `x` and/or `y` (approx. in MB). This is only a crude
 #' approximation for 32-bit machines (64-bit architectures need double the
 #' blocksize in memory) and using the default Jaccard method for dissimilarity
-#' calculation.  In general, reducing \code{blocksize} will decrease the memory
+#' calculation.  In general, reducing `blocksize` will decrease the memory
 #' usage but will increase the run-time.
 #' @param ... further arguments passed on to [dissimilarity()]. E.g.,
-#' \code{method}.
-#' @return An integer vector of the same length as \code{newdata} containing
+#' `method`.
+#' @return An integer vector of the same length as `newdata` containing
 #' the predicted labels for each element.
 #' @author Michael Hahsler
 #' @keywords models cluster

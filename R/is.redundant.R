@@ -23,7 +23,7 @@
 #' Provides the generic function and the S4 method `is.redundant()` to find
 #' redundant rules.
 #'
-#' \bold{Simple improvement-based redundancy:} (\code{confint = FALSE}) A rule
+#' \bold{Simple improvement-based redundancy:} (`confint = FALSE`) A rule
 #' can be defined as redundant if a more general rules with the same or a
 #' higher confidence exists. That is, a more specific rule is redundant if it
 #' is only equally or even less predictive than a more general rule. A rule is
@@ -38,9 +38,9 @@
 #'
 #' The idea of improvement can be extended other measures besides confidence.
 #' Any other measure available for function [interestMeasure()] (e.g.,
-#' lift or the odds ratio) can be specified in \code{measure}.
+#' lift or the odds ratio) can be specified in `measure`.
 #'
-#' \bold{Confidence interval-based redundancy:} (\code{confint = TRUE}) Li et
+#' \bold{Confidence interval-based redundancy:} (`confint = TRUE`) Li et
 #' al (2014) propose to use the confidence interval (CI) of the odds ratio (OR)
 #' of rules to define redundancy. A more specific rule is redundant if it does
 #' not provide a significantly higher OR than any more general rule.  Using
@@ -56,8 +56,8 @@
 #' (2014), we use additive smoothing (Laplace smoothing) to alleviate this
 #' problem. The default setting adds 1 to each count (see
 #' [confint()]). A different pseudocount (smoothing parameter) can be
-#' defined using the additional parameter \code{smoothCounts}. Smoothing can be
-#' disabled using \code{smoothCounts = 0}.
+#' defined using the additional parameter `smoothCounts`. Smoothing can be
+#' disabled using `smoothCounts = 0`.
 #'
 #' Confidence interval-based redundancy checks can also be used for other
 #' measures with a confidence interval like confidence (see
@@ -71,12 +71,12 @@
 #' @param measure measure used to check for redundancy.
 #' @param confint should confidence intervals be used to the redundancy check?
 #' @param level confidence level for the confidence interval. Only used when
-#' \code{confint = TRUE}.
+#' `confint = TRUE`.
 #' @param smoothCounts adds a "pseudo count" to each count in the used
 #' contingency table. This implements addaptive smoothing (Laplace smoothing)
 #' for counts and avoids zero counts.
 #' @param ...  additional arguments are passed on to
-#' [interestMeasure()], or, for \code{confint = TRUE} to
+#' [interestMeasure()], or, for `confint = TRUE` to
 #' [confint()].
 #' @return returns a logical vector indicating which rules are redundant.
 #' @author Michael Hahsler and Christian Buchta

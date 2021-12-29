@@ -16,15 +16,15 @@ provide the \code{S4} classes \code{ar_cross_dissimilarities} and
 }
 \section{Objects from the Class}{
  \code{dist} objects are the result of
-calling the method \code{\link{dissimilarity}} with one argument or any
-\code{R} function returning a \code{S3 dist} object.
+calling the method \code{dissimilarity()} with one argument or any
+\code{R} function returning a \verb{S3 dist} object.
 
 \code{ar_cross_dissimilarity} objects are the result of calling the method
-\code{\link{dissimilarity}} with two arguments, by calls of the form
+\code{dissimilarity()} with two arguments, by calls of the form
 \code{new("similarity", ...)}, or by coercion from matrix.
 
 \code{ar_similarity} objects are the result of calling the method
-\code{\link{affinity}}, by calls of the form \code{new("similarity", ...)},
+\code{\link[=affinity]{affinity()}}, by calls of the form \code{new("similarity", ...)},
 or by coercion from matrix.
 }
 

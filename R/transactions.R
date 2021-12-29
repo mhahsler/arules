@@ -26,8 +26,8 @@
 #' to store a binary incidence matrix, item labels, and optionally transaction
 #' IDs and user IDs.
 #'
-#' \code{itemLabels} and \code{transactionInfo} are by default created from
-#' information in \code{x} (e.g., from row and column names). In the
+#' `itemLabels` and `transactionInfo` are by default created from
+#' information in `x` (e.g., from row and column names). In the
 #' constructor function, the user can specify for itemLabels a vector of all
 #' possible item labels (character) or another transactions object to copy the
 #' item coding (see [itemCoding] for details).
@@ -39,27 +39,27 @@
 #' **Continuous variables:** Association rule mining can only use items and
 #' does not work with continuous variables. Continuous variables need to be
 #' discretized first. An item resulting from discretization might be
-#' \emph{age>18} and the column contains only \code{TRUE} or \code{FALSE}.
+#' \emph{age>18} and the column contains only `TRUE` or `FALSE`.
 #' Alternatively it can be a factor with levels \emph{age<=18},
 #' \emph{50=>age>18} and \emph{age>50}. These will be automatically converted
 #' into 3 items, one for each level. Have a look at the function
-#' \code{\link{discretize}} for automatic discretization.
+#' [discretize()] for automatic discretization.
 #'
 #' **Logical variables:** A logical variable describing a person could be
-#' \emph{tall} indicating if the person is tall using the values \code{TRUE}
-#' and \code{FALSE}. The fact that the person is tall would be encoded in the
+#' \emph{tall} indicating if the person is tall using the values `TRUE`
+#' and `FALSE`. The fact that the person is tall would be encoded in the
 #' transaction containing the item \emph{tall} while not tall persons would not
-#' have this item. Therefore, for logical variables, the \code{TRUE} value is
+#' have this item. Therefore, for logical variables, the `TRUE` value is
 #' converted into an item with the name of the variable and for the
-#' \code{FALSE} values no item is created.
+#' `FALSE` values no item is created.
 #'
 #' **Factors:** The function also can convert columns with nominal values
 #' (i.e., factors) into a series of binary items (one for each level
-#' constructed as \code{`variable name`=`level`}). Note that nominal variables
+#' constructed as `variable name = level`). Note that nominal variables
 #' need to be encoded as factors (and not characters or numbers). This can be
 #' done with
 #'
-#' \code{data[,"a_nominal_var"] <- factor(data[,"a_nominal_var"])}.
+#' `data[,"a_nominal_var"] <- factor(data[,"a_nominal_var"])`.
 #'
 #' Complete examples for how to prepare data can be found in the man pages for
 #' [Income] and [Adult].
@@ -78,28 +78,19 @@
 #' @param x,object,from the object
 #' @param itemLabels a vector with labels for the items
 #' @param transactionInfo a transaction information data.frame with one row per transaction.
-#' @param format `"wide"` or `"long"` format?
-#' @param cols columns for the data in _long_ format.
+#' @param format `"wide"` or `"long"` format? 
+#'   Format wide is a regular data.frame where each row contains an object. 
+#'   Format "long" is a data.frame with one column with transaction IDs and one with an 
+#'   item (see `cols` below). 
+#' @param cols a numeric or character vector of length two giving the index or names of 
+#'   the columns (fields) with the transaction and item ids in the long format.
 #' @param decode translate item IDs to item labels?
 #' @param value replacement value
 #'
 #' @section Objects from the Class: 
 #' Objects are created by coercion from
-#' objects of other classes (see Examples section) or by calls of the form
-#'
-#' \code{new("transactions", ...)}
-#'
-#' or by using the constructor function
-#'
-#' \code{transactions(x, itemLabels = NULL, transactionInfo = NULL, format =
-#' "wide", cols = NULL)}.
-#'
-#' Format `"wide"` is a regular data.frame where each row contains an object.
-#' Format `"long"` is a data.frame with one column with transaction IDs and one
-#' with an item. cols is a numeric or character vector of length two giving the
-#' numbers or names of the columns (fields) with the transaction and item ids,
-#' respectively.
-#'
+#' objects of other classes (see Examples section), by using the constructor function
+#' `transactions()` or by calling `new("transactions", ...)`.
 #' See Examples Section for creating transactions from data.
 #' 
 #' @section Slots:

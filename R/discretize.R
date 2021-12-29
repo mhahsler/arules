@@ -33,40 +33,40 @@
 #' \itemize{
 #' \item A variable contains only a single value. In this case, the variable
 #' should be dropped or directly converted into a factor with a single level
-#' (see \code{\link{factor}}). 
+#' (see [factor]). 
 #' \item Some calculated breaks are not unique.
 #' This can happen for method frequency with very skewed data (e.g., a large
 #' portion of the values is 0). In this case, non-unique breaks are dropped
 #' with a warning. It would be probably better to look at the histogram of the
 #' data and decide on breaks for the method fixed. }
 #' 
-#' \code{discretize} only implements unsupervised discretization. See
-#' \code{\link[arulesCBA]{discretizeDF.supervised}} in package \pkg{arulesCBA}
+#' `discretize` only implements unsupervised discretization. See
+#' [arulesCBA::discretizeDF.supervised()] in package \pkg{arulesCBA}
 #' for supervised discretization.
 #' 
-#' \code{discretizeDF} applies discretization to each numeric column.
+#' `discretizeDF` applies discretization to each numeric column.
 #' Individual discretization parameters can be specified in the form:
 #' \code{methods = list(column_name1 = list(method = ,...), column_name2 =
 #' list(...))}. If no discretization method is specified for a column, then the
-#' discretization in default is applied (\code{NULL} invokes the default method
-#' in \code{discretize()}). The special method \code{"none"} can be specified
+#' discretization in default is applied (`NULL` invokes the default method
+#' in `discretize()`). The special method `"none"` can be specified
 #' to suppress discretization for a column.
 #' 
 #' @aliases discretize binning
 #' @family preprocessing
 #' 
 #' @param x a numeric vector (continuous variable).
-#' @param method discretization method. Available are: \code{"interval"} (equal
-#' interval width), \code{"frequency"} (equal frequency), \code{"cluster"}
-#' (k-means clustering) and \code{"fixed"} (categories specifies interval
+#' @param method discretization method. Available are: `"interval"` (equal
+#' interval width), `"frequency"` (equal frequency), `"cluster"`
+#' (k-means clustering) and `"fixed"` (categories specifies interval
 #' boundaries).  Note that equal frequency does not achieve perfect equally
 #' sized groups if the data contains duplicated values.
-#' @param breaks,categories \bold{\code{categories} is deprecated, use
-#' \code{breaks}.} either number of categories or a vector with boundaries for
+#' @param breaks,categories \bold{`categories` is deprecated, use
+#' `breaks`.} either number of categories or a vector with boundaries for
 #' discretization (all values outside the boundaries will be set to NA).
 #' @param labels character vector; labels for the levels of the resulting
 #' category. By default, labels are constructed using "(a,b]" interval
-#' notation. If \code{labels = FALSE}, simple integer codes are returned
+#' notation. If `labels = FALSE`, simple integer codes are returned
 #' instead of a factor..
 #' @param include.lowest logical; should the first interval be closed to the
 #' left?
@@ -78,22 +78,22 @@
 #' +/-Inf?
 #' @param onlycuts logical; return only computed interval boundaries?
 #' @param \dots for method "cluster" further arguments are passed on to
-#' \code{kmeans}.
+#' `kmeans`.
 #' @param df data.frame; each numeric column in the data.frame is discretized.
 #' @param methods named list of lists or a data.frame; the named list contains
-#' list of discretization parameters (see parameters of \code{discretize}) for
+#' list of discretization parameters (see parameters of `discretize`) for
 #' each numeric column (see details). If no specific discretization is
-#' specified for a column, then the default settings for \code{discretize} are
+#' specified for a column, then the default settings for `discretize` are
 #' used.  Note: the names have to match exactly.  If a data.frame is specified,
-#' then the discretization breaks in this data.frame are applied to \code{df}.
-#' @param default named list; parameters for \code{discretize} used for all
-#' columns not specified in \code{methods}.
+#' then the discretization breaks in this data.frame are applied to `df`.
+#' @param default named list; parameters for `discretize` used for all
+#' columns not specified in `methods`.
 #' @return A factor representing the categorized continuous variable with
-#' attribute \code{"discretized:breaks"} indicating the used breaks or and
-#' \code{"discretized:method"} giving the used method. If \code{onlycuts =
+#' attribute `"discretized:breaks"` indicating the used breaks or and
+#' `"discretized:method"` giving the used method. If \code{onlycuts =
 #' TRUE} is used, a vector with the calculated interval boundaries is returned.
 #' 
-#' \code{discretizeDF} returns a discretized data.frame.
+#' `discretizeDF` returns a discretized data.frame.
 #' @author Michael Hahsler
 #' @seealso [base::cut()],
 #' [arulesCBA::discretizeDF.supervised()].

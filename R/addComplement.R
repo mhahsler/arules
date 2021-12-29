@@ -25,7 +25,7 @@ setGeneric("addComplement",
 
 #' Add Complement-items to Transactions
 #' 
-#' Provides the generic function \code{addComplement} and the S4 methods for
+#' Provides the generic function `addComplement()` and the S4 methods for
 #' transactions. This function adds for given items complement items. That is
 #' it adds an artificial item to each transactions which does not contain the
 #' original item. Such items are also called negative items (Antonie et al,

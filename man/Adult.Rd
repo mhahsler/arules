@@ -19,8 +19,8 @@ vector.} \item{workclass}{a factor with levels \code{Federal-gov},
 \code{Local-gov}, \code{Never-worked}, \code{Private}, \code{Self-emp-inc},
 \code{Self-emp-not-inc}, \code{State-gov}, and \code{Without-pay}.}
 \item{education}{an ordered factor with levels \code{Preschool} <
-\code{1st-4th} < \code{5th-6th} < \code{7th-8th} < \code{9th} < \code{10th}
-< \code{11th} < \code{12th} < \code{HS-grad} < \code{Prof-school} <
+\verb{1st-4th} < \verb{5th-6th} < \verb{7th-8th} < \verb{9th} < \verb{10th}
+< \verb{11th} < \verb{12th} < \code{HS-grad} < \code{Prof-school} <
 \code{Assoc-acdm} < \code{Assoc-voc} < \code{Some-college} <
 \code{Bachelors} < \code{Masters} < \code{Doctorate}.}
 \item{education-num}{a numeric vector.}
@@ -34,7 +34,7 @@ levels \code{Divorced}, \code{Married-AF-spouse}, \code{Married-civ-spouse},
 \code{Protective-serv}, \code{Sales}, \code{Tech-support}, and
 \code{Transport-moving}.}
 \item{relationship}{a factor with levels
-\code{Husband}, \code{Not-in-family}, \code{Other-relative},
+\code{Husband}, \verb{Not-in-family}, \code{Other-relative},
 \code{Own-child}, \code{Unmarried}, and \code{Wife}.}
 \item{race}{a factor
 with levels \code{Amer-Indian-Eskimo}, \code{Asian-Pac-Islander},

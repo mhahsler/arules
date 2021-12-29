@@ -35,8 +35,8 @@
 #' @family associations functions
 #' 
 #' @param x a set of itemsets.
-#' @return a logical vector with the same length as \code{x} indicating for
-#' each element in \code{x} if it is a closed itemset.
+#' @return a logical vector with the same length as `x` indicating for
+#' each element in `x` if it is a closed itemset.
 #' @author Michael Hahsler
 #' @references Nicolas Pasquier, Yves Bastide, Rafik Taouil, and Lotfi Lakhal
 #' (1999). Discovering frequent closed itemsets for association rules. In

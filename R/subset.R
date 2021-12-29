@@ -23,23 +23,23 @@
 #' [associations] or [transactions] ([itemMatrix]) which meet certain conditions
 #' (e.g., contains certain items or satisfies a minimum lift).
 #' 
-#' `subset()` finds the rows/itemsets/rules of \code{x} that match the expression
-#' given in \code{subset}. Parts of \code{x} like items, lhs, rhs and the columns in the quality data.frame (e.g., support and lift) can be directly referred to by their names
-#' in \code{subset}.
+#' `subset()` finds the rows/itemsets/rules of `x` that match the expression
+#' given in `subset`. Parts of `x` like items, lhs, rhs and the columns in the quality data.frame (e.g., support and lift) can be directly referred to by their names
+#' in `subset`.
 #' 
 #' Important operators to select itemsets containing items specified by their
 #' labels are 
 #' 
-#' * \code{%in%} (select itemsets matching \emph{any} given item),
-#' * \code{%ain%} (select only itemsets matching \emph{all} given item),
-#' * \code{%oin%} (select only itemsets matching \emph{only} the given item), and
-#' * \code{%pin%} (\code{%in%} with partial matching).
+#' * `%in%` (select itemsets matching \emph{any} given item),
+#' * `%ain%` (select only itemsets matching \emph{all} given item),
+#' * `%oin%` (select only itemsets matching \emph{only} the given item), and
+#' * `%pin%` (`%in%` with partial matching).
 #' 
 #' @aliases subset
 #' @param x object to be subsetted.
 #' @param subset logical expression indicating elements to keep.
 #' @param ... further arguments to be passed to or from other methods.
-#' @return An object of the same class as \code{x} containing only the elements
+#' @return An object of the same class as `x` containing only the elements
 #' which satisfy the conditions.
 #' @author Michael Hahsler
 #' @keywords manip

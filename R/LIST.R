@@ -25,8 +25,8 @@
 #' [itemsets]).  These methods can be used for the coercion
 #' to a list.
 #'
-#' Using `LIST()` with \code{decode = TRUE} is equivalent to the standard
-#' coercion \code{as(x, "list")}.  \code{LIST} returns the object \code{from}
+#' Using `LIST()` with `decode = TRUE` is equivalent to the standard
+#' coercion `as(x, "list")`.  `LIST` returns the object `from`
 #' as a list of vectors.  Each vector represents one row of the
 #' [itemMatrix] (e.g., items in a transaction or itemset).
 #'
@@ -37,7 +37,7 @@
 #' @param decode a logical controlling whether the items/transactions are
 #' decoded from the column numbers internally used by
 #' [itemMatrix] to the names stored in the object
-#' \code{from}.  The default behavior is to decode.
+#' `from`.  The default behavior is to decode.
 #' @return a list primitive.
 #' @author Michael Hahsler
 #' @keywords manip

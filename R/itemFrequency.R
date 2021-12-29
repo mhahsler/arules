@@ -30,15 +30,15 @@
 #' 
 #' @param x an object.
 #' @param ... further arguments are passed on.
-#' @param type a character string specifying if \code{"relative"}
-#' frequency/support or \code{"absolute"} frequency/support (item counts) is
-#' returned. (default: \code{"relative"}).
+#' @param type a character string specifying if `"relative"`
+#' frequency/support or `"absolute"` frequency/support (item counts) is
+#' returned. (default: `"relative"`).
 #' @param weighted should support be weighted by transactions weights stored as
-#' column \code{"weight"} in transactionInfo?
-#' @return \code{itemFrequency} returns a named numeric vector.  Each element
-#' is the frequency/support of the corresponding item in object \code{x}.  The
+#' column `"weight"` in transactionInfo?
+#' @return `itemFrequency` returns a named numeric vector.  Each element
+#' is the frequency/support of the corresponding item in object `x`.  The
 #' items appear in the vector in the same order as in the binary matrix in
-#' \code{x}.
+#' `x`.
 #' @author Michael Hahsler
 #' @seealso [itemFrequencyPlot()]
 #' @keywords models
@@ -112,24 +112,24 @@ setMethod("itemFrequency", signature(x = "tidLists"),
 #' @param type a character string indicating whether item frequencies should be
 #' displayed relative of absolute.
 #' @param weighted should support be weighted by transactions weights stored as
-#' column \code{"weight"} in transactionInfo?
+#' column `"weight"` in transactionInfo?
 #' @param support a numeric value. Only display items which have a support of
-#' at least \code{support}. If no population is given, support is calculated
-#' from \code{x} otherwise from the population. Support is interpreted relative
-#' or absolute according to the setting of \code{type}.
-#' @param topN a integer value. Only plot the \code{topN} items with the
-#' highest item frequency or lift (if \code{lift = TRUE}).  The items are
+#' at least `support`. If no population is given, support is calculated
+#' from `x` otherwise from the population. Support is interpreted relative
+#' or absolute according to the setting of `type`.
+#' @param topN a integer value. Only plot the `topN` items with the
+#' highest item frequency or lift (if `lift = TRUE`).  The items are
 #' plotted ordered by descending support.
-#' @param population object of same class as \code{x}; if \code{x} is a segment
+#' @param population object of same class as `x`; if `x` is a segment
 #' of a population, the population mean frequency for each item can be shown as
 #' a line in the plot.
 #' @param popCol plotting color for population.
 #' @param popLwd line width for population.
 #' @param lift a logical indicating whether to plot the lift ratio between
 #' instead of frequencies. The lift ratio is gives how many times an item is
-#' more frequent in \code{x} than in \code{population}.
-#' @param horiz a logical. If \code{horiz = FALSE} (default), the bars are
-#' drawn vertically. If \code{TRUE}, the bars are drawn horizontally.
+#' more frequent in `x` than in `population`.
+#' @param horiz a logical. If `horiz = FALSE` (default), the bars are
+#' drawn vertically. If `TRUE`, the bars are drawn horizontally.
 #' @param names a logical indicating if the names (bar labels) should be
 #' displayed?
 #' @param cex.names a numeric value for the expansion factor for axis names

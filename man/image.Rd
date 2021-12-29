@@ -19,15 +19,15 @@
 
 \item{xlab, ylab}{labels for the plot.}
 
-\item{...}{further arguments passed on to \code{image} in package
-\pkg{Matrix} which in turn are passed on to \code{levelplot} in
+\item{...}{further arguments passed on to \code{image()} in package
+\pkg{Matrix} which in turn are passed on to \code{levelplot()} in
 \pkg{lattice}.}
 }
 \description{
-Provides the S4 methods \code{image} to generate level plots to visually
+Provides S4 methods for \code{image()} to generate level plots to visually
 inspect binary incidence matrices, i.e., objects based on
-\link{itemMatrix} (e.g., transactions, tidLists, items in
-itemsets or rhs/lhs in rules).  These plots can be used to identify problems
+\link{itemMatrix} (e.g., \link{transactions}, \link{tidLists}, items in
+\link{itemsets} or rhs/lhs in \link{rules}).  These plots can be used to identify problems
 in a data set (e.g., recording problems with some transactions containing
 all items).
 }

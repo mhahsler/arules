@@ -34,25 +34,25 @@
 #' Matrices
 #'
 #' Simple classes to represent proximity matrices.  For compatibility with
-#' clustering functions in \code{R}, we represent dissimilarities as the
-#' \code{S3} class \code{dist}.  For cross-dissimilarities and similarities, we
-#' provide the \code{S4} classes \code{ar_cross_dissimilarities} and
-#' \code{ar_similarities}.
+#' clustering functions in `R`, we represent dissimilarities as the
+#' `S3` class `dist`.  For cross-dissimilarities and similarities, we
+#' provide the `S4` classes `ar_cross_dissimilarities` and
+#' `ar_similarities`.
 #'
 #'
 #' @name proximity-classes
 #' @family proximity classes and functions
 #' 
-#' @section Objects from the Class: \code{dist} objects are the result of
-#' calling the method \code{\link{dissimilarity}} with one argument or any
-#' \code{R} function returning a \code{S3 dist} object.
+#' @section Objects from the Class: `dist` objects are the result of
+#' calling the method `dissimilarity()` with one argument or any
+#' `R` function returning a `S3 dist` object.
 #'
-#' \code{ar_cross_dissimilarity} objects are the result of calling the method
-#' \code{\link{dissimilarity}} with two arguments, by calls of the form
-#' \code{new("similarity", ...)}, or by coercion from matrix.
+#' `ar_cross_dissimilarity` objects are the result of calling the method
+#' `dissimilarity()` with two arguments, by calls of the form
+#' `new("similarity", ...)`, or by coercion from matrix.
 #'
-#' \code{ar_similarity} objects are the result of calling the method
-#' \code{\link{affinity}}, by calls of the form \code{new("similarity", ...)},
+#' `ar_similarity` objects are the result of calling the method
+#' [affinity()], by calls of the form `new("similarity", ...)`,
 #' or by coercion from matrix.
 #' @author Michael Hahsler
 #' @seealso [stats::dist()], [proxy::dist()]
@@ -72,8 +72,8 @@ setClass("ar_cross_dissimilarity",
 
 #' Dissimilarity Matrix Computation for Associations and Transactions
 #'
-#' Provides the generic function \code{dissimilarity} and the S4 methods to
-#' compute and returns distances for binary data in a \code{matrix},
+#' Provides the generic function `dissimilarity` and the S4 methods to
+#' compute and returns distances for binary data in a `matrix`,
 #' [transactions] or [associations] which
 #' can be used for grouping and clustering. See Hahsler (2016) for an
 #' introduction to distance-based clustering of association rules.

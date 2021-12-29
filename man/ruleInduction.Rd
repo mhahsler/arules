@@ -101,7 +101,6 @@ inspect(head(assoc_rules))
 ## transactions need to be specified.
 some_is <- sample(frequent_is, 10)
 ruleInduction(some_is, transactions = Adult)
-
 }
 \references{
 Michael Hahsler, Christian Buchta, and Kurt Hornik. Selective

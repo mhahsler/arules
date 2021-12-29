@@ -30,15 +30,15 @@
 #' [associations], [transactions] and [itemMatrix] objects.  `match()` returns a vector
 #' of the positions of (first) matches of its first argument in its second.
 #'
-#' \code{%in%} is a more intuitive interface as a binary operator, which
+#' `%in%` is a more intuitive interface as a binary operator, which
 #' returns a logical vector indicating if there is a match or not for the items
 #' in the itemsets (left operand) with the items in the table (right operand).
 #'
 #' \pkg{arules} defines additional binary operators for matching itemsets:
-#' \code{%pin%} uses \emph{partial} matching on the table; \code{%ain%}
-#' itemsets have to match/include \emph{all} items in the table; \code{%oin%}
+#' `%pin%` uses \emph{partial} matching on the table; `%ain%`
+#' itemsets have to match/include \emph{all} items in the table; `%oin%`
 #' itemsets can \emph{only} match/include the items in the table.  The binary
-#' matching operators or often used in \code{\link{subset}}.
+#' matching operators or often used in [subset()].
 #'
 #'
 #' @aliases match
@@ -50,12 +50,12 @@
 #' @param table a set of associations or transactions to be matched against.
 #' @param nomatch the value to be returned in the case when no match is found.
 #' @param incomparables not implemented.
-#' @return \code{match}: An integer vector of the same length as \code{x}
-#' giving the position in \code{table} of the first match if there is a match,
-#' otherwise \code{nomatch}.
+#' @return `match`: An integer vector of the same length as `x`
+#' giving the position in `table` of the first match if there is a match,
+#' otherwise `nomatch`.
 #'
-#' \code{%in%}, \code{%pin%}, \code{%ain%}, \code{%oin%}: A logical vector,
-#' indicating if a match was located for each element of \code{x}.
+#' `%in%`, `%pin%`, `%ain%`, `%oin%`: A logical vector,
+#' indicating if a match was located for each element of `x`.
 #' @author Michael Hahsler
 #' @keywords manip
 #' @examples

@@ -39,19 +39,19 @@
 #' representation of the attribute `education`.  The other 4 continuous
 #' attributes we mapped to ordinal attributes as follows: 
 #' 
-#'  * age: cut into levels \code{Young} (0-25), \code{Middle-aged} (26-45),
-#' \code{Senior} (46-65) and \code{Old} (66+)
-#'  * hours-per-week: cut into levels \code{Part-time} (0-25), 
-#'  \code{Full-time} (25-40), \code{Over-time}
-#' (40-60) and \code{Too-much} (60+)
-#'  * capital-gain and capital-loss: each cut into levels \code{None} (0),
-#' \code{Low} (0 < median of the values greater zero < max) and \code{High}
+#'  * age: cut into levels `Young` (0-25), `Middle-aged` (26-45),
+#' `Senior` (46-65) and `Old` (66+)
+#'  * hours-per-week: cut into levels `Part-time` (0-25), 
+#'  `Full-time` (25-40), `Over-time`
+#' (40-60) and `Too-much` (60+)
+#'  * capital-gain and capital-loss: each cut into levels `None` (0),
+#' `Low` (0 < median of the values greater zero < max) and `High`
 #' (>=max)
 #' 
 #' @name Adult
 #' @aliases adult Adult AdultUCI
 #' @docType data
-#' @format \code{Adult} is an object of class [transactions] 
+#' @format `Adult` is an object of class [transactions] 
 #' with `r data(Adult); nrow(Adult)` transactions 
 #' and `r data(Adult); ncol(Adult)` items. See below for details.
 #' 
@@ -59,47 +59,47 @@
 #' observations on the following 15 variables.  
 #' \describe{ 
 #'   \item{age}{a numeric
-#' vector.} \item{workclass}{a factor with levels \code{Federal-gov},
-#' \code{Local-gov}, \code{Never-worked}, \code{Private}, \code{Self-emp-inc},
-#' \code{Self-emp-not-inc}, \code{State-gov}, and \code{Without-pay}.}
-#' \item{education}{an ordered factor with levels \code{Preschool} <
-#' \code{1st-4th} < \code{5th-6th} < \code{7th-8th} < \code{9th} < \code{10th}
-#' < \code{11th} < \code{12th} < \code{HS-grad} < \code{Prof-school} <
-#' \code{Assoc-acdm} < \code{Assoc-voc} < \code{Some-college} <
-#' \code{Bachelors} < \code{Masters} < \code{Doctorate}.}
+#' vector.} \item{workclass}{a factor with levels `Federal-gov`,
+#' `Local-gov`, `Never-worked`, `Private`, `Self-emp-inc`,
+#' `Self-emp-not-inc`, `State-gov`, and `Without-pay`.}
+#' \item{education}{an ordered factor with levels `Preschool` <
+#' `1st-4th` < `5th-6th` < `7th-8th` < `9th` < `10th`
+#' < `11th` < `12th` < `HS-grad` < `Prof-school` <
+#' `Assoc-acdm` < `Assoc-voc` < `Some-college` <
+#' `Bachelors` < `Masters` < `Doctorate`.}
 #' \item{education-num}{a numeric vector.} 
 #' \item{marital-status}{a factor with
-#' levels \code{Divorced}, \code{Married-AF-spouse}, \code{Married-civ-spouse},
-#' \code{Married-spouse-absent}, \code{Never-married}, \code{Separated}, and
-#' \code{Widowed}.} \item{occupation}{a factor with levels \code{Adm-clerical},
-#' \code{Armed-Forces}, \code{Craft-repair}, \code{Exec-managerial},
-#' \code{Farming-fishing}, \code{Handlers-cleaners}, \code{Machine-op-inspct},
-#' \code{Other-service}, \code{Priv-house-serv}, \code{Prof-specialty},
-#' \code{Protective-serv}, \code{Sales}, \code{Tech-support}, and
-#' \code{Transport-moving}.} 
+#' levels `Divorced`, `Married-AF-spouse`, `Married-civ-spouse`,
+#' `Married-spouse-absent`, `Never-married`, `Separated`, and
+#' `Widowed`.} \item{occupation}{a factor with levels `Adm-clerical`,
+#' `Armed-Forces`, `Craft-repair`, `Exec-managerial`,
+#' `Farming-fishing`, `Handlers-cleaners`, `Machine-op-inspct`,
+#' `Other-service`, `Priv-house-serv`, `Prof-specialty`,
+#' `Protective-serv`, `Sales`, `Tech-support`, and
+#' `Transport-moving`.} 
 #' \item{relationship}{a factor with levels
-#' \code{Husband}, \code{Not-in-family}, \code{Other-relative},
-#' \code{Own-child}, \code{Unmarried}, and \code{Wife}.} 
+#' `Husband`, `Not-in-family`, `Other-relative`,
+#' `Own-child`, `Unmarried`, and `Wife`.} 
 #' \item{race}{a factor
-#' with levels \code{Amer-Indian-Eskimo}, \code{Asian-Pac-Islander},
-#' \code{Black}, \code{Other}, and \code{White}.} 
-#' \item{sex}{a factor with levels \code{Female} and \code{Male}.} 
+#' with levels `Amer-Indian-Eskimo`, `Asian-Pac-Islander`,
+#' `Black`, `Other`, and `White`.} 
+#' \item{sex}{a factor with levels `Female` and `Male`.} 
 #' \item{capital-gain}{a numeric vector.} 
 #' \item{capital-loss}{a numeric vector.} \item{fnlwgt}{a numeric vector.} 
 #' \item{hours-per-week}{a numeric vector.} 
-#' \item{native-country}{a factor with levels \code{Cambodia}, \code{Canada}, \code{China},
-#' \code{Columbia}, \code{Cuba}, \code{Dominican-Republic}, \code{Ecuador},
-#' \code{El-Salvador}, \code{England}, \code{France}, \code{Germany},
-#' \code{Greece}, \code{Guatemala}, \code{Haiti}, \code{Holand-Netherlands},
-#' \code{Honduras}, \code{Hong}, \code{Hungary}, \code{India}, \code{Iran},
-#' \code{Ireland}, \code{Italy}, \code{Jamaica}, \code{Japan}, \code{Laos},
-#' \code{Mexico}, \code{Nicaragua}, \code{Outlying-US(Guam-USVI-etc)},
-#' \code{Peru}, \code{Philippines}, \code{Poland}, \code{Portugal},
-#' \code{Puerto-Rico}, \code{Scotland}, \code{South}, \code{Taiwan},
-#' \code{Thailand}, \code{Trinadad&Tobago}, \code{United-States},
-#' \code{Vietnam}, and \code{Yugoslavia}.} 
+#' \item{native-country}{a factor with levels `Cambodia`, `Canada`, `China`,
+#' `Columbia`, `Cuba`, `Dominican-Republic`, `Ecuador`,
+#' `El-Salvador`, `England`, `France`, `Germany`,
+#' `Greece`, `Guatemala`, `Haiti`, `Holand-Netherlands`,
+#' `Honduras`, `Hong`, `Hungary`, `India`, `Iran`,
+#' `Ireland`, `Italy`, `Jamaica`, `Japan`, `Laos`,
+#' `Mexico`, `Nicaragua`, `Outlying-US(Guam-USVI-etc)`,
+#' `Peru`, `Philippines`, `Poland`, `Portugal`,
+#' `Puerto-Rico`, `Scotland`, `South`, `Taiwan`,
+#' `Thailand`, `Trinadad&Tobago`, `United-States`,
+#' `Vietnam`, and `Yugoslavia`.} 
 #' \item{income}{an ordered factor with
-#' levels \code{small} < \code{large}.} }
+#' levels `small` < `large`.} }
 #' @author Michael Hahsler
 #' @references A. Asuncion \& D. J. Newman (2007): UCI Repository of Machine
 #' Learning Databases.  Irvine, CA: University of California, Department of

@@ -33,30 +33,30 @@
 #'
 #' * `"independent"` (Hahsler et al, 2006): All items
 #' are treated as independent. The transaction size is determined by
-#' \eqn{rpois(lambda-1)+1}, where \code{lambda} can be specified (defaults to
+#' \eqn{rpois(lambda-1)+1}, where `lambda` can be specified (defaults to
 #' 3). Note that one subtracted from lambda and added to the size to avoid
 #' empty transactions. The items in the transactions are randomly chosen using
-#' the numeric probability vector \code{iProb} of length \code{nItems}
+#' the numeric probability vector `iProb` of length `nItems`
 #' (default: 0.01 for each item).
 #'
 #' * `"agrawal"` (see Agrawal and Srikant, 1994): This
 #' method creates transactions with correlated items using `random.patters()`.
-#' The simulation is a two-stage process. First, a set of \code{nPats} patterns
+#' The simulation is a two-stage process. First, a set of `nPats` patterns
 #' (potential maximal frequent itemsets) is generated.  The length of the
-#' patterns is Poisson distributed with mean \code{lPats} and consecutive
+#' patterns is Poisson distributed with mean `lPats` and consecutive
 #' patterns share some items controlled by the correlation parameter
-#' \code{corr}.  For later use, for each pattern a pattern weight is generated
+#' `corr`.  For later use, for each pattern a pattern weight is generated
 #' by drawing from an exponential distribution with a mean of 1 and a
-#' corruption level is chosen from a normal distribution with mean \code{cmean}
-#' and variance \code{cvar}.
-#' The function returns the patterns as an \code{itemsets} objects which can be
-#' supplied to \code{random.transactions} as the argument \code{patterns}.  If
-#' no argument \code{patterns} is supplied, the default values given above are
+#' corruption level is chosen from a normal distribution with mean `cmean`
+#' and variance `cvar`.
+#' The function returns the patterns as an `itemsets` objects which can be
+#' supplied to `random.transactions` as the argument `patterns`.  If
+#' no argument `patterns` is supplied, the default values given above are
 #' used.
 #'
 #' In the second step, the transactions are generated using the patterns.  The
 #' length the transactions follows a Poisson distribution with mean
-#' \code{lPats}. For each transaction, patterns are randomly chosen using the
+#' `lPats`. For each transaction, patterns are randomly chosen using the
 #' pattern weights till the transaction length is reached. For each chosen
 #' pattern, the associated corruption level is used to drop some items before
 #' adding the pattern to the transaction.

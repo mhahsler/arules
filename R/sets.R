@@ -25,7 +25,7 @@
 #' [itemMatrix].
 #' 
 #' All S4 methods for set operations are defined for the class name
-#' \code{"ANY"} in the signature, so they should work for all S4 classes for
+#' `"ANY"` in the signature, so they should work for all S4 classes for
 #' which the following methods are available: [match()], [length()] and
 #' [unique()].
 #' 
@@ -37,10 +37,10 @@
 #' @param x,y,el,set sets of associations or itemMatrix objects.
 #' @param ...  Other arguments are unused.
 #' @return `union()`, `intersect()`, `setequal()` and `setdiff()`
-#' return an object of the same class as \code{x} and \code{y}.
+#' return an object of the same class as `x` and `y`.
 #' 
-#' `is.element()` returns a logic vector of length \code{el} indicating for
-#' each element if it is included in \code{set}.
+#' `is.element()` returns a logic vector of length `el` indicating for
+#' each element if it is included in `set`.
 #' @author Michael Hahsler
 #' @keywords manip
 #' @examples

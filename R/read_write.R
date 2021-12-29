@@ -25,7 +25,7 @@
 #'
 #' For _basket_ format, each line in the transaction data file
 #' represents a transaction where the items (item labels) are separated by the
-#' characters specified by \code{sep}.  For _single_ format, each line
+#' characters specified by `sep`.  For _single_ format, each line
 #' corresponds to a single item, containing at least ids for the transaction
 #' and the item.
 #'
@@ -34,24 +34,24 @@
 #' 
 #' @param file the file name or connection.
 #' @param format a character string indicating the format of the data set.  One
-#' of \code{"basket"} or \code{"single"}, can be abbreviated.
+#' of `"basket"` or `"single"`, can be abbreviated.
 #' @param header a logical value indicating whether the file contains the names
 #' of the variables as its first line.
 #' @param sep a character string specifying how fields are separated in the
-#' data file. The default (\code{""}) splits at whitespaces.
-#' @param cols For the _single_ format, \code{cols} is a numeric or
+#' data file. The default (`""`) splits at whitespaces.
+#' @param cols For the _single_ format, `cols` is a numeric or
 #' character vector of length two giving the numbers or names of the columns
 #' (fields) with the transaction and item ids, respectively. If character, the
-#' first line of \code{file} is assumed to be a header with column names.  For
-#' the _basket_ format, \code{cols} can be a numeric scalar giving the
+#' first line of `file` is assumed to be a header with column names.  For
+#' the _basket_ format, `cols` can be a numeric scalar giving the
 #' number of the column (field) with the transaction ids.  If 
-#' \code{cols = NULL}, the data do not contain transaction ids.
+#' `cols = NULL`, the data do not contain transaction ids.
 #' @param rm.duplicates a logical value specifying if duplicate items should be
 #' removed from the transactions.
 #' @param quote a list of characters used as quotes when reading.
 #' @param skip number of lines to skip in the file before start reading data.
 #' @param encoding character string indicating the encoding which is passed to
-#' \code{readLines} or \code{scan} (see \code{Encoding}).
+#' `readLines` or `scan` (see `Encoding`).
 #' @return Returns an object of class [transactions].
 #' @author Michael Hahsler and Kurt Hornik
 #' @keywords file
@@ -255,7 +255,7 @@ setGeneric("write",
 #' transactions or associations [itemsets], [rules] to a file.
 #'
 #' For associations ([rules] and [itemsets]) `write()` first uses coercion to
-#' data.frame to obtain a printable form of \code{x} and then uses
+#' data.frame to obtain a printable form of `x` and then uses
 #' [utils::write.table()] to write the data to disk.
 #'
 #' Transactions can be saved in basket (one line per transaction) or in single
@@ -275,11 +275,11 @@ setGeneric("write",
 #' writing.  '""' indicates output to the console.
 #' @param format format to write transactions.
 #' @param sep the field separator string. Values within each row of x are
-#' separated by this string. Use \code{quote = TRUE} and \code{sep = ","} for
+#' separated by this string. Use `quote = TRUE` and `sep = ","` for
 #' saving data as in csv format.
 #' @param quote a logical value. Quote fields?
 #' @param \dots further arguments passed on to [write.table()]. 
-#' Use \code{fileEncoding} to set the encoding used for
+#' Use `fileEncoding` to set the encoding used for
 #' writing the file.
 #' @author Michael Hahsler
 #' @keywords file

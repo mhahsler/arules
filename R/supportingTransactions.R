@@ -30,11 +30,11 @@
 #' 
 #' @param x a set of [associations] ([itemsets], [rules], etc.)
 #' @param transactions an object of class [transactions] used to mine the
-#' associations in \code{x}.
+#' associations in `x`.
 #' @param ... currently unused.
 #' 
 #' @return An object of class [tidLists] containing one transaction ID
-#' list per association in \code{x}.
+#' list per association in `x`.
 #' @author Michael Hahsler
 #' @keywords models
 #' @examples

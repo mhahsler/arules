@@ -40,7 +40,7 @@
 #' @param linebreak print only one element per line in case the output lines get very long? 
 #'
 #' @return Nothing is returned. This function is purely used for displaying
-#' object details. Use coercion with \code{as} to a list or a data.frame or the
+#' object details. Use coercion with `as` to a list or a data.frame or the
 #' accessor functions provided for the object (see See Also section).
 #' @author Michael Hahsler and Kurt Hornik
 #' @keywords print

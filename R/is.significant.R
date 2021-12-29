@@ -35,19 +35,19 @@
 #' 
 #' @param x a set of rules.
 #' @param transactions set of transactions used to mine the rules.
-#' @param method test to use. Options are \code{"fisher", "chisq"}. Note that
+#' @param method test to use. Options are `"fisher"`, `"chisq"`. Note that
 #' the contingency table is likely to have cells with low expected values and
 #' that thus Fisher's Exact Test might be more appropriate than the chi-squared
 #' test.
 #' @param alpha required significance level.
 #' @param adjust method to adjust for multiple comparisons. Options are
-#' \code{"none", "bonferroni", "holm", "fdr"}, etc. (see
+#' `"none"`, `"bonferroni"`, `"holm"`, `"fdr"`, etc. (see
 #' [stats::p.adjust()])
 #' @return returns a logical vector indicating which rules are significant.
 #' @author Michael Hahsler
 #' @seealso [stats::p.adjust()]
 #' @references Hahsler, Michael and Kurt Hornik (2007). New probabilistic
-#' interest measures for association rules. \emph{Intelligent Data Analysis},
+#' interest measures for association rules. _Intelligent Data Analysis_,
 #' 11(5):437--455.
 #' @keywords manip
 #' @examples
