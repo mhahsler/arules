@@ -51,7 +51,7 @@
 #'
 #' @family mining algorithms
 #' @family postporocessing
-#' 
+#'
 #' @param x the set of [itemsets] from which rules will be induced.
 #' @param \dots further arguments.
 #' @param transactions the [transactions] used to mine the itemsets. Can
@@ -380,19 +380,18 @@ ruleInduction.ptree <-
     
     take <- q$confidence >= confidence
     
-    new(
-      "rules",
-      lhs     = new(
+    rules(
+      lhs = new(
         "itemMatrix",
         data     = r$data.lhs,
         itemInfo = transactions@itemInfo
-      )[take, ],
-      rhs     = new(
+      )[take,],
+      rhs = new(
         "itemMatrix",
         data     = r$data.rhs,
         itemInfo = transactions@itemInfo
-      )[take, ],
-      quality = q[take, ]
+      )[take,],
+      quality = q[take,]
     )
   }
 
@@ -403,27 +402,24 @@ ruleInduction.index <-
     confidence = 0.8,
     verbose = FALSE) {
     if (is.null(quality(x)$support))
-      stop("cannot induce rules because support is missing! Specify transactions.")
+      stop("cannot induce rules because support is missing ! Specify transactions.")
     
     r <- data.frame(.Call(R_pnrindex, x@items@data, verbose))
     names(r) <- c("i", "li", "ri")
     
     if (!all(r$li) || !all(r$ri))
-      stop("cannot induce rules because itemsets are incomplete! Specify transactions.")
+      stop("cannot induce rules because itemsets are incomplete ! Specify transactions.")
     
-    r$support    <- x@quality$support[r$i]
+    r$support <- x@quality$support[r$i]
     r$confidence <- r$support /
       x@quality$support[r$li]
     # filter
-    r <- r[r$confidence >= confidence,]
+    r <- r[r$confidence >= confidence, ]
     if (dim(r)[1] == 0)
       return(new("rules"))
-    r$lift       <- r$confidence / x@quality$support[r$ri]
+    r$lift <- r$confidence / x@quality$support[r$ri]
     
-    new(
-      "rules",
-      lhs     = x@items[r$li],
-      rhs     = x@items[r$ri],
-      quality = r[4:6]
-    )
+    rules(lhs = x@items[r$li],
+      rhs = x@items[r$ri],
+      quality = r[4:6])
   }

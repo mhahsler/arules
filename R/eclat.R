@@ -66,17 +66,15 @@
 #' ECLAT Implementation: \url{https://borgelt.net/eclat.html}
 #' @keywords models
 #' @examples
-#'
 #' data("Adult")
 #' ## Mine itemsets with minimum support of 0.1 and 5 or less items
 #' itemsets <- eclat(Adult,
 #' 		parameter = list(supp = 0.1, maxlen = 5))
 #' itemsets
 #'
-#' ## Create rules from the itemsets
-#' rules <- ruleInduction(itemsets, Adult, confidence = .9)
+#' ## Create rules from the frequent itemsets
+#' rules <- ruleInduction(itemsets, confidence = .9)
 #' rules
-#'
 #' @export eclat
 eclat <- function(data,
   parameter = NULL,
@@ -148,7 +146,7 @@ eclat <- function(data,
     call = deparse1(call)[1]
   )
   
-  ## make sure tid list itemInfo is ok
+  ## make sure tid list itemInfo is OK
   if (!is.null(result@tidLists)) {
     result@tidLists@itemInfo <- data.frame(labels = labels(result))
     result@tidLists@transactionInfo <- transactionInfo(data)
