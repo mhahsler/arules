@@ -16,25 +16,36 @@ The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
 using [frequent itemsets and association rules](https://en.wikipedia.org/wiki/Association_rule_learning).
 The package also provides a wide range of 
-[interest measures](https://mhahsler.github.io/arules/docs/measures) and mining algorithms including a interfaces and the code of
-Christian Borgelt's popular and efficient C implementations of the association mining algorithms [Apriori](https://borgelt.net/apriori.html) and [Eclat](https://borgelt.net/eclat.html).
-Examples can be found in [Chapter 5 of the web book R Companion for Introduction to Data Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
+[interest measures](https://mhahsler.github.io/arules/docs/measures) and mining algorithms including the code of
+Christian Borgelt's popular and efficient C implementations of the association mining algorithms [Apriori](https://borgelt.net/apriori.html) and [Eclat](https://borgelt.net/eclat.html). In addition, the following mining algorithms are
+available via [fim4r](https://borgelt.net/fim4r.html):
+
+* Apriori
+* Eclat
+* Carpenter
+* FPgrowth
+* IsTa 
+* RElim 
+* SaM
+
+Code examples can be found in
+[Chapter 5 of the web book R Companion for Introduction to Data
+Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
 
 ## arules core packages: 
 
 * [arules](https://cran.r-project.org/package=arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
 * [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of association rules. 
 * [arulesCBA](https://github.com/ianjjohnson/arulesCBA): Classification algorithms based on association rules (includes CBA).  
-* [arulesSequences](https://cran.r-project.org/package=arulesSequences):
-   Mining frequent sequences (cSPADE).
+* [arulesSequences](https://cran.r-project.org/package=arulesSequences): Mining frequent sequences (cSPADE).
 
 ## Other related packages:
 
 ### Additional mining algorithms 
 
-* [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner):
-  Mining NB-frequent itemsets and NB-precise rules.
-* [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for filtered top-k association discovery.
+* [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner): Mining NB-frequent itemsets and NB-precise rules.
+* [fim4r](https://borgelt.net/fim4r.html): Provides fast implementations for several mining algorithms. An interface function called `fim4r()` is provided in `arules`.
+* [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for finding the op k productive, non-redundant itemsets. Call `opus()` with `format = 'itemsets'`. 
 * [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL's association rule mining algorithm.
 * [RSarules](https://cran.r-project.org/package=RSarules): Mining algorithm which randomly samples association rules with one pre-chosen item as the consequent from a transaction dataset.
 
@@ -93,7 +104,7 @@ data("IncomeESL")
 trans <- transactions(IncomeESL)
 trans
 
-rules <- apriori(trans, parameter = list(supp = 0.1, conf = 0.9, target = "rules"))
+rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
 ```
 
 Inspect the rules with the highest lift.
@@ -101,18 +112,24 @@ Inspect the rules with the highest lift.
 inspect(head(rules, n = 3, by = "lift"))
 ```
 
-## Using arule and tidyverse
+## Using arules with tidyverse
 
-arules works seamlessly with [tidyverse](https://www.tidyverse.org/). For example, dplyr can be used for cleaning and preparing the transactions and then functions in arules can be used with `%>%`.
+`arules` works seamlessly with [tidyverse](https://www.tidyverse.org/). For example: 
 
+* `dplyr` can be used for cleaning and preparing the transactions.
+* `transaction()` and other functions accept `tibble` as input.
+* Functions in arules can be used with `%>%`.
+* [arulesViz](https://github.com/mhahsler/arulesViz) provides visualizations based on `ggplot2`.
+
+For example, we can remove the ethnic information column before creating transactions and then mine and inspect rules.
 ```{r }
 library("tidyverse")
 library("arules")
 data("IncomeESL")
 
-trans <- IncomeESL %>% transactions()
-
-rules <- trans %>% apriori(parameter = list(supp = 0.1, conf = 0.9, target = "rules"))
+trans <- IncomeESL %>% select(-`ethnic classification`) %>% transactions()
+rules <- trans %>% apriori(supp = 0.1, conf = 0.9, target = "rules", 
+  control = list(verbose = FALSE))
 rules %>% head(n = 3, by = "lift") %>% inspect()
 ```
 

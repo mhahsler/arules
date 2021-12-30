@@ -13,22 +13,23 @@ itemsets and association
 rules](https://en.wikipedia.org/wiki/Association_rule_learning). The
 package also provides a wide range of [interest
 measures](https://mhahsler.github.io/arules/docs/measures) and mining
-algorithms including the code of Christian Borgelt’s
-popular and efficient C implementations of the association mining
-algorithms [Apriori](https://borgelt.net/apriori.html) and
-[Eclat](https://borgelt.net/eclat.html). In addition, the following algorithms are
-available via [fim4r](https://borgelt.net/fim4r.html):
+algorithms including the code of Christian Borgelt’s popular and
+efficient C implementations of the association mining algorithms
+[Apriori](https://borgelt.net/apriori.html) and
+[Eclat](https://borgelt.net/eclat.html). In addition, the following
+mining algorithms are available via
+[fim4r](https://borgelt.net/fim4r.html):
 
-* Apriori
-* Eclat
-* Carpenter
-* FPgrowth
-* IsTa 
-* RElim 
-* SaM
+-   Apriori
+-   Eclat
+-   Carpenter
+-   FPgrowth
+-   IsTa
+-   RElim
+-   SaM
 
-Code examples can be found in
-[Chapter 5 of the web book R Companion for Introduction to Data
+Code examples can be found in [Chapter 5 of the web book R Companion for
+Introduction to Data
 Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
 
 ## arules core packages:
@@ -50,10 +51,12 @@ Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/a
 
 -   [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner): Mining
     NB-frequent itemsets and NB-precise rules.
--   [fim4r](https://borgelt.net/fim4r.html): Provides fast implementations for several
-      mining algorithms. An interface function called `fim4r()` is provided in `arules`.
+-   [fim4r](https://borgelt.net/fim4r.html): Provides fast
+    implementations for several mining algorithms. An interface function
+    called `fim4r()` is provided in `arules`.
 -   [opusminer](https://cran.r-project.org/package=opusminer): OPUS
-    Miner algorithm for filtered top-k association discovery.
+    Miner algorithm for finding the op k productive, non-redundant
+    itemsets. Call `opus()` with `format = 'itemsets'`.
 -   [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to
     KEEL’s association rule mining algorithm.
 -   [RSarules](https://cran.r-project.org/package=RSarules): Mining
@@ -132,7 +135,7 @@ trans
     ##  84 items (columns)
 
 ``` r
-rules <- apriori(trans, parameter = list(supp = 0.1, conf = 0.9, target = "rules"))
+rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
 ```
 
     ## Apriori
@@ -174,46 +177,33 @@ inspect(head(rules, n = 3, by = "lift"))
     ##      type of home=house,                                                                         
     ##      language in home=english} => {marital status=married}    0.11       0.96     0.11  2.6   988
 
-## Using arule and tidyverse
+## Using arules with tidyverse
 
-arules works seamlessly with [tidyverse](https://www.tidyverse.org/).
-For example, dplyr can be used for cleaning and preparing the
-transactions and then functions in arules can be used with `%>%`.
+`arules` works seamlessly with [tidyverse](https://www.tidyverse.org/).
+For example:
+
+-   `dplyr` can be used for cleaning and preparing the transactions.
+-   `transaction()` and other functions accept `tibble` as input.
+-   Functions in arules can be used with `%>%`.
+-   [arulesViz](https://github.com/mhahsler/arulesViz) provides
+    visualizations based on `ggplot2`.
+
+For example, we can remove the ethnic information column before creating
+transactions and then mine and inspect rules.
 
 ``` r
 library("tidyverse")
 library("arules")
 data("IncomeESL")
 
-trans <- IncomeESL %>% transactions()
-
-rules <- trans %>% apriori(parameter = list(supp = 0.1, conf = 0.9, target = "rules"))
-```
-
-    ## Apriori
-    ## 
-    ## Parameter specification:
-    ##  confidence minval smax arem  aval originalSupport maxtime support minlen
-    ##         0.9    0.1    1 none FALSE            TRUE       5     0.1      1
-    ##  maxlen target  ext
-    ##      10  rules TRUE
-    ## 
-    ## Algorithmic control:
-    ##  filter tree heap memopt load sort verbose
-    ##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
-    ## 
-    ## Absolute minimum support count: 899 
-    ## 
-    ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
-    ## sorting and recoding items ... [42 item(s)] done [0.00s].
-    ## creating transaction tree ... done [0.00s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.03s].
-    ## writing ... [457 rule(s)] done [0.00s].
-    ## creating S4 object  ... done [0.00s].
-
-``` r
-rules %>% head(n = 3, by = "lift") %>% inspect()
+trans <- IncomeESL %>%
+    select(-`ethnic classification`) %>%
+    transactions()
+rules <- trans %>%
+    apriori(supp = 0.1, conf = 0.9, target = "rules", control = list(verbose = FALSE))
+rules %>%
+    head(n = 3, by = "lift") %>%
+    inspect()
 ```
 
     ##     lhs                           rhs                      support confidence coverage lift count
@@ -255,3 +245,6 @@ arules](https://stackoverflow.com/questions/tagged/arules).
     Rules](https://michael.hahsler.net/research/association_rules/measures.html),
     2015, URL:
     <https://michael.hahsler.net/research/association_rules/measures.html>.
+-   Michael Hahsler. [An R Companion for Introduction to Data Mining:
+    Chapter
+    5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
