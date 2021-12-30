@@ -19,47 +19,48 @@
 
 #' Support Counting for Itemsets
 #'
-#' Provides the generic function and the needed S4 method to count support for
-#' given [itemsets] (and other types of [associations]) in a given [transactions]
+#' Provides the generic function `support()` and the methods to count support for
+#' given [itemMatrix] and [associations] in a given [transactions]
 #' data.
 #'
-#' Normally, itemset support is counted during mining the database with a set
-#' minimum support. However, if only the support information for a single or a
-#' few itemsets is needed, one might not want to mine the database for all
-#' frequent itemsets.
+#' Normally, the support of frequent itemsets is very efficiently counted during
+#' mining process using a set minimum support.
+#' However, if only the support for specific itemsets (maybe itemsets with very low support)
+#' is needed, or the support of a set of itemsets needs to be recalculated on
+#' different [transactions] than they were mined on, then `support()` can be used.
 #'
-#' If in control `method = "ptree"` is used, the counters for the itemsets
-#' are organized in a prefix tree. The transactions are sequentially processed
-#' and the corresponding counters in the prefix tree are incremented (see
-#' Hahsler et al, 2008). This method is used by default since it is typically
-#' significantly faster than tid list intersection.
+#' Several methods for support counting are available:
 #'
-#' If in control `method = "tidlists"` is used, support is counted using
-#' transaction ID list intersection which is used by several fast mining
-#' algorithms (e.g., by Eclat). However, Support is determined for each itemset
-#' individually which is slow for a large number of long itemsets in dense
-#' data.
+#' * `"ptree"` (default method): The counters for the itemsets
+#'   are organized in a prefix tree. The transactions are sequentially processed
+#'   and the corresponding counters in the prefix tree are incremented (see
+#'   Hahsler et al, 2008). This method is used by default since it is typically
+#'   significantly faster than transaction ID list intersection.
 #'
-#' If in control `reduce = TRUE` is used, unused items are removed from
-#' the data before creating rules. This might be slower for large transaction
-#' data sets.
+#' * `"tidlists"`: support is counted using
+#'   transaction ID list intersection which is used by several fast mining
+#'   algorithms (e.g., by Eclat). However, Support is determined for each itemset
+#'   individually which is slow for a large number of long itemsets in dense
+#'   data.
+#'
+#' To speed up counting, `reduce = TRUE` can be specified in control. Unused items
+#' are removed from the transactions before counting.
 #'
 #' @aliases support
 #' @family interest measures
-#' 
+#'
 #' @param x the set of itemsets for which support should be counted.
-#' @param ... further arguments are passed on.
 #' @param transactions the transaction data set used for mining.
 #' @param type a character string specifying if `"relative"` support or
 #' `"absolute"` support (counts) are returned for the itemsets in
 #' `x`.  (default: `"relative"`)
 #' @param weighted should support be weighted by transactions weights stored as
-#' column `"weight"` in transactionInfo?
-#' @param control a named list with elements `method` indicating the
-#' method (`"tidlists"` or `"ptree"`), and the logical arguments
-#' `reduce` and `verbose` to indicate if unused items are removed and
-#' if the output should be verbose.
-#' 
+#' column `"weight"` in `transactionInfo`?
+#' @param method use `"ptree"` or `"tidlists"`. See Details Section.
+#' @param reduce should unused items are removed before counting?
+#' @param verbose report progress?
+#' @param ... further arguments. 
+#'
 #' @return A numeric vector of the same length as `x` containing the
 #' support values for the sets in `x`.
 #' @author Michael Hahsler and Christian Buchta
@@ -88,8 +89,11 @@ setMethod("support", signature(x = "itemMatrix"),
   function(x,
     transactions,
     type = c("relative", "absolute"),
+    method = c("ptree", "tidlists"),
+    reduce = FALSE,
     weighted = FALSE,
-    control = NULL) {
+    verbose = FALSE,
+    ...) {
     if (!is(transactions, "transactions"))
       stop("transactions missing. Please specify the transactions used to mine the itemsets!")
     
@@ -98,21 +102,7 @@ setMethod("support", signature(x = "itemMatrix"),
       stop("transactions do not contain weights. Add a weight column to transactionInfo.")
     
     type <- match.arg(type)
-    
-    verbose <- if (is.null(control$v))
-      FALSE
-    else
-      control$v
-    method  <- if (is.null(control$m))
-      "ptree"
-    else
-      control$m
-    
-    methods <- c("ptree", "tidlists")
-    
-    method <-  methods[pmatch(method , methods)]
-    if (is.na(method))
-      stop("unknown method")
+    method <- match.arg(method)
     
     if (verbose)
       cat("using method:", method, "\n")
@@ -137,18 +127,18 @@ setMethod("support", signature(x = "itemMatrix"),
     if (weighted) {
       tm <-
         system.time(support <-
-            support.weighted(x, transactions, control))
+            support.weighted(x, transactions, reduce = reduce, verbose = verbose))
       total <- sum(transactionInfo(transactions)[["weight"]])
     } else {
       total <- length(transactions)
       if (method == "ptree")
         tm <-
           system.time(support <-
-              support.ptree(x, transactions, control))
+              support.ptree(x, transactions, reduce = reduce, verbose = verbose))
       else
         tm <-
           system.time(support <-
-              support.tidlists(x, transactions, control))
+              support.tidlists(x, transactions, reduce = reduce, verbose = verbose))
     }
     
     if (verbose)
@@ -187,43 +177,44 @@ support.tidlists.inR <- function(x, transactions, control = NULL) {
   support
 }
 
-support.tidlists <- function(x, transactions, control = NULL) {
-  if (nitems(x) != nitems(transactions))
-    stop("number of items in x and transactions do not match.")
-  
-  reduce  <- if (is.null(control$r))
-    FALSE
-  else
-    control$r
-  if (reduce == TRUE)
-    warning("method tidlists does not use reduce")
-  
-  tid <- as(transactions, "tidLists")
-  
-  support <- .Call(R_tid_support , tid@data, x@data)
-  
-  #names(supports) <- labels(x)
-  support
-}
+support.tidlists <-
+  function(x,
+    transactions,
+    reduce = FALSE,
+    verbose = FALSE) {
+    if (nitems(x) != nitems(transactions))
+      stop("number of items in x and transactions do not match.")
+    
+    if (reduce)
+      warning("method tidlists does not use reduce")
+    
+    tid <- as(transactions, "tidLists")
+    
+    support <- .Call(R_tid_support , tid@data, x@data)
+    
+    #names(supports) <- labels(x)
+    support
+  }
 
-support.ptree <- function(x, transactions, control = NULL) {
-  reduce  <- if (is.null(control$r))
-    FALSE
-  else
-    control$r
-  verbose <- if (is.null(control$v))
-    FALSE
-  else
-    control$v
-  
-  .Call(R_pncount, x@data, transactions@data, TRUE, reduce, verbose)
-}
+support.ptree <-
+  function(x,
+    transactions,
+    reduce = FALSE,
+    verbose = FALSE) {
+    .Call(
+      R_pncount,
+      x@data,
+      transactions@data,
+      TRUE,
+      as.logical(reduce),
+      as.logical(verbose)
+    )
+  }
 
-support.weighted <- function(x, transactions, control = NULL) {
-  verbose <- if (is.null(control$v))
-    FALSE
-  else
-    control$v
+support.weighted <- function(x,
+  transactions,
+  reduce = FALSE,
+  verbose = FALSE) {
   weights <- as.numeric(transactionInfo(transactions)[["weight"]])
   
   .Call(
@@ -234,7 +225,7 @@ support.weighted <- function(x, transactions, control = NULL) {
     weights,
     NULL,
     NULL,
-    verbose
+    as.logical(verbose)
   )
 }
 
@@ -243,12 +234,18 @@ setMethod("support", signature(x = "associations"),
   function(x,
     transactions,
     type = c("relative", "absolute"),
+    method = c("ptree", "tidlists"),
+    reduce = FALSE,
     weighted = FALSE,
-    control = NULL)
+    verbose = FALSE,
+    ...)
     support(
       items(x),
       transactions = transactions,
       type = type,
+      method = method,
+      reduce = reduce,
       weighted = weighted,
-      control = control
+      verbose = verbose,
+      ...
     ))

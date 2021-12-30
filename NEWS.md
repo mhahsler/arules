@@ -1,8 +1,10 @@
-# arules 1.7-2.1 (xx/xx/2021)
+# arules 1.7-3 (12/28/2021)
 
 ## Changes
 
-* Reworked manual pages using roxygen2.
+* Manual pages are now created using roxygen2.
+* support() uses now explicit arguments instead of control.
+* ruleInduction() uses now explicit arguments instead of control.
 
 ## New Feature
 
