@@ -3,6 +3,9 @@ title: A Probabilistic Comparison of Commonly Used Interest Measures for Associa
   Rules
 author: "Michael Hahsler"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_document:
     toc: yes
     toc_depth: 2
@@ -11,9 +14,15 @@ output:
       smooth_scroll: no
 ---
 
+# About this Document
+
 <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" style="float:left; margin:4px;" alt = "CC BY-SA 4.0" />
 This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution Share Alike 4.0 International License.</a>
+
 Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: https://mhahsler.github.io/arules/docs/measures**
+
+A PDF version of the document can be found here:
+https://mhahsler.github.io/arules/docs/measures.pdf
 
 
 # Introduction
@@ -334,10 +343,10 @@ between $X$ and $Y$. The chi-squared test statistic is:
 $$
 \textrm{chi-squared}(X \Rightarrow Y) 
 = \sum_i \frac{(O_i - E_i)^2}{E_i} 
-= \frac{(n_{XY} - \frac{n_X n_Y}{n})^2}{\frac{n_X n_Y}{n}}
-+ \frac{(n_{\overline{X}Y} - \frac{n_\overline{X} n_Y}{n})^2}{\frac{n_\overline{X} n_Y}{n}}
-+ \frac{(n_{X\overline{Y}} - \frac{n_X n_\overline{Y}}{n})^2}{\frac{n_X n_\overline{Y}}{n}}
-+ \frac{(n_{\overline{X}\overline{Y}} - \frac{n_\overline{X} n_\overline{Y}}{n})^2}{\frac{n_\overline{X} n_\overline{Y}}{n}}
+= \frac{\left( n_{XY} - \frac{n_X n_Y}{n} \right)^2}{\frac{n_X n_Y}{n}}
++ \frac{\left( n_{\overline{X}Y} - \frac{n_{\overline{X}} n_Y}{n} \right)^2}{\frac{n_{\overline{X}} n_Y}{n}}
++ \frac{\left( n_{X\overline{Y}} - \frac{n_X n_{\overline{Y}}}{n} \right)^2}{\frac{n_X n_{\overline{Y}}}{n}}
++ \frac{\left( n_{\overline{X}\overline{Y}} - \frac{n_{\overline{X}} n_{\overline{Y}}}{n} \right)^2}{\frac{n_{\overline{X}} n_{\overline{Y}}}{n}}
 = n \frac{P(X \cap Y)P(\overline{X} \cap \overline{Y})  - P(X \cap \overline{Y})P(\overline{X} \cap Y)}{\sqrt{P(X)P(Y)P(\overline{X})P(\overline{Y})}}
 $$
 
@@ -491,10 +500,10 @@ is typically
 called the difference of proportion. 
 It is defined as
 $$
-doc(X \Rightarrow Y) 
+\mathrm{doc}(X \Rightarrow Y) 
 = conf(X \Rightarrow Y) - conf(\overline{X} \Rightarrow Y) 
 = P(Y|X) - P(Y|\overline{X})
-= n_{XY} / n_X - n_{\overline{X}Y} / n_\overline{X}
+= n_{XY} / n_X - n_{\overline{X}Y} / n_{\overline{X}}
 $$
 
 **Range:** $[-1, 1]$ (0 means statistical independence)
@@ -518,7 +527,7 @@ The measure is related to the [Sebag-Schoenauer Measure](#sebag-schoenauer).
 **Reference:** <a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Hahsler:2007">Michael Hahsler and Kurt Hornik. New probabilistic interest measures for association rules.</a> Intelligent Data Analysis, 11(5):437-455, 2007.
 
 If $X$ and $Y$ are independent, then the $n_{XY}$
-is a realization of the random variable $C_{XY}$ which has a hypergeometric distribution with $n_Y$ draws from a population with $n_X$ successes and $n_\overline{X}$ failures.
+is a realization of the random variable $C_{XY}$ which has a hypergeometric distribution with $n_Y$ draws from a population with $n_X$ successes and $n_{\overline{X}}$ failures.
 The p-value for Fisher's one-sided exact test giving the probability
 of observing a contingency table with a count of at least $n_{XY}$
 given the observed marginal counts is
@@ -954,7 +963,7 @@ Coefficient $\rho$ with 0-1 values and related to the [chi-squared test statisti
 
 $$
 \phi(X \Rightarrow Y) 
-= \frac{n n_{XY} - n_Xn_Y}{\sqrt{n_X n_Y n_\overline{X} n_\overline{Y}}}
+= \frac{n n_{XY} - n_Xn_Y}{\sqrt{n_X n_Y n_{\overline{X}} n_{\overline{Y}}}}
 = \frac{P(X \cap Y) - P(X)P(Y)}{\sqrt{P(X) (1 - P(X)) P(Y) (1 - P(Y))}}
 = \sqrt{\frac{\chi^2}{n}}
 $$
@@ -1008,7 +1017,7 @@ and unexposed ($\overline{X}$) groups.
 
 $$
 \mathrm{RR}(X \Rightarrow Y)
-= \frac{n_{XY} / n_X}{n_{\overline{X}Y} / n_\overline{X}} 
+= \frac{n_{XY} / n_X}{n_{\overline{X}Y} / n_{\overline{X}}} 
 = \frac{P(Y | X)}{P(Y | \overline{X})} 
 = \frac{conf(X \Rightarrow Y)}{conf(\overline{X} \Rightarrow Y)} 
 $$
