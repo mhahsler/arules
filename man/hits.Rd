@@ -31,8 +31,8 @@ should be displayed.}
 A \code{numeric} vector with transaction weights for \code{data}.
 }
 \description{
-Compute the hub weights of a collection of \link{transactions} using the HITS (hubs
-and authorities) algorithm.
+Compute the hub transaction weights for a collection
+of \link{transactions} using the HITS (hubs and authorities) algorithm.
 }
 \details{
 Model a collection of \link{transactions} as a bipartite graph of hubs
@@ -65,12 +65,12 @@ without Preassigned Weights. \emph{IEEE Transactions on Knowledge and Data
 Engineering}, 4 (30), 489--495.
 }
 \seealso{
-Other weighted association mining: 
+Other weighted association mining functions: 
 \code{\link{SunBai}},
 \code{\link{weclat}()}
 }
 \author{
 Christian Buchta
 }
-\concept{weighted association mining}
+\concept{weighted association mining functions}
 \keyword{models}

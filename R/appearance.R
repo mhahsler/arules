@@ -22,11 +22,11 @@
 #' Implement Rule Templates
 #'
 #' Specifies the restrictions on the associations mined by
-#' [apriori]. These restrictions can implement certain aspects of
+#' [apriori()]. These restrictions can implement certain aspects of
 #' rule templates described by Klemettinen (1994).
 #'
 #' Note that appearance is only supported by the implementation of
-#' [apriori].
+#' [apriori()].
 #'
 #' @name APappearance-class
 #' @aliases APappearance
@@ -38,10 +38,12 @@
 #' [apriori()] function using the information in the named list of
 #' the function's `appearance` argument.  In this case, the item labels
 #' used in the list will be automatically matched against the items in the used
-#' transaction database. Objects can also be created via coercion.
-#'
-#' @slot set used internally.
-#' @slot items used internally.
+#' [transactions].
+#' 
+#' Objects can also be created by calls of the form `new("APappearance",
+#' ...)`.  In this case, item IDs (column numbers of the transactions incidence
+#' matrix) have to be used instead of labels.
+#' 
 #' @slot labels character vectors giving the labels of the
 #' items which can appear in the specified place (rhs, lhs or both for rules
 #' and items for itemsets).  none specifies, that the items mentioned there
@@ -53,11 +55,9 @@
 #' default appearance for all items not explicitly mentioned in the other
 #' elements of the list.  Leave unspecified and the code will guess the correct
 #' setting. 
+#' @slot set used internally.
+#' @slot items used internally.
 #'
-#' Objects can also be created by calls of the form `new("APappearance",
-#' ...)`.  In this case, item IDs (column numbers of the transactions incidence
-#' matrix) have to be used instead of labels.
-#' 
 #' @author Michael Hahsler and Bettina Gruen
 #' @references Christian Borgelt (2004) _Apriori --- Finding Association
 #' Rules/Hyperedges with the Apriori Algorithm._
@@ -69,7 +69,6 @@
 #' Information and Knowledge Management,_ 401--407.
 #' @keywords classes
 #' @examples
-#'
 #' data("Adult")
 #'
 #' ## find only frequent itemsets which do not contain small or large income
@@ -92,7 +91,6 @@
 #'
 #' ## Note: For more complicated restrictions you have to mine all rules/itemsets and
 #' ## then filter the results afterwards.
-#'
 setClass(
   "APappearance",
   representation(

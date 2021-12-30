@@ -26,25 +26,26 @@ setGeneric("DATAFRAME",
 
 #' Data.frame Representation for arules Objects
 #' 
-#' Provides the generic function `DATAFRAME()` and the S4 methods to create
+#' Provides the generic function `DATAFRAME()` and the methods to create
 #' a data.frame representation from some arules objects. 
 #' These methods are used for the coercion to a
-#' data.frame, but offers more control over the coercion process (item
+#' data.frame, but offer more control over the coercion process (item
 #' separators, etc.).
 #' 
-#' Using DATAFRAME is equivalent to the standard coercion 
+#' Using `DATAFRAME()` is equivalent to the standard coercion 
 #' `as(x, "data.frame")`.  However, for rules, the argument `separate = TRUE`
 #' will produce separate columns for the LHS and the RHS of the rule.
+#' 
 #' Furthermore, the arguments `itemSep`, `setStart`, `setEnd`
 #' (and `ruleSep` for `separate = FALSE`) will be passed on to the
-#' `label` method.
+#' `labels()` method for the object specified in `from`.
 #'
 #' @name DATAFRAME
 #' @family import/export
 #'  
 #' @param from the object to be converted into a data.frame.
 #' @param separate logical; separate LHS and RHS in separate columns? (only for rules)
-#' @param ... further arguments.
+#' @param ... further arguments are passed on to the `labels()` method defined for the object in `from`.
 #' @return a data.frame.
 #' @author Michael Hahsler
 #' @keywords manip

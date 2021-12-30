@@ -21,41 +21,35 @@
 #' Item Coding --- Conversion between Item Labels and Column IDs
 #'
 #' The order in which items are stored in an [itemMatrix] is called the
-#' _item coding_. The following generic functions and S4 methods are used
-#' to translate between the binary representation in the itemMatrix format
+#' _item coding_. The following generic functions and methods are used
+#' to translate between the representation in the itemMatrix format
 #' (used in transactions, rules and itemsets), item labels and numeric item IDs
-#' (i.e., the column numbers in the binary representation).
+#' (i.e., the column numbers in the itemMatrix representation).
 #'
-#' **Item compatibility:** If you deal with several datasets or different
-#' subsets of the same dataset and want to combine or compate the found
-#' itemsets or rules, then you need to make sure that all transaction sets have
-#' a compatible item coding. That is, the sparse matrices representing the
-#' items have columns for the same items in exactly the same order. The
-#' coercion to transactions with `as(x, "transactions")` will create the
-#' item coding by adding items when they are encountered in the dataset. This
+#' **Item coding compatibility:** When working with several datasets or different
+#' subsets of the same dataset, combining or compare the found
+#' itemsets or rules requires a compatible item coding.  
+#' That is, the sparse matrices representing the
+#' items (the itemMatrix objects) have columns for the same items in exactly the 
+#' same order. The coercion to transactions with `transactions()` or 
+#' `as(x, "transactions")` will create the
+#' item coding by adding items in the order they are encountered in the dataset. This
 #' can lead to different item codings (different order, missing items) for even
-#' only slightly different datasets. You can use the method `compatible()`
-#' to check if two sets have the same item coding.
+#' only slightly different datasets or versions of a dataset. 
+#' Method `compatible()` can be used to check if two sets have the same item coding.
 #'
-#' If you work with many sets, then you should first define a common item
-#' coding by creating a vector with all possible item labels and then use
-#' either `encode()` to create transactions or `recode()` to make a
-#' different set compatible.
-#'
-#' The following function help with creating and changing the item coding to
-#' make them compatible.
-#'
-#' `encode()` converts from readable item labels to an itemMatrix using a
-#' given coding. With this method it is possible to create several compatible
-#' [itemMatrix] objects (i.e., use the same binary representation for
-#' items) from data.
+#' **Defining a common item coding:** 
+#' When working with many sets, then first a common item
+#' coding should be defined by creating a vector with all possible item labels and then 
+#' specify them as `itemLabels` to create transactions with `transactions()`. 
+#' Compatible [itemMatrix] objects can be created using `encode()`.
+#' 
+#' **Recoding and Decoding:**
+#' Two incompatible objects can be made compatible using `recode()`. Recode
+#' one object by specifying the other object in `itemLabels`.
 #'
 #' `decode()` converts from the column IDs used in the itemMatrix
-#' representation to item labels. `decode()` is used by [LIST].
-#'
-#' `recode()` recodes an itemMatrix object so its coding is compatible with
-#' another itemMatrix object specified in [itemLabels()] (i.e., the columns
-#' are reordered to match).
+#' representation to item labels. `decode()` is used by [LIST()].
 #'
 #' @name itemCoding
 #' @aliases itemCoding itemcoding
@@ -76,7 +70,8 @@
 #' [associations] to compare item coding to `x`.
 #' @param match deprecated: used `itemLabels` instead.
 #' @param ... further arguments.
-#' @return `recode()` always returns an object of class [itemMatrix].
+#' 
+#' @return `recode()` always returns an object of the same class as `x`.
 #'
 #' For `encode()` with `itemMatrix = TRUE` an object of class
 #' [itemMatrix] is returned.  Otherwise the result is of the same type as

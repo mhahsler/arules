@@ -29,14 +29,13 @@ setGeneric("sort")
 #' support).
 #'
 #' `sort` is relatively slow for large sets of associations since it has
-#' to copy and rearrange a large data structure.  Note that sorting creates a
-#' second copy of the set of associations which can be slow and memory
-#' consuming for large sets. With `order = TRUE` a integer vector with the
+#' to copy and rearrange a large data structure.
+#' With `order = TRUE` an integer vector with the
 #' order is returned instead of the reordered associations.
 #'
-#' If only the top `n` associations are needed then `head` using
-#' `by` performs this faster than calling `sort` and then `head`
-#' since it does it without copying and rearranging all the data.  `tail`
+#' If only the top `n` associations are needed then [head()] using
+#' `by` performs this faster than calling `sort()` and then [`head()`]
+#' since it does it without copying and rearranging all the data.  [`tail()`]
 #' works in the same way.
 #'
 #' @include associations.R
@@ -53,17 +52,17 @@ setGeneric("sort")
 #' `x` to be used to sort `x`. If a vector of character strings is
 #' specified then the additional strings are used to sort `x` in case of
 #' ties.
-#' @param order should a order vector be returned instead of the sorted
-#' associations?
+#' @param order should a order vector (a permutation like [order()])
+#'  be returned instead of the sorted associations?
 #' @param ... Further arguments are ignored.
 #' 
-#' @return An object of the same class as `x`.
+#' @return An object of the same class as `x` or a permutation vector.
 #' @author Michael Hahsler
 #' @keywords manip arith
 #' @examples
 #' data("Adult")
 #'
-#' ## Mine rules with APRIORI
+#' ## Mine rules with Apriori
 #' rules <- apriori(Adult, parameter = list(supp = 0.6))
 #'
 #' rules_by_lift <- sort(rules, by = "lift")

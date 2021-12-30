@@ -20,7 +20,7 @@
 
 #' Remove Duplicated Elements from a Collection
 #' 
-#' Provides the generic function `unique()` and the S4 methods for
+#' Provides the generic function `unique()` and the methods for
 #' [itemMatrix] [transactions], and [associations]. 
 #' 
 #' `unique()` uses [duplicated()] to return an
@@ -29,7 +29,7 @@
 #' @family associations functions
 #' @family itemMatrix and transactions functions
 #'  
-#' @param x an object of class [itemMatrix] or associations.
+#' @param x an object of class [itemMatrix] or [associations].
 #' @param \dots further arguments (currently unused).
 #' @param incomparables currently unused.
 #' @return An object of the same class as `x` with duplicated elements

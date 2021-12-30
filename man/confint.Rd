@@ -21,7 +21,7 @@
 \arguments{
 \item{object}{an object of class \link{rules}.}
 
-\item{parm, measure}{name of the interest measures (i.e., parameter).
+\item{parm, measure}{name of the interest measures (see \code{\link[=interestMeasure]{interestMeasure()}}).
 \code{measure} can be used instead of \code{parm}.}
 
 \item{level}{the confidence level required.}
@@ -34,7 +34,7 @@ returns an interval with only an upper limit.}
 methods depends on the measure and the most common method is used by
 default.}
 
-\item{replications}{number of replications for method "simulation". Ignored
+\item{replications}{number of replications for method \code{"simulation"}. Ignored
 for other methods.}
 
 \item{smoothCounts}{pseudo count for addaptive smoothing (Laplace
@@ -49,7 +49,8 @@ for can be specified.}
 }
 \value{
 Returns a matrix with with one row for each rule and the two columns
-"LL" and "UL" with the interval. The matrix has the additional attributes:
+named \code{"LL"} and \code{"UL"} with the interval boundaries.
+The matrix has the following additional attributes:
 
 \item{measure}{ the interest measure.}
 \item{level}{ the confidence level}
@@ -57,18 +58,18 @@ Returns a matrix with with one row for each rule and the two columns
 \item{smoothCounts}{ used count
 smoothing. }
 \item{method}{ name of the method to create the interval }
-\item{desc}{ desciption of the used method to calculate the confidence
+\item{desc}{ description of the used method to calculate the confidence
 interval. The mentioned references can be found below. }
 }
 \description{
-Computes confidence intervals for interest measures used for mining association \link{rules}.
+Defines a method to compute confidence intervals for interest measures for association \link{rules}.
 }
 \details{
 This method creates a contingency table for each rule and then constructs a
 confidence interval for the specified measures.
 
 Fast confidence interval approximations are currently available for the
-measures "support", "count", "confidence", "lift", "oddsRatio", and "phi".
+measures \code{"support"}, \code{"count"}, \code{"confidence"}, \code{"lift"}, \code{"oddsRatio"}, and \code{"phi"}.
 For all other measures, bootstrap sampling from a multinomial distribution
 is used.
 
@@ -77,7 +78,6 @@ with zero counts can be specified by \code{smoothCounts = 0.5}. Here .5 is
 added to each count in the contingency table.
 }
 \examples{
-
 data("Income")
 
 # mine some rules with the consequent "language in home=english"
@@ -107,7 +107,6 @@ ci <- confint(rules, "lift", level = 0.95, side = "lower")
 ci
 
 inspect(rules[ci[, "LL"] > 1])
-
 }
 \references{
 Wilson, E. B. (1927). "Probable inference, the law of

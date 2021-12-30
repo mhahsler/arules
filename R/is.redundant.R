@@ -20,7 +20,7 @@
 
 #' Find Redundant Rules
 #'
-#' Provides the generic function and the S4 method `is.redundant()` to find
+#' Provides the generic function `is.redundant()` and the method  to find
 #' redundant rules.
 #'
 #' \bold{Simple improvement-based redundancy:} (`confint = FALSE`) A rule
@@ -64,7 +64,7 @@
 #' [confint()]).
 #'
 #' @family postprocessing
-#' @family association functions
+#' @family associations functions
 #' @family interest measures
 #' 
 #' @param x a set of rules.

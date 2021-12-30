@@ -20,13 +20,13 @@ complement-items. If omitted then the original label is prepended by "!" to
 form the complement-item label.}
 }
 \value{
-Returns an object of class \link{transactions} with complement-items
+Returns an object of class \link{transactions} with complement items
 added.
 }
 \description{
-Provides the generic function \code{addComplement()} and the S4 methods for
-transactions. This function adds for given items complement items. That is
-it adds an artificial item to each transactions which does not contain the
+Provides the generic function \code{addComplement()} and a method for
+\link{transactions} to add complement items. That is,
+it adds an artificial item to each transaction which does not contain the
 original item. Such items are also called negative items (Antonie et al,
 2014).
 }

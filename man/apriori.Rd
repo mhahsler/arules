@@ -4,19 +4,20 @@
 \alias{apriori}
 \alias{APRIORI}
 \alias{Apriori}
-\title{Mining Associations with the APRIORI Algorithm}
+\title{Mining Associations with the Apriori Algorithm}
 \usage{
 apriori(data, parameter = NULL, appearance = NULL, control = NULL, ...)
 }
 \arguments{
-\item{data}{object of class \link{transactions} or any data
+\item{data}{object of class \link{transactions}. Any data
 structure which can be coerced into transactions (e.g.,
-a binary matrix or a data.frame).}
+a binary matrix, a data.frame or a tibble) can also be specified and will be
+internally coerced to transactions.}
 
 \item{parameter}{object of class \link{APparameter} or named
 list.  The default behavior is to mine rules with minimum support of 0.1,
 minimum confidence of 0.8, maximum of 10 items (maxlen), and a maximal time
-for subset checking of 5 seconds (maxtime).}
+for subset checking of 5 seconds (\code{maxtime}).}
 
 \item{appearance}{object of class \link{APappearance} or named
 list.  With this argument item appearance can be restricted (implements rule
@@ -26,7 +27,7 @@ templates).  By default all items can appear unrestricted.}
 Controls the algorithmic performance of the mining algorithm (item sorting,
 report progress (verbose), etc.)}
 
-\item{...}{Additional arguments are added to the parameter list.}
+\item{...}{Additional arguments are for convenience added to the parameter list.}
 }
 \value{
 Returns an object of class \link{rules} or
@@ -34,25 +35,26 @@ Returns an object of class \link{rules} or
 }
 \description{
 Mine frequent itemsets, association rules or association hyperedges using
-the APRIORI algorithm.  The APRIORI algorithm employs level-wise search for
-frequent itemsets.  The used C implementation of APRIORI by Christian
-Borgelt includes some improvements (e.g., a prefix tree and item sorting).
+the Apriori algorithm.
 }
 \details{
-\strong{Warning about automatic conversion of matrices or data.frames to
-transactions.} It is preferred to create transactions manually before
+The Apriori algorithm (Agrawal et al, 1993) employs level-wise search for
+frequent itemsets. The used C implementation of Apriori by Christian
+Borgelt (2003) includes some improvements (e.g., a prefix tree and item sorting).
+
+\strong{Warning about automatic conversion of matrices or data.frames to transactions.}
+It is preferred to create transactions manually before
 calling \code{apriori()} to have control over item coding. This is especially
 important when you are working with multiple datasets or several subsets of
 the same dataset. To read about item coding, see \link{itemCoding}.
 
 If a data.frame is specified as \code{x}, then the data is automatically
 converted into transactions by discretizing numeric data using
-\link{discretizeDF} and then coercion to transactions. The discretization
-may fail if the data is not well behaved.  Consult the manual page for
-\link{discretizeDF} for details.
+\code{\link[=discretizeDF]{discretizeDF()}} and then coercion to transactions. The discretization
+may fail if the data is not well behaved.
 
-\strong{Apriori only creates rules with one item in the RHS (Consequent)!} The
-default value in \link{APparameter} for \code{minlen} is 1.
+\strong{Apriori only creates rules with one item in the RHS (Consequent).}
+The default value in \link{APparameter} for \code{minlen} is 1.
 This meains that rules with only one item (i.e., an empty antecedent/LHS)
 like
 
@@ -63,7 +65,8 @@ involved, the item in the RHS will appear with the probability given by the
 rule's confidence (which equals the support).  If you want to avoid these
 rules then use the argument \code{parameter = list(minlen = 2)}.
 
-\strong{Notes on run time and memory usage:} If the minimum \code{support} is
+\strong{Notes on run time and memory usage:}
+If the minimum \code{support} is
 chosen too low for the dataset, then the algorithm will try to create an
 extremely large set of itemsets/rules. This will result in very long run
 time and eventually the process will run out of memory.  To prevent this,
@@ -75,7 +78,7 @@ only checked when the subset size increases, so it may run significantly
 longer than what you specify in maxtime.  Setting \code{maxtime = 0} disables
 the time limit.
 
-Interrupting execution with Control-C/Esc is not recommended.  Memory
+Interrupting execution with \code{Control-C/Esc} is not recommended.  Memory
 cleanup will be prevented resulting in a memory leak. Also, interrupts are
 only checked when the subset size increases, so it may take some time till
 the execution actually stops.

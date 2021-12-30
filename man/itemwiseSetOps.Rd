@@ -30,11 +30,11 @@ itemIntersect(x, y)
 An object of class \link{itemMatrix} is returned.
 }
 \description{
-Provides the generic functions and the S4 methods for itemwise set
-operations on items in an itemMatrix. The regular set operations regard each
-itemset in an itemMatrix as an element. Itemwise operations regard each item
-as an element and operate on the items of pairs if corresponding itemsets
-(first itemset in x with first itemset in y, second with second, etc.).
+Provides the generic functions and the methods for itemwise set
+operations on items in an \link{itemMatrix}. The regular set operations regard each
+itemset in an \code{itemMatrix} as an element. Itemwise operations regard each item
+as an element and operate on the items of pairs of corresponding itemsets
+(first itemset in \code{x} with first itemset in \code{y}, second with second, etc.).
 }
 \examples{
 data("Adult")

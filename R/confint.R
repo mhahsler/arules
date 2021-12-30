@@ -23,13 +23,13 @@
 
 #' Confidence Intervals for Interest Measures for Association Rules
 #'
-#' Computes confidence intervals for interest measures used for mining association [rules].
+#' Defines a method to compute confidence intervals for interest measures for association [rules].
 #'
 #' This method creates a contingency table for each rule and then constructs a
 #' confidence interval for the specified measures.
 #'
 #' Fast confidence interval approximations are currently available for the
-#' measures "support", "count", "confidence", "lift", "oddsRatio", and "phi".
+#' measures `"support"`, `"count"`, `"confidence"`, `"lift"`, `"oddsRatio"`, and `"phi"`.
 #' For all other measures, bootstrap sampling from a multinomial distribution
 #' is used.
 #'
@@ -42,7 +42,7 @@
 #' 
 #' @aliases confint confint.rules
 #' @param object an object of class [rules].
-#' @param parm,measure name of the interest measures (i.e., parameter).
+#' @param parm,measure name of the interest measures (see [interestMeasure()]).
 #' `measure` can be used instead of `parm`.
 #' @param level the confidence level required.
 #' @param side Should a two-sided confidence interval or a one-sided limit be
@@ -54,14 +54,15 @@
 #' @param smoothCounts pseudo count for addaptive smoothing (Laplace
 #' smoothing). Often a pseudo counts of .5 is used for smoothing (see Detail
 #' Section).
-#' @param replications number of replications for method "simulation". Ignored
+#' @param replications number of replications for method `"simulation"`. Ignored
 #' for other methods.
 #' @param transactions if the rules object does not contain sufficient quality
 #' information, then a set of transactions to calculate the confidence interval
 #' for can be specified.
 #' @param ... Additional parameters are ignored with a warning.
 #' @return Returns a matrix with with one row for each rule and the two columns
-#' "LL" and "UL" with the interval. The matrix has the additional attributes:
+#' named `"LL"` and `"UL"` with the interval boundaries.
+#' The matrix has the following additional attributes:
 #'
 #' \item{measure}{ the interest measure.} 
 #' \item{level}{ the confidence level}
@@ -69,7 +70,7 @@
 #' \item{smoothCounts}{ used count
 #' smoothing. } 
 #' \item{method}{ name of the method to create the interval }
-#' \item{desc}{ desciption of the used method to calculate the confidence
+#' \item{desc}{ description of the used method to calculate the confidence
 #' interval. The mentioned references can be found below. }
 #' @author Michael Hahsler
 #' @references Wilson, E. B. (1927). "Probable inference, the law of
@@ -100,7 +101,6 @@
 #' _Biometrika,_ 43, 461-464.
 #' @keywords manip
 #' @examples
-#'
 #' data("Income")
 #'
 #' # mine some rules with the consequent "language in home=english"
@@ -130,7 +130,6 @@
 #' ci
 #'
 #' inspect(rules[ci[, "LL"] > 1])
-#'
 confint.rules <- function(object,
   parm = "oddsRatio",
   level = 0.95,

@@ -42,12 +42,18 @@
 #' @name Income
 #' @aliases Income income IncomeESL
 #' @docType data
-#' @format `Income` is an object of class [transactions] 
+#' @format 
+#' 
+#' The data is provided in two formats:
+#' 
+#' 1. `Income` is an object of class [transactions] 
 #' with `r data(Income); nrow(Income)` transactions 
 #' and `r data(Income); ncol(Income)` items. See below for details.
 #' 
-#' `IncomeESL` is a data frame with 8993 observations on the
-#' following 14 variables.  
+#' 2. `IncomeESL` is a data frame with 8993 observations on the
+#' following 14 variables:
+#' 
+#' 
 #' \describe{ 
 #' \item{income}{an ordered factor with
 #' levels `[0,10)` < `[10,15)` < `[15,20)` < `[20,25)` <
@@ -87,7 +93,7 @@
 #' @author Michael Hahsler
 #' @source Impact Resources, Inc., Columbus, OH (1987).
 #' 
-#' Obtained from the web site of the book: Hastie, T., Tibshirani, R. \&
+#' Obtained from the web site of the book: Hastie, T., Tibshirani, R. &
 #' Friedman, J. (2001) _The Elements of Statistical Learning_.
 #' Springer-Verlag.
 #' @keywords datasets

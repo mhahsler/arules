@@ -41,7 +41,7 @@ minimal number of items per item set (default: 1 item)}
 maximal number of items per item set (default: 10 items)}
 
 \item{\code{target}}{a character string indicating the type of association mined.
-One of
+Partial names are matched. Available targets are:
 \itemize{
 \item \code{"frequent itemsets"}
 \item \code{"maximally frequent itemsets"}
@@ -86,25 +86,37 @@ evaluation measure selected with \code{arem} (default: \eqn{0.1})}
 \item{\code{originalSupport}}{a logical indicating whether to
 use the original definition of minimum support
 (support of the LHS and RHS of the rule). If set to \code{FALSE}
-then a minimum threshold on coverage (i.e., the support of the LHS) is used
-instead. (default: \code{TRUE})}
+then the support of the LHS (also called coverage of the rule) is returned as support.
+The minimum support threshold is applied to this support. (default: \code{TRUE})}
 
 \item{\code{maxtime}}{Time limit in seconds for checking subsets.
 \code{maxtime = 0} disables the time limit. (default: 5 seconds)}
 
-\item{\code{tidLists}}{a logical indicating whether to
-return also a list of supporting transactions (transaction IDs)
+\item{\code{tidLists}}{a logical indicating whether \code{\link[=eclat]{eclat()}} should
+return also a list of supporting transactions IDs.
 (default: \code{FALSE})}
 }}
+
+\section{Available Slots by Subclass}{
+
+\itemize{
+\item \code{APparameter}:
+\code{confidence}, \code{minval}, \code{smax}, \code{arem}, \code{aval}, \code{originalSupport}, \code{maxtime}, \code{support}, \code{minlen}, \code{maxlen}, \code{target}, \code{ext}
+\item \code{ECparameter}:
+\code{tidLists}, \code{support}, \code{minlen}, \code{maxlen}, \code{target}, \code{ext}
+}
+}
 
 \section{Objects from the Class}{
 
 A suitable default parameter object will be
-automatically created by the \link{apriori} or the
-\link{eclat} function.  By specifying a named list (names equal to
-slots) as \code{parameter} argument for the \link{apriori} or the
-\link{eclat} function, default values can be replaced by the values
-in the list.  Objects can be using coercion.
+automatically created by \code{\link[=apriori]{apriori()}} or
+\code{\link[=eclat]{eclat()}}.  By specifying a named list (names equal to
+slots) as \code{parameter} argument for \code{\link[=apriori]{apriori()}} or
+\code{\link[=eclat]{eclat()}}, the default values can be replaced with the values
+in the list.
+
+Objects can also be created via coercion.
 }
 
 \section{Coercion}{

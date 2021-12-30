@@ -19,56 +19,49 @@
 
 #' Class transactions --- Binary Incidence Matrix for Transactions
 #'
-#' The `transactions` class represents transaction data used for mining
-#' itemsets or rules.
+#' The `transactions` class is a subclass of [itemMatrix] and 
+#' represents transaction data used for mining [associations].
 #'
 #' Transactions are a direct extension of class [itemMatrix]
 #' to store a binary incidence matrix, item labels, and optionally transaction
 #' IDs and user IDs.
-#'
-#' `itemLabels` and `transactionInfo` are by default created from
-#' information in `x` (e.g., from row and column names). In the
-#' constructor function, the user can specify for itemLabels a vector of all
-#' possible item labels (character) or another transactions object to copy the
-#' item coding (see [itemCoding] for details).
-#'
-#' Note that you will need to prepare your data first (see coercion methods in
-#' the Methods Section and the Example Section below for details on the needed
-#' format).
-#'
-#' **Continuous variables:** Association rule mining can only use items and
-#' does not work with continuous variables. Continuous variables need to be
-#' discretized first. An item resulting from discretization might be
-#' \emph{age>18} and the column contains only `TRUE` or `FALSE`.
-#' Alternatively it can be a factor with levels \emph{age<=18},
-#' \emph{50=>age>18} and \emph{age>50}. These will be automatically converted
-#' into 3 items, one for each level. Have a look at the function
-#' [discretize()] for automatic discretization.
-#'
-#' **Logical variables:** A logical variable describing a person could be
-#' \emph{tall} indicating if the person is tall using the values `TRUE`
-#' and `FALSE`. The fact that the person is tall would be encoded in the
-#' transaction containing the item \emph{tall} while not tall persons would not
-#' have this item. Therefore, for logical variables, the `TRUE` value is
-#' converted into an item with the name of the variable and for the
-#' `FALSE` values no item is created.
-#'
-#' **Factors:** The function also can convert columns with nominal values
-#' (i.e., factors) into a series of binary items (one for each level
-#' constructed as `variable name = level`). Note that nominal variables
-#' need to be encoded as factors (and not characters or numbers). This can be
-#' done with
-#'
-#' `data[,"a_nominal_var"] <- factor(data[,"a_nominal_var"])`.
-#'
-#' Complete examples for how to prepare data can be found in the man pages for
-#' [Income] and [Adult].
-#'
 #' Transactions are represented as sparse binary matrices of class
 #' [itemMatrix]. If you work with several transaction sets at the
 #' same time, then the encoding (order of the items in the binary matrix) in
 #' the different sets is important. See [itemCoding] to learn how
 #' to encode and recode transaction sets.
+#'
+#' Note that you will need to prepare your data first (see coercion methods in
+#' the Methods Section and the Example Section below for details on the needed
+#' format).
+#'
+#' - **Continuous variables:** Association rule mining can only use items and
+#'   does not work with continuous variables. Continuous variables need to be
+#'   discretized first. An item resulting from discretization might be
+#'   `age>18` and the column contains only `TRUE` or `FALSE`.
+#'   Alternatively it can be a factor with levels `age<=18`,
+#'   `50=>age>18` and `age>50`. These will be automatically converted
+#'   into 3 items, one for each level. Have a look at the function
+#'   [discretize()] for automatic discretization.
+#'
+#' - **Logical variables:** A logical variable describing a person could be
+#'   `tall` indicating if the person is tall using the values `TRUE`
+#'   and `FALSE`. The fact that the person is tall would be encoded in the
+#'   transaction containing the item `tall` while not tall persons would not
+#'   have this item. Therefore, for logical variables, the `TRUE` value is
+#'   converted into an item with the name of the variable and for the
+#'   `FALSE` values no item is created.
+#'
+#' - **Factors:** The function also can convert columns with nominal values
+#'   (i.e., factors) into a series of binary items (one for each level
+#'   constructed as `variable name = level`). Note that nominal variables
+#'   need to be encoded as factors (and not characters or numbers). This can be
+#'   done with
+#'
+#'   `data[,"a_nominal_var"] <- factor(data[,"a_nominal_var"])`.
+#'
+#'   Complete examples for how to prepare data can be found in the man pages for
+#'   [Income] and [Adult].
 #'
 #' @include itemMatrix.R associations.R
 #' @name transactions-class
@@ -87,14 +80,23 @@
 #' @param decode translate item IDs to item labels?
 #' @param value replacement value
 #'
-#' @section Objects from the Class: 
-#' Objects are created by coercion from
-#' objects of other classes (see Examples section), by using the constructor function
-#' `transactions()` or by calling `new("transactions", ...)`.
-#' See Examples Section for creating transactions from data.
-#' 
 #' @section Slots:
 #' Slots are inherited from [itemMatrix].
+#'
+#' @section Objects from the Class: 
+#' Objects are created by: 
+#' 
+#' - coercion from objects of other classes. `itemLabels` and `transactionInfo` are 
+#'   by default created from information in `x` (e.g., from row and column names).
+#' 
+#' - the constructor function `transactions()` 
+#' 
+#' - by calling `new("transactions", ...)`.
+#'
+#' See Examples Section for creating transactions from data.
+#' 
+#' @seealso 
+#' Superclass: [itemMatrix]
 #'
 #' @author Michael Hahsler
 #' @keywords classes
@@ -313,7 +315,7 @@ setMethod("t", signature(x = "transactions"),
     ))
 
 
-#' @describeIn transactions-class get thetransactions as an [itemMatrix]
+#' @describeIn transactions-class get the transactions as an [itemMatrix]
 setMethod("items", signature(x = "transactions"),
   function(x)
     as(x, "itemMatrix"))

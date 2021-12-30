@@ -19,17 +19,17 @@
 
 #' Adding Items to Data
 #'
-#' Provides the generic function `merge()` and the S4 methods for [itemMatrix]
-#' and [transactions]. The methods are used to add new items to existing data.
+#' Provides the generic function `merge()` and the methods for [itemMatrix]
+#' and [transactions] to add new items to existing data.
 #'
 #' @family preprocessing
 #' @family itemMatrix and transactions functions
 #' 
 #' @param x an object of class [itemMatrix] or [transactions].
-#' @param y an object of the same class as x (or something which can be coerced
+#' @param y an object of the same class as `x` (or something which can be coerced
 #' to that class).
 #' @param ...  further arguments; unused.
-#' @return Returns a new object of the same class as x with the items in y
+#' @return Returns a new object of the same class as `x` with the items in `y`
 #' added.
 #' @author Michael Hahsler
 #' @keywords manip
@@ -79,4 +79,11 @@ setMethod("merge", signature(x = "itemMatrix"),
       itemInfo    = ii,
       itemsetInfo = itemsetInfo(x)
     )
+  })
+
+#' @rdname merge
+setMethod("merge", signature(x = "transactions"),
+  function(x, y, ...) {
+    m <- merge(as(x, "itemMatrix"), as(y, "itemMatrix"))
+    as(m, "transactions")
   })

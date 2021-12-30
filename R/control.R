@@ -32,13 +32,14 @@
 #' @aliases AScontrol AScontrol-class control
 #' @family mining algorithms
 #'
-#' @section Objects from the Class: A suitable default control object will be
-#' automatically created by the [apriori] or the
-#' [eclat] function.  By specifying a named list (names equal to
-#' slots) as `control` argument for the [apriori] or the
-#' [eclat] function, default values can be replaced by the values
-#' in the list.  Objects can also be created via coercion.
-#'
+#' @section Available Slots by Subclass:
+#' 
+#' * `APcontrol`: 
+#'   `r paste(paste0('\\code{', names(getSlots("APcontrol")), '}'), collapse = ", ")`
+#' 
+#' * `ECcontrol`: 
+#'   `r paste(paste0('\\code{', names(getSlots("ECcontrol")), '}'), collapse = ", ")`
+#' 
 #' @slot sort an integer scalar indicating how to 
 #'   sort items with respect to their frequency: (default: 2)
 #'   
@@ -72,6 +73,16 @@
 #'   
 #' @slot sparse a numeric value for the
 #'   threshold for sparse representation (default: 7)
+#'
+#' @section Objects from the Class: 
+#' A suitable default control object will be
+#' automatically created by the [apriori()] or the
+#' [eclat()] function. By specifying a named list (names equal to
+#' slots) as the `control` argument for [apriori()] or
+#' [eclat()], default values can be replaced with the values
+#' in the list.  
+#' 
+#' Objects can also be created via coercion.
 #'
 #' @author Michael Hahsler and Bettina Gruen
 #' @references Christian Borgelt (2004) _Apriori --- Finding Association

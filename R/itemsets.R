@@ -24,44 +24,41 @@
 #' quality measures.
 #'
 #' Itemsets are usually created by calling an association rule mining algorithm
-#' like [apriori()].  Itemsets store the items as an object of class
-#' [itemMatrix].
-#'
+#' like [apriori()].
 #' To create itemsets manually, the itemMatrix for the items of the itemsets
 #' can be created using [itemCoding].  An example is in the Example
 #' section below.
 #'
-#' Mined itemsets sets typically contain several interest measures accessible
+#' Mined itemsets sets contain several interest measures accessible
 #' with the `quality()` method.  Additional measures can be
 #' calculated via [interestMeasure()].
 #'
 #' @include associations.R
 #' @name itemsets-class
 #' @aliases itemsets
-#' @family association functions
+#' @family associations functions
 #' 
 #' @param object,x the object
 #' @param ... further argments
 #' @param value replacement value
-#' @param items a [itemMatrix] or an object that can be converted using [encode()].
+#' @param items an [itemMatrix] or an object that can be converted using [encode()].
 #' @param itemLabels item labels used for `encode()`.
 #' @param quality a data.frame with quality information (one row per itemset).
 #' 
+#' @slot items an [itemMatrix] object representing the itemsets.        
+#' @slot tidLists a [tidLists] or `NULL`.
+#' @slot quality a data.frame with quality information
+#' @slot info a list with mining information.
+#' 
 #' @section Objects from the Class: Objects are the result of calling the
 #' functions [apriori()] (e.g., with `target = "frequent
-#' itemsets"` in the parameter list) or [eclat()].  Objects can also
-#' be created by calls of the form
-#'
-#' `new("itemsets", ...)`
-#'
+#' itemsets"` in the parameter list) or [eclat()].  
+#' 
+#' Objects can also
+#' be created by calls of the form `new("itemsets", ...)`
 #' or by using the constructor function
-#'
-#' `itemsets(items, itemLabels, quality = data.frame())`.
-#'
-#' `items` need to be a list describing the items (using labels or item
-#' ids) and `itemLabels` needs to be a vector of all possible item labels
-#' (character) or a transactions object to copy the item coding (see
-#' [itemCoding] for details).
+#' `itemsets()`.
+#' 
 #' @author Michael Hahsler
 #' @keywords classes
 #' 

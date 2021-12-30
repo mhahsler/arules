@@ -13,7 +13,7 @@ itemFrequency(x, ...)
 \S4method{itemFrequency}{tidLists}(x, type = c("relative", "absolute"))
 }
 \arguments{
-\item{x}{an object.}
+\item{x}{an object of class \link{itemMatrix} or \link{tidLists}.}
 
 \item{...}{further arguments are passed on.}
 
@@ -31,7 +31,7 @@ items appear in the vector in the same order as in the binary matrix in
 \code{x}.
 }
 \description{
-Provides the generic function \code{itemFrequency()} and S4 methods to get the
+Provides the generic function \code{itemFrequency()} and methods to get the
 frequency/support for all single items in an objects based on
 \link{itemMatrix}.  For example, it is used to get the single
 item support from an object of class \link{transactions}

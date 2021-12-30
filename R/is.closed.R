@@ -20,8 +20,9 @@
 
 #' Find Closed Itemsets
 #'
-#' Provides the generic function and the S4 method `is.closed()` for finding
-#' closed itemsets. Closed itemsets are used as a concise representation of
+#' Provides the generic function and the method `is.closed()` for finding
+#' closed itemsets. 
+#' Closed itemsets are used as a concise representation of
 #' frequent itemsets. The closure of an itemset is its largest proper superset
 #' which has the same support (is contained in exactly the same transactions).
 #' An itemset is closed, if it is its own closure (Pasquier et al. 1999).
@@ -35,12 +36,14 @@
 #' @family associations functions
 #' 
 #' @param x a set of itemsets.
+#' 
 #' @return a logical vector with the same length as `x` indicating for
 #' each element in `x` if it is a closed itemset.
 #' @author Michael Hahsler
-#' @references Nicolas Pasquier, Yves Bastide, Rafik Taouil, and Lotfi Lakhal
+#' @references 
+#' Nicolas Pasquier, Yves Bastide, Rafik Taouil, and Lotfi Lakhal
 #' (1999). Discovering frequent closed itemsets for association rules. In
-#' \emph{Proceeding of the 7th International Conference on Database Theory},
+#' _Proceeding of the 7th International Conference on Database Theory_,
 #' Lecture Notes In Computer Science (LNCS 1540), pages 398--416. Springer,
 #' 1999.
 #' @keywords models

@@ -32,9 +32,9 @@ interval width), \code{"frequency"} (equal frequency), \code{"cluster"}
 boundaries).  Note that equal frequency does not achieve perfect equally
 sized groups if the data contains duplicated values.}
 
-\item{breaks, categories}{\bold{\code{categories} is deprecated, use
-\code{breaks}.} either number of categories or a vector with boundaries for
-discretization (all values outside the boundaries will be set to NA).}
+\item{breaks, categories}{either number of categories or a vector with boundaries for
+discretization (all values outside the boundaries will be set to NA).
+\bold{\code{categories} is deprecated, use \code{breaks} instead.}}
 
 \item{labels}{character vector; labels for the levels of the resulting
 category. By default, labels are constructed using "(a,b]" interval
@@ -62,22 +62,23 @@ on the left) or vice versa?}
 \item{df}{data.frame; each numeric column in the data.frame is discretized.}
 
 \item{methods}{named list of lists or a data.frame; the named list contains
-list of discretization parameters (see parameters of \code{discretize}) for
+list of discretization parameters (see parameters of \code{discretize()}) for
 each numeric column (see details). If no specific discretization is
-specified for a column, then the default settings for \code{discretize} are
+specified for a column, then the default settings for \code{discretize()} are
 used.  Note: the names have to match exactly.  If a data.frame is specified,
 then the discretization breaks in this data.frame are applied to \code{df}.}
 
-\item{default}{named list; parameters for \code{discretize} used for all
+\item{default}{named list; parameters for \code{discretize()} used for all
 columns not specified in \code{methods}.}
 }
 \value{
-A factor representing the categorized continuous variable with
+\code{discretize()} returns a factor representing the
+categorized continuous variable with
 attribute \code{"discretized:breaks"} indicating the used breaks or and
-\code{"discretized:method"} giving the used method. If \code{onlycuts =
-TRUE} is used, a vector with the calculated interval boundaries is returned.
+\code{"discretized:method"} giving the used method. If \code{onlycuts = TRUE}
+is used, a vector with the calculated interval boundaries is returned.
 
-\code{discretizeDF} returns a discretized data.frame.
+\code{discretizeDF()} returns a discretized data.frame.
 }
 \description{
 This function implements several basic unsupervised methods to convert a
@@ -105,10 +106,10 @@ data and decide on breaks for the method fixed. }
 \code{\link[arulesCBA:discretizeDF.supervised]{arulesCBA::discretizeDF.supervised()}} in package \pkg{arulesCBA}
 for supervised discretization.
 
-\code{discretizeDF} applies discretization to each numeric column.
+\code{discretizeDF()} applies discretization to each numeric column.
 Individual discretization parameters can be specified in the form:
-\code{methods = list(column_name1 = list(method = ,...), column_name2 =
-list(...))}. If no discretization method is specified for a column, then the
+\code{methods = list(column_name1 = list(method = ,...), column_name2 = list(...))}.
+If no discretization method is specified for a column, then the
 discretization in default is applied (\code{NULL} invokes the default method
 in \code{discretize()}). The special method \code{"none"} can be specified
 to suppress discretization for a column.

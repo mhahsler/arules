@@ -19,7 +19,7 @@ list (default values are: support 0.1 and maxlen 5)}
 \item{control}{object of class \link{ECcontrol} or named list
 for algorithmic controls.}
 
-\item{...}{Additional arguments are added to the parameter list.}
+\item{...}{Additional arguments are added for convenience to the parameter list.}
 }
 \value{
 Returns an object of class \link{itemsets}.

@@ -51,7 +51,7 @@
 #' list (default values are: support 0.1 and maxlen 5)
 #' @param control object of class [ECcontrol] or named list
 #' for algorithmic controls.
-#' @param ... Additional arguments are added to the parameter list.
+#' @param ... Additional arguments are added for convenience to the parameter list.
 #' @return Returns an object of class [itemsets].
 #' @author Michael Hahsler and Bettina Gruen
 #' @references Mohammed J. Zaki, Srinivasan Parthasarathy, Mitsunori Ogihara,

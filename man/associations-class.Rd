@@ -64,18 +64,19 @@
 \description{
 The \code{associations} class is a virtual class which is extended to
 represent mining result (e.g., sets of \link{itemsets} or
-\link{rules}).  The class provides accessors for the quality slot and
-a method for sorting the associations.
+\link{rules}). The class defines some common methods for its subclasses.
 }
 \details{
 The implementations of \code{associations} store itemsets (e.g., the LHS and
 RHS of a rule) as objects of class \link{itemMatrix} (i.e., sparse
 binary matrices). Quality measures (e.g., support) are stored in a
-data.frame accessible via method \code{quality}.
+data.frame accessible via method \code{quality()}.
 
-Associations can store multisets with duplicated elements. Duplicated
+See Sections Functions and See Also to see all available methods.
+
+\strong{Note:} Associations can store multisets with duplicated elements. Duplicated
 elements can result from combining several sets of associations.  Use
-\link{unique} to remove duplicate associations.
+\code{\link[=unique]{unique()}} to remove duplicate associations.
 }
 \section{Functions}{
 \itemize{
@@ -124,8 +125,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

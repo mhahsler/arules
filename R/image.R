@@ -26,7 +26,7 @@
 
 #' Visual Inspection of Binary Incidence Matrices
 #' 
-#' Provides S4 methods for `image()` to generate level plots to visually
+#' Provides `image()` methods to generate level plots to visually
 #' inspect binary incidence matrices, i.e., objects based on
 #' [itemMatrix] (e.g., [transactions], [tidLists], items in
 #' [itemsets] or rhs/lhs in [rules]).  These plots can be used to identify problems
@@ -44,7 +44,7 @@
 #' \pkg{Matrix} which in turn are passed on to `levelplot()` in
 #' \pkg{lattice}.
 #' @author Michael Hahsler
-#' @seealso image in package \pkg{Matrix}
+#' @seealso `image()` in package \pkg{Matrix}
 #' @keywords hplot
 #' @examples
 #' data("Epub")

@@ -8,7 +8,10 @@
 \title{Classes dist, ar_cross_dissimilarity and ar_similarity --- Proximity
 Matrices}
 \description{
-Simple classes to represent proximity matrices.  For compatibility with
+Simple classes to represent proximity matrices.
+}
+\details{
+For compatibility with
 clustering functions in \code{R}, we represent dissimilarities as the
 \code{S3} class \code{dist}.  For cross-dissimilarities and similarities, we
 provide the \code{S4} classes \code{ar_cross_dissimilarities} and

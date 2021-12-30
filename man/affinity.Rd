@@ -14,22 +14,22 @@ affinity(x)
 }
 \arguments{
 \item{x}{a matrix or an object of class \link{itemMatrix} or
-\link{transactions}.}
+\link{transactions} containing itemsets.}
 }
 \value{
 returns an object of class \linkS4class{ar_similarity} which represents the
 affinities between items in \code{x}.
 }
 \description{
-Provides the generic function \code{affinity()} and the S4 methods to compute
+Provides the generic function \code{affinity()} and methods to compute
 and return a similarity matrix with the affinities between items for a set
-of \link{transactions}.
+itemsets stored in a matrix or in \link{transactions} via its superclass \link{itemMatrix}.
 }
 \details{
 Affinity between the two items \eqn{i} and \eqn{j} is defined by Aggarwal et
-al. (2002) as \deqn{A(i,j) = \frac{sup(\{i,j\})}{sup(\{i\}) + sup(\{j\}) -
-sup(\{i,j\})},}{A(i,j) = sup({i,j})/(sup({i}) + sup({j}) - sup({i,j})),}
-where \eqn{sup(.)} is the support measure. This means that affinity is the
+al. (2002) as \deqn{A(i,j) = \frac{supp(\{i,j\})}{supp(\{i\}) + supp(\{j\}) -
+supp(\{i,j\})},}{A(i,j) = supp({i,j})/(supp({i}) + supp({j}) - supp({i,j})),}
+where \eqn{supp(.)} is the support measure. Note that affinity is equivalent to the
 Jaccard similarity between items.
 }
 \examples{

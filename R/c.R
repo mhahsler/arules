@@ -17,14 +17,19 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#' Combining Objects
+#' Combining Association and Transaction Objects
 #'
-#' Provides the S4 methods to combine several objects based on
-#' [itemMatrix] into a single object.
+#' Provides the methods to combine several [associations] or [transactions] objects
+#' into a single object.
 #'
-#' Note, use [union()] rather than `c()` to combine several mined
-#' [itemsets] (or [rules]) into a single
-#' set.
+#' Combining arules objects is done by combining the rows 
+#' of [itemMatrix] objects
+#' representing the associations or transactions.
+#' 
+#' Note that `c()` can result in duplicates. 
+#' Use [union()] rather than `c()` to combine several mined
+#' [itemsets] or [rules] into a single
+#' set without duplicates.
 #'
 #' @name c
 #' @aliases c
@@ -32,7 +37,6 @@
 #' @family itemMatrix and transactions functions
 #' 
 #' @param x first object.
-#' @param y second object.
 #' @param ... further objects of the same class as `x` to be combined.
 #' @param recursive a logical. If `recursive = TRUE`, the function
 #' recursively descends through lists combining all their elements into a
@@ -120,12 +124,6 @@ setMethod("c", signature(x = "transactions"),
     x
   })
 
-#' @rdname c
-setMethod("merge", signature(x = "transactions"),
-  function(x, y, ...) {
-    m <- merge(as(x, "itemMatrix"), as(y, "itemMatrix"))
-    as(m, "transactions")
-  })
 
 #' @rdname c
 setMethod("c", signature(x = "tidLists"),

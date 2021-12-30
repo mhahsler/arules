@@ -75,42 +75,39 @@ the columns (fields) with the transaction and item ids in the long format.}
 \item{value}{replacement value}
 }
 \description{
-The \code{transactions} class represents transaction data used for mining
-itemsets or rules.
+The \code{transactions} class is a subclass of \link{itemMatrix} and
+represents transaction data used for mining \link{associations}.
 }
 \details{
 Transactions are a direct extension of class \link{itemMatrix}
 to store a binary incidence matrix, item labels, and optionally transaction
 IDs and user IDs.
-
-\code{itemLabels} and \code{transactionInfo} are by default created from
-information in \code{x} (e.g., from row and column names). In the
-constructor function, the user can specify for itemLabels a vector of all
-possible item labels (character) or another transactions object to copy the
-item coding (see \link{itemCoding} for details).
+Transactions are represented as sparse binary matrices of class
+\link{itemMatrix}. If you work with several transaction sets at the
+same time, then the encoding (order of the items in the binary matrix) in
+the different sets is important. See \link{itemCoding} to learn how
+to encode and recode transaction sets.
 
 Note that you will need to prepare your data first (see coercion methods in
 the Methods Section and the Example Section below for details on the needed
 format).
-
-\strong{Continuous variables:} Association rule mining can only use items and
+\itemize{
+\item \strong{Continuous variables:} Association rule mining can only use items and
 does not work with continuous variables. Continuous variables need to be
 discretized first. An item resulting from discretization might be
-\emph{age>18} and the column contains only \code{TRUE} or \code{FALSE}.
-Alternatively it can be a factor with levels \emph{age<=18},
-\emph{50=>age>18} and \emph{age>50}. These will be automatically converted
+\code{age>18} and the column contains only \code{TRUE} or \code{FALSE}.
+Alternatively it can be a factor with levels \code{age<=18},
+\verb{50=>age>18} and \code{age>50}. These will be automatically converted
 into 3 items, one for each level. Have a look at the function
 \code{\link[=discretize]{discretize()}} for automatic discretization.
-
-\strong{Logical variables:} A logical variable describing a person could be
-\emph{tall} indicating if the person is tall using the values \code{TRUE}
+\item \strong{Logical variables:} A logical variable describing a person could be
+\code{tall} indicating if the person is tall using the values \code{TRUE}
 and \code{FALSE}. The fact that the person is tall would be encoded in the
-transaction containing the item \emph{tall} while not tall persons would not
+transaction containing the item \code{tall} while not tall persons would not
 have this item. Therefore, for logical variables, the \code{TRUE} value is
 converted into an item with the name of the variable and for the
 \code{FALSE} values no item is created.
-
-\strong{Factors:} The function also can convert columns with nominal values
+\item \strong{Factors:} The function also can convert columns with nominal values
 (i.e., factors) into a series of binary items (one for each level
 constructed as \verb{variable name = level}). Note that nominal variables
 need to be encoded as factors (and not characters or numbers). This can be
@@ -120,12 +117,7 @@ done with
 
 Complete examples for how to prepare data can be found in the man pages for
 \link{Income} and \link{Adult}.
-
-Transactions are represented as sparse binary matrices of class
-\link{itemMatrix}. If you work with several transaction sets at the
-same time, then the encoding (order of the items in the binary matrix) in
-the different sets is important. See \link{itemCoding} to learn how
-to encode and recode transaction sets.
+}
 }
 \section{Functions}{
 \itemize{
@@ -135,7 +127,7 @@ to encode and recode transaction sets.
 (a data.frame with two columns, tid and item). Column names can
 be specified as a character vector of length 2 called \code{cols}.
 
-\item \code{items,transactions-method}: get thetransactions as an \link{itemMatrix}
+\item \code{items,transactions-method}: get the transactions as an \link{itemMatrix}
 
 \item \code{transactionInfo,transactions-method}: get the transaction info data.frame
 
@@ -146,17 +138,22 @@ be specified as a character vector of length 2 called \code{cols}.
 \item \code{dimnames<-,transactions,list-method}: set the dimnames
 }}
 
-\section{Objects from the Class}{
-
-Objects are created by coercion from
-objects of other classes (see Examples section), by using the constructor function
-\code{transactions()} or by calling \code{new("transactions", ...)}.
-See Examples Section for creating transactions from data.
-}
-
 \section{Slots}{
 
 Slots are inherited from \link{itemMatrix}.
+}
+
+\section{Objects from the Class}{
+
+Objects are created by:
+\itemize{
+\item coercion from objects of other classes. \code{itemLabels} and \code{transactionInfo} are
+by default created from information in \code{x} (e.g., from row and column names).
+\item the constructor function \code{transactions()}
+\item by calling \code{new("transactions", ...)}.
+}
+
+See Examples Section for creating transactions from data.
 }
 
 \section{Coercion}{
@@ -271,6 +268,8 @@ trans6
 inspect(trans6)
 }
 \seealso{
+Superclass: \link{itemMatrix}
+
 Other itemMatrix and transactions functions: 
 \code{\link{abbreviate}()},
 \code{\link{crossTable}()},

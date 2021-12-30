@@ -3,7 +3,7 @@
 \name{random.transactions}
 \alias{random.transactions}
 \alias{random.patterns}
-\title{Simulate a Random Transaction Data Set}
+\title{Simulate a Random Transactions}
 \usage{
 random.transactions(
   nItems,
@@ -26,17 +26,16 @@ random.patterns(
 )
 }
 \arguments{
-\item{nItems}{an integer. Number of items.}
+\item{nItems}{an integer. Number of items to simulate}
 
-\item{nTrans}{an integer. Number of transactions.}
+\item{nTrans}{an integer. Number of transactions to simulate}
 
-\item{method}{name of the simulation method used (default: all items occur
-independently).}
+\item{method}{name of the simulation method used (see Details Section).}
 
 \item{...}{further arguments used for the specific simulation method (see
 details).}
 
-\item{verbose}{report progress.}
+\item{verbose}{report progress?}
 
 \item{nPats}{number of patterns (potential maximal frequent itemsets) used.}
 
@@ -51,22 +50,18 @@ details).}
 \item{iWeight}{item selection weights to build patterns.}
 }
 \value{
-Returns an object of class \link{transactions}.
+Returns a \verb{ntrans x nitems} \link{transactions} object.
 }
 \description{
-Simulates a random \link{transactions} object using different
-methods.
+Simulate random \link{transactions} using different methods.
 }
 \details{
-The function generates a \code{nitems} times \code{ntrans} transaction
-database.
-
 Currently two simulation methods are implemented:
 \itemize{
 \item \code{"independent"} (Hahsler et al, 2006): All items
 are treated as independent. The transaction size is determined by
-\eqn{rpois(lambda-1)+1}, where \code{lambda} can be specified (defaults to
-3). Note that one subtracted from lambda and added to the size to avoid
+\code{rpois(lambda - 1) + 1}, where \code{lambda} can be specified (defaults to 3).
+Note that one subtracted from lambda and added to the size to avoid
 empty transactions. The items in the transactions are randomly chosen using
 the numeric probability vector \code{iProb} of length \code{nItems}
 (default: 0.01 for each item).
@@ -81,10 +76,9 @@ by drawing from an exponential distribution with a mean of 1 and a
 corruption level is chosen from a normal distribution with mean \code{cmean}
 and variance \code{cvar}.
 The function returns the patterns as an \code{itemsets} objects which can be
-supplied to \code{random.transactions} as the argument \code{patterns}.  If
+supplied to \code{random.transactions()} as the argument \code{patterns}.  If
 no argument \code{patterns} is supplied, the default values given above are
 used.
-}
 
 In the second step, the transactions are generated using the patterns.  The
 length the transactions follows a Poisson distribution with mean
@@ -92,6 +86,7 @@ length the transactions follows a Poisson distribution with mean
 pattern weights till the transaction length is reached. For each chosen
 pattern, the associated corruption level is used to drop some items before
 adding the pattern to the transaction.
+}
 }
 \examples{
 ## generate random 1000 transactions for 200 items with

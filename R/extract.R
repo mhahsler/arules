@@ -17,12 +17,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#' Methods for "[": Extraction or Subsetting in Package 'arules'
+#' Methods for "[": Extraction or Subsetting arules Objects
 #'
-#' Methods for `"["`, i.e., extraction or subsetting in package
-#' \pkg{arules}. Subsetting can be done by integers containing column/row
-#' numbers, vectors of logicals or strings containing parts of item labels.
-#'
+#' Methods for `"["`, i.e., extraction or subsetting for arules objects.
 #'
 #' @name extract
 #' @aliases "[-methods"
@@ -30,28 +27,13 @@
 #' @family itemMatrix and transactions functions
 #' 
 #' @param x an object of class [itemMatrix], [transactions] or [associations].
-#' @param i select rows/sets.
-#' @param j select columns/items.
+#' @param i select rows/sets using an integer vector containing row
+#' numbers or a logical vector.
+#' @param j select columns/items using an integer vector containing column
+#' numbers (i.e., item IDs), a logical vector or a vector of strings containing parts of item labels.
 #' @param ... further arguments are ignored.
 #' @param drop ignored.
 #' 
-#' @section Methods: \describe{ \item{[}{\code{signature(x = "itemMatrix", i =
-#' "ANY", j = "ANY", drop= "ANY")}; extracts parts of an `itemMatrix`.
-#' The first argument selects rows (e.g., transactions or rules) and the second
-#' argument selects columns (items).  Either argument can be omitted to select
-#' all rows or columns.} \item{[}{\code{signature(x = "itemsets", i = "ANY", j
-#' = "ANY", drop= "ANY")}; extracts a subset of itemsets and the associated
-#' quality measures.  `j` has to be missing. } \item{[}{\code{signature(x
-#' = "rules", i = "ANY", j = "ANY", drop= "ANY")}; extracts a subset of rules
-#' and the associated quality measures.  `j` has to be missing. }
-#' \item{[}{\code{signature(x = "transactions", i = "ANY", j = "ANY", drop=
-#' "ANY")}; extracts a subset of transactions/items from a transactions object
-#' (a binary incidence matrix).  `i` and `j` can be numeric where
-#' `i` selects transactions and `j` selects items. }
-#' \item{[}{\code{signature(x = "tidLists", i = "ANY", j = "ANY", drop=
-#' "ANY")}; extracts parts (transaction ID vectors) from `tidLists`.
-#' `i` selects the items or itemsets and `j` selects transactions in
-#' the lists.} }
 #' @author Michael Hahsler
 #' @keywords array
 #' @examples

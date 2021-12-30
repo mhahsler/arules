@@ -19,16 +19,14 @@
 
 #' List Representation for Objects Based on Class itemMatrix
 #'
-#' Provides the generic function `LIST()` and the S4 methods to create a
-#' list representation from objects based on [itemMatrix]
-#' (e.g., [transactions], [tidLists], or
-#' [itemsets]).  These methods can be used for the coercion
-#' to a list.
+#' Provides the generic function `LIST()` and the methods to create a
+#' list representation from objects of the classes [itemMatrix], 
+#' [transactions], and [tidLists]. 
 #'
 #' Using `LIST()` with `decode = TRUE` is equivalent to the standard
 #' coercion `as(x, "list")`.  `LIST` returns the object `from`
 #' as a list of vectors.  Each vector represents one row of the
-#' [itemMatrix] (e.g., items in a transaction or itemset).
+#' [itemMatrix] (e.g., items in a transaction).
 #'
 #' @family import/export
 #'
@@ -44,12 +42,11 @@
 #' @examples
 #' data(Adult)
 #'
-#' ### default coercions (same as as(Adult[1:5], "list"))
+#' ### default coercion (same as as(Adult[1:5], "list"))
 #' LIST(Adult[1:5])
 #'
 #' ### coercion without item decoding
 #' LIST(Adult[1:5], decode = FALSE)
-#'
 setGeneric("LIST",
   function(from, ...)
     standardGeneric("LIST"))

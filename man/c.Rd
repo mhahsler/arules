@@ -5,17 +5,14 @@
 \alias{c}
 \alias{c,itemMatrix-method}
 \alias{c,transactions-method}
-\alias{merge,transactions-method}
 \alias{c,tidLists-method}
 \alias{c,rules-method}
 \alias{c,itemsets-method}
-\title{Combining Objects}
+\title{Combining Association and Transaction Objects}
 \usage{
 \S4method{c}{itemMatrix}(x, ..., recursive = FALSE)
 
 \S4method{c}{transactions}(x, ..., recursive = FALSE)
-
-\S4method{merge}{transactions}(x, y, ...)
 
 \S4method{c}{tidLists}(x, ..., recursive = FALSE)
 
@@ -31,20 +28,23 @@
 \item{recursive}{a logical. If \code{recursive = TRUE}, the function
 recursively descends through lists combining all their elements into a
 vector.}
-
-\item{y}{second object.}
 }
 \value{
 An object of the same class as \code{x}.
 }
 \description{
-Provides the S4 methods to combine several objects based on
-\link{itemMatrix} into a single object.
+Provides the methods to combine several \link{associations} or \link{transactions} objects
+into a single object.
 }
 \details{
-Note, use \code{\link[=union]{union()}} rather than \code{c()} to combine several mined
-\link{itemsets} (or \link{rules}) into a single
-set.
+Combining arules objects is done by using \code{rbind()} (combine by row)
+on the \link{itemMatrix} objects
+representing the associations or transactions.
+
+Note that \code{c()} can result in duplicates.
+Use \code{\link[=union]{union()}} rather than \code{c()} to combine several mined
+\link{itemsets} or \link{rules} into a single
+set without duplicates.
 }
 \examples{
 data("Adult")
@@ -76,8 +76,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

@@ -25,8 +25,8 @@ Returns an object of class \link{itemsets}. Note that
 weighted support is returned in \link{quality} as column \code{support}.
 }
 \description{
-Find frequent \link{itemsets} with the ECLAT algorithm. This implementation uses
-optimized tidlist joins and transaction weights to implement weighted
+Find frequent \link{itemsets} with the Eclat algorithm. This implementation uses
+optimized transaction ID list joins and transaction weights to implement weighted
 association rule mining (WARM).
 }
 \details{
@@ -38,11 +38,11 @@ transactions that contain the itemset. An itemset is frequent if its
 weighted support is equal or greater than the threshold specified by
 \code{support} (assuming that the weights sum to one).
 
-Note that ECLAT only mines (weighted) frequent itemsets. Weighted
+Note that Eclat only mines (weighted) frequent itemsets. Weighted
 association rules can be created using \code{\link[=ruleInduction]{ruleInduction()}}.
 }
 \note{
-The C code can be interrupted by CTRL-C. This is convenient but comes
+The C code can be interrupted by \code{CTRL-C}. This is convenient but comes
 at the price that the code cannot clean up its internal memory.
 }
 \examples{
@@ -105,7 +105,7 @@ Other mining algorithms:
 \code{\link{fim4r}()},
 \code{\link{ruleInduction}()}
 
-Other weighted association mining: 
+Other weighted association mining functions: 
 \code{\link{SunBai}},
 \code{\link{hits}()}
 }
@@ -113,5 +113,5 @@ Other weighted association mining:
 Christian Buchta
 }
 \concept{mining algorithms}
-\concept{weighted association mining}
+\concept{weighted association mining functions}
 \keyword{models}

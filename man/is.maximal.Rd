@@ -16,7 +16,7 @@ is.maximal(x, ...)
 \S4method{is.maximal}{rules}(x)
 }
 \arguments{
-\item{x}{the set of itemsets, rules or an itemMatrix object.}
+\item{x}{the set of \link{itemsets}, \link{rules} or an \link{itemMatrix} object.}
 
 \item{...}{further arguments.}
 }
@@ -25,7 +25,7 @@ a logical vector with the same length as \code{x} indicating for
 each element in \code{x} if it is a maximal itemset.
 }
 \description{
-Provides the generic function and the S4 method \code{is.maximal()} for
+Provides the generic function \code{is.maximal()} and methods for
 finding maximal itemsets. Maximal frequent itemsets are used as a concise
 representation of frequent itemsets. An itemset is maximal in a set if no
 proper superset of the itemset is contained in the set (Zaki et al., 1997).
@@ -44,8 +44,6 @@ rules}. Technical Report 651, Computer Science Department, University of
 Rochester, Rochester, NY 14627.
 }
 \seealso{
-\code{\link[=is.generator]{is.generator()}}, \code{\link[=is.closed]{is.closed()}}
-
 Other postprocessing: 
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
@@ -62,8 +60,10 @@ Other associations functions:
 \code{\link{inspect}()},
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

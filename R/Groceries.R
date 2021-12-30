@@ -25,8 +25,8 @@
 #' data set contains 9835 transactions and the items are aggregated to 169
 #' categories.
 #' 
-#' If you use this data set in your paper, please refer to the paper in the
-#' references section.
+#' If you use this data set in your paper, please cite to the paper in the
+#' References Section.
 #' 
 #' @name Groceries
 #' @aliases groceries

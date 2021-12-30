@@ -25,9 +25,9 @@ setGeneric("addComplement",
 
 #' Add Complement-items to Transactions
 #' 
-#' Provides the generic function `addComplement()` and the S4 methods for
-#' transactions. This function adds for given items complement items. That is
-#' it adds an artificial item to each transactions which does not contain the
+#' Provides the generic function `addComplement()` and a method for
+#' [transactions] to add complement items. That is,
+#' it adds an artificial item to each transaction which does not contain the
 #' original item. Such items are also called negative items (Antonie et al,
 #' 2014).
 #' 
@@ -41,7 +41,7 @@ setGeneric("addComplement",
 #' @param complementLabels character strings; labels for the artificial
 #' complement-items. If omitted then the original label is prepended by "!" to
 #' form the complement-item label.
-#' @return Returns an object of class [transactions] with complement-items
+#' @return Returns an object of class [transactions] with complement items
 #' added.
 #' @author Michael Hahsler
 #' @references Antonie L., Li J., Zaiane O. (2014) Negative Association Rules.

@@ -29,27 +29,24 @@ decoded from the column numbers internally used by
 a list primitive.
 }
 \description{
-Provides the generic function \code{LIST()} and the S4 methods to create a
-list representation from objects based on \link{itemMatrix}
-(e.g., \link{transactions}, \link{tidLists}, or
-\link{itemsets}).  These methods can be used for the coercion
-to a list.
+Provides the generic function \code{LIST()} and the methods to create a
+list representation from objects of the classes \link{itemMatrix},
+\link{transactions}, and \link{tidLists}.
 }
 \details{
 Using \code{LIST()} with \code{decode = TRUE} is equivalent to the standard
 coercion \code{as(x, "list")}.  \code{LIST} returns the object \code{from}
 as a list of vectors.  Each vector represents one row of the
-\link{itemMatrix} (e.g., items in a transaction or itemset).
+\link{itemMatrix} (e.g., items in a transaction).
 }
 \examples{
 data(Adult)
 
-### default coercions (same as as(Adult[1:5], "list"))
+### default coercion (same as as(Adult[1:5], "list"))
 LIST(Adult[1:5])
 
 ### coercion without item decoding
 LIST(Adult[1:5], decode = FALSE)
-
 }
 \seealso{
 Other import/export: 

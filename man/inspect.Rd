@@ -46,17 +46,15 @@ can be used to customize the output:}
 \item{ruleSep}{rule separator}
 }
 \value{
-Nothing is returned. This function is purely used for displaying
-object details. Use coercion with \code{as} to a list or a data.frame or the
-accessor functions provided for the object (see See Also section).
+Nothing is returned (see the Details Section).
 }
 \description{
-Provides the generic function \code{inspect()} and S4 methods to display
-associations and transactions plus additional information formatted for
+Provides the generic function \code{inspect()} and methods to display
+\link{associations} and \link{transactions} plus additional information formatted for
 online inspection.
 }
 \details{
-\code{inspect()} prints the results directly. I you need to create a data.frame
+\code{inspect()} prints the results directly. If you need to create a data.frame
 with a human readable version, then you can use \code{\link[=DATAFRAME]{DATAFRAME()}}.
 }
 \examples{
@@ -84,8 +82,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

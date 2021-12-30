@@ -20,13 +20,14 @@
 
 #' Calculate Additional Interest Measures
 #'
-#' Provides the generic function `interestMeasure()` and the needed S4
-#' method to calculate various additional interest measures for existing sets
-#' of itemsets or rules.
+#' Provides the generic function `interestMeasure()` and the
+#' methods to calculate various additional interest measures for existing sets
+#' of [itemsets] or [rules].
 #'
 #' A searchable list of definitions, equations and
 #' references for all available interest measures can be found at
-#' \url{https://mhahsler.github.io/arules/docs/measures}
+#' \url{https://mhahsler.github.io/arules/docs/measures}. The descriptions 
+#' are also linked in the list below.
 #'
 #' The following measures are implemented for **itemsets**:
 #' `r arules:::create_measures_doc(arules:::measuresItemsets)`
@@ -37,27 +38,28 @@
 #' @aliases interestMeasure
 #' @family interest measures
 #'
-#' @param x a set of itemsets or rules.
+#' @param x a set of [itemsets] or [rules].
 #' @param measure name or vector of names of the desired interest measures (see
-#' details for available measures). If measure is missing then all available
+#' the Details section for available measures). If measure is missing then all available
 #' measures are calculated.
-#' @param transactions the transaction data set used to mine the associations
+#' @param transactions the [transactions] used to mine the associations
 #' or a set of different transactions to calculate interest measures from
 #' (Note: you need to set `reuse = FALSE` in the later case).
-#' @param reuse logical indicating if information in quality slot should be
+#' @param reuse logical indicating if information in the quality slot should be
 #' reuse for calculating the measures. This speeds up the process significantly
 #' since only very little (or no) transaction counting is necessary if support,
-#' confidence and lift are already available.  Use `reuse = FALSE` to force
+#' confidence and lift are already available. Use `reuse = FALSE` to force
 #' counting (might be very slow but is necessary if you use a different set of
 #' transactions than was used for mining).
 #' @param ... further arguments for the measure calculation. Many measures
-#' are based on contingency table counts and zero counts can produce NaN values
+#' are based on contingency table counts and zero counts can produce `NaN` values
 #' (division by zero). This issue can be resolved by using the additional
 #' parameter `smoothCounts` which performs additive smoothing by adds a
-#' "pseudo count" of `smoothCounts` to each count in the contingency
+#' "pseudo count" of `smoothCounts` to each cell in the contingency
 #' table. Use `smoothCounts = 1` or larger values for Laplace smoothing.
-#' Use `smoothCounts = .5` for Haldane-Anscombe correction often used for
-#' chi-squared, phi correlation and related measures.
+#' Use `smoothCounts = .5` for Haldane-Anscombe correction (Haldan, 1940; Anscombe, 1956)
+#' which is often used for chi-squared, phi correlation and related measures.
+#' 
 #' @return If only one measure is used, the function returns a numeric vector
 #' containing the values of the interest measure for each association in the
 #' set of associations `x`.
@@ -69,12 +71,17 @@
 #' defined.
 #' @author Michael Hahsler
 #' @seealso [itemsets], [rules]
-#' @references A complete list of references for each individual measure is
-#' available in the following document:
-#'
-#' Hahsler, Michael (2015).  A Probabilistic Comparison of Commonly Used
+#' @references 
+#' Hahsler, Michael (2015). A Probabilistic Comparison of Commonly Used
 #' Interest Measures for Association Rules, 2015, URL:
 #' \url{https://mhahsler.github.io/arules/docs/measures}.
+#' 
+#' Haldane, J.B.S. (1940). "The mean and variance of the moments of chi-squared
+#' when used as a test of homogeneity, when expectations are small".
+#' _Biometrika,_ 29, 133-134.
+#'
+#' Anscombe, F.J. (1956). "On estimating binomial response relations".
+#' _Biometrika,_ 43, 461-464.
 #' @keywords models
 #' @examples
 #'

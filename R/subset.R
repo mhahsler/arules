@@ -19,7 +19,7 @@
 
 #' Subsetting Itemsets, Rules and Transactions
 #' 
-#' Provides the generic function `subset()` and S4 methods to subset
+#' Provides the generic function `subset()` and methods to subset
 #' [associations] or [transactions] ([itemMatrix]) which meet certain conditions
 #' (e.g., contains certain items or satisfies a minimum lift).
 #' 
@@ -30,10 +30,10 @@
 #' Important operators to select itemsets containing items specified by their
 #' labels are 
 #' 
-#' * `%in%` (select itemsets matching \emph{any} given item),
-#' * `%ain%` (select only itemsets matching \emph{all} given item),
-#' * `%oin%` (select only itemsets matching \emph{only} the given item), and
-#' * `%pin%` (`%in%` with partial matching).
+#' * [%in%]: select itemsets matching _any_ given item
+#' * [%ain%]: select only itemsets matching _all_ given item
+#' * [%oin%]: select only itemsets matching _only_ the given item
+#' * [%pin%]: `%in%` with _partial matching_
 #' 
 #' @aliases subset
 #' @param x object to be subsetted.

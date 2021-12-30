@@ -20,8 +20,8 @@
 
 #' Computing Transaction Weights With HITS
 #'
-#' Compute the hub weights of a collection of [transactions] using the HITS (hubs
-#' and authorities) algorithm.
+#' Compute the hub transaction weights for a collection 
+#' of [transactions] using the HITS (hubs and authorities) algorithm.
 #'
 #' Model a collection of [transactions] as a bipartite graph of hubs
 #' (transactions) and authorities (items) with unit arcs and free node weights.
@@ -30,7 +30,7 @@
 #' steady-state using a builtin convergence tolerance of `FLT_EPSILON` for
 #' (the change in) the norm of the vector of authorities.
 #'
-#' @family weighted association mining
+#' @family weighted association mining functions
 #'
 #' @param data an object of or coercible to class [transactions].
 #' @param iter an integer value specifying the maximum number of iterations to
@@ -85,8 +85,8 @@ hits <- function(data,
 
 #' Mining Associations from Weighted Transaction Data with Eclat (WARM)
 #'
-#' Find frequent [itemsets] with the ECLAT algorithm. This implementation uses
-#' optimized tidlist joins and transaction weights to implement weighted
+#' Find frequent [itemsets] with the Eclat algorithm. This implementation uses
+#' optimized transaction ID list joins and transaction weights to implement weighted
 #' association rule mining (WARM).
 #'
 #' Transaction weights are stored in the [transactions] as a column called
@@ -97,12 +97,12 @@ hits <- function(data,
 #' weighted support is equal or greater than the threshold specified by
 #' `support` (assuming that the weights sum to one).
 #'
-#' Note that ECLAT only mines (weighted) frequent itemsets. Weighted
+#' Note that Eclat only mines (weighted) frequent itemsets. Weighted
 #' association rules can be created using [ruleInduction()].
 #'
 #' @aliases WARM warm WECLAT
 #' @family mining algorithms
-#' @family weighted association mining
+#' @family weighted association mining functions
 #'
 #' @param data an object that can be coerced into an object of class
 #' [transactions].
@@ -113,7 +113,7 @@ hits <- function(data,
 #' `verbose = TRUE`) or a named list with corresponding components.
 #' @return Returns an object of class [itemsets]. Note that
 #' weighted support is returned in [quality] as column `support`.
-#' @note The C code can be interrupted by CTRL-C. This is convenient but comes
+#' @note The C code can be interrupted by `CTRL-C`. This is convenient but comes
 #' at the price that the code cannot clean up its internal memory.
 #' @author Christian Buchta
 #' @references G.D. Ramkumar, S. Ranka, and S. Tsur (1998).  Weighted

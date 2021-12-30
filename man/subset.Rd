@@ -27,7 +27,7 @@ An object of the same class as \code{x} containing only the elements
 which satisfy the conditions.
 }
 \description{
-Provides the generic function \code{subset()} and S4 methods to subset
+Provides the generic function \code{subset()} and methods to subset
 \link{associations} or \link{transactions} (\link{itemMatrix}) which meet certain conditions
 (e.g., contains certain items or satisfies a minimum lift).
 }
@@ -39,10 +39,10 @@ in \code{subset}.
 Important operators to select itemsets containing items specified by their
 labels are
 \itemize{
-\item \code{\%in\%} (select itemsets matching \emph{any} given item),
-\item \verb{\%ain\%} (select only itemsets matching \emph{all} given item),
-\item \verb{\%oin\%} (select only itemsets matching \emph{only} the given item), and
-\item \verb{\%pin\%} (\code{\%in\%} with partial matching).
+\item \link{\%in\%}: select itemsets matching \emph{any} given item
+\item \link{\%ain\%}: select only itemsets matching \emph{all} given item
+\item \link{\%oin\%}: select only itemsets matching \emph{only} the given item
+\item \link{\%pin\%}: \code{\%in\%} with \emph{partial matching}
 }
 }
 \examples{

@@ -65,13 +65,26 @@ load transactions into memory (default: \code{TRUE})}
 threshold for sparse representation (default: 7)}
 }}
 
+\section{Available Slots by Subclass}{
+
+\itemize{
+\item \code{APcontrol}:
+\code{filter}, \code{tree}, \code{heap}, \code{memopt}, \code{load}, \code{sort}, \code{verbose}
+\item \code{ECcontrol}:
+\code{sparse}, \code{sort}, \code{verbose}
+}
+}
+
 \section{Objects from the Class}{
- A suitable default control object will be
-automatically created by the \link{apriori} or the
-\link{eclat} function.  By specifying a named list (names equal to
-slots) as \code{control} argument for the \link{apriori} or the
-\link{eclat} function, default values can be replaced by the values
-in the list.  Objects can also be created via coercion.
+
+A suitable default control object will be
+automatically created by the \code{\link[=apriori]{apriori()}} or the
+\code{\link[=eclat]{eclat()}} function. By specifying a named list (names equal to
+slots) as the \code{control} argument for \code{\link[=apriori]{apriori()}} or
+\code{\link[=eclat]{eclat()}}, default values can be replaced with the values
+in the list.
+
+Objects can also be created via coercion.
 }
 
 \section{Coercion}{

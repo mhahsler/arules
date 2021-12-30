@@ -78,13 +78,13 @@ return an object of the same class as \code{x} and \code{y}.
 each element if it is included in \code{set}.
 }
 \description{
-Provides the generic functions and the S4 methods for the set operations
+Provides the generic functions and the methods for the set operations
 \code{union()}, \code{intersect()}, \code{setequal()}, \code{setdiff()} and
 \code{is.element()} on sets of \link{associations} (e.g., \link{rules}, \link{itemsets}) and
 \link{itemMatrix}.
 }
 \details{
-All S4 methods for set operations are defined for the class name
+Technical note: All S4 methods for set operations are defined for the class name
 \code{"ANY"} in the signature, so they should work for all S4 classes for
 which the following methods are available: \code{\link[=match]{match()}}, \code{\link[=length]{length()}} and
 \code{\link[=unique]{unique()}}.
@@ -115,8 +115,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

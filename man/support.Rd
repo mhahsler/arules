@@ -12,16 +12,22 @@ support(x, transactions, ...)
   x,
   transactions,
   type = c("relative", "absolute"),
+  method = c("ptree", "tidlists"),
+  reduce = FALSE,
   weighted = FALSE,
-  control = NULL
+  verbose = FALSE,
+  ...
 )
 
 \S4method{support}{associations}(
   x,
   transactions,
   type = c("relative", "absolute"),
+  method = c("ptree", "tidlists"),
+  reduce = FALSE,
   weighted = FALSE,
-  control = NULL
+  verbose = FALSE,
+  ...
 )
 }
 \arguments{
@@ -29,50 +35,53 @@ support(x, transactions, ...)
 
 \item{transactions}{the transaction data set used for mining.}
 
-\item{...}{further arguments are passed on.}
+\item{...}{further arguments.}
 
 \item{type}{a character string specifying if \code{"relative"} support or
 \code{"absolute"} support (counts) are returned for the itemsets in
 \code{x}.  (default: \code{"relative"})}
 
-\item{weighted}{should support be weighted by transactions weights stored as
-column \code{"weight"} in transactionInfo?}
+\item{method}{use \code{"ptree"} or \code{"tidlists"}. See Details Section.}
 
-\item{control}{a named list with elements \code{method} indicating the
-method (\code{"tidlists"} or \code{"ptree"}), and the logical arguments
-\code{reduce} and \code{verbose} to indicate if unused items are removed and
-if the output should be verbose.}
+\item{reduce}{should unused items are removed before counting?}
+
+\item{weighted}{should support be weighted by transactions weights stored as
+column \code{"weight"} in \code{transactionInfo}?}
+
+\item{verbose}{report progress?}
 }
 \value{
 A numeric vector of the same length as \code{x} containing the
 support values for the sets in \code{x}.
 }
 \description{
-Provides the generic function and the needed S4 method to count support for
-given \link{itemsets} (and other types of \link{associations}) in a given \link{transactions}
+Provides the generic function \code{support()} and the methods to count support for
+given \link{itemMatrix} and \link{associations} in a given \link{transactions}
 data.
 }
 \details{
-Normally, itemset support is counted during mining the database with a set
-minimum support. However, if only the support information for a single or a
-few itemsets is needed, one might not want to mine the database for all
-frequent itemsets.
+Normally, the support of frequent itemsets is very efficiently counted during
+mining process using a set minimum support.
+However, if only the support for specific itemsets (maybe itemsets with very low support)
+is needed, or the support of a set of itemsets needs to be recalculated on
+different \link{transactions} than they were mined on, then \code{support()} can be used.
 
-If in control \code{method = "ptree"} is used, the counters for the itemsets
+Several methods for support counting are available:
+\itemize{
+\item \code{"ptree"} (default method): The counters for the itemsets
 are organized in a prefix tree. The transactions are sequentially processed
 and the corresponding counters in the prefix tree are incremented (see
 Hahsler et al, 2008). This method is used by default since it is typically
-significantly faster than tid list intersection.
-
-If in control \code{method = "tidlists"} is used, support is counted using
+significantly faster than transaction ID list intersection.
+\item \code{"tidlists"}: support is counted using
 transaction ID list intersection which is used by several fast mining
 algorithms (e.g., by Eclat). However, Support is determined for each itemset
 individually which is slow for a large number of long itemsets in dense
 data.
+}
 
-If in control \code{reduce = TRUE} is used, unused items are removed from
-the data before creating rules. This might be slower for large transaction
-data sets.
+To speed up counting, \code{reduce = TRUE} can be specified in control. Unused items
+are removed from the transactions before counting.
 }
 \examples{
 data("Income")

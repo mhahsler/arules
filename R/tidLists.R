@@ -20,6 +20,8 @@
 
 #' Class tidLists --- Transaction ID Lists for Items/Itemsets
 #'
+#' Class to represent transaction ID lists and associated methods.
+#' 
 #' Transaction ID lists contains a set of lists.  Each list is associated with
 #' an item/itemset and stores the IDs of the transactions which support the
 #' item/itemset. 
@@ -61,7 +63,7 @@
 #' an object of class [transactions]. 
 #' * by calls of the form  `new("tidLists", ...)`.
 #' 
-#' @slot data an object of class `ngCMatrix` from package \pkg{Matrix}.
+#' @slot data an object of class [ngCMatrix-class] from package \pkg{Matrix}.
 #' @slot itemInfo a data.frame
 #' @slot transactionInfo a data.frame
 #' 

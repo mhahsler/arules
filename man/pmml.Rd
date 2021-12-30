@@ -13,12 +13,12 @@ read.PMML(file)
 \arguments{
 \item{x}{a \link{rules} or \link{itemsets} object.}
 
-\item{file}{name of the PMML file (for read.PMML also a XML root node can be
+\item{file}{name of the PMML file (for \code{read.PMML()} also a XML root node can be
 supplied).}
 }
 \description{
 This function reads and writes PMML representations (version 4.1) of
-associations (itemsets and rules). Write delegates to package pmml.
+\link{associations} (\link{itemsets} and \link{rules}). Write delegates to package \pkg{pmml}.
 }
 \examples{
 data("Groceries")

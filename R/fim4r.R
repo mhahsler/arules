@@ -31,7 +31,6 @@
 #' * Support and confidence (parameters `supp` and `conf`) are specified
 #'   in the range \eqn{[0, 100]}.
 #' * Type `? fim4r::fim4r` for help on additional available arguments.
-#' * For `appear`, the item ID needs to be used and not the item label.
 #' * Algorithm descriptions and references can be found on the
 #'   web page in the References Section.
 #'

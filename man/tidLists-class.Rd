@@ -66,11 +66,13 @@ tidLists(x)
 \item{value}{replacement value}
 }
 \description{
+Class to represent transaction ID lists and associated methods.
+}
+\details{
 Transaction ID lists contains a set of lists.  Each list is associated with
 an item/itemset and stores the IDs of the transactions which support the
 item/itemset.
-}
-\details{
+
 \code{tidLists} uses the class
 \link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix} to efficiently store the
 transaction ID lists as a sparse matrix.  Each column in the matrix
@@ -119,7 +121,7 @@ columns are the transactions.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{an object of class \code{ngCMatrix} from package \pkg{Matrix}.}
+\item{\code{data}}{an object of class \linkS4class{ngCMatrix} from package \pkg{Matrix}.}
 
 \item{\code{itemInfo}}{a data.frame}
 

@@ -56,7 +56,7 @@ otherwise \code{nomatch}.
 indicating if a match was located for each element of \code{x}.
 }
 \description{
-Provides the generic function \code{match()} and the S4 methods for
+Provides the generic function \code{match()} and the methods for
 \link{associations}, \link{transactions} and \link{itemMatrix} objects.  \code{match()} returns a vector
 of the positions of (first) matches of its first argument in its second.
 }
@@ -66,7 +66,7 @@ returns a logical vector indicating if there is a match or not for the items
 in the itemsets (left operand) with the items in the table (right operand).
 
 \pkg{arules} defines additional binary operators for matching itemsets:
-\verb{\%pin\%} uses \emph{partial} matching on the table; \verb{\%ain\%}
+\verb{\%pin\%} uses \emph{partial matching} on the table; \verb{\%ain\%}
 itemsets have to match/include \emph{all} items in the table; \verb{\%oin\%}
 itemsets can \emph{only} match/include the items in the table.  The binary
 matching operators or often used in \code{\link[=subset]{subset()}}.
@@ -108,8 +108,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{rules-class}},
 \code{\link{sample}()},
 \code{\link{sets}},

@@ -24,7 +24,7 @@
 \pkg{lattice}.}
 }
 \description{
-Provides S4 methods for \code{image()} to generate level plots to visually
+Provides \code{image()} methods to generate level plots to visually
 inspect binary incidence matrices, i.e., objects based on
 \link{itemMatrix} (e.g., \link{transactions}, \link{tidLists}, items in
 \link{itemsets} or rhs/lhs in \link{rules}).  These plots can be used to identify problems
@@ -39,7 +39,7 @@ data("Epub")
 image(Epub[1:1000])
 }
 \seealso{
-image in package \pkg{Matrix}
+\code{image()} in package \pkg{Matrix}
 
 Other itemMatrix and transactions functions: 
 \code{\link{abbreviate}()},

@@ -39,15 +39,15 @@ saving data as in csv format.}
 \item{quote}{a logical value. Quote fields?}
 }
 \description{
-Provides the generic function \code{write()} and the S4 methods to write
-transactions or associations \link{itemsets}, \link{rules} to a file.
+Provides the generic function \code{write()} and the methods to write
+\link{transactions} or \link{associations} to a file.
 }
 \details{
 For associations (\link{rules} and \link{itemsets}) \code{write()} first uses coercion to
 data.frame to obtain a printable form of \code{x} and then uses
 \code{\link[utils:write.table]{utils::write.table()}} to write the data to disk.
 
-Transactions can be saved in basket (one line per transaction) or in single
+Transactions can be saved in \emph{basket} (one line per transaction) or in \emph{single}
 (one line per item) format.
 
 Note: To save and load associations in compact form, use \code{\link[=save]{save()}} and

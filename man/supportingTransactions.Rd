@@ -22,12 +22,9 @@ An object of class \link{tidLists} containing one transaction ID
 list per association in \code{x}.
 }
 \description{
-Find transactions which support each of a set of associations and return
-this information as a transaction ID list.
-}
-\details{
-The supporting transactions are all transactions of which the itemset
-representing the association is a subset of.
+Find for each itemset in an \link{associations} object which transactions support
+(i.e., contains all items in the itemset) it. The information is returned
+as a \link{tidLists} object.
 }
 \examples{
 data <- list(

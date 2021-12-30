@@ -69,7 +69,7 @@ object of the same class as \code{x} is returned.}
 \link{associations} to compare item coding to \code{x}.}
 }
 \value{
-\code{recode()} always returns an object of class \link{itemMatrix}.
+\code{recode()} always returns an object of the same class as \code{x}.
 
 For \code{encode()} with \code{itemMatrix = TRUE} an object of class
 \link{itemMatrix} is returned.  Otherwise the result is of the same type as
@@ -77,42 +77,36 @@ For \code{encode()} with \code{itemMatrix = TRUE} an object of class
 }
 \description{
 The order in which items are stored in an \link{itemMatrix} is called the
-\emph{item coding}. The following generic functions and S4 methods are used
-to translate between the binary representation in the itemMatrix format
+\emph{item coding}. The following generic functions and methods are used
+to translate between the representation in the itemMatrix format
 (used in transactions, rules and itemsets), item labels and numeric item IDs
-(i.e., the column numbers in the binary representation).
+(i.e., the column numbers in the itemMatrix representation).
 }
 \details{
-\strong{Item compatibility:} If you deal with several datasets or different
-subsets of the same dataset and want to combine or compate the found
-itemsets or rules, then you need to make sure that all transaction sets have
-a compatible item coding. That is, the sparse matrices representing the
-items have columns for the same items in exactly the same order. The
-coercion to transactions with \code{as(x, "transactions")} will create the
-item coding by adding items when they are encountered in the dataset. This
+\strong{Item coding compatibility:} When working with several datasets or different
+subsets of the same dataset, combining or compare the found
+itemsets or rules requires a compatible item coding.
+That is, the sparse matrices representing the
+items (the itemMatrix objects) have columns for the same items in exactly the
+same order. The coercion to transactions with \code{transactions()} or
+\code{as(x, "transactions")} will create the
+item coding by adding items in the order they are encountered in the dataset. This
 can lead to different item codings (different order, missing items) for even
-only slightly different datasets. You can use the method \code{compatible()}
-to check if two sets have the same item coding.
+only slightly different datasets or versions of a dataset.
+Method \code{compatible()} can be used to check if two sets have the same item coding.
 
-If you work with many sets, then you should first define a common item
-coding by creating a vector with all possible item labels and then use
-either \code{encode()} to create transactions or \code{recode()} to make a
-different set compatible.
+\strong{Defining a common item coding:}
+When working with many sets, then first a common item
+coding should be defined by creating a vector with all possible item labels and then
+specify them as \code{itemLabels} to create transactions with \code{transactions()}.
+Compatible \link{itemMatrix} objects can be created using \code{encode()}.
 
-The following function help with creating and changing the item coding to
-make them compatible.
-
-\code{encode()} converts from readable item labels to an itemMatrix using a
-given coding. With this method it is possible to create several compatible
-\link{itemMatrix} objects (i.e., use the same binary representation for
-items) from data.
+\strong{Recoding and Decoding:}
+Two incompatible objects can be made compatible using \code{recode()}. Recode
+one object by specifying the other object in \code{itemLabels}.
 
 \code{decode()} converts from the column IDs used in the itemMatrix
-representation to item labels. \code{decode()} is used by \link{LIST}.
-
-\code{recode()} recodes an itemMatrix object so its coding is compatible with
-another itemMatrix object specified in \code{\link[=itemLabels]{itemLabels()}} (i.e., the columns
-are reordered to match).
+representation to item labels. \code{decode()} is used by \code{\link[=LIST]{LIST()}}.
 }
 \examples{
 data("Adult")

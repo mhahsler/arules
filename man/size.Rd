@@ -25,16 +25,15 @@ size(x, ...)
 }
 \value{
 returns a numeric vector of length \code{length(x)}.
-Each element is the size of the corresponding element (row in the matrix) in
+Each element is the size of the corresponding element (row in the \link{itemMatrix}) in
 object \code{x}. For \link{rules}, \code{size()} returns the sum of the number of
-elements in the LHS and the RHS.
+items in the LHS and the RHS.
 }
 \description{
-Provides the generic function \code{size()} and S4 methods to get the size of
-each element from objects based on \link{itemMatrix}.  For
-example, it is used to get a vector of transaction sizes (i.e., the number
-of present items (ones) per element (row) of the binary incidence matrix)
-from an object of class \link{transactions}).
+Provides the generic function \code{size()} and methods to get the size of
+each itemset in an \link{itemMatrix} or \link{associations}. For
+example, \code{size()} can be used to get a vector with the number of items in each
+transaction.
 }
 \examples{
 data("Adult")
@@ -75,8 +74,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

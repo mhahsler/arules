@@ -26,10 +26,8 @@
 An object of the same class as \code{x}.
 }
 \description{
-Provides the generic function \code{sample()} and the S4 method to take a
-sample of the specified size from the elements of \code{x} using either with
-or without replacement.  \code{sample()} can be used to sample from a set of
-\link{transactions} or \link{associations}.
+Provides the generic function \code{sample()} and methods to sample from \link{transactions} and
+\link{associations}.
 }
 \examples{
 data("Adult")
@@ -55,8 +53,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sets}},

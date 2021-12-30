@@ -3,27 +3,30 @@
 \name{merge}
 \alias{merge}
 \alias{merge,itemMatrix-method}
+\alias{merge,transactions-method}
 \title{Adding Items to Data}
 \usage{
 merge(x, y, ...)
 
 \S4method{merge}{itemMatrix}(x, y, ...)
+
+\S4method{merge}{transactions}(x, y, ...)
 }
 \arguments{
 \item{x}{an object of class \link{itemMatrix} or \link{transactions}.}
 
-\item{y}{an object of the same class as x (or something which can be coerced
+\item{y}{an object of the same class as \code{x} (or something which can be coerced
 to that class).}
 
 \item{...}{further arguments; unused.}
 }
 \value{
-Returns a new object of the same class as x with the items in y
+Returns a new object of the same class as \code{x} with the items in \code{y}
 added.
 }
 \description{
-Provides the generic function \code{merge()} and the S4 methods for \link{itemMatrix}
-and \link{transactions}. The methods are used to add new items to existing data.
+Provides the generic function \code{merge()} and the methods for \link{itemMatrix}
+and \link{transactions} to add new items to existing data.
 }
 \examples{
 data("Groceries")

@@ -19,13 +19,13 @@
 
 #' Find Super and Subsets
 #'
-#' Provides the generic functions and the S4 methods `is.subset()` and
-#' `is.superset()` for finding super or subsets in [associations] and
+#' Provides the generic functions `is.subset()` and `is.superset()`, and the methods
+#'  for finding super or subsets in [associations] and
 #' [itemMatrix] objects.
 #'
-#' looks for each element in `x` which elements in `y` are supersets
+#' Determines for each element in `x` which elements in `y` are supersets
 #' or subsets. Note that the method can be very slow and memory intensive if
-#' `x` and/or `y` contain many elements.
+#' `x` and/or `y` are very dense (contain many items).
 #'
 #' For rules, the union of lhs and rhs is used a the set of items.
 #'
@@ -37,12 +37,13 @@
 #' @param x,y associations or itemMatrix objects. If `y = NULL`, the super
 #' or subset structure within set `x` is calculated.
 #' @param proper a logical indicating if all or just proper super or subsets.
-#' @param sparse a logical indicating if a sparse (ngCMatrix) rather than a
-#' dense logical matrix should be returned. Sparse computation preserves a
-#' significant amount of memory and is much faster for large sets.
-#' @param \dots currently unused.
-#' @return returns a logical matrix or a sparse ngCMatrix (for
-#' `sparse = TRUE`) with `length(x)` rows and `length(y)` columns.
+#' @param sparse a logical indicating if a sparse [`ngCMatrix-class`] 
+#' rather than a dense logical matrix should be returned. 
+#' Sparse computation requires a
+#' significantly smaller amount of memory and is much faster for large sets.
+#' @param ... currently unused.
+#' @return returns a logical matrix or a sparse [`ngCMatrix-class`] 
+#' with `length(x)` rows and `length(y)` columns.
 #' Each logical row vector represents which elements in `y` are supersets
 #' (subsets) of the corresponding element in `x`.  If either `x` or
 #' `y` have length zero, `NULL` is returned instead of a matrix.

@@ -19,12 +19,12 @@
 
 #' Set Operations
 #' 
-#' Provides the generic functions and the S4 methods for the set operations
+#' Provides the generic functions and the methods for the set operations
 #' `union()`, `intersect()`, `setequal()`, `setdiff()` and
 #' `is.element()` on sets of [associations] (e.g., [rules], [itemsets]) and
 #' [itemMatrix].
 #' 
-#' All S4 methods for set operations are defined for the class name
+#' Technical note: All S4 methods for set operations are defined for the class name
 #' `"ANY"` in the signature, so they should work for all S4 classes for
 #' which the following methods are available: [match()], [length()] and
 #' [unique()].

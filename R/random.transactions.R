@@ -21,55 +21,50 @@
 
 
 
-#' Simulate a Random Transaction Data Set
+#' Simulate a Random Transactions
 #'
-#' Simulates a random [transactions] object using different
-#' methods.
-#'
-#' The function generates a `nitems` times `ntrans` transaction
-#' database.
+#' Simulate random [transactions] using different methods.
 #'
 #' Currently two simulation methods are implemented:
 #'
 #' * `"independent"` (Hahsler et al, 2006): All items
-#' are treated as independent. The transaction size is determined by
-#' \eqn{rpois(lambda-1)+1}, where `lambda` can be specified (defaults to
-#' 3). Note that one subtracted from lambda and added to the size to avoid
-#' empty transactions. The items in the transactions are randomly chosen using
-#' the numeric probability vector `iProb` of length `nItems`
-#' (default: 0.01 for each item).
+#'   are treated as independent. The transaction size is determined by
+#'   `rpois(lambda - 1) + 1`, where `lambda` can be specified (defaults to 3). 
+#'   Note that one subtracted from lambda and added to the size to avoid
+#'   empty transactions. The items in the transactions are randomly chosen using
+#'   the numeric probability vector `iProb` of length `nItems`
+#'   (default: 0.01 for each item).
 #'
 #' * `"agrawal"` (see Agrawal and Srikant, 1994): This
-#' method creates transactions with correlated items using `random.patters()`.
-#' The simulation is a two-stage process. First, a set of `nPats` patterns
-#' (potential maximal frequent itemsets) is generated.  The length of the
-#' patterns is Poisson distributed with mean `lPats` and consecutive
-#' patterns share some items controlled by the correlation parameter
-#' `corr`.  For later use, for each pattern a pattern weight is generated
-#' by drawing from an exponential distribution with a mean of 1 and a
-#' corruption level is chosen from a normal distribution with mean `cmean`
-#' and variance `cvar`.
-#' The function returns the patterns as an `itemsets` objects which can be
-#' supplied to `random.transactions` as the argument `patterns`.  If
-#' no argument `patterns` is supplied, the default values given above are
-#' used.
+#'   method creates transactions with correlated items using `random.patters()`.
+#'   The simulation is a two-stage process. First, a set of `nPats` patterns
+#'   (potential maximal frequent itemsets) is generated.  The length of the
+#'   patterns is Poisson distributed with mean `lPats` and consecutive
+#'   patterns share some items controlled by the correlation parameter
+#'   `corr`.  For later use, for each pattern a pattern weight is generated
+#'   by drawing from an exponential distribution with a mean of 1 and a
+#'   corruption level is chosen from a normal distribution with mean `cmean`
+#'   and variance `cvar`.
+#'   The function returns the patterns as an `itemsets` objects which can be
+#'   supplied to `random.transactions()` as the argument `patterns`.  If
+#'   no argument `patterns` is supplied, the default values given above are
+#'   used.
 #'
-#' In the second step, the transactions are generated using the patterns.  The
-#' length the transactions follows a Poisson distribution with mean
-#' `lPats`. For each transaction, patterns are randomly chosen using the
-#' pattern weights till the transaction length is reached. For each chosen
-#' pattern, the associated corruption level is used to drop some items before
-#' adding the pattern to the transaction.
+#'   In the second step, the transactions are generated using the patterns.  The
+#'   length the transactions follows a Poisson distribution with mean
+#'   `lPats`. For each transaction, patterns are randomly chosen using the
+#'   pattern weights till the transaction length is reached. For each chosen
+#'   pattern, the associated corruption level is used to drop some items before
+#'   adding the pattern to the transaction.
 #'
 #' @family itemMatrix and transactions functions
 #'
-#' @param nItems an integer. Number of items.
-#' @param nTrans an integer. Number of transactions.
-#' @param method name of the simulation method used (default: all items occur
-#' independently).
+#' @param nItems an integer. Number of items to simulate
+#' @param nTrans an integer. Number of transactions to simulate
+#' @param method name of the simulation method used (see Details Section).
 #' @param ... further arguments used for the specific simulation method (see
 #' details).
-#' @param verbose report progress.
+#' @param verbose report progress?
 #' @param nPats number of patterns (potential maximal frequent itemsets) used.
 #' @param lPats average length of patterns.
 #' @param corr correlation between consecutive patterns.
@@ -77,7 +72,7 @@
 #' @param cvar variance of the corruption level.
 #' @param iWeight item selection weights to build patterns.
 #' 
-#' @return Returns an object of class [transactions].
+#' @return Returns a `ntrans x nitems` [transactions] object.
 #' @author Michael Hahsler
 #' @references Michael Hahsler, Kurt Hornik, and Thomas Reutterer (2006).
 #' Implications of probabilistic data modeling for mining association rules. In

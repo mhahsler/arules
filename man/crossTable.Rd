@@ -24,12 +24,12 @@ crossTable(x, ...)
 \item{sort}{sort the items by support.}
 }
 \value{
-A symmetric matrix of n time n, where n is the number of items times
+A symmetric matrix of n x n, where n is the number of items times
 in \code{x}. The matrix contains the co-occurrence counts between pairs of
 items.
 }
 \description{
-Provides the generic function \code{crossTable()} and the S4 method to
+Provides the generic function \code{crossTable()} and a method to
 cross-tabulate joint occurrences across all pairs of items.
 }
 \examples{

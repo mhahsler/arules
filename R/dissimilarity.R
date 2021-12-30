@@ -33,7 +33,9 @@
 #' Classes dist, ar_cross_dissimilarity and ar_similarity --- Proximity
 #' Matrices
 #'
-#' Simple classes to represent proximity matrices.  For compatibility with
+#' Simple classes to represent proximity matrices.  
+#' 
+#' For compatibility with
 #' clustering functions in `R`, we represent dissimilarities as the
 #' `S3` class `dist`.  For cross-dissimilarities and similarities, we
 #' provide the `S4` classes `ar_cross_dissimilarities` and
@@ -72,12 +74,11 @@ setClass("ar_cross_dissimilarity",
 
 #' Dissimilarity Matrix Computation for Associations and Transactions
 #'
-#' Provides the generic function `dissimilarity` and the S4 methods to
+#' Provides the generic function `dissimilarity()` and the methods to
 #' compute and returns distances for binary data in a `matrix`,
 #' [transactions] or [associations] which
 #' can be used for grouping and clustering. See Hahsler (2016) for an
 #' introduction to distance-based clustering of association rules.
-#'
 #'
 #' @aliases dissimilarity dist
 #' @family proximity classes and functions
@@ -525,19 +526,19 @@ setMethod("dissimilarity", signature(x = "associations"),
 
 #' Computing Affinity Between Items
 #'
-#' Provides the generic function `affinity()` and the S4 methods to compute
+#' Provides the generic function `affinity()` and methods to compute
 #' and return a similarity matrix with the affinities between items for a set
-#' of [transactions].
+#' itemsets stored in a matrix or in [transactions] via its superclass [itemMatrix].
 #'
 #' Affinity between the two items \eqn{i} and \eqn{j} is defined by Aggarwal et
-#' al. (2002) as \deqn{A(i,j) = \frac{sup(\{i,j\})}{sup(\{i\}) + sup(\{j\}) -
-#' sup(\{i,j\})},}{A(i,j) = sup({i,j})/(sup({i}) + sup({j}) - sup({i,j})),}
-#' where \eqn{sup(.)} is the support measure. This means that affinity is the
+#' al. (2002) as \deqn{A(i,j) = \frac{supp(\{i,j\})}{supp(\{i\}) + supp(\{j\}) -
+#' supp(\{i,j\})},}{A(i,j) = supp({i,j})/(supp({i}) + supp({j}) - supp({i,j})),}
+#' where \eqn{supp(.)} is the support measure. Note that affinity is equivalent to the
 #' Jaccard similarity between items.
 #'
 #' @family proximity classes and functions
 #' @param x a matrix or an object of class [itemMatrix] or
-#'   [transactions].
+#'   [transactions] containing itemsets.
 #' @return returns an object of class [ar_similarity-class] which represents the
 #'   affinities between items in `x`.
 #' @author Michael Hahsler

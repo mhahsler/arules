@@ -21,8 +21,7 @@
 #' Support for Item Hierarchies
 #'
 #' Functions to use item hierarchies to aggregate items at different
-#' group levels, to produce multi-level [transactions] and to filter spurious
-#' associations mined from multi-level transactions.
+#' group levels, to perform multi-level transaction analysis.
 #' 
 #' Often an item hierarchy is available for [transactions] 
 #' used for association rule
@@ -30,7 +29,8 @@
 #' might belong to the item group (category) "baked goods."
 #'
 #' Transactions can store item hierarchies as additional columns in the
-#' itemInfo data.frame (`"labels"` is reserved for the item labels).
+#' itemInfo data.frame (`"labels"` cannot be used since it is reserved for 
+#' the item labels).
 #'
 #' \bold{Aggregation:} To perform analysis at a group level of the item
 #' hierarchy, `aggregate()` produces a new object with items aggregated to
@@ -48,9 +48,9 @@
 #' create a new transactions object which contains both, the original items and
 #' group-level items (marked with a given postfix). In association rule mining,
 #' all items are handled the same, which means that we will produce a large
-#' number of rules of the type
+#' number of rules of the type:
 #'
-#' \deqn{item A => group of item A}
+#' `item A => group of item A`
 #'
 #' with a confidence of 1. This will also happen if you mine itemsets.
 #' `filterAggregate()` can be used to filter these spurious rules or

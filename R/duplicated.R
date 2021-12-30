@@ -20,7 +20,7 @@
 
 #' Find Duplicated Elements
 #' 
-#' Provides the generic function `duplicated()` and the S4 methods to find 
+#' Provides the generic function `duplicated()` and the methods to find 
 #' duplicated elements in
 #' [itemMatrix], [associations] and their subclasses.
 #' 

@@ -28,7 +28,7 @@
 #' transaction weights obtained using the HITS algorithm.
 #' 
 #' @name SunBai
-#' @family weighted association mining
+#' @family weighted association mining functions
 #' @aliases SunBai sunbai
 #' @format Object of class [transactions] with `r data(SunBai); nrow(SunBai)` transactions and `r data(SunBai); ncol(SunBai)` items. Weights are stored as transaction information.
 #' @docType data

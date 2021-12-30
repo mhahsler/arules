@@ -19,11 +19,11 @@
 
 #' Itemwise Set Operations
 #'
-#' Provides the generic functions and the S4 methods for itemwise set
-#' operations on items in an itemMatrix. The regular set operations regard each
-#' itemset in an itemMatrix as an element. Itemwise operations regard each item
-#' as an element and operate on the items of pairs if corresponding itemsets
-#' (first itemset in x with first itemset in y, second with second, etc.).
+#' Provides the generic functions and the methods for itemwise set
+#' operations on items in an [itemMatrix]. The regular set operations regard each
+#' itemset in an `itemMatrix` as an element. Itemwise operations regard each item
+#' as an element and operate on the items of pairs of corresponding itemsets
+#' (first itemset in `x` with first itemset in `y`, second with second, etc.).
 #'
 #' @name itemwiseSetOps
 #' @aliases itemSetOperations 

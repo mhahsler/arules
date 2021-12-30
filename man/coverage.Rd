@@ -13,7 +13,7 @@ coverage(x, transactions = NULL, reuse = TRUE)
 \item{x}{the set of \link{rules}.}
 
 \item{transactions}{the data set used to generate \code{x}. Only needed if the
-quality slot of 'x' does not contain support and confidence.}
+quality slot of \code{x} does not contain support and confidence.}
 
 \item{reuse}{reuse support and confidence stored in \code{x} or recompute from
 transactions?}
@@ -23,15 +23,15 @@ A numeric vector of the same length as \code{x} containing the
 coverage values for the sets in \code{x}.
 }
 \description{
-Provides the generic function and the needed S4 method to calculate the
+Provides the generic function and a method to calculate the
 coverage (support of the left-hand-side) of \link{rules}.
 }
 \details{
 Coverage (also called cover or LHS-support) is the support of the
-left-hand-side of the rule, i.e., \eqn{supp(X)}. It represents a measure of
+left-hand-side of the rule \eqn{X => Y}, i.e., \eqn{supp(X)}. It represents a measure of
 to how often the rule can be applied.
 
-Coverage is quickly calculated from the rules quality measures (support and
+Coverage can be quickly calculated from the rule's quality measures (support and
 confidence) stored in the quality slot. If these values are not present,
 then the support of the LHS is counted using the data supplied in
 \link{transactions}.

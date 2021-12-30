@@ -17,16 +17,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-##*****************************************************************
-## Basic set operations:  union, intersect, setequal, ...
-## as defined in base; worke now for all classes which implement
-## unique, match and length (in arules associations and itemMatrix).
-##
-
-
 #' Value Matching
 #'
-#' Provides the generic function `match()` and the S4 methods for
+#' Provides the generic function `match()` and the methods for
 #' [associations], [transactions] and [itemMatrix] objects.  `match()` returns a vector
 #' of the positions of (first) matches of its first argument in its second.
 #'
@@ -35,11 +28,10 @@
 #' in the itemsets (left operand) with the items in the table (right operand).
 #'
 #' \pkg{arules} defines additional binary operators for matching itemsets:
-#' `%pin%` uses \emph{partial} matching on the table; `%ain%`
-#' itemsets have to match/include \emph{all} items in the table; `%oin%`
-#' itemsets can \emph{only} match/include the items in the table.  The binary
+#' `%pin%` uses _partial matching_ on the table; `%ain%`
+#' itemsets have to match/include _all_ items in the table; `%oin%`
+#' itemsets can _only_ match/include the items in the table.  The binary
 #' matching operators or often used in [subset()].
-#'
 #'
 #' @aliases match
 #' @family associations functions

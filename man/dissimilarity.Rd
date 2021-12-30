@@ -72,7 +72,7 @@ calculated between transactions/associations (default) or items (use \code{"item
 returns an object of class \code{dist}.
 }
 \description{
-Provides the generic function \code{dissimilarity} and the S4 methods to
+Provides the generic function \code{dissimilarity()} and the methods to
 compute and returns distances for binary data in a \code{matrix},
 \link{transactions} or \link{associations} which
 can be used for grouping and clustering. See Hahsler (2016) for an

@@ -30,11 +30,11 @@
 #' @format Object of class [transactions] 
 #' with `r data(Epub); nrow(Epub)` transactions 
 #' and `r data(Epub); ncol(Epub)` items.
-#' Item labels are document IDs of the form `"doc\_11d"`.
+#' Item labels are document IDs of the form `"doc_11d"`.
 #' Session IDs and time stamps for transactions are also provided as transaction information.
 #' @author Michael Hahsler
 #' @source Provided by Michael Hahsler from the custom information system ePub-WU 
-#' at \url{https://epub.wu-wien.ac.at} (which is now replaced by eprint).
+#' at \url{https://epub.wu-wien.ac.at} (which has been replaced by eprint).
 #' @keywords datasets
 #' @examples  
 #' data(Epub)

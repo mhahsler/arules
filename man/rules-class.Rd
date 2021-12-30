@@ -85,21 +85,16 @@ coding used for \code{encode()} (see \link{itemCoding} for details).}
 \item{value}{replacement value}
 }
 \description{
-The\code{rules} class represents a set of association rules.
+Defines the \code{rules} class to represent a set of association rules and methods to work
+with \code{rules}.
 }
 \details{
-Rules are usually created by calling an association rule mining algorithm
-like \code{\link[=apriori]{apriori()}}. Rules store the LHS and the RHS separately as
-objects of class \link{itemMatrix}.
-
-To create rules manually, the itemMatrix for the LHS and the RHS of the
-rules can be created using \link{itemCoding}. Note the two matrices
-need to have the itemLabels (i.e., columns of the sparse matrix) in the same
-order.  An example is in the Example section below.
-
 Mined rule sets typically contain several interest measures accessible with
 the \code{\link[=quality]{quality()}} method. Additional measures can be calculated via
 \code{\link[=interestMeasure]{interestMeasure()}}.
+
+To create rules manually, the itemMatrix for the LHS and the RHS of the
+rules need to be compatible. See \link{itemCoding} for details.
 }
 \section{Functions}{
 \itemize{
@@ -127,7 +122,18 @@ the \code{\link[=quality]{quality()}} method. Additional measures can be calcula
 
 \item \code{items,rules-method}: returns all items in a rule (LHS and RHS) an \link{itemMatrix}.
 
-\item \code{generatingItemsets,rules-method}: returns a collection of the itemsets which generated the rules, one itemset for each rule. Note that the collection can be a multiset and contain duplicated elements. Use unique to remove duplicates and obtain a proper set. Technically this method produces the same as the result of method \code{items}, but wrapped into an \link{itemsets} object with support information.
+\item \code{generatingItemsets,rules-method}: returns a collection of the itemsets which generated the rules, one itemset for each rule. Note that the collection can be a multiset and contain duplicated elements. Use \code{\link[=unique]{unique()}} to remove duplicates and obtain a proper set. This method produces the same as the result as calling \code{items()}, but wrapped into an \link{itemsets} object with support information.
+}}
+
+\section{Slots}{
+
+\describe{
+\item{\code{lhs,rhs}}{\link{itemMatrix} representing the left-hand-side and right-hand-side of
+the rules.}
+
+\item{\code{quality}}{the quality data.frame}
+
+\item{\code{info}}{a list with mining information.}
 }}
 
 \section{Objects from the Class}{
@@ -199,8 +205,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{sample}()},
 \code{\link{sets}},

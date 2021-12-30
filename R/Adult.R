@@ -28,7 +28,7 @@
 #' 
 #' The Adult database was extracted from the census bureau database
 #' found at \url{https://www.census.gov/} in 1994 by Ronny Kohavi and Barry
-#' Becker, Data Mining and Visualization, Silicon Graphics. It was originally
+#' Becker (Data Mining and Visualization, Silicon Graphics). It was originally
 #' used to predict whether income exceeds USD 50K/yr based on census data. We
 #' added the attribute `income` with levels `small` and `large`
 #' (>50K).
@@ -101,7 +101,7 @@
 #' \item{income}{an ordered factor with
 #' levels `small` < `large`.} }
 #' @author Michael Hahsler
-#' @references A. Asuncion \& D. J. Newman (2007): UCI Repository of Machine
+#' @references A. Asuncion & D. J. Newman (2007): UCI Repository of Machine
 #' Learning Databases.  Irvine, CA: University of California, Department of
 #' Information and Computer Science.
 #' 

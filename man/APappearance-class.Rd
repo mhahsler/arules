@@ -11,20 +11,16 @@
 Implement Rule Templates}
 \description{
 Specifies the restrictions on the associations mined by
-\link{apriori}. These restrictions can implement certain aspects of
+\code{\link[=apriori]{apriori()}}. These restrictions can implement certain aspects of
 rule templates described by Klemettinen (1994).
 }
 \details{
 Note that appearance is only supported by the implementation of
-\link{apriori}.
+\code{\link[=apriori]{apriori()}}.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{set}}{used internally.}
-
-\item{\code{items}}{used internally.}
-
 \item{\code{labels}}{character vectors giving the labels of the
 items which can appear in the specified place (rhs, lhs or both for rules
 and items for itemsets).  none specifies, that the items mentioned there
@@ -36,10 +32,11 @@ and rhs, but have to specify it as both).}
 \code{"both"}, \code{"lhs"}, \code{"rhs"}, \code{"none"}.  Specified the
 default appearance for all items not explicitly mentioned in the other
 elements of the list.  Leave unspecified and the code will guess the correct
-setting.
+setting.}
 
-Objects can also be created by calls of the form \code{new("APappearance", ...)}.  In this case, item IDs (column numbers of the transactions incidence
-matrix) have to be used instead of labels.}
+\item{\code{set}}{used internally.}
+
+\item{\code{items}}{used internally.}
 }}
 
 \section{Objects from the Class}{
@@ -49,7 +46,10 @@ appearance object will be created automatically within the
 \code{\link[=apriori]{apriori()}} function using the information in the named list of
 the function's \code{appearance} argument.  In this case, the item labels
 used in the list will be automatically matched against the items in the used
-transaction database. Objects can also be created via coercion.
+\link{transactions}.
+
+Objects can also be created by calls of the form \code{new("APappearance", ...)}.  In this case, item IDs (column numbers of the transactions incidence
+matrix) have to be used instead of labels.
 }
 
 \section{Coercion}{
@@ -61,7 +61,6 @@ transaction database. Objects can also be created via coercion.
 }
 
 \examples{
-
 data("Adult")
 
 ## find only frequent itemsets which do not contain small or large income
@@ -84,7 +83,6 @@ inspect(head(rules))
 
 ## Note: For more complicated restrictions you have to mine all rules/itemsets and
 ## then filter the results afterwards.
-
 }
 \references{
 Christian Borgelt (2004) \emph{Apriori --- Finding Association

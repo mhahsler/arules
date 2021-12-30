@@ -18,7 +18,7 @@ DATAFRAME(from, ...)
 \arguments{
 \item{from}{the object to be converted into a data.frame.}
 
-\item{...}{further arguments.}
+\item{...}{further arguments are passed on to the \code{labels()} method defined for the object in \code{from}.}
 
 \item{separate}{logical; separate LHS and RHS in separate columns? (only for rules)}
 }
@@ -26,19 +26,20 @@ DATAFRAME(from, ...)
 a data.frame.
 }
 \description{
-Provides the generic function \code{DATAFRAME()} and the S4 methods to create
+Provides the generic function \code{DATAFRAME()} and the methods to create
 a data.frame representation from some arules objects.
 These methods are used for the coercion to a
-data.frame, but offers more control over the coercion process (item
+data.frame, but offer more control over the coercion process (item
 separators, etc.).
 }
 \details{
-Using DATAFRAME is equivalent to the standard coercion
+Using \code{DATAFRAME()} is equivalent to the standard coercion
 \code{as(x, "data.frame")}.  However, for rules, the argument \code{separate = TRUE}
 will produce separate columns for the LHS and the RHS of the rule.
+
 Furthermore, the arguments \code{itemSep}, \code{setStart}, \code{setEnd}
 (and \code{ruleSep} for \code{separate = FALSE}) will be passed on to the
-\code{label} method.
+\code{labels()} method for the object specified in \code{from}.
 }
 \examples{
 data(Adult)

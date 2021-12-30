@@ -20,11 +20,10 @@
 
 #' Number of Items in Sets
 #'
-#' Provides the generic function `size()` and S4 methods to get the size of
-#' each element from objects based on [itemMatrix].  For
-#' example, it is used to get a vector of transaction sizes (i.e., the number
-#' of present items (ones) per element (row) of the binary incidence matrix)
-#' from an object of class [transactions]).
+#' Provides the generic function `size()` and methods to get the size of
+#' each itemset in an [itemMatrix] or [associations]. For
+#' example, `size()` can be used to get a vector with the number of items in each 
+#' transaction.  
 #'
 #' @include itemMatrix.R
 #' @family itemMatrix and transactions functions
@@ -33,9 +32,9 @@
 #' @param x an object.
 #' @param ... further (unused) arguments.
 #' @return returns a numeric vector of length `length(x)`.
-#' Each element is the size of the corresponding element (row in the matrix) in
+#' Each element is the size of the corresponding element (row in the [itemMatrix]) in
 #' object `x`. For [rules], `size()` returns the sum of the number of
-#' elements in the LHS and the RHS.
+#' items in the LHS and the RHS.
 #' @author Michael Hahsler
 #' @keywords attribute
 #' @examples

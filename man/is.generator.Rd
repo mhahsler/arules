@@ -17,7 +17,7 @@ a logical vector with the same length as \code{x} indicating for
 each element in \code{x} if it is a generator itemset.
 }
 \description{
-Provides the generic function and the S4 method `is.generator() for
+Provides the generic function and the method `is.generator() for
 finding generator itemsets. Generators are part of concise representations
 for frequent itemsets.  A generator in a set of itemsets is an itemset that
 has no subset with the same support (Liu et al, 2008). Note that the empty
@@ -47,8 +47,8 @@ Lecture Notes in Computer Science (LNCS 1861). pages 972--986.
 \doi{10.1007/3-540-44957-4_65}
 
 Guimei Liu, Jinyan Li, Limsoon Wong (2008). A new concise representation of
-frequent itemsets using generators and a positive border.  \emph{Knowledge
-and Information Systems} 17(1):35-56.
+frequent itemsets using generators and a positive border.
+\emph{Knowledge and Information Systems} 17(1):35-56.
 \doi{10.1007/s10115-007-0111-5}
 }
 \seealso{
@@ -68,8 +68,10 @@ Other associations functions:
 \code{\link{inspect}()},
 \code{\link{is.closed}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

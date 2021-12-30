@@ -36,7 +36,7 @@ function.}
 Provides the generic function and the methods to abbreviate long item labels
 in transactions, associations (rules and itemsets) and transaction ID lists.
 Note that \code{abbreviate()} is not a generic and this \pkg{arules} defines a
-generic with the R's abbreviate as the default.
+generic with the \code{\link[base:abbreviate]{base::abbreviate()}} as the default.
 }
 \examples{
 
@@ -59,8 +59,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

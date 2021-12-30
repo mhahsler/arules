@@ -19,7 +19,7 @@
 
 #' Getting Frequency/Support for Single Items
 #' 
-#' Provides the generic function `itemFrequency()` and S4 methods to get the
+#' Provides the generic function `itemFrequency()` and methods to get the
 #' frequency/support for all single items in an objects based on
 #' [itemMatrix].  For example, it is used to get the single
 #' item support from an object of class [transactions]
@@ -28,7 +28,7 @@
 #' @name itemFrequency
 #' @family itemMatrix and transactions functions
 #' 
-#' @param x an object.
+#' @param x an object of class [itemMatrix] or [tidLists].
 #' @param ... further arguments are passed on.
 #' @param type a character string specifying if `"relative"`
 #' frequency/support or `"absolute"` frequency/support (item counts) is
@@ -96,7 +96,7 @@ setMethod("itemFrequency", signature(x = "tidLists"),
 
 #' Creating a Item Frequencies/Support Bar Plot
 #' 
-#' Provides the generic function `itemFrequencyPlot()` and the S4 method to
+#' Provides the generic function `itemFrequencyPlot()` and the method to
 #' create an item frequency bar plot for inspecting the item frequency
 #' distribution for objects based on [itemMatrix] (e.g.,
 #' [transactions], or items in [itemsets]

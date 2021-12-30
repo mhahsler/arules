@@ -19,11 +19,11 @@
 
 #' Display Associations and Transactions in Readable Form
 #'
-#' Provides the generic function `inspect()` and S4 methods to display
-#' associations and transactions plus additional information formatted for
+#' Provides the generic function `inspect()` and methods to display
+#' [associations] and [transactions] plus additional information formatted for
 #' online inspection.
 #'
-#' `inspect()` prints the results directly. I you need to create a data.frame
+#' `inspect()` prints the results directly. If you need to create a data.frame
 #' with a human readable version, then you can use [DATAFRAME()].
 #' 
 #' @aliases inspect
@@ -39,9 +39,7 @@
 #' @param ruleSep rule separator
 #' @param linebreak print only one element per line in case the output lines get very long? 
 #'
-#' @return Nothing is returned. This function is purely used for displaying
-#' object details. Use coercion with `as` to a list or a data.frame or the
-#' accessor functions provided for the object (see See Also section).
+#' @return Nothing is returned (see the Details Section).
 #' @author Michael Hahsler and Kurt Hornik
 #' @keywords print
 #' @examples

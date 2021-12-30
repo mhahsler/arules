@@ -38,7 +38,7 @@ for counts and avoids zero counts.}
 returns a logical vector indicating which rules are redundant.
 }
 \description{
-Provides the generic function and the S4 method \code{is.redundant()} to find
+Provides the generic function \code{is.redundant()} and the method  to find
 redundant rules.
 }
 \details{
@@ -138,8 +138,26 @@ Other postprocessing:
 \code{\link{is.significant}()},
 \code{\link{is.superset}()}
 
-Other association functions: 
-\code{\link{itemsets-class}}
+Other associations functions: 
+\code{\link{abbreviate}()},
+\code{\link{associations-class}},
+\code{\link{c}()},
+\code{\link{duplicated}()},
+\code{\link{extract}},
+\code{\link{inspect}()},
+\code{\link{is.closed}()},
+\code{\link{is.generator}()},
+\code{\link{is.maximal}()},
+\code{\link{is.significant}()},
+\code{\link{is.superset}()},
+\code{\link{itemsets-class}},
+\code{\link{match}()},
+\code{\link{rules-class}},
+\code{\link{sample}()},
+\code{\link{sets}},
+\code{\link{size}()},
+\code{\link{sort}()},
+\code{\link{unique}()}
 
 Other interest measures: 
 \code{\link{confint}()},
@@ -151,7 +169,7 @@ Other interest measures:
 \author{
 Michael Hahsler and Christian Buchta
 }
-\concept{association functions}
+\concept{associations functions}
 \concept{interest measures}
 \concept{postprocessing}
 \keyword{manip}

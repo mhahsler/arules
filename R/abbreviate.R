@@ -22,7 +22,7 @@
 #' Provides the generic function and the methods to abbreviate long item labels
 #' in transactions, associations (rules and itemsets) and transaction ID lists.
 #' Note that `abbreviate()` is not a generic and this \pkg{arules} defines a
-#' generic with the R's abbreviate as the default.
+#' generic with the [base::abbreviate()] as the default.
 #'
 #' @include itemMatrix.R transactions.R associations.R rules.R itemsets.R tidLists.R
 #' @name abbreviate

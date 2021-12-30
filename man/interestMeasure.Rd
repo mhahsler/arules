@@ -13,31 +13,31 @@ interestMeasure(x, measure, transactions = NULL, reuse = TRUE, ...)
 \S4method{interestMeasure}{rules}(x, measure, transactions = NULL, reuse = TRUE, ...)
 }
 \arguments{
-\item{x}{a set of itemsets or rules.}
+\item{x}{a set of \link{itemsets} or \link{rules}.}
 
 \item{measure}{name or vector of names of the desired interest measures (see
-details for available measures). If measure is missing then all available
+the Details section for available measures). If measure is missing then all available
 measures are calculated.}
 
-\item{transactions}{the transaction data set used to mine the associations
+\item{transactions}{the \link{transactions} used to mine the associations
 or a set of different transactions to calculate interest measures from
 (Note: you need to set \code{reuse = FALSE} in the later case).}
 
-\item{reuse}{logical indicating if information in quality slot should be
+\item{reuse}{logical indicating if information in the quality slot should be
 reuse for calculating the measures. This speeds up the process significantly
 since only very little (or no) transaction counting is necessary if support,
-confidence and lift are already available.  Use \code{reuse = FALSE} to force
+confidence and lift are already available. Use \code{reuse = FALSE} to force
 counting (might be very slow but is necessary if you use a different set of
 transactions than was used for mining).}
 
 \item{...}{further arguments for the measure calculation. Many measures
-are based on contingency table counts and zero counts can produce NaN values
+are based on contingency table counts and zero counts can produce \code{NaN} values
 (division by zero). This issue can be resolved by using the additional
 parameter \code{smoothCounts} which performs additive smoothing by adds a
-"pseudo count" of \code{smoothCounts} to each count in the contingency
+"pseudo count" of \code{smoothCounts} to each cell in the contingency
 table. Use \code{smoothCounts = 1} or larger values for Laplace smoothing.
-Use \code{smoothCounts = .5} for Haldane-Anscombe correction often used for
-chi-squared, phi correlation and related measures.}
+Use \code{smoothCounts = .5} for Haldane-Anscombe correction (Haldan, 1940; Anscombe, 1956)
+which is often used for chi-squared, phi correlation and related measures.}
 }
 \value{
 If only one measure is used, the function returns a numeric vector
@@ -51,14 +51,15 @@ containing the different measures for each association as columns.
 defined.
 }
 \description{
-Provides the generic function \code{interestMeasure()} and the needed S4
-method to calculate various additional interest measures for existing sets
-of itemsets or rules.
+Provides the generic function \code{interestMeasure()} and the
+methods to calculate various additional interest measures for existing sets
+of \link{itemsets} or \link{rules}.
 }
 \details{
 A searchable list of definitions, equations and
 references for all available interest measures can be found at
-\url{https://mhahsler.github.io/arules/docs/measures}
+\url{https://mhahsler.github.io/arules/docs/measures}. The descriptions
+are also linked in the list below.
 
 The following measures are implemented for \strong{itemsets}:
 \itemize{
@@ -160,12 +161,16 @@ inspect(its)
 interestMeasure(its, transactions = Income)
 }
 \references{
-A complete list of references for each individual measure is
-available in the following document:
-
-Hahsler, Michael (2015).  A Probabilistic Comparison of Commonly Used
+Hahsler, Michael (2015). A Probabilistic Comparison of Commonly Used
 Interest Measures for Association Rules, 2015, URL:
 \url{https://mhahsler.github.io/arules/docs/measures}.
+
+Haldane, J.B.S. (1940). "The mean and variance of the moments of chi-squared
+when used as a test of homogeneity, when expectations are small".
+\emph{Biometrika,} 29, 133-134.
+
+Anscombe, F.J. (1956). "On estimating binomial response relations".
+\emph{Biometrika,} 43, 461-464.
 }
 \seealso{
 \link{itemsets}, \link{rules}

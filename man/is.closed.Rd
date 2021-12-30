@@ -17,8 +17,9 @@ a logical vector with the same length as \code{x} indicating for
 each element in \code{x} if it is a closed itemset.
 }
 \description{
-Provides the generic function and the S4 method \code{is.closed()} for finding
-closed itemsets. Closed itemsets are used as a concise representation of
+Provides the generic function and the method \code{is.closed()} for finding
+closed itemsets.
+Closed itemsets are used as a concise representation of
 frequent itemsets. The closure of an itemset is its largest proper superset
 which has the same support (is contained in exactly the same transactions).
 An itemset is closed, if it is its own closure (Pasquier et al. 1999).
@@ -51,8 +52,10 @@ Other associations functions:
 \code{\link{inspect}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

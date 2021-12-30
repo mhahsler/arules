@@ -26,7 +26,7 @@ duplicated(x, incomparables = FALSE, ...)
 A logical vector indicating duplicated elements.
 }
 \description{
-Provides the generic function \code{duplicated()} and the S4 methods to find
+Provides the generic function \code{duplicated()} and the methods to find
 duplicated elements in
 \link{itemMatrix}, \link{associations} and their subclasses.
 }
@@ -50,8 +50,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

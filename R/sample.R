@@ -21,10 +21,8 @@ setGeneric("sample")
 
 #' Random Samples and Permutations
 #' 
-#' Provides the generic function `sample()` and the S4 method to take a
-#' sample of the specified size from the elements of `x` using either with
-#' or without replacement.  `sample()` can be used to sample from a set of
-#' [transactions] or [associations].
+#' Provides the generic function `sample()` and methods to sample from [transactions] and 
+#' [associations].
 #' 
 #' @name sample
 #' @aliases sample

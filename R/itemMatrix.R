@@ -20,26 +20,26 @@
 #' Class itemMatrix --- Sparse Binary Incidence Matrix to Represent Sets of
 #' Items
 #'
-#' The `itemMatrix` class is the basic building block for transactions,
-#' itemsets and rules in package \pkg{arules}.  The class contains a sparse
-#' Matrix representation of items (a set of itemsets or transactions) and the
+#' The `itemMatrix` class is the basic building block for [transactions],
+#' and [associations].  The class contains a sparse
+#' Matrix representation of a set of itemsets and the
 #' corresponding item labels.
 #'
-#' Sets of itemsets (or transactions) are represented as a compressed sparse
+#' Sets of itemsets are represented as a compressed sparse
 #' binary matrix. Columns represent items and rows are the set/transactions. In
 #' the compressed form, each itemset is a vector of column indices (called item
 #' IDs) representing the items.
 #'
-#' **Note:** If you work with several itemMatrices at the same time (e.g.,
+#' **Note:** If you work with several `itemMatrix` objects at the same time (e.g.,
 #' several transaction sets, lhs and rhs of a rule, etc.), then the encoding
 #' (itemLabes and order of the items in the binary matrix) in the different
 #' itemMatrices is important and needs to conform. See [itemCoding]
-#' to learn how to encode and recode itemMatrix objects.
+#' to learn how to encode and recode `itemMatrix` objects.
 #'
 #' @aliases itemMatrix
 #' @family itemMatrix and transactions functions
 #' 
-#' @slot data a sparse matrix representing the itemsets (a transposed `ngCMatrix` from package \pkg{Matrix})
+#' @slot data a sparse matrix of class [ngCMatrix-class] representing the itemsets. **Note: the matrix is stored for efficiency reasons transposed!**.
 #' @slot itemInfo a data.frame
 #' @slot itemsetInfo a data.frame
 #' 

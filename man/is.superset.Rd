@@ -27,28 +27,29 @@ or subset structure within set \code{x} is calculated.}
 
 \item{proper}{a logical indicating if all or just proper super or subsets.}
 
-\item{sparse}{a logical indicating if a sparse (ngCMatrix) rather than a
-dense logical matrix should be returned. Sparse computation preserves a
-significant amount of memory and is much faster for large sets.}
+\item{sparse}{a logical indicating if a sparse \code{\linkS4class{ngCMatrix}}
+rather than a dense logical matrix should be returned.
+Sparse computation requires a
+significantly smaller amount of memory and is much faster for large sets.}
 
-\item{\dots}{currently unused.}
+\item{...}{currently unused.}
 }
 \value{
-returns a logical matrix or a sparse ngCMatrix (for
-\code{sparse = TRUE}) with \code{length(x)} rows and \code{length(y)} columns.
+returns a logical matrix or a sparse \code{\linkS4class{ngCMatrix}}
+with \code{length(x)} rows and \code{length(y)} columns.
 Each logical row vector represents which elements in \code{y} are supersets
 (subsets) of the corresponding element in \code{x}.  If either \code{x} or
 \code{y} have length zero, \code{NULL} is returned instead of a matrix.
 }
 \description{
-Provides the generic functions and the S4 methods \code{is.subset()} and
-\code{is.superset()} for finding super or subsets in \link{associations} and
+Provides the generic functions \code{is.subset()} and \code{is.superset()}, and the methods
+for finding super or subsets in \link{associations} and
 \link{itemMatrix} objects.
 }
 \details{
-looks for each element in \code{x} which elements in \code{y} are supersets
+Determines for each element in \code{x} which elements in \code{y} are supersets
 or subsets. Note that the method can be very slow and memory intensive if
-\code{x} and/or \code{y} contain many elements.
+\code{x} and/or \code{y} are very dense (contain many items).
 
 For rules, the union of lhs and rhs is used a the set of items.
 }
@@ -78,7 +79,9 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

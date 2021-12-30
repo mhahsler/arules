@@ -20,21 +20,15 @@
 
 #' Class rules --- A Set of Rules
 #'
-#' The`rules` class represents a set of association rules.
-#'
-#' Rules are usually created by calling an association rule mining algorithm
-#' like [apriori()]. Rules store the LHS and the RHS separately as
-#' objects of class [itemMatrix].
-#'
-#' To create rules manually, the itemMatrix for the LHS and the RHS of the
-#' rules can be created using [itemCoding]. Note the two matrices
-#' need to have the itemLabels (i.e., columns of the sparse matrix) in the same
-#' order.  An example is in the Example section below.
+#' Defines the `rules` class to represent a set of association rules and methods to work
+#' with `rules`.
 #'
 #' Mined rule sets typically contain several interest measures accessible with
 #' the [quality()] method. Additional measures can be calculated via
 #' [interestMeasure()].
-#'
+#' 
+#' To create rules manually, the itemMatrix for the LHS and the RHS of the
+#' rules need to be compatible. See [itemCoding] for details.
 #' @include associations.R
 #' @name rules-class
 #' @aliases rules
@@ -49,6 +43,11 @@
 #' possible item labels (character) or a transactions object to copy the item
 #' coding used for `encode()` (see [itemCoding] for details).
 #' @param quality a data.frame with quality information (one row per rule).    
+#'
+#' @slot lhs,rhs [itemMatrix] representing the left-hand-side and right-hand-side of
+#'   the rules. 
+#' @slot quality the quality data.frame
+#' @slot info  a list with mining information.
 #'
 #' @section Objects from the Class: 
 #' Objects are the result of calling the
@@ -317,7 +316,7 @@ setGeneric("generatingItemsets",
   function(x)
     standardGeneric("generatingItemsets"))
 
-#' @describeIn rules-class returns a collection of the itemsets which generated the rules, one itemset for each rule. Note that the collection can be a multiset and contain duplicated elements. Use unique to remove duplicates and obtain a proper set. Technically this method produces the same as the result of method `items`, but wrapped into an [itemsets] object with support information.
+#' @describeIn rules-class returns a collection of the itemsets which generated the rules, one itemset for each rule. Note that the collection can be a multiset and contain duplicated elements. Use [unique()] to remove duplicates and obtain a proper set. This method produces the same as the result as calling `items()`, but wrapped into an [itemsets] object with support information.
 setMethod("generatingItemsets", signature(x = "rules"),
   function(x)
     new(

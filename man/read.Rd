@@ -18,7 +18,7 @@ read.transactions(
 )
 }
 \arguments{
-\item{file}{the file name or connection.}
+\item{file}{the file name or a connection.}
 
 \item{format}{a character string indicating the format of the data set.  One
 of \code{"basket"} or \code{"single"}, can be abbreviated.}
@@ -45,13 +45,13 @@ removed from the transactions.}
 \item{skip}{number of lines to skip in the file before start reading data.}
 
 \item{encoding}{character string indicating the encoding which is passed to
-\code{readLines} or \code{scan} (see \code{Encoding}).}
+\code{\link[=readLines]{readLines()}} or \code{\link[=scan]{scan()}} (see \link{Encoding} for character encoding).}
 }
 \value{
 Returns an object of class \link{transactions}.
 }
 \description{
-Reads a transaction data file from disk and creates a
+Reads transaction data from a file and creates a
 \link{transactions} object.
 }
 \details{

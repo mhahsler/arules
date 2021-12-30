@@ -8,12 +8,12 @@
 Object of class \link{transactions}
 with 15729 transactions
 and 936 items.
-Item labels are document IDs of the form \code{"doc\\_11d"}.
+Item labels are document IDs of the form \code{"doc_11d"}.
 Session IDs and time stamps for transactions are also provided as transaction information.
 }
 \source{
 Provided by Michael Hahsler from the custom information system ePub-WU
-at \url{https://epub.wu-wien.ac.at} (which is now replaced by eprint).
+at \url{https://epub.wu-wien.ac.at} (which has been replaced by eprint).
 }
 \description{
 The \code{Epub} data set contains the download history of documents from the

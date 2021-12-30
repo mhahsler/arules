@@ -69,7 +69,6 @@ the \code{fim4r()} function downloads and installs the package automatically.
 \item Support and confidence (parameters \code{supp} and \code{conf}) are specified
 in the range \eqn{[0, 100]}.
 \item Type \code{? fim4r::fim4r} for help on additional available arguments.
-\item For \code{appear}, the item ID needs to be used and not the item label.
 \item Algorithm descriptions and references can be found on the
 web page in the References Section.
 }

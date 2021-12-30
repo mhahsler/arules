@@ -31,9 +31,9 @@ inspect(SunBai)
 transactionInfo(SunBai)
 }
 \seealso{
-Other weighted association mining: 
+Other weighted association mining functions: 
 \code{\link{hits}()},
 \code{\link{weclat}()}
 }
-\concept{weighted association mining}
+\concept{weighted association mining functions}
 \keyword{datasets}

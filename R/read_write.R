@@ -20,7 +20,7 @@
 
 #' Read Transaction Data
 #'
-#' Reads a transaction data file from disk and creates a
+#' Reads transaction data from a file and creates a
 #' [transactions] object.
 #'
 #' For _basket_ format, each line in the transaction data file
@@ -32,7 +32,7 @@
 #' @name read
 #' @family import/export
 #' 
-#' @param file the file name or connection.
+#' @param file the file name or a connection.
 #' @param format a character string indicating the format of the data set.  One
 #' of `"basket"` or `"single"`, can be abbreviated.
 #' @param header a logical value indicating whether the file contains the names
@@ -51,7 +51,7 @@
 #' @param quote a list of characters used as quotes when reading.
 #' @param skip number of lines to skip in the file before start reading data.
 #' @param encoding character string indicating the encoding which is passed to
-#' `readLines` or `scan` (see `Encoding`).
+#' [readLines()] or [scan()] (see [Encoding] for character encoding).
 #' @return Returns an object of class [transactions].
 #' @author Michael Hahsler and Kurt Hornik
 #' @keywords file
@@ -251,14 +251,14 @@ setGeneric("write",
 
 #' Write Transactions or Associations to a File
 #'
-#' Provides the generic function `write()` and the S4 methods to write
-#' transactions or associations [itemsets], [rules] to a file.
+#' Provides the generic function `write()` and the methods to write
+#' [transactions] or [associations] to a file.
 #'
 #' For associations ([rules] and [itemsets]) `write()` first uses coercion to
 #' data.frame to obtain a printable form of `x` and then uses
 #' [utils::write.table()] to write the data to disk.
 #'
-#' Transactions can be saved in basket (one line per transaction) or in single
+#' Transactions can be saved in _basket_ (one line per transaction) or in _single_
 #' (one line per item) format.
 #'
 #' Note: To save and load associations in compact form, use [save()] and

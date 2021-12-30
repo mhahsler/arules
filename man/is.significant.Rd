@@ -22,9 +22,9 @@ is.significant(
 )
 }
 \arguments{
-\item{x}{a set of rules.}
+\item{x}{a set of \link{rules}.}
 
-\item{transactions}{set of transactions used to mine the rules.}
+\item{transactions}{set of \link{transactions} used to mine the rules.}
 
 \item{method}{test to use. Options are \code{"fisher"}, \code{"chisq"}. Note that
 the contingency table is likely to have cells with low expected values and
@@ -41,15 +41,15 @@ test.}
 returns a logical vector indicating which rules are significant.
 }
 \description{
-Provides the generic functions and the S4 method \code{is.significant()} to
-find significant associations and an implementation for rules.
+Provides the generic functions \code{is.significant()} and the method to
+find significant \link{rules}.
 }
 \details{
 The implementation for association rules uses Fisher's exact test with
 correction for multiple comparisons to test the null hypothesis that the LHS
 and the RHS of the rule are independent.  Significant rules have a p-value
 less then the specified significance level alpha (the null hypothesis of
-independence is rejected.).
+independence is rejected). See Hahsler and Hornik (2007) for details.
 }
 \examples{
 data("Income")
@@ -62,6 +62,7 @@ inspect(rules[is.significant(rules, Income)])
 Hahsler, Michael and Kurt Hornik (2007). New probabilistic
 interest measures for association rules. \emph{Intelligent Data Analysis},
 11(5):437--455.
+\doi{10.3233/IDA-2007-11502}
 }
 \seealso{
 \code{\link[stats:p.adjust]{stats::p.adjust()}}
@@ -90,7 +91,9 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

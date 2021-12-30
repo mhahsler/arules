@@ -31,13 +31,13 @@
 #' @aliases parameter
 #' @family mining algorithms
 #' 
-#' @section Objects from the Class: 
-#' A suitable default parameter object will be
-#' automatically created by the [apriori] or the
-#' [eclat] function.  By specifying a named list (names equal to
-#' slots) as `parameter` argument for the [apriori] or the
-#' [eclat] function, default values can be replaced by the values
-#' in the list.  Objects can be using coercion.
+#' @section Available Slots by Subclass:
+#' 
+#' * `APparameter`: 
+#'   `r paste(paste0('\\code{', names(getSlots("APparameter")), '}'), collapse = ", ")`
+#' 
+#' * `ECparameter`: 
+#'   `r paste(paste0('\\code{', names(getSlots("ECparameter")), '}'), collapse = ", ")`
 #' 
 #' @slot support a numeric value for the 
 #'   minimal support of an item set (default: \eqn{0.1})
@@ -48,8 +48,8 @@
 #' @slot maxlen an integer value for the
 #'   maximal number of items per item set (default: 10 items)
 #' 
-#' @slot target a character string indicating the type of association mined.
-#' One of
+#' @slot target a character string indicating the type of association mined. 
+#' Partial names are matched. Available targets are:
 #' 
 #' * `"frequent itemsets"`
 #' * `"maximally frequent itemsets"`
@@ -92,16 +92,26 @@
 #' @slot originalSupport a logical indicating whether to
 #'   use the original definition of minimum support 
 #'   (support of the LHS and RHS of the rule). If set to `FALSE` 
-#'   then a minimum threshold on coverage (i.e., the support of the LHS) is used 
-#'   instead. (default: `TRUE`)
+#'   then the support of the LHS (also called coverage of the rule) is returned as support.
+#'   The minimum support threshold is applied to this support. (default: `TRUE`)
 #'   
 #' @slot maxtime Time limit in seconds for checking subsets.
 #'   `maxtime = 0` disables the time limit. (default: 5 seconds)
 #'   
-#' @slot tidLists a logical indicating whether to
-#'   return also a list of supporting transactions (transaction IDs)
+#' @slot tidLists a logical indicating whether [eclat()] should
+#'   return also a list of supporting transactions IDs.
 #'   (default: `FALSE`)
-#' 
+#'
+#' @section Objects from the Class: 
+#' A suitable default parameter object will be
+#' automatically created by [apriori()] or
+#' [eclat()].  By specifying a named list (names equal to
+#' slots) as `parameter` argument for [apriori()] or
+#' [eclat()], the default values can be replaced with the values
+#' in the list.  
+#'
+#' Objects can also be created via coercion.
+#'  
 #' @author Michael Hahsler and Bettina Gruen
 #' @references Christian Borgelt (2004) _Apriori --- Finding Association
 #' Rules/Hyperedges with the Apriori Algorithm_.

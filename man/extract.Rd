@@ -8,7 +8,7 @@
 \alias{[,tidLists,ANY,ANY,ANY-method}
 \alias{[,rules,ANY,ANY,ANY-method}
 \alias{[,itemsets,ANY,ANY,ANY-method}
-\title{Methods for "[": Extraction or Subsetting in Package 'arules'}
+\title{Methods for "[": Extraction or Subsetting arules Objects}
 \usage{
 \S4method{[}{itemMatrix,ANY,ANY,ANY}(x, i, j, ..., drop = TRUE)
 
@@ -23,39 +23,19 @@
 \arguments{
 \item{x}{an object of class \link{itemMatrix}, \link{transactions} or \link{associations}.}
 
-\item{i}{select rows/sets.}
+\item{i}{select rows/sets using an integer vector containing row
+numbers or a logical vector.}
 
-\item{j}{select columns/items.}
+\item{j}{select columns/items using an integer vector containing column
+numbers (i.e., item IDs), a logical vector or a vector of strings containing parts of item labels.}
 
 \item{...}{further arguments are ignored.}
 
 \item{drop}{ignored.}
 }
 \description{
-Methods for \code{"["}, i.e., extraction or subsetting in package
-\pkg{arules}. Subsetting can be done by integers containing column/row
-numbers, vectors of logicals or strings containing parts of item labels.
+Methods for \code{"["}, i.e., extraction or subsetting for arules objects.
 }
-\section{Methods}{
- \describe{ \item{[}{\code{signature(x = "itemMatrix", i =
-"ANY", j = "ANY", drop= "ANY")}; extracts parts of an \code{itemMatrix}.
-The first argument selects rows (e.g., transactions or rules) and the second
-argument selects columns (items).  Either argument can be omitted to select
-all rows or columns.} \item{[}{\code{signature(x = "itemsets", i = "ANY", j
-= "ANY", drop= "ANY")}; extracts a subset of itemsets and the associated
-quality measures.  \code{j} has to be missing. } \item{[}{\code{signature(x
-= "rules", i = "ANY", j = "ANY", drop= "ANY")}; extracts a subset of rules
-and the associated quality measures.  \code{j} has to be missing. }
-\item{[}{\code{signature(x = "transactions", i = "ANY", j = "ANY", drop=
-"ANY")}; extracts a subset of transactions/items from a transactions object
-(a binary incidence matrix).  \code{i} and \code{j} can be numeric where
-\code{i} selects transactions and \code{j} selects items. }
-\item{[}{\code{signature(x = "tidLists", i = "ANY", j = "ANY", drop=
-"ANY")}; extracts parts (transaction ID vectors) from \code{tidLists}.
-\code{i} selects the items or itemsets and \code{j} selects transactions in
-the lists.} }
-}
-
 \examples{
 data(Adult)
 Adult
@@ -80,8 +60,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

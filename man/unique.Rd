@@ -13,7 +13,7 @@ unique(x, incomparables = FALSE, ...)
 \S4method{unique}{associations}(x, incomparables = FALSE, ...)
 }
 \arguments{
-\item{x}{an object of class \link{itemMatrix} or associations.}
+\item{x}{an object of class \link{itemMatrix} or \link{associations}.}
 
 \item{incomparables}{currently unused.}
 
@@ -24,7 +24,7 @@ An object of the same class as \code{x} with duplicated elements
 removed.
 }
 \description{
-Provides the generic function \code{unique()} and the S4 methods for
+Provides the generic function \code{unique()} and the methods for
 \link{itemMatrix} \link{transactions}, and \link{associations}.
 }
 \details{
@@ -53,8 +53,10 @@ Other associations functions:
 \code{\link{is.closed}()},
 \code{\link{is.generator}()},
 \code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
 \code{\link{is.significant}()},
 \code{\link{is.superset}()},
+\code{\link{itemsets-class}},
 \code{\link{match}()},
 \code{\link{rules-class}},
 \code{\link{sample}()},

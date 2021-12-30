@@ -20,7 +20,7 @@
 
 #' Find Maximal Itemsets
 #'
-#' Provides the generic function and the S4 method `is.maximal()` for
+#' Provides the generic function `is.maximal()` and methods for
 #' finding maximal itemsets. Maximal frequent itemsets are used as a concise
 #' representation of frequent itemsets. An itemset is maximal in a set if no
 #' proper superset of the itemset is contained in the set (Zaki et al., 1997).
@@ -35,15 +35,15 @@
 #' @family postprocessing
 #' @family associations functions
 #' 
-#' @param x the set of itemsets, rules or an itemMatrix object.
+#' @param x the set of [itemsets], [rules] or an [itemMatrix] object.
 #' @param ... further arguments.
 #' @return a logical vector with the same length as `x` indicating for
 #' each element in `x` if it is a maximal itemset.
 #' @author Michael Hahsler
-#' @seealso [is.generator()], [is.closed()]
-#' @references Mohammed J. Zaki, Srinivasan Parthasarathy, Mitsunori Ogihara,
-#' and Wei Li (1997). \emph{New algorithms for fast discovery of association
-#' rules}. Technical Report 651, Computer Science Department, University of
+#' @references 
+#' Mohammed J. Zaki, Srinivasan Parthasarathy, Mitsunori Ogihara,
+#' and Wei Li (1997). _New algorithms for fast discovery of association
+#' rules_. Technical Report 651, Computer Science Department, University of
 #' Rochester, Rochester, NY 14627.
 #' @keywords models
 setGeneric("is.maximal",

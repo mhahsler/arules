@@ -22,17 +22,18 @@
 #'
 #' The `associations` class is a virtual class which is extended to
 #' represent mining result (e.g., sets of [itemsets] or
-#' [rules]).  The class provides accessors for the quality slot and
-#' a method for sorting the associations.
+#' [rules]). The class defines some common methods for its subclasses.
 #'
 #' The implementations of `associations` store itemsets (e.g., the LHS and
 #' RHS of a rule) as objects of class [itemMatrix] (i.e., sparse
 #' binary matrices). Quality measures (e.g., support) are stored in a
-#' data.frame accessible via method `quality`.
+#' data.frame accessible via method `quality()`.
 #'
-#' Associations can store multisets with duplicated elements. Duplicated
+#' See Sections Functions and See Also to see all available methods.
+#'
+#' **Note:** Associations can store multisets with duplicated elements. Duplicated
 #' elements can result from combining several sets of associations.  Use
-#' [unique] to remove duplicate associations.
+#' [unique()] to remove duplicate associations.
 #'
 #' @include itemMatrix.R
 #' @name associations-class

@@ -20,11 +20,9 @@
 
 #' Supporting Transactions
 #'
-#' Find transactions which support each of a set of associations and return
-#' this information as a transaction ID list.
-#'
-#' The supporting transactions are all transactions of which the itemset
-#' representing the association is a subset of.
+#' Find for each itemset in an [associations] object which transactions support 
+#' (i.e., contains all items in the itemset) it. The information is returned
+#' as a [tidLists] object.
 #'
 #' @family itemMatrix and transactions functions
 #' 

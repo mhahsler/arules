@@ -44,7 +44,7 @@ itemsets(items, itemLabels = NULL, quality = data.frame())
 \S4method{tidLists}{itemsets}(x)
 }
 \arguments{
-\item{items}{a \link{itemMatrix} or an object that can be converted using \code{\link[=encode]{encode()}}.}
+\item{items}{an \link{itemMatrix} or an object that can be converted using \code{\link[=encode]{encode()}}.}
 
 \item{itemLabels}{item labels used for \code{encode()}.}
 
@@ -62,14 +62,12 @@ quality measures.
 }
 \details{
 Itemsets are usually created by calling an association rule mining algorithm
-like \code{\link[=apriori]{apriori()}}.  Itemsets store the items as an object of class
-\link{itemMatrix}.
-
+like \code{\link[=apriori]{apriori()}}.
 To create itemsets manually, the itemMatrix for the items of the itemsets
 can be created using \link{itemCoding}.  An example is in the Example
 section below.
 
-Mined itemsets sets typically contain several interest measures accessible
+Mined itemsets sets contain several interest measures accessible
 with the \code{quality()} method.  Additional measures can be
 calculated via \code{\link[=interestMeasure]{interestMeasure()}}.
 }
@@ -96,21 +94,26 @@ calculated via \code{\link[=interestMeasure]{interestMeasure()}}.
 \item \code{tidLists,itemsets-method}: get tidLists stored in the object (if any).
 }}
 
+\section{Slots}{
+
+\describe{
+\item{\code{items}}{an \link{itemMatrix} object representing the itemsets.}
+
+\item{\code{tidLists}}{a \link{tidLists} or \code{NULL}.}
+
+\item{\code{quality}}{a data.frame with quality information}
+
+\item{\code{info}}{a list with mining information.}
+}}
+
 \section{Objects from the Class}{
  Objects are the result of calling the
-functions \code{\link[=apriori]{apriori()}} (e.g., with \code{target = "frequent itemsets"} in the parameter list) or \code{\link[=eclat]{eclat()}}.  Objects can also
-be created by calls of the form
+functions \code{\link[=apriori]{apriori()}} (e.g., with \code{target = "frequent itemsets"} in the parameter list) or \code{\link[=eclat]{eclat()}}.
 
-\code{new("itemsets", ...)}
-
+Objects can also
+be created by calls of the form \code{new("itemsets", ...)}
 or by using the constructor function
-
-\code{itemsets(items, itemLabels, quality = data.frame())}.
-
-\code{items} need to be a list describing the items (using labels or item
-ids) and \code{itemLabels} needs to be a vector of all possible item labels
-(character) or a transactions object to copy the item coding (see
-\link{itemCoding} for details).
+\code{itemsets()}.
 }
 
 \section{Coercion}{
@@ -156,11 +159,29 @@ inspect(twoitemsets)
 \seealso{
 Superclass: \link{associations}
 
-Other association functions: 
-\code{\link{is.redundant}()}
+Other associations functions: 
+\code{\link{abbreviate}()},
+\code{\link{associations-class}},
+\code{\link{c}()},
+\code{\link{duplicated}()},
+\code{\link{extract}},
+\code{\link{inspect}()},
+\code{\link{is.closed}()},
+\code{\link{is.generator}()},
+\code{\link{is.maximal}()},
+\code{\link{is.redundant}()},
+\code{\link{is.significant}()},
+\code{\link{is.superset}()},
+\code{\link{match}()},
+\code{\link{rules-class}},
+\code{\link{sample}()},
+\code{\link{sets}},
+\code{\link{size}()},
+\code{\link{sort}()},
+\code{\link{unique}()}
 }
 \author{
 Michael Hahsler
 }
-\concept{association functions}
+\concept{associations functions}
 \keyword{classes}

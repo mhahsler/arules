@@ -81,7 +81,7 @@ A numeric vector with the midpoints of the drawn bars; useful for
 adding to the graph.
 }
 \description{
-Provides the generic function \code{itemFrequencyPlot()} and the S4 method to
+Provides the generic function \code{itemFrequencyPlot()} and the method to
 create an item frequency bar plot for inspecting the item frequency
 distribution for objects based on \link{itemMatrix} (e.g.,
 \link{transactions}, or items in \link{itemsets}
