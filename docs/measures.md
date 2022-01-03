@@ -29,11 +29,22 @@ Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Co
 A PDF version of the document is available at
 [https://mhahsler.github.io/arules/docs/measures.pdf](https://mhahsler.github.io/arules/docs/measures.pdf)
 
+## Code and Implementation
+All measures discussed on this page are implemented in the freely available R-extension package 
+[arules](https://github.com/mhahsler/arules)
+in function 
+[interestMeasure()](https://search.r-project.org/CRAN/refmans/arules/html/interestMeasure.html).
+
+## Corrections and Feedback
+For corrections and missing measures on this page or in the implementation in the package arules, 
+please [open an issue on GitHub](https://github.com/mhahsler/arules/issues) or contact
+[me](http://michael.hahsler.net) directly.
+
+
 
 # Introduction
 
-<a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Agrawal:1993">
-Agrawal, Imielinski, and Swami (1993)</a> introduced the problem of [association
+[Agrawal, Imielinski, and Swami (1993)](https://michael.hahsler.net/research/bib/association_rules/#arules:Agrawal:1993) introduced the problem of [association
 rule mining](https://en.wikipedia.org/wiki/Association_rule_learning) in the following way: 
 
 Let $I=\{i_1, i_2,\ldots,i_m\}$ be a set of $m$ binary attributes called
@@ -92,25 +103,16 @@ number of null-transactions since the total number of transactions is
 used for probability estimation. Measures that are not 
 influenced by a change in the number of null-transactions are 
 called null-invariant 
-(see 
-<a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Tan et al., 2004</a> 
-and 
-<a href= "https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Wu et al., 2010</a>).
+(see [Tan et al., 2004](https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004) 
+and [Wu et al., 2010](https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010)).
 
-Good overview articles about different association rule measures are provided by <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004"> Pang-Ning   Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis. Information Systems, 29(4):293-313, 2004 </a>
-and <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Geng:2006">Liqiang Geng and Howard J. Hamilton. Interestingness measures for data mining: A survey. ACM Computing Surveys, 38(3):9, 2006.</a>
-Michael Hahsler maintains a comprehensive [Annotated Bibliography on Association Rule Mining](https://michael.hahsler.net/research/bib/association_rules/).
+Good overview articles about different association rule measures are 
 
+* Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava, [Selecting the right objective measure for association analysis.](https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004) _Information Systems,_ 29(4):293-313, 2004 and 
 
-### Implementation
-All measures discussed on this page are implemented in the freely available R-extension package
-<a href="https://github.com/mhahsler/arules">arules</a>
-in function <a href="https://search.r-project.org/CRAN/refmans/arules/html/interestMeasure.html">interestMeasure()</a>.
+* Liqiang Geng and Howard J. Hamilton. [Interestingness measures for data mining: A survey.](https://michael.hahsler.net/research/bib/association_rules/#arules:Geng:2006) _ACM Computing Surveys,_ 38(3):9, 2006.
 
-### Corrections and Feedback
-For corrections and missing measures on this page or in arules, 
-please <a href="https://github.com/mhahsler/arules/issues">open an issue here</a> or contact 
-<a href="http://michael.hahsler.net">me</a> directly.
+* Michael Hahsler maintains a comprehensive [Annotated Bibliography on Association Rule Mining](https://michael.hahsler.net/research/bib/association_rules/).
 
 # Measures for Itemsets
 
