@@ -58,6 +58,16 @@ if (window.hljs) {
 </script>
 
 
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
 
 
 
@@ -248,19 +258,22 @@ div.tocify {
 
 <h1 class="title toc-ignore">A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules</h1>
 <h4 class="author">Michael Hahsler</h4>
+<div class="abstract">
+<p class="abstract">Abstract</p>
+This document contains a comprehensive collection of commonly used measures of significance and interestingness (sometimes also called strength) for association rules and itemsets. Interest measures are usually defined in terms of itemset support and counts. Here, we also present their relationship with estimating probabilities and conditional probabilities.
+</div>
 
 </div>
 
 
 <div id="about-this-document" class="section level1">
 <h1>About this Document</h1>
-<p><img src="data:image/png;base64,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" style="float:left; margin:4px;" alt="CC BY-SA 4.0" /> This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution Share Alike 4.0 International License.</a></p>
-<p>Please cite this document as <strong>Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: <a href="https://mhahsler.github.io/arules/docs/measures" class="uri">https://mhahsler.github.io/arules/docs/measures</a></strong></p>
-<p>A PDF version of the document can be found here: <a href="https://mhahsler.github.io/arules/docs/measures.pdf" class="uri">https://mhahsler.github.io/arules/docs/measures.pdf</a></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAMAAABUFvrSAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAEZ0FNQQAAsY58+1GTAAAAAXNSR0IB2cksfwAAAb9QTFRF////////////////8fHx7+/v6Ofn4+Pj4N/g39/f1tXV09bS0tXS0tXR0dTR0dTQ0NTQ0NPPz9PPztLOztHNzdHNzdHMz8/PzdDMzNDMzNDLzM/Ly8/Ly8/Ky87Kys3Jyc3Jyc3Iy8rLyMzIyMzHx8vHxsrGycjIxsrFxcnFyMfHxcnExMnExMjDw8jDxMfDw8fCwsfCwcXAwMXAwMW/wMS/v8S+v8O+vsO+vsK9vcK9vcK8v7+/vMG8vMG7vMC8u8C7u8C6ur+6ur+5ub65ub64uL23t7y2urm5tru1tbq0tLqztLmzs7iysrixtbW1srexsbewsbawsLavsLWvr7Wur7SusLOvrrStrrOtr7KvrbOsrLKrr6+vq7GqrKuro6Ghn6OenqCdn5+fnp2dn5aalpmWmJaXk5iTkZSRkZORkY+Pj4+PiYyJjoeLhIaEhIWEgoWChIGCgICAfX98fH98eXx5dnN0cHJvcHBwbmxsY19hYGBgXV5dUFFQUFBQQ0RDQEBAPj8+Pzc5NTY1MjMxMDAwMS0uLS0tKSkpKCkoKCgoKicnJCQkIx8gICAgGxsbEBAQDg4ODQ4NAAAAi/BQCAAAAAN0Uk5TAAoO5yEBUwAAA49JREFUeNq1lo930lYUx7Pdsg5pjdF0DiixTNyyKpVhtToY2lGKxeJaHU4HpWrdZplOV7STDfnRbdGyLTTy/YN3XkJoGqBn4nwHzjvn+3gfbr73vvvCvYu3MjgOSCUTsfPhKTkwIXndbq/vWEAOhmdic8lUevnrm9lsLv/6A+CQSsYjZ0Oy3ycK/IjLNXJQEMf9cmg6EmfkzM1sbiAyh2Q8ciZ4QhL5x7UWe4hW7RF/xBc4Ff48nkxdvZ65ZYa8uc2WtzftjJ46OCQiZ4IBj1DY2TVoZ11w+0+GI3PJxaXr7ZDvN4B6qVQHGvethD46OMTOBgNuvgJAKxej0WJZA1A5/YH/1HQssZBeNkK+8wpVJxGRs4pXFkI/HRzOh054GFcrOsgYaxrQOO0OhGZm51N6yPl8A2UiAtgyGrsAXR+enBy26eAQliWhAihO6gyHAlQEnxyOJBbS125kc7lNVA+YYKqi46eu31ZVVb28R2fgqeNiAVAcRHvJ60f8wXOzyStLmVu53DYs/+vEtrmf6ZPq77/9oqo/WnUGln38DrSjtGc4NOzw43L4i0TqKvMCdaaWoRtCdXT212noO/UnonvqC6vOwIGxx0CRbGMNeCQGQhfiC+lrDFwi3QnDi9IuuERD/6h/EQ2r6nsWnYEnDtegOYii1Xq9aEwPiEhDTTjGvFhcvrEvmL56GdXB79vAEt9iDxjVK7i+ok9l9titg76T05fmryxn9rWCLt/+hGhVVe1WeEeBB0QKms5oc02B4lxprulejHjlcGw+tZTJmskzArYl756qbmz8rf5gT57HBUTZnqKxtW13FHC5PzbBm6hSn3Ij2mDl9uuQvdz+E9h6QEpdB+Sj1dUDNn2PFY6jzaIChU12KwY50u3ktbPWSV4JLV7qJC+fv9MAlHJJsTehPrpebhVo1Cm3lbo+URM1YSJ47kuj3AZpm4Gxgu5FrwPy2YW5hbTRhV6/0X+qH2nn/kd6EPDUcfFuryZUEP1TM7PJRb0JDQLGU0l4DiiWNuTU26b08xtd0wCeeQ9ZG72jqAF/8J6neFMwnrgPPbddTfyH39t+aZwPGN/uBeoFxhOvcNd6mRYEj50Lan+oWzcXu8F4Jol8wbz+13lR6vbBbJs9FowW0hOMP7/1jR3mR12uUV4Qx7/Z6jatjxHGUt+IAWw9vCh5PR6vdPHhVq9s9IvY9L4v+P9+K3znLXH/BS/TEND+y7DLAAAAAElFTkSuQmCC" style="float:left; margin:4px;" alt="CC BY-SA 4.0" /> This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution Share Alike 4.0 International License.</a> Please cite this document as <strong>Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: <a href="https://mhahsler.github.io/arules/docs/measures" class="uri">https://mhahsler.github.io/arules/docs/measures</a></strong></p>
+<p>A PDF version of the document is available at <a href="https://mhahsler.github.io/arules/docs/measures.pdf">https://mhahsler.github.io/arules/docs/measures.pdf</a></p>
 </div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This document contains a collection of commonly used measures of significance and interestingness (sometimes also called strength) for association rules and itemsets. <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Agrawal:1993"> Agrawal, Imielinski, and Swami (1993)</a> introduced the problem of <a href="https://en.wikipedia.org/wiki/Association_rule_learning">association rule mining</a> in the following way:</p>
+<p><a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Agrawal:1993"> Agrawal, Imielinski, and Swami (1993)</a> introduced the problem of <a href="https://en.wikipedia.org/wiki/Association_rule_learning">association rule mining</a> in the following way:</p>
 <p>Let <span class="math inline">\(I=\{i_1, i_2,\ldots,i_m\}\)</span> be a set of <span class="math inline">\(m\)</span> binary attributes called <strong>items.</strong> Let <span class="math inline">\(D = \{t_1, t_2, \ldots, t_n\}\)</span> be a set of transactions called the <strong>database</strong>. Each transaction <span class="math inline">\(t \in D\)</span> has a unique transaction ID and contains a subset of the items in <span class="math inline">\(I\)</span>, i. e., <span class="math inline">\(t \subseteq I\)</span>. A <strong>rule</strong> is defined as an implication of the form <span class="math inline">\(X \Rightarrow Y\)</span> where <span class="math inline">\(X, Y \subseteq I\)</span> and <span class="math inline">\(X \cap Y = \emptyset\)</span>. The sets of items (for short <strong>itemsets</strong>) <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called antecedent (left-hand side or LHS) and consequent (right-hand side or RHS) of the rule, respectively. Measures of importance (interest) can be defined for itemsets and rules. The support-confidence framework defines the measures <a href="#support">support</a> and <a href="#confidence">confidence</a>. Rules that satisfy a user-specified minimum thresholds on support and confidence are called <strong>association rules.</strong></p>
 <p>Interest measures are usually defined in terms of itemset <a href="#support">support</a>, here we also present them using probabilities and, where appropriate, counts. The probability <span class="math inline">\(P(E_X)\)</span> of the event that all items in itemset <span class="math inline">\(X\)</span> are contained in an arbitrarily chosen transaction can be estimated from a database <span class="math inline">\(D\)</span> using maximum likelihood estimation (MLE) by</p>
 <p><span class="math display">\[\hat{P}(E_X) = \frac{|\{t \in D; X \subseteq t\}|}{n}\]</span></p>
@@ -407,13 +420,15 @@ P(X \cap Y) + P(\overline{X} \cap \overline{Y})\]</span></p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Brin:1997b"> Sergey Brin, Rajeev Motwani, and Craig Silverstein. Beyond market baskets: Generalizing association rules to correlations.</a> In SIGMOD 1997, Proceedings ACM SIGMOD International Conference on Management of Data, pages 265-276, Tucson, Arizona, USA, May 1997.</p>
 <p>For the analysis of <span class="math inline">\(2 \times 2\)</span> contingency tables, the chi-squared test statistic is a measure of the relationship between two binary variables (<span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>). The chi-squared test statistic is used as a test for independence between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. The chi-squared test statistic is:</p>
 <p><span class="math display">\[
+\begin{aligned}
 \textrm{chi-squared}(X \Rightarrow Y) 
-= \sum_i \frac{(O_i - E_i)^2}{E_i} 
-= \frac{\left( n_{XY} - \frac{n_X n_Y}{n} \right)^2}{\frac{n_X n_Y}{n}}
+&amp; = \sum_i \frac{(O_i - E_i)^2}{E_i} \\
+&amp; = \frac{\left( n_{XY} - \frac{n_X n_Y}{n} \right)^2}{\frac{n_X n_Y}{n}}
 + \frac{\left( n_{\overline{X}Y} - \frac{n_{\overline{X}} n_Y}{n} \right)^2}{\frac{n_{\overline{X}} n_Y}{n}}
 + \frac{\left( n_{X\overline{Y}} - \frac{n_X n_{\overline{Y}}}{n} \right)^2}{\frac{n_X n_{\overline{Y}}}{n}}
-+ \frac{\left( n_{\overline{X}\overline{Y}} - \frac{n_{\overline{X}} n_{\overline{Y}}}{n} \right)^2}{\frac{n_{\overline{X}} n_{\overline{Y}}}{n}}
-= n \frac{P(X \cap Y)P(\overline{X} \cap \overline{Y})  - P(X \cap \overline{Y})P(\overline{X} \cap Y)}{\sqrt{P(X)P(Y)P(\overline{X})P(\overline{Y})}}
++ \frac{\left( n_{\overline{X}\overline{Y}} - \frac{n_{\overline{X}} n_{\overline{Y}}}{n} \right)^2}{\frac{n_{\overline{X}} n_{\overline{Y}}}{n}} \\
+&amp; = n \frac{P(X \cap Y)P(\overline{X} \cap \overline{Y})  - P(X \cap \overline{Y})P(\overline{X} \cap Y)}{\sqrt{P(X)P(Y)P(\overline{X})P(\overline{Y})}}
+\end{aligned}
 \]</span></p>
 <p><span class="math inline">\(O_i\)</span> is the observed count of contingency table cell <span class="math inline">\(i\)</span> and <span class="math inline">\(E_i\)</span> is the expected count given the marginals.<br />
 The statistic has approximately a <span class="math inline">\(\chi^2\)</span> distribution with 1 degree of freedom (for a 2x2 contingency table). The critical value for <span class="math inline">\(\alpha=0.05\)</span> is <span class="math inline">\(3.84\)</span>; higher chi-squared values indicate that the null-hypothesis of independence between LHS and the RHS should be rejected (i.e., the rule is not spurious). Larger chi-squared values indicate stronger evidence that the rule represents a strong relationship. The statistic can be converted into a p-value using the <span class="math inline">\(\chi^2\)</span> distribution.</p>
@@ -445,7 +460,7 @@ The statistic has approximately a <span class="math inline">\(\chi^2\)</span> di
 <div id="conviction" class="section level2">
 <h2>Conviction</h2>
 <p><strong>Reference:</strong><a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Brin:1997"> Sergey Brin, Rajeev Motwani, Jeffrey D. Ullman, and Shalom Turk. Dynamic itemset counting and implication rules for market basket data.</a> In SIGMOD 1997, Proceedings ACM SIGMOD International Conference on Management of Data, pages 255-264, Tucson, Arizona, USA, May 1997.</p>
-<p><span class="math display">\[conviction(X \Rightarrow Y) =\frac{1-supp(Y)}{1-conf(X \Rightarrow Y)} 
+<p><span class="math display">\[\mathrm{conviction}(X \Rightarrow Y) =\frac{1-supp(Y)}{1-conf(X \Rightarrow Y)} 
 = \frac{P(X)P(\overline{Y})}{P(X \cap \overline{Y})}\]</span></p>
 <p>where <span class="math inline">\(\overline{Y} = E_{\neg Y}\)</span> is the event that <span class="math inline">\(Y\)</span> does not appear in a transaction. Conviction was developed as an alternative to confidence which was found to not capture the direction of associations adequately. Conviction compares the probability that <span class="math inline">\(X\)</span> appears without <span class="math inline">\(Y\)</span> if they were dependent on the actual frequency of the appearance of <span class="math inline">\(X\)</span> without <span class="math inline">\(Y\)</span>. In that respect, it is similar to lift (see the section about lift on this page). However, in contrast to lift, it is a directed measure since it also uses the information of the absence of the consequent. An interesting fact is that conviction is monotone in confidence and lift.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, \infty]\)</span> (1 indicates independence; rules that always hold have <span class="math inline">\(\infty\)</span>)</p>
@@ -454,7 +469,7 @@ The statistic has approximately a <span class="math inline">\(\chi^2\)</span> di
 <h2>Cosine</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Cosine is a null-invariant measure of correlation between the items in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> defined as</p>
-<p><span class="math display">\[cosine(X \Rightarrow Y) 
+<p><span class="math display">\[\mathrm{cosine}(X \Rightarrow Y) 
 = \frac{supp(X \cup Y)}{\sqrt{(supp(X)supp(Y))}} 
 = \frac{P(X \cap Y)}{\sqrt{P(X)P(Y)}}
 = \sqrt{P(X | Y) P(Y | X)}\]</span></p>
@@ -464,7 +479,7 @@ The statistic has approximately a <span class="math inline">\(\chi^2\)</span> di
 <h2>Coverage</h2>
 <p><strong>Alias:</strong> LHS Support</p>
 <p>It measures the probability that a rule <span class="math inline">\(X \Rightarrow Y\)</span> applies to a randomly selected transaction. It is estimated by the proportion of transactions that contain the antecedent of the rule <span class="math inline">\(X \Rightarrow Y\)</span>. Therefore, coverage is sometimes called antecedent support or LHS support.</p>
-<p><span class="math display">\[cover(X \Rightarrow Y) = supp(X) = P(X)\]</span></p>
+<p><span class="math display">\[\mathrm{cover}(X \Rightarrow Y) = supp(X) = P(X)\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
 </div>
 <div id="confirmedconfidence" class="section level2">
@@ -490,7 +505,7 @@ The statistic has approximately a <span class="math inline">\(\chi^2\)</span> di
 <div id="counterexample" class="section level2">
 <h2>Example and Counter-Example Rate</h2>
 <p>Example rate reduced by the counter-example rate.</p>
-<p>Defined as <span class="math display">\[ecr(X \Rightarrow Y) = 
+<p>Defined as <span class="math display">\[\mathrm{ecr}(X \Rightarrow Y) = 
 \frac{n_{XY} - n_{X\overline{Y}}}{n_{XY}} =
 \frac{P(X \cap Y) - P(X \cap \overline{Y})}{P(X \cap Y)} =
 1 - \frac{1}{sebag(X \Rightarrow Y)}
@@ -512,7 +527,7 @@ The statistic has approximately a <span class="math inline">\(\chi^2\)</span> di
 <h2>Gini Index</h2>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Measures quadratic entropy as</p>
-<p><span class="math display">\[ gini(X \Rightarrow Y) =
+<p><span class="math display">\[\mathrm{gini}(X \Rightarrow Y) =
 P(X)    [P(Y|X)^2+P(\overline{Y}|X)^2] +
 P(\overline{X}) [P(B|\overline{X})^2+P(\overline{Y}|\overline{X})^2] -
 P(Y)^2 - P(\overline{Y})^2
@@ -553,7 +568,7 @@ P(Y)^2 - P(\overline{Y})^2
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Tianyi Wu, Yuguo Chen, and Jiawei Han. Re-examination of interestingness measures in pattern mining: a unified framework.</a> Data Mining and Knowledge Discovery, January 2010.</p>
 <p>Measures the degree of imbalance between two events that the LHS and the RHS are contained in a transaction. The ratio is close to 0 if the conditional probabilities are similar (i.e., very balanced) and close to 1 if they are very different. It is defined as</p>
 <p><span class="math display">\[
-IB(X \Rightarrow Y) 
+\mathrm{IB}(X \Rightarrow Y) 
 = \frac{|P(X|Y) - P(Y|X)|}{P(X|Y) + P(Y|X) - P(X|Y)P(Y|X))}
 = \frac{|supp(X) - supp(Y)|}{supp(X) + supp(Y) - supp(X \cup Y)}
 \]</span></p>
@@ -564,7 +579,7 @@ IB(X \Rightarrow Y)
 <p><strong>Reference:</strong> Gras R., L’implication statistique. Nouvelle methode exploratoire de donnees. La Pensee Sauvage, Grenoble. 1996.</p>
 <p>A variation of the <a href="#lerman-similarity">Lerman similarity</a> defined as</p>
 <p><span class="math display">\[
-gras(X \Rightarrow Y) 
+\mathrm{gras}(X \Rightarrow Y) 
 = \sqrt{N} \frac{supp(X \cup \overline{Y}) - supp(X)supp(\overline{Y})}{\sqrt{supp(X)supp(\overline{Y})}}
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
@@ -574,7 +589,7 @@ gras(X \Rightarrow Y)
 <p><strong>Reference:</strong> <a href="https://docs.microsoft.com/en-us/sql/analysis-services/data-mining/microsoft-association-algorithm-technical-reference">MS Analysis Services: Microsoft Association Algorithm Technical Reference.</a></p>
 <p>In the Microsoft Association Algorithm Technical Reference, confidence is called “probability,” and a measure called importance is defined as the log-likelihood of the right-hand side of the rule, given the left-hand side of the rule:</p>
 <p><span class="math display">\[
-importance(X \Rightarrow Y) 
+\mathrm{importance}(X \Rightarrow Y) 
 = log_{10}(L(X \Rightarrow Y) / L(X \Rightarrow \overline{Y}))
 \]</span></p>
 <p>where <span class="math inline">\(L\)</span> is the <a href="#laplace-corrected-confidence">Laplace corrected confidence</a>.</p>
@@ -585,7 +600,7 @@ importance(X \Rightarrow Y)
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Bayardo:2000">R. Bayardo, R. Agrawal, and D. Gunopulos. Constraint-based rule mining in large, dense databases.</a> Data Mining and Knowledge Discovery, 4(2/3):217-240, 2000.</p>
 <p>The improvement of a rule is the minimum difference between its confidence and the confidence of any proper sub-rule with the same consequent. The idea is that we only want to extend the LHS of the rule if this improves the rule sufficiently.</p>
 <p><span class="math display">\[
-improvement(X \Rightarrow Y) 
+\mathrm{improvement}(X \Rightarrow Y) 
 = min_{X&#39; \subset X}(conf(X \Rightarrow Y) - conf(X&#39; \Rightarrow Y))
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span></p>
@@ -595,7 +610,7 @@ improvement(X \Rightarrow Y)
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>A null-invariant measure for dependence using the Jaccard similarity between the two sets of transactions that contain the items in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, respectively. Defined as</p>
 <p><span class="math display">\[
-jaccard(X \Rightarrow Y) 
+\mathrm{jaccard}(X \Rightarrow Y) 
 = \frac{supp(X \cup Y)}{supp(X) + supp(Y) - supp(X \cup Y)}
 = \frac{P(X \cap Y)}{P(X)+P(Y)-P(X \cap Y)}
 \]</span></p>
@@ -630,9 +645,12 @@ P(\overline{X})P(\overline{Y})}
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Defined as a scaled version of the <a href="#added-value">added value measure</a>.</p>
 <p><span class="math display">\[
-klosgen(X \Rightarrow Y) 
-= \sqrt{supp(X \cup Y)}\,(conf(X \Rightarrow Y) - supp(Y)) 
-= \sqrt{P(X \cap Y)}\, (P(Y|X) - P(Y)) = \sqrt{P(X \cap Y)}\, AV(X \Rightarrow Y)
+\begin{aligned}
+\mathrm{klosgen}(X \Rightarrow Y) 
+&amp; = \sqrt{supp(X \cup Y)}\,(conf(X \Rightarrow Y) - supp(Y)) \\ 
+&amp; = \sqrt{P(X \cap Y)}\, (P(Y|X) - P(Y)) \\
+&amp; = \sqrt{P(X \cap Y)}\, AV(X \Rightarrow Y)
+\end{aligned}
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span> (0 for independence)</p>
 </div>
@@ -641,13 +659,15 @@ klosgen(X \Rightarrow Y)
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Wu:2010">Tianyi Wu, Yuguo Chen, and Jiawei Han. Re-examination of interestingness measures in pattern mining: a unified framework.</a> Data Mining and Knowledge Discovery, January 2010. Based on Kulczynski, S. 1927. Die Pflanzenassoziationen der Pieninen. Bulletin International de l’Academie Polonaise des Sciences et des Lettres, Classe des Sciences Mathematiques et Naturelles B, 57-203.</p>
 <p>Calculate the null-invariant Kulczynski measure with a preference for skewed patterns.</p>
 <p><span class="math display">\[
-kulc(X \Rightarrow Y)
-= \frac{1}{2} 
+\begin{aligned}
+\mathrm{kulc}(X \Rightarrow Y)
+&amp; = \frac{1}{2} 
 \left(conf(X \Rightarrow Y) + conf(Y \Rightarrow X) \right)
 = \frac{1}{2} 
-\left(\frac{supp(X \cup Y)}{supp(X)} + \frac{supp(X \cup Y)}{supp(Y)} \right)
-= \frac{1}{2} 
+\left(\frac{supp(X \cup Y)}{supp(X)} + \frac{supp(X \cup Y)}{supp(Y)} \right) \\
+&amp; = \frac{1}{2} 
 \left(P(X | Y) + P(Y | X) \right)
+\end{aligned}
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span> (0.5 means neutral and typically uninteresting)</p>
 </div>
@@ -688,7 +708,7 @@ L(X \Rightarrow Y) = \frac{n_{XY}+1}{n_X+k},
 <p><strong>Reference:</strong> Lerman, I.C. (1981). Classification et analyse ordinale des donnees. Paris.</p>
 <p>Defined as</p>
 <p><span class="math display">\[
-lerman(X \Rightarrow Y) 
+\mathrm{lerman}(X \Rightarrow Y) 
 = \frac{n_{XY} - \frac{n_X n_Y}{n}}{\sqrt{\frac{n_X n_Y}{n}}}
 = \sqrt{n} \frac{supp(X \cup Y) - supp(X)supp(Y)}{\sqrt{supp(X)supp(Y)}} 
 \]</span></p>
@@ -699,7 +719,7 @@ lerman(X \Rightarrow Y)
 <p><strong>Alias:</strong> Piatetsky-Shapiro, PS</p>
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Piatetsky-Shapiro:1991">Piatetsky-Shapiro, G., Discovery, analysis, and presentation of strong rules.</a> Knowledge Discovery in Databases, 1991: p. 229-248.</p>
 <p><span class="math display">\[
-PS(X \Rightarrow Y) = leverage(X \Rightarrow Y) 
+\mathrm{PS}(X \Rightarrow Y) = leverage(X \Rightarrow Y) 
 = supp(X \Rightarrow Y) - supp(X)supp(Y) 
 = P(X \cap Y) - P(X)P(Y)
 \]</span></p>
@@ -742,9 +762,11 @@ PS(X \Rightarrow Y) = leverage(X \Rightarrow Y)
 <p><strong>Reference:</strong> <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Tan:2004">Pang-Ning Tan, Vipin Kumar, and Jaideep Srivastava. Selecting the right objective measure for association analysis.</a> Information Systems, 29(4):293–313, 2004.</p>
 <p>Measures the information gain for Y provided by X.</p>
 <p><span class="math display">\[
+\begin{aligned}
 M(X \Rightarrow Y)
-= \frac{\sum_{i \in \{X, \overline{X}\}} \sum_{j \in \{Y, \overline{Y}\}} \frac{n_{ij}}{n} log \frac{n_{ij}}{n_i n_j}}{min(-\sum_{i \in \{X, \overline{X}\}} \frac{n_i}{n} log \frac{n_i}{n}, -\sum_{j \in \{Y, \overline{Y}\}} \frac{n_j}{n} log \frac{n_j}{n})}
-= \frac{\sum_{i \in \{X, \overline{X}\}} \sum_{j \in \{Y, \overline{Y}\}} P(i \cap j) log \frac{P(i \cap j)}{P(i) P(j)}}{min(-\sum_{i \in \{X, \overline{X}\}} P(i) log P(i), -\sum_{j \in \{Y, \overline{Y}\}} P(j) log P(j))}
+&amp; = \frac{\sum_{i \in \{X, \overline{X}\}} \sum_{j \in \{Y, \overline{Y}\}} \frac{n_{ij}}{n} log \frac{n_{ij}}{n_i n_j}}{min(-\sum_{i \in \{X, \overline{X}\}} \frac{n_i}{n} log \frac{n_i}{n}, -\sum_{j \in \{Y, \overline{Y}\}} \frac{n_j}{n} log \frac{n_j}{n})} \\
+&amp; = \frac{\sum_{i \in \{X, \overline{X}\}} \sum_{j \in \{Y, \overline{Y}\}} P(i \cap j) log \frac{P(i \cap j)}{P(i) P(j)}}{min(-\sum_{i \in \{X, \overline{X}\}} P(i) log P(i), -\sum_{j \in \{Y, \overline{Y}\}} P(j) log P(j))}
+\end{aligned}
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span> (0 means that X does not provide information for Y)</p>
 </div>
@@ -877,7 +899,7 @@ M(X \Rightarrow Y)
 <p><strong>Reference:</strong> Bernard, Jean-Marc and Charron, Camilo (1996). L’analyse implicative bayesienne, une methode pour l’etude des dependances orientees. II : modele logique sur un tableau de contingence Mathematiques et Sciences Humaines, Volume 135 (1996), p. 5-18.</p>
 <p>Defined as the <a href="#lift">lift</a> of a rule minus 1 (0 represents independence).</p>
 <p><span class="math display">\[
-VRL(X \Rightarrow Y) = lift(X \Rightarrow Y) -1
+\mathrm{VRL}(X \Rightarrow Y) = lift(X \Rightarrow Y) -1
 \]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([-1, \infty]\)</span> (0 for independence)</p>
 </div>

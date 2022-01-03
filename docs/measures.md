@@ -2,34 +2,36 @@
 title: A Probabilistic Comparison of Commonly Used Interest Measures for Association
   Rules
 author: "Michael Hahsler"
+abstract: "This document contains a comprehensive collection of commonly used measures of
+  significance and interestingness (sometimes also called strength) 
+  for association rules and itemsets. 
+  Interest measures are usually defined in terms of itemset support and counts. 
+  Here, we also present their relationship with estimating probabilities and 
+  conditional probabilities."
 output:
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
   html_document:
     toc: yes
     toc_depth: 2
     toc_float:
       collapsed: no
       smooth_scroll: no
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
 ---
 
 # About this Document
 
 <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" style="float:left; margin:4px;" alt = "CC BY-SA 4.0" />
 This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution Share Alike 4.0 International License.</a>
-
 Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: https://mhahsler.github.io/arules/docs/measures**
 
-A PDF version of the document can be found here:
-https://mhahsler.github.io/arules/docs/measures.pdf
+A PDF version of the document is available at
+[https://mhahsler.github.io/arules/docs/measures.pdf](https://mhahsler.github.io/arules/docs/measures.pdf)
 
 
 # Introduction
 
-This document contains a collection of commonly used measures of
-significance and interestingness (sometimes also called strength) 
-for association rules and itemsets.
 <a href="https://michael.hahsler.net/research/bib/association_rules/#arules:Agrawal:1993">
 Agrawal, Imielinski, and Swami (1993)</a> introduced the problem of [association
 rule mining](https://en.wikipedia.org/wiki/Association_rule_learning) in the following way: 
@@ -341,13 +343,15 @@ The chi-squared test statistic is used as a test for independence
 between $X$ and $Y$. The chi-squared test statistic is:
 
 $$
+\begin{aligned}
 \textrm{chi-squared}(X \Rightarrow Y) 
-= \sum_i \frac{(O_i - E_i)^2}{E_i} 
-= \frac{\left( n_{XY} - \frac{n_X n_Y}{n} \right)^2}{\frac{n_X n_Y}{n}}
+& = \sum_i \frac{(O_i - E_i)^2}{E_i} \\
+& = \frac{\left( n_{XY} - \frac{n_X n_Y}{n} \right)^2}{\frac{n_X n_Y}{n}}
 + \frac{\left( n_{\overline{X}Y} - \frac{n_{\overline{X}} n_Y}{n} \right)^2}{\frac{n_{\overline{X}} n_Y}{n}}
 + \frac{\left( n_{X\overline{Y}} - \frac{n_X n_{\overline{Y}}}{n} \right)^2}{\frac{n_X n_{\overline{Y}}}{n}}
-+ \frac{\left( n_{\overline{X}\overline{Y}} - \frac{n_{\overline{X}} n_{\overline{Y}}}{n} \right)^2}{\frac{n_{\overline{X}} n_{\overline{Y}}}{n}}
-= n \frac{P(X \cap Y)P(\overline{X} \cap \overline{Y})  - P(X \cap \overline{Y})P(\overline{X} \cap Y)}{\sqrt{P(X)P(Y)P(\overline{X})P(\overline{Y})}}
++ \frac{\left( n_{\overline{X}\overline{Y}} - \frac{n_{\overline{X}} n_{\overline{Y}}}{n} \right)^2}{\frac{n_{\overline{X}} n_{\overline{Y}}}{n}} \\
+& = n \frac{P(X \cap Y)P(\overline{X} \cap \overline{Y})  - P(X \cap \overline{Y})P(\overline{X} \cap Y)}{\sqrt{P(X)P(Y)P(\overline{X})P(\overline{Y})}}
+\end{aligned}
 $$
 
 $O_i$ is the observed count of contingency table cell $i$ and $E_i$ 
@@ -427,7 +431,7 @@ market basket data.</a> In SIGMOD 1997, Proceedings ACM
 SIGMOD International Conference on Management of Data, pages
 255-264, Tucson, Arizona, USA, May 1997.
 
-$$conviction(X \Rightarrow Y) =\frac{1-supp(Y)}{1-conf(X \Rightarrow Y)} 
+$$\mathrm{conviction}(X \Rightarrow Y) =\frac{1-supp(Y)}{1-conf(X \Rightarrow Y)} 
 = \frac{P(X)P(\overline{Y})}{P(X \cap \overline{Y})}$$
 
 where $\overline{Y} = E_{\neg Y}$ is the event 
@@ -452,7 +456,7 @@ Cosine is a null-invariant measure of correlation between the items
 in $X$ and $Y$
 defined as
 
-$$cosine(X \Rightarrow Y) 
+$$\mathrm{cosine}(X \Rightarrow Y) 
 = \frac{supp(X \cup Y)}{\sqrt{(supp(X)supp(Y))}} 
 = \frac{P(X \cap Y)}{\sqrt{P(X)P(Y)}}
 = \sqrt{P(X | Y) P(Y | X)}$$
@@ -469,7 +473,7 @@ the antecedent of the
 rule $X \Rightarrow Y$.
 Therefore, coverage is sometimes called antecedent support or LHS support. 
 
-$$cover(X \Rightarrow Y) = supp(X) = P(X)$$
+$$\mathrm{cover}(X \Rightarrow Y) = supp(X) = P(X)$$
 
 **Range:** $[0, 1]$
 
@@ -513,7 +517,7 @@ $$
 Example rate reduced by the counter-example rate.
 
 Defined as
-$$ecr(X \Rightarrow Y) = 
+$$\mathrm{ecr}(X \Rightarrow Y) = 
 \frac{n_{XY} - n_{X\overline{Y}}}{n_{XY}} =
 \frac{P(X \cap Y) - P(X \cap \overline{Y})}{P(X \cap Y)} =
 1 - \frac{1}{sebag(X \Rightarrow Y)}
@@ -550,7 +554,7 @@ may be necessary.
 
 Measures quadratic entropy as
 
-$$ gini(X \Rightarrow Y) =
+$$\mathrm{gini}(X \Rightarrow Y) =
 P(X)    [P(Y|X)^2+P(\overline{Y}|X)^2] +
 P(\overline{X}) [P(B|\overline{X})^2+P(\overline{Y}|\overline{X})^2] -
 P(Y)^2 - P(\overline{Y})^2
@@ -632,7 +636,7 @@ close to 1 if they are very different.
 It is defined as
 
 $$
-IB(X \Rightarrow Y) 
+\mathrm{IB}(X \Rightarrow Y) 
 = \frac{|P(X|Y) - P(Y|X)|}{P(X|Y) + P(Y|X) - P(X|Y)P(Y|X))}
 = \frac{|supp(X) - supp(Y)|}{supp(X) + supp(Y) - supp(X \cup Y)}
 $$
@@ -645,7 +649,7 @@ $$
 A variation of the [Lerman similarity](#lerman-similarity) defined as 
 
 $$
-gras(X \Rightarrow Y) 
+\mathrm{gras}(X \Rightarrow Y) 
 = \sqrt{N} \frac{supp(X \cup \overline{Y}) - supp(X)supp(\overline{Y})}{\sqrt{supp(X)supp(\overline{Y})}}
 $$
 
@@ -660,7 +664,7 @@ the log-likelihood of the right-hand side of the rule,
 given the left-hand side of the rule:
 
 $$
-importance(X \Rightarrow Y) 
+\mathrm{importance}(X \Rightarrow Y) 
 = log_{10}(L(X \Rightarrow Y) / L(X \Rightarrow \overline{Y}))
 $$
 
@@ -678,7 +682,7 @@ The idea is that we only want to extend the LHS of the rule
 if this improves the rule sufficiently.
 
 $$
-improvement(X \Rightarrow Y) 
+\mathrm{improvement}(X \Rightarrow Y) 
 = min_{X' \subset X}(conf(X \Rightarrow Y) - conf(X' \Rightarrow Y))
 $$  
 
@@ -693,7 +697,7 @@ of transactions that contain the items in $X$ and $Y$,
 respectively. Defined as 
 
 $$
-jaccard(X \Rightarrow Y) 
+\mathrm{jaccard}(X \Rightarrow Y) 
 = \frac{supp(X \cup Y)}{supp(X) + supp(Y) - supp(X \cup Y)}
 = \frac{P(X \cap Y)}{P(X)+P(Y)-P(X \cap Y)}
 $$
@@ -735,9 +739,12 @@ $$
 Defined as a scaled version of the [added value measure](#added-value).
 
 $$
-klosgen(X \Rightarrow Y) 
-= \sqrt{supp(X \cup Y)}\,(conf(X \Rightarrow Y) - supp(Y)) 
-= \sqrt{P(X \cap Y)}\, (P(Y|X) - P(Y)) = \sqrt{P(X \cap Y)}\, AV(X \Rightarrow Y)
+\begin{aligned}
+\mathrm{klosgen}(X \Rightarrow Y) 
+& = \sqrt{supp(X \cup Y)}\,(conf(X \Rightarrow Y) - supp(Y)) \\ 
+& = \sqrt{P(X \cap Y)}\, (P(Y|X) - P(Y)) \\
+& = \sqrt{P(X \cap Y)}\, AV(X \Rightarrow Y)
+\end{aligned}
 $$
 
 
@@ -752,13 +759,15 @@ Calculate the null-invariant Kulczynski measure with a
 preference for skewed patterns.
 
 $$
-kulc(X \Rightarrow Y)
-= \frac{1}{2} 
+\begin{aligned}
+\mathrm{kulc}(X \Rightarrow Y)
+& = \frac{1}{2} 
 \left(conf(X \Rightarrow Y) + conf(Y \Rightarrow X) \right)
 = \frac{1}{2} 
-\left(\frac{supp(X \cup Y)}{supp(X)} + \frac{supp(X \cup Y)}{supp(Y)} \right)
-= \frac{1}{2} 
+\left(\frac{supp(X \cup Y)}{supp(X)} + \frac{supp(X \cup Y)}{supp(Y)} \right) \\
+& = \frac{1}{2} 
 \left(P(X | Y) + P(Y | X) \right)
+\end{aligned}
 $$
 
 **Range:** $[0, 1]$ (0.5 means neutral and typically uninteresting)
@@ -815,7 +824,7 @@ $$
 Defined as 
 
 $$
-lerman(X \Rightarrow Y) 
+\mathrm{lerman}(X \Rightarrow Y) 
 = \frac{n_{XY} - \frac{n_X n_Y}{n}}{\sqrt{\frac{n_X n_Y}{n}}}
 = \sqrt{n} \frac{supp(X \cup Y) - supp(X)supp(Y)}{\sqrt{supp(X)supp(Y)}} 
 $$
@@ -830,7 +839,7 @@ presentation of strong rules.</a> Knowledge Discovery in
 Databases, 1991: p. 229-248.
 
 $$
-PS(X \Rightarrow Y) = leverage(X \Rightarrow Y) 
+\mathrm{PS}(X \Rightarrow Y) = leverage(X \Rightarrow Y) 
 = supp(X \Rightarrow Y) - supp(X)supp(Y) 
 = P(X \cap Y) - P(X)P(Y)
 $$
@@ -914,9 +923,11 @@ $$
 Measures the information gain for Y provided by X.
 
 $$
+\begin{aligned}
 M(X \Rightarrow Y)
-= \frac{\sum_{i \in \{X, \overline{X}\}} \sum_{j \in \{Y, \overline{Y}\}} \frac{n_{ij}}{n} log \frac{n_{ij}}{n_i n_j}}{min(-\sum_{i \in \{X, \overline{X}\}} \frac{n_i}{n} log \frac{n_i}{n}, -\sum_{j \in \{Y, \overline{Y}\}} \frac{n_j}{n} log \frac{n_j}{n})}
-= \frac{\sum_{i \in \{X, \overline{X}\}} \sum_{j \in \{Y, \overline{Y}\}} P(i \cap j) log \frac{P(i \cap j)}{P(i) P(j)}}{min(-\sum_{i \in \{X, \overline{X}\}} P(i) log P(i), -\sum_{j \in \{Y, \overline{Y}\}} P(j) log P(j))}
+& = \frac{\sum_{i \in \{X, \overline{X}\}} \sum_{j \in \{Y, \overline{Y}\}} \frac{n_{ij}}{n} log \frac{n_{ij}}{n_i n_j}}{min(-\sum_{i \in \{X, \overline{X}\}} \frac{n_i}{n} log \frac{n_i}{n}, -\sum_{j \in \{Y, \overline{Y}\}} \frac{n_j}{n} log \frac{n_j}{n})} \\
+& = \frac{\sum_{i \in \{X, \overline{X}\}} \sum_{j \in \{Y, \overline{Y}\}} P(i \cap j) log \frac{P(i \cap j)}{P(i) P(j)}}{min(-\sum_{i \in \{X, \overline{X}\}} P(i) log P(i), -\sum_{j \in \{Y, \overline{Y}\}} P(j) log P(j))}
+\end{aligned}
 $$
 
 **Range:** $[0, 1]$ (0 means that X does not provide information for Y)
@@ -1106,7 +1117,7 @@ $$
 Defined as the [lift](#lift) of a rule minus 1 (0 represents independence).
 
 $$
-VRL(X \Rightarrow Y) = lift(X \Rightarrow Y) -1
+\mathrm{VRL}(X \Rightarrow Y) = lift(X \Rightarrow Y) -1
 $$
 
 **Range:** $[-1, \infty]$ (0 for independence)
