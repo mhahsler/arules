@@ -110,7 +110,7 @@ fim4r <-
     ...) {
     #fim4r_url <- "https://borgelt.net/src/fim4r_1.7.tar.gz"
     fim4r_url <-
-      "https://mhahsler.github.io/arules/docs/fim4r/fim4r_1.7.tar.gz"
+      "https://mhahsler.github.io/arules/docs/fim4r/fim4r_latest.tar.gz"
     
     methods_rules <-
       c("apriori",
