@@ -1,3 +1,10 @@
+# arules 1.7-3.1
+
+## Changes
+
+* We install now the latest version of fim4r
+
+
 # arules 1.7-3 (1/9/2022)
 
 ## Changes
@@ -10,7 +17,7 @@
 
 * Added interface to fim4r algorithms.
 
-# arules 1.7-2 (12/09/2021)
+#  arules 1.7-2 (12/09/2021)
 
 ## New Feature
 
