@@ -104,9 +104,9 @@ eclat <- function(data,
   }
   
   ## the C code of eclat dies when no item is frequent so we do this
-  if (max(itemFrequency(data)) <= parameter@support) {
+  if (max(itemFrequency(data)) < parameter@support) {
     if (control@verbose)
-      cat("eclat - zero frequent items\n")
+      message("eclat - zero frequent items\n")
     return(new("itemsets"))
   }
   

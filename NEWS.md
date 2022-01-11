@@ -4,6 +4,9 @@
 
 * We install now the latest version of fim4r
 
+## Bugfix
+
+* eclat() now correctly returns frequent itemsets when all had exactly minsupport (reported by GauthierMagnin).
 
 # arules 1.7-3 (1/9/2022)
 
