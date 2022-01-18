@@ -87,13 +87,13 @@ in the list.
 Objects can also be created via coercion.
 }
 
-\section{Coercion}{
+\section{Coercions}{
 
 \itemize{
-\item as("NULL", "APcontrol")
-\item as("list", "APcontrol")
-\item as("NULL", "ECcontrol")
-\item as("list", "ECcontrol")
+\item \code{as("NULL", "APcontrol")}
+\item \code{as("list", "APcontrol")}
+\item \code{as("NULL", "ECcontrol")}
+\item \code{as("list", "ECcontrol")}
 }
 }
 

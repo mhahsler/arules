@@ -142,16 +142,16 @@ an object of class \link{transactions}.
 }
 }
 
-\section{Coercion}{
+\section{Coercions}{
 
 \itemize{
-\item as("tidLists", "list")
-\item as("list", "tidLists")
-\item as("tidLists", "ngCMatrix")
-\item as("tidLists", "transactions")
-\item as("transactions", "tidLists")
-\item as("tidLists", "itemMatrix")
-\item as("itemMatrix", "tidLists")
+\item \code{as("tidLists", "list")}
+\item \code{as("list", "tidLists")}
+\item \code{as("tidLists", "ngCMatrix")}
+\item \code{as("tidLists", "transactions")}
+\item \code{as("transactions", "tidLists")}
+\item \code{as("tidLists", "itemMatrix")}
+\item \code{as("itemMatrix", "tidLists")}
 }
 }
 

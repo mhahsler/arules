@@ -116,10 +116,10 @@ or by using the constructor function
 \code{itemsets()}.
 }
 
-\section{Coercion}{
+\section{Coercions}{
 
 \itemize{
-\item as("itemsets", "data.frame")
+\item \code{as("itemsets", "data.frame")}
 }
 }
 

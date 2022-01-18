@@ -118,10 +118,10 @@ setClass(
 
 #' @rdname APappearance-class
 #' @name coercion-APappearance
-#' @section Coercion:
+#' @section Coercions:
 #' 
-#' * as("NULL", "APappearance")
-#' * as("list", "APappearance")
+#' * `as("NULL", "APappearance")`
+#' * `as("list", "APappearance")`
 #'
 #' @aliases 
 #' coerce,NULL,APappearance-method 

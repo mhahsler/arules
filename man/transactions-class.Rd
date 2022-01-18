@@ -156,16 +156,16 @@ by default created from information in \code{x} (e.g., from row and column names
 See Examples Section for creating transactions from data.
 }
 
-\section{Coercion}{
+\section{Coercions}{
 
 \itemize{
-\item as("transactions", "matrix")
-\item as("matrix", "transactions")
-\item as("list", "transactions")
-\item as("transactions", "list")
-\item as("data.frame", "transactions")
-\item as("transactions", "data.frame")
-\item as("ngCMatrix", "transactions")
+\item \code{as("transactions", "matrix")}
+\item \code{as("matrix", "transactions")}
+\item \code{as("list", "transactions")}
+\item \code{as("transactions", "list")}
+\item \code{as("data.frame", "transactions")}
+\item \code{as("transactions", "data.frame")}
+\item \code{as("ngCMatrix", "transactions")}
 }
 }
 

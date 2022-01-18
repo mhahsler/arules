@@ -37,8 +37,8 @@ Provides the methods to combine several \link{associations} or \link{transaction
 into a single object.
 }
 \details{
-Combining arules objects is done by using \code{rbind()} (combine by row)
-on the \link{itemMatrix} objects
+Combining arules objects is done by combining the rows
+of \link{itemMatrix} objects
 representing the associations or transactions.
 
 Note that \code{c()} can result in duplicates.

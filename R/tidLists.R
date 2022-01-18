@@ -310,15 +310,15 @@ setMethod("labels", signature(object = "tidLists"),
 #' coerce,tidLists,itemMatrix-method
 #' coerce,itemMatrix,tidLists-method 
 #' 
-#' @section Coercion:
+#' @section Coercions:
 #'
-#' * as("tidLists", "list") 
-#' * as("list", "tidLists")
-#' * as("tidLists", "ngCMatrix") 
-#' * as("tidLists", "transactions")
-#' * as("transactions", "tidLists") 
-#' * as("tidLists", "itemMatrix")
-#' * as("itemMatrix", "tidLists")  
+#' * `as("tidLists", "list")`
+#' * `as("list", "tidLists")`
+#' * `as("tidLists", "ngCMatrix")`
+#' * `as("tidLists", "transactions")`
+#' * `as("transactions", "tidLists")` 
+#' * `as("tidLists", "itemMatrix")`
+#' * `as("itemMatrix", "tidLists")`  
 NULL
 
 setAs("tidLists", "list",

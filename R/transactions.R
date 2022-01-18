@@ -395,15 +395,15 @@ setReplaceMethod("dimnames", signature(x = "transactions",
 #' coerce,transactions,data.frame-method
 #' coerce,ngCMatrix,transactions-method
 #' 
-#' @section Coercion:
+#' @section Coercions:
 #'
-#' * as("transactions", "matrix")
-#' * as("matrix", "transactions")
-#' * as("list", "transactions")
-#' * as("transactions", "list")
-#' * as("data.frame", "transactions")
-#' * as("transactions", "data.frame")
-#' * as("ngCMatrix", "transactions")
+#' * `as("transactions", "matrix")`
+#' * `as("matrix", "transactions")`
+#' * `as("list", "transactions")`
+#' * `as("transactions", "list")`
+#' * `as("data.frame", "transactions")`
+#' * `as("transactions", "data.frame")`
+#' * `as("ngCMatrix", "transactions")`
 NULL
 
 setAs("matrix", "transactions",

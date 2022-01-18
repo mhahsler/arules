@@ -251,9 +251,9 @@ setMethod("tidLists", signature(x = "itemsets"),
 #' @aliases 
 #' coerce,itemsets,data.frame-method
 #' 
-#' @section Coercion:
+#' @section Coercions:
 #' 
-#' * as("itemsets", "data.frame")
+#' * `as("itemsets", "data.frame")`
 NULL
 
 

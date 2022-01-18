@@ -292,12 +292,12 @@ setMethod("initialize", "ECparameter",
 #' coerce,NULL,ECparameter-method 
 #' coerce,list,ECparameter-method
 #' 
-#' @section Coercion:
+#' @section Coercions:
 #' 
-#' * as("NULL", "APparameter")
-#' * as("list", "APparameter")
-#' * as("NULL", "ECparameter")
-#' * as("list", "ECparameter")
+#' * `as("NULL", "APparameter")`
+#' * `as("list", "APparameter")`
+#' * `as("NULL", "ECparameter")`
+#' * `as("list", "ECparameter")`
 NULL
 
 setAs("NULL", "APparameter", function(from, to) new(to))

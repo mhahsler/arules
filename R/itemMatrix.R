@@ -25,12 +25,21 @@
 #' Matrix representation of a set of itemsets and the
 #' corresponding item labels.
 #'
-#' Sets of itemsets are represented as a compressed sparse
-#' binary matrix. Columns represent items and rows are the set/transactions. In
-#' the compressed form, each itemset is a vector of column indices (called item
-#' IDs) representing the items.
+#' **Representation**
 #'
-#' **Note:** If you work with several `itemMatrix` objects at the same time (e.g.,
+#' Sets of itemsets are represented as a compressed sparse
+#' binary matrix. Conceptually, columns represent items and rows are the sets/transactions. 
+#' In the compressed form, each itemset is a vector of column indices (called item
+#' IDs) representing the items. 
+#' 
+#' **Warning:** Ideally, we would store the matrix as a row-oriented sparse 
+#'   matrix (`ngRMatrix`), but the \pkg{Matrix} package provides better support for
+#'   column-oriented sparse classes (`ngCMatrix`). The matrix is therefore internally stored
+#'   in transposed form.
+#' 
+#' **Working with several `itemMatrix` objects**
+#' 
+#' If you work with several `itemMatrix` objects at the same time (e.g.,
 #' several transaction sets, lhs and rhs of a rule, etc.), then the encoding
 #' (itemLabes and order of the items in the binary matrix) in the different
 #' itemMatrices is important and needs to conform. See [itemCoding]
@@ -39,7 +48,8 @@
 #' @aliases itemMatrix
 #' @family itemMatrix and transactions functions
 #' 
-#' @slot data a sparse matrix of class [ngCMatrix-class] representing the itemsets. **Note: the matrix is stored for efficiency reasons transposed!**.
+#' @slot data a sparse matrix of class [ngCMatrix-class] representing the itemsets. 
+#'       **Warning:** the matrix is stored in transposed form for efficiency reasons!.
 #' @slot itemInfo a data.frame
 #' @slot itemsetInfo a data.frame
 #' 
@@ -93,8 +103,10 @@
 #' as(imatrix[1:5], "matrix")
 #'
 #' ## Get first 5 elements (rows) of the itemMatrix as sparse ngCMatrix.
-#' ## Warning: For efficiency reasons, the ngCMatrix is transposed!
+#' ## **Warning:** For efficiency reasons, the ngCMatrix is transposed! You
+#' ## can transpose it again to get the expected format.
 #' as(imatrix[1:5], "ngCMatrix")
+#' t(as(imatrix[1:5], "ngCMatrix"))
 #'
 #' ## Get labels for the first 5 itemsets (first default and then with
 #' ## custom formating)
@@ -389,14 +401,16 @@ setReplaceMethod("itemsetInfo", signature(object = "itemMatrix"),
 #' coerce,itemMatrix,ngCMatrix-method
 #' coerce,ngCMatrix,itemMatrix-method
 #' 
-#' @section Coercion:
+#' @section Coercions:
 #' 
-#' * as("matrix", "itemMatrix")
-#' * as("itemMatrix", "matrix")
-#' * as("list", "itemMatrix")
-#' * as("itemMatrix", "list")
-#' * as("itemMatrix", "ngCMatrix")
-#' * as("ngCMatrix", "itemMatrix")
+#' * `as("matrix", "itemMatrix")`
+#' * `as("itemMatrix", "matrix")`
+#' * `as("list", "itemMatrix")`
+#' * `as("itemMatrix", "list")`
+#' * `as("itemMatrix", "ngCMatrix")`
+#' * `as("ngCMatrix", "itemMatrix")`
+#' 
+#' **Warning:** the `ngCMatrix` representation is transposed! 
 NULL
 
 setAs("matrix", "itemMatrix",

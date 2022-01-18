@@ -52,11 +52,11 @@ Objects can also be created by calls of the form \code{new("APappearance", ...)}
 matrix) have to be used instead of labels.
 }
 
-\section{Coercion}{
+\section{Coercions}{
 
 \itemize{
-\item as("NULL", "APappearance")
-\item as("list", "APappearance")
+\item \code{as("NULL", "APappearance")}
+\item \code{as("list", "APappearance")}
 }
 }
 

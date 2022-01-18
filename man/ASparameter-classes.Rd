@@ -119,13 +119,13 @@ in the list.
 Objects can also be created via coercion.
 }
 
-\section{Coercion}{
+\section{Coercions}{
 
 \itemize{
-\item as("NULL", "APparameter")
-\item as("list", "APparameter")
-\item as("NULL", "ECparameter")
-\item as("list", "ECparameter")
+\item \code{as("NULL", "APparameter")}
+\item \code{as("list", "APparameter")}
+\item \code{as("NULL", "ECparameter")}
+\item \code{as("list", "ECparameter")}
 }
 }
 

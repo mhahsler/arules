@@ -331,9 +331,9 @@ setMethod("generatingItemsets", signature(x = "rules"),
 #' @aliases 
 #' coerce,rules,data.frame-method
 #' 
-#' @section Coercion:
+#' @section Coercions:
 #' 
-#' * as("rules", "data.frame")
+#' * `as("rules", "data.frame")`
 NULL
 
 setAs("rules", "data.frame",

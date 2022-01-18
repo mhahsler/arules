@@ -110,12 +110,21 @@ Matrix representation of a set of itemsets and the
 corresponding item labels.
 }
 \details{
+\strong{Representation}
+
 Sets of itemsets are represented as a compressed sparse
-binary matrix. Columns represent items and rows are the set/transactions. In
-the compressed form, each itemset is a vector of column indices (called item
+binary matrix. Conceptually, columns represent items and rows are the sets/transactions.
+In the compressed form, each itemset is a vector of column indices (called item
 IDs) representing the items.
 
-\strong{Note:} If you work with several \code{itemMatrix} objects at the same time (e.g.,
+\strong{Warning:} Ideally, we would store the matrix as a row-oriented sparse
+matrix (\code{ngRMatrix}), but the \pkg{Matrix} package provides better support for
+column-oriented sparse classes (\code{ngCMatrix}). The matrix is therefore internally stored
+in transposed form.
+
+\strong{Working with several \code{itemMatrix} objects}
+
+If you work with several \code{itemMatrix} objects at the same time (e.g.,
 several transaction sets, lhs and rhs of a rule, etc.), then the encoding
 (itemLabes and order of the items in the binary matrix) in the different
 itemMatrices is important and needs to conform. See \link{itemCoding}
@@ -160,7 +169,8 @@ of the labels: \code{itemSep}, \code{setStart} and \code{setEnd}.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{a sparse matrix of class \linkS4class{ngCMatrix} representing the itemsets. \strong{Note: the matrix is stored for efficiency reasons transposed!}.}
+\item{\code{data}}{a sparse matrix of class \linkS4class{ngCMatrix} representing the itemsets.
+\strong{Warning:} the matrix is stored in transposed form for efficiency reasons!.}
 
 \item{\code{itemInfo}}{a data.frame}
 
@@ -174,16 +184,18 @@ Objects can be created by calls of the form
 created by coercion from a matrix, list or data.frame.
 }
 
-\section{Coercion}{
+\section{Coercions}{
 
 \itemize{
-\item as("matrix", "itemMatrix")
-\item as("itemMatrix", "matrix")
-\item as("list", "itemMatrix")
-\item as("itemMatrix", "list")
-\item as("itemMatrix", "ngCMatrix")
-\item as("ngCMatrix", "itemMatrix")
+\item \code{as("matrix", "itemMatrix")}
+\item \code{as("itemMatrix", "matrix")}
+\item \code{as("list", "itemMatrix")}
+\item \code{as("itemMatrix", "list")}
+\item \code{as("itemMatrix", "ngCMatrix")}
+\item \code{as("ngCMatrix", "itemMatrix")}
 }
+
+\strong{Warning:} the \code{ngCMatrix} representation is transposed!
 }
 
 \examples{
@@ -220,8 +232,10 @@ as(imatrix[1:5], "list")
 as(imatrix[1:5], "matrix")
 
 ## Get first 5 elements (rows) of the itemMatrix as sparse ngCMatrix.
-## Warning: For efficiency reasons, the ngCMatrix is transposed!
+## **Warning:** For efficiency reasons, the ngCMatrix is transposed! You
+## can transpose it again to get the expected format.
 as(imatrix[1:5], "ngCMatrix")
+t(as(imatrix[1:5], "ngCMatrix"))
 
 ## Get labels for the first 5 itemsets (first default and then with
 ## custom formating)

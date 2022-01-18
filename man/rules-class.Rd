@@ -144,10 +144,10 @@ form \code{new("rules", ...)}
 or by using the constructor function \code{rules()}.
 }
 
-\section{Coercion}{
+\section{Coercions}{
 
 \itemize{
-\item as("rules", "data.frame")
+\item \code{as("rules", "data.frame")}
 }
 }
 

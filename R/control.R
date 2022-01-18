@@ -184,12 +184,12 @@ setClass(
 
 #' @rdname AScontrol-classes
 #' @name coerce-AScontrol
-#' @section Coercion:
+#' @section Coercions:
 #'
-#' * as("NULL", "APcontrol")
-#' * as("list", "APcontrol")
-#' * as("NULL", "ECcontrol")
-#' * as("list", "ECcontrol")
+#' * `as("NULL", "APcontrol")`
+#' * `as("list", "APcontrol")`
+#' * `as("NULL", "ECcontrol")`
+#' * `as("list", "ECcontrol")`
 #'
 #' @aliases 
 #'   coerce,NULL,APcontrol-method 
