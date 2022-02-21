@@ -6,7 +6,7 @@
 
 ## Bugfix
 
-* eclat() now correctly returns frequent itemsets when all had exactly minsupport (reported by GauthierMagnin).
+* eclat() now correctly returns frequent itemsets when all have exactly minsupport (reported by GauthierMagnin).
 
 # arules 1.7-3 (1/9/2022)
 
