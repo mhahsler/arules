@@ -242,9 +242,10 @@ arules](https://stackoverflow.com/questions/tagged/arules).
     Statistical Software,* 14(15), 2005.
 -   Hahsler, Michael. [A Probabilistic Comparison of Commonly Used
     Interest Measures for Association
-    Rules](https://michael.hahsler.net/research/association_rules/measures.html),
-    2015, URL:
-    <https://michael.hahsler.net/research/association_rules/measures.html>.
+    Rules](https://mhahsler.github.io/arules/docs/measures), 2015, URL:
+    <https://mhahsler.github.io/arules/docs/measures>.
 -   Michael Hahsler. [An R Companion for Introduction to Data Mining:
     Chapter
-    5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
+    5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html),
+    2021, URL:
+    <https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/>
