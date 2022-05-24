@@ -1,16 +1,19 @@
 ---
 title: "arules --- Mining Association Rules and Frequent Itemsets with R"
-author: Michael Hahsler
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
 
-# arules --- Mining Association Rules and Frequent Itemsets with R
 
-[![CRAN version](https://www.r-pkg.org/badges/version/arules)](https://cran.r-project.org/package=arules)
-[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/arules)](https://cran.r-project.org/package=arules)
-[![R build status](https://github.com/mhahsler/arules/workflows/R-CMD-check/badge.svg)](https://github.com/mhahsler/arules/actions)
+```{r echo=FALSE, results = 'asis'}
+pkg <- 'arules'
+
+library(stringr)
+
+  cat(str_interp("[![CRAN version](http://www.r-pkg.org/badges/version/${pkg})](https://CRAN.R-project.org/package=${pkg})\n"))
+  cat(str_interp("[![stream r-universe status](https://mhahsler.r-universe.dev/badges/${pkg})](https://mhahsler.r-universe.dev/ui#package:${pkg})\n"))
+  cat(str_interp("[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/${pkg})](https://CRAN.R-project.org/package=${pkg})\n"))
+```
+
 
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
@@ -83,11 +86,9 @@ __Stable CRAN version:__ install from within R with
 ```{r eval=FALSE}
 install.packages("arules")
 ```
-__Current development version:__ install from GitHub (needs devtools and 
-[Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/)). 
-```{r eval=FALSE}
-devtools::install_github("mhahsler/arules")
-``` 
+__Current development version:__ Install from [r-universe.](https://mhahsler.r-universe.dev/ui#package:arules)
+
+
 
 ## Usage
 

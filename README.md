@@ -1,11 +1,12 @@
-# arules — Mining Association Rules and Frequent Itemsets with R
+arules — Mining Association Rules and Frequent Itemsets with R
+================
 
 [![CRAN
-version](https://www.r-pkg.org/badges/version/arules)](https://cran.r-project.org/package=arules)
+version](http://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org/package=arules)
+[![stream r-universe
+status](https://mhahsler.r-universe.dev/badges/arules)](https://mhahsler.r-universe.dev/ui#package:arules)
 [![CRAN RStudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/arules)](https://cran.r-project.org/package=arules)
-[![R build
-status](https://github.com/mhahsler/arules/workflows/R-CMD-check/badge.svg)](https://github.com/mhahsler/arules/actions)
+downloads](http://cranlogs.r-pkg.org/badges/grand-total/arules)](https://CRAN.R-project.org/package=arules)
 
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns using [frequent
@@ -111,12 +112,8 @@ Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/a
 install.packages("arules")
 ```
 
-**Current development version:** install from GitHub (needs devtools and
-[Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/)).
-
-``` r
-devtools::install_github("mhahsler/arules")
-```
+**Current development version:** Install from
+[r-universe.](https://mhahsler.r-universe.dev/ui#package:arules)
 
 ## Usage
 
