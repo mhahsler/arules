@@ -1,8 +1,8 @@
 ---
-title: "arules --- Mining Association Rules and Frequent Itemsets with R"
 output: github_document
 ---
 
+# <img src='man/figures/logo.svg' align="right" height="139" /> arules -- Mining Association Rules and Frequent Itemsets with R
 
 ```{r echo=FALSE, results = 'asis'}
 pkg <- 'arules'

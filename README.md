@@ -1,5 +1,5 @@
-arules — Mining Association Rules and Frequent Itemsets with R
-================
+
+# <img src='man/figures/logo.svg' align="right" height="139" /> arules – Mining Association Rules and Frequent Itemsets with R
 
 [![CRAN
 version](http://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org/package=arules)
