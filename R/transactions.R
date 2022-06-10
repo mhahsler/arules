@@ -22,27 +22,33 @@
 #' The `transactions` class is a subclass of [itemMatrix] and 
 #' represents transaction data used for mining [associations].
 #'
-#' Transactions are a direct extension of class [itemMatrix]
-#' to store a binary incidence matrix, item labels, and optionally transaction
-#' IDs and user IDs.
-#' Transactions are represented as sparse binary matrices of class
-#' [itemMatrix]. If you work with several transaction sets at the
+#' Transactions store the presence of items in each individual transaction
+#' as binary matrix where rows represent the transactions and columns represent the items.
+#' `transactions` direct extends class [itemMatrix]
+#' to store the sparse binary incidence matrix, item labels, and optionally transaction
+#' IDs and user IDs. If you work with several transaction sets at the
 #' same time, then the encoding (order of the items in the binary matrix) in
 #' the different sets is important. See [itemCoding] to learn how
 #' to encode and recode transaction sets.
 #'
-#' Note that you will need to prepare your data first (see coercion methods in
+#' **Data Preparation**
+#' 
+#' Data typically starts as a data.frame or a matrix and needs to be
+#' prepared before it can be converted into `transactions` (see coercion methods in
 #' the Methods Section and the Example Section below for details on the needed
 #' format).
 #'
-#' - **Continuous variables:** Association rule mining can only use items and
-#'   does not work with continuous variables. Continuous variables need to be
+#' Columns need to represent items which is different depending on the data type of 
+#' the column:
+#'
+#' - **Continuous variables:** Continuous variables cannot directly be represented as 
+#'   items and need to be
 #'   discretized first. An item resulting from discretization might be
 #'   `age>18` and the column contains only `TRUE` or `FALSE`.
-#'   Alternatively it can be a factor with levels `age<=18`,
+#'   Alternatively, it can be a factor with levels `age<=18`,
 #'   `50=>age>18` and `age>50`. These will be automatically converted
-#'   into 3 items, one for each level. Have a look at the function
-#'   [discretize()] for automatic discretization.
+#'   into 3 items, one for each level. Discretization is described in functions 
+#'   [discretize()] and [discretizeDF()].
 #'
 #' - **Logical variables:** A logical variable describing a person could be
 #'   `tall` indicating if the person is tall using the values `TRUE`
@@ -52,9 +58,10 @@
 #'   converted into an item with the name of the variable and for the
 #'   `FALSE` values no item is created.
 #'
-#' - **Factors:** The function also can convert columns with nominal values
-#'   (i.e., factors) into a series of binary items (one for each level
-#'   constructed as `variable name = level`). Note that nominal variables
+#' - **Factors:** Columns with nominal values
+#'   (i.e., [factor], [ordered]) are translated into a series of binary items (one for each level
+#'   constructed as `variable name = level`). Items cannot represent order and this ordered factors 
+#'   lose the order information. Note that nominal variables
 #'   need to be encoded as factors (and not characters or numbers). This can be
 #'   done with
 #'
