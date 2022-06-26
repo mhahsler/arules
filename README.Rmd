@@ -2,18 +2,12 @@
 output: github_document
 ---
 
-# <img src='man/figures/logo.svg' align="right" height="139" /> arules -- Mining Association Rules and Frequent Itemsets with R
-
 ```{r echo=FALSE, results = 'asis'}
 pkg <- 'arules'
 
-library(stringr)
-
-  cat(str_interp("[![CRAN version](http://www.r-pkg.org/badges/version/${pkg})](https://CRAN.R-project.org/package=${pkg})\n"))
-  cat(str_interp("[![stream r-universe status](https://mhahsler.r-universe.dev/badges/${pkg})](https://mhahsler.r-universe.dev/ui#package:${pkg})\n"))
-  cat(str_interp("[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/${pkg})](https://CRAN.R-project.org/package=${pkg})\n"))
+source("https://raw.githubusercontent.com/mhahsler/pkg_helpers/main/pkg_helpers.R")
+pkg_title(pkg)
 ```
-
 
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
@@ -80,22 +74,11 @@ Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/a
 * [recommenerlab](https://github.com/mhahsler/recommenderlab): Supports creating predictions using association rules.
 
 
-## Installation
-
-__Stable CRAN version:__ install from within R with
-```{r eval=FALSE}
-install.packages("arules")
+```{r echo=FALSE, results = 'asis'}
+pkg_install(pkg)
 ```
-__Current development version:__ Install from [r-universe.](https://mhahsler.r-universe.dev/ui#package:arules)
-
-
 
 ## Usage
-
-```{r echo=FALSE}
-options(digits = 2)
-knitr::opts_chunk$set(tidy = TRUE, message = FALSE)
-```
 
 Load package and mine some association rules. 
 ```{r }
