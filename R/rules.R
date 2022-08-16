@@ -351,7 +351,7 @@ setAs("rules", "data.frame",
 ## used for duplicated, unique, etc. 0 is used as separator
 ## which avoids coercion to character.
 .joinedList <- function(x) {
-  if (class(x) != "rules")
+  if (!is(x, "rules"))
     stop("not of class rules")
   
   mapply(
