@@ -10,7 +10,8 @@
 The data is provided in two formats:
 \enumerate{
 \item \code{Income} is an object of class \link{transactions}
-with \verb{r 6876ansactions  and }r 50ems. See below for details.
+with 6876 transactions (complete cases)
+and 50 items. See below for details.
 \item \code{IncomeESL} is a data frame with 8993 observations on the
 following 14 variables:
 }

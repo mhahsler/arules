@@ -47,8 +47,8 @@
 #' The data is provided in two formats:
 #' 
 #' 1. `Income` is an object of class [transactions] 
-#' with `r data(Income); nrow(Income)` transactions 
-#' and `r data(Income); ncol(Income)` items. See below for details.
+#' with 6876 transactions (complete cases)
+#' and 50 items. See below for details.
 #' 
 #' 2. `IncomeESL` is a data frame with 8993 observations on the
 #' following 14 variables:
