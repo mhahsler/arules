@@ -98,33 +98,33 @@ rules need to be compatible. See \link{itemCoding} for details.
 }
 \section{Functions}{
 \itemize{
-\item \code{summary,rules-method}: create a summary
+\item \code{summary(rules)}: create a summary
 
-\item \code{length,rules-method}: returns the number of rules.
+\item \code{length(rules)}: returns the number of rules.
 
-\item \code{nitems,rules-method}: returns the number of items used in the current encoding.
+\item \code{nitems(rules)}: returns the number of items used in the current encoding.
 
-\item \code{labels,rules-method}: labels for the rules.
+\item \code{labels(rules)}: labels for the rules.
 
-\item \code{itemLabels,rules-method}: returns item labels for the current encoding.
+\item \code{itemLabels(rules)}: returns item labels for the current encoding.
 
-\item \code{itemLabels<-,rules-method}: change the item labels in the current encoding.
+\item \code{itemLabels(rules) <- value}: change the item labels in the current encoding.
 
-\item \code{itemInfo,rules-method}: returns the item info data.frame.
+\item \code{itemInfo(rules)}: returns the item info data.frame.
 
-\item \code{lhs,rules-method}: returns the LHS of the rules as an \link{itemMatrix}.
+\item \code{lhs(rules)}: returns the LHS of the rules as an \link{itemMatrix}.
 
-\item \code{lhs<-,rules-method}: replaces the LHS of the rules with an \link{itemMatrix}.
+\item \code{lhs(rules) <- value}: replaces the LHS of the rules with an \link{itemMatrix}.
 
-\item \code{rhs<-,rules-method}: replaces the RHS of the rules with an \link{itemMatrix}.
+\item \code{rhs(rules) <- value}: replaces the RHS of the rules with an \link{itemMatrix}.
 
-\item \code{rhs,rules-method}: returns the RHS of the rules as an \link{itemMatrix}.
+\item \code{rhs(rules)}: returns the RHS of the rules as an \link{itemMatrix}.
 
-\item \code{items,rules-method}: returns all items in a rule (LHS and RHS) an \link{itemMatrix}.
+\item \code{items(rules)}: returns all items in a rule (LHS and RHS) an \link{itemMatrix}.
 
-\item \code{generatingItemsets,rules-method}: returns a collection of the itemsets which generated the rules, one itemset for each rule. Note that the collection can be a multiset and contain duplicated elements. Use \code{\link[=unique]{unique()}} to remove duplicates and obtain a proper set. This method produces the same as the result as calling \code{items()}, but wrapped into an \link{itemsets} object with support information.
+\item \code{generatingItemsets(rules)}: returns a collection of the itemsets which generated the rules, one itemset for each rule. Note that the collection can be a multiset and contain duplicated elements. Use \code{\link[=unique]{unique()}} to remove duplicates and obtain a proper set. This method produces the same as the result as calling \code{items()}, but wrapped into an \link{itemsets} object with support information.
+
 }}
-
 \section{Slots}{
 
 \describe{

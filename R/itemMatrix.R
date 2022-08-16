@@ -439,9 +439,10 @@ setAs("matrix", "itemMatrix",
     
     dimnames(from) <- NULL
     
+    ### Note: data is a transposed ngCMatrix
     new(
       "itemMatrix",
-      data        = t(as(from, "ngCMatrix")),
+      data        = t(as(as(as(from, "nMatrix"), "generalMatrix"), "CsparseMatrix")),
       itemInfo    = itemInfo,
       itemsetInfo = itemsetInfo
     )

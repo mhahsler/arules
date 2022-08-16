@@ -226,7 +226,7 @@ read.transactions <-
       Dimnames = list(levels(items), NULL)
     )
     
-    trans <- as(as(ngT, "ngCMatrix"), "transactions")
+    trans <- as(as(ngT, "CsparseMatrix"), "transactions")
     transactionInfo(trans) <-
       data.frame(transactionID = levels(tids))
     

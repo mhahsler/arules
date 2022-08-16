@@ -42,7 +42,7 @@ expect_equal(.Call(arules:::R_recode_ngCMatrix, e, integer()), e)
 expect_identical(.Call(arules:::R_recode_ngCMatrix, x, c(1L,3:7)),
   as(rbind(x[1,,drop=FALSE], 
     Matrix(0, ncol = 5, sparse = TRUE), 
-    x[2:6,, drop = FALSE]), "ngCMatrix"))
+    x[2:6,, drop = FALSE]), "nsparseMatrix"))
 
 ## cbind
 expect_identical(.Call(arules:::R_cbind_ngCMatrix, e, e), cbind(e,e))
@@ -50,9 +50,9 @@ expect_identical(.Call(arules:::R_cbind_ngCMatrix, x, x), cbind(x, x))
 
 ## logical OR
 expect_identical(.Call(arules:::R_or_ngCMatrix, x, x), 
-  as(as(x|x, "dgCMatrix"), "ngCMatrix"))
+  as(x | x, "nsparseMatrix"))
 expect_identical(.Call(arules:::R_or_ngCMatrix, e, e), 
-  as(as(e|e, "dgCMatrix"), "ngCMatrix"))
+  as(e | e, "nsparseMatrix"))
 
 ## row sums
 expect_equal(.Call(arules:::R_rowSums_ngCMatrix, x), rowSums(x))
@@ -64,9 +64,9 @@ expect_equal(.Call(arules:::R_colSums_ngCMatrix, e), colSums(e))
 
 ## crossprod and tcrossprod
 expect_equal(.Call(arules:::R_crosstab_ngCMatrix, x, NULL, TRUE),
-  as(Matrix::tcrossprod(as(x, "dgCMatrix")), "matrix"))
+  as(Matrix::tcrossprod(as(as(x, "ngCMatrix"), "dsparseMatrix")), "matrix"))
 expect_equal(.Call(arules:::R_crosstab_ngCMatrix, x, NULL, FALSE),
-  as(Matrix::crossprod(as(x, "dgCMatrix")), "matrix"))
+  as(Matrix::crossprod(as(as(x, "ngCMatrix"), "dsparseMatrix")), "matrix"))
 
 ###
 

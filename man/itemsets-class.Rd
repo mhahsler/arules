@@ -73,27 +73,27 @@ calculated via \code{\link[=interestMeasure]{interestMeasure()}}.
 }
 \section{Functions}{
 \itemize{
-\item \code{summary,itemsets-method}: create a summary
+\item \code{summary(itemsets)}: create a summary
 
-\item \code{length,itemsets-method}: get the number of itemsets.
+\item \code{length(itemsets)}: get the number of itemsets.
 
-\item \code{nitems,itemsets-method}: get the number of items (columns) in the current encoding.
+\item \code{nitems(itemsets)}: get the number of items (columns) in the current encoding.
 
-\item \code{labels,itemsets-method}: get the itemset labels.
+\item \code{labels(itemsets)}: get the itemset labels.
 
-\item \code{itemLabels,itemsets-method}: get the item labels.
+\item \code{itemLabels(itemsets)}: get the item labels.
 
-\item \code{itemLabels<-,itemsets-method}: replace the item labels.
+\item \code{itemLabels(itemsets) <- value}: replace the item labels.
 
-\item \code{itemInfo,itemsets-method}: get item info data.frame.
+\item \code{itemInfo(itemsets)}: get item info data.frame.
 
-\item \code{items,itemsets-method}: get items as an itemMatrix.
+\item \code{items(itemsets)}: get items as an itemMatrix.
 
-\item \code{items<-,itemsets-method}: with a different itemMatrix.
+\item \code{items(itemsets) <- value}: with a different itemMatrix.
 
-\item \code{tidLists,itemsets-method}: get tidLists stored in the object (if any).
+\item \code{tidLists(itemsets)}: get tidLists stored in the object (if any).
+
 }}
-
 \section{Slots}{
 
 \describe{

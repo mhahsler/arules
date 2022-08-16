@@ -68,7 +68,7 @@ setMethod("itemUnion", signature(x = "itemMatrix", y = "itemMatrix"),
     ### the C code does not deal well with a large number of dense rules.
     #x@data <- .Call(R_or_ngCMatrix", x@data, y@data)
     
-    x@data <- as(x@data + y@data, "ngCMatrix")
+    x@data <- as(x@data | y@data, "nsparseMatrix")
     
     x
   })
@@ -80,7 +80,7 @@ setMethod("itemSetdiff", signature(x = "itemMatrix", y = "itemMatrix"),
       stop("Length mismatch between x and y!")
     
     x@data <-
-      as(drop0(as(x@data - y@data > 0, "dgCMatrix")), "ngCMatrix")
+      as(drop0(x@data - y@data > 0), "nsparseMatrix")
     x
   })
 
@@ -90,6 +90,6 @@ setMethod("itemIntersect", signature(x = "itemMatrix", y = "itemMatrix"),
     if (length(x) != length(y))
       stop("Length mismatch between x and y!")
     
-    x@data <- as(drop0(x@data * y@data), "ngCMatrix")
+    x@data <- as(x@data & y@data, "nsparseMatrix")
     x
   })

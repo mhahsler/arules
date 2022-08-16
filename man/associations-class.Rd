@@ -80,25 +80,25 @@ elements can result from combining several sets of associations.  Use
 }
 \section{Functions}{
 \itemize{
-\item \code{quality,associations-method}: returns the quality data.frame.
+\item \code{quality(associations)}: returns the quality data.frame.
 
-\item \code{quality<-,associations-method}: replaces the quality data.frame. The lengths of the vectors in the data.frame have to equal the number of associations in the set.
+\item \code{quality(associations) <- value}: replaces the quality data.frame. The lengths of the vectors in the data.frame have to equal the number of associations in the set.
 
-\item \code{info,associations-method}: returns the info list.
+\item \code{info(associations)}: returns the info list.
 
-\item \code{info<-,associations-method}: replaces the info list.
+\item \code{info(associations) <- value}: replaces the info list.
 
-\item \code{head,associations-method}: returns the first n associations.
+\item \code{head(associations)}: returns the first n associations.
 
-\item \code{tail,associations-method}: returns the last n associations.
+\item \code{tail(associations)}: returns the last n associations.
 
-\item \code{items,associations-method}: dummy method. This method has to be implemented by all subclasses of associations and return the items which make up each association as an object of class \link{itemMatrix}.
+\item \code{items(associations)}: dummy method. This method has to be implemented by all subclasses of associations and return the items which make up each association as an object of class \link{itemMatrix}.
 
-\item \code{length,associations-method}: dummy method. This method has to be implemented by all subclasses of associations and return the number of elements in the association.
+\item \code{length(associations)}: dummy method. This method has to be implemented by all subclasses of associations and return the number of elements in the association.
 
-\item \code{labels,associations-method}: dummy method. This method has to be implemented by all subclasses of associations and return a vector of length(object) of labels for the elements in the association.
+\item \code{labels(associations)}: dummy method. This method has to be implemented by all subclasses of associations and return a vector of length(object) of labels for the elements in the association.
+
 }}
-
 \section{Slots}{
 
 \describe{

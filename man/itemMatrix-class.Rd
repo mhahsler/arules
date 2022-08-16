@@ -132,40 +132,40 @@ to learn how to encode and recode \code{itemMatrix} objects.
 }
 \section{Functions}{
 \itemize{
-\item \code{summary,itemMatrix-method}: show a summary.
+\item \code{summary(itemMatrix)}: show a summary.
 
-\item \code{dim,itemMatrix-method}: returns the number of rows
+\item \code{dim(itemMatrix)}: returns the number of rows
 (itemsets) and columns (items in the encoding).
 
-\item \code{nitems,itemMatrix-method}: returns the number of items in the encoding.
+\item \code{nitems(itemMatrix)}: returns the number of items in the encoding.
 
-\item \code{length,itemMatrix-method}: returns the number of itemsets (rows) in the matrix.
+\item \code{length(itemMatrix)}: returns the number of itemsets (rows) in the matrix.
 
-\item \code{toLongFormat,itemMatrix-method}: convert the sets to long format
+\item \code{toLongFormat(itemMatrix)}: convert the sets to long format
 (a data.frame with two columns, ID and item). Column names
 can be specified as a character vector of length 2 called \code{cols}.
 
-\item \code{labels,itemMatrix-method}: returns labels for the itemsets.
+\item \code{labels(itemMatrix)}: returns labels for the itemsets.
 The following arguments can be used to customize the representation
 of the labels: \code{itemSep}, \code{setStart} and \code{setEnd}.
 
-\item \code{itemLabels,itemMatrix-method}: returns the item labels used for encoding as a character vector.
+\item \code{itemLabels(itemMatrix)}: returns the item labels used for encoding as a character vector.
 
-\item \code{itemLabels<-,itemMatrix-method}: replaces the item labels used for encoding.
+\item \code{itemLabels(itemMatrix) <- value}: replaces the item labels used for encoding.
 
-\item \code{itemInfo,itemMatrix-method}: returns the whole item/column information data.frame including labels.
+\item \code{itemInfo(itemMatrix)}: returns the whole item/column information data.frame including labels.
 
-\item \code{itemInfo<-,itemMatrix-method}: replaces the item/column info by a data.frame.
+\item \code{itemInfo(itemMatrix) <- value}: replaces the item/column info by a data.frame.
 
-\item \code{itemsetInfo,itemMatrix-method}: returns the item set/row information data.frame.
+\item \code{itemsetInfo(itemMatrix)}: returns the item set/row information data.frame.
 
-\item \code{itemsetInfo<-,itemMatrix-method}: replaces the item set/row info by a data.frame.
+\item \code{itemsetInfo(itemMatrix) <- value}: replaces the item set/row info by a data.frame.
 
-\item \code{dimnames,itemMatrix-method}: returns a list with the dimname vectors.
+\item \code{dimnames(itemMatrix)}: returns a list with the dimname vectors.
 
-\item \code{dimnames<-,itemMatrix,list-method}: replace the dimnames.
+\item \code{dimnames(x = itemMatrix) <- value}: replace the dimnames.
+
 }}
-
 \section{Slots}{
 
 \describe{

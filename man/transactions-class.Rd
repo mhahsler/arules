@@ -79,27 +79,33 @@ The \code{transactions} class is a subclass of \link{itemMatrix} and
 represents transaction data used for mining \link{associations}.
 }
 \details{
-Transactions are a direct extension of class \link{itemMatrix}
-to store a binary incidence matrix, item labels, and optionally transaction
-IDs and user IDs.
-Transactions are represented as sparse binary matrices of class
-\link{itemMatrix}. If you work with several transaction sets at the
+Transactions store the presence of items in each individual transaction
+as binary matrix where rows represent the transactions and columns represent the items.
+\code{transactions} direct extends class \link{itemMatrix}
+to store the sparse binary incidence matrix, item labels, and optionally transaction
+IDs and user IDs. If you work with several transaction sets at the
 same time, then the encoding (order of the items in the binary matrix) in
 the different sets is important. See \link{itemCoding} to learn how
 to encode and recode transaction sets.
 
-Note that you will need to prepare your data first (see coercion methods in
+\strong{Data Preparation}
+
+Data typically starts as a data.frame or a matrix and needs to be
+prepared before it can be converted into \code{transactions} (see coercion methods in
 the Methods Section and the Example Section below for details on the needed
 format).
+
+Columns need to represent items which is different depending on the data type of
+the column:
 \itemize{
-\item \strong{Continuous variables:} Association rule mining can only use items and
-does not work with continuous variables. Continuous variables need to be
+\item \strong{Continuous variables:} Continuous variables cannot directly be represented as
+items and need to be
 discretized first. An item resulting from discretization might be
 \code{age>18} and the column contains only \code{TRUE} or \code{FALSE}.
-Alternatively it can be a factor with levels \code{age<=18},
+Alternatively, it can be a factor with levels \code{age<=18},
 \verb{50=>age>18} and \code{age>50}. These will be automatically converted
-into 3 items, one for each level. Have a look at the function
-\code{\link[=discretize]{discretize()}} for automatic discretization.
+into 3 items, one for each level. Discretization is described in functions
+\code{\link[=discretize]{discretize()}} and \code{\link[=discretizeDF]{discretizeDF()}}.
 \item \strong{Logical variables:} A logical variable describing a person could be
 \code{tall} indicating if the person is tall using the values \code{TRUE}
 and \code{FALSE}. The fact that the person is tall would be encoded in the
@@ -107,9 +113,10 @@ transaction containing the item \code{tall} while not tall persons would not
 have this item. Therefore, for logical variables, the \code{TRUE} value is
 converted into an item with the name of the variable and for the
 \code{FALSE} values no item is created.
-\item \strong{Factors:} The function also can convert columns with nominal values
-(i.e., factors) into a series of binary items (one for each level
-constructed as \verb{variable name = level}). Note that nominal variables
+\item \strong{Factors:} Columns with nominal values
+(i.e., \link{factor}, \link{ordered}) are translated into a series of binary items (one for each level
+constructed as \verb{variable name = level}). Items cannot represent order and this ordered factors
+lose the order information. Note that nominal variables
 need to be encoded as factors (and not characters or numbers). This can be
 done with
 
@@ -121,23 +128,23 @@ Complete examples for how to prepare data can be found in the man pages for
 }
 \section{Functions}{
 \itemize{
-\item \code{summary,transactions-method}: produce a summary
+\item \code{summary(transactions)}: produce a summary
 
-\item \code{toLongFormat,transactions-method}: convert the transactions to long format
+\item \code{toLongFormat(transactions)}: convert the transactions to long format
 (a data.frame with two columns, tid and item). Column names can
 be specified as a character vector of length 2 called \code{cols}.
 
-\item \code{items,transactions-method}: get the transactions as an \link{itemMatrix}
+\item \code{items(transactions)}: get the transactions as an \link{itemMatrix}
 
-\item \code{transactionInfo,transactions-method}: get the transaction info data.frame
+\item \code{transactionInfo(transactions)}: get the transaction info data.frame
 
-\item \code{transactionInfo<-,transactions-method}: replace the transaction info data.frame
+\item \code{transactionInfo(transactions) <- value}: replace the transaction info data.frame
 
-\item \code{dimnames,transactions-method}: get the dimnames
+\item \code{dimnames(transactions)}: get the dimnames
 
-\item \code{dimnames<-,transactions,list-method}: set the dimnames
+\item \code{dimnames(x = transactions) <- value}: set the dimnames
+
 }}
-
 \section{Slots}{
 
 Slots are inherited from \link{itemMatrix}.

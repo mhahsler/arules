@@ -27,7 +27,7 @@ Copyright: The source code for Apriori and Eclat was obtained from
     All other code is Copyright (C) Michael Hahsler, Christian Buchta,
     Bettina Gruen and Kurt Hornik.
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 Collate: 
     'AAADefs.R'

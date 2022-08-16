@@ -91,33 +91,33 @@ These lists can then be used for further computation.
 }
 \section{Functions}{
 \itemize{
-\item \code{summary,tidLists-method}: create a summary
+\item \code{summary(tidLists)}: create a summary
 
-\item \code{dim,tidLists-method}: get dimensions. The rows represent the itemsets and the
+\item \code{dim(tidLists)}: get dimensions. The rows represent the itemsets and the
 columns are the transactions.
 
-\item \code{dimnames,tidLists-method}: get dimnames
+\item \code{dimnames(tidLists)}: get dimnames
 
-\item \code{dimnames<-,tidLists,list-method}: replace dimnames
+\item \code{dimnames(x = tidLists) <- value}: replace dimnames
 
-\item \code{length,tidLists-method}: get the number of itemsets.
+\item \code{length(tidLists)}: get the number of itemsets.
 
-\item \code{t,tidLists-method}: this object is not transposable.
+\item \code{t(tidLists)}: this object is not transposable.
 \code{t()} results in an error.
 
-\item \code{transactionInfo,tidLists-method}: get the transaction info data.frame
+\item \code{transactionInfo(tidLists)}: get the transaction info data.frame
 
-\item \code{transactionInfo<-,tidLists-method}: replace the the transaction info data.frame
+\item \code{transactionInfo(tidLists) <- value}: replace the the transaction info data.frame
 
-\item \code{itemInfo,tidLists-method}: get the item info data.frame
+\item \code{itemInfo(tidLists)}: get the item info data.frame
 
-\item \code{itemInfo<-,tidLists-method}: replace the item info data.frame
+\item \code{itemInfo(tidLists) <- value}: replace the item info data.frame
 
-\item \code{itemLabels,tidLists-method}: get the item labels
+\item \code{itemLabels(tidLists)}: get the item labels
 
-\item \code{labels,tidLists-method}: convert the tid lists into a text representation.
+\item \code{labels(tidLists)}: convert the tid lists into a text representation.
+
 }}
-
 \section{Slots}{
 
 \describe{

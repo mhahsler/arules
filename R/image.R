@@ -57,14 +57,14 @@ NULL
 #' @rdname image
 setMethod("image", signature(x = "itemMatrix"),
     function(x, xlab = "Items (Columns)", ylab = "Elements (Rows)", ...) 
-    Matrix::image(as(t(as(x, "ngCMatrix")), "dgCMatrix"), 
+    Matrix::image(t(as(x, "ngCMatrix")), 
 	sub = NULL, ylab = ylab, xlab = xlab, ...)
 )
 
 #' @rdname image
 setMethod("image", signature(x = "transactions"),
     function(x, xlab = "Items (Columns)", ylab = "Transactions (Rows)" ,...)
-    Matrix::image(as(t(as(x, "ngCMatrix")), "dgCMatrix"), 
+    Matrix::image(t(as(x, "ngCMatrix")), 
 	sub = NULL, ylab = ylab, xlab = xlab, ...)
 )
 
@@ -72,6 +72,6 @@ setMethod("image", signature(x = "transactions"),
 setMethod("image", signature(x = "tidLists"),
     function(x, xlab="Transactions (Columns)",
         ylab="Items/itemsets (Rows)", ...)
-    Matrix::image(as(t(as(x, "ngCMatrix")), "dgCMatrix"), 
+    Matrix::image(t(as(x, "ngCMatrix")), 
             ylab = ylab, xlab = xlab, ...)
 )

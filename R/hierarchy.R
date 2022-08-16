@@ -202,12 +202,11 @@ setMethod("aggregate", signature(x = "itemMatrix"),
       levels(by),
       FUN = function(l)
         as.numeric(by == l)
-    ), "dgCMatrix")
+    ), "CsparseMatrix")
     
     ## count the items for each group and make binary
-    x@data <-
-      as(crossprod(aggrMat, as(as(x, "ngCMatrix"), "dgCMatrix")),
-        "ngCMatrix")
+    x@data <- as(as(crossprod(aggrMat, as(x, "ngCMatrix")), "nsparseMatrix"), "generalMatrix")
+      
     
     ## fix itemInfo
     ii <- x@itemInfo
