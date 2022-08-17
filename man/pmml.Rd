@@ -43,7 +43,7 @@ unlink("rules.xml")
 }
 \references{
 PMML 4.4 - Association Rules.
-\url{http://dmg.org/pmml/v4-4/AssociationRules.html}
+\url{https://dmg.org/pmml/v4-4/AssociationRules.html}
 }
 \seealso{
 \code{\link[pmml:pmml]{pmml::pmml()}}.

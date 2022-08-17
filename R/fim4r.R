@@ -30,7 +30,8 @@
 #'
 #' * Support and confidence (parameters `supp` and `conf`) are specified
 #'   in the range \eqn{[0, 100]}.
-#' * Type `? fim4r::fim4r` for help on additional available arguments.
+#' * Type `? fim4r::fim4r` for help on additional available arguments. This is only available
+#'   after package `fim4r` is installed. 
 #' * Algorithm descriptions and references can be found on the
 #'   web page in the References Section.
 #'
@@ -87,7 +88,8 @@
 #' inspect(freq_2)
 #'
 #' # mine maximal frequent itemsets
-#' fim4r(Adult, method = "sam", target = "maximal", supp = 70)
+#' mfis <- fim4r(Adult, method = "sam", target = "maximal", supp = 70)
+#' inspect(mfis)
 #'
 #' # use item appearance. We first mine all rules and then restrict
 #' #   the appearance of the item capital-gain=None
@@ -111,6 +113,16 @@ fim4r <-
     #fim4r_url <- "https://borgelt.net/src/fim4r_1.7.tar.gz"
     fim4r_url <-
       "https://mhahsler.github.io/arules/docs/fim4r/fim4r_latest.tar.gz"
+    
+    if (!check_installed("fim4r", action = "check")) {
+      question <-
+        "Package fim4r is required.\nDownload and install the package?"
+      cat(question, sep = '')
+      if (utils::menu(c("Yes", "No")) != 1) {
+        invokeRestart("abort")
+      }
+      utils::install.packages(fim4r_url, repos = NULL)
+    }
     
     methods_rules <-
       c("apriori",
@@ -154,16 +166,6 @@ fim4r <-
         paste(methods_rules, collapse = ", "),
         " can mine rules directly."
       )
-    
-    if (!check_installed("fim4r", action = "check")) {
-      question <-
-        "Package fim4r is required.\nDownload and install the package?"
-      cat(question, sep = '')
-      if (utils::menu(c("Yes", "No")) != 1) {
-        invokeRestart("abort")
-      }
-      utils::install.packages(fim4r_url, repos = NULL)
-    }
     
     # prepare data
     transactions <- transactions(transactions)

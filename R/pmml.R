@@ -32,7 +32,7 @@
 #' @author Michael Hahsler
 #' @seealso [pmml::pmml()].
 #' @references PMML 4.4 - Association Rules.
-#' \url{http://dmg.org/pmml/v4-4/AssociationRules.html}
+#' \url{https://dmg.org/pmml/v4-4/AssociationRules.html}
 #' @keywords interface
 #' @examples
 #' data("Groceries")

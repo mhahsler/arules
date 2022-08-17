@@ -40,9 +40,8 @@ Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/a
     interest measures.
 -   [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of
     association rules.
--   [arulesCBA](https://github.com/ianjjohnson/arulesCBA):
-    Classification algorithms based on association rules (includes
-    CBA).  
+-   [arulesCBA](https://github.com/ianstenbit/arulesCBA): Classification
+    algorithms based on association rules (includes CBA).  
 -   [arulesSequences](https://cran.r-project.org/package=arulesSequences):
     Mining frequent sequences (cSPADE).
 
@@ -157,7 +156,7 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.03s].
+    ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
     ## writing ... [457 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 

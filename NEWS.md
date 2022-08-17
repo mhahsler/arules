@@ -1,8 +1,9 @@
-# arules 1.7-3.1
+# arules 1.7-4 (8/16/2022)
 
 ## Changes
 
 * We install now the latest version of fim4r
+* Changes in coercion for Matrix 1.4-2
 
 ## Bugfix
 

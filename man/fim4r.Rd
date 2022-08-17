@@ -68,7 +68,8 @@ the \code{fim4r()} function downloads and installs the package automatically.
 \itemize{
 \item Support and confidence (parameters \code{supp} and \code{conf}) are specified
 in the range \eqn{[0, 100]}.
-\item Type \code{? fim4r::fim4r} for help on additional available arguments.
+\item Type \code{? fim4r::fim4r} for help on additional available arguments. This is only available
+after package \code{fim4r} is installed.
 \item Algorithm descriptions and references can be found on the
 web page in the References Section.
 }
@@ -97,7 +98,8 @@ freq_2 <- fim4r(Adult, method = "relim", target = "frequent", supp = 70,
 inspect(freq_2)
 
 # mine maximal frequent itemsets
-fim4r(Adult, method = "sam", target = "maximal", supp = 70)
+mfis <- fim4r(Adult, method = "sam", target = "maximal", supp = 70)
+inspect(mfis)
 
 # use item appearance. We first mine all rules and then restrict
 #   the appearance of the item capital-gain=None
