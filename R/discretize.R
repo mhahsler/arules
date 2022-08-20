@@ -81,8 +81,8 @@
 #' `kmeans`.
 #' @param df data.frame; each numeric column in the data.frame is discretized.
 #' @param methods named list of lists or a data.frame; the named list contains
-#' list of discretization parameters (see parameters of `discretize()`) for
-#' each numeric column (see details). If no specific discretization is
+#' lists of discretization parameters (see parameters of `discretize()`) for
+#' each numeric column (see details). If no discretization is
 #' specified for a column, then the default settings for `discretize()` are
 #' used.  Note: the names have to match exactly.  If a data.frame is specified,
 #' then the discretization breaks in this data.frame are applied to `df`.
@@ -220,7 +220,7 @@ discretize <- function(x, method = "frequency", breaks = 3,
   
   structure(
     cut(x, breaks = breaks, labels = labels, 
-      include.lowest = include.lowest, right = right, 
+      include.lowest = include.lowest, right = right, dig.lab = dig.lab,
       ordered_result = ordered_result),
     "discretized:breaks" = as.vector(breaks),
     "discretized:method" = method

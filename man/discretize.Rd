@@ -62,8 +62,8 @@ on the left) or vice versa?}
 \item{df}{data.frame; each numeric column in the data.frame is discretized.}
 
 \item{methods}{named list of lists or a data.frame; the named list contains
-list of discretization parameters (see parameters of \code{discretize()}) for
-each numeric column (see details). If no specific discretization is
+lists of discretization parameters (see parameters of \code{discretize()}) for
+each numeric column (see details). If no discretization is
 specified for a column, then the default settings for \code{discretize()} are
 used.  Note: the names have to match exactly.  If a data.frame is specified,
 then the discretization breaks in this data.frame are applied to \code{df}.}
