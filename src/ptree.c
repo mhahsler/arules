@@ -44,7 +44,7 @@ static void pnfree(PN *p) {
   apn--;
 }
 
-static void nbfree() {
+static void nbfree(void) {
   pnfree(*nb);
   free( nb);
   nb = NULL;

@@ -1,7 +1,8 @@
-# arules 1.7-4.1 (xx/xx/2022)
+# arules 1.7-5 (10/20/2022)
 
 ## Bugfix
 * discretize(): dig.lab is now correctly passed on to cut() (reported by LectronPusher).
+* Fixed C prototype warnings
 
 # arules 1.7-4 (8/16/2022)
 

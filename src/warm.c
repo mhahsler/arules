@@ -214,7 +214,7 @@ static int na, mi;
 static int *p = NULL, *pz = NULL, *iz = NULL, *pr = NULL, *ir = NULL;
 static double *sr = NULL;
 
-static void cleanup() {
+static void cleanup(void) {
   free(pz); free(iz); free(p); free(pr); free(ir);
   free(sr);
   pz = iz = p = pr = ir = NULL;
