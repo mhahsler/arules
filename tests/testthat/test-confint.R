@@ -1,6 +1,8 @@
 library("arules")
 library("testthat")
 
+debug <- FALSE
+
 context("confint")
 
 data("Adult")
@@ -10,7 +12,7 @@ rules <- apriori(Adult,
     supp = 0.5,
     conf = 0.9,
     target = "rules"
-  ))
+  ), control = list(verb = FALSE))
 
 measures <- c("count",
   "confidence",
@@ -22,9 +24,9 @@ measures <- c("count",
 # smooth = .5 is Haldane-Anscombe correction
 
 for (m in measures) {
-  cat("CI for", m, "\n")
+  if (debug) cat("CI for", m, "\n")
   ci <- cbind(measure = interestMeasure(rules, m, smooth = .5), confint(rules, m))
-  print(ci)
+  if (debug) print(ci)
   expect_false(any(ci[,1] < ci[,2] | ci[,1] > ci[,3] | ci[,2] > ci[,3], na.rm = TRUE), 
     info = m)
 }

@@ -10,7 +10,7 @@ trans_list <- list(
 )
 
 trans <- transactions(trans_list)
-its <- apriori(trans, support = 1/4, target = "frequent itemsets")
+its <- apriori(trans, support = 1/4, target = "frequent itemsets", control = list(verb = FALSE))
 
 context("is.generator")
 # with minsup = 1, frequent generator itemsets are: emptyset, b, c, d, bd, cd.
@@ -19,8 +19,8 @@ gens <- its[ig]
 expect_true(setequal(labels(gens), c("{b}", "{c}", "{d}", "{b,d}", "{c,d}")))
 
 # generator frequent itemsets can now also ne created with apriori and eclat
-gens_ap <- apriori(trans, support = 1/4, target = "generator frequent itemsets")
-gens_ec <- eclat(trans, support = 1/4, target = "generator frequent itemsets")
+gens_ap <- apriori(trans, support = 1/4, target = "generator frequent itemsets", control = list(verb = FALSE))
+gens_ec <- eclat(trans, support = 1/4, target = "generator frequent itemsets", control = list(verb = FALSE))
 expect_true(setequal(gens, gens_ap))
 expect_true(setequal(gens, gens_ec))
 
@@ -30,7 +30,7 @@ context("is.closed")
 ic <- is.closed(its)
 expect_true(setequal(names(ic)[ic], c("{a}", "{a,c}", "{a,d}", "{a,b,c}", "{a,b,c,d}")))
 
-ic2 <- apriori(trans, support = 1/4, target = "closed frequent itemsets")
+ic2 <- apriori(trans, support = 1/4, target = "closed frequent itemsets", control = list(verb = FALSE))
 expect_true(setequal(its[ic], ic2))
 
 context("is.maximal")
@@ -38,5 +38,5 @@ context("is.maximal")
 im <- is.maximal(its)
 expect_true(setequal(names(im)[im], c("{a,b,c,d}")))
 
-im2 <- apriori(trans, support = 1/4, target = "maximally frequent itemsets")
+im2 <- apriori(trans, support = 1/4, target = "maximally frequent itemsets", control = list(verb = FALSE))
 expect_true(setequal(its[im], im2))

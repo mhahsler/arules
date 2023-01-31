@@ -137,7 +137,7 @@ rules <- apriori(Adult,
     supp = 0.5,
     conf = 0.9,
     target = "rules"
-  ))
+  ), control = list(verb = FALSE))
 
 m_r <- interestMeasure(rules, transactions = Adult, reuse = TRUE)
 m <- interestMeasure(rules, transactions = Adult, reuse = FALSE)

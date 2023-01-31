@@ -68,7 +68,7 @@ expect_equal(quality(is)$isClosed[1:5], c(T, T, F, F, F))
 
 
 ### union, intersection, setequal, setdiff, is.element
-rules <- apriori(data)
+rules <- apriori(data, control = list(verbose = FALSE))
 r1 <- rules[1:10]
 r2 <- rules[6:20]
 

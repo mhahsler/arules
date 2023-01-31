@@ -1,6 +1,7 @@
 library("arules")
 library("testthat")
 
+verb <- FALSE
 
 options(digits = 2)
 
@@ -24,7 +25,7 @@ context("APRIORI interface")
 ### rules (all warnings are for low support)
 r <- apriori(trans,
   parameter = list(supp = 0.25, conf = 0),
-  control = list(verb = FALSE))
+  control = list(verb = verb))
 
 expect_identical(length(r), 18L)
 
@@ -37,7 +38,7 @@ r <- apriori(
   trans,
   parameter = list(supp = 0.25, conf = 0),
   appearance = list(rhs = c("a", "b")),
-  control = list(verb = FALSE)
+  control = list(verb = verb)
 )
 
 expect_identical(length(r), 6L)
@@ -47,7 +48,7 @@ r <- apriori(
   trans,
   parameter = list(supp = 0.25, conf = 0),
   appearance = list(lhs = c("a", "b"), rhs = "c"),
-  control = list(verb = FALSE)
+  control = list(verb = verb)
 )
 expect_identical(length(r), 2L)
 
@@ -55,7 +56,7 @@ r <- apriori(
   trans,
   parameter = list(supp = 0.25, conf = 0),
   appearance = list(none = c("a", "b")),
-  control = list(verb = FALSE)
+  control = list(verb = verb)
 )
 expect_identical(length(r), 3L)
 
@@ -75,7 +76,7 @@ r <- apriori(
     originalSupp = FALSE,
     ext = TRUE
   ),
-  control = list(verb = FALSE)
+  control = list(verb = verb)
 )
 
 expect_true("coverage" %in% colnames(quality(r)))
@@ -88,7 +89,7 @@ expect_true("coverage" %in% colnames(quality(r)))
 
 context("ECLAT interface")
 
-f <- eclat(trans, control = list(verb = FALSE))
+f <- eclat(trans, control = list(verb = verb))
 
 expect_identical(length(f), 20L)
 sup <- c(
@@ -131,7 +132,7 @@ expect_equal(l, grep("a", l, value = T))
 f <-
   eclat(trans,
     parameter = list(tidLists = TRUE),
-    control = list(verb = FALSE))
+    control = list(verb = verb))
 
 #f
 #summary(f)
@@ -152,13 +153,13 @@ fsets <-
   apriori(
     Income,
     parameter = list(target = "frequ", supp = 0.2),
-    control = list(verb = FALSE)
+    control = list(verb = verb)
   )
 esets <-
   eclat(
     Income,
     parameter = list(target = "frequ", supp = 0.2),
-    control = list(verb = FALSE)
+    control = list(verb = verb)
   )
 
 ## compare if output is the same
@@ -169,15 +170,15 @@ expect_true(all(table(match(fsets, esets)) == 1))
 
 context("Maximal and closed itemsets")
 
-is_a_freq <- apriori(trans, parameter = list(target = "frequent"))
-is_a_max <- apriori(trans, parameter = list(target = "max"))
-is_a_closed <- apriori(trans, parameter = list(target = "closed"))
-is_a_gen <- apriori(trans, parameter = list(target = "generator"))
+is_a_freq <- apriori(trans, parameter = list(target = "frequent"), control = list(verb = verb))
+is_a_max <- apriori(trans, parameter = list(target = "max"), control = list(verb = verb))
+is_a_closed <- apriori(trans, parameter = list(target = "closed"), control = list(verb = verb))
+is_a_gen <- apriori(trans, parameter = list(target = "generator"), control = list(verb = verb))
 
-is_e_freq <- eclat(trans, parameter = list(target = "frequent"))
-is_e_max <- eclat(trans, parameter = list(target = "max"))
-is_e_closed <- eclat(trans, parameter = list(target = "closed"))
-is_e_gen <- eclat(trans, parameter = list(target = "generator"))
+is_e_freq <- eclat(trans, parameter = list(target = "frequent"), control = list(verb = verb))
+is_e_max <- eclat(trans, parameter = list(target = "max"), control = list(verb = verb))
+is_e_closed <- eclat(trans, parameter = list(target = "closed"), control = list(verb = verb))
+is_e_gen <- eclat(trans, parameter = list(target = "generator"), control = list(verb = verb))
 
 expect_true(setequal(is_a_freq, is_e_freq))
 expect_true(setequal(is_a_max, is_e_max))

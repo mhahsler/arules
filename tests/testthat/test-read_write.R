@@ -21,11 +21,11 @@ tr <- read.transactions("demo_basket", format = "basket", sep="", skip = 1)
 expect_equal(dim(tr), c(3L, 3L))
 
 ## try to write transactions that have no transactionID
-write(tr, format = "single")
-write(tr, format = "basket")
+write(tr, file = "demo_single", format = "single")
+write(tr, file = "demo_basket", format = "basket")
 
 ## tidy up
-unlink("demo_basket")
+unlink(c("demo_basket", "demo_single"))
 
 ## create a demo file using single format for the example
 ## column 1 contains the transaction ID and column 2 contains one item
