@@ -1,6 +1,6 @@
 Package: arules
-Version: 1.7-5
-Date: 2022-10-20
+Version: 1.7-5-1
+Date: 2023-xx-xx
 Title: Mining Association Rules and Frequent Itemsets
 Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 		email = "mhahsler@lyle.smu.edu",
@@ -27,7 +27,7 @@ Copyright: The source code for Apriori and Eclat was obtained from
     All other code is Copyright (C) Michael Hahsler, Christian Buchta,
     Bettina Gruen and Kurt Hornik.
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Collate: 
     'AAADefs.R'

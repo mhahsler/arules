@@ -299,7 +299,12 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
   */
   
   /* --- evaluate arguments --- */
-  supp   = param.supp = *REAL(GET_SLOT(parms, install("support")));       /* minimal support 's'*/
+  param.supp = *REAL(GET_SLOT(parms, install("support")));       /* minimal support 's'*/
+  /* MFH: make sure supp and conf rounding does not mess up >= */  
+  param.supp = nextafter(param.supp, 0.0); 
+  supp = param.supp;
+  
+  
   target = param.target = BMtargetcode(translateChar(STRING_ELT(GET_SLOT(parms, install("target")), 0)));
   /*target = param.target = BMtargetcode(translateChar(CHARACTER_POINTER(GET_SLOT(parms, install("target")))[0])); */
   /* target = param.target = BMtargetcode(CHAR(CHARACTER_POINTER(GET_SLOT(parms, install("target")))[0])); */

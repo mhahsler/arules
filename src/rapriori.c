@@ -419,9 +419,10 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
       map = (int*)malloc(is_cnt(itemset) *sizeof(int));
       if (!map) {cleanup(); error(msgs(E_NOMEM));}   /* create an item identifier map */
       if (rsdef == IST_BODY)      /* if rule support = body support */
-      k = (int)ceil(tacnt *supp *conf);
+        k = (int)ceil(tacnt *supp *conf);
+        //k = (int)ceil(tacnt *supp *conf);
       else                        /* if rule supp. = body&head support */
-      k = (int)ceil(tacnt *supp);
+        k = (int)ceil(tacnt *supp);
       n = is_recode(itemset, k, param->sort, map, param->target == TT_GRSET, tacnt);
       if (taset) {                /* sort and recode the items and */
       tas_recode(taset, map, n); /* recode the loaded transactions */
@@ -1032,14 +1033,21 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     case 5: param.target = TT_HEDGE;             break;
     default : cleanup(); error(msgs(E_TARGET, target)); break;
     }
-    if (param.supp > 1)                 /* check the minimal support */
+    if (param.supp > 1.0)                 /* check the minimal support */
     {cleanup(); error(msgs(E_SUPP, param.supp));}        /* (< 0: absolute number) */
-    if ((param.conf  <  0) || (param.conf > 1))
+    if ((param.conf  <  0.0) || (param.conf > 1.0))
     {cleanup(); error(msgs(E_CONF, param.conf));}        /* check the minimal
      * confidence */
+    
+    /* MFH: make sure supp and conf rounding does not mess up >= */  
+    if (param.supp > 0)
+      param.supp = nextafter(param.supp, 0.0);  
+    param.conf = nextafter(param.conf, 0.0);  
+    
+    
     if (param.minlen <= 0) {cleanup(); error(msgs(E_RULELEN, param.minlen));}  /* check the limits */
     if (param.maxlen <= 0) {cleanup(); error(msgs(E_RULELEN, param.maxlen));}  /* for the rule length */
-    
+   
     switch (param.arem) {               /* check and translate measure */
     case  0: param.arem = EM_NONE;     break;
     case  1: param.arem = EM_DIFF;     break;

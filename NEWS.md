@@ -1,3 +1,8 @@
+# arules 1.7-5-1 (xx/xx/2023)
+
+## Changes
+* eclat and apriori now use the next smaller representable double for minsupp to make sure that >= minsupp works.
+
 # arules 1.7-5 (10/20/2022)
 
 ## Bugfix
