@@ -46,7 +46,7 @@ please [open an issue on GitHub](https://github.com/mhahsler/arules/issues) or c
 # Introduction
 
 @arules:Agrawal:1993
-rule mining](https://en.wikipedia.org/wiki/Association_rule_learning) in the following way: 
+define [association rule mining](https://en.wikipedia.org/wiki/Association_rule_learning) in the following way: 
 
 Let $I=\{i_1, i_2,\ldots,i_m\}$ be a set of $m$ binary attributes called
 **items.**  Let $D = \{t_1, t_2, \ldots, t_n\}$ be a set of
@@ -1032,7 +1032,7 @@ $$
 = \frac{supp(X \cup Y)}{supp(X \cup \overline{Y})}
 = \frac{P(X \cap Y)}{P(X \cap \overline{Y})}
 $$
-
+i
 **Range:** $[0, 1]$
 
 ## Standardized Lift {#stdlift}
