@@ -1,9 +1,9 @@
-% Bibliography on Association Rule Mining
-%
-% URL:           https://michael.hahsler.net/research/bib/association_rules/
-% Maintained by: Michael Hahsler
-% Contribute at: https://github.com/mhahsler/arules/blob/master/docs/association_rules.bib
-
+@comment{
+Bibliography on Association Rule Mining
+URL:           https://michael.hahsler.net/research/bib/association_rules/
+Maintained by: Michael Hahsler
+Contribute at: https://github.com/mhahsler/arules/blob/master/docs/association_rules.bib
+}
 
 @ARTICLE{arules:Kohavi:1988,
   author = {Ron Kohavi and Foster Provost},
@@ -15,7 +15,7 @@
   number = {2--3},
   abstract = {Definition of measures from Machine Learning. Theses are especially
 	interesting for comparison and evaluation of association rule algorithms.},
-  category = {evaluation}
+  keywords = {evaluation}
 }
 
 
@@ -25,7 +25,7 @@ title="Generation of rules with certainty and confidence factors from incomplete
 booktitle="In Proceedings of the European Knowledge Acquisition Workshop (EKAW'88), Gesellschaft fuer Mathematik und Datenverarbeitung mbH",
 year="1988",
 abstract = {Defines the Seebag measure for rules.},
-category = {measure}
+keywords = {measure}
 }
 
 @INCOLLECTION{arules:Piatetsky-Shapiro:1991,
@@ -41,7 +41,7 @@ category = {measure}
 	are statistically independent; monotonically increasing if the variables
 	occur more often together; monotonically decreasing if one of the
 	variables alone occurs more often).},
-  category = {kdd, measure}
+  keywords = {kdd, measure}
 }
 
 
@@ -51,7 +51,7 @@ category = {measure}
   booktitle={Knowledge Discovery in Databases},
   year={1991},
 abstract = {Introduces the J-Measure as a scaled measures of cross entropy for the information content of a rule.},
-category = {measure}
+keywords = {measure}
 }
 
 @InProceedings{arules:Agrawal:1993,
@@ -65,7 +65,7 @@ category = {measure}
   abstract  = {Introduces association rules and the SUPPORT-CONFIDENCE framework
 	and an algorithm to mine large itemsets. The algorithm is sometimes
 	called AIS after the authors initials.},
-  category  = {algorithm},
+  keywords  = {algorithm},
   doi       = {10.1145/170036.170072},
 }
 
@@ -82,7 +82,7 @@ category = {measure}
 	authors basic operations and an algorithm to discover classification
 	rules. For the evaluation they generate artificial survey data using
 	different classification functions.},
-  category = {evaluation},
+  keywords = {evaluation},
   doi      = {10.1109/69.250074},
 }
 
@@ -103,7 +103,7 @@ category = {measure}
 	efficient than AIS. Also an algorithm to generate synthetic transaction
 	data is presented. Such synthetic transaction data are widely used
 	for the evaluation and comparison of new algorithms.},
-  category = {algorithm, evaluation}
+  keywords = {algorithm, evaluation}
 }
 
 @InProceedings{arules:Klemettinen:1994,
@@ -115,7 +115,7 @@ category = {measure}
   pages     = {401--407},
   publisher = {ACM Press},
   abstract  = {Introduce the usage of rule templates.},
-  category  = {constraint},
+  keywords  = {constraint},
   doi       = {10.1145/191246.191314},
 }
 
@@ -132,7 +132,7 @@ category = {measure}
 	Itemsets with support are called covering sets. The paper also introduces
 	sampling from the database and gives bounds for the resulting estimate
 	of support.},
-  category = {algorithm,sampling}
+  keywords = {algorithm,sampling}
 }
 
 @InProceedings{arules:Agrawal:1995,
@@ -148,7 +148,7 @@ category = {measure}
 	sequence that exceeds minimum support (a minimum number of customers).
 	The algorithms AprioriSome and AprioryAll (based on Apriori) are
 	presented.},
-  category  = {sequential},
+  keywords  = {sequential},
 }
 
 @INPROCEEDINGS{arules:Savasere:1995,
@@ -163,7 +163,7 @@ category = {measure}
 	support is counted. Then the counts are merged to generate potential
 	large itemsets. In the second scan the potential large itemsets are
 	counted to find the actual large itemsets.},
-  category = {algorithm}
+  keywords = {algorithm}
 }
 
 @InProceedings{arules:Srikant:1995,
@@ -177,7 +177,7 @@ category = {measure}
 	(a rule with at leased on item generalized). Algorithms that use
 	R-interesting in addition to support and confidence are presented
 	and evaluated.},
-  category  = {generalized},
+  keywords  = {generalized},
   doi       = {10.1016/s0167-739x(97)00019-8},
 }
 
@@ -191,7 +191,7 @@ year = {1996},
 author = {Jean-Marc Bernard and Camilo Charron},
 doi = {10.4000/msh.2734},
 abstract = {Introduces Varying Rates Liaison.},
-category = {measure}
+keywords = {measure}
 }
 
 @INBOOK{arules:Fayyad:1996,
@@ -203,7 +203,7 @@ category = {measure}
   address = {Cambridge, MA},
   abstract = {Introduction to the KDD process.},
   booktitle = {Advances in knowledge discovery and data mining},
-  category = {kdd}
+  keywords = {kdd}
 }
 
 @InProceedings{arules:Fukuda:1996,
@@ -221,7 +221,7 @@ category = {measure}
   ratio on the condition that the support is at least a given
   threshold number.
   The paper also introduces the measure gain: gain(R) = sup(R) - minConf * sup(lhs(R)) = sup(R) * (conf(R) - minConf).},
-  category  = {quantitative},
+  keywords  = {quantitative},
   doi       = {10.1006/jcss.1998.1595},
 }
 
@@ -230,9 +230,11 @@ author = {Gras, Régis and Ag Almouloud, Saddo and Bailleul, Marc and Larher, An
 year = {1996},
 month = {01},
 pages = {},
+publisher = {ARDM},
+isbn = {2 85919 129 0},
 title = {L'implication statistique, nouvelle méthode exploratoire de données},
 abstract = {Introduces the implication index.},
-category = {measure}
+keywords = {measure}
 }
 
 @InProceedings{arules:Mannila:1996,
@@ -250,7 +252,7 @@ category = {measure}
 	a support of epsilon are a concise representation (epsilon-adequate
 	representation) which can approximate the confidence of any itemset
 	with an error of at most epsilon.},
-  category  = {concise},
+  keywords  = {concise},
   editors   = {Evangelos Simoudis and Jiawei Han and Usama M. Fayyad},
 }
 
@@ -266,7 +268,7 @@ category = {measure}
   abstract = {Find frequent itemsets in a random sample of a database (that fits
 	into main memory) and then verify the found frequent itemsets in
 	the database.},
-  category = {algorithm,sampling},
+  keywords = {algorithm,sampling},
   isbn = {1-55860-382-4}
 }
 
@@ -280,7 +282,7 @@ category = {measure}
   pages     = {255--264},
   abstract  = {Introduces CONVICTION (as an improvement to confidence based on implication
 	rules) and INTEREST (later called LIFT).},
-  category  = {measure},
+  keywords  = {measure},
   doi       = {10.1145/253262.253325},
 }
 
@@ -295,7 +297,7 @@ category = {measure}
   abstract  = {Proposes to use the chi-square test for correlation. For an itemset
 	of length l, the test is carried out on a l-dimensional contingency
 	tables. A problem is cells with low counts and multiple tests.},
-  category  = {no-support},
+  keywords  = {no-support},
   doi       = {10.1145/253262.253327},
 }
 
@@ -309,7 +311,7 @@ category = {measure}
   publisher = {IEEE Computer Society},
   abstract = {Join adjacent intervals for quantitative association rules to produce
 	more general rules.},
-  category = {clustering,quantitative}
+  keywords = {clustering,quantitative}
 }
 
 @ARTICLE{arules:Mannila:1997,
@@ -320,7 +322,7 @@ category = {measure}
   volume = {1},
   pages = {259-289},
   number = {3},
-  category = {sequential}
+  keywords = {sequential}
 }
 
 @INPROCEEDINGS{arules:Srikant:1997,
@@ -335,7 +337,7 @@ category = {measure}
   publisher = {AAAI Press},
   abstract = {Integrates BOOLEAN CONSTRAINTS on items (absence, presence) into the
 	mining algorithm to reduce the search space. Algorithms are discussed.},
-  category = {constraint}
+  keywords = {constraint}
 }
 
 @TECHREPORT{arules:Zaki:1997,
@@ -352,7 +354,7 @@ category = {measure}
 	using different database layout schemes (regular, inverted) and clustering
 	techniques (equivalence class ECLAT, max. clique). See also Zaki
 	2000, Scalable Algorithms for Association Mining.},
-  category = {maximal}
+  keywords = {maximal}
 }
 
 @INPROCEEDINGS{arules:Zaki:1997b,
@@ -369,7 +371,7 @@ category = {measure}
 	et al. 1994 using several datasets. The experiments show that Chernoff
 	bounds overestimate the needed sample size and that sampling seems
 	an effective tool for practical purposes.},
-  category = {sampling}
+  keywords = {sampling}
 }
 
 @InProceedings{arules:Aggarwal:1998,
@@ -387,7 +389,7 @@ category = {measure}
 	of transactions which contains some, but not all items of the itemset.
 	The violation rate is compared to the expected violation rate under
 	independence. Collective strength is downward closed.},
-  category  = {measure},
+  keywords  = {measure},
   doi       = {10.1145/275487.275490},
 }
 
@@ -405,7 +407,7 @@ category = {measure}
 	to cover the whole database. The presented alorithm is called Classification
 	Based on Associations (CBA). In ecperiment the resulting classifiers
 	are more accurate than C4.5.},
-  category = {classification}
+  keywords = {classification}
 }
 
 @INPROCEEDINGS{arules:Megiddo:1998,
@@ -426,7 +428,7 @@ category = {measure}
 	for support and confidence. Finally, the authors find that the support-confidence
 	framework does a good job to eliminate statistically insignificant
 	rules (on market basket data).},
-  category = {theory}
+  keywords = {theory}
 }
 
 @InProceedings{arules:Ng:1998,
@@ -441,7 +443,7 @@ category = {measure}
 	candidates) used e.g., on support by Apriori. Succinctness is a property
 	that enables us to generate only those itemsets which satisfy the
 	constraint without the need to test them.},
-  category  = {constraint},
+  keywords  = {constraint},
   doi       = {10.1145/276305.276307},
 }
 
@@ -453,7 +455,7 @@ category = {measure}
   pages    = {39--68},
   volume   = {2},
   abstract = {Journal version of Brin et al. (1997).},
-  category = {no-support},
+  keywords = {no-support},
 }
 
 @InProceedings{arules:Zaki:1998,
@@ -470,7 +472,7 @@ category = {measure}
 	between frequent itemsets and maximal bipartite cliques. It is shown
 	that for very sparse databases association rule algorithms should
 	scale linearly in the number of items.},
-  category  = {theory},
+  keywords  = {theory},
 }
 
 @InProceedings{arules:Bayardo:1999,
@@ -485,7 +487,7 @@ category = {measure}
 	gain, chi-square value, gini, entropy gain, laplace, lift, conviction
 	all must reside along a support/confidence border. The paper also
 	shows that many measures are monotone functions of support and confidence.},
-  category  = {theory},
+  keywords  = {theory},
   doi       = {10.1145/312129.312219},
 }
 
@@ -501,7 +503,7 @@ category = {measure}
 	rules (rules with 100\% confidence) for a given consequent. The drawbacks
 	are that only one consequent is mined at a time and that finding
 	rules with other than 100\% confidence is difficult.},
-  category  = {no-support},
+  keywords  = {no-support},
   doi       = {10.1007/978-3-540-48247-5_50},
 }
 
@@ -516,7 +518,7 @@ category = {measure}
 	to different items (minimum item supports, MIS). To preserve the
 	downward closure property of support item sorting using the MIS values
 	is used.},
-  category  = {var-support},
+  keywords  = {var-support},
   doi       = {10.1145/312129.312274},
 }
 
@@ -533,7 +535,7 @@ category = {measure}
 	antecedent and consequent and is not built from a rule with a shorter
 	antecedent which is a DS rule. Normally, only a small and concise
 	fraction of rules are DS rules.},
-  category  = {measures,theory},
+  keywords  = {measures,theory},
   doi       = {10.1145/312129.312216},
 }
 
@@ -547,7 +549,7 @@ category = {measure}
   pages     = {174--185},
   publisher = {Springer Berlin Heidelberg},
   abstract  = {Introduces relative accuracy/gain.},
-  category  = {measure},
+  keywords  = {measure},
   doi       = {10.1007/3-540-48751-4_17},
   isbn      = {978-3-540-48751-7},
 }
@@ -563,7 +565,7 @@ category = {measure}
 	set of X is contained in every transaction in which X is contained.
 	Which means there exists no super set of X with the same support
 	count as X.},
-  category  = {closed},
+  keywords  = {closed},
   doi       = {10.1007/3-540-49257-7_25},
 }
 
@@ -577,7 +579,7 @@ category = {measure}
   volume    = {24},
   abstract  = {Present the CLOSE algorithm to mine frequent closed itemsets.},
   address   = {Oxford, UK, UK},
-  category  = {closed},
+  keywords  = {closed},
   doi       = {10.1016/s0306-4379(99)00003-4},
   publisher = {Elsevier Science Ltd.},
 }
@@ -593,7 +595,7 @@ category = {measure}
   abstract = {Proposes the algorithm PASCAL (a APRIORI optimization) to mine closed
 	and frequent items. This approach uses frequent key-patterns to infer
 	counts of frequent non-key patterns.},
-  category = {closed},
+  keywords = {closed},
   doi      = {10.1145/380995.381017},
 }
 
@@ -605,7 +607,7 @@ category = {measure}
   pages     = {108--118},
   abstract  = {Introduces the algorithm DepthProject which builds a lexicographic
 	tree in a depth first order.},
-  category  = {maximal},
+  keywords  = {maximal},
   doi       = {10.1145/347090.347114},
 }
 
@@ -620,7 +622,7 @@ category = {measure}
   abstract = {A reply to Brin et al. (1997). The authors state that the chi-square
 	test tests the whole contingency table, but for larger than 2x2 tables
 	we want to test dependence for single cells.},
-  category = {no-support},
+  keywords = {no-support},
   publisher = {ACM Press}
 }
 
@@ -638,7 +640,7 @@ category = {measure}
 	enforces minimum support, minimum confidence and minimum improvement
 	already during a breadth-first search for all rules for a given consequent
 	C is presented.},
-  category = {constraint}
+  keywords = {constraint}
 }
 
 @Article{arules:Freitas:2000,
@@ -649,7 +651,7 @@ category = {measure}
   number   = {1},
   pages    = {65--69},
   volume   = {2},
-  category = {classification},
+  keywords = {classification},
   doi      = {10.1145/360402.360423},
 }
 
@@ -663,7 +665,7 @@ category = {measure}
   volume   = {2},
   abstract = {Describes the fundamentals of association rule mining and presents
 	an systematization of existing algorithms.},
-  category = {algorithm},
+  keywords = {algorithm},
   doi      = {10.1145/360402.360421},
 }
 
@@ -677,7 +679,7 @@ category = {measure}
   volume   = {2},
   abstract = {Introduces also some freely available data sets for algorithm performance
 	evaluation.},
-  category = {evaluation},
+  keywords = {evaluation},
   doi      = {10.1145/380995.381033},
 }
 
@@ -689,7 +691,7 @@ category = {measure}
   year = {2000},
   abstract = {Introduces the algorithm CLOSET which mines frequent closed itemsets
 	using FP-growth (a depth-first search using support counting).},
-  category = {closed}
+  keywords = {closed}
 }
 
 @ARTICLE{arules:Silverstein:2000,
@@ -704,7 +706,7 @@ category = {measure}
   abstract = {Explores the applicability of constraint-based causal discovery (known
 	from Bayesian learning) to discover causal relationships in market
 	basket data.},
-  category = {causal}
+  keywords = {causal}
 }
 
 @InProceedings{arules:Webb:2000,
@@ -724,7 +726,7 @@ category = {measure}
   year = {2000},
   address = {Manchester, UK},
   month = {April},
-  category = {kdd}
+  keywords = {kdd}
 }
 
 @Article{arules:Zaki:2000,
@@ -741,7 +743,7 @@ category = {measure}
 	Eclat (Equivalence CLAss Transformation), MaxEclat, Clique, MaxClique,
 	TopDown, and AprClique. ECLAT is a well known depth-first search
 	algorithm using set intersection.},
-  category = {algorithm},
+  keywords = {algorithm},
   doi      = {10.1109/69.846291},
 }
 
@@ -753,7 +755,7 @@ category = {measure}
   year      = {2001},
   address   = {New York},
   abstract  = {Introduction to association rules and mining sequential patterns.},
-  category  = {sequential},
+  keywords  = {sequential},
   doi       = {10.1007/978-1-4613-0085-4},
 }
 
@@ -769,7 +771,7 @@ category = {measure}
 	Uses interest based pruning and statistical surprise for filtering
 	(summarizing) contrast sets. The search error is controlled using
 	different (Bonferroni) correction for sets of different size.},
-  category = {theory},
+  keywords = {theory},
   publisher = {Kluwer Academic Publishers}
 }
 
@@ -782,7 +784,7 @@ category = {measure}
   pages = {387--398},
   abstract = {The authors construct several statistical tests to evaluate the significance
 	of discovered associations.},
-  category = {measure},
+  keywords = {measure},
   publisher = {Physica-Verlag}
 }
 
@@ -800,7 +802,7 @@ category = {measure}
 	techniques (Parent Equivalence Pruning, Frequent Head Union Tail
 	pruning) and dynamic reordering. The authors claim that MAFIA outperforms
 	DepthProject (Agrawal et al., 2001) by a factor of 3 to 5 on average.},
-  category  = {maximal},
+  keywords  = {maximal},
 }
 
 @InProceedings{arules:Cadez:2001,
@@ -817,7 +819,7 @@ category = {measure}
 	has a constant probability to be chosen for a transaction). Finally,
 	the authors compare several estimation methods and model variants
 	empirically using store choice data.},
-  category  = {evaluation},
+  keywords  = {evaluation},
   doi       = {10.1145/502512.502523},
 }
 
@@ -832,7 +834,7 @@ category = {measure}
   abstract = {Uses similarity measures between hashed values of rows in a transaction
 	database. The approach in the paper was only shown for associations
 	between two items.},
-  category = {no-support},
+  keywords = {no-support},
   doi      = {10.1109/69.908981},
 }
 
@@ -856,7 +858,7 @@ category = {measure}
 	(to smooth away noise). For multi-item associations log-linear models
 	are proposed to find higher order associations which cannot be explained
 	by pairwise associations.},
-  category  = {no-support,theory},
+  keywords  = {no-support,theory},
   doi       = {10.1145/502512.502526},
 }
 
@@ -871,7 +873,7 @@ category = {measure}
   year      = {2001},
   doi       = {10.1007/s001800100075},
 abstract = {Introduces difference of confidence.},
-category = {measure}
+keywords = {measure}
 }
 
 @inproceedings{arules:Kodratoff:2001,
@@ -889,7 +891,7 @@ category = {measure}
   year      = {2001},
   doi       = {10.1007/3-540-44673-7},
 abstract = {Introduces casual support and casual confidence informed by negatives.},
-category = {measure}
+keywords = {measure}
 }
 
 @INPROCEEDINGS{arules:Li:2001,
@@ -900,7 +902,7 @@ category = {measure}
   month = {August},
   abstract = {Develop a generator for synthetic data with temporal patterns based
 	on the generator by Agrawal and Srikan (1994).},
-  category = {sequential,evaluation}
+  keywords = {sequential,evaluation}
 }
 
 @INPROCEEDINGS{arules:Pei:2001,
@@ -915,7 +917,7 @@ category = {measure}
 	of the FP-growth algorithm. The constraints are classified into constraints
 	that are: convertible anti-monotone, convertible monotone and strongly
 	convertible.},
-  category = {constraint}
+  keywords = {constraint}
 }
 
 @INPROCEEDINGS{arules:Seno:2001,
@@ -932,7 +934,7 @@ category = {measure}
 	on the FP-tree is presented and a property called small valid extension
 	(SVE) is introduced which makes mining efficient in absence of downward
 	closure.},
-  category = {var-support}
+  keywords = {var-support}
 }
 
 
@@ -944,7 +946,7 @@ category = {measure}
   pages = {871--885},
   publisher = {PACIS},
   abstract = {Develops a methodology to detect changes of customer behavior automatically by comparing association rules between different time snapshots of data. Defines emerging pattern, unexpected change and the added/perished rule based on similarity and difference measures for rule matching.},
-  category = {changing}
+  keywords = {changing}
 }
 
 @InProceedings{arules:Wang:2001,
@@ -960,7 +962,7 @@ category = {measure}
 	with confidence-based pruning are possible that use a level-wise
 	(from k to k-1) candidate generation are. The paper also discusses
 	a disk-based implementation.},
-  category  = {no-support},
+  keywords  = {no-support},
   doi       = {10.1145/502585.502601},
 }
 
@@ -977,7 +979,7 @@ category = {measure}
 	and three real-world e-commerce datasets. It shows that some improvements
 	demonstrated on artificial datasets do not carry over to real-world
 	datasets.},
-  category  = {evaluation},
+  keywords  = {evaluation},
   doi       = {10.1145/502512.502572},
 }
 
@@ -992,12 +994,12 @@ category = {measure}
   abstract = {Proposes to cluster transactions using a similarity measure based
 	on the new affinity measure (measures similarity between pairs of
 	items). Then mine association rules in the identified clusters.},
-  category = {sampling},
+  keywords = {sampling},
   doi      = {10.1109/69.979972},
 }
 
 
-@Inbook{arules:Aze:2002,
+@incollection{arules:Aze:2002,
 author="J. Azé and Y. Kodratoff",
 editor="D. Hérin and D.A. Zighed",
 title="Evaluation de la résistance au bruit de quelques mesures d’extraction de règles d’assocation",
@@ -1007,7 +1009,7 @@ pages="143--154",
 year="2002",
 publisher="Hermes",
 abstract = {Introduces least contradiction.},
-category = {measure}
+keywords = {measure}
 }
 
 @InProceedings{arules:Borgelt:2002,
@@ -1018,7 +1020,7 @@ category = {measure}
   address   = {Heidelberg, Germany},
   publisher = {Physica Verlag},
   abstract  = {An efficient implementation of APRIORI.},
-  category  = {implementation},
+  keywords  = {implementation},
   doi       = {10.1007/978-3-642-57489-4_59},
 }
 
@@ -1035,7 +1037,7 @@ category = {measure}
   abstract  = {Introduce NON-DERIVABLE ITEMSETS (NDIs). The support of all frequent
 	NDIs allows for computing the support of all frequent itemsets using
 	deduction rules based on the inclusion-exclusion principle.},
-  category  = {concise},
+  keywords  = {concise},
   doi       = {10.1007/3-540-45681-3_7},
   eprint    = {cs/0206004},
 }
@@ -1048,7 +1050,7 @@ category = {measure}
   pages    = {221--235},
   volume   = {6},
   abstract = {Introduces casual support and casual confidence informed by negatives.},
-  category = {measure},
+  keywords = {measure},
   doi      = {10.3233/ida-2002-6303},
 }
 
@@ -1070,7 +1072,7 @@ category = {measure}
 	class). TITANIC is compared experimentally to Next-Closure and performs
 	better. PASCAL (Bastide et al. 2000) is a modified version of TITANIC
 	to mine all frequent itemsets.},
-  category = {theory},
+  keywords = {theory},
   doi      = {10.1016/s0169-023x(02)00057-5},
 }
 
@@ -1090,7 +1092,7 @@ category = {measure}
 	It uses efficient intersection operations. The performance testing
 	shows that CHARM can provide significant improvement over algorithms
 	as Apriori, Close, Pascal, Mafia, and Closet.},
-  category  = {closed},
+  keywords  = {closed},
   doi       = {10.1137/1.9781611972726.27},
 }
 
@@ -1105,7 +1107,7 @@ category = {measure}
   abstract = {Defines QUANTITATIVE ASSOCIATION RULES using statistical measures
 	(e.g., mean and variance) of continuous data. Also algorithms are
 	discussed.},
-  category = {quantitative}
+  keywords = {quantitative}
 }
 
 @ARTICLE{arules:Barber:2003,
@@ -1120,7 +1122,7 @@ category = {measure}
 	if it exceeds a threshold. Share frequency is not downward closed!
 	The article presents several algorithms and heuristics to mine share
 	frequent itemsets.},
-  category = {measure}
+  keywords = {measure}
 }
 
 @INPROCEEDINGS{arules:Borgelt:2003,
@@ -1134,7 +1136,7 @@ category = {measure}
   month = {November},
   abstract = {Discusses the efficient implementation of APRIORI (with prefix tree)
 	and ECLAT.},
-  category = {implementation}
+  keywords = {implementation}
 }
 
 @ARTICLE{arules:Boulicaut:2003,
@@ -1150,7 +1152,7 @@ category = {measure}
 	subset with (almost) the same support thus the items in the itemset
 	cannot be used to form a (nearly) exact rule.},
   address = {Hingham, MA, USA},
-  category = {concise},
+  keywords = {concise},
   publisher = {Kluwer Academic Publishers}
 }
 
@@ -1166,7 +1168,7 @@ category = {measure}
 	authors mine frequent itemsets in each cluster. Finally, they use
 	the maximum entropy technique to obtain local models from the frequent
 	itemsets and combine these models to approximate the joint distribution.},
-  category  = {clustering},
+  keywords  = {clustering},
   doi       = {10.1137/1.9781611972733.32},
 }
 
@@ -1195,7 +1197,7 @@ category = {measure}
 	of these items. Omiecinski showed that bond and all-confidence are
 	downward closed and, therefore, can be used for efficient mining
 	algorithms.},
-  category = {no-support},
+  keywords = {no-support},
   doi      = {10.1109/tkde.2003.1161582},
 }
 
@@ -1209,7 +1211,7 @@ category = {measure}
   editor = {Bart Goethals and Mohammed J. Zaki},
   month = {November},
   abstract = {Introduces the kDCI algorithm.},
-  category = {algorithm,implementation}
+  keywords = {algorithm,implementation}
 }
 
 @Article{arules:Pavlov:2003,
@@ -1225,7 +1227,7 @@ category = {measure}
 	models, itemset inclusion-exclusion model, and the maximum entropy
 	method) for the problem of generating fast approx. answers to queries
 	for large sparse binary data sets.},
-  category = {theory},
+  keywords = {theory},
   doi      = {10.1109/tkde.2003.1245281},
 }
 
@@ -1240,7 +1242,7 @@ category = {measure}
 	itemsets (the number of frequent itemsets with the same length).
 	The length distribution determines the algorithms performance and
 	is important to generate realistic synthetic datasets.},
-  category  = {theory},
+  keywords  = {theory},
   doi       = {10.1145/773153.773181},
 }
 
@@ -1256,7 +1258,7 @@ category = {measure}
   abstract = {Resample datasets proportional to background attributes (e.g., distribution
 	of customers' sex) to forecast rules in a new situation (e.g., a
 	new store at a new location).},
-  category = {sampling},
+  keywords = {sampling},
   doi      = {10.1109/tkde.2003.1245284},
 }
 
@@ -1271,7 +1273,7 @@ category = {measure}
 	WEIGHT SUPPORT. A support and significance framework is presented
 	which possesses a weighted downward closure property important for
 	pruning the search space.},
-  category  = {var-support},
+  keywords  = {var-support},
   doi       = {10.1145/956750.956836},
 }
 
@@ -1290,7 +1292,7 @@ category = {measure}
 	affinity patterns. The generation of so-called cross-support patterns
 	(patterns with items with substantially different support) is avoided
 	by h-confidence's cross-support property.},
-  category  = {no-support},
+  keywords  = {no-support},
 }
 
 @Article{arules:Coenen:2004,
@@ -1302,7 +1304,7 @@ category = {measure}
   volume   = {8},
   abstract = {Describes how to compute PARTIAL SUPPORT COUNTS in one DB-pass and
 	how to store them in an enumeration tree (P-Tree).},
-  category = {algorithm},
+  keywords = {algorithm},
   doi      = {10.1023/b:dami.0000005257.93780.3b},
 }
 
@@ -1319,7 +1321,7 @@ category = {measure}
 	is a data structure (a compressed set enumeration tree) to store
 	itemsets. The P-tree is a compressed way to represent a database
 	in memory for mining.},
-  category = {implementation},
+  keywords = {implementation},
   doi      = {10.1109/tkde.2004.8},
 }
 
@@ -1337,7 +1339,7 @@ category = {measure}
 	fpclose, fpmax*) outperform older ones but that currently no tested
 	algorithm gracefully scales up to very large databases with millions
 	of transactions.},
-  category = {implementation},
+  keywords = {implementation},
   doi      = {10.1145/1007730.1007744},
 }
 
@@ -1354,7 +1356,7 @@ category = {measure}
 	approach to decompose both the mining tasks and the databases. It
 	uses a pattern fragment growth method to avoid the costly process
 	of candidate generation and testing.},
-  category = {algorithm}
+  keywords = {algorithm}
 }
 
 @article{arules:Sistrom:2004,
@@ -1367,7 +1369,7 @@ year = {2004},
 author = {Sistrom, CL and Garvan, CW},
 doi = {10.1148/radiol.2301031028},
 abstract = {Introduces relative risk.},
-category = {measure}
+keywords = {measure}
 }
 
 @Article{arules:Tan:2004,
@@ -1382,7 +1384,7 @@ category = {measure}
 	measures in general lack to agree with each other. However, the authors
 	show that if support-based pruning or table standardization (of the
 	contingency tables) is used, the measures become highly correlated.},
-  category  = {measures},
+  keywords  = {measures},
   doi       = {10.1016/s0306-4379(03)00072-3},
   publisher = {Elsevier Science Ltd.},
 }
@@ -1396,7 +1398,7 @@ category = {measure}
   publisher = {ACM Press},
   abstract  = {Shows that enumerating all maximal frequent itemsets is NP-hard and
 	the associated counting problem is #P-complete.},
-  category  = {theory},
+  keywords  = {theory},
   doi       = {10.1145/1014052.1014091},
 }
 
@@ -1412,7 +1414,7 @@ category = {measure}
 	association rules. Non-Redundant rules are a set of rules with the
 	most general rules (smallest antecedent and consequent) without loss
 	of information.},
-  category = {closed},
+  keywords = {closed},
   doi      = {10.1023/b:dami.0000040429.96086.c7},
 }
 
@@ -1428,7 +1430,7 @@ category = {measure}
 	of a rule. The equilibrium for rule a -> b is defined as: the number
 	of transactions which contain a and b together is equal to the number
 	of transactions which contain a and not b.},
-  category = {measure}
+  keywords = {measure}
 }
 
 @Article{arules:Bonchi:2005,
@@ -1443,7 +1445,7 @@ category = {measure}
 	and alpha-reduction. Mu-reduction removes transactions which do not
 	meet monotone constraints. Alpha-reduction remove infrequent items
 	from the transactions.},
-  category = {constraint},
+  keywords = {constraint},
   doi      = {10.1109/mis.2005.45},
 }
 
@@ -1457,7 +1459,7 @@ category = {measure}
   abstract = {Presents a backtrack search based algorithm for mining maximal frequent
 	itemsets. Uses: progressive focusing for maximality checking, and
 	diffset propagation for frequency computation.},
-  category = {maximal},
+  keywords = {maximal},
   doi      = {10.1007/s10618-005-0002-x},
 }
 
@@ -1474,7 +1476,7 @@ category = {measure}
   publisher = {ACM Press},
   abstract = {Generate synthetic data (e.g., credit card transaction data) for accuracy
 	evaluation using semantic graphs.},
-  category = {evaluation},
+  keywords = {evaluation},
   doi = {10.1145/1081870.1081969},
   isbn = {1-59593-135-X},
   location = {Chicago, Illinois, USA}
@@ -1497,7 +1499,7 @@ category = {measure}
 	the top n most predictive association rules (redundant rules with
 	a 0 predictive accuracy improvement are removed) and shows how to
 	estimate the prior distribution needed for the correction.},
-  category  = {theory,measures},
+  keywords  = {theory,measures},
   doi       = {10.3233/ida-2005-9405},
   publisher = {IOS Press},
 }
@@ -1510,7 +1512,7 @@ category = {measure}
   volume = {10},
   pages = {197--228},
   abstract = {See Seno and Karypis 2001.},
-  category = {var-support}
+  keywords = {var-support}
 }
 
 @Article{arules:Webb:2003,
@@ -1526,7 +1528,7 @@ category = {measure}
 	support, min confidence, max coverage, max leverage) in a depth-first
 	search. (An early draft of the paper was called: Beyond association
 	rules: Generalized rule discovery)},
-  category = {constraint},
+  keywords = {constraint},
   doi      = {10.1007/s10618-005-0255-4},
 }
 
@@ -1539,7 +1541,7 @@ category = {measure}
   pages    = {462--478},
   volume   = {17},
   abstract = {Describes the algorithm CHARM.},
-  category = {closed},
+  keywords = {closed},
   doi      = {10.1109/tkde.2005.60},
 }
 
@@ -1553,7 +1555,7 @@ category = {measure}
   number = {2},
   abstract = {Presents an algorithm to efficiently mine closed and constrained frequent
 	itemsets.},
-  category = {closed,constraint},
+  keywords = {closed,constraint},
   publisher = {Springer-Verlag New York, Inc.}
 }
 
@@ -1567,7 +1569,7 @@ category = {measure}
   pages     = {64--80},
   series    = {Lecture Notes in Computer Science},
   volume    = {3848},
-  category  = {concise},
+  keywords  = {concise},
   doi       = {10.1007/11615576_4},
 }
 
@@ -1580,7 +1582,7 @@ category = {measure}
   pages     = {9},
   volume    = {38},
   address   = {New York, NY, USA},
-  category  = {measures},
+  keywords  = {measures},
   doi       = {10.1145/1132960.1132963},
   publisher = {ACM},
 }
@@ -1603,7 +1605,7 @@ category = {measure}
 	of itemsets (NB-frequent itemsets). The new constraint provides improvements
 	over a single minimum support threshold and that the precision threshold
 	is more robust and easier to set and interpret by the user.},
-  category = {no-support},
+  keywords = {no-support},
   doi      = {10.1007/s10618-005-0026-2},
 }
 
@@ -1623,7 +1625,7 @@ category = {measure}
 	to find an optimal rule set. Classifiers build on optimal class association
 	rules are at least as accurate as those built from CBA and C4.5 rule.},
   address   = {Piscataway, NJ, USA},
-  category  = {measures,classification},
+  keywords  = {measures,classification},
   doi       = {10.1109/tkde.2006.1599385},
   publisher = {IEEE Educational Activities Department},
 }
@@ -1642,13 +1644,13 @@ category = {measure}
 	risk of false discoveries for statistical hypothesis tests. Experimental
 	results indicate that neither of the two approaches dominates the
 	other.},
-  category = {theory},
+  keywords = {theory},
   doi = {10.1145/1150402.1150451},
   isbn = {1-59593-339-5},
   location = {Philadelphia, PA, USA}
 }
 
-@Inbook{arules:Diatta:2007,
+@incollection{arules:Diatta:2007,
     author="Diatta, Jean
 	and Ralambondrainy, Henri
 	and Totohasina, Andr{\'e}",
@@ -1663,7 +1665,7 @@ category = {measure}
     isbn="978-3-540-44918-8",
     doi="10.1007/978-3-540-44918-8_10",
     abstract = {Introduces the Ralambondrainy measure.},
-    category = {measure}
+    keywords = {measure}
 }
 
 @Article{arules:Hahsler:2007,
@@ -1682,7 +1684,7 @@ category = {measure}
 	show significantly
 	better performance than lift for applications where spurious rules
 	are problematic.},
-  category = {measures},
+  keywords = {measures},
   doi      = {10.3233/IDA-2007-11502},
   eprint   = {0803.0966},
   pdf      = {http://michael.hahsler.net/research/hyperConfidence_IDA2007/hyperConfidence.pdf},
@@ -1697,11 +1699,11 @@ category = {measure}
   number   = {1},
   volume   = {14},
   abstract = {Complete overview of the state-of-the art in frequent patten mining and identifies future research directions.},
-  category = {algorithm, concise, sequential},
+  keywords = {algorithm, concise, sequential},
   doi      = {10.1007/s10618-006-0059-1},
 }
 
-@Inbook{arules:Lenca:2007,
+@Incollection{arules:Lenca:2007,
 author="Lenca, Philippe and Vaillant, Beno{\^i}t and Meyer, Patrick and Lallich, Stephane",
 editor="Guillet, Fabrice J. and Hamilton, Howard J.",
 title="Association Rule Interestingness Measures: Experimental and Theoretical Studies",
@@ -1713,7 +1715,7 @@ pages="51--76",
 isbn="978-3-540-44918-8",
 doi="10.1007/978-3-540-44918-8_3",
 abstract = {Compares interest measures.},
-category = {measure}
+keywords = {measure}
 }
 
 @InProceedings{arules:Kennett:2008,
@@ -1733,7 +1735,7 @@ abstract = {Introduces Relative Linkage Disequilibrium.
     It evaluates the deviation
     of the support of the whole rule from the support expected under
     independence given the supports of X and Y.},
-category = {measure}
+keywords = {measure}
 }
 
 @article{arules:McNicholas:2008,
@@ -1747,7 +1749,7 @@ issn = {0167-9473},
 doi = {10.1016/j.csda.2008.03.013},
 author = {P.D. McNicholas and T.B. Murphy and M. O’Regan},
 abstract = {Standardized lift uses the minimum and maximum lift that can reach for each rule to standardize lift between 0 and 1.},
-category = {measure}
+keywords = {measure}
 }
 
 @InProceedings{arules:Jalali-Heravi:2010,
@@ -1760,7 +1762,7 @@ category = {measure}
   series    = {SAC '10},
   abstract  = {Compares associative classifiers using 53 different objective
   measures for association rules.},
-  category  = {classification},
+  keywords  = {classification},
   doi       = {10.1145/1774088.1774306},
 }
 
@@ -1777,7 +1779,7 @@ category = {measure}
       and shows that they can be expressed as the generalized mathematical 
       mean, leading to a total ordering of them. 
       Also proposes a new measure called Imbalance Ratio.},
-  category = {measure}
+  keywords = {measure}
 }
 
 @article{arules:Balcazar:2013,
@@ -1796,7 +1798,7 @@ journal = {ACM Trans. Knowl. Discov. Data},
 month = dec,
 articleno = {19},
 numpages = {41},
-category = {measure}
+keywords = {measure}
 }
 
 @article{arules:Li:2014,
@@ -1811,7 +1813,7 @@ abstract = {Uses a confidence interval around the rule's odds ratio
 to define redundant rules. Following this definition, the paper presents an efficient alforithm to mine non-redundant rules.},
 journal = {Knowledge Based Systems},
 pages = {315–-327},
-category = {measure}
+keywords = {measure}
 }
 
 
@@ -1823,7 +1825,7 @@ category = {measure}
   address   = {Cochin, India},
   abstract  = {The rule power factor weights the confidence of a rule by its
             support.},
-  category  = {measure},
+  keywords  = {measure},
   doi       = {10.1016/j.procs.2016.07.175},
 }
 

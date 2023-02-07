@@ -9,15 +9,15 @@ abstract: "This document contains a comprehensive collection of commonly used me
   Here, we also present their relationship with estimating probabilities and 
   conditional probabilities."
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_document:
     toc: yes
     toc_depth: 2
     toc_float:
       collapsed: no
       smooth_scroll: no
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
 bibliography: association_rules.bib
 link-citations: yes
 ---
@@ -29,7 +29,8 @@ This work is licensed under the <a href="http://creativecommons.org/licenses/by-
 Please cite this document as **Michael Hahsler, A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules, 2015, URL: https://mhahsler.github.io/arules/docs/measures**
 
 A PDF version of the document is available at
-[https://mhahsler.github.io/arules/docs/measures.pdf](https://mhahsler.github.io/arules/docs/measures.pdf)
+[https://mhahsler.github.io/arules/docs/measures.pdf](https://mhahsler.github.io/arules/docs/measures.pdf). 
+An annotated bibliography of association rules can be found at [https://mhahsler.github.io/arules/docs/association_rules.html](https://mhahsler.github.io/arules/docs/association_rules.html).
 
 ## Code and Implementation
 All measures discussed on this page are implemented in the freely available R-extension package 
