@@ -9,15 +9,15 @@ abstract: "This document contains a comprehensive collection of commonly used me
   Here, we also present their relationship with estimating probabilities and 
   conditional probabilities."
 output:
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
   html_document:
     toc: yes
     toc_depth: 2
     toc_float:
       collapsed: no
       smooth_scroll: no
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
 bibliography: association_rules.bib
 link-citations: yes
 ---
