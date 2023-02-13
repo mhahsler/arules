@@ -44,7 +44,7 @@ please [open an issue on GitHub](https://github.com/mhahsler/arules/issues) or c
 [me](http://michael.hahsler.net) directly.
 
 
-# Introduction
+# Definitions
 
 @arules:Agrawal:1993
 define [association rule mining](https://en.wikipedia.org/wiki/Association_rule_learning) in the following way: 
@@ -116,7 +116,7 @@ Good overview articles about different association rule measures are
 * @arules:Lenca:2007 Association Rule Interestingness Measures:
 Experimental and Theoretical Studies. _Studies in Computational Intelligence (SCI)_ 43, 51–76, 2007.
 
-# Measures for Itemsets
+# Measures Defined on Itemsets
 
 ## Support {#support}
 **Reference:** @arules:Agrawal:1993
@@ -198,7 +198,7 @@ patterns often tend to be spurious.
 
 **Range:** $[0, 1]$
 
-# Measures for Rules
+# Measures Defined on Rules
 
 ## Contingency Table {#table} 
 
