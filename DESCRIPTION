@@ -2,15 +2,17 @@ Package: arules
 Version: 1.7-5-1
 Date: 2023-xx-xx
 Title: Mining Association Rules and Frequent Itemsets
-Authors@R: c(person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
-		email = "mhahsler@lyle.smu.edu",
-		comment = c(ORCID = "0000-0003-2716-1405")),
-	    person("Christian", "Buchta", role = c("aut", "cph")),
-	    person("Bettina", "Gruen", role = c("aut", "cph")),
-	    person("Kurt", "Hornik", role = c("aut", "cph")),
-	    person("Christian", "Borgelt", role = c("ctb", "cph")),
-	    person("Ian", "Johnson", role = c("ctb")),
-	    person("Makhlouf", "Ledmi", role = c("ctb")))
+Authors@R: c(
+    person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
+	email = "mhahsler@lyle.smu.edu",
+	comment = c(ORCID = "0000-0003-2716-1405")),
+    person("Christian", "Buchta", role = c("aut", "cph")),
+    person("Bettina", "Gruen", role = c("aut", "cph")),
+    person("Kurt", "Hornik", role = c("aut", "cph"),
+	comment = c(ORCID = "0000-0003-4198-9911")),
+    person("Christian", "Borgelt", role = c("ctb", "cph")),
+    person("Ian", "Johnson", role = c("ctb")),
+    person("Makhlouf", "Ledmi", role = c("ctb")))
 Description: Provides the infrastructure for representing, manipulating and analyzing 
   transaction data and patterns (frequent itemsets and association rules). 
   Also provides C implementations of the association mining algorithms Apriori and Eclat. 
