@@ -1,11 +1,15 @@
-# arules 1.7-5-1 (xx/xx/2023)
+# arules 1.7-6 (03/23/2023)
 
 ## Changes
+* Improved the interface for fim4r. support and confidence now uses [0, 1]; added verbose 
+  and origialSupport. 
+
+## Bugfixes
 * eclat and apriori now use the next smaller representable double for minsupp to make sure that >= minsupp works.
 
 # arules 1.7-5 (10/20/2022)
 
-## Bugfix
+## Bugfixes
 * discretize(): dig.lab is now correctly passed on to cut() (reported by LectronPusher).
 * Fixed C prototype warnings
 
@@ -16,7 +20,7 @@
 * We install now the latest version of fim4r
 * Changes in coercion for Matrix 1.4-2
 
-## Bugfix
+## Bugfixes
 
 * eclat() now correctly returns frequent itemsets when all have exactly minsupport (reported by GauthierMagnin).
 

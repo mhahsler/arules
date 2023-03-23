@@ -16,9 +16,13 @@
 fim4r(
   transactions,
   method = NULL,
+  support = 0.1,
+  confidence = 0.8,
   target = "frequent",
-  report = NULL,
+  originalSupport = TRUE,
   appear = NULL,
+  report = NULL,
+  verbose = TRUE,
   ...
 )
 }
@@ -32,10 +36,15 @@ fim4r(
 \item \code{"carpenter"}, \code{"ista"}  can only mine closed itemset.
 }}
 
+\item{support}{a numeric value for the minimal support in the range \eqn{[0,1]}.}
+
+\item{confidence}{a numeric value for the minimal confidence of rules in the range \eqn{[0,1]}.}
+
 \item{target}{the target type. One of: \code{"frequent"},
 \code{"closed"}, \code{"maximal"}, \code{"generators"} or \code{"rules"}.}
 
-\item{report}{cannot be used via the interface.}
+\item{originalSupport}{logical; Use the support threshold on the support of the whole rule (LHS and RHS).
+If \code{FALSE}, then LHS support (i.e., coverage) is used by the support threshold.}
 
 \item{appear}{Specify item appearance in rules (only for apriori, eclat, fpgrowth
 and the target \code{"rules"}) Specify a list with two vectors (item labels and
@@ -47,10 +56,12 @@ appearance modifiers) of the same length. Appearance modifiers are:
 \item \code{"x"} (may appear anywhere).
 }}
 
-\item{...}{further arguments are passed on to the \code{fim4r.x()} in
-package \pkg{fim4r} (\code{x} is the specified \code{method}). Minimum support and
-minimum confidence can be set as parameters \code{supp} and \code{conf}
-(note the range is \eqn{[0, 100]} percent).}
+\item{report}{cannot be used via the interface.}
+
+\item{verbose}{logical; print used parameters?}
+
+\item{...}{further arguments are passed on to the function \code{fim4r.x()} in
+package \pkg{fim4r} (\code{x} is the specified \code{method}).}
 }
 \value{
 An object of class \link{itemsets} or \link{rules}.
@@ -62,12 +73,13 @@ Apriori, Eclat, FPgrowth, Carpenter, IsTa, RElim and SaM.
 \details{
 \strong{Installation:}
 The package \pkg{fim4r} is not available via CRAN. If needed,
-the \code{fim4r()} function downloads and installs the package automatically.
+the \code{fim4r()} function downloads and installs the current version of the package automatically.
 
 \strong{Additional Notes:}
 \itemize{
-\item Support and confidence (parameters \code{supp} and \code{conf}) are specified
-in the range \eqn{[0, 100]}.
+\item Support and confidence are specified here in the range \eqn{[0,1]}. This is different from the use in  \code{fim4r} package where \code{supp} and \code{conf} have the range \eqn{[0, 100]}.
+\code{arules::fim4r()} automatically converts confidence internally.
+\item \code{fim4r} methods also return the empty itemset while \code{arules} methods do not.
 \item Type \code{? fim4r::fim4r} for help on additional available arguments. This is only available
 after package \code{fim4r} is installed.
 \item Algorithm descriptions and references can be found on the
@@ -82,33 +94,32 @@ data(Adult)
 fim4r()
 
 # mine association rules with FPgrowth
-# note that fim4r specifies support and confidence out of 100\%
-r <- fim4r(Adult, method = "fpgrowth", target = "rules", supp = 70, conf = 80)
+r <- fim4r(Adult, method = "fpgrowth", target = "rules", supp = .7, conf = .8)
 r
 inspect(head(r, by = "lift"))
 
 # mine closed itemsets with Carpenter or IsTa
-closed <- fim4r(Adult, method = "carpenter", target = "closed", supp = 70)
+closed <- fim4r(Adult, method = "carpenter", target = "closed", supp = .7)
 closed
-fim4r(Adult, method = "ista", target = "closed", supp = 70)
+fim4r(Adult, method = "ista", target = "closed", supp = .7)
 
 # mine frequent itemset of length 2 (zmin and zmax = 2)
-freq_2 <- fim4r(Adult, method = "relim", target = "frequent", supp = 70,
+freq_2 <- fim4r(Adult, method = "relim", target = "frequent", supp = .7,
   zmin = 2, zmax = 2)
 inspect(freq_2)
 
 # mine maximal frequent itemsets
-mfis <- fim4r(Adult, method = "sam", target = "maximal", supp = 70)
+mfis <- fim4r(Adult, method = "sam", target = "maximal", supp = .7)
 inspect(mfis)
 
 # use item appearance. We first mine all rules and then restrict
 #   the appearance of the item capital-gain=None
 rules_all <- fim4r(Adult, method = "fpgrowth", target = "rules",
-  supp = 90, conf = 90, zmin = 2)
+  supp = .9, conf = .9, zmin = 2)
 inspect(rules_all)
 
 rules_no_gain <- fim4r(Adult, method = "fpgrowth", target = "rules",
-  supp = 90, conf = 90, zmin = 2,
+  supp = .9, conf = .9, zmin = 2,
   appear = list(c("capital-gain=None"), c("-"))
   )
 inspect(rules_no_gain)

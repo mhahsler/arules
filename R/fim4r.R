@@ -24,12 +24,13 @@
 #'
 #' **Installation:**
 #' The package \pkg{fim4r} is not available via CRAN. If needed,
-#' the `fim4r()` function downloads and installs the package automatically.
+#' the `fim4r()` function downloads and installs the current version of the package automatically.
 #'
 #' **Additional Notes:**
 #'
-#' * Support and confidence (parameters `supp` and `conf`) are specified
-#'   in the range \eqn{[0, 100]}.
+#' * Support and confidence are specified here in the range \eqn{[0,1]}. This is different from the use in  `fim4r` package where `supp` and `conf` have the range \eqn{[0, 100]}. 
+#' `arules::fim4r()` automatically converts confidence internally.
+#' * `fim4r` methods also return the empty itemset while `arules` methods do not.
 #' * Type `? fim4r::fim4r` for help on additional available arguments. This is only available
 #'   after package `fim4r` is installed. 
 #' * Algorithm descriptions and references can be found on the
@@ -45,12 +46,12 @@
 #'   * `"relim"`, `"sam"` can mine itemsets.
 #'   * `"carpenter"`, `"ista"`  can only mine closed itemset.
 #'
+#' @param support a numeric value for the minimal support in the range \eqn{[0,1]}.
+#' @param confidence a numeric value for the minimal confidence of rules in the range \eqn{[0,1]}.
 #' @param target the target type. One of: `"frequent"`,
 #'   `"closed"`, `"maximal"`, `"generators"` or `"rules"`.
-#' @param ... further arguments are passed on to the `fim4r.x()` in
-#'   package \pkg{fim4r} (`x` is the specified `method`). Minimum support and
-#'   minimum confidence can be set as parameters `supp` and `conf`
-#'   (note the range is \eqn{[0, 100]} percent).
+#' @param originalSupport logical; Use the support threshold on the support of the whole rule (LHS and RHS).
+#'  If `FALSE`, then LHS support (i.e., coverage) is used by the support threshold.
 #' @param report cannot be used via the interface.
 #' @param appear Specify item appearance in rules (only for apriori, eclat, fpgrowth 
 #' and the target `"rules"`) Specify a list with two vectors (item labels and 
@@ -60,6 +61,9 @@
 #'   * `"a"` (only in rule antecedent/LHS), 
 #'   * `"c"` (only in rule consequent/RHS) and 
 #'   * `"x"` (may appear anywhere).
+#' @param verbose logical; print used parameters?
+#' @param ... further arguments are passed on to the function `fim4r.x()` in
+#'   package \pkg{fim4r} (`x` is the specified `method`). 
 #' @returns An object of class [itemsets] or [rules].
 #' @references
 #' Christian Borgelt, fimi4r: Frequent Item Set Mining and Association Rule Induction for R.
@@ -72,33 +76,32 @@
 #' fim4r()
 #'
 #' # mine association rules with FPgrowth
-#' # note that fim4r specifies support and confidence out of 100%
-#' r <- fim4r(Adult, method = "fpgrowth", target = "rules", supp = 70, conf = 80)
+#' r <- fim4r(Adult, method = "fpgrowth", target = "rules", supp = .7, conf = .8)
 #' r
 #' inspect(head(r, by = "lift"))
 #'
 #' # mine closed itemsets with Carpenter or IsTa
-#' closed <- fim4r(Adult, method = "carpenter", target = "closed", supp = 70)
+#' closed <- fim4r(Adult, method = "carpenter", target = "closed", supp = .7)
 #' closed
-#' fim4r(Adult, method = "ista", target = "closed", supp = 70)
+#' fim4r(Adult, method = "ista", target = "closed", supp = .7)
 #'
 #' # mine frequent itemset of length 2 (zmin and zmax = 2)
-#' freq_2 <- fim4r(Adult, method = "relim", target = "frequent", supp = 70,
+#' freq_2 <- fim4r(Adult, method = "relim", target = "frequent", supp = .7,
 #'   zmin = 2, zmax = 2)
 #' inspect(freq_2)
 #'
 #' # mine maximal frequent itemsets
-#' mfis <- fim4r(Adult, method = "sam", target = "maximal", supp = 70)
+#' mfis <- fim4r(Adult, method = "sam", target = "maximal", supp = .7)
 #' inspect(mfis)
 #'
 #' # use item appearance. We first mine all rules and then restrict
 #' #   the appearance of the item capital-gain=None
 #' rules_all <- fim4r(Adult, method = "fpgrowth", target = "rules",
-#'   supp = 90, conf = 90, zmin = 2)
+#'   supp = .9, conf = .9, zmin = 2)
 #' inspect(rules_all)
 #'
 #' rules_no_gain <- fim4r(Adult, method = "fpgrowth", target = "rules",
-#'   supp = 90, conf = 90, zmin = 2,
+#'   supp = .9, conf = .9, zmin = 2,
 #'   appear = list(c("capital-gain=None"), c("-"))
 #'   )
 #' inspect(rules_no_gain)
@@ -106,9 +109,13 @@
 fim4r <-
   function(transactions,
     method = NULL,
+    support = .1,
+    confidence = .8,
     target = "frequent",
-    report = NULL,
+    originalSupport = TRUE,
     appear = NULL,
+    report = NULL,
+    verbose = TRUE,
     ...) {
     #fim4r_url <- "https://borgelt.net/src/fim4r_1.7.tar.gz"
     fim4r_url <-
@@ -124,16 +131,18 @@ fim4r <-
       utils::install.packages(fim4r_url, repos = NULL)
     }
     
-    methods_rules <-
-      c("apriori",
-        "eclat",
-        "fpgrowth")
-    
     methods_itemsets <-
       c("carpenter",
         "ista",
         "relim",
         "sam")
+    
+    # these use conf
+    methods_rules <-
+      c("apriori",
+        "eclat",
+        "fpgrowth")
+    
     methods <- c(methods_rules, methods_itemsets)
     
     if (is.null(method)) {
@@ -171,6 +180,12 @@ fim4r <-
     transactions <- transactions(transactions)
     tracts <- LIST(transactions, decode = FALSE)
     
+    # fix supp to support count and conf to scale [0, 100]
+    # Note: the man page for fim4r:: is wrong! support is not the support
+    # Note: fim4r has a bug and returns elements with support < supp so we have to filter it manually!
+    supp <- support * 100
+    conf <- confidence * 100
+    
     # fix appear
     if (!is.null(appear)) {
       if (!is.list(appear) ||
@@ -196,16 +211,35 @@ fim4r <-
     if (!is.null(appear))
       args$appear = appear
     
+    if (method %in% methods_rules)
+      args <- c(list(supp = supp, conf = conf), args)
+    else
+      args <- c(list(supp = supp), args)
+      
+    
+    fun <- paste0("fim4r.", method)
+    
+    if (verbose) {
+      cat(fun, "\n\nParameter specification:\n")
+      print(data.frame(args, row.names = ""))
+      cat("\n")
+      cat("Data size:", paste(dim(transactions), c("transactions", "items"), collapse = " and "), "\n")
+    }
+      
     res <-
-      do.call(utils::getFromNamespace(paste0("fim4r.", method), "fim4r"),
+      do.call(utils::getFromNamespace(fun, "fim4r"),
         args = c(list(tracts = tracts), args))
     
     # handle no rules/itemsets
     if (length(res) == 0) {
       nosets <- encode(list(), itemLabels = itemLabels(transactions))
       if (!is.na(pmatch("r", target))) {
+        if (verbose) 
+          cat("Result: 0 rules\n")
         return(rules(lhs = nosets, rhs = nosets))
       } else{
+        if (verbose) 
+          cat("Result: 0 itemsets\n")
         return(itemsets(items = nosets))
       }
     }
@@ -222,11 +256,21 @@ fim4r <-
         cbind(qual, as.integer(qual[[1]] * length(transactions)))
       colnames(qual) <-
         c("support", "confidence", "lift", "count")
-      return(rules(
+      
+      r <- rules(
         lhs = lhs,
         rhs = rhs,
         quality = qual
-      ))
+      )
+      
+      # fim4r uses LHS support so we need to filter 
+      if (originalSupport) 
+        r <- r[quality(r)$support >= support] 
+      
+      if (verbose) 
+        cat("Result:", length(r), "rules\n")
+      
+      return(r)
     } else{
       # for itemsets
       items <- lapply(res, "[[", 1)
@@ -237,6 +281,10 @@ fim4r <-
       qual <-
         cbind(qual, as.integer(qual[[1]] * length(transactions)))
       colnames(qual) <- c("support", "count")
+      
+      if (verbose) 
+        cat("Result:", length(items), "itemsets\n")
+      
       return(itemsets(items = items, quality = qual))
     }
   }
