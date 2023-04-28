@@ -73,7 +73,13 @@ Apriori, Eclat, FPgrowth, Carpenter, IsTa, RElim and SaM.
 \details{
 \strong{Installation:}
 The package \pkg{fim4r} is not available via CRAN. If needed,
-the \code{fim4r()} function downloads and installs the current version of the package automatically.
+the \code{fim4r()} function downloads and installs the current version of the
+package automatically. Your system needs to have build tools installed.
+
+Build tools: You need to be able to install source packages. For Windows
+users this means that you need to install the
+\href{https://cran.r-project.org/bin/windows/Rtools/}{RTools} with a version
+matching your R version.
 
 \strong{Additional Notes:}
 \itemize{

@@ -24,7 +24,13 @@
 #'
 #' **Installation:**
 #' The package \pkg{fim4r} is not available via CRAN. If needed,
-#' the `fim4r()` function downloads and installs the current version of the package automatically.
+#' the `fim4r()` function downloads and installs the current version of the 
+#' package automatically. Your system needs to have build tools installed.
+#' 
+#' Build tools: You need to be able to install source packages. For Windows
+#' users this means that you need to install the
+#' [RTools](https://cran.r-project.org/bin/windows/Rtools/) with a version 
+#' matching your R version.
 #'
 #' **Additional Notes:**
 #'
