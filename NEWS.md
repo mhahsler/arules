@@ -2,7 +2,7 @@
 
 ## Changes
 * Improved the interface for fim4r. support and confidence now uses [0, 1]; added verbose 
-  and origialSupport. 
+  and originalSupport. 
 
 ## Bugfixes
 * eclat and apriori now use the next smaller representable double for minsupp to make sure that >= minsupp works.

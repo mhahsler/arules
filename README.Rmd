@@ -119,7 +119,8 @@ rules %>% head(n = 3, by = "lift") %>% inspect()
 
 ## Using arules from Python
 
-See [Getting started with arules using Python.](https://mhahsler.github.io/arules/docs/python/arules_python.html)
+A Python interface for `arules` and `arulesViz` is now available in the Python 
+package [`arulespy`](https://pypi.org/project/arulespy/). 
 
 ## Support
 

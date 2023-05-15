@@ -151,10 +151,10 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## Absolute minimum support count: 899 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
+    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.03s].
+    ## checking subsets of size 1 2 3 4 5 6 done [0.01s].
     ## writing ... [457 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 
@@ -194,14 +194,10 @@ library("tidyverse")
 library("arules")
 data("IncomeESL")
 
-trans <- IncomeESL %>%
-    select(-`ethnic classification`) %>%
-    transactions()
-rules <- trans %>%
-    apriori(supp = 0.1, conf = 0.9, target = "rules", control = list(verbose = FALSE))
-rules %>%
-    head(n = 3, by = "lift") %>%
-    inspect()
+trans <- IncomeESL %>% select(-`ethnic classification`) %>% transactions()
+rules <- trans %>% apriori(supp = 0.1, conf = 0.9, target = "rules", 
+  control = list(verbose = FALSE))
+rules %>% head(n = 3, by = "lift") %>% inspect()
 ```
 
     ##     lhs                           rhs                      support confidence coverage lift count
@@ -217,8 +213,8 @@ rules %>%
 
 ## Using arules from Python
 
-See [Getting started with arules using
-Python.](https://mhahsler.github.io/arules/docs/python/arules_python.html)
+A Python interface for `arules` and `arulesViz` is now available in the
+Python package [`arulespy`](https://pypi.org/project/arulespy/).
 
 ## Support
 
