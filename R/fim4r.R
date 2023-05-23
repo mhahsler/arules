@@ -63,10 +63,9 @@
 #' and the target `"rules"`) Specify a list with two vectors (item labels and 
 #' appearance modifiers) of the same length. Appearance modifiers are:
 #'  
-#'   * `"-"` (may not appear),
-#'   * `"a"` (only in rule antecedent/LHS), 
-#'   * `"c"` (only in rule consequent/RHS) and 
-#'   * `"x"` (may appear anywhere).
+#'   * `"-"` (item may not appear),
+#'   * `"a"` (item may only in rule antecedent/LHS), 
+#'   * `"x"` (item may appear anywhere).
 #' @param verbose logical; print used parameters?
 #' @param ... further arguments are passed on to the function `fim4r.x()` in
 #'   package \pkg{fim4r} (`x` is the specified `method`). 
@@ -204,7 +203,7 @@ fim4r <-
       if (is.numeric(appear[[1]])) {
         appear[[1]] <- as.integer(appear[[1]])
       } else{
-        appearID <- pmatch(appear[[1]], itemLabels(transactions))
+        appearID <- pmatch(appear[[1]], itemLabels(transactions), duplicates.ok = TRUE)
         if (any(is.na(appearID)))
           stop("The following item labels cannot be matched: ",
             paste(sQuote(appear[[1]][is.na(appearID)]), collapse = ", "))
@@ -222,7 +221,6 @@ fim4r <-
     else
       args <- c(list(supp = supp), args)
       
-    
     fun <- paste0("fim4r.", method)
     
     if (verbose) {
