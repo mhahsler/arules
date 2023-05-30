@@ -7,6 +7,7 @@ version](http://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org
 status](https://mhahsler.r-universe.dev/badges/arules)](https://mhahsler.r-universe.dev/arules)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/arules)](https://CRAN.R-project.org/package=arules)
+[![Anaconda.org](https://anaconda.org/conda-forge/r-arules/badges/version.svg)](https://anaconda.org/conda-forge/r-arules)
 
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns using [frequent
@@ -154,7 +155,7 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.01s].
+    ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
     ## writing ... [457 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 
@@ -182,7 +183,7 @@ For example:
 
 - `dplyr` can be used for cleaning and preparing the transactions.
 - `transaction()` and other functions accept `tibble` as input.
-- Functions in arules can be used with `%>%`.
+- Functions in arules can be connected with the pipe operator `|>`.
 - [arulesViz](https://github.com/mhahsler/arulesViz) provides
   visualizations based on `ggplot2`.
 
@@ -194,27 +195,30 @@ library("tidyverse")
 library("arules")
 data("IncomeESL")
 
-trans <- IncomeESL %>% select(-`ethnic classification`) %>% transactions()
-rules <- trans %>% apriori(supp = 0.1, conf = 0.9, target = "rules", 
-  control = list(verbose = FALSE))
-rules %>% head(n = 3, by = "lift") %>% inspect()
+trans <- IncomeESL |> 
+      select(-`ethnic classification`) |> 
+      transactions()
+rules <- trans |> 
+      apriori(supp = 0.1, conf = 0.9, target = "rules", 
+              control = list(verbose = FALSE))
+rules |> 
+      head(3, by = "lift") |>
+      as("data.frame") |> 
+      tibble()
 ```
 
-    ##     lhs                           rhs                      support confidence coverage lift count
-    ## [1] {dual incomes=no,                                                                            
-    ##      householder status=own}   => {marital status=married}    0.10       0.97     0.10  2.6   914
-    ## [2] {years in bay area=>10,                                                                      
-    ##      dual incomes=yes,                                                                           
-    ##      type of home=house}       => {marital status=married}    0.10       0.96     0.10  2.6   902
-    ## [3] {dual incomes=yes,                                                                           
-    ##      householder status=own,                                                                     
-    ##      type of home=house,                                                                         
-    ##      language in home=english} => {marital status=married}    0.11       0.96     0.11  2.6   988
+    ## # A tibble: 3 × 6
+    ##   rules                                  support confidence coverage  lift count
+    ##   <chr>                                    <dbl>      <dbl>    <dbl> <dbl> <int>
+    ## 1 {dual incomes=no,householder status=o…   0.102      0.971    0.105  2.62   914
+    ## 2 {years in bay area=>10,dual incomes=y…   0.100      0.961    0.104  2.59   902
+    ## 3 {dual incomes=yes,householder status=…   0.110      0.960    0.114  2.59   988
 
 ## Using arules from Python
 
-A Python interface for `arules` and `arulesViz` is now available in the
-Python package [`arulespy`](https://pypi.org/project/arulespy/).
+`arules` and `arulesViz` can now be used directly from Python with the
+Python package [`arulespy`](https://pypi.org/project/arulespy/)
+available form PyPI.
 
 ## Support
 
@@ -225,6 +229,18 @@ arules](https://stackoverflow.com/questions/tagged/arules).
 
 ## References
 
+- Michael Hahsler. [ARULESPY: Exploring association rules and frequent
+  itemsets in Python.](http://dx.doi.org/10.48550/arXiv.2305.15263)
+  arXiv:2305.15263 \[cs.DB\], May 2023.
+- Michael Hahsler. [An R Companion for Introduction to Data Mining:
+  Chapter
+  5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html),
+  2021, URL:
+  <https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/>
+- Hahsler, Michael. [A Probabilistic Comparison of Commonly Used
+  Interest Measures for Association
+  Rules](https://mhahsler.github.io/arules/docs/measures), 2015, URL:
+  <https://mhahsler.github.io/arules/docs/measures>.
 - Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian
   Buchta. [The arules R-package ecosystem: Analyzing interesting
   patterns from large transaction
@@ -234,12 +250,3 @@ arules](https://stackoverflow.com/questions/tagged/arules).
   Computational Environment for Mining Association Rules and Frequent
   Item Sets.](https://dx.doi.org/10.18637/jss.v014.i15) *Journal of
   Statistical Software,* 14(15), 2005.
-- Hahsler, Michael. [A Probabilistic Comparison of Commonly Used
-  Interest Measures for Association
-  Rules](https://mhahsler.github.io/arules/docs/measures), 2015, URL:
-  <https://mhahsler.github.io/arules/docs/measures>.
-- Michael Hahsler. [An R Companion for Introduction to Data Mining:
-  Chapter
-  5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html),
-  2021, URL:
-  <https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/>

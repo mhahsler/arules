@@ -8,6 +8,8 @@ pkg <- 'arules'
 source("https://raw.githubusercontent.com/mhahsler/pkg_helpers/main/pkg_helpers.R")
 pkg_title(pkg)
 ```
+[![Anaconda.org](https://anaconda.org/conda-forge/r-arules/badges/version.svg)](https://anaconda.org/conda-forge/r-arules)
+
 
 The arules package for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
@@ -102,7 +104,7 @@ inspect(head(rules, n = 3, by = "lift"))
 
 * `dplyr` can be used for cleaning and preparing the transactions.
 * `transaction()` and other functions accept `tibble` as input.
-* Functions in arules can be used with `%>%`.
+* Functions in arules can be connected with the pipe operator `|>`.
 * [arulesViz](https://github.com/mhahsler/arulesViz) provides visualizations based on `ggplot2`.
 
 For example, we can remove the ethnic information column before creating transactions and then mine and inspect rules.
@@ -111,16 +113,22 @@ library("tidyverse")
 library("arules")
 data("IncomeESL")
 
-trans <- IncomeESL %>% select(-`ethnic classification`) %>% transactions()
-rules <- trans %>% apriori(supp = 0.1, conf = 0.9, target = "rules", 
-  control = list(verbose = FALSE))
-rules %>% head(n = 3, by = "lift") %>% inspect()
+trans <- IncomeESL |> 
+      select(-`ethnic classification`) |> 
+      transactions()
+rules <- trans |> 
+      apriori(supp = 0.1, conf = 0.9, target = "rules", 
+              control = list(verbose = FALSE))
+rules |> 
+      head(3, by = "lift") |>
+      as("data.frame") |> 
+      tibble()
 ```
 
 ## Using arules from Python
 
-A Python interface for `arules` and `arulesViz` is now available in the Python 
-package [`arulespy`](https://pypi.org/project/arulespy/). 
+`arules` and `arulesViz` can now be used directly from Python with the Python 
+package [`arulespy`](https://pypi.org/project/arulespy/) available form PyPI. 
 
 ## Support
 
@@ -130,8 +138,9 @@ Questions should be posted on [stackoverflow and tagged with arules](https://sta
 
 ## References
 
+* Michael Hahsler. [ARULESPY: Exploring association rules and frequent itemsets in 
+  Python.](http://dx.doi.org/10.48550/arXiv.2305.15263) arXiv:2305.15263 [cs.DB], May 2023.
+* Michael Hahsler. [An R Companion for Introduction to Data Mining: Chapter 5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html), 2021, URL: https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/
+* Hahsler, Michael. [A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://mhahsler.github.io/arules/docs/measures), 2015, URL: https://mhahsler.github.io/arules/docs/measures.
 * Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian Buchta. [The arules R-package ecosystem: Analyzing interesting patterns from large transaction datasets.](https://jmlr.csail.mit.edu/papers/v12/hahsler11a.html) _Journal of Machine Learning Research,_ 12:1977-1981, 2011.
 * Michael Hahsler, Bettina Gr&uuml;n and Kurt Hornik. [arules - A Computational Environment for Mining Association Rules and Frequent Item Sets.](https://dx.doi.org/10.18637/jss.v014.i15) _Journal of Statistical Software,_ 14(15), 2005.
-* Hahsler, Michael. [A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://mhahsler.github.io/arules/docs/measures), 2015, URL: https://mhahsler.github.io/arules/docs/measures.
-* Michael Hahsler. [An R Companion for Introduction to Data Mining: Chapter 5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html), 2021, URL: https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/
-
