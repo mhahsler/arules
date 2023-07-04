@@ -38,8 +38,8 @@ for counts and avoids zero counts.}
 returns a logical vector indicating which rules are redundant.
 }
 \description{
-Provides the generic function \code{is.redundant()} and the method  to find
-redundant rules.
+Provides the generic function \code{is.redundant()} and the method to find
+redundant rules based on any interest measure.
 }
 \details{
 \bold{Simple improvement-based redundancy:} (\code{confint = FALSE}) A rule

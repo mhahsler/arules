@@ -1,3 +1,8 @@
+# arules 1.7-6.1 (xx/xx/2023)
+
+## Changes
+* is.significant gained parameter reuse.
+
 # arules 1.7-6 (03/23/2023)
 
 ## Changes

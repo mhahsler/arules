@@ -39,3 +39,10 @@ for (m in measures) {
 #ci <- confint(rules, "support")
 #ci[,2] - ci[,1]
 
+
+# is.significant
+s <- is.significant(rules, method = "Fisher", alpha = 0.05, adjust = "none")
+s2 <- interestMeasure(rules, "Fisher") <= 0.05
+
+expect_equal(s, s2)
+

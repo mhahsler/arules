@@ -7,24 +7,30 @@
 \usage{
 is.significant(
   x,
-  transactions,
+  transactions = NULL,
   method = "fisher",
   alpha = 0.01,
-  adjust = "bonferroni"
+  adjust = "bonferroni",
+  reuse = TRUE,
+  ...
 )
 
 \S4method{is.significant}{rules}(
   x,
-  transactions,
+  transactions = NULL,
   method = "fisher",
   alpha = 0.01,
-  adjust = "bonferroni"
+  adjust = "bonferroni",
+  reuse = TRUE,
+  ...
 )
 }
 \arguments{
 \item{x}{a set of \link{rules}.}
 
-\item{transactions}{set of \link{transactions} used to mine the rules.}
+\item{transactions}{optional set of \link{transactions}. Only needed if not sufficient
+interest measures are available in \code{x}. If the test should be performed
+on a transaction set different then the one used for mining (use \code{reuse = FALSE}).}
 
 \item{method}{test to use. Options are \code{"fisher"}, \code{"chisq"}. Note that
 the contingency table is likely to have cells with low expected values and
@@ -36,6 +42,11 @@ test.}
 \item{adjust}{method to adjust for multiple comparisons. Options are
 \code{"none"}, \code{"bonferroni"}, \code{"holm"}, \code{"fdr"}, etc. (see
 \code{\link[stats:p.adjust]{stats::p.adjust()}})}
+
+\item{reuse}{logical indicating if information in the quality slot should be
+reuse for calculating the measures.}
+
+\item{...}{further arguments are passed on to \code{\link[=interestMeasure]{interestMeasure()}}.}
 }
 \value{
 returns a logical vector indicating which rules are significant.

@@ -20,8 +20,8 @@
 
 #' Find Redundant Rules
 #'
-#' Provides the generic function `is.redundant()` and the method  to find
-#' redundant rules.
+#' Provides the generic function `is.redundant()` and the method to find
+#' redundant rules based on any interest measure.
 #'
 #' \bold{Simple improvement-based redundancy:} (`confint = FALSE`) A rule
 #' can be defined as redundant if a more general rules with the same or a
