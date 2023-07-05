@@ -63,8 +63,9 @@
 #' and the target `"rules"`) Specify a list with two vectors (item labels and 
 #' appearance modifiers) of the same length. Appearance modifiers are:
 #'  
-#'   * `"-"` (item may not appear),
-#'   * `"a"` (item may only in rule antecedent/LHS), 
+#'   * `"-"` (item may not appear in a rule),
+#'   * `"a"` (item may only appear a rule antecedent/LHS), 
+#'   * `"c"` (item may only appear a rule consequent/RHS), 
 #'   * `"x"` (item may appear anywhere).
 #' @param verbose logical; print used parameters?
 #' @param ... further arguments are passed on to the function `fim4r.x()` in
@@ -81,14 +82,16 @@
 #' fim4r()
 #'
 #' # mine association rules with FPgrowth
-#' r <- fim4r(Adult, method = "fpgrowth", target = "rules", supp = .7, conf = .8)
+#' r <- fim4r(Adult, method = "fpgrowth", 
+#'   target = "rules", supp = .7, conf = .8)
 #' r
 #' inspect(head(r, by = "lift"))
 #'
 #' # mine closed itemsets with Carpenter or IsTa
-#' closed <- fim4r(Adult, method = "carpenter", target = "closed", supp = .7)
-#' closed
-#' fim4r(Adult, method = "ista", target = "closed", supp = .7)
+#' fim4r(Adult, method = "carpenter", 
+#'   target = "closed", supp = .7)
+#' fim4r(Adult, method = "ista", 
+#'   target = "closed", supp = .7)
 #'
 #' # mine frequent itemset of length 2 (zmin and zmax = 2)
 #' freq_2 <- fim4r(Adult, method = "relim", target = "frequent", supp = .7,
@@ -99,17 +102,36 @@
 #' mfis <- fim4r(Adult, method = "sam", target = "maximal", supp = .7)
 #' inspect(mfis)
 #'
-#' # use item appearance. We first mine all rules and then restrict
-#' #   the appearance of the item capital-gain=None
-#' rules_all <- fim4r(Adult, method = "fpgrowth", target = "rules",
-#'   supp = .9, conf = .9, zmin = 2)
-#' inspect(rules_all)
+#' # Examples for how to use item appearance with apriori, eclat, 
+#' #   fpgrowth in fim4r. We first mine all rules.
+#' inspect(fim4r(Adult, method = "fpgrowth", 
+#'   target = "rules", supp = .8))
 #'
-#' rules_no_gain <- fim4r(Adult, method = "fpgrowth", target = "rules",
-#'   supp = .9, conf = .9, zmin = 2,
-#'   appear = list(c("capital-gain=None"), c("-"))
-#'   )
-#' inspect(rules_no_gain)
+#' # ignore item "capital-gain=None"
+#' inspect(fim4r(Adult, method = "fpgrowth", 
+#'   target = "rules", supp = .8,
+#'   appear = list(c("capital-gain=None"), c("-"))))
+#' 
+#' # "capital-gain=None" cannot appear in consequent (antecedent only)
+#' inspect(fim4r(Adult, method = "fpgrowth", 
+#'   target = "rules", supp = .8,
+#'   appear = list(c("capital-gain=None"), c("a"))))
+#' 
+#' # "capital-gain=None" cannot appear in the antecedent
+#' inspect(fim4r(Adult, method = "fpgrowth", 
+#'   target = "rules", supp = .8,
+#'   appear = list(c("capital-gain=None"), c("c"))))
+#' 
+#' # restrict the consequent to the item "capital-gain=None".
+#' # That is, "" = all items can only appear in the antecedent with the 
+#' # exception that "capital-gain=None" can only appear in the consequent.
+#' inspect(fim4r(Adult, method = "fpgrowth", 
+#'   target = "rules", supp = .8,
+#'   appear = list(c("", "capital-gain=None"), c("a", "c"))))
+#'   
+#' inspect(fim4r(Adult, method = "fpgrowth", 
+#'   target = "rules", supp = .8,
+#'   appear = list(c(-1L, 63L), c("a", "c"))))
 #' }
 fim4r <-
   function(transactions,
@@ -191,7 +213,7 @@ fim4r <-
     supp <- support * 100
     conf <- confidence * 100
     
-    # fix appear
+    # translate appear to IDs
     if (!is.null(appear)) {
       if (!is.list(appear) ||
           length(appear) != 2 ||
@@ -199,22 +221,26 @@ fim4r <-
         stop(
           "'appear' needs to contain a list with two elements specifying a vector of items and a vector of appearance specifiers. See ? fim4r::fim4r"
         )
-      
-      if (is.numeric(appear[[1]])) {
-        appear[[1]] <- as.integer(appear[[1]])
-      } else{
-        appearID <- pmatch(appear[[1]], itemLabels(transactions), duplicates.ok = TRUE)
-        if (any(is.na(appearID)))
-          stop("The following item labels cannot be matched: ",
-            paste(sQuote(appear[[1]][is.na(appearID)]), collapse = ", "))
-        appear[[1]] <- appearID
-      }
-    }
+       
+     if (is.numeric(appear[[1]])) {
+          appear[[1]] <- as.integer(appear[[1]])
+        } else{
+          # "" means all items in fim4r. Translate to -1L
+          appearID <- pmatch(appear[[1]], itemLabels(transactions), duplicates.ok = TRUE)
+          appearID[appear[[1]] == ""] <- -1L
+          if (any(is.na(appearID)))
+            stop("The following item labels cannot be matched: ",
+              paste(sQuote(appear[[1]][is.na(appearID)]), collapse = ", "))
+          appear[[1]] <- appearID
+        }
+     }
     
     args <- c(list(target = target, report = "scl"),
       list(...))
+    
+    # appear messed up verbose output so we add it later
     if (!is.null(appear))
-      args$appear = appear
+      args$appear = "specified"
     
     if (method %in% methods_rules)
       args <- c(list(supp = supp, conf = conf), args)
@@ -229,6 +255,10 @@ fim4r <-
       cat("\n")
       cat("Data size:", paste(dim(transactions), c("transactions", "items"), collapse = " and "), "\n")
     }
+    
+    # appear messed up verbose output so we add it now
+    if (!is.null(appear))
+      args$appear = appear
       
     res <-
       do.call(utils::getFromNamespace(fun, "fim4r"),

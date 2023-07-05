@@ -3,6 +3,10 @@
 ## Changes
 * is.significant gained parameter reuse. The default for adjust was changed 
   to "none." 
+  
+## Bugfixes
+* Fixed appearance code for fim4r (reported by mytarmail).
+  
 
 # arules 1.7-6 (03/23/2023)
 
