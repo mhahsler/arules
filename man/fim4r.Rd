@@ -146,10 +146,6 @@ inspect(fim4r(Adult, method = "fpgrowth",
 inspect(fim4r(Adult, method = "fpgrowth", 
   target = "rules", supp = .8,
   appear = list(c("", "capital-gain=None"), c("a", "c"))))
-  
-inspect(fim4r(Adult, method = "fpgrowth", 
-  target = "rules", supp = .8,
-  appear = list(c(-1L, 63L), c("a", "c"))))
 }
 }
 \references{
