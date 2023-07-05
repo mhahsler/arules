@@ -42,9 +42,9 @@
 #' that thus Fisher's Exact Test might be more appropriate than the chi-squared
 #' test.
 #' @param alpha required significance level.
-#' @param adjust method to adjust for multiple comparisons. Options are
+#' @param adjust method to adjust for multiple comparisons. Some options are
 #' `"none"`, `"bonferroni"`, `"holm"`, `"fdr"`, etc. (see
-#' [stats::p.adjust()])
+#' [stats::p.adjust()] for more methods)
 #' @param reuse logical indicating if information in the quality slot should be 
 #'   reuse for calculating the measures. 
 #' @param ... further arguments are passed on to [interestMeasure()].
@@ -58,17 +58,15 @@
 #' @keywords manip
 #' @examples
 #' data("Income")
-#' rules <- apriori(Income, parameter = list(support = 0.5))
-#' is.significant(rules, Income)
+#' rules <- apriori(Income, support = 0.2)
+#' is.significant(rules)
 #'
-#' inspect(rules[is.significant(rules, Income)])
+#' rules[is.significant(rules)]
+#'
+#' # Adjust P-values for multiple comparisons
+#' rules[is.significant(rules, adjust = "bonferroni")]
 setGeneric("is.significant",
-  function(x,
-    transactions = NULL,
-    method = "fisher",
-    alpha = 0.01,
-    adjust = "bonferroni", 
-    reuse = TRUE, ...)
+  function(x, ...)
     standardGeneric("is.significant"))
 
 #' @rdname is.significant
@@ -77,7 +75,7 @@ setMethod("is.significant", signature(x = "rules"),
     transactions = NULL,
     method = "fisher",
     alpha = 0.01,
-    adjust = "bonferroni",
+    adjust = "none",
     reuse = TRUE,
     ...) {
     methods <- c("fisher", "chisq")

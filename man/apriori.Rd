@@ -113,6 +113,9 @@ rules <- apriori(Adult,
 	parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
 summary(rules)
 
+# since ... gets automatically added to parameter, we can also write the 
+#  same call shorter:
+apriori(Adult, supp = 0.5, conf = 0.9, target = "rules")
 }
 \references{
 R. Agrawal, T. Imielinski, and A. Swami (1993) Mining

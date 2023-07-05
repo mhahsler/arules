@@ -5,28 +5,22 @@
 \alias{is.significant,rules-method}
 \title{Find Significant Rules}
 \usage{
-is.significant(
-  x,
-  transactions = NULL,
-  method = "fisher",
-  alpha = 0.01,
-  adjust = "bonferroni",
-  reuse = TRUE,
-  ...
-)
+is.significant(x, ...)
 
 \S4method{is.significant}{rules}(
   x,
   transactions = NULL,
   method = "fisher",
   alpha = 0.01,
-  adjust = "bonferroni",
+  adjust = "none",
   reuse = TRUE,
   ...
 )
 }
 \arguments{
 \item{x}{a set of \link{rules}.}
+
+\item{...}{further arguments are passed on to \code{\link[=interestMeasure]{interestMeasure()}}.}
 
 \item{transactions}{optional set of \link{transactions}. Only needed if not sufficient
 interest measures are available in \code{x}. If the test should be performed
@@ -39,14 +33,12 @@ test.}
 
 \item{alpha}{required significance level.}
 
-\item{adjust}{method to adjust for multiple comparisons. Options are
+\item{adjust}{method to adjust for multiple comparisons. Some options are
 \code{"none"}, \code{"bonferroni"}, \code{"holm"}, \code{"fdr"}, etc. (see
-\code{\link[stats:p.adjust]{stats::p.adjust()}})}
+\code{\link[stats:p.adjust]{stats::p.adjust()}} for more methods)}
 
 \item{reuse}{logical indicating if information in the quality slot should be
 reuse for calculating the measures.}
-
-\item{...}{further arguments are passed on to \code{\link[=interestMeasure]{interestMeasure()}}.}
 }
 \value{
 returns a logical vector indicating which rules are significant.
@@ -64,10 +56,13 @@ independence is rejected). See Hahsler and Hornik (2007) for details.
 }
 \examples{
 data("Income")
-rules <- apriori(Income, parameter = list(support = 0.5))
-is.significant(rules, Income)
+rules <- apriori(Income, support = 0.2)
+is.significant(rules)
 
-inspect(rules[is.significant(rules, Income)])
+rules[is.significant(rules)]
+
+# Adjust P-values for multiple comparisons
+rules[is.significant(rules, adjust = "bonferroni")]
 }
 \references{
 Hahsler, Michael and Kurt Hornik (2007). New probabilistic
