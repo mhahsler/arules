@@ -190,6 +190,7 @@ weclat <- function(data,
   control@sort <- NA_integer_
   
   if (control@verbose) {
+    cat("Weighted Eclat (WEclat)\n")
     cat("\nparameter specification:\n")
     show(parameter)
     cat("\nalgorithmic control:\n")
