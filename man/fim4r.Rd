@@ -16,9 +16,9 @@
 fim4r(
   transactions,
   method = NULL,
+  target = "frequent",
   support = 0.1,
   confidence = 0.8,
-  target = "frequent",
   originalSupport = TRUE,
   appear = NULL,
   report = NULL,
@@ -36,12 +36,12 @@ fim4r(
 \item \code{"carpenter"}, \code{"ista"}  can only mine closed itemset.
 }}
 
+\item{target}{the target type. One of: \code{"frequent"},
+\code{"closed"}, \code{"maximal"}, \code{"generators"} or \code{"rules"}.}
+
 \item{support}{a numeric value for the minimal support in the range \eqn{[0,1]}.}
 
 \item{confidence}{a numeric value for the minimal confidence of rules in the range \eqn{[0,1]}.}
-
-\item{target}{the target type. One of: \code{"frequent"},
-\code{"closed"}, \code{"maximal"}, \code{"generators"} or \code{"rules"}.}
 
 \item{originalSupport}{logical; Use the support threshold on the support of the whole rule (LHS and RHS).
 If \code{FALSE}, then LHS support (i.e., coverage) is used by the support threshold.}
@@ -60,8 +60,9 @@ appearance modifiers) of the same length. Appearance modifiers are:
 
 \item{verbose}{logical; print used parameters?}
 
-\item{...}{further arguments are passed on to the function \code{fim4r.x()} in
-package \pkg{fim4r} (\code{x} is the specified \code{method}).}
+\item{...}{further arguments are passed on to the function
+the \link[fim4r:fim4r]{fim4r::fim4r} function for the given method. Examples
+are: \code{zmin}, \code{zmax}, \code{wgts}.}
 }
 \value{
 An object of class \link{itemsets} or \link{rules}.
@@ -83,13 +84,15 @@ matching your R version.
 
 \strong{Additional Notes:}
 \itemize{
-\item Support and confidence are specified here in the range \eqn{[0,1]}. This is different from the use in  \code{fim4r} package where \code{supp} and \code{conf} have the range \eqn{[0, 100]}.
-\code{arules::fim4r()} automatically converts confidence internally.
+\item Support and confidence are specified here in the range \eqn{[0,1]}.
+This is different from the use in  \code{fim4r} package where \code{supp} and \code{conf}
+have the range \eqn{[0, 100]}.
+\code{arules::fim4r()} automatically converts support and confidence internally.
 \item \code{fim4r} methods also return the empty itemset while \code{arules} methods do not.
-\item Type \code{? fim4r::fim4r} for help on additional available arguments. This is only available
+\item See \link[fim4r:fim4r]{fim4r::fim4r} for help on additional available arguments. This is only available
 after package \code{fim4r} is installed.
 \item Algorithm descriptions and references can be found on the
-web page in the References Section.
+\href{https://borgelt.net/fim4r.html}{fim4r web page} in the References Section.
 }
 }
 \examples{
