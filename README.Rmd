@@ -10,8 +10,9 @@ pkg_title(pkg)
 ```
 [![Anaconda.org](https://anaconda.org/conda-forge/r-arules/badges/version.svg)](https://anaconda.org/conda-forge/r-arules)
 
+## Introduction
 
-The arules package for R provides the infrastructure for representing,
+The arules package family for R provides the infrastructure for representing,
 manipulating and analyzing transaction data and patterns
 using [frequent itemsets and association rules](https://en.wikipedia.org/wiki/Association_rule_learning).
 The package also provides a wide range of 
@@ -31,16 +32,22 @@ Code examples can be found in
 [Chapter 5 of the web book R Companion for Introduction to Data
 Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
 
-## arules core packages: 
+```{r echo=FALSE, results = 'asis'}
+pkg_citation(pkg, 2)
+```
+
+## Packages
+
+### arules core packages
 
 * [arules](https://cran.r-project.org/package=arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
 * [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of association rules. 
 * [arulesCBA](https://github.com/ianstenbit/arulesCBA): Classification algorithms based on association rules (includes CBA).  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences): Mining frequent sequences (cSPADE).
 
-## Other related packages:
+### Other related packages
 
-### Additional mining algorithms 
+Additional mining algorithms 
 
 * [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner): Mining NB-frequent itemsets and NB-precise rules.
 * [fim4r](https://borgelt.net/fim4r.html): Provides fast implementations for several mining algorithms. An interface function called `fim4r()` is provided in `arules`.
@@ -49,17 +56,17 @@ Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/a
 * [RSarules](https://cran.r-project.org/package=RSarules): Mining algorithm which randomly samples association rules with one pre-chosen item as the consequent from a transaction dataset.
 
 
-### In-database analytics
+In-database analytics
 
 * [ibmdbR](https://cran.r-project.org/package=ibmdbR): IBM in-database analytics for R can calculate association rules from a database table.
 * [rfml](https://cran.r-project.org/package=rfml): Mine frequent itemsets or association rules using a MarkLogic server. 
 
-### Interface
+Interface
 
 * [rattle](https://cran.r-project.org/package=rattle): Provides a graphical user interface for association rule mining.
 * [pmml](https://cran.r-project.org/package=pmml): Generates PMML (predictive model markup language) for association rules.
 
-### Classification 
+Classification 
 
 * [arc](https://cran.r-project.org/package=arc): Alternative CBA implementation. 
 * [inTrees](https://cran.r-project.org/package=inTrees): Interpret Tree Ensembles provides functions for: extracting, measuring and pruning rules; selecting a compact rule set; summarizing rules into a learner.
@@ -67,14 +74,18 @@ Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/a
 * [qCBA](https://cran.r-project.org/package=qCBA): Quantitative Classification by Association Rules.
 * [sblr](https://cran.r-project.org/package=sbrl): Scalable Bayesian rule lists algorithm for classification.
 
-### Outlier Detection
+Outlier Detection
 
 * [fpmoutliers](https://cran.r-project.org/package=fpmoutliers): Frequent Pattern Mining Outliers.
 
-### Recommendation/Prediction
+Recommendation/Prediction
 
 * [recommenerlab](https://github.com/mhahsler/recommenderlab): Supports creating predictions using association rules.
 
+
+```{r echo=FALSE, results = 'asis'}
+pkg_usage(pkg)
+```
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_install(pkg)
