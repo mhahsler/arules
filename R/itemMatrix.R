@@ -157,7 +157,7 @@ setClass(
     ## itemInfo needs a labels column of appropriate length
     ## also the labels must be unique for matching objects.
     if (length(itemInfo(object)[["labels"]]) != nitems(object))
-      return("item labels do not match number of columns")
+      return("item labels in itemInfo do not match number of columns/items in the itemMatrix")
     if (length(unique(itemInfo(object)[["labels"]])) != nitems(object))
       return("item labels not unique")
     
@@ -475,7 +475,7 @@ setReplaceMethod("dimnames", signature(x = "itemMatrix",
   value = "list"),
   function(x, value) {
     if (any(dim(x) != sapply(value, length) & !sapply(value, is.null)))
-      stop("length of dimnames does not equal the dimension of the object.")
+      stop("Incorrect number of labels for dimnames.")
     
     if (!is.null(value[[1]])) {
       if (ncol(itemsetInfo(x)) == 0) {

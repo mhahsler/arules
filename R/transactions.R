@@ -369,7 +369,7 @@ setReplaceMethod("dimnames", signature(x = "transactions",
   value = "list"),
   function(x, value) {
     if (any(dim(x) != sapply(value, length) & !sapply(value, is.null)))
-      stop("length of dimnames does not equal the dimension of the object.")
+      stop("Incorrect number of labels for dimnames.")
     
     if (!is.null(value[[1]])) {
       if (ncol(transactionInfo(x)) == 0) {
