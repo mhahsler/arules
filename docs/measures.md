@@ -202,7 +202,7 @@ patterns often tend to be spurious.
 
 ## Contingency Table {#table} 
 
-A $2 \times 2$ contingency table with counts for rule $X \Rightarrow Y$ in
+A $2 \times 2$ [contingency table](https://en.wikipedia.org/wiki/Contingency_table) with counts for rule $X \Rightarrow Y$ in
 the transaction dataset. The counts are:
 
 |                |   $Y$               |  $\overline{Y}$                |
@@ -318,7 +318,7 @@ $$CF(X \Rightarrow Y) = \frac{conf(X \Rightarrow Y)-supp(Y)}{supp(\overline{Y})}
 
 For the analysis of
 $2 \times 2$ contingency tables,
-the chi-squared test statistic is a measure of the relationship 
+the [chi-squared test statistic](https://en.wikipedia.org/wiki/Chi-squared_test) is a measure of the relationship 
 between 
 two binary variables ($X$ and $Y$). 
 The chi-squared test statistic is used as a test for independence 
@@ -500,7 +500,7 @@ The measure is related to the [Sebag-Schoenauer Measure](#sebag-schoenauer).
 
 If $X$ and $Y$ are independent, then the $n_{XY}$
 is a realization of the random variable $C_{XY}$ which has a hypergeometric distribution with $n_Y$ draws from a population with $n_X$ successes and $n_{\overline{X}}$ failures.
-The p-value for Fisher's one-sided exact test giving the probability
+The p-value for [Fisher's one-sided exact test](https://en.wikipedia.org/wiki/Fisher%27s_exact_test) giving the probability
 of observing a contingency table with a count of at least $n_{XY}$
 given the observed marginal counts is
 
@@ -520,7 +520,7 @@ may be necessary.
 ## Gini Index {#gini}
 **Reference:** @arules:Tan:2004
 
-Measures quadratic entropy as
+The [Gini index](https://en.wikipedia.org/wiki/Gini_coefficient) measures quadratic entropy as
 
 $$\mathrm{gini}(X \Rightarrow Y) =
 P(X)    [P(Y|X)^2+P(\overline{Y}|X)^2] +
@@ -660,7 +660,8 @@ $$
 **Reference:** @arules:Tan:2004
 
 A null-invariant measure 
-for dependence using the Jaccard similarity between the two sets 
+for dependence using the [Jaccard similarity index](https://en.wikipedia.org/wiki/Jaccard_index) 
+between the two sets 
 of transactions that contain the items in $X$ and $Y$, 
 respectively. Defined as 
 
@@ -690,7 +691,7 @@ $$
 
 **Reference:** @arules:Tan:2004
 
-Cohen's kappa of the rule (seen as a classifier) given as the rules observed rule accuracy (i.e., confidence) corrected by the expected accuracy (of a random classifier). Kappa is defined as 
+[Cohen's kappa coefficient](https://en.wikipedia.org/wiki/Cohen%27s_kappa) of the rule (seen as a classifier) given as the rules observed rule accuracy (i.e., confidence) corrected by the expected accuracy (of a random classifier). Kappa is defined as 
 
 $$
 \kappa(X \Rightarrow Y) 
@@ -880,7 +881,7 @@ $$
 
 **Reference:** @arules:Tan:2004
 
-Measures the information gain for Y provided by X.
+[Mutual information](https://en.wikipedia.org/wiki/Mutual_information) measures the information obtained about Y by observing X.
 
 $$
 \begin{aligned}
@@ -897,7 +898,7 @@ $$
 
 For the analysis of
 $2 \times 2$ contingency tables,
-the odds ratio is a measure of the relationship between two binary 
+the [odds ratio](https://en.wikipedia.org/wiki/Odds_ratio) is a measure of the relationship between two binary 
 variables. 
 It is defined as the ratio of the odds of a transaction 
 containing Y in the groups of transactions that do and do 
@@ -927,7 +928,7 @@ where $\alpha/2$ is the critical value for a confidence level of $1-\alpha$.
 ## Phi Correlation Coefficient {#phi}
 **Reference:** @arules:Tan:2004
 
-The correlation coefficient between the transactions containing X and Y represented as two binary vectors.
+The [Phi correlation coefficient](https://en.wikipedia.org/wiki/Phi_coefficient) between the transactions containing X and Y represented as two binary vectors.
 Phi correlation is equivalent to Pearson's Product Moment Correlation 
 Coefficient $\rho$ with 0-1 values and related to the [chi-squared test statistics](#chi-squared) for $2 \times 2$ contingency tables.
 
@@ -935,7 +936,12 @@ $$
 \phi(X \Rightarrow Y) 
 = \frac{n n_{XY} - n_Xn_Y}{\sqrt{n_X n_Y n_{\overline{X}} n_{\overline{Y}}}}
 = \frac{P(X \cap Y) - P(X)P(Y)}{\sqrt{P(X) (1 - P(X)) P(Y) (1 - P(Y))}}
-= \sqrt{\frac{\chi^2}{n}}
+$$
+
+In machine learning, Phi correlation is also known as the Matthews correlation coefficient (MCC). The magnitude of the correlation is also related to the chi-squared statistic:
+
+$$
+|\phi(X \Rightarrow Y)| = \sqrt{\frac{\chi^2}{n}}
 $$
 
 **Range:** $[-1, 1]$ (0 when X and Y are independent)}
@@ -1082,7 +1088,8 @@ $$
 ## Yule's Q {#yuleq}
 **Reference:** @arules:Tan:2004
 
-Defined as 
+Yule's Q, also called Yule coefficient of association is a special case of the [Goodman and Kruskal's gamma](https://en.wikipedia.org/wiki/Goodman_and_Kruskal%27s_gamma). It is
+defined as 
 $$ Q(X \Rightarrow Y) = \frac{\alpha-1}{\alpha+1} $$
 
 where $\alpha = OR(X \Rightarrow Y)$ is the [odds ratio](#odds-ratio) of the rule.
@@ -1092,7 +1099,9 @@ where $\alpha = OR(X \Rightarrow Y)$ is the [odds ratio](#odds-ratio) of the rul
 ## Yule's Y {#yuley}
 **Reference:** @arules:Tan:2004
 
-Defined as 
+Yule's Y is also know as the [coefficient of colligation](https://en.wikipedia.org/wiki/Coefficient_of_colligation) to measure 
+the association between two binary variables.
+It is defined as 
 $$ Y(X \Rightarrow Y) = \frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1} $$
 
 where $\alpha = OR(X \Rightarrow Y)$ is the [odds ratio](#odds-ratio) of the rule.
