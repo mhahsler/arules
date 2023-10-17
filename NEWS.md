@@ -3,6 +3,8 @@
 ## Changes
 * is.significant gained parameter reuse. The default for adjust was changed 
   to "none." 
+* improved some error messages.
+* Added Wikipedia links to measures.md.
   
 ## Bugfixes
 * Fixed appearance code for fim4r (reported by mytarmail).
