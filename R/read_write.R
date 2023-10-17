@@ -256,15 +256,15 @@ setGeneric("write",
 #'
 #' For associations ([rules] and [itemsets]) `write()` first uses coercion to
 #' data.frame to obtain a printable form of `x` and then uses
-#' [utils::write.table()] to write the data to disk.
-#'
-#' Transactions can be saved in _basket_ (one line per transaction) or in _single_
-#' (one line per item) format.
-#'
-#' Note: To save and load associations in compact form, use [save()] and
+#' [utils::write.table()] to write the data to disk. This is just a method to 
+#' export the rules in human-readable form. These exported associations cannot be
+#' read back in as rules. To save and load associations in compact form, use [save()] and
 #' [load()] from the \pkg{base} package.  Alternatively, association can be
 #' written to disk in PMML (Predictive Model Markup Language) via
 #' [write.PMML()]. This requires package \pkg{pmml}.
+#'
+#' Transactions can be saved in _basket_ (one line per transaction) or in _single_
+#' (one line per item) format.
 #'
 #' @name write
 #' @family import/export
