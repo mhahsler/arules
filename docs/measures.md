@@ -524,6 +524,38 @@ may be necessary.
 
 **Range:** $[0, 1]$ (p-value scale)
 
+## Generalized Improvement {#generalizedImprovement}
+
+**Reference:** @arules:Hahsler:2023
+
+Generalizes the [improvement](#improvement) measure to arbitrary interest measures.
+
+$$
+\mathrm{generalizedImprovement}(X \Rightarrow Y) 
+= min_{X' \subset X}(M(X \Rightarrow Y) - M(X' \Rightarrow Y))
+$$
+
+where $M$ can be any measure of interestingness. The original definition of interest 
+uses the measure confidence.
+
+**Range:** $[-infty, +infty]$ (the actual range depends on the used measure)
+
+## Generalized Increase Ratio {#ginc}
+
+**Reference:** @arules:Hahsler:2023
+
+Generalizes [lift increase](#lic) to arbitrary interest measures.
+
+$$
+\mathrm{INC}(X \Rightarrow Y) 
+= min_{X' \subset X} \left[ \frac{M(X \Rightarrow Y)}{M(X' \Rightarrow Y)} \right]
+$$
+
+where $M$ can be any measure of interestingness. The original definition of lift increase 
+uses the measure lift.
+
+**Range:** $[0, +infty]$ ($> 1$ means an increase)
+
 ## Gini Index {#gini}
 
 **Reference:** @arules:Tan:2004
@@ -889,16 +921,20 @@ times (or only once) together, can produce enormous lift values.
 
 **Reference:** @arules:Lopez:2014
 
-Related to the improvement measure, but uses lift and divides the lift
-of a rules by the largest lift of any proper sub-rule with the same
-consequent.
+Related to the [improvement](#improvement) measure but uses [lift](#lift). 
+It divides the lift of a rules by the largest lift of any proper sub-rule 
+with the same consequent.
 
 $$
 \mathrm{LIC}(X \Rightarrow Y) 
 = min_{X' \subset X} \left[ \frac{lift(X \Rightarrow Y)}{lift(X' \Rightarrow Y)} \right]
 $$
 
+@arules:Lopez:2014 suggests that rules need to satisfy $LIC > 1.05$ to justify 
+adding an item to the antecedent.
+
 **Range:** $[0, \infty]$ ($>1$ means an increase)
+
 
 ## MaxConfidence {#maxconfidence}
 

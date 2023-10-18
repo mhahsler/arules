@@ -2034,6 +2034,38 @@ for multiple comparisons</a> may be necessary.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0, 1]\)</span>
 (p-value scale)</p>
 </div>
+<div id="generalizedImprovement" class="section level2">
+<h2>Generalized Improvement</h2>
+<p><strong>Reference:</strong> <span class="citation">Hahsler et al. (<a href="#ref-arules:Hahsler:2023">2023</a>)</span></p>
+<p>Generalizes the <a href="#improvement">improvement</a> measure to
+arbitrary interest measures.</p>
+<p><span class="math display">\[
+\mathrm{generalizedImprovement}(X \Rightarrow Y)
+= min_{X&#39; \subset X}(M(X \Rightarrow Y) - M(X&#39; \Rightarrow Y))
+\]</span></p>
+<p>where <span class="math inline">\(M\)</span> can be any measure of
+interestingness. The original definition of interest uses the measure
+confidence.</p>
+<p><strong>Range:</strong> <span class="math inline">\([-infty,
++infty]\)</span> (the actual range depends on the used measure)</p>
+</div>
+<div id="ginc" class="section level2">
+<h2>Generalized Increase Ratio</h2>
+<p><strong>Reference:</strong> <span class="citation">Hahsler et al. (<a href="#ref-arules:Hahsler:2023">2023</a>)</span></p>
+<p>Generalizes <a href="#lic">lift increase</a> to arbitrary interest
+measures.</p>
+<p><span class="math display">\[
+\mathrm{INC}(X \Rightarrow Y)
+= min_{X&#39; \subset X} \left[ \frac{M(X \Rightarrow Y)}{M(X&#39;
+\Rightarrow Y)} \right]
+\]</span></p>
+<p>where <span class="math inline">\(M\)</span> can be any measure of
+interestingness. The original definition of lift increase uses the
+measure lift.</p>
+<p><strong>Range:</strong> <span class="math inline">\([0,
++infty]\)</span> (<span class="math inline">\(&gt; 1\)</span> means an
+increase)</p>
+</div>
 <div id="gini" class="section level2">
 <h2>Gini Index</h2>
 <p><strong>Reference:</strong> <span class="citation">Tan, Kumar, and
@@ -2365,14 +2397,17 @@ times (or only once) together, can produce enormous lift values.</p>
 <div id="lic" class="section level2">
 <h2>Lift Increase</h2>
 <p><strong>Reference:</strong> <span class="citation">López et al. (<a href="#ref-arules:Lopez:2014">2014</a>)</span></p>
-<p>Related to the improvement measure, but uses lift and divides the
-lift of a rules by the largest lift of any proper sub-rule with the same
-consequent.</p>
+<p>Related to the <a href="#improvement">improvement</a> measure but
+uses <a href="#lift">lift</a>. It divides the lift of a rules by the
+largest lift of any proper sub-rule with the same consequent.</p>
 <p><span class="math display">\[
 \mathrm{LIC}(X \Rightarrow Y)
 = min_{X&#39; \subset X} \left[ \frac{lift(X \Rightarrow Y)}{lift(X&#39;
 \Rightarrow Y)} \right]
 \]</span></p>
+<p><span class="citation">López et al. (<a href="#ref-arules:Lopez:2014">2014</a>)</span> suggests that rules need
+to satisfy <span class="math inline">\(LIC &gt; 1.05\)</span> to justify
+adding an item to the antecedent.</p>
 <p><strong>Range:</strong> <span class="math inline">\([0,
 \infty]\)</span> (<span class="math inline">\(&gt;1\)</span> means an
 increase)</p>
@@ -2706,6 +2741,11 @@ Gras, Régis, Saddo Ag Almouloud, Marc Bailleul, Annie Larher, Maria
 Polo, Harrisson Ratsimba-Rajohn, and André Totohasina. 1996.
 <em>L’implication Statistique, Nouvelle Méthode Exploratoire de
 Données</em>. ARDM.
+</div>
+<div id="ref-arules:Hahsler:2023" class="csl-entry">
+Hahsler, Michael, Christian Buchta, Bettina Gruen, and Kurt Hornik.
+2023. <em>Arules: Mining Association Rules and Frequent Itemsets</em>.
+<a href="https://github.com/mhahsler/arules">https://github.com/mhahsler/arules</a>.
 </div>
 <div id="ref-arules:Hahsler:2007" class="csl-entry">
 Hahsler, Michael, and Kurt Hornik. 2007. <span>“New Probabilistic
