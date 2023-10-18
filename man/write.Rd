@@ -45,15 +45,15 @@ Provides the generic function \code{write()} and the methods to write
 \details{
 For associations (\link{rules} and \link{itemsets}) \code{write()} first uses coercion to
 data.frame to obtain a printable form of \code{x} and then uses
-\code{\link[utils:write.table]{utils::write.table()}} to write the data to disk.
-
-Transactions can be saved in \emph{basket} (one line per transaction) or in \emph{single}
-(one line per item) format.
-
-Note: To save and load associations in compact form, use \code{\link[=save]{save()}} and
+\code{\link[utils:write.table]{utils::write.table()}} to write the data to disk. This is just a method to
+export the rules in human-readable form. These exported associations cannot be
+read back in as rules. To save and load associations in compact form, use \code{\link[=save]{save()}} and
 \code{\link[=load]{load()}} from the \pkg{base} package.  Alternatively, association can be
 written to disk in PMML (Predictive Model Markup Language) via
 \code{\link[=write.PMML]{write.PMML()}}. This requires package \pkg{pmml}.
+
+Transactions can be saved in \emph{basket} (one line per transaction) or in \emph{single}
+(one line per item) format.
 }
 \examples{
 data("Epub")
