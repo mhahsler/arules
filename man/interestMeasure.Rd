@@ -97,7 +97,7 @@ The following measures are implemented for \strong{rules}:
 \item "imbalance": \href{https://mhahsler.github.io/arules/docs/measures#imbalance}{Imbalance Ratio.}
 \item "implicationIndex": \href{https://mhahsler.github.io/arules/docs/measures#implicationindex}{Implication Index.}
 \item "importance": \href{https://mhahsler.github.io/arules/docs/measures#importance}{Importance.}
-\item "improvement": \href{https://mhahsler.github.io/arules/docs/measures#improvement}{Improvement.}
+\item "improvement": \href{https://mhahsler.github.io/arules/docs/measures#improvement}{Improvement.} The additional parameter \code{improvementMeasure} (default: \code{'confidence'}) can be used to specify the measure used for the improvement calculation.
 \item "jaccard": \href{https://mhahsler.github.io/arules/docs/measures#jaccard}{Jaccard Coefficient.}
 \item "jMeasure": \href{https://mhahsler.github.io/arules/docs/measures#jmeasure}{J-Measure.}
 \item "kappa": \href{https://mhahsler.github.io/arules/docs/measures#kappa}{Kappa.}
@@ -107,6 +107,7 @@ The following measures are implemented for \strong{rules}:
 \item "leastContradiction": \href{https://mhahsler.github.io/arules/docs/measures#leastcontradiction}{Least Contradiction.}
 \item "lerman": \href{https://mhahsler.github.io/arules/docs/measures#lerman}{Lerman Similarity.}
 \item "leverage": \href{https://mhahsler.github.io/arules/docs/measures#leverage}{Leverage.}
+\item "LIC": \href{https://mhahsler.github.io/arules/docs/measures#lic}{Lift Increase.} The additional parameter \code{improvementMeasure} (default: \code{'lift'}) can be used to specify the measure used for the increase calculation.
 \item "maxconfidence": \href{https://mhahsler.github.io/arules/docs/measures#maxconfidence}{MaxConfidence.}
 \item "mutualInformation": \href{https://mhahsler.github.io/arules/docs/measures#mutualinformation}{Mutual Information.}
 \item "oddsRatio": \href{https://mhahsler.github.io/arules/docs/measures#oddsratio}{Odds Ratio.}

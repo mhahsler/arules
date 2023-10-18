@@ -5,6 +5,7 @@
   to "none." 
 * improved some error messages.
 * Added Wikipedia links to measures.md.
+* Added interest measure LIC.
   
 ## Bugfixes
 * Fixed appearance code for fim4r (reported by mytarmail).

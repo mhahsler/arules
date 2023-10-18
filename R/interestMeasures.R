@@ -131,9 +131,11 @@ setGeneric("interestMeasure",
 addl_doc <- list(
   chisquared = "Additional parameters are: `significance = TRUE` returns the p-value of the test for independence instead of the chi-squared statistic. For p-values, substitution effects (the occurrence of one item makes the occurrence of another item less likely) can be tested using the parameter `complements = FALSE`.  Note: Correction for multiple comparisons can be done using [stats::p.adjust()].",
   fishersexacttest = "By default complementary effects are mined, substitutes can be found by using the parameter `complements = FALSE`. Note that Fisher's exact test is equal to hyper-confidence with `significance = TRUE`. Correction for multiple comparisons can be done using [stats::p.adjust()].",
+  improvement = "The additional parameter `improvementMeasure` (default: `'confidence'`) can be used to specify the measure used for the improvement calculation.",
   hyperconfidence = "Reports the confidence level by default and the significance level if `significance = TRUE` is used. By default complementary effects are mined, substitutes (too low co-occurrence counts) can be found by using the parameter `complements = FALSE`.",
   hyperlift = "The used quantile can be changed using parameter `level` (default: `level = 0.99`).",
   laplace = "Parameter `k` can be used to specify the number of classes (default is 2).",
+  lic = "The additional parameter `improvementMeasure` (default: `'lift'`) can be used to specify the measure used for the increase calculation.",
   stdLift = "By default, standardized lift is is corrected for minimum support and minimum confidence. Correction can be disabled by using the argument `correct = FALSE`.",
   table = "Returns the four counts for the contingency table. The entries are labeled `n11`, `n01`, `n10`, and `n00` (the first subscript is for X and the second is for Y; 1 indicated presence and 0 indicates absence). If several measures are specified, then the counts have the prefix `table.`"
 )
@@ -363,6 +365,7 @@ measuresRules <-
     "leastContradiction",
     "lerman",
     "leverage",
+    "LIC",
     "maxconfidence",
     "mutualInformation",
     "oddsRatio",
@@ -476,6 +479,8 @@ setMethod("interestMeasure",  signature(x = "rules"),
       return(.rhsSupport(x, transactions))
     if (measure == "improvement")
       return(.improvement(x, transactions = transactions, ...))
+    if (measure == "LIC")
+      return(.lic(x, transactions = transactions, ...))
     if (measure == "hyperLift")
       return(.hyperLift(x, transactions = transactions, ...))
     if (measure == "hyperConfidence")
@@ -619,6 +624,33 @@ setMethod("interestMeasure",  signature(x = "rules"),
   
   conf / (conf - imp)
 }
+
+## LIC (Lift Increase) (Lopez 2014)
+## Like improvement but divides instead of subtracts
+
+.lic <- function(x,
+                         improvementMeasure = "lift", ...) {
+  ## Note: LIC is defined for lift, but could also used with
+  ## other measures
+  q <- interestMeasure(x, measure = improvementMeasure, ...)
+  imp <- numeric(length(x))
+  
+  ### do it by unique rhs
+  rr <- .Call(R_pnindex, rhs(x)@data, NULL, FALSE)
+  
+  for (r in unique(rr)) {
+    pos <- which(rr == r)
+    
+    q2 <- q[pos]
+    ### FALSE is for verbose
+    qsubmax <- .Call(R_pnmax, lhs(x[pos])@data, q2, FALSE)
+    
+    imp[pos] <- q2 / qsubmax
+  }
+  
+  imp
+}
+
 
 .getCounts <-
   function(x,
