@@ -1,1 +1,1 @@
-bibtex2html -d association_rules.bib 
+bibtex2html -d -header "<H1>Annodated Bibliography: Association Rule Mining<H1>" association_rules.bib 
