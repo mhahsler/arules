@@ -219,6 +219,8 @@ confint.rules <- function(object,
         dimnames = list(NULL, c("LL", "UL"))
       )
     
+    se <- vector(length = nrow(p))
+    
     ### simulated counts also need to be smoothed
     for (i in seq(nrow(p))) {
       ns <- t(stats::rmultinom(replications, n, p[i,]))
@@ -227,10 +229,12 @@ confint.rules <- function(object,
         .basicRuleMeasure(ns, measure, smoothCounts = smoothCounts, ...)
       if (!any(is.na(vals)))
         ci[i,] <- stats::quantile(vals, probs = qs)
+        se[i] <- stats::sd(vals) / sqrt(replications)
     }
     
     structure(
       ci,
+      se = se,
       measure = measure,
       level = level,
       method = method,
@@ -259,6 +263,7 @@ ci.norm <- function(mean,
       UL = mean + z * se)
   
   structure(ci,
+    se = se,
     desc = desc)
 }
 
