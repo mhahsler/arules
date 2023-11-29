@@ -1,4 +1,4 @@
-# arules 1.7-6.1 (xx/xx/2023)
+# arules 1.7-7 (11/28/2023)
 
 ## Changes
 * is.significant gained parameter reuse. The default for adjust was changed 
