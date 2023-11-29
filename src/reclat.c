@@ -166,7 +166,7 @@ static void _report_R (int *ids, int cnt, int supp, int *tal, void *data)
 	  if (!vec)  {
 		  if (vec1) free(vec1);
 		  if (vec2) free(vec2);
-		  _cleanup(); error(msg(E_NOMEM));}    /* enlarge the item vector */
+		  _cleanup(); error("%s", msg(E_NOMEM));}    /* enlarge the item vector */
 	  ruleset->body  = vec;
   }                             /* set the new vector and its size */
   for (i = 0; i < cnt; i++) {   /* traverse the item set */
@@ -180,20 +180,20 @@ static void _report_R (int *ids, int cnt, int supp, int *tal, void *data)
 	  if (!vec1) {
 		  if (vec) free(vec);
 		  if (vec2) free(vec2);
-		  _cleanup(); error(msg(E_NOMEM));}
+		  _cleanup(); error("%s", msg(E_NOMEM));}
 	  ruleset->tnb = vec1;
 	  vec2 = (double*)realloc(ruleset->supp, size1 *sizeof(double));
 	  if (!vec2) {
 		  if (vec1) free(vec1);
 		  if (vec) free(vec);
-		  _cleanup(); error(msg(E_NOMEM));}   /* enlarge the item vector */
+		  _cleanup(); error("%s", msg(E_NOMEM));}   /* enlarge the item vector */
 	  ruleset->supp = vec2;
 	  if (param.ext) {
 		  vec2 = (double*)realloc(ruleset->ext, size1 *sizeof(double));
 		  if (!vec2) {
 			  if (vec1) free(vec1);
 			  if (vec) free(vec);
-			  _cleanup(); error(msg(E_NOMEM));}   /* enlarge the item vector */
+			  _cleanup(); error("%s", msg(E_NOMEM));}   /* enlarge the item vector */
 		  ruleset->ext = vec2;
 	  }
 	  if (flags & OF_LIST) {      
@@ -201,7 +201,7 @@ static void _report_R (int *ids, int cnt, int supp, int *tal, void *data)
 		  if (!vec1) {
 			  if (vec) free(vec);
 			  if (vec2) free(vec2);
-			  _cleanup(); error(msg(E_NOMEM));}
+			  _cleanup(); error("%s", msg(E_NOMEM));}
 		  ruleset->trnb = vec1;
 	  }
   }
@@ -219,7 +219,7 @@ static void _report_R (int *ids, int cnt, int supp, int *tal, void *data)
 				  if (!vec1) {
 					  if (vec) free(vec);
 					  if (vec2) free(vec2);
-					  _cleanup(); error(msg(E_NOMEM));}
+					  _cleanup(); error("%s", msg(E_NOMEM));}
 				  ruleset->trans = vec1;
 			  }
 			  /* Bug reported by Brian:  runtime error: left shift of 1 by 31 places 
@@ -246,7 +246,7 @@ static void _report_R (int *ids, int cnt, int supp, int *tal, void *data)
 			  if (!vec1) {
 				  if (vec) free(vec);
 				  if (vec2) free(vec2);
-				  _cleanup(); error(msg(E_NOMEM));}
+				  _cleanup(); error("%s", msg(E_NOMEM));}
 			  ruleset->trans = vec1;
 		  }
 		  for (i = 0; i < supp; i++) {
@@ -324,13 +324,13 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
   case 1: param.target = BM_CLOSED;            break;
   case 2: param.target = BM_MAXIMAL;           break;
   case 3: param.target = BM_GENERATOR;         break;
-  /* default : _cleanup(); error(msg(E_TARGET), (char *)target); break; */
-  default : _cleanup(); error(msg(E_TARGET), (char)target); break;
+  /* default : _cleanup(); error("%s", msg(E_TARGET), (char *)target); break; */
+  default : _cleanup(); error("%s %c", msg(E_TARGET), (char)target); break;
   }
   if (supp > 1)                 /* check the minimal support */
-  {_cleanup(); error(msg(E_SUPP), supp);}        /* (< 0: absolute number) */
-  if (min <= 0) {_cleanup(); error(msg(E_ITEMCNT), min);}  /* check the limits */
-  if (max <= 0) {_cleanup(); error(msg(E_ITEMCNT), max);}  /* for the rule length */
+  {_cleanup(); error("%s %f", msg(E_SUPP), supp);}        /* (< 0: absolute number) */
+  if (min <= 0) {_cleanup(); error("%s %i", msg(E_ITEMCNT), min);}  /* check the limits */
+  if (max <= 0) {_cleanup(); error("%s %i", msg(E_ITEMCNT), max);}  /* for the rule length */
 
   if (param.verbose) Rprintf("create itemset ... \n");
   /* --- create item set and transaction set --- */
@@ -340,20 +340,20 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
   tacnt = in.tnb = length(x)-1;
 
   itemset = is_create();	
-  if (!itemset) {_cleanup(); error(msg(E_NOMEM));}
+  if (!itemset) {_cleanup(); error("%s", msg(E_NOMEM));}
   taset = tas_create(itemset);
-  if (!taset) {_cleanup(); error(msg(E_NOMEM));}
+  if (!taset) {_cleanup(); error("%s", msg(E_NOMEM));}
 
   /* --- read transactions --- */
   t = clock();                /* start the timer */
   if (param.verbose)   Rprintf("set transactions ...");
   for (l = 0; l < tacnt; l++) {                 /* transaction read loop */
 	  k = is_read_in(itemset, &in);             /* read the next transaction */
-	  if (k < 0) {_cleanup(); error(msg(k), "read transactions", RECCNT(itemset), BUFFER(itemset));}
+	  if (k < 0) {_cleanup(); error("%s %s %i %s", msg(k), "read transactions", RECCNT(itemset), BUFFER(itemset));}
 	  if (k > 0) break;
 	  k = is_tsize(itemset);                /* update the maximal */
 	  if (k > maxcnt) maxcnt = k;           /* transaction size */
-	  if (taset && (tas_add(taset, NULL, 0) != 0)) {_cleanup(); error(msg(E_NOMEM));}
+	  if (taset && (tas_add(taset, NULL, 0) != 0)) {_cleanup(); error("%s", msg(E_NOMEM));}
   }
   n = is_cnt(itemset);                          /* get the number of items */
   if (param.verbose) {
@@ -362,7 +362,7 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
 	  Rprintf("[%.2fs].", SEC_SINCE(t));
 	  Rprintf("\n");
   }
-  if ((n <= 0) || (tacnt <= 0)) {_cleanup(); error(msg(E_NOTAS));} 
+  if ((n <= 0) || (tacnt <= 0)) {_cleanup(); error("%s", msg(E_NOTAS));} 
   if (supp < 0) {               /* if absolute support is given */
 	  supp = (-supp-0.5)/tacnt;
 	  if (supp < 0) supp = 0;     /* compute a proper relative support */
@@ -375,7 +375,7 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
     if (param.verbose) Rprintf("sorting and recoding items ... ");
     t   = clock();              /* start the timer */
     map = (int*)malloc(is_cnt(itemset) *sizeof(int));
-    if (!map) {_cleanup(); error(msg(E_NOMEM));}   /* create an item identifier map */
+    if (!map) {_cleanup(); error("%s", msg(E_NOMEM));}   /* create an item identifier map */
     n = is_recode(itemset, (int)supp, sort, map, param.target==BM_GENERATOR, tacnt);
     tas_recode(taset, map, n);  /* recode the loaded transactions */
     free(map);                  /* delete the item identifier map */
@@ -384,7 +384,7 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
 	    Rprintf("done [%.2fs].", SEC_SINCE(t));
 	    Rprintf("\n"); /* check the number of items */
     }
-    if (n <= 0) {_cleanup(); error(msg(E_NOTAS));} /* print a log message and */
+    if (n <= 0) {_cleanup(); error("%s", msg(E_NOTAS));} /* print a log message and */
   }                             /* (which may be zero now) */
 
   /* --- create a bit matrix --- */
@@ -392,7 +392,7 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
   if (param.verbose) Rprintf("creating %sbit matrix ... ", k ? "sparse ":"");
   t = clock();                  /* start the timer */
   bitmat = bm_create(n, (k) ? 0 : tacnt, k);
-  if (!bitmat) {_cleanup(); error(msg(E_NOMEM));}  /* create a bit matrix, the columns */
+  if (!bitmat) {_cleanup(); error("%s", msg(E_NOMEM));}  /* create a bit matrix, the columns */
   for (i = 0; i < tacnt; i++) { /* of which are the transactions */
     if (k) bm_addcol(bitmat,    tas_tract(taset,i), tas_tsize(taset,i));
     else   bm_setcol(bitmat, i, tas_tract(taset,i), tas_tsize(taset,i));
@@ -409,13 +409,13 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
   if (param.verbose) Rprintf("writing  ... ");
   ruleset = rs_create();
   size2 = size1 = size = BLKSIZE;
-  if (!ruleset) {_cleanup(); error(msg(E_NOMEM));}
+  if (!ruleset) {_cleanup(); error("%s", msg(E_NOMEM));}
   ruleset->cnt = is_cnt(itemset);
   ruleset->tacnt = in.tnb;
 
   ruleset->ttotal = 0;
   k = bm_allone(bitmat, target, (int)supp, min, max, _report_R, NULL, tacnt);
-  if (k < 0) {_cleanup(); error(msg(E_NOMEM));}    /* search for frequent item sets */
+  if (k < 0) {_cleanup(); error("%s", msg(E_NOMEM));}    /* search for frequent item sets */
   if (param.verbose) {
 	  Rprintf("[%d set(s)] done ", k);
 	  Rprintf("[%.2fs].\n", SEC_SINCE(t));

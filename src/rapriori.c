@@ -389,11 +389,11 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
       if (param->verbose) Rprintf("set transactions ...");
       for (l = 0; l < tacnt; l++) {                 /* transaction read loop */
       k = is_read_in(itemset, in);             /* read the next transaction */
-      if (k < 0) {cleanup(); error(msgs(k), "read transactions", RECCNT(itemset), BUFFER(itemset));}
+      if (k < 0) {cleanup(); error("%s %s %i %s", msgs(k), "read transactions", RECCNT(itemset), BUFFER(itemset));}
       if (k > 0) break;
       k = is_tsize(itemset);                /* update the maximal */
       if (k > maxcnt) maxcnt = k;           /* transaction size */
-      if (taset && (tas_add(taset, NULL, 0) != 0)) {cleanup(); error(msgs(E_NOMEM));}
+      if (taset && (tas_add(taset, NULL, 0) != 0)) {cleanup(); error("%s", msgs(E_NOMEM));}
       }
       n = is_cnt(itemset);                          /* get the number of items */
       if (param->verbose) Rprintf("[%d item(s),", n);
@@ -402,7 +402,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
         Rprintf("[%.2fs].", SEC_SINCE(t));
         Rprintf("\n");
       }
-      if ((n <= 0) || (tacnt <= 0)) {cleanup(); error(msgs(E_NOTAS));} 
+      if ((n <= 0) || (tacnt <= 0)) {cleanup(); error("%s", msgs(E_NOTAS));} 
       
       supp = param->supp;
       conf = param->conf;
@@ -417,7 +417,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
       if (param->verbose) Rprintf("sorting and recoding items ... ");
       t   = clock();              /* start the timer */
       map = (int*)malloc(is_cnt(itemset) *sizeof(int));
-      if (!map) {cleanup(); error(msgs(E_NOMEM));}   /* create an item identifier map */
+      if (!map) {cleanup(); error("%s", msgs(E_NOMEM));}   /* create an item identifier map */
       if (rsdef == IST_BODY)      /* if rule support = body support */
         k = (int)ceil(tacnt *supp *conf);
         //k = (int)ceil(tacnt *supp *conf);
@@ -434,7 +434,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
         Rprintf("done [%.2fs].", SEC_SINCE(t));
         Rprintf("\n"); /* check the number of items */
       }
-      /* if (n <= 0) {cleanup(); error(msgs(E_NOTAS));} 
+      /* if (n <= 0) {cleanup(); error("%s", msgs(E_NOTAS));} 
        MFH: I just want an empty result in this case */
       }                             /* (which may be zero now) */
       
@@ -445,7 +445,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
       if (param->verbose) Rprintf("creating transaction tree ... ");
       t = clock();                /* start the timer */
       tatree = tat_create(taset, param->heap); 
-      if (!tatree) {cleanup(); error(msgs(E_NOMEM));}  /* create a transaction tree */
+      if (!tatree) {cleanup(); error("%s", msgs(E_NOMEM));}  /* create a transaction tree */
       if (param->filter == 0) {          /* if a tree rebuild is not needed, */
       tas_delete(taset, 0); taset = NULL; }  /* delete transactions */
       tt = clock() -t;            /* note the time for the construction */
@@ -455,11 +455,11 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
       /* --- create an item set tree --- */
       t = clock(); tc = 0;          /* start the timer */
       apps = (char*)malloc(n *sizeof(char));
-      if (!apps) {cleanup(); error(msgs(E_NOMEM));}  /* get the appearance indicators */
+      if (!apps) {cleanup(); error("%s", msgs(E_NOMEM));}  /* get the appearance indicators */
       for (apps += i = n; --i >= 0; )
         *--apps = is_getapp(itemset, i);
       istree = ist_create(n, supp, conf, rsdef, apps, param->memopt);
-      if (!istree) {cleanup(); error(msgs(E_NOMEM));} /* create an item set tree */
+      if (!istree) {cleanup(); error("%s", msgs(E_NOMEM));} /* create an item set tree */
       for (k = n; --k >= 0; )       /* set single item frequencies */
       ist_setcnt(istree, k, is_getfrq(itemset, k));
       ist_settac(istree, tacnt);    /* set the number of transactions */
@@ -498,7 +498,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
           if (ist_height(istree) >= i) break;
         }                           /* check the tree height */
           k = ist_addlvl(istree);     /* while max. height is not reached, */
-          if (k <  0) {cleanup(); error(msgs(E_NOMEM));}  /* add a level to the item set tree */
+          if (k <  0) {cleanup(); error("%s", msgs(E_NOMEM));}  /* add a level to the item set tree */
           if (k != 0) break;          /* if no level was added, abort */
           
           if (param->verbose) Rprintf(" %d", ist_height(istree));
@@ -512,7 +512,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
           tas_filter(taset,apps); /* and remove unnecessary items */
           tat_delete(tatree);     /* delete the transaction tree */
           tatree = tat_create(taset, param->heap);
-          if (!tatree) {cleanup(); error(msgs(E_NOMEM));}  
+          if (!tatree) {cleanup(); error("%s", msgs(E_NOMEM));}  
           tt = clock() -x;        /* rebuild the transaction tree and */
           }                         /* note the new construction time */
           x  = clock();             /* count the transaction tree */
@@ -540,7 +540,7 @@ ta_sort(iset->items, iset->cnt); /* prepare the transaction */
           if (k > maxcnt) maxcnt = k;  /* of a transaction */
           ist_count(istree, is_tract(itemset), k);
             }                         /* count the transaction in the tree */
-          if (i < 0) {cleanup(); error(msgs(i), "reading transactions", RECCNT(itemset), BUFFER(itemset));}
+          if (i < 0) {cleanup(); error("%s %s %i %s", msgs(i), "reading transactions", RECCNT(itemset), BUFFER(itemset));}
           if (maxcnt < param->maxlen)      /* update the maximal rule length */
           param->maxlen = maxcnt;        /* according to the max. t.a. size */
           }                           /* (may be smaller than before) */
@@ -616,7 +616,7 @@ void createRules(ISTREE *istree, ARparameter *param) {
             vec   = (char**)realloc(ruleset->body, size *sizeof(char*));
             if (!vec)  {
               free(vec1);free(vec2);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}    /* enlarge the item vector */
+              cleanup(); error("%s", msgs(E_NOMEM));}    /* enlarge the item vector */
           ruleset->body  = vec;
           }                             /* set the new vector and its size */
           ruleset->body[h] = (char *)(is_name(itemset, set[i]));
@@ -627,18 +627,18 @@ void createRules(ISTREE *istree, ARparameter *param) {
             vec1 = (int*)realloc(ruleset->tnb, size1 *sizeof(int));
             if (!vec1) {
               free(vec);free(vec2);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}
+              cleanup(); error("%s", msgs(E_NOMEM));}
             ruleset->tnb = vec1;
             vec2 = (double*)realloc(ruleset->supp, size1 *sizeof(double));
             if (!vec2) {
               free(vec);free(vec1);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}   /* enlarge the item vector */
+              cleanup(); error("%s", msgs(E_NOMEM));}   /* enlarge the item vector */
           ruleset->supp = vec2;
             if (param->ext) {
               vec2 = (double*)realloc(ruleset->ext, size1 *sizeof(double));
               if (!vec2) {
                 free(vec);free(vec1);free(vec3);
-                cleanup(); error(msgs(E_NOMEM));}   /* enlarge the item vector */
+                cleanup(); error("%s", msgs(E_NOMEM));}   /* enlarge the item vector */
           ruleset->ext = vec2;
             }
           }
@@ -669,7 +669,7 @@ void createRules(ISTREE *istree, ARparameter *param) {
             vec   = (char**)realloc(ruleset->body, size *sizeof(char*));
             if (!vec)  {
               //free(vec1);free(vec2);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}    /* enlarge the item vector */
+              cleanup(); error("%s", msgs(E_NOMEM));}    /* enlarge the item vector */
           ruleset->body = vec;
           }                             /* set the new vector and its size */
           ruleset->body[h] = (char *)(is_name(itemset, set[i]));
@@ -680,40 +680,40 @@ void createRules(ISTREE *istree, ARparameter *param) {
             vec1 = (int*)realloc(ruleset->tnb, size1 *sizeof(int));
             if (!vec1) {
               //free(vec);free(vec2);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}
+              cleanup(); error("%s", msgs(E_NOMEM));}
             ruleset->tnb = vec1;
             vec2 = (double*)realloc(ruleset->supp, size1 *sizeof(double));
             if (!vec2) {
               //free(vec);free(vec1);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}
+              cleanup(); error("%s", msgs(E_NOMEM));}
             ruleset->supp = vec2;
             vec2 = (double*)realloc(ruleset->conf, size1 *sizeof(double));
             if (!vec2) {
               //free(vec);free(vec1);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}
+              cleanup(); error("%s", msgs(E_NOMEM));}
             ruleset->conf = vec2;
             vec2 = (double*)realloc(ruleset->lift, size1 *sizeof(double));
             if (!vec2) {
               //free(vec);free(vec1);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}
+              cleanup(); error("%s", msgs(E_NOMEM));}
             ruleset->lift = vec2;
             vec3 = (char**)realloc(ruleset->head, size1 *sizeof(char*));
             if (!vec3) {
               //free(vec);free(vec1);free(vec);
-              cleanup(); error(msgs(E_NOMEM));}
+              cleanup(); error("%s", msgs(E_NOMEM));}
             ruleset->head = vec3;
             if (param->aval) {
               vec2 = (double*)realloc(ruleset->aval, size1 *sizeof(double));
               if (!vec2) {
                 //free(vec);free(vec1);free(vec3);
-                cleanup(); error(msgs(E_NOMEM));}      /* enlarge the item vector */
+                cleanup(); error("%s", msgs(E_NOMEM));}      /* enlarge the item vector */
           ruleset->aval = vec2;
             }
             if (param->ext) {
               vec2 = (double*)realloc(ruleset->ext, size1 *sizeof(double));
               if (!vec2) {
                 //free(vec);free(vec1);free(vec3);
-                cleanup(); error(msgs(E_NOMEM));}      /* enlarge the item vector */
+                cleanup(); error("%s", msgs(E_NOMEM));}      /* enlarge the item vector */
           ruleset->ext = vec2;
             }
             
@@ -752,7 +752,7 @@ void createRules(ISTREE *istree, ARparameter *param) {
             vec  = (char**)realloc(ruleset->body, size *sizeof(char*));
             if (!vec)  {
               //free(vec1);free(vec2);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}    /* enlarge the item vector */
+              cleanup(); error("%s", msgs(E_NOMEM));}    /* enlarge the item vector */
           ruleset->body = vec;
           }                             /* set the new vector and its size */
           ruleset->body[h] = (char *)(is_name(itemset, set[i]));
@@ -763,17 +763,17 @@ void createRules(ISTREE *istree, ARparameter *param) {
             vec1 = (int*)realloc(ruleset->tnb, size1 *sizeof(int));
             if (!vec1) {
               //free(vec);free(vec2);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}
+              cleanup(); error("%s", msgs(E_NOMEM));}
             ruleset->tnb = vec1;
             vec2 = (double*)realloc(ruleset->supp, size1 *sizeof(double));
             if (!vec2) {
               //free(vec);free(vec1);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}
+              cleanup(); error("%s", msgs(E_NOMEM));}
             ruleset->supp = vec2;
             vec2 = (double*)realloc(ruleset->conf, size1 *sizeof(double));
             if (!vec2) {
               //free(vec);free(vec1);free(vec3);
-              cleanup(); error(msgs(E_NOMEM));}   /* enlarge the item vector */
+              cleanup(); error("%s", msgs(E_NOMEM));}   /* enlarge the item vector */
           ruleset->conf = vec2;
           }                             /* set the new vector and its size */
           if (n == 0) ruleset->tnb[0] = k; else ruleset->tnb[n] = ruleset->tnb[n-1] + k;
@@ -1031,12 +1031,12 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     case 3: param.target = TT_CLSET;             break;
     case 4: param.target = TT_RULE;              break;
     case 5: param.target = TT_HEDGE;             break;
-    default : cleanup(); error(msgs(E_TARGET, target)); break;
+    default : cleanup(); error("%s", msgs(E_TARGET, target)); break;
     }
     if (param.supp > 1.0)                 /* check the minimal support */
-    {cleanup(); error(msgs(E_SUPP, param.supp));}        /* (< 0: absolute number) */
+    {cleanup(); error("%s", msgs(E_SUPP, param.supp));}        /* (< 0: absolute number) */
     if ((param.conf  <  0.0) || (param.conf > 1.0))
-    {cleanup(); error(msgs(E_CONF, param.conf));}        /* check the minimal
+    {cleanup(); error("%s", msgs(E_CONF, param.conf));}        /* check the minimal
      * confidence */
     
     /* MFH: make sure supp and conf rounding does not mess up >= */  
@@ -1045,8 +1045,8 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     param.conf = nextafter(param.conf, 0.0);  
     
     
-    if (param.minlen <= 0) {cleanup(); error(msgs(E_RULELEN, param.minlen));}  /* check the limits */
-    if (param.maxlen <= 0) {cleanup(); error(msgs(E_RULELEN, param.maxlen));}  /* for the rule length */
+    if (param.minlen <= 0) {cleanup(); error("%s", msgs(E_RULELEN, param.minlen));}  /* check the limits */
+    if (param.maxlen <= 0) {cleanup(); error("%s", msgs(E_RULELEN, param.maxlen));}  /* for the rule length */
    
     switch (param.arem) {               /* check and translate measure */
     case  0: param.arem = EM_NONE;     break;
@@ -1055,7 +1055,7 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
     case  3: param.arem = EM_AIMP;     break;
     case  4: param.arem = EM_INFO;     break;
     case  5: param.arem = EM_CHI2;     break;
-    default : cleanup(); error(msgs(E_MEASURE, arem)); break;
+    default : cleanup(); error("%s", msgs(E_MEASURE, arem)); break;
     }
     
     if (param.rsdef) param.rsdef = IST_BOTH;
@@ -1081,7 +1081,7 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
       }
     }
     if ((param.minval < 0) || ((param.arem != EM_AIMP) && (param.minval > 1)))
-    {cleanup(); error(msgs(E_MVAL, param.minval));}      /* check the measure parameter */
+    {cleanup(); error("%s", msgs(E_MVAL, param.minval));}      /* check the measure parameter */
         if      (param.target == TT_HEDGE){ /* in hyperedge mode */
         REAL(GET_SLOT(parms, install("minval")))[0] = param.minval = param.conf;
           REAL(GET_SLOT(parms, install("confidence")))[0] = param.conf = 1;
@@ -1099,17 +1099,17 @@ SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP app, SEXP
         
         /* --- create item set and transaction set --- */
         itemset = is_create();	
-        if (!itemset) {cleanup(); error(msgs(E_NOMEM));}
+        if (!itemset) {cleanup(); error("%s", msgs(E_NOMEM));}
         if (load) {                   /* if to load the transactions */
         taset = tas_create(itemset);
-          if (!taset) {cleanup(); error(msgs(E_NOMEM));}
+          if (!taset) {cleanup(); error("%s", msgs(E_NOMEM));}
         }
         
         /* --- set item appearances --- */
         t = clock();                /* start the timer */
         if (param.verbose) Rprintf("set item appearances ...");
         k = is_readapp_R(itemset, app);
-        if (k  != 0) {cleanup(); error(msgs(k, "appearance", RECCNT(itemset), BUFFER(itemset)));}
+        if (k  != 0) {cleanup(); error("%s", msgs(k, "appearance", RECCNT(itemset), BUFFER(itemset)));}
         if (param.verbose)  {
           Rprintf("[%d item(s)] done ", is_cnt(itemset));
           Rprintf("[%.2fs].\n", SEC_SINCE(t));
