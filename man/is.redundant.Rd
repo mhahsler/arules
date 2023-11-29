@@ -62,11 +62,10 @@ lift or the odds ratio) can be specified in \code{measure}.
 \bold{Confidence interval-based redundancy:} (\code{confint = TRUE}) Li et
 al (2014) propose to use the confidence interval (CI) of the odds ratio (OR)
 of rules to define redundancy. A more specific rule is redundant if it does
-not provide a significantly higher OR than any more general rule.  Using
-confidence intervals as error bounds, a more specific rule is redundant if
-its OR CI overlaps with the CI of any more general rule (i.e., the lower
-bound of the more specific rule's CI is lower than the upper bound of any
-more general rule's CI). This type of redundancy detection is more powerful
+not provide a significantly higher OR than any more general rule. Using
+confidence intervals as error bounds, a more specific rule is
+defined as redundant if its OR CI overlaps with the CI of any more general
+rule. This type of redundancy detection removes more rules
 than improvement since it takes differences in counts due to randomness in
 the dataset into account.
 
@@ -77,6 +76,15 @@ problem. The default setting adds 1 to each count (see
 \code{\link[=confint]{confint()}}). A different pseudocount (smoothing parameter) can be
 defined using the additional parameter \code{smoothCounts}. Smoothing can be
 disabled using \code{smoothCounts = 0}.
+
+\strong{Warning:} This approach of redundancy checking is flawed since rules with
+non-overlapping CIs are
+non-redundant (same result as for a 2-sample t-test), but overlapping CIs do
+not automatically mean that there is no significant difference between the
+two measures which leads to a higher type II error. At the same time,
+multiple comparisons are performed leading to an increased type I error. If
+we are more worried about missing important rules, then the type II error
+is more concerning.
 
 Confidence interval-based redundancy checks can also be used for other
 measures with a confidence interval like confidence (see
