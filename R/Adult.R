@@ -108,7 +108,7 @@
 #' The data set was first cited in Kohavi, R. (1996): Scaling Up the Accuracy
 #' of Naive-Bayes Classifiers: a Decision-Tree Hybrid.  _Proceedings of
 #' the Second International Conference on Knowledge Discovery and Data Mining_.
-#' @source \url{https://www.ics.uci.edu/~mlearn/MLRepository.html}
+#' @source \url{https://archive.ics.uci.edu/}
 #' @keywords datasets
 #' @examples
 #' 

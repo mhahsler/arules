@@ -61,7 +61,7 @@ appearance modifiers) of the same length. Appearance modifiers are:
 \item{verbose}{logical; print used parameters?}
 
 \item{...}{further arguments are passed on to the function
-the \link[fim4r:fim4r]{fim4r::fim4r} function for the given method. Examples
+the \code{fim4r::fim4r} function for the given method. Examples
 are: \code{zmin}, \code{zmax}, \code{wgts}.}
 }
 \value{
@@ -89,7 +89,7 @@ This is different from the use in  \code{fim4r} package where \code{supp} and \c
 have the range \eqn{[0, 100]}.
 \code{arules::fim4r()} automatically converts support and confidence internally.
 \item \code{fim4r} methods also return the empty itemset while \code{arules} methods do not.
-\item See \link[fim4r:fim4r]{fim4r::fim4r} for help on additional available arguments. This is only available
+\item See \code{? fim4r::fim4r} for help on additional available arguments. This is only available
 after package \code{fim4r} is installed.
 \item Algorithm descriptions and references can be found on the
 \href{https://borgelt.net/fim4r.html}{fim4r web page} in the References Section.

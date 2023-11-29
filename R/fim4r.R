@@ -39,7 +39,7 @@
 #'   have the range \eqn{[0, 100]}. 
 #'   `arules::fim4r()` automatically converts support and confidence internally.
 #' * `fim4r` methods also return the empty itemset while `arules` methods do not.
-#' * See [fim4r::fim4r] for help on additional available arguments. This is only available
+#' * See `? fim4r::fim4r` for help on additional available arguments. This is only available
 #'   after package `fim4r` is installed. 
 #' * Algorithm descriptions and references can be found on the
 #'   [fim4r web page](https://borgelt.net/fim4r.html) in the References Section.
@@ -71,7 +71,7 @@
 #'   * `"x"` (item may appear anywhere).
 #' @param verbose logical; print used parameters?
 #' @param ... further arguments are passed on to the function
-#'    the [fim4r::fim4r] function for the given method. Examples
+#'    the `fim4r::fim4r` function for the given method. Examples
 #'    are: `zmin`, `zmax`, `wgts`. 
 #' @returns An object of class [itemsets] or [rules].
 #' @references

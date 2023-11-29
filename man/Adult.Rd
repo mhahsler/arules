@@ -58,7 +58,7 @@ with levels \code{Amer-Indian-Eskimo}, \code{Asian-Pac-Islander},
 levels \code{small} < \code{large}.} }
 }
 \source{
-\url{https://www.ics.uci.edu/~mlearn/MLRepository.html}
+\url{https://archive.ics.uci.edu/}
 }
 \description{
 The \code{AdultUCI} data set contains the questionnaire data of the
