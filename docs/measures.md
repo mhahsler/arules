@@ -9,15 +9,15 @@ abstract: "This document contains a comprehensive collection of commonly used me
   Here, we also present their relationship with estimating probabilities and 
   conditional probabilities."
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_document:
     toc: yes
     toc_depth: 2
     toc_float:
       collapsed: no
       smooth_scroll: no
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
 bibliography: association_rules.bib
 link-citations: yes
 editor_options: 
@@ -541,8 +541,8 @@ $$
 = min_{X' \subset X}(M(X \Rightarrow Y) - M(X' \Rightarrow Y))
 $$
 
-where $M$ can be any measure of interestingness. The original definition of interest 
-uses the measure confidence.
+where $M$ can be any measure that increases with interestingness. 
+The original definition of improvement uses the measure confidence.
 
 **Range:** $[-\infty, +\infty]$ (the actual range depends on the used measure)
 
