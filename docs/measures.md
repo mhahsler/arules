@@ -27,7 +27,7 @@ editor_options:
 
 # About this Document
 
-**Latest update:** October 18, 2023
+**Latest update:** January 10, 2024
 
 Please
 cite this document as **Michael Hahsler, A Probabilistic Comparison of
@@ -48,10 +48,12 @@ Commons Attribution Share Alike 4.0 International License.</a>
 
 ## Code and Implementation
 
-All measures discussed on this page are implemented in the freely
-available R-extension package
-[arules](https://github.com/mhahsler/arules) in function
-[interestMeasure()](https://search.r-project.org/CRAN/refmans/arules/html/interestMeasure.html).
+All measures discussed on this page are implemented in function
+[interestMeasure()](https://search.r-project.org/CRAN/refmans/arules/html/interestMeasure.html)
+in the freely available software:
+
+* R package: [arules](https://github.com/mhahsler/arules)
+* Python module: [arulespy](https://pypi.org/project/arulespy/)
 
 ## Corrections and Feedback
 
