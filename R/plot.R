@@ -24,9 +24,10 @@
 NULL
 
 ### produce a better error message for plot of associations
+#' @export
 plot.associations <- function(x, ...) stop("Needed package 'arulesViz' not installed or loaded!")
 
-### call image for itemMatrix and transactions 
+#' @export
 plot.itemMatrix <- function(x, ...) {
   warning("Use image() instead of plot().")
   image(x, ...)

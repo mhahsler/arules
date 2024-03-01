@@ -47,8 +47,8 @@ itemFrequency(Adult, type = "relative")
 
 Other itemMatrix and transactions functions: 
 \code{\link{abbreviate}()},
-\code{\link{crossTable}()},
 \code{\link{c}()},
+\code{\link{crossTable}()},
 \code{\link{duplicated}()},
 \code{\link{extract}},
 \code{\link{hierarchy}},

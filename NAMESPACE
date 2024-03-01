@@ -120,6 +120,9 @@ exportMethods(
   "dissimilarity"
 )
 
+export("plot.itemMatrix",
+       "plot.associations"
+)
 S3method(plot, associations)
 S3method(plot, itemMatrix)
 

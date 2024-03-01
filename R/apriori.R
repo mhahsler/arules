@@ -144,7 +144,7 @@
 #' # since ... gets automatically added to parameter, we can also write the 
 #' #  same call shorter:
 #' apriori(Adult, supp = 0.5, conf = 0.9, target = "rules")
-#' @export apriori
+#' @export
 apriori <-
   function(data,
     parameter = NULL,

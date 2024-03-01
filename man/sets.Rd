@@ -128,16 +128,16 @@ Other associations functions:
 
 Other itemMatrix and transactions functions: 
 \code{\link{abbreviate}()},
-\code{\link{crossTable}()},
 \code{\link{c}()},
+\code{\link{crossTable}()},
 \code{\link{duplicated}()},
 \code{\link{extract}},
 \code{\link{hierarchy}},
 \code{\link{image}()},
 \code{\link{inspect}()},
 \code{\link{is.superset}()},
-\code{\link{itemFrequencyPlot}()},
 \code{\link{itemFrequency}()},
+\code{\link{itemFrequencyPlot}()},
 \code{\link{itemMatrix-class}},
 \code{\link{match}()},
 \code{\link{merge}()},

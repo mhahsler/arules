@@ -79,7 +79,7 @@
 #'
 #' ## count support in the database
 #' support(items(itemsets), Income)
-#' @export support
+#' @export 
 setGeneric("support",
   function(x, transactions, ...)
     standardGeneric("support"))
