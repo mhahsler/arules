@@ -1,13 +1,14 @@
 
 # <img src="man/figures/logo.svg" align="right" height="139" /> R package arules - Mining Association Rules and Frequent Itemsets
 
-[![CRAN
-version](http://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org/package=arules)
-[![stream r-universe
+[![r-universe
 status](https://mhahsler.r-universe.dev/badges/arules)](https://mhahsler.r-universe.dev/arules)
+[![Package on
+CRAN](http://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org/package=arules)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/arules)](https://CRAN.R-project.org/package=arules)
 [![Anaconda.org](https://anaconda.org/conda-forge/r-arules/badges/version.svg)](https://anaconda.org/conda-forge/r-arules)
+[![StackOverflow](https://img.shields.io/badge/stackoverflow-arules-orange.svg)](https://stackoverflow.com/questions/tagged/arules)
 
 ## Introduction
 
@@ -36,7 +37,7 @@ Code examples can be found in [Chapter 5 of the web book R Companion for
 Introduction to Data
 Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
 
-Please cite the use of this package as:
+To cite package ‘arules’ in publications use:
 
 > Hahsler M, Gruen B, Hornik K (2005). “arules - A Computational
 > Environment for Mining Association Rules and Frequent Item Sets.”
@@ -133,9 +134,9 @@ The following R packages use `arules`:
 [arulesNBMiner](https://CRAN.R-project.org/package=arulesNBMiner),
 [arulesSequences](https://CRAN.R-project.org/package=arulesSequences),
 [arulesViz](https://CRAN.R-project.org/package=arulesViz),
-[Biocomb](https://CRAN.R-project.org/package=Biocomb),
 [clickstream](https://CRAN.R-project.org/package=clickstream),
 [CLONETv2](https://CRAN.R-project.org/package=CLONETv2),
+[CRE](https://CRAN.R-project.org/package=CRE),
 [ctsem](https://CRAN.R-project.org/package=ctsem),
 [discnorm](https://CRAN.R-project.org/package=discnorm),
 [fcaR](https://CRAN.R-project.org/package=fcaR),
@@ -144,8 +145,6 @@ The following R packages use `arules`:
 [ibmdbR](https://CRAN.R-project.org/package=ibmdbR),
 [immcp](https://CRAN.R-project.org/package=immcp),
 [inTrees](https://CRAN.R-project.org/package=inTrees),
-[liayson](https://CRAN.R-project.org/package=liayson),
-[MACP](https://CRAN.R-project.org/package=MACP),
 [opusminer](https://CRAN.R-project.org/package=opusminer),
 [pmml](https://CRAN.R-project.org/package=pmml),
 [qCBA](https://CRAN.R-project.org/package=qCBA),
@@ -153,8 +152,10 @@ The following R packages use `arules`:
 [rattle](https://CRAN.R-project.org/package=rattle),
 [rCBA](https://CRAN.R-project.org/package=rCBA),
 [recommenderlab](https://CRAN.R-project.org/package=recommenderlab),
+[rgnoisefilt](https://CRAN.R-project.org/package=rgnoisefilt),
 [RKEEL](https://CRAN.R-project.org/package=RKEEL),
-[RSarules](https://CRAN.R-project.org/package=RSarules),
+[sbrl](https://CRAN.R-project.org/package=sbrl),
+[SurvivalTests](https://CRAN.R-project.org/package=SurvivalTests),
 [TELP](https://CRAN.R-project.org/package=TELP)
 
 ## Installation
@@ -169,7 +170,8 @@ install.packages("arules")
 [r-universe.](https://mhahsler.r-universe.dev/arules)
 
 ``` r
-install.packages("arules", repos = "https://mhahsler.r-universe.dev")
+install.packages("arules",
+    repos = c("https://mhahsler.r-universe.dev". "https://cloud.r-project.org/"))
 ```
 
 ## Usage
@@ -250,15 +252,16 @@ library("tidyverse")
 library("arules")
 data("IncomeESL")
 
-trans <- IncomeESL |>
-    select(-`ethnic classification`) |>
-    transactions()
-rules <- trans |>
-    apriori(supp = 0.1, conf = 0.9, target = "rules", control = list(verbose = FALSE))
-rules |>
-    head(3, by = "lift") |>
-    as("data.frame") |>
-    tibble()
+trans <- IncomeESL |> 
+      select(-`ethnic classification`) |> 
+      transactions()
+rules <- trans |> 
+      apriori(supp = 0.1, conf = 0.9, target = "rules", 
+              control = list(verbose = FALSE))
+rules |> 
+      head(3, by = "lift") |>
+      as("data.frame") |> 
+      tibble()
 ```
 
     ## # A tibble: 3 × 6

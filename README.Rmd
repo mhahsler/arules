@@ -6,9 +6,8 @@ output: github_document
 pkg <- 'arules'
 
 source("https://raw.githubusercontent.com/mhahsler/pkg_helpers/main/pkg_helpers.R")
-pkg_title(pkg)
+pkg_title(pkg, anaconda = "r-arules", stackoverflow = "arules")
 ```
-[![Anaconda.org](https://anaconda.org/conda-forge/r-arules/badges/version.svg)](https://anaconda.org/conda-forge/r-arules)
 
 ## Introduction
 
