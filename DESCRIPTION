@@ -1,36 +1,50 @@
 Package: arules
+Title: Mining Association Rules and Frequent Itemsets
 Version: 1.7-7-1
 Date: 2024-xx-xx
-Title: Mining Association Rules and Frequent Itemsets
 Authors@R: c(
-    person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
-	email = "mhahsler@lyle.smu.edu",
-	comment = c(ORCID = "0000-0003-2716-1405")),
+    person("Michael", "Hahsler", , "mhahsler@lyle.smu.edu", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0003-2716-1405")),
     person("Christian", "Buchta", role = c("aut", "cph")),
     person("Bettina", "Gruen", role = c("aut", "cph")),
     person("Kurt", "Hornik", role = c("aut", "cph"),
-	comment = c(ORCID = "0000-0003-4198-9911")),
+           comment = c(ORCID = "0000-0003-4198-9911")),
     person("Christian", "Borgelt", role = c("ctb", "cph")),
-    person("Ian", "Johnson", role = c("ctb")),
-    person("Makhlouf", "Ledmi", role = c("ctb")))
-Description: Provides the infrastructure for representing, manipulating and analyzing 
-  transaction data and patterns (frequent itemsets and association rules). 
-  Also provides C implementations of the association mining algorithms Apriori and Eclat. 
-  Hahsler, Gruen and Hornik (2005) <doi:10.18637/jss.v014.i15>.
-Classification/ACM: G.4, H.2.8, I.5.1
+    person("Ian", "Johnson", role = "ctb"),
+    person("Makhlouf", "Ledmi", role = "ctb")
+  )
+Description: Provides the infrastructure for representing, manipulating
+    and analyzing transaction data and patterns (frequent itemsets and
+    association rules).  Also provides C implementations of the
+    association mining algorithms Apriori and Eclat.  Hahsler, Gruen and
+    Hornik (2005) <doi:10.18637/jss.v014.i15>.
+License: GPL-3
 URL: https://github.com/mhahsler/arules
 BugReports: https://github.com/mhahsler/arules/issues
-Depends: R (>= 4.0.0), Matrix (>= 1.4-0)
-Imports: stats, methods, generics, graphics, utils
-Suggests: pmml, XML, proxy, arulesViz, arulesCBA, testthat
-License: GPL-3
+Depends: 
+    Matrix (>= 1.4-0),
+    R (>= 4.0.0)
+Imports: 
+    generics,
+    graphics,
+    methods,
+    stats,
+    utils
+Suggests: 
+    arulesCBA,
+    arulesViz,
+    pmml,
+    proxy,
+    testthat,
+    XML
+Classification/ACM: G.4, H.2.8, I.5.1
 Copyright: The source code for Apriori and Eclat was obtained from
-    http://www.borgelt.net/ and is Copyright (C) 1996-2003 Christian Borgelt.
-    All other code is Copyright (C) Michael Hahsler, Christian Buchta,
-    Bettina Gruen and Kurt Hornik.
+    http://www.borgelt.net/ and is Copyright (C) 1996-2003 Christian
+    Borgelt.  All other code is Copyright (C) Michael Hahsler, Christian
+    Buchta, Bettina Gruen and Kurt Hornik.
 Encoding: UTF-8
-RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
 Collate: 
     'AAADefs.R'
     'AAA_arules-package.R'
