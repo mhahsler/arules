@@ -1,5 +1,9 @@
 # arules 1.7-7-1 (xx/xx/2024)
 
+## Bugfixes
+* Fixed 'Error in .basicRuleMeasure(..) unused argument 
+  (complement = TRUE)' reported by bachnguyen-tomo.
+
 # arules 1.7-7 (11/28/2023)
 
 ## Changes

@@ -741,7 +741,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
   ### k is the number of classes used by laplace
   significance = FALSE,
   ### used by chi-squared
-  compliment = TRUE,
+  complement = TRUE,
   ### k is the number of classes used by laplace
   k = 2) {
   if (is(x, "rules"))
@@ -874,7 +874,7 @@ setMethod("interestMeasure",  signature(x = "rules"),
         else
           stats::pchisq(q = chi2,
             df = 1,
-            lower.tail = !compliment)
+            lower.tail = !complement)
       }
     ))
   

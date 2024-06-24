@@ -35,6 +35,8 @@
 #' \url{https://dmg.org/pmml/v4-4/AssociationRules.html}
 #' @keywords interface
 #' @examples
+#' ### only run this example if pmml is installed
+#' if("pmml" %in% rownames(installed.packages())) {
 #' data("Groceries")
 #'
 #' rules <- apriori(Groceries, parameter = list(support = 0.001))
@@ -54,6 +56,7 @@
 #'
 #' ### clean up
 #' unlink("rules.xml")
+#' }
 NULL
 
 #' @rdname pmml
