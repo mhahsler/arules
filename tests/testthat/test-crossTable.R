@@ -1,6 +1,3 @@
-library("testthat")
-library("arules")
-
 data(Groceries)
 
 itset <- new("itemsets", 

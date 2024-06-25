@@ -1,10 +1,4 @@
-library("arules")
-library("testthat")
-
-
 options(digits=2)
-
-context("discretize")
 
 nums1 <- sample(rep(0:10, time = 5))
 

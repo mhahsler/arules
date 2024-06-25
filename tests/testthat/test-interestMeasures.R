@@ -1,8 +1,3 @@
-library("arules")
-library("testthat")
-
-context("interestMeasures")
-
 options(digits = 2)
 
 data <- list(c("A", "B"),
@@ -110,8 +105,6 @@ m5 <- interestMeasure(rules[0], transactions = trans, reuse = TRUE)
 expect_equal(nrow(m5), 0L)
 
 ## is.redundant (this test does not help much)!
-context("is.redundant")
-
 red <- is.redundant(rules)
 imp <- interestMeasure(rules, measure = "improvement")
 expect_equal(red, imp <= 0)
@@ -119,9 +112,7 @@ expect_equal(red, imp <= 0)
 #inspect(rules[!red])
 #inspect(rules[red])
 
-
-context("support")
-
+# test support
 s_tid <- support(rules, trans, control = list(method = "tidlist"))
 s_ptree <- support(rules, trans, control = list(method = "ptree"))
 expect_equal(s_tid, s_ptree)
@@ -129,7 +120,6 @@ expect_equal(s_tid, quality(rules)$support)
 
 ## FIXME: test others
 
-context("test with previous version")
 data("Adult")
 ## Mine association rules.
 rules <- apriori(Adult,

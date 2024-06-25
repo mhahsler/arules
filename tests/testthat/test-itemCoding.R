@@ -1,8 +1,3 @@
-library("testthat")
-library("arules")
-
-context("itemCoding")
-
 data("Adult")
 
 list <- LIST(Adult[1:5], decode = FALSE)
@@ -14,7 +9,6 @@ names(list_decoded2) <- NULL
 
 expect_equal(list_decoded1, list_decoded2)
 
-
 ## Example 2: Manually create an itemMatrix 
 data <- list(
   c("income=small", "age=Young"),
@@ -22,7 +16,6 @@ data <- list(
 )
 
 iM <- encode(data, itemLabels = Adult)
-
 
 ### non existing item are dropped with a warning now.
 data2 <- list(

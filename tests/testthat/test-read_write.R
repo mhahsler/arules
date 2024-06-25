@@ -1,8 +1,3 @@
-library("arules")
-library("testthat")
-
-context("read.transactions")
-
 setwd(tempdir())
 
 ## test skip and quote
@@ -63,11 +58,7 @@ expect_equal(dim(tr), c(2L, 2L))
 ## tidy up
 unlink("demo_single")
 
-
-
-
-context("write transactions")
-
+## Write transactions
 ## Note: write basket looses transactionID
 write(tr, file = "demo_write")
 tr2 <- read.transactions("demo_write")

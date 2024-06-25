@@ -1,8 +1,3 @@
-library("testthat")
-library("arules")
-
-context("associations")
-
 set.seed(20070611)
 
 m <- matrix(as.integer(runif(100000) > 0.8), ncol = 20)
@@ -12,7 +7,6 @@ t <- as(m, "transactions")
 #inspect(t[10])
 
 expect_identical(dim(t), dim(m))
-
 
 r <-
   apriori(t,
@@ -26,7 +20,6 @@ ss <- subset(r, subset = lift > 1.4 & lhs %in% "item3")
 #inspect(ss)
 expect_identical(labels(lhs(ss)), "{item2,item3}")
 expect_true(quality(ss)$lift > 1.4)
-
 
 f <- eclat(t,
   parameter = list(supp = 0.01),
@@ -73,7 +66,6 @@ qual <-
 expect_warning(r <- rules(lhs, rhs, quality = qual))
 #inspect(r)
 
-context("subsetting")
 
 ## subsetting (also tests itemMatrix)
 # numeric
@@ -174,7 +166,6 @@ expect_identical(match(r[2:10], r), 2:10)
 expect_identical(r[2:10] %in% r, 2:10)
 expect_identical(match(f[2:10], f), 2:10)
 expect_identical(f[2:10] %in% f, 2:10)
-
 
 expect_identical(rhs(r[1:10]) %pin% "item1",
   c(FALSE, FALSE, TRUE, TRUE, TRUE,

@@ -1,9 +1,4 @@
-library("arules")
-library("testthat")
-
 debug <- FALSE
-
-context("confint")
 
 data("Adult")
 ## Mine association rules.

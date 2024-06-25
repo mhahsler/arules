@@ -1,5 +1,4 @@
 ## FIXME: missing tests
-## * itemCoding
 ## * aggregate
 ## * dissimilarity
 ## * pmml

@@ -1,7 +1,3 @@
-library("testthat")
-library("arules")
-
-
 data <- list(
   c("a","b","c"),
   c("a","b"),
@@ -13,8 +9,6 @@ data <- list(
 )
 names(data) <- paste("Tr",c(1:7), sep = "")
 trans <- as(data, "transactions")
-
-context("Rule Induction")
 
 ### rules
 is <- apriori(trans, parameter=list(supp=0.25, target = "frequent"), 

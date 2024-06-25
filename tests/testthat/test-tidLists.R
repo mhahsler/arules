@@ -1,9 +1,3 @@
-library("arules")
-library("testthat")
-
-
-context("tidLists")
-
 data <- list(
   c("a","b","c"),
   c("a","b"),

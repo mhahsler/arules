@@ -1,8 +1,3 @@
-library("arules")
-library("testthat")
-
-context("transactions")
-
 data <- list(
   c("a","b","c"),
   c("a","b"),

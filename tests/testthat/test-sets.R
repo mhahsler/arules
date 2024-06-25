@@ -1,8 +1,3 @@
-library("arules")
-library("testthat")
-
-context("set operations")
-
 data <- list(
     c("A", "B"),
     c("A", "B", "C", "G"),

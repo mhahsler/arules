@@ -1,9 +1,4 @@
-library("arules")
-library("testthat")
-
 set.seed(20070611)
-
-context("itemMatrix")
 
 ### Generate random data and coerce data to itemMatrix.
 m <- matrix(runif(50)>0.8, ncol=5)
@@ -11,7 +6,6 @@ dn <- list(paste("trans", seq(nrow(m)), sep=""),
            paste("item", seq(ncol(m)), sep=""))
 dimnames(m) <- dn
 i <- as(m, "itemMatrix")
-
 
 ### number of rows
 expect_identical(length(i), nrow(m))

@@ -3,6 +3,9 @@
 ## Bugfixes
 * Fixed 'Error in .basicRuleMeasure(..) unused argument 
   (complement = TRUE)' reported by bachnguyen-tomo.
+  
+## Changes
+* Updated tests for testthat edition 3.
 
 # arules 1.7-7 (11/28/2023)
 
@@ -12,6 +15,7 @@
 * improved some error messages.
 * Added Wikipedia links to measures.md.
 * Added interest measure LIC.
+
   
 ## Bugfixes
 * Fixed appearance code for fim4r (reported by mytarmail).

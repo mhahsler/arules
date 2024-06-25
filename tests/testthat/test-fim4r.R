@@ -1,10 +1,6 @@
-library("arules")
-library("testthat")
-
 skip_if_not_installed("fim4r")
 
 verb <- FALSE
-
 options(digits = 2)
 
 data <- list(

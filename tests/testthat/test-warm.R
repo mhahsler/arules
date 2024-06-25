@@ -1,8 +1,3 @@
-library("testthat")
-library("arules")
-
-context("weighted association mining")
-
 data("Income")
 
 ## find and some frequent itemsets

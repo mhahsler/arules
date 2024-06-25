@@ -12,7 +12,6 @@ trans_list <- list(
 trans <- transactions(trans_list)
 its <- apriori(trans, support = 1/4, target = "frequent itemsets", control = list(verb = FALSE))
 
-context("is.generator")
 # with minsup = 1, frequent generator itemsets are: emptyset, b, c, d, bd, cd.
 ig <- is.generator(its)
 gens <- its[ig]
@@ -25,7 +24,6 @@ expect_true(setequal(gens, gens_ap))
 expect_true(setequal(gens, gens_ec))
 
 
-context("is.closed")
 # with minsup = 1, frequent closed itemsets are: a, ac, ad, abc, abcd.
 ic <- is.closed(its)
 expect_true(setequal(names(ic)[ic], c("{a}", "{a,c}", "{a,d}", "{a,b,c}", "{a,b,c,d}")))
@@ -33,7 +31,6 @@ expect_true(setequal(names(ic)[ic], c("{a}", "{a,c}", "{a,d}", "{a,b,c}", "{a,b,
 ic2 <- apriori(trans, support = 1/4, target = "closed frequent itemsets", control = list(verb = FALSE))
 expect_true(setequal(its[ic], ic2))
 
-context("is.maximal")
 # 
 im <- is.maximal(its)
 expect_true(setequal(names(im)[im], c("{a,b,c,d}")))

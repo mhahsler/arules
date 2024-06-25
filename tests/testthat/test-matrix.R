@@ -1,8 +1,3 @@
-library("arules")
-library("testthat")
-
-context("ngCMatrix")
-
 e <- new("ngCMatrix")
 x <- new("ngCMatrix", p   = as.integer(c(0,3,5,7,7,10)),
                       i   = as.integer(c(1,2,4,1,2,0,4,0,2,5)),
