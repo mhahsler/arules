@@ -27,7 +27,7 @@ or subset structure within set \code{x} is calculated.}
 
 \item{proper}{a logical indicating if all or just proper super or subsets.}
 
-\item{sparse}{a logical indicating if a sparse \code{\linkS4class{ngCMatrix}}
+\item{sparse}{a logical indicating if a sparse \link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix}
 rather than a dense logical matrix should be returned.
 Sparse computation requires a
 significantly smaller amount of memory and is much faster for large sets.}
@@ -35,7 +35,7 @@ significantly smaller amount of memory and is much faster for large sets.}
 \item{...}{currently unused.}
 }
 \value{
-returns a logical matrix or a sparse \code{\linkS4class{ngCMatrix}}
+returns a logical matrix or a sparse \link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix}
 with \code{length(x)} rows and \code{length(y)} columns.
 Each logical row vector represents which elements in \code{y} are supersets
 (subsets) of the corresponding element in \code{x}.  If either \code{x} or

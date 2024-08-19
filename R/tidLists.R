@@ -27,7 +27,7 @@
 #' item/itemset. 
 #' 
 #' `tidLists` uses the class
-#' [ngCMatrix-class] to efficiently store the
+#' [Matrix::ngCMatrix-class] to efficiently store the
 #' transaction ID lists as a sparse matrix.  Each column in the matrix
 #' represents one transaction ID list.
 #'
@@ -63,7 +63,7 @@
 #' an object of class [transactions]. 
 #' * by calls of the form  `new("tidLists", ...)`.
 #' 
-#' @slot data an object of class [ngCMatrix-class] from package \pkg{Matrix}.
+#' @slot data an object of class [Matrix::ngCMatrix-class].
 #' @slot itemInfo a data.frame
 #' @slot transactionInfo a data.frame
 #' 

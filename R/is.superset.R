@@ -37,12 +37,12 @@
 #' @param x,y associations or itemMatrix objects. If `y = NULL`, the super
 #' or subset structure within set `x` is calculated.
 #' @param proper a logical indicating if all or just proper super or subsets.
-#' @param sparse a logical indicating if a sparse [`ngCMatrix-class`] 
+#' @param sparse a logical indicating if a sparse [Matrix::ngCMatrix-class] 
 #' rather than a dense logical matrix should be returned. 
 #' Sparse computation requires a
 #' significantly smaller amount of memory and is much faster for large sets.
 #' @param ... currently unused.
-#' @return returns a logical matrix or a sparse [`ngCMatrix-class`] 
+#' @return returns a logical matrix or a sparse [Matrix::ngCMatrix-class] 
 #' with `length(x)` rows and `length(y)` columns.
 #' Each logical row vector represents which elements in `y` are supersets
 #' (subsets) of the corresponding element in `x`.  If either `x` or

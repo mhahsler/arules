@@ -34,7 +34,7 @@
 #' 
 #' **Warning:** Ideally, we would store the matrix as a row-oriented sparse 
 #'   matrix (`ngRMatrix`), but the \pkg{Matrix} package provides better support for
-#'   column-oriented sparse classes (`ngCMatrix`). The matrix is therefore internally stored
+#'   column-oriented sparse classes ([Matrix::ngCMatrix-class]). The matrix is therefore internally stored
 #'   in transposed form.
 #' 
 #' **Working with several `itemMatrix` objects**
@@ -48,7 +48,7 @@
 #' @aliases itemMatrix
 #' @family itemMatrix and transactions functions
 #' 
-#' @slot data a sparse matrix of class [ngCMatrix-class] representing the itemsets. 
+#' @slot data a sparse matrix of class [Matrix::ngCMatrix-class] representing the itemsets. 
 #'       **Warning:** the matrix is stored in transposed form for efficiency reasons!.
 #' @slot itemInfo a data.frame
 #' @slot itemsetInfo a data.frame
