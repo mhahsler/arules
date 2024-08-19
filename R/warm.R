@@ -198,7 +198,9 @@ weclat <- function(data,
     cat("\n")
   }
   ## r <- .Call(R_transpose_ngCMatrix, data@data)
-  r <- selectMethod("t", class(data@data))(data@data)
+  ##r <- selectMethod("t", class(data@data))(data@data)
+  r <- t(data@data)
+  
   r <- .Call(
     R_weclat_ngCMatrix,
     r,

@@ -3,10 +3,6 @@
 #include <Rdefines.h>
 #include "newS4object.h"
 
-/* arraySubscript.c */
-SEXP _int_arraySubscript(int, SEXP, const char *, const char *, SEXP,
-                         Rboolean, SEXP);
-
 /* sparse matrix matrix tools.
  *
  * ngCMatrix objects represent indicator matrices
@@ -17,7 +13,10 @@ SEXP _int_arraySubscript(int, SEXP, const char *, const char *, SEXP,
  * ceeboo 2006, 2007, 2008, 2012
  */
 
-SEXP R_transpose_ngCMatrix(SEXP x) {
+
+/* used by crossprod */
+
+SEXP int_transpose_ngCMatrix(SEXP x) {
   int i, k, l, f, nr;
   SEXP r, px, ix, pr, ir;
   
@@ -91,7 +90,7 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
     error("'t' not of storage class logical");
   
   if (LOGICAL(t)[0] == FALSE) {
-    PROTECT(x = R_transpose_ngCMatrix(x));
+    PROTECT(x = int_transpose_ngCMatrix(x));
     nprotect++;
   }
   
@@ -114,7 +113,7 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
       error("'y' not of class 'ngCMatrix'");
     
     if (LOGICAL(t)[0] == FALSE){
-      PROTECT(y = R_transpose_ngCMatrix(y));
+      PROTECT(y = int_transpose_ngCMatrix(y));
       nprotect++;
     }
     
@@ -177,139 +176,6 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
   UNPROTECT(nprotect);
   
   return r;
-}
-
-SEXP R_rowSums_ngCMatrix(SEXP x) {
-  int k,  nr = INTEGER(getAttrib(x, install("Dim")))[0];
-  SEXP r, ix = getAttrib(x, install("i"));
-  
-  if (!inherits(x, "ngCMatrix"))
-    error("'x' not of class 'ngCMatrix'");
-  
-  PROTECT(r = allocVector(INTSXP, nr));
-  memset(INTEGER(r), 0, sizeof(int) * nr);
-  
-  for (k = 0; k < LENGTH(ix); k++)
-    INTEGER(r)[INTEGER(ix)[k]]++;
-  
-  setAttrib(r, R_NamesSymbol, VECTOR_ELT(getAttrib(x, install("Dimnames")), 0));
-  UNPROTECT(1);
-  
-  return r;
-}
-
-SEXP R_colSums_ngCMatrix(SEXP x) {
-  int k, f, l;
-  SEXP r, px = getAttrib(x, install("p"));
-  
-  if (!inherits(x, "ngCMatrix") && !inherits(x, "sgCMatrix"))
-    error("'x' not of class 'ngCMatrix'");
-  
-  PROTECT(r = allocVector(INTSXP, LENGTH(px)-1));
-  
-  f = 0;
-  for (k = 1; k < LENGTH(px); k++) {
-    l = INTEGER(px)[k];
-    INTEGER(r)[k-1] = l-f;
-    f = l;
-  }
-  setAttrib(r, R_NamesSymbol, VECTOR_ELT(getAttrib(x, install("Dimnames")), 1));
-  UNPROTECT(1);
-  
-  return r;
-}
-
-SEXP R_colSubset_ngCMatrix(SEXP x, SEXP s) {
-  int i, j, k, n;
-  SEXP r, dx, px, ix, pr, ir;
-  
-  if (!inherits(x, "ngCMatrix") && !inherits(x, "sgCMatrix"))
-    error("'x' not of class 'ngCMatrix'");
-  
-  dx = getAttrib(x, install("Dimnames"));
-#ifdef _COMPAT_
-  r = CONS(dx, ATTRIB(x));
-  SET_TAG(r, R_DimNamesSymbol);
-  /* NOTE that we temporarily change a read-only object.
-   *      this is safe as long as the object cannot be
-   *     accessed concurrently.  */
-  SET_ATTRIB(x, r);
-  
-  PROTECT(s = arraySubscript(1, s, getAttrib(x, install("Dim")), getAttrib, (STRING_ELT), x));
-  
-  SET_ATTRIB(x, CDR(r));
-#else
-  PROTECT(s = _int_arraySubscript(1, s, "Dim", "Dimnames", x, TRUE, R_NilValue));
-#endif
-  px = getAttrib(x, install("p"));
-  
-  n = 0;
-  for (i = 0; i < LENGTH(s); i++) {
-    j = INTEGER(s)[i];
-    if (j == NA_INTEGER)
-      error("invalid subscript(s)");
-    n += (INTEGER(px)[j] - INTEGER(px)[j-1]);
-  }
-  
-  ix = getAttrib(x, install("i"));
-  
-  PROTECT(r = NEW_OBJECT_OF_CLASS(inherits(x, "ngCMatrix") ? "ngCMatrix" : "sgCMatrix"));
-  setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(s)+1)));
-  setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, n)));
-  UNPROTECT(2);
-  
-  n = INTEGER(pr)[0] = 0;
-  for (i = 0; i < LENGTH(s); i++) {
-    j = INTEGER(s)[i];
-    for (k = INTEGER(px)[j-1]; k < INTEGER(px)[j]; k++)
-      INTEGER(ir)[n++] = INTEGER(ix)[k];
-    INTEGER(pr)[i+1] = n;
-  }
-  
-  setAttrib(r, install("Dim"), PROTECT(ir = allocVector(INTSXP, 2)));
-  INTEGER(ir)[0] = INTEGER(getAttrib(x, install("Dim")))[0];
-  INTEGER(ir)[1] = LENGTH(s);
-  
-  if (isNull((ix = VECTOR_ELT(dx, 1)))) 
-    setAttrib(r, install("Dimnames"), dx);
-  else {
-    setAttrib(r, install("Dimnames"), PROTECT(ir = allocVector(VECSXP, 2)));
-    setAttrib(ir, R_NamesSymbol, getAttrib(dx, R_NamesSymbol));
-    SET_VECTOR_ELT(ir, 0, VECTOR_ELT(dx, 0));
-    if (LENGTH(s) > 0) {
-      SET_VECTOR_ELT(ir, 1, (pr = allocVector(STRSXP, LENGTH(s))));
-      for (i = 0; i < LENGTH(s); i++) 
-        SET_STRING_ELT(pr, i, STRING_ELT(ix, INTEGER(s)[i]-1));
-    } else
-      SET_VECTOR_ELT(ir, 1, R_NilValue);
-    
-    UNPROTECT(1);
-  }
-  
-  UNPROTECT(3);
-  
-  return r;
-}
-
-/*
- R's subset functionality is a misnomer as it 
- allows many-to-many mappings. for special cases
- such as reordering of rows and one-to-one mappings 
- there exist more efficient solutions (see below).
- 
- as performing a many-to-many mapping for each
- column is inefficient we use transposition and
- column subsetting.
- */
-
-SEXP R_rowSubset_ngCMatrix(SEXP x, SEXP s) {
-  x = R_transpose_ngCMatrix(x);
-  x = R_colSubset_ngCMatrix(PROTECT(x), s);
-  UNPROTECT(1);
-  x = R_transpose_ngCMatrix(PROTECT(x));
-  UNPROTECT(1);
-  
-  return x;
 }
 
 /*
@@ -645,7 +511,7 @@ SEXP R_or_ngCMatrix(SEXP x, SEXP y) {
 }
 
 /*
- check if the internal represention is compatible
+ check if the internal representaion is compatible
  with the implementations above.
  */
 
