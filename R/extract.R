@@ -76,8 +76,7 @@ setMethod("[", signature(
       }
       
       i <- .translate_index(i, rownames(x), nrow(x))
-      ## faster than: x@data <- x@data[,i, drop=FALSE]
-      x@data <- .Call(R_colSubset_ngCMatrix, x@data, i)
+      x@data <- x@data[,i, drop=FALSE]
       
       ### only subset if we have rows
       if (nrow(x@itemsetInfo))
@@ -100,9 +99,7 @@ setMethod("[", signature(
       }
       
       j <- .translate_index(j, colnames(x), ncol(x))
-      ## faster than: x@data <- x@data[j,, drop=FALSE]
-      x@data <- .Call(R_rowSubset_ngCMatrix, x@data, j)
-      
+      x@data <- x@data[j,, drop=FALSE]
       x@itemInfo <- x@itemInfo[j, , drop = FALSE]
     }
     
@@ -159,8 +156,7 @@ setMethod("[", signature(
       }
       
       i <- .translate_index(i, rownames(x), nrow(x))
-      x@data <- .Call(R_colSubset_ngCMatrix, x@data, i)
-      
+      x@data <- x@data[,i , drop=FALSE]
       x@itemInfo <- x@itemInfo[i, , drop = FALSE]
     }
     
@@ -174,8 +170,7 @@ setMethod("[", signature(
       }
       
       j <- .translate_index(j, colnames(x), ncol(x))
-      x@data <- .Call(R_rowSubset_ngCMatrix, x@data, j)
-      
+      x@data <- x@data[j ,, drop=FALSE]
       x@transactionInfo <- x@transactionInfo[j, , drop = FALSE]
     }
     

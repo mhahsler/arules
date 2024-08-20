@@ -1,11 +1,21 @@
 # arules 1.7-7-1 (xx/xx/2024)
 
-## Bugfixes
-* Fixed 'Error in .basicRuleMeasure(..) unused argument 
-  (complement = TRUE)' reported by bachnguyen-tomo.
   
 ## Changes
 * Updated tests for testthat edition 3.
+
+## Internal Changes
+* Removed internal ngCMatrix subsetting code which has issues with R-devel.
+  We use now subsetting provided by package Matrix which is almost as fast.
+* Removed internal code for rowSums and colSums for ngCMatrix. 
+* Internal code for t for ngCMatrix is now only used internally. 
+
+
+
+## Bugfixes
+* Fixed 'Error in .basicRuleMeasure(..) unused argument 
+  (complement = TRUE)' reported by bachnguyen-tomo.
+* Added package anchors in man pages for ngCMatrix-class.
 
 # arules 1.7-7 (11/28/2023)
 

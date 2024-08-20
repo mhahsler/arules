@@ -68,7 +68,7 @@ setMethod("itemFrequency", signature(x = "itemMatrix"),
       ## we could also use rowSums
       ##support <- tabulate(x@data@i + 1L, nbins = x@data@Dim[1])
       
-      support <- .Call(R_rowSums_ngCMatrix, x@data)
+      support <- rowSums(x@data)
       total <- length(x)
     }
     

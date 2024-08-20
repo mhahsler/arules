@@ -44,27 +44,22 @@
 setGeneric("size",
   function(x, ...) standardGeneric("size"))
 
+## FIXME: Add transactionID or itemsetID as names?
+
 #' @rdname size
 setMethod("size", signature(x = "itemMatrix"),
-  function(x) {
-    ## if Matrix had colSums implemented efficiently,
-    ## we could use colSums(x@data). we use our own C code.
-    ## diff(x@data@p) is nearly as fast as colSums(x@data).
-    
-    ## FIXME: Add transactionID or itemsetID as names
-    cnt <- .Call(R_colSums_ngCMatrix, x@data)
-    cnt
-  })
+  function(x) colSums(x@data)
+)
 
 #' @rdname size
 setMethod("size", signature(x = "tidLists"),
-  function(x)
-    .Call(R_colSums_ngCMatrix, x@data))
+  function(x) colSums(x@data)
+)
 
 #' @rdname size
 setMethod("size", signature(x = "itemsets"),
-  function(x)
-    size(x@items))
+  function(x) colSums(x@items@data)
+)
 
 #' @rdname size
 setMethod("size", signature(x = "rules"),

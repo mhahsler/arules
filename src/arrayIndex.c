@@ -2,15 +2,49 @@
 #include <R.h>
 #include <Rinternals.h>
 
-/* workaround i18n */
+/* DEPRECATED (8/20/24)
+ * This file is deprecated and will be 
+ * removed. Currently used to export functions used by arulesSequences
+ * / 
+
+// adapted from 4.4.1 src/main/match.c
+//
+// ceeboo 2024/8
+//
+static Rboolean nonNullStringMatch(SEXP s, SEXP t)
+{
+    /* "" or NA string matches nothing */
+    if (s == NA_STRING || t == NA_STRING) return FALSE;
+    if (CHAR(s)[0] && CHAR(t)[0]) {
+	if (s == t)
+	    return TRUE;
+    /* The only case where pointer comparisons do not suffice is where
+      we have two strings in different encodings (which must be
+      non-ASCII strings). Note that one of the strings could be marked
+      as unknown. */
+	if (getCharCE(s) == CE_BYTES && getCharCE(t) == CE_BYTES) 
+	    return strcmp(CHAR(s), CHAR(t)) ? FALSE : TRUE;
+	if (getCharCE(s) == CE_BYTES || getCharCE(t) == CE_BYTES)
+	    return FALSE;
+	if (getCharCE(s) == getCharCE(t))
+	    return FALSE;
+	if (getCharCE(s) == CE_NATIVE || getCharCE(t) == CE_NATIVE)
+	    return FALSE;
+        void *vmax = vmaxget();
+        int result = strcmp(translateCharUTF8(s), translateCharUTF8(t));
+        vmaxset(vmax); /* discard any memory used by translateCharUTF8 */
+        return result ? FALSE : TRUE;
+    } else
+	return FALSE;
+}
+
+// workaround i18n
 #define _(x) (x)
 
-/* 
- * copied from 2.14-2 src/main/subsript.c
- *
- * ceeboo 2012/11
- */
-
+// copied from 2.14-2 src/main/subscript.c
+//
+// ceeboo 2011/11 2014/1
+//
 #define ECALL(call, yy) if(call == R_NilValue) error(yy); else errorcall(call, yy);
 
 static SEXP nullSubscript(int n)
@@ -179,7 +213,7 @@ stringSubscript(SEXP s, int ns, int nx, SEXP names,
 		    if (!in && TYPEOF(names_j) != CHARSXP) {
 			ECALL(call, _("character vector element does not have type CHARSXP"));
 		    }
-		    if (NonNullStringMatch(STRING_ELT(s, i), names_j)) {
+		    if (nonNullStringMatch(STRING_ELT(s, i), names_j)) {
 			sub = j + 1;
 			SET_VECTOR_ELT(indexnames, i, R_NilValue);
 			break;
@@ -195,7 +229,7 @@ stringSubscript(SEXP s, int ns, int nx, SEXP names,
 	sub = INTEGER(indx)[i];
 	if (sub == 0) {
 	    for (j = 0 ; j < i ; j++)
-		if (NonNullStringMatch(STRING_ELT(s, i), STRING_ELT(s, j))) {
+		if (nonNullStringMatch(STRING_ELT(s, i), STRING_ELT(s, j))) {
 		    sub = INTEGER(indx)[j];
 		    SET_VECTOR_ELT(indexnames, i, STRING_ELT(s, j));
 		    break;
@@ -224,14 +258,14 @@ stringSubscript(SEXP s, int ns, int nx, SEXP names,
 /* Array Subscripts.
     dim is the dimension (0 to k-1)
     s is the subscript list,
-    dg is the attribute name of dim
-    dng is the attribute name of dimnames
+    dn is the attribute name of dim
+    dnn is the attribute name of dimnames
     x is the array to be subscripted.
 */
 
 SEXP
-_int_arraySubscript(int dim, SEXP s, const char *dn, const char *dnn,
-		   SEXP x, Rboolean in, SEXP call)
+_int_array_subscript(int dim, SEXP s, const char *dn, const char *dnn,
+		     SEXP x, Rboolean in, SEXP call)
 {
     int nd, ns, stretch = 0;
     SEXP dnames, tmp;
@@ -270,14 +304,14 @@ _int_arraySubscript(int dim, SEXP s, const char *dn, const char *dnn,
     return R_NilValue;
 }
 
-/* R interface */
+// R interface
 SEXP
 R_arraySubscript(SEXP x, SEXP dim, SEXP s, SEXP dn, SEXP dnn) {
-    /* FIXME */
-    return _int_arraySubscript(INTEGER(dim)[0], s, 
+    // FIXME
+    return _int_array_subscript(INTEGER(dim)[0], s, 
 			      (const char *) CHAR(STRING_ELT(dn, 0)), 
 			      (const char *) CHAR(STRING_ELT(dnn, 0)), 
 			      x, TRUE, R_NilValue);
 }
 
-
+//

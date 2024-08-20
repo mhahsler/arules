@@ -74,7 +74,7 @@ an item/itemset and stores the IDs of the transactions which support the
 item/itemset.
 
 \code{tidLists} uses the class
-\linkS4class{ngCMatrix} to efficiently store the
+\link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix} to efficiently store the
 transaction ID lists as a sparse matrix.  Each column in the matrix
 represents one transaction ID list.
 
@@ -121,7 +121,7 @@ columns are the transactions.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{an object of class \linkS4class{ngCMatrix} from package \pkg{Matrix}.}
+\item{\code{data}}{an object of class \link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix}.}
 
 \item{\code{itemInfo}}{a data.frame}
 

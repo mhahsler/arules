@@ -3,8 +3,8 @@
 #include <Rdefines.h>
 #include "newS4object.h"
 
-/* arraySubscript.c */
-SEXP _int_arraySubscript(int, SEXP, const char *, const char *, SEXP,
+/* arrayIndex.c */
+SEXP _int_array_subscript(int, SEXP, const char *, const char *, SEXP,
                          Rboolean, SEXP);
 
 /* sparse matrix matrix tools.
@@ -17,6 +17,7 @@ SEXP _int_arraySubscript(int, SEXP, const char *, const char *, SEXP,
  * ceeboo 2006, 2007, 2008, 2012
  */
 
+/* only used in crosstab below */
 SEXP R_transpose_ngCMatrix(SEXP x) {
   int i, k, l, f, nr;
   SEXP r, px, ix, pr, ir;
@@ -179,6 +180,7 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
   return r;
 }
 
+/* DEPRECATED (8/20/24): Only used for arulesSequences */
 SEXP R_rowSums_ngCMatrix(SEXP x) {
   int k,  nr = INTEGER(getAttrib(x, install("Dim")))[0];
   SEXP r, ix = getAttrib(x, install("i"));
@@ -198,6 +200,7 @@ SEXP R_rowSums_ngCMatrix(SEXP x) {
   return r;
 }
 
+/* DEPRECATED (8/20/24): Only used for arulesSequences */
 SEXP R_colSums_ngCMatrix(SEXP x) {
   int k, f, l;
   SEXP r, px = getAttrib(x, install("p"));
@@ -219,6 +222,8 @@ SEXP R_colSums_ngCMatrix(SEXP x) {
   return r;
 }
 
+
+/* DEPRECATED (8/20/24): Only used for arulesSequences */
 SEXP R_colSubset_ngCMatrix(SEXP x, SEXP s) {
   int i, j, k, n;
   SEXP r, dx, px, ix, pr, ir;
@@ -239,7 +244,7 @@ SEXP R_colSubset_ngCMatrix(SEXP x, SEXP s) {
   
   SET_ATTRIB(x, CDR(r));
 #else
-  PROTECT(s = _int_arraySubscript(1, s, "Dim", "Dimnames", x, TRUE, R_NilValue));
+  PROTECT(s = _int_array_subscript(1, s, "Dim", "Dimnames", x, TRUE, R_NilValue));
 #endif
   px = getAttrib(x, install("p"));
   
@@ -302,6 +307,8 @@ SEXP R_colSubset_ngCMatrix(SEXP x, SEXP s) {
  column subsetting.
  */
 
+
+/* DEPRECATED (8/20/24): Only used for arulesSequences */
 SEXP R_rowSubset_ngCMatrix(SEXP x, SEXP s) {
   x = R_transpose_ngCMatrix(x);
   x = R_colSubset_ngCMatrix(PROTECT(x), s);
@@ -555,6 +562,7 @@ SEXP R_recode_ngCMatrix(SEXP x, SEXP s) {
  may amount to full-storage representation.
  */
 
+/* DEPRECATED (8/20/24): Only used for arulesSequences */
 SEXP R_or_ngCMatrix(SEXP x, SEXP y) {
   int i, kx, ky, lx, ly, n, nr;
   SEXP r, pr, ir, px, ix, py, iy;

@@ -3,6 +3,14 @@
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 
+/* DEPRECATED (8/20/24): 
+ *  - R_rowSums_ngCMatrix
+ *  - R_colSums_ngCMatrix
+ *  - R_colSubset_ngCMatrix
+ *  - R_rowSubset_ngCMatrix
+ *  - R_or_ngCMatrix
+ */  
+
 extern SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, SEXP PROPER, SEXP OUT_P);
 extern SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control,
 		   SEXP itemInfo);

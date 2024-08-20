@@ -17,17 +17,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-
 ## provide some interfaces to our C implementations
-
-## t in Matrix is now faster
-##setMethod("t", signature(x = "ngCMatrix"),
-##    function(x) .Call(R_transpose_ngCMatrix, x))
-
-## overloading of [ for ngCMatrix cannot be accomplished
-## easily as there are too many signatures to overload.
-
 
 ## density for ngC/dgCMatrix
 .density_Matrix <- function(x)
