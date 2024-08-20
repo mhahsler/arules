@@ -39,9 +39,6 @@
 ## support(l') >= support(l) so min(support(l' in all subsets of l)) != support(l)
 
 
-
-
-
 #' Find Generator Itemsets
 #'
 #' Provides the generic function and the method `is.generator() for
