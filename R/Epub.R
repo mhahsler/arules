@@ -34,7 +34,7 @@
 #' Session IDs and time stamps for transactions are also provided as transaction information.
 #' @author Michael Hahsler
 #' @source Provided by Michael Hahsler from the custom information system ePub-WU 
-#' at \url{https://epub.wu-wien.ac.at} (which has been replaced by eprint).
+#' (which has since been replaced by eprint).
 #' @keywords datasets
 #' @examples  
 #' data(Epub)

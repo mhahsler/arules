@@ -13,7 +13,7 @@ Session IDs and time stamps for transactions are also provided as transaction in
 }
 \source{
 Provided by Michael Hahsler from the custom information system ePub-WU
-at \url{https://epub.wu-wien.ac.at} (which has been replaced by eprint).
+(which has since been replaced by eprint).
 }
 \description{
 The \code{Epub} data set contains the download history of documents from the
