@@ -5,7 +5,7 @@
 /* DEPRECATED (8/20/24)
  * This file is deprecated and will be 
  * removed. Currently used to export functions used by arulesSequences
- * / 
+ */ 
 
 // adapted from 4.4.1 src/main/match.c
 //
