@@ -1,14 +1,15 @@
-# arules 1.7-7-1 (xx/xx/2024)
-
+# arules 1.7-8 (08/20/2024)
   
 ## Changes
 * Updated tests for testthat edition 3.
 
 ## Internal Changes
-* Removed internal ngCMatrix subsetting code which has issues with R-devel.
+* Disable internal ngCMatrix subsetting code which has issues with R-devel.
   We use now subsetting provided by package Matrix which is almost as fast.
-* Removed internal code for rowSums and colSums for ngCMatrix. 
+* Disable internal code for rowSums and colSums for ngCMatrix. 
 * Internal code for t for ngCMatrix is now only used internally. 
+* The custom code and the exported symbols are now deprecated and will be 
+  removed in the next major release.
 
 ## Bugfixes
 * Fixed 'Error in .basicRuleMeasure(..) unused argument 
