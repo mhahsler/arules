@@ -1,4 +1,4 @@
-# arules 1.7-8 (08/20/2024)
+# arules 1.7-8 (08/21/2024)
   
 ## Changes
 * Updated tests for testthat edition 3.
