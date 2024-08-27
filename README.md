@@ -4,9 +4,9 @@
 [![r-universe
 status](https://mhahsler.r-universe.dev/badges/arules)](https://mhahsler.r-universe.dev/arules)
 [![Package on
-CRAN](http://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org/package=arules)
+CRAN](https://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org/package=arules)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/arules)](https://CRAN.R-project.org/package=arules)
+downloads](https://cranlogs.r-pkg.org/badges/arules)](https://CRAN.R-project.org/package=arules)
 [![Anaconda.org](https://anaconda.org/conda-forge/r-arules/badges/version.svg)](https://anaconda.org/conda-forge/r-arules)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-arules-orange.svg)](https://stackoverflow.com/questions/tagged/arules)
 
@@ -171,7 +171,8 @@ install.packages("arules")
 
 ``` r
 install.packages("arules",
-    repos = c("https://mhahsler.r-universe.dev". "https://cloud.r-project.org/"))
+    repos = c("https://mhahsler.r-universe.dev",
+              "https://cloud.r-project.org/"))
 ```
 
 ## Usage
@@ -209,10 +210,10 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## Absolute minimum support count: 899 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
+    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.01s].
+    ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
     ## writing ... [457 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 
@@ -252,16 +253,15 @@ library("tidyverse")
 library("arules")
 data("IncomeESL")
 
-trans <- IncomeESL |> 
-      select(-`ethnic classification`) |> 
-      transactions()
-rules <- trans |> 
-      apriori(supp = 0.1, conf = 0.9, target = "rules", 
-              control = list(verbose = FALSE))
-rules |> 
-      head(3, by = "lift") |>
-      as("data.frame") |> 
-      tibble()
+trans <- IncomeESL |>
+    select(-`ethnic classification`) |>
+    transactions()
+rules <- trans |>
+    apriori(supp = 0.1, conf = 0.9, target = "rules", control = list(verbose = FALSE))
+rules |>
+    head(3, by = "lift") |>
+    as("data.frame") |>
+    tibble()
 ```
 
     ## # A tibble: 3 × 6
