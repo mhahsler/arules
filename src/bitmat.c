@@ -14,6 +14,7 @@
             20.09.2003 bug in _isect2 fixed (empty transaction list)
             21.09.2003 bug in benchmark version fixed (number of sets)
             25.09.2003 bit count table extended to word values
+            12/14/2024 moved to c11 variable array length in structs
 ----------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +39,7 @@
 typedef struct {                /* --- reduced bit matrix --- */
   int     cnt;                  /* number of bit/number vectors */
   int     len;                  /* length of each bit vector */
-  int     *vecs[1];             /* array of bit/number vectors */
+  int     *vecs[];             /* array of bit/number vectors */
 } REDMAT;                       /* (reduced bit matrix) */
 
 typedef struct {                /* --- all one submatrix search --- */
@@ -48,7 +49,7 @@ typedef struct {                /* --- all one submatrix search --- */
   BMREPFN *report;              /* report function for results */
   void    *data;                /* user data for report function */
   BITMAT  *res;                 /* for closed and maximal item sets */
-  int     rows[1];              /* row ids. vector for reporting */
+  int     rows[];              /* row ids. vector for reporting */
 } ALLONE;                       /* (all one submatrix search) */
 
 /*----------------------------------------------------------------------
@@ -395,7 +396,7 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
   if (n <= 0) n = 1;            /* needed to reach the minimum size */
   if ((depth < ao->max)         /* if search depth not yet reached */
   &&  (mat->cnt > n)) {         /* and there are enough vectors left */
-    red = (REDMAT*)malloc(sizeof(REDMAT) +(mat->cnt-2) *sizeof(int*));
+    red = (REDMAT*)malloc(sizeof(REDMAT) +(mat->cnt-1) *sizeof(int*));
     if (!red) return -1;        /* allocate matrix for the next level */
     red->len = mat->len;        /* and initialize it */
     if (mat->len >= 0)          /* if normal matrix */
@@ -485,7 +486,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
 
   assert(bm                     /* check the function arguments */
   &&     (min >= 0) && (max >= min));
-  ao = (ALLONE*)malloc(sizeof(ALLONE) +(max-1) *sizeof(int));
+  ao = (ALLONE*)malloc(sizeof(ALLONE) +(max) *sizeof(int));
   if (!ao) return -1;           /* create a search structure */
   ao->min    = min;            /* and store the parameters */
   ao->max    = max;            /* in this structure */
@@ -493,7 +494,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
   ao->report = report;
   ao->data   = data;
   ao->res    = NULL;
-  mat = (REDMAT*)calloc(1, sizeof(REDMAT) +(bm->rowcnt-1)*sizeof(int*));
+  mat = (REDMAT*)calloc(1, sizeof(REDMAT) +(bm->rowcnt)*sizeof(int*));
   if (!mat) { free(ao); return -1; }
   n = (bm->colcnt +BM_MASK) >> BM_SHIFT;
   mat->len = (bm->sparse) ? -1 : n;
