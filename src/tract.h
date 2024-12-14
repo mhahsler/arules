@@ -11,12 +11,13 @@
             12.09.2003 function tas_total added
             20.09.2003 empty transactions in input made possible
             12/9/2013 fixed 64-bit address alignment (MFH)
+            12/14/2024 moved to c11 variable array length in structs
 ----------------------------------------------------------------------*/
 #ifndef __TRACT__
 #define __TRACT__
-#ifndef NIMAPFN
+
 #define NIMAPFN
-#endif
+
 #include "vecops.h"
 #include "symtab.h"
 #include "tfscan.h"
@@ -56,7 +57,7 @@ typedef struct {                /* --- an item --- */
 
 typedef struct {                /* --- a transaction --- */
   int     cnt;                  /* number of items */
-  int     items[1];             /* item identifier vector */
+  int     items[];              /* item identifier vector */
 } TRACT;                        /* (transaction) */
 
 typedef struct {                /* --- an itemset --- */
@@ -82,7 +83,8 @@ typedef struct _tatree {        /* --- a transaction tree (node) --- */
   int     cnt;                  /* number of transactions */
   int     max;                  /* size of largest transaction */
   int     size;                 /* node size (number of children) */
-  int     items[1];             /* next items in rep. transactions */
+  int     items[];             /* next items in rep. transactions */
+  /* followed by size pointers (need to be aligned on 64 bit arch) */ 
 } TATREE;                       /* (transaction tree) */
 
 /*----------------------------------------------------------------------
@@ -140,10 +142,6 @@ extern void        tas_shuffle (TASET *taset, double randfn(void));
 extern void        tas_sort    (TASET *taset, int heap);
 extern int         tas_occur   (TASET *taset, const int *items, int n);
 
-#ifndef NDEBUG
-extern void        tas_show    (TASET *taset);
-#endif
-
 /*----------------------------------------------------------------------
   Transaction Tree Functions
 ----------------------------------------------------------------------*/
@@ -156,9 +154,6 @@ extern int*        tat_items   (TATREE *tat);
 extern int         tat_item    (TATREE *tat, int index);
 extern TATREE*     tat_child   (TATREE *tat, int index);
 
-#ifndef NDEBUG
-extern void        tat_show    (TATREE *tat);
-#endif
 
 /*----------------------------------------------------------------------
   Preprocessor Definitions
@@ -196,8 +191,15 @@ extern void        tat_show    (TATREE *tat);
 #define tat_size(t)       ((t)->size)
 #define tat_item(t,i)     ((t)->items[i])
 #define tat_items(t)      ((t)->items)
-/*#ifndef ARCH64
-*#define tat_child(t,i)    (((TATREE**)((t)->items +(t)->size))[i])
-*#endif
-*/
+
+/* 64 bit alignment. Pointers at the end of the struct need to start at an even address. (MFH) */
+#ifdef ARCH64 
+#define tat_align(n) ((n & 1) ? n : (n+1))  /* start is odd! n  needs to be odd */ 
+                                            /* so that pointer addresses aligned */
+#define tat_vec(t)    (((TATREE**)((t)->items + (((t)->size & 1) ? (t)->size : ((t)->size + 1)))))
+#else
+#define tat_align(n) (n)                    /* on 32 bit systems it is fine */
+#define tat_vec(t)    ((TATREE**)((t)->items + (t)->size))
+#endif  
+
 #endif

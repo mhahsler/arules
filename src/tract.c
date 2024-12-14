@@ -488,7 +488,7 @@ int tas_add (TASET *taset, const int *items, int n)
     items = is_tract(taset->itemset);
     n     = is_tsize(taset->itemset);
   }                             /* get it from the item set */
-  ta = (TRACT*)malloc(sizeof(TRACT) +(n-1) *sizeof(int));
+  ta = (TRACT*)malloc(sizeof(TRACT) + (n) *sizeof(int));
   if (!ta) return -1;           /* create a new transaction */
   taset->tracts[taset->cnt++]  = ta;
   if (n > taset->max)           /* store the transaction and */
@@ -571,26 +571,7 @@ int tas_occur (TASET *taset, const int *items, int n)
 }  /* tas_occur() */
 
 /*--------------------------------------------------------------------*/
-#ifndef NDEBUG
 
-void tas_show (TASET *taset)
-{                               /* --- show a transaction set */
-  int   i, k;                   /* loop variables */
-  TRACT *t;                     /* to traverse the transactions */
-
-  assert(taset);                /* check the function argument */
-  for (i = 0; i < taset->cnt; i++) {
-    t = taset->tracts[i];       /* traverse the transactions */
-    for (k = 0; k < t->cnt; k++) {  /* traverse the items */
-      if (k > 0) putc(' ', stdout); /* print a separator */
-      printf(is_name(taset->itemset, t->items[k]));
-    }                           /* print the next item */
-    putc('\n', stdout);         /* terminate the transaction */
-  }                             /* finally print the number of t.a. */
-  printf("%d transaction(s)\n", taset->cnt);
-}  /* tas_show() */
-
-#endif
 /*----------------------------------------------------------------------
   Transaction Tree Functions
 ----------------------------------------------------------------------*/
@@ -605,8 +586,8 @@ TATREE* _create (TRACT **tracts, int cnt, int index)
   assert(tracts                 /* check the function arguments */
      && (cnt >= 0) && (index >= 0));
   if (cnt <= 1) {               /* if only one transaction left */
-    n   = (cnt > 0) ? (*tracts)->cnt -index : 0;
-    tat = (TATREE*)malloc(sizeof(TATREE) +(n-1) *sizeof(int));
+    n   = (cnt > 0) ? (*tracts)->cnt -index : 1;
+    tat = (TATREE*)malloc(sizeof(TATREE) +(n) *sizeof(int));
     if (!tat) return NULL;      /* create a transaction tree node */
     tat->cnt  = cnt;            /* and initialize its fields */
     tat->size = -n;
@@ -621,19 +602,16 @@ TATREE* _create (TRACT **tracts, int cnt, int index)
     t = (*--tracts)->items[index]; /* traverse the transactions */
     if (t != item) { item = t; n++; }
   }                             /* count the different items */
-#ifdef ARCH64                 /* adapt to even item number */
-  i = (n & 1) ? n : (n+1);      /* so that pointer addresses are */
-#else                         /* multiples of 8 on 64 bit systems */
-  i = n;                        /* on 32 bit systems, however, */
-#endif                        /* use the exact number of items */
-  tat = (TATREE*)malloc(sizeof(TATREE) + (i-1) *sizeof(int)
+  
+  i = tat_align(n);  /* 64 bit pointer alignment */
+  tat = (TATREE*)malloc(sizeof(TATREE) + (i) *sizeof(int)
                                        + n     *sizeof(TATREE*));
   if (!tat) return NULL;        /* create a transaction tree node */
   tat->cnt  = cnt;              /* and initialize its fields */
   tat->size = n;
   tat->max  = 0;
   if (n <= 0) return tat;       /* if t.a. are fully captured, abort */
-  vec  = (TATREE**)(tat->items +i);
+  vec  = tat_vec(tat);
   item = tracts[--k]->items[index];
   for (tracts += i = k; --i >= 0; ) {
     t = (*--tracts)->items[index];     /* traverse the transactions, */
@@ -675,12 +653,7 @@ void tat_delete (TATREE *tat)
   TATREE **vec;                 /* vector of child nodes */
 
   assert(tat);                  /* check the function argument */
-#ifdef ARCH64                 /* if 64 bit architecture */
-  i = (tat->size & 1) ? tat->size : (tat->size+1);
-#else                         /* address must be a multiple of 8 */
-  i = tat->size;                /* on 32 bit systems, however, */
-#endif                        /* use the number of items directly */
-  vec = (TATREE**)(tat->items +i);
+  vec = tat_vec(tat);
   for (i = tat->size; --i >= 0; )
     tat_delete(vec[i]);         /* recursively delete the subtrees */
   free(tat);                    /* and the tree node itself */
@@ -690,48 +663,12 @@ void tat_delete (TATREE *tat)
 
 TATREE* tat_child (TATREE *tat, int index)
 {                               /* --- go to a child node */
-  int s;                        /* padded size of the node */
 
   assert(tat                    /* check the function arguments */
      && (index >= 0) && (index < tat->size));
-#ifdef ARCH64                   /* address must be a multiple of 8 */
-  s = (tat->size & 1) ? tat->size : (tat->size +1);
-#else                         
-  s = tat->size;
-#endif
-  TATREE ** children = (TATREE**)(tat->items +s);
+  TATREE ** children = tat_vec(tat);
   return children[index];
-  /* return ((TATREE**)(tat->items +s))[index]; */
 }  /* tat_child */              /* return the child node/subtree */
 
 /*--------------------------------------------------------------------*/
-#ifndef NDEBUG
 
-void _show (TATREE *tat, int ind)
-{                               /* --- rekursive part of tat_show() */
-  int    i, k;                  /* loop variables */
-  TATREE **vec;                 /* vector of child nodes */
-
-  assert(tat && (ind >= 0));    /* check the function arguments */
-  if (tat->size <= 0) {         /* if this is a leaf node */
-    for (i = 0; i < tat->max; i++)
-      printf("%d ", tat->items[i]);
-    printf("\n"); return;       /* print the items in the */
-  }                             /* (rest of) the transaction */
-  vec = (TATREE**)(tat->items +tat->size);
-  for (i = 0; i < tat->size; i++) {
-    if (i > 0) for (k = ind; --k >= 0; ) printf("  ");
-    printf("%d ", tat->items[i]);
-    _show(vec[i], ind+1);       /* traverse the items, print them, */
-  }                             /* and show the children recursively */
-}  /* _show() */
-
-/*--------------------------------------------------------------------*/
-
-void tat_show (TATREE *tat)
-{                               /* --- show a transaction tree */
-  assert(tat);                  /* check the function argument */
-  _show(tat, 0);                /* just call the recursive function */
-}  /* tat_show() */
-
-#endif

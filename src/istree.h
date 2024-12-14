@@ -33,11 +33,11 @@
             11.08.2003 item set filtering generalized (ist_filter)
             09.05.2004 parameter 'aval' added to function ist_set
             12/9/2013 fixed 64-bit address alignment (MFH)
+            12/14/2024 moved to c11 variable array length in structs
 ----------------------------------------------------------------------*/
 #ifndef __ISTREE__
 #define __ISTREE__
 #include "tract.h"
-/*#undef ARCH64 */
 
 /*----------------------------------------------------------------------
   Preprocessor Definitions
@@ -73,8 +73,9 @@ typedef struct _isnode {        /* --- item set node --- */
   int            chcnt;         /* number of child nodes */
   int            size;          /* size   of counter vector */
   int            offset;        /* offset of counter vector */
-  int            cnts[1];       /* counter vector */
+  int            cnts[];       /* counter vector */
   /* has size int cnts entries followed by chcnt ISNODE* */
+  /* note: maps use size + size ints and are automatically aligned here! */
 } ISNODE;                       /* (item set node) */
 
 typedef struct {                /* --- item set tree --- */
@@ -99,14 +100,7 @@ typedef struct {                /* --- item set tree --- */
   int    *path;                 /* current path / (partial) item set */
   int    *map;                  /* to create identifier maps */
   int    memopt;                /* whether to optimize memory usage */
-#ifdef BENCH                    /* if benchmark version */
-  int    cnt;                   /* number of counters */
-  int    nec;                   /* number of necessary counters */
-  int    chcnt;                 /* number of child pointers */
-  int    chnec;                 /* number of necessary child pointers */
-  int    bytes;                 /* number of bytes used */
-#endif
-  char   apps[1];               /* item appearances, this will be 
+  char   apps[];               /* item appearances, this will be 
                                     allocated as an array */
 } ISTREE;                       /* (item set tree) */
 
@@ -144,9 +138,6 @@ extern int     ist_rule    (ISTREE *ist, int *rule,
 extern int     ist_hedge   (ISTREE *ist, int *hedge,
                             double *supp, double *conf);
 
-#ifndef NDEBUG
-extern void    ist_show    (ISTREE *ist);
-#endif
 
 /*----------------------------------------------------------------------
   Preprocessor Definitions
@@ -156,9 +147,15 @@ extern void    ist_show    (ISTREE *ist);
 #define ist_gettac(t)      ((t)->tacnt)
 #define ist_height(t)      ((t)->lvlcnt)
 
+/* 64 bit alignment. Pointers at the end of the struct need to start at an even address. (MFH) */
+
 #ifdef ARCH64
-#define get_vec(t)         ((ISNODE**) (t->cnts + (((t->size) & 1)?(t->size)+1:t->size)))
+#define isn_align(n) ((n & 1) ? (n+1) : (n))  /* start is even! n  needs to be even */ 
+                                              /* so that pointer addresses aligned */
+#define isn_vec(t)         ((ISNODE**) (t->cnts + (((t->size) & 1) ? ((t->size)+1) : t->size)))
 #else
-#define get_vec(t)         ((ISNODE**) (t->cnts + t->size))
+#define isn_align(n) (n)                    /* on 32 bit systems it is fine */
+#define isn_vec(t)         ((ISNODE**) (t->cnts + t->size))
 #endif
+
 #endif

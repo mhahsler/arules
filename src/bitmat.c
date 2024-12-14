@@ -14,6 +14,7 @@
             20.09.2003 bug in _isect2 fixed (empty transaction list)
             21.09.2003 bug in benchmark version fixed (number of sets)
             25.09.2003 bit count table extended to word values
+            12/14/2024 moved to c11 variable array length in structs
 ----------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +39,7 @@
 typedef struct {                /* --- reduced bit matrix --- */
   int     cnt;                  /* number of bit/number vectors */
   int     len;                  /* length of each bit vector */
-  int     *vecs[1];             /* array of bit/number vectors */
+  int     *vecs[];             /* array of bit/number vectors */
 } REDMAT;                       /* (reduced bit matrix) */
 
 typedef struct {                /* --- all one submatrix search --- */
@@ -48,11 +49,7 @@ typedef struct {                /* --- all one submatrix search --- */
   BMREPFN *report;              /* report function for results */
   void    *data;                /* user data for report function */
   BITMAT  *res;                 /* for closed and maximal item sets */
-  #ifdef BENCH                  /* if benchmark version */
-  int     mcur;                 /* current memory usage in bytes */
-  int     mmax;                 /* maximum memory usage in bytes */
-  #endif
-  int     rows[1];              /* row ids. vector for reporting */
+  int     rows[];              /* row ids. vector for reporting */
 } ALLONE;                       /* (all one submatrix search) */
 
 /*----------------------------------------------------------------------
@@ -149,9 +146,6 @@ BITMAT* bm_create (int rowcnt, int colcnt, int sparse)
   bm->rowvsz = vsz;             /* initialize the fields */
   bm->colcnt = colcnt;
   bm->sparse = sparse;
-  #ifdef BENCH                  /* if benchmark version, */
-  bm->mem    = 0;               /* initialize memory measurement */
-  #endif
   if (sparse) {                 /* if sparse version, set empty vecs. */
     n = 2; bm->colvsz = bm->colcnt; }
   else {                        /* if normal version */
@@ -402,7 +396,7 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
   if (n <= 0) n = 1;            /* needed to reach the minimum size */
   if ((depth < ao->max)         /* if search depth not yet reached */
   &&  (mat->cnt > n)) {         /* and there are enough vectors left */
-    red = (REDMAT*)malloc(sizeof(REDMAT) +(mat->cnt-2) *sizeof(int*));
+    red = (REDMAT*)malloc(sizeof(REDMAT) +(mat->cnt-1) *sizeof(int*));
     if (!red) return -1;        /* allocate matrix for the next level */
     red->len = mat->len;        /* and initialize it */
     if (mat->len >= 0)          /* if normal matrix */
@@ -413,11 +407,6 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
     }                           /* (compute size of needed memory) */
     vecs = (int*)malloc(m *sizeof(int));
     if (!vecs) { free(red); return -1; }
-    #ifdef BENCH                /* if benchmark version */
-    ao->mcur += sizeof(REDMAT) +(mat->cnt-2) *sizeof(int*)
-              + m *sizeof(int); /* compute current memory usage */
-    if (ao->mcur > ao->mmax) ao->mmax = ao->mcur;
-    #endif                      /* adapt maximal memory usage */
     for (i = mat->cnt; --i >= n; ) {
       red->cnt = 0; p = vecs;   /* traverse the bit vectors */
       for (k = 0; k < i; k++) { /* traverse the remaining vectors */
@@ -451,10 +440,6 @@ static int _search (ALLONE *ao, REDMAT *mat, int depth, int mode)
       if (k < 0) break;         /* recursively search for a submatrix */
     }                           /* (i.e., frequent itemsets) */
     free(vecs); free(red);      /* delete the work buffers */
-    #ifdef BENCH                /* if benchmark version */
-    ao->mcur -= sizeof(REDMAT) +(mat->cnt-2) *sizeof(int*)
-              + m *sizeof(int); /* compute current memory usage */
-    #endif
     if (i >= n) return -1;      /* check for a search error */
   }  /* if ((depth < ao->max) .. */
 
@@ -501,7 +486,7 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
 
   assert(bm                     /* check the function arguments */
   &&     (min >= 0) && (max >= min));
-  ao = (ALLONE*)malloc(sizeof(ALLONE) +(max-1) *sizeof(int));
+  ao = (ALLONE*)malloc(sizeof(ALLONE) +(max) *sizeof(int));
   if (!ao) return -1;           /* create a search structure */
   ao->min    = min;            /* and store the parameters */
   ao->max    = max;            /* in this structure */
@@ -509,20 +494,12 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
   ao->report = report;
   ao->data   = data;
   ao->res    = NULL;
-  #ifdef BENCH                  /* if benchmark version, */
-  ao->mcur   = sizeof(ALLONE) +(max-1)        *sizeof(int)
-             + sizeof(REDMAT) +(bm->rowcnt-1) *sizeof(int*)
-             + sizeof(BITMAT) +(bm->rowcnt-1) *sizeof(int*);
-  #endif                        /* compute initial memory usage */
-  mat = (REDMAT*)calloc(1, sizeof(REDMAT) +(bm->rowcnt-1)*sizeof(int*));
+  mat = (REDMAT*)calloc(1, sizeof(REDMAT) +(bm->rowcnt)*sizeof(int*));
   if (!mat) { free(ao); return -1; }
   n = (bm->colcnt +BM_MASK) >> BM_SHIFT;
   mat->len = (bm->sparse) ? -1 : n;
   mat->cnt = 0;                 /* create a reduced bit matrix */
   for (k = 0; k < bm->rowcnt; k++) {
-    #ifdef BENCH                /* if benchmark version */
-    ao->mcur += ((bm->sparse) ? *(bm->rows[k] -1) : n) +2;
-    #endif                      /* sum the vector sizes */
     if ((bm_count(bm, k) >= supp) && ((mode != BM_GENERATOR) || (bm_count(bm, k) < tacnt)))
       mat->vecs[mat->cnt++] = bm->rows[k];
   }                             /* copy the qualifying rows */
@@ -533,63 +510,15 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
     if (!ao->res || (_buffers(ao->res, mode) != 0)) {
       free(mat); free(ao); return -1; }
   }                             /* create result matrix */
-  #ifdef BENCH                  /* if benchmark version, */
-  ao->mmax = ao->mcur;          /* initialize maximal memory usage */
-  #endif
   n = _search(ao, mat, 0, mode);      /* do the recursive search */
   for (k = mat->cnt; --k >= 0;) /* clear 'no report' flags */
     *(mat->vecs[k] -1) &= ~NOREPORT;
-  #ifdef BENCH                  /* if benchmark version, */
-  bm->mem = ao->mmax;           /* note the maximum amount of memory */
-  if (ao->res) {                /* that was used during the search */
-    bm->mem += sizeof(BITMAT) +(ao->res->rowcnt+1) *sizeof(int*);
-    if (ao->res->supps) bm->mem += ao->res->colvsz *sizeof(int);
-    if (ao->res->sparse) {      /* if sparse matrix */
-      for (k = ao->res->rowcnt; --k >= 0; )
-        bm->mem += *(ao->res->rows[k]-1) +2; }
-    else {                      /* if normal matrix */
-      bm->mem += ao->res->rowcnt
-	*((ao->res->colcnt +BM_MASK) >> BM_SHIFT);
-    }                           /* add amount of memory for */
-  }                             /* closed/generator/maximal item set matrix */
-  #endif
   if (ao->res) bm_delete(ao->res);
   free(mat); free(ao);          /* delete the work buffers */
   return n;                     /* return the error status */
 }  /* bm_allone() */
 
 /*--------------------------------------------------------------------*/
-#ifndef NDEBUG
-
-void bm_show (BITMAT *bm, FILE *file, int transpose)
-{                               /* --- show a bit matrix */
-  int row, col, i, k, n, b;     /* loop variables, bit mask */
-  int *p;                       /* to traverse a bit vector */
-
-  assert(bm);                   /* check the function argument */
-  if (transpose) {              /* if to transpose the matrix */
-    for (col = 0; col < bm->colcnt; col++) {
-      i = col >> BM_SHIFT; b = 1 << (col & BM_MASK);
-      for (row = 0; row < bm->rowcnt; row++)
-        putc((bm->rows[row][i] & b) ? '1' : '0', file);
-      putc('\n', file);         /* print one column per row */
-    } }
-  else {                        /* if not to transpose the matrix */
-    n = bm->colcnt >> BM_SHIFT; /* get the number of full integers */
-    k = bm->colcnt &  BM_MASK;  /* and the number of bits in the last */
-    for (row = 0; row < bm->rowcnt; row++) {
-      p = bm->rows[row];        /* traverse the matrix rows */
-      for (i = 0; i < n; i++) { /* traverse the integers in a row */
-        for (b = 1; b & MASK; b <<= 1) {
-          putc((*p & b) ? '1' : '0', file); p++; }
-      }                         /* print the bits in an integer */
-      for (b = 0; b < k; b++)   /* and print the bits in it */
-        putc((*p & (1 << b)) ? '1' : '0', file);
-    }
-  }
-}  /* bm_show() */
-
-#endif
 /*----------------------------------------------------------------------
 Note that the above function works only for non-sparse representations.
 ----------------------------------------------------------------------*/
