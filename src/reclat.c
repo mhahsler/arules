@@ -428,10 +428,6 @@ SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control, SEXP itemInfo)
 	  Rprintf("[%.2fs].\n", SEC_SINCE(t));
   }
 
-#ifdef BENCH                  /* if benchmark version */
-  if (param.verbose) printf("memory used during search: %d bytes\n", bitmat->mem);
-#endif                        /* print memory usage */
-
   /* --- clean up --- */
   _cleanup();
 #ifdef STORAGE                /* if storage debugging */

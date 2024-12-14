@@ -35,9 +35,6 @@ typedef struct {                /* --- a bit matrix --- */
   int **rows;                   /* array of row bit vectors */
   int *buf;                     /* buffer for intersection */
   int *supps;                   /* supports of represented sets */
-  #ifdef BENCH
-  int mem;                      /* memory used during search */
-  #endif
 } BITMAT;                       /* (bit matrix) */
 
 typedef void BMREPFN (int *ids, int cnt, int supp, int *tal,void *data);
