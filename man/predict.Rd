@@ -46,7 +46,7 @@ large <- sample(Adult, 5000)
 ## cluster a small sample and extract the cluster lael vector
 d_jaccard <- dissimilarity(small)
 hc <- hclust(d_jaccard)
-l <-  cutree(hc, k=4)
+l <- cutree(hc, k = 4)
 
 ## predict labels for a larger sample
 labels <- predict(small, large, l)

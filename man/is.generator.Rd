@@ -27,14 +27,14 @@ itemsets in \pkg{arules}.
 \examples{
 # Example from Liu et al (2008)
 trans_list <- list(
-      t1 = c("a","b","c"),
-      t2 = c("a","b", "c", "d"),
-      t3 = c("a","d"),
-      t4 = c("a","c")
-      )
+  t1 = c("a", "b", "c"),
+  t2 = c("a", "b", "c", "d"),
+  t3 = c("a", "d"),
+  t4 = c("a", "c")
+)
 
 trans <- transactions(trans_list)
-its <- apriori(trans, support = 1/4, target = "frequent itemsets")
+its <- apriori(trans, support = 1 / 4, target = "frequent itemsets")
 
 is.generator(its)
 

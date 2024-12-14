@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,34 +37,34 @@
 #' @name itemsets-class
 #' @aliases itemsets
 #' @family associations functions
-#' 
+#'
 #' @param object,x the object
 #' @param ... further argments
 #' @param value replacement value
 #' @param items an [itemMatrix] or an object that can be converted using [encode()].
 #' @param itemLabels item labels used for `encode()`.
 #' @param quality a data.frame with quality information (one row per itemset).
-#' 
-#' @slot items an [itemMatrix] object representing the itemsets.        
+#'
+#' @slot items an [itemMatrix] object representing the itemsets.
 #' @slot tidLists a [tidLists] or `NULL`.
 #' @slot quality a data.frame with quality information
 #' @slot info a list with mining information.
-#' 
+#'
 #' @section Objects from the Class: Objects are the result of calling the
 #' functions [apriori()] (e.g., with `target = "frequent
-#' itemsets"` in the parameter list) or [eclat()].  
-#' 
+#' itemsets"` in the parameter list) or [eclat()].
+#'
 #' Objects can also
 #' be created by calls of the form `new("itemsets", ...)`
 #' or by using the constructor function
 #' `itemsets()`.
-#' 
+#'
 #' @author Michael Hahsler
 #' @keywords classes
-#' 
-#' @seealso 
+#'
+#' @seealso
 #' Superclass: [associations]
-#' 
+#'
 #' @examples
 #' data("Adult")
 #'
@@ -91,51 +91,56 @@
 #'   items = list(
 #'     c("age=Young", "relationship=Unmarried"),
 #'     c("age=Old")
-#'   ), itemLabels = Adult)
+#'   ), itemLabels = Adult
+#' )
 #'
 #' quality(twoitemsets) <- data.frame(support = interestMeasure(twoitemsets,
-#'   measure = c("support"), transactions = Adult))
+#'   measure = c("support"), transactions = Adult
+#' ))
 #'
 #' inspect(twoitemsets)
 #' @aliases show,itemsets-method
 setClass(
   "itemsets",
-  representation(items = "itemMatrix",
-    tidLists = "tidLists_or_NULL"),
-  
+  representation(
+    items = "itemMatrix",
+    tidLists = "tidLists_or_NULL"
+  ),
   contains = "associations",
-  
   prototype(
     tidLists = NULL,
     quality = data.frame(),
     info = list()
   ),
-  
   validity = function(object) {
     ## if tidLists exists, check dimensions
     ## Note, we cannot check dim(object@tidLists)[2] here since we
     ## don't know the number of transactions in the used data set!
     if (length(tidLists(object)) &&
-        length(tidLists(object)) != length(object))
+      length(tidLists(object)) != length(object)) {
       return("tidLists does not match number of itemsets")
-    
+    }
+
     ## if quality exists, check dimensions
     if (length(quality(object)) &&
-        nrow(quality(object)) != length(object))
+      nrow(quality(object)) != length(object)) {
       return("quality does not match number of itemsets")
-    
+    }
+
     TRUE
   }
 )
 
 #' @rdname itemsets-class
 itemsets <- function(items, itemLabels = NULL, quality = data.frame()) {
-  if (!is(items, "itemMatrix"))
+  if (!is(items, "itemMatrix")) {
     items <- encode(items, itemLabels = itemLabels)
-  
+  }
+
   new("itemsets",
     items = items,
-    quality = quality)
+    quality = quality
+  )
 }
 
 
@@ -147,121 +152,154 @@ setClass(
 
 #' @describeIn itemsets-class create a summary
 #' @aliases summary.itemsets-class show,summary.itemsets-method
-setMethod("summary", signature(object = "itemsets"),
+setMethod(
+  "summary", signature(object = "itemsets"),
   function(object, ...) {
     new(
       "summary.itemsets",
-      
-      length   = length(object),
-      items    = summary(object@items,  ...),
-      quality  = if (length(object@quality))
+      length = length(object),
+      items = summary(object@items, ...),
+      quality = if (length(object@quality)) {
         summary(object@quality)
-      else
-        summary(NULL),
-      info     = object@info,
+      } else {
+        summary(NULL)
+      },
+      info = object@info,
       tidLists = !is.null(object@tidLists)
     )
-  })
+  }
+)
 
-setMethod("show", signature(object = "summary.itemsets"),
+setMethod(
+  "show", signature(object = "summary.itemsets"),
   function(object) {
     cat("set of", object@length, "itemsets\n")
-    
+
     if (object@length) {
       cat("\nmost frequent items:\n")
       print(object@items@itemSummary)
       cat("\nelement (itemset/transaction) length distribution:")
       print(object@items@lengths)
-      
+
       cat("\n")
       print(object@items@lengthSummary)
-      
+
       cat("\nsummary of quality measures:\n")
       print(object@quality)
       cat("\nincludes transaction ID lists:", object@tidLists, "\n")
-      
+
       if (length(object@info)) {
         info <- object@info
-        if (is(info$data, "language"))
+        if (is(info$data, "language")) {
           info$data <- deparse(info$data)
-        
+        }
+
         cat("\nmining info:\n")
         print(data.frame(info, row.names = ""))
       }
-      
     }
     invisible(NULL)
-  })
+  }
+)
 
 #' @describeIn itemsets-class get the number of itemsets.
-setMethod("length", signature(x = "itemsets"),
-  function(x)
-    length(x@items))
+setMethod(
+  "length", signature(x = "itemsets"),
+  function(x) {
+    length(x@items)
+  }
+)
 
 #' @describeIn itemsets-class get the number of items (columns) in the current encoding.
-setMethod("nitems", signature(x = "itemsets"),
-  function(x)
-    ncol(items(x)))
+setMethod(
+  "nitems", signature(x = "itemsets"),
+  function(x) {
+    ncol(items(x))
+  }
+)
 
 #' @describeIn itemsets-class get the itemset labels.
-setMethod("labels", signature(object = "itemsets"),
-  function(object, ...)
-    labels(object@items, ...))
+setMethod(
+  "labels", signature(object = "itemsets"),
+  function(object, ...) {
+    labels(object@items, ...)
+  }
+)
 
 #' @describeIn itemsets-class get the item labels.
-setMethod("itemLabels", signature(object = "itemsets"),
-  function(object)
-    itemLabels(object@items))
+setMethod(
+  "itemLabels", signature(object = "itemsets"),
+  function(object) {
+    itemLabels(object@items)
+  }
+)
 
 #' @describeIn itemsets-class replace the item labels.
-setReplaceMethod("itemLabels", signature(object = "itemsets"),
+setReplaceMethod(
+  "itemLabels", signature(object = "itemsets"),
   function(object, value) {
     itemLabels(items(object)) <- value
     object
-  })
+  }
+)
 
 #' @describeIn itemsets-class get item info data.frame.
-setMethod("itemInfo", signature(object = "itemsets"),
-  function(object)
-    object@items@itemInfo)
+setMethod(
+  "itemInfo", signature(object = "itemsets"),
+  function(object) {
+    object@items@itemInfo
+  }
+)
 
 #' @describeIn itemsets-class get items as an itemMatrix.
-setMethod("items", signature(x = "itemsets"),
-  function(x)
-    x@items)
+setMethod(
+  "items", signature(x = "itemsets"),
+  function(x) {
+    x@items
+  }
+)
 
 #' @describeIn itemsets-class with a different itemMatrix.
-setReplaceMethod("items", signature(x = "itemsets"),
+setReplaceMethod(
+  "items", signature(x = "itemsets"),
   function(x, value) {
     x@items <- value
     validObject(x)
     x
-  })
+  }
+)
 
 
 setGeneric("tidLists", function(x) standardGeneric("tidLists"))
 
 #' @describeIn itemsets-class get tidLists stored in the object (if any).
-setMethod("tidLists", signature(x = "itemsets"),
-  function(x)
-    x@tidLists)
+setMethod(
+  "tidLists", signature(x = "itemsets"),
+  function(x) {
+    x@tidLists
+  }
+)
 
 #' @rdname itemsets-class
 #' @name coercion-itemsets
-#' @aliases 
+#' @aliases
 #' coerce,itemsets,data.frame-method
-#' 
+#'
 #' @section Coercions:
-#' 
+#'
 #' * `as("itemsets", "data.frame")`
 NULL
 
 
-setAs("itemsets", "data.frame",
+setAs(
+  "itemsets", "data.frame",
   function(from) {
-    if (!length(from))
-      return (data.frame())
-    if (!length(from@quality))
+    if (!length(from)) {
+      return(data.frame())
+    }
+    if (!length(from@quality)) {
       return(data.frame(itemsets = labels(from)))
+    }
     data.frame(items = labels(from), from@quality)
-  })
+  }
+)

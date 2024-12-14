@@ -28,5 +28,5 @@ expect_true(setequal(is_a_max, is_e_max))
 expect_true(setequal(is_a_closed, is_e_closed))
 expect_true(setequal(is_a_gen, is_e_gen))
 
-#inspect(is_a_freq)
-#inspect(is_e_freq)
+# inspect(is_a_freq)
+# inspect(is_e_freq)

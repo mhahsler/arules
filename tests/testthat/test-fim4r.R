@@ -43,12 +43,14 @@ expect_equal(length(r_a), length(r_f) - 1L)
 expect_equal(length(r_a), length(r_ffp) - 1L)
 
 # appearance
-rules_fim4r <- fim4r(Adult, method = "apriori", target = "rules", 
-      verbose = verb, appear = list(c("", "capital-gain=None"), c("a", "c")))
+rules_fim4r <- fim4r(Adult,
+  method = "apriori", target = "rules",
+  verbose = verb, appear = list(c("", "capital-gain=None"), c("a", "c"))
+)
 
-rules_apriori <- apriori(Adult, appearance = list(rhs = "capital-gain=None"), 
-                         control = list(verbose = verb))
+rules_apriori <- apriori(Adult,
+  appearance = list(rhs = "capital-gain=None"),
+  control = list(verbose = verb)
+)
 
 expect_true(arules::setequal(rules_fim4r, rules_apriori))
-
-

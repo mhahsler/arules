@@ -63,8 +63,10 @@ rules <- apriori(Adult)
 
 ## display some rules
 inspect(rules[1000:1001])
-inspect(rules[1000:1001], ruleSep = "~~>", itemSep = " + ", setStart = "", setEnd = "",
-  linebreak = FALSE)
+inspect(rules[1000:1001],
+  ruleSep = "~~>", itemSep = " + ", setStart = "", setEnd = "",
+  linebreak = FALSE
+)
 
 ## to get rules in readable format, use coercion or DATAFRAME with additional parameters.
 as(rules[1000:1001], "data.frame")

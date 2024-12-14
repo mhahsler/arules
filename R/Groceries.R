@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
-#			Bettina Gruen and Kurt Hornik
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,18 +19,18 @@
 
 
 #' The Groceries Transactions Data Set
-#' 
+#'
 #' The `Groceries` data set contains 1 month (30 days) of real-world
 #' point-of-sale transaction data from a typical local grocery outlet.  The
 #' data set contains 9835 transactions and the items are aggregated to 169
 #' categories.
-#' 
+#'
 #' If you use this data set in your paper, please cite to the paper in the
 #' References Section.
-#' 
+#'
 #' @name Groceries
 #' @aliases groceries
-#' 
+#'
 #' @docType data
 #' @format Object of class [transactions].
 #' @author Michael Hahsler

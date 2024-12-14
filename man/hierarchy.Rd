@@ -133,7 +133,8 @@ summary(Groceries_multilevel)
 inspect(head(Groceries_multilevel))
 
 rules <- apriori(Groceries_multilevel,
-  parameter = list(support = 0.01, conf = .9))
+  parameter = list(support = 0.01, conf = .9)
+)
 inspect(head(rules, by = "lift"))
 ## Note that this contains many spurious rules of type 'item X => aggregate of item X'
 ## with a confidence of 1 and high lift. We can filter spurious rules resulting from

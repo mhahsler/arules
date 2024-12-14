@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #' (first itemset in `x` with first itemset in `y`, second with second, etc.).
 #'
 #' @name itemwiseSetOps
-#' @aliases itemSetOperations 
+#' @aliases itemSetOperations
 #' @family itemMatrix and transactions Functions
 #'
 #' @param x,y two [itemMatrix] objects with the same number of rows (itemsets).
@@ -44,53 +44,71 @@
 NULL
 
 #' @rdname itemwiseSetOps
-setGeneric("itemUnion",
-  function(x, y)
-    standardGeneric("itemUnion"))
-
-#' @rdname itemwiseSetOps
-setGeneric("itemSetdiff",
-  function(x, y)
-    standardGeneric("itemSetdiff"))
-
-#' @rdname itemwiseSetOps
-setGeneric("itemIntersect",
-  function(x, y)
-    standardGeneric("itemIntersect"))
-
-
-#' @rdname itemwiseSetOps
-setMethod("itemUnion", signature(x = "itemMatrix", y = "itemMatrix"),
+setGeneric(
+  "itemUnion",
   function(x, y) {
-    if (length(x) != length(y))
+    standardGeneric("itemUnion")
+  }
+)
+
+#' @rdname itemwiseSetOps
+setGeneric(
+  "itemSetdiff",
+  function(x, y) {
+    standardGeneric("itemSetdiff")
+  }
+)
+
+#' @rdname itemwiseSetOps
+setGeneric(
+  "itemIntersect",
+  function(x, y) {
+    standardGeneric("itemIntersect")
+  }
+)
+
+
+#' @rdname itemwiseSetOps
+setMethod(
+  "itemUnion", signature(x = "itemMatrix", y = "itemMatrix"),
+  function(x, y) {
+    if (length(x) != length(y)) {
       stop("Length mismatch between x and y!")
-    
+    }
+
     ### the C code does not deal well with a large number of dense rules.
     ## FIXME: remove from src
-    #x@data <- .Call(R_or_ngCMatrix", x@data, y@data)
-    
+    # x@data <- .Call(R_or_ngCMatrix", x@data, y@data)
+
     x@data <- as(x@data | y@data, "nsparseMatrix")
-    
+
     x
-  })
+  }
+)
 
 #' @rdname itemwiseSetOps
-setMethod("itemSetdiff", signature(x = "itemMatrix", y = "itemMatrix"),
+setMethod(
+  "itemSetdiff", signature(x = "itemMatrix", y = "itemMatrix"),
   function(x, y) {
-    if (length(x) != length(y))
+    if (length(x) != length(y)) {
       stop("Length mismatch between x and y!")
-    
+    }
+
     x@data <-
       as(drop0(x@data - y@data > 0), "nsparseMatrix")
     x
-  })
+  }
+)
 
 #' @rdname itemwiseSetOps
-setMethod("itemIntersect", signature(x = "itemMatrix", y = "itemMatrix"),
+setMethod(
+  "itemIntersect", signature(x = "itemMatrix", y = "itemMatrix"),
   function(x, y) {
-    if (length(x) != length(y))
+    if (length(x) != length(y)) {
       stop("Length mismatch between x and y!")
-    
+    }
+
     x@data <- as(x@data & y@data, "nsparseMatrix")
     x
-  })
+  }
+)

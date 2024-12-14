@@ -43,12 +43,13 @@ Furthermore, the arguments \code{itemSep}, \code{setStart}, \code{setEnd}
 }
 \examples{
 data(Adult)
-  
-DATAFRAME(head(Adult))
-DATAFRAME(head(Adult), setStart = '', itemSep = ' + ', setEnd = '')
 
-rules <- apriori(Adult, 
-  parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
+DATAFRAME(head(Adult))
+DATAFRAME(head(Adult), setStart = "", itemSep = " + ", setEnd = "")
+
+rules <- apriori(Adult,
+  parameter = list(supp = 0.5, conf = 0.9, target = "rules")
+)
 rules <- head(rules, by = "conf")
 
 
@@ -56,7 +57,7 @@ rules <- head(rules, by = "conf")
 DATAFRAME(rules)
 
 DATAFRAME(rules, separate = TRUE)
-DATAFRAME(rules, separate = TRUE, setStart = '', itemSep = ' + ', setEnd = '')
+DATAFRAME(rules, separate = TRUE, setStart = "", itemSep = " + ", setEnd = "")
 }
 \seealso{
 Other import/export: 

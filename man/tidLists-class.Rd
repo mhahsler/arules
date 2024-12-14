@@ -74,7 +74,7 @@ an item/itemset and stores the IDs of the transactions which support the
 item/itemset.
 
 \code{tidLists} uses the class
-\link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix} to efficiently store the
+\link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix} to efficiently store the
 transaction ID lists as a sparse matrix.  Each column in the matrix
 represents one transaction ID list.
 
@@ -121,7 +121,7 @@ columns are the transactions.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{an object of class \link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix}.}
+\item{\code{data}}{an object of class \link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix}.}
 
 \item{\code{itemInfo}}{a data.frame}
 
@@ -158,17 +158,17 @@ an object of class \link{transactions}.
 \examples{
 ## Create transaction data set.
 data <- list(
-  c("a","b","c"),
-  c("a","b"),
-  c("a","b","d"),
-  c("b","e"),
-  c("b","c","e"),
-  c("a","d","e"),
-  c("a","c"),
-  c("a","b","d"),
-  c("c","e"),
-  c("a","b","d","e")
-  )
+  c("a", "b", "c"),
+  c("a", "b"),
+  c("a", "b", "d"),
+  c("b", "e"),
+  c("b", "c", "e"),
+  c("a", "d", "e"),
+  c("a", "c"),
+  c("a", "b", "d"),
+  c("c", "e"),
+  c("a", "b", "d", "e")
+)
 data <- as(data, "transactions")
 data
 

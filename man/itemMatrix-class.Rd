@@ -119,7 +119,7 @@ IDs) representing the items.
 
 \strong{Warning:} Ideally, we would store the matrix as a row-oriented sparse
 matrix (\code{ngRMatrix}), but the \pkg{Matrix} package provides better support for
-column-oriented sparse classes (\link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix}). The matrix is therefore internally stored
+column-oriented sparse classes (\link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix}). The matrix is therefore internally stored
 in transposed form.
 
 \strong{Working with several \code{itemMatrix} objects}
@@ -169,7 +169,7 @@ of the labels: \code{itemSep}, \code{setStart} and \code{setEnd}.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{a sparse matrix of class \link[Matrix:nsparseMatrix-classes]{Matrix::ngCMatrix} representing the itemsets.
+\item{\code{data}}{a sparse matrix of class \link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix} representing the itemsets.
 \strong{Warning:} the matrix is stored in transposed form for efficiency reasons!.}
 
 \item{\code{itemInfo}}{a data.frame}
@@ -202,8 +202,10 @@ created by coercion from a matrix, list or data.frame.
 set.seed(1234)
 
 ## Generate a logical matrix with 5000 random itemsets for 20 items
-m <- matrix(runif(5000 * 20) > 0.8, ncol = 20,
-            dimnames = list(NULL, paste("item", c(1:20), sep = "")))
+m <- matrix(runif(5000 * 20) > 0.8,
+  ncol = 20,
+  dimnames = list(NULL, paste("item", c(1:20), sep = ""))
+)
 head(m)
 
 ## Coerce the logical matrix into an itemMatrix object
@@ -221,9 +223,9 @@ ncol(imatrix)
 
 ## Subsetting: Get first 5 elements (rows) of the itemMatrix. This can be done in
 ## several ways.
-imatrix[1:5]            ### get elements 1:5
-imatrix[1:5, ]          ### Matrix subsetting for rows 1:5
-head(imatrix, n = 5)    ### head()
+imatrix[1:5] ### get elements 1:5
+imatrix[1:5, ] ### Matrix subsetting for rows 1:5
+head(imatrix, n = 5) ### head()
 
 ## Get first 5 elements (rows) of the itemMatrix as list.
 as(imatrix[1:5], "list")
@@ -254,18 +256,22 @@ inspect(head(is, n = 3))
 ## itemSetdiff here. I also assign missing values for the quality measures support
 ## and confidence.
 rules <- new("rules",
-             lhs = itemSetdiff(imatrix[4:6], imatrix[1:3]),
-             rhs = imatrix[1:3],
-             quality = data.frame(support = c(NA, NA, NA),
-                                  confidence =  c(NA, NA, NA)
-          ))
+  lhs = itemSetdiff(imatrix[4:6], imatrix[1:3]),
+  rhs = imatrix[1:3],
+  quality = data.frame(
+    support = c(NA, NA, NA),
+    confidence = c(NA, NA, NA)
+  )
+)
 rules
 inspect(rules)
 
 ## Manually create a itemMatrix with an item encoding that matches imatrix (20 items in order
 ## item1, item2, ..., item20)
-itemset_list <- list(c("item1","item2"),
-                     c("item3"))
+itemset_list <- list(
+  c("item1", "item2"),
+  c("item3")
+)
 
 imatrix_new <- encode(itemset_list, itemLabels = imatrix)
 imatrix_new

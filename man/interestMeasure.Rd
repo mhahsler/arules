@@ -132,14 +132,18 @@ rules <- apriori(Income)
 
 ## calculate a single measure and add it to the quality slot
 quality(rules) <- cbind(quality(rules),
-	hyperConfidence = interestMeasure(rules, measure = "hyperConfidence",
-	transactions = Income))
+  hyperConfidence = interestMeasure(rules,
+    measure = "hyperConfidence",
+    transactions = Income
+  )
+)
 
 inspect(head(rules, by = "hyperConfidence"))
 
 ## calculate several measures
 m <- interestMeasure(rules, c("confidence", "oddsRatio", "leverage"),
-	transactions = Income)
+  transactions = Income
+)
 inspect(head(rules))
 head(m)
 
@@ -149,7 +153,7 @@ t(interestMeasure(head(rules, 5), transactions = Income))
 
 ## calculate measures on a different set of transactions (I use a sample here)
 ## Note: reuse = TRUE (default) would just return the stored support on the
-##	data set used for mining
+## 	data set used for mining
 newTrans <- sample(Income, 100)
 m2 <- interestMeasure(rules, "support", transactions = newTrans, reuse = FALSE)
 head(m2)

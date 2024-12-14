@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
 #'
 #' @name read
 #' @family import/export
-#' 
+#'
 #' @param file the file name or a connection.
 #' @param format a character string indicating the format of the data set.  One
 #' of `"basket"` or `"single"`, can be abbreviated.
@@ -44,7 +44,7 @@
 #' (fields) with the transaction and item ids, respectively. If character, the
 #' first line of `file` is assumed to be a header with column names.  For
 #' the _basket_ format, `cols` can be a numeric scalar giving the
-#' number of the column (field) with the transaction ids.  If 
+#' number of the column (field) with the transaction ids.  If
 #' `cols = NULL`, the data do not contain transaction ids.
 #' @param rm.duplicates a logical value specifying if duplicate items should be
 #' removed from the transactions.
@@ -62,7 +62,8 @@
 #'   "item1, item2",
 #'   "item1",
 #'   "item2, item3",
-#'   sep="\n")
+#'   sep = "\n"
+#' )
 #' cat(data)
 #' write(data, file = "demo_basket.txt")
 #'
@@ -78,12 +79,13 @@
 #'   "trans1 item1",
 #'   "trans2 item1",
 #'   "trans2 item2",
-#'   sep ="\n")
+#'   sep = "\n"
+#' )
 #' cat(data)
 #' write(data, file = "demo_single.txt")
 #'
 #' ## read demo data
-#' tr <- read.transactions("demo_single.txt", format = "single", cols = c(1,2))
+#' tr <- read.transactions("demo_single.txt", format = "single", cols = c(1, 2))
 #' inspect(tr)
 #'
 #' ## create a demo file using single format with column headers
@@ -92,13 +94,16 @@
 #'   "item1;trans1",
 #'   "item1;trans2",
 #'   "item2;trans2",
-#'   sep ="\n")
+#'   sep = "\n"
+#' )
 #' cat(data)
 #' write(data, file = "demo_single.txt")
 #'
 #' ## read demo data
-#' tr <- read.transactions("demo_single.txt", format = "single",
-#'   header = TRUE, sep = ";", cols = c("trans_id", "item_id"))
+#' tr <- read.transactions("demo_single.txt",
+#'   format = "single",
+#'   header = TRUE, sep = ";", cols = c("trans_id", "item_id")
+#' )
 #' inspect(tr)
 #'
 #' ## tidy up
@@ -106,68 +111,76 @@
 #' unlink("demo_single.txt")
 #' @export read.transactions
 read.transactions <-
-  function(file,
-    format = c("basket", "single"),
-    header = FALSE,
-    sep = "",
-    cols = NULL,
-    rm.duplicates = FALSE,
-    quote = "\"'",
-    skip = 0,
-    encoding = "unknown") {
+  function(
+      file,
+      format = c("basket", "single"),
+      header = FALSE,
+      sep = "",
+      cols = NULL,
+      rm.duplicates = FALSE,
+      quote = "\"'",
+      skip = 0,
+      encoding = "unknown") {
     format <- match.arg(format)
-    
+
     if (is.character(file)) {
       file <- file(file, "r")
       on.exit(close(file))
     }
-    
+
     if (format == "basket") {
       data <- lapply(
         readLines(file, encoding = encoding),
-        FUN = function(l)
+        FUN = function(l) {
           scan(
             text = l,
-            what = 'character',
+            what = "character",
             sep = sep,
             quote = quote,
             quiet = TRUE,
             encoding = encoding
           )
+        }
       )
-      
-      if (header)
+
+      if (header) {
         skip <- skip + 1
-      
+      }
+
       ## skip
-      if (skip > 0)
+      if (skip > 0) {
         data <- data[-seq_len(skip)]
-      
+      }
+
       if (!is.null(cols)) {
-        if (!(is(cols, "numeric") && (length(cols) == 1)))
+        if (!(is(cols, "numeric") && (length(cols) == 1))) {
           stop("'cols' must be a numeric scalar for 'basket'.")
+        }
         cols <- as(cols, "integer")
         names(data) <- sapply(data, "[", cols)
-        data <- lapply(data, "[",-cols)
+        data <- lapply(data, "[", -cols)
       }
-      
+
       ## remove leading and trailing white spaces
-      data <- lapply(data, function(x)
-        trimws(x))
-      
+      data <- lapply(data, function(x) {
+        trimws(x)
+      })
+
       ## remove items with length(label) == 0
-      data <- lapply(data, function(x)
-        x[nchar(x) > 0])
-      
-      if (rm.duplicates)
+      data <- lapply(data, function(x) {
+        x[nchar(x) > 0]
+      })
+
+      if (rm.duplicates) {
         data <- .rm.duplicates(data)
-      
+      }
+
       return(as(data, "transactions"))
     }
-    
+
     ## If format is "single", have lines with TIDs and IIDs in the
     ## columns specified by 'cols'.
-    
+
     ## If cols is a character vector of length 2 we assume the file
     ## has a header with colnames (added by F. Leisch)
     if (header) {
@@ -183,20 +196,23 @@ read.transactions <-
       )
       if (is(cols, "character")) {
         cols <- match(cols, colnames)
-        if (any(is.na(cols)))
+        if (any(is.na(cols))) {
           stop("'cols' does not match entries in header of file.")
+        }
       }
-      
+
       # connection continues at the current position
       skip <- 0
     }
-    
+
     ## Else we get the numbers of the columns directly
-    if (length(cols) != 2)
+    if (length(cols) != 2) {
       stop("'cols' must be a vector of length 2 for 'single'.")
-    if (!is(cols, "numeric"))
+    }
+    if (!is(cols, "numeric")) {
       stop("'cols' must be a numeric (character is only allowed for header = TRUE).")
-    
+    }
+
     cols <- as(cols, "integer")
     ## Thanks to BDR for indicating how to only read in the relevant
     ## columns.
@@ -212,12 +228,12 @@ read.transactions <-
       skip = skip,
       encoding = encoding
     )
-    
+
     tids <- factor(entries[[cols[1]]])
     items <- factor(entries[[cols[2]]])
-    
+
     ## Note: rm.duplicates is automatically done
-    
+
     ngT <- new(
       "ngTMatrix",
       i = as.integer(items) - 1L,
@@ -225,11 +241,11 @@ read.transactions <-
       Dim = c(length(levels(items)), length(levels(tids))),
       Dimnames = list(levels(items), NULL)
     )
-    
+
     trans <- as(as(ngT, "CsparseMatrix"), "transactions")
     transactionInfo(trans) <-
       data.frame(transactionID = levels(tids))
-    
+
     return(trans)
   }
 
@@ -246,8 +262,10 @@ read.transactions <-
 }
 
 #' @rdname write
-setGeneric("write",
-  function(x, file = "", ...) base::write(x, file, ...))
+setGeneric(
+  "write",
+  function(x, file = "", ...) base::write(x, file, ...)
+)
 
 #' Write Transactions or Associations to a File
 #'
@@ -256,7 +274,7 @@ setGeneric("write",
 #'
 #' For associations ([rules] and [itemsets]) `write()` first uses coercion to
 #' data.frame to obtain a printable form of `x` and then uses
-#' [utils::write.table()] to write the data to disk. This is just a method to 
+#' [utils::write.table()] to write the data to disk. This is just a method to
 #' export the rules in human-readable form. These exported associations cannot be
 #' read back in as rules. To save and load associations in compact form, use [save()] and
 #' [load()] from the \pkg{base} package.  Alternatively, association can be
@@ -268,7 +286,7 @@ setGeneric("write",
 #'
 #' @name write
 #' @family import/export
-#' 
+#'
 #' @aliases write write.csv
 #' @param x the [transactions] or [associations] ([rules], [itemsets], etc.) object.
 #' @param file either a character string naming a file or a connection open for
@@ -278,7 +296,7 @@ setGeneric("write",
 #' separated by this string. Use `quote = TRUE` and `sep = ","` for
 #' saving data as in csv format.
 #' @param quote a logical value. Quote fields?
-#' @param \dots further arguments passed on to [write.table()]. 
+#' @param \dots further arguments passed on to [write.table()].
 #' Use `fileEncoding` to set the encoding used for
 #' writing the file.
 #' @author Michael Hahsler
@@ -290,43 +308,47 @@ setGeneric("write",
 #' write(head(Epub))
 #'
 #' ## write the formated transactions to screen (single format)
-#' write(head(Epub), format="single")
+#' write(head(Epub), format = "single")
 #'
 #' ## write the formated result to file in CSV format
 #' write(Epub, file = "data.csv", format = "single", sep = ",")
 #'
 #' ## write rules in CSV format
-#' rules <- apriori(Epub, parameter=list(support = 0.0005, conf = 0.8))
+#' rules <- apriori(Epub, parameter = list(support = 0.0005, conf = 0.8))
 #' write(rules, file = "data.csv", sep = ",")
 #'
 #' unlink("data.csv") # tidy up
 NULL
 
 #' @rdname write
-setMethod("write", signature(x = "transactions"),
-  function(x,
-    file = "",
-    format = c("basket", "single"),
-    sep = " ",
-    quote = TRUE,
-    ...) {
+setMethod(
+  "write", signature(x = "transactions"),
+  function(
+      x,
+      file = "",
+      format = c("basket", "single"),
+      sep = " ",
+      quote = TRUE,
+      ...) {
     format <- match.arg(format)
     if (format == "basket") {
       l <- LIST(x)
-      
+
       ## quotes?
-      if (quote)
+      if (quote) {
         l <- lapply(
           l,
-          FUN = function(s)
+          FUN = function(s) {
             sprintf('"%s"', s)
+          }
         )
-      
+      }
+
       dat <- unlist(list(lapply(l, paste, collapse = sep)))
       write(dat, file = file, ...)
     } else {
       ## format single
-      
+
       l <- LIST(x)
       dat <-
         data.frame(
@@ -345,20 +367,24 @@ setMethod("write", signature(x = "transactions"),
       )
     }
     invisible(dat)
-  })
+  }
+)
 
 #' @rdname write
-setMethod("write", signature(x = "associations"),
-  function(x,
-    file = "",
-    sep = " ",
-    quote = TRUE,
-    ...)
+setMethod(
+  "write", signature(x = "associations"),
+  function(
+      x,
+      file = "",
+      sep = " ",
+      quote = TRUE,
+      ...) {
     utils::write.table(
       as(x, "data.frame"),
       file = file,
       sep = sep,
       quote = quote,
       ...
-    ))
-
+    )
+  }
+)

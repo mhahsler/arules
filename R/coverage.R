@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
 #'
 #' @aliases coverage coverage,rules-method
 #' @family interest measures
-#' 
+#'
 #' @param x the set of [rules].
 #' @param transactions the data set used to generate `x`. Only needed if the
 #' quality slot of `x` does not contain support and confidence.
@@ -56,25 +56,34 @@
 #'
 #' inspect(rules)
 #' @export coverage
-setGeneric("coverage",
-  function(x,
-    transactions = NULL,
-    reuse = TRUE)
-    standardGeneric("coverage"))
+setGeneric(
+  "coverage",
+  function(
+      x,
+      transactions = NULL,
+      reuse = TRUE) {
+    standardGeneric("coverage")
+  }
+)
 
 #' @rdname coverage
-setMethod("coverage", signature(x = "rules"),
-  function(x,
-    transactions = NULL,
-    reuse = TRUE) {
+setMethod(
+  "coverage", signature(x = "rules"),
+  function(
+      x,
+      transactions = NULL,
+      reuse = TRUE) {
     q <- quality(x)
-    
-    if (reuse && all(c("support", "confidence") %in% names(q)))
+
+    if (reuse && all(c("support", "confidence") %in% names(q))) {
       return(q$support / q$confidence)
-    
-    if (is.null(transactions))
+    }
+
+    if (is.null(transactions)) {
       stop("transactions needed!")
-    
+    }
+
     ## we need to calculate lhs-support
     return(support(lhs(x), transactions))
-  })
+  }
+)

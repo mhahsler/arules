@@ -28,7 +28,7 @@
 #' @name abbreviate
 #' @family associations functions
 #' @family itemMatrix and transactions functions
-#' 
+#'
 #' @param names.arg an object of class [transactions], [itemMatrix],
 #' [itemsets], [rules] or [tidLists].
 #' @param minlength number of characters allowed in abbreviation
@@ -47,77 +47,98 @@
 #' Adult_abbr <- abbreviate(Adult, 15)
 #' inspect(head(Adult_abbr, 1))
 #'
-setGeneric("abbreviate", function(names.arg, ...)
-  base::abbreviate(names.arg, ...))
+setGeneric("abbreviate", function(names.arg, ...) {
+  base::abbreviate(names.arg, ...)
+})
 
 #' @rdname abbreviate
-setMethod("abbreviate", signature(names.arg = "itemMatrix"),
-  function(names.arg,
-    minlength = 4,
-    ...,
-    method = "both.sides") {
+setMethod(
+  "abbreviate", signature(names.arg = "itemMatrix"),
+  function(
+      names.arg,
+      minlength = 4,
+      ...,
+      method = "both.sides") {
     ## both sides helps with labels of form variable=level
     itemInfo(names.arg)$labels_orig <- itemInfo(names.arg)$labels
-    
+
     itemInfo(names.arg)$labels <- as.factor(abbreviate(itemInfo(names.arg)$labels, minlength, ..., method = method))
-    
+
     names.arg
-  })
+  }
+)
 
 #' @rdname abbreviate
-setMethod("abbreviate", signature(names.arg = "transactions"),
-  function(names.arg,
-    minlength = 4,
-    ...,
-    method = "both.sides") {
+setMethod(
+  "abbreviate", signature(names.arg = "transactions"),
+  function(
+      names.arg,
+      minlength = 4,
+      ...,
+      method = "both.sides") {
     abbreviate(as(names.arg, "itemMatrix"),
       minlength = minlength,
       ...,
-      method = method)
-  })
+      method = method
+    )
+  }
+)
 
 
 #' @rdname abbreviate
-setMethod("abbreviate", signature(names.arg = "rules"),
-  function(names.arg,
-    minlength = 4,
-    ...,
-    method = "both.sides") {
+setMethod(
+  "abbreviate", signature(names.arg = "rules"),
+  function(
+      names.arg,
+      minlength = 4,
+      ...,
+      method = "both.sides") {
     names.arg@lhs <- abbreviate(lhs(names.arg),
       minlength = minlength,
       ...,
-      method = method)
+      method = method
+    )
     names.arg@rhs <-
       abbreviate(rhs(names.arg),
         minlength = minlength,
         ...,
-        method = method)
+        method = method
+      )
     names.arg
-  })
+  }
+)
 
 #' @rdname abbreviate
-setMethod("abbreviate", signature(names.arg = "itemsets"),
-  function(names.arg,
-    minlength = 4,
-    ...,
-    method = "both.sides") {
+setMethod(
+  "abbreviate", signature(names.arg = "itemsets"),
+  function(
+      names.arg,
+      minlength = 4,
+      ...,
+      method = "both.sides") {
     names.arg@items <-
       abbreviate(items(names.arg),
         minlength = minlength,
         ...,
-        method = method)
+        method = method
+      )
     names.arg
-  })
+  }
+)
 
 
 #' @rdname abbreviate
-setMethod("abbreviate", signature(names.arg = "tidLists"),
-  function(names.arg,
-    minlength = 4,
-    ...,
-    method = "both.sides") {
+setMethod(
+  "abbreviate", signature(names.arg = "tidLists"),
+  function(
+      names.arg,
+      minlength = 4,
+      ...,
+      method = "both.sides") {
     abbreviate(as(names.arg, "itemMatrix"),
       minlength = minlength,
       ...,
-      method = method)
-  })
+      method = method
+    )
+  }
+)

@@ -16,13 +16,14 @@ trans <- transactions(data)
 ### rules (all warnings are for low support)
 r <- apriori(trans,
   parameter = list(supp = 0.25, conf = 0),
-  control = list(verb = verb))
+  control = list(verb = verb)
+)
 
 expect_length(r, 18L)
 
-#r
-#summary(r)
-#inspect(sort(r, by = "lift")[1:7])
+# r
+# summary(r)
+# inspect(sort(r, by = "lift")[1:7])
 
 ### test appearance
 r <- apriori(
@@ -33,7 +34,7 @@ r <- apriori(
 )
 
 expect_length(r, 6L)
-#inspect(r)
+# inspect(r)
 
 r <- apriori(
   trans,
@@ -71,7 +72,7 @@ r <- apriori(
 )
 
 expect_true("coverage" %in% colnames(quality(r)))
-#inspect(r[1:2])
+# inspect(r[1:2])
 
 ## Compare if APRIOR and ECLAT produce the same results
 data("Income")
@@ -90,4 +91,3 @@ esets <-
 
 ## compare if output is the same
 expect_true(all(table(match(fsets, esets)) == 1))
-

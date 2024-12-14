@@ -3,33 +3,35 @@ set.seed(20070611)
 m <- matrix(as.integer(runif(100000) > 0.8), ncol = 20)
 dimnames(m) <- list(NULL, paste("item", c(1:20), sep = ""))
 t <- as(m, "transactions")
-#t
-#inspect(t[10])
+# t
+# inspect(t[10])
 
 expect_identical(dim(t), dim(m))
 
 r <-
   apriori(t,
     parameter = list(supp = 0.01, conf = 0.1),
-    control = list(verb = FALSE))
-#r
-#summary(r)
-#inspect(r)
+    control = list(verb = FALSE)
+  )
+# r
+# summary(r)
+# inspect(r)
 
 ss <- subset(r, subset = lift > 1.4 & lhs %in% "item3")
-#inspect(ss)
+# inspect(ss)
 expect_identical(labels(lhs(ss)), "{item2,item3}")
 expect_true(quality(ss)$lift > 1.4)
 
 f <- eclat(t,
   parameter = list(supp = 0.01),
-  control = list(verb = FALSE))
-#f
-#summary(f)
-#inspect(f)
+  control = list(verb = FALSE)
+)
+# f
+# summary(f)
+# inspect(f)
 
 ss <- subset(f, subset = items %in% "item7")
-#inspect(ss)
+# inspect(ss)
 expect_identical(labels(ss), grep("item7", labels(ss), value = TRUE))
 
 ### create associations manually
@@ -44,7 +46,7 @@ rhs <- as(rmat, "itemMatrix")
 
 is <-
   new("itemsets", items = lhs, quality = data.frame(support = c(.1, .1)))
-#inspect(is)
+# inspect(is)
 
 expect_equal(labels(is), c("{a,b}", "{c}"))
 
@@ -64,7 +66,7 @@ qual <-
 # ))
 
 expect_warning(r <- rules(lhs, rhs, quality = qual))
-#inspect(r)
+# inspect(r)
 
 
 ## subsetting (also tests itemMatrix)
@@ -118,24 +120,32 @@ expect_warning(expect_equal(dim(t[, take_cbn]), c(nrow(t), 8L)))
 r <-
   apriori(t,
     parameter = list(supp = 0.01, conf = 0.1),
-    control = list(verb = FALSE))
+    control = list(verb = FALSE)
+  )
 expect_warning(expect_equal(length(r[NA]), 0L))
 expect_warning(expect_equal(length(r[c(1L, NA_integer_)]), 1L))
-expect_warning(expect_equal(length(r[c(TRUE, NA, FALSE)]),
+expect_warning(expect_equal(
+  length(r[c(TRUE, NA, FALSE)]),
   sum(rep(
-    c(TRUE, NA, FALSE), length.out = length(r)
-  ), na.rm = TRUE))) # recycle
+    c(TRUE, NA, FALSE),
+    length.out = length(r)
+  ), na.rm = TRUE)
+)) # recycle
 
 # itemsets
 f <- eclat(t,
   parameter = list(supp = 0.01),
-  control = list(verb = FALSE))
+  control = list(verb = FALSE)
+)
 expect_warning(expect_equal(length(f[NA]), 0L))
 expect_warning(expect_equal(length(f[c(1L, NA_integer_)]), 1L))
-expect_warning(expect_equal(length(f[c(TRUE, NA, FALSE)]),
+expect_warning(expect_equal(
+  length(f[c(TRUE, NA, FALSE)]),
   sum(rep(
-    c(TRUE, NA, FALSE), length.out = length(f)
-  ), na.rm = TRUE))) # recycle
+    c(TRUE, NA, FALSE),
+    length.out = length(f)
+  ), na.rm = TRUE)
+)) # recycle
 
 # head and tail
 expect_identical(r[1:5], head(r, n = 5))
@@ -146,13 +156,15 @@ expect_identical(r[1:(length(r) - 10)], head(r, n = -10))
 expect_identical(r[1:length(r)], head(r, n = length(r)))
 expect_identical(r[1:length(r)], head(r, n = length(r) + 100L))
 expect_identical(sort(r, by = "lift")[1:5], head(r, n = 5, by = "lift"))
-expect_identical(sort(r, by = "lift", decreasing = FALSE)[1:5],
+expect_identical(
+  sort(r, by = "lift", decreasing = FALSE)[1:5],
   head(
     r,
     n = 5,
     by = "lift",
     decreasing = FALSE
-  ))
+  )
+)
 expect_identical(head(r[0]), r[0]) # empty rule set
 
 expect_identical(r[tail(1:length(r), n = 5)], tail(r, n = 5))
@@ -167,9 +179,12 @@ expect_identical(r[2:10] %in% r, 2:10)
 expect_identical(match(f[2:10], f), 2:10)
 expect_identical(f[2:10] %in% f, 2:10)
 
-expect_identical(rhs(r[1:10]) %pin% "item1",
-  c(FALSE, FALSE, TRUE, TRUE, TRUE,
-    TRUE, TRUE, FALSE, FALSE, TRUE))
+expect_identical(
+  rhs(r[1:10]) %pin% "item1",
+  c(
+    FALSE, FALSE, TRUE, TRUE, TRUE,
+    TRUE, TRUE, FALSE, FALSE, TRUE
+  )
+)
 expect_error(rhs(r[1:10]) %pin% "")
 expect_warning(rhs(r[1:10]) %pin% c("1", "2"))
-

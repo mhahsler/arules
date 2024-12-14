@@ -48,7 +48,7 @@ Adult[1:100, 1:10]
 
 ## select the first 100 transactions for the items containing
 ## "income" or "age=Young" in their labels
-Adult[1:100, c("income=small", "income=large" ,"age=Young")]
+Adult[1:100, c("income=small", "income=large", "age=Young")]
 }
 \seealso{
 Other associations functions: 

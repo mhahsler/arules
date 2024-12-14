@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #' clusters represented by medoids or labeled examples.
 #'
 #' @family proximity classes and functions
-#' 
+#'
 #' @param object clustered examples as an [itemMatrix] with cluster label specified in `labels` or medoids as an [itemMatrix] (use `labels = NULL`).
 #' @param newdata an [itemMatrix] containing the objects to predict labels for.
 #' @param labels an integer vector containing the labels for the examples in
@@ -52,7 +52,7 @@
 #' ## cluster a small sample and extract the cluster lael vector
 #' d_jaccard <- dissimilarity(small)
 #' hc <- hclust(d_jaccard)
-#' l <-  cutree(hc, k=4)
+#' l <- cutree(hc, k = 4)
 #'
 #' ## predict labels for a larger sample
 #' labels <- predict(small, large, l)
@@ -62,36 +62,40 @@
 setGeneric("predict")
 
 #' @rdname predict
-setMethod("predict", signature(object = "itemMatrix"),
-  function(object,
-    newdata,
-    labels = NULL,
-    blocksize = 200,
-    ...) {
+setMethod(
+  "predict", signature(object = "itemMatrix"),
+  function(
+      object,
+      newdata,
+      labels = NULL,
+      blocksize = 200,
+      ...) {
     lenOb <- length(object)
     lenNew <- length(newdata)
-    
+
     ## memory requirements for dissimilarity (see proximities.R)
     ## total w/o input: about 5 * nx * ny * 8 byte
     ## required memory in MB
     ## reqMemMB <- 5 * lenOb * lenNew * 8 / 1024 / 1024
     blocksize <- floor(blocksize * 1024 * 1024 / 5 / lenOb / 8)
-    
-    if (blocksize < 1)
+
+    if (blocksize < 1) {
       stop("Too many examples in object. Increase usable memory blocksize!")
-    
-    if (is.null(labels))
+    }
+
+    if (is.null(labels)) {
       labels <- 1:lenOb
-    
+    }
+
     # do it in one run
     if (lenOb * lenNew <= blocksize) {
       xd <- dissimilarity(newdata, object, ...)
       return(labels[max.col(-xd)])
     }
-    
+
     # do it in blocks
     newLabels <- integer(lenNew)
-    
+
     blockStart <- 1
     while (blockStart < lenNew) {
       blockEnd <- min(blockStart + blocksize, lenNew)
@@ -100,6 +104,7 @@ setMethod("predict", signature(object = "itemMatrix"),
       newLabels[blockStart:blockEnd] <- labels[max.col(-xd)]
       blockStart <- blockEnd
     }
-    
+
     return(newLabels)
-  })
+  }
+)

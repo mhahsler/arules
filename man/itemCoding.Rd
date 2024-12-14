@@ -126,9 +126,9 @@ decode(list, itemLabels = iLabels)
 
 ## Example 2: Manually create an itemMatrix using iLabels as the common item coding
 data <- list(
-    c("income=small", "age=Young"),
-    c("income=large", "age=Middle-aged")
-    )
+  c("income=small", "age=Young"),
+  c("income=large", "age=Middle-aged")
+)
 
 # Option a: encode to match the item coding in Adult
 iM <- encode(data, itemLabels = Adult)
@@ -149,7 +149,7 @@ compatible(iM, Adult)
 
 ## Example 3: use recode to make itemMatrices compatible
 ## select first 100 transactions and all education-related items
-sub <- Adult[1:100, itemInfo(Adult)$variables ==  "education"]
+sub <- Adult[1:100, itemInfo(Adult)$variables == "education"]
 itemLabels(sub)
 image(sub)
 
@@ -165,21 +165,24 @@ image(sub.recoded)
 ## Example 4: manually create 2 new transaction for the Adult data set
 ##            Note: check itemLabels(Adult) to see the available labels for items
 twoTransactions <- as(
-    encode(list(
-        c("age=Young", "relationship=Unmarried"),
-        c("age=Senior")
-      ), itemLabels = Adult),
-    "transactions")
+  encode(list(
+    c("age=Young", "relationship=Unmarried"),
+    c("age=Senior")
+  ), itemLabels = Adult),
+  "transactions"
+)
 
 twoTransactions
 inspect(twoTransactions)
 
 ## the same using the transactions constructor function instead
 twoTransactions <- transactions(
-    list(
-        c("age=Young", "relationship=Unmarried"),
-        c("age=Senior")
-    ), itemLabels = Adult)
+  list(
+    c("age=Young", "relationship=Unmarried"),
+    c("age=Senior")
+  ),
+  itemLabels = Adult
+)
 
 twoTransactions
 inspect(twoTransactions)
@@ -188,17 +191,19 @@ inspect(twoTransactions)
 
 # Creation of transactions separately will produce different item codings
 trans1 <- transactions(
-    list(
-        c("age=Young", "relationship=Unmarried"),
-        c("age=Senior")
-    ))
+  list(
+    c("age=Young", "relationship=Unmarried"),
+    c("age=Senior")
+  )
+)
 trans1
 
 trans2 <- transactions(
-    list(
-        c("age=Middle-aged", "relationship=Married"),
-        c("relationship=Unmarried", "age=Young")
-    ))
+  list(
+    c("age=Middle-aged", "relationship=Married"),
+    c("relationship=Unmarried", "age=Young")
+  )
+)
 trans2
 
 compatible(trans1, trans2)
@@ -219,9 +224,11 @@ compatible(trans1, trans2)
 ## and calculate interest measures
 aRule <- new("rules",
   lhs = encode(list(c("age=Young", "relationship=Unmarried")),
-    itemLabels = Adult),
+    itemLabels = Adult
+  ),
   rhs = encode(list(c("income=small")),
-    itemLabels = Adult)
+    itemLabels = Adult
+  )
 )
 
 ## shorter version using the rules constructor
@@ -232,7 +239,8 @@ aRule <- rules(
 )
 
 quality(aRule) <- interestMeasure(aRule,
-  measure = c("support", "confidence", "lift"), transactions = Adult)
+  measure = c("support", "confidence", "lift"), transactions = Adult
+)
 
 inspect(aRule)
 }

@@ -95,8 +95,10 @@ measures with a confidence interval like confidence (see
 data("Income")
 
 ## mine some rules with the consequent "language in home=english"
-rules <- apriori(Income, parameter = list(support = 0.5),
-  appearance = list(rhs = "language in home=english"))
+rules <- apriori(Income,
+  parameter = list(support = 0.5),
+  appearance = list(rhs = "language in home=english")
+)
 
 ## for better comparison we add Bayado's improvement and sort by improvement
 quality(rules)$improvement <- interestMeasure(rules, measure = "improvement")
@@ -111,21 +113,27 @@ inspect(rules_non_redundant)
 
 ## use non-overlapping confidence intervals for the confidence measure instead
 ## Note: fewer rules have a significantly higher confidence
-inspect(rules[!is.redundant(rules, measure = "confidence",
-  confint = TRUE, level = 0.95)])
+inspect(rules[!is.redundant(rules,
+  measure = "confidence",
+  confint = TRUE, level = 0.95
+)])
 
 ## find non-redundant rules using improvement of the odds ratio.
-quality(rules)$oddsRatio <-  interestMeasure(rules, measure = "oddsRatio", smoothCounts = .5)
+quality(rules)$oddsRatio <- interestMeasure(rules, measure = "oddsRatio", smoothCounts = .5)
 inspect(rules[!is.redundant(rules, measure = "oddsRatio")])
 
 ## use the confidence interval for the odds ratio.
 ## We see that no rule has a significantly better odds ratio than the most general rule.
-inspect(rules[!is.redundant(rules, measure = "oddsRatio",
-  confint = TRUE, level = 0.95)])
+inspect(rules[!is.redundant(rules,
+  measure = "oddsRatio",
+  confint = TRUE, level = 0.95
+)])
 
 ##  use the confidence interval for lift
-inspect(rules[!is.redundant(rules, measure = "lift",
-  confint = TRUE, level = 0.95)])
+inspect(rules[!is.redundant(rules,
+  measure = "lift",
+  confint = TRUE, level = 0.95
+)])
 
 }
 \references{

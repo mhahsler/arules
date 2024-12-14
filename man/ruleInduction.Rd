@@ -95,7 +95,7 @@ inspect(head(closed_rules, by = "lift"))
 
 ## get rules from frequent itemsets. Here, transactions does not need to be
 ## specified for rule induction.
-frequent_is  <- eclat(Adult, support = 0.4)
+frequent_is <- eclat(Adult, support = 0.4)
 assoc_rules <- ruleInduction(frequent_is)
 assoc_rules
 inspect(head(assoc_rules))

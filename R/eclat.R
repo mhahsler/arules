@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -69,26 +69,28 @@
 #' data("Adult")
 #' ## Mine itemsets with minimum support of 0.1 and 5 or less items
 #' itemsets <- eclat(Adult,
-#' 		parameter = list(supp = 0.1, maxlen = 5))
+#'   parameter = list(supp = 0.1, maxlen = 5)
+#' )
 #' itemsets
 #'
 #' ## Create rules from the frequent itemsets
 #' rules <- ruleInduction(itemsets, confidence = .9)
 #' rules
 #' @export eclat
-eclat <- function(data,
-  parameter = NULL,
-  control = NULL,
-  ...)
-{
+eclat <- function(
+    data,
+    parameter = NULL,
+    control = NULL,
+    ...) {
   ## prepare data
   data <- as(data, "transactions")
   items <- data@data
   if (is.null(parameter) ||
-      !is(parameter, "ACparameter"))
+    !is(parameter, "ACparameter")) {
     parameter <- as(c(parameter, list(...)), "ECparameter")
+  }
   control <- as(control, "ECcontrol")
-  
+
   if (control@verbose) {
     cat("Eclat\n")
     cat("\nparameter specification:\n")
@@ -96,22 +98,24 @@ eclat <- function(data,
     cat("\nalgorithmic control:\n")
     show(control)
   }
-  
+
   ## sanity check for support (abs. support >1)
   abs_supp <- as.integer(parameter@support * length(data))
   if (control@verbose) {
     cat("\nAbsolute minimum support count:", abs_supp, "\n\n")
   }
-  
+
   ## the C code of eclat dies when no item is frequent so we do this
   if (max(itemFrequency(data)) < parameter@support) {
-    if (control@verbose)
+    if (control@verbose) {
       message("eclat - zero frequent items\n")
+    }
     return(new("itemsets"))
   }
-  
+
   ## call eclat
-  result <- .Call(R_reclat,
+  result <- .Call(
+    R_reclat,
     ## transactions
     items@p,
     items@i,
@@ -119,24 +123,25 @@ eclat <- function(data,
     ## parameter
     parameter,
     control,
-    data@itemInfo)
-  
+    data@itemInfo
+  )
+
   ## validate sparse Matrix (this takes care of sorting vector i)
   validObject(result@items@data)
-  
+
   ## copy itemInfo
   result@items@itemInfo <- data@itemInfo
-  
+
   ## empty itemsetInfo
   result@items@itemsetInfo <- data.frame()
-  
+
   ## make sure quality is a data.frame
   result@quality <- as.data.frame(result@quality)
-  
+
   ## add count to quality
   quality(result)$count <-
     as.integer(round(quality(result)$support * length(data)))
-  
+
   ## add some reflectance
   call <- match.call()
   result@info <- list(
@@ -145,12 +150,12 @@ eclat <- function(data,
     support = parameter@support,
     call = deparse1(call)[1]
   )
-  
+
   ## make sure tid list itemInfo is OK
   if (!is.null(result@tidLists)) {
     result@tidLists@itemInfo <- data.frame(labels = labels(result))
     result@tidLists@transactionInfo <- transactionInfo(data)
   }
-  
+
   result
 }

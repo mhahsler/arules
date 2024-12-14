@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,22 +28,22 @@
 #'
 #' **Item coding compatibility:** When working with several datasets or different
 #' subsets of the same dataset, combining or compare the found
-#' itemsets or rules requires a compatible item coding.  
+#' itemsets or rules requires a compatible item coding.
 #' That is, the sparse matrices representing the
-#' items (the itemMatrix objects) have columns for the same items in exactly the 
-#' same order. The coercion to transactions with `transactions()` or 
+#' items (the itemMatrix objects) have columns for the same items in exactly the
+#' same order. The coercion to transactions with `transactions()` or
 #' `as(x, "transactions")` will create the
 #' item coding by adding items in the order they are encountered in the dataset. This
 #' can lead to different item codings (different order, missing items) for even
-#' only slightly different datasets or versions of a dataset. 
+#' only slightly different datasets or versions of a dataset.
 #' Method `compatible()` can be used to check if two sets have the same item coding.
 #'
-#' **Defining a common item coding:** 
+#' **Defining a common item coding:**
 #' When working with many sets, then first a common item
-#' coding should be defined by creating a vector with all possible item labels and then 
-#' specify them as `itemLabels` to create transactions with `transactions()`. 
+#' coding should be defined by creating a vector with all possible item labels and then
+#' specify them as `itemLabels` to create transactions with `transactions()`.
 #' Compatible [itemMatrix] objects can be created using `encode()`.
-#' 
+#'
 #' **Recoding and Decoding:**
 #' Two incompatible objects can be made compatible using `recode()`. Recode
 #' one object by specifying the other object in `itemLabels`.
@@ -55,7 +55,7 @@
 #' @aliases itemCoding itemcoding
 #' @family itemMatrix functions
 #' @family preprocessing
-#' 
+#'
 #' @param x a vector or a list of vectors of character strings (for
 #' `encode()` or of numeric (for `decode()`), or an object of class
 #' [itemMatrix] (for `recode()`).
@@ -70,7 +70,7 @@
 #' [associations] to compare item coding to `x`.
 #' @param match deprecated: used `itemLabels` instead.
 #' @param ... further arguments.
-#' 
+#'
 #' @return `recode()` always returns an object of the same class as `x`.
 #'
 #' For `encode()` with `itemMatrix = TRUE` an object of class
@@ -97,9 +97,9 @@
 #'
 #' ## Example 2: Manually create an itemMatrix using iLabels as the common item coding
 #' data <- list(
-#'     c("income=small", "age=Young"),
-#'     c("income=large", "age=Middle-aged")
-#'     )
+#'   c("income=small", "age=Young"),
+#'   c("income=large", "age=Middle-aged")
+#' )
 #'
 #' # Option a: encode to match the item coding in Adult
 #' iM <- encode(data, itemLabels = Adult)
@@ -120,7 +120,7 @@
 #'
 #' ## Example 3: use recode to make itemMatrices compatible
 #' ## select first 100 transactions and all education-related items
-#' sub <- Adult[1:100, itemInfo(Adult)$variables ==  "education"]
+#' sub <- Adult[1:100, itemInfo(Adult)$variables == "education"]
 #' itemLabels(sub)
 #' image(sub)
 #'
@@ -136,21 +136,24 @@
 #' ## Example 4: manually create 2 new transaction for the Adult data set
 #' ##            Note: check itemLabels(Adult) to see the available labels for items
 #' twoTransactions <- as(
-#'     encode(list(
-#'         c("age=Young", "relationship=Unmarried"),
-#'         c("age=Senior")
-#'       ), itemLabels = Adult),
-#'     "transactions")
+#'   encode(list(
+#'     c("age=Young", "relationship=Unmarried"),
+#'     c("age=Senior")
+#'   ), itemLabels = Adult),
+#'   "transactions"
+#' )
 #'
 #' twoTransactions
 #' inspect(twoTransactions)
 #'
 #' ## the same using the transactions constructor function instead
 #' twoTransactions <- transactions(
-#'     list(
-#'         c("age=Young", "relationship=Unmarried"),
-#'         c("age=Senior")
-#'     ), itemLabels = Adult)
+#'   list(
+#'     c("age=Young", "relationship=Unmarried"),
+#'     c("age=Senior")
+#'   ),
+#'   itemLabels = Adult
+#' )
 #'
 #' twoTransactions
 #' inspect(twoTransactions)
@@ -159,17 +162,19 @@
 #'
 #' # Creation of transactions separately will produce different item codings
 #' trans1 <- transactions(
-#'     list(
-#'         c("age=Young", "relationship=Unmarried"),
-#'         c("age=Senior")
-#'     ))
+#'   list(
+#'     c("age=Young", "relationship=Unmarried"),
+#'     c("age=Senior")
+#'   )
+#' )
 #' trans1
 #'
 #' trans2 <- transactions(
-#'     list(
-#'         c("age=Middle-aged", "relationship=Married"),
-#'         c("relationship=Unmarried", "age=Young")
-#'     ))
+#'   list(
+#'     c("age=Middle-aged", "relationship=Married"),
+#'     c("relationship=Unmarried", "age=Young")
+#'   )
+#' )
 #' trans2
 #'
 #' compatible(trans1, trans2)
@@ -190,9 +195,11 @@
 #' ## and calculate interest measures
 #' aRule <- new("rules",
 #'   lhs = encode(list(c("age=Young", "relationship=Unmarried")),
-#'     itemLabels = Adult),
+#'     itemLabels = Adult
+#'   ),
 #'   rhs = encode(list(c("income=small")),
-#'     itemLabels = Adult)
+#'     itemLabels = Adult
+#'   )
 #' )
 #'
 #' ## shorter version using the rules constructor
@@ -203,208 +210,270 @@
 #' )
 #'
 #' quality(aRule) <- interestMeasure(aRule,
-#'   measure = c("support", "confidence", "lift"), transactions = Adult)
+#'   measure = c("support", "confidence", "lift"), transactions = Adult
+#' )
 #'
 #' inspect(aRule)
-setGeneric("decode",
-  function(x, ...)
-    standardGeneric("decode"))
+setGeneric(
+  "decode",
+  function(x, ...) {
+    standardGeneric("decode")
+  }
+)
 
 #' @rdname itemCoding
 #' @aliases decode
-setMethod("decode", signature(x = "numeric"),
-  function(x, itemLabels)
-    itemLabels[x])
+setMethod(
+  "decode", signature(x = "numeric"),
+  function(x, itemLabels) {
+    itemLabels[x]
+  }
+)
 
 #' @rdname itemCoding
-setMethod("decode", signature(x = "list"),
-  function(x, itemLabels)
-    lapply(x, function(x)
-      itemLabels[x]))
+setMethod(
+  "decode", signature(x = "list"),
+  function(x, itemLabels) {
+    lapply(x, function(x) {
+      itemLabels[x]
+    })
+  }
+)
 
 
 #' @rdname itemCoding
 #' @aliases encode
-setGeneric("encode",
-  function(x, ...)
-    standardGeneric("encode"))
+setGeneric(
+  "encode",
+  function(x, ...) {
+    standardGeneric("encode")
+  }
+)
 
 #' @rdname itemCoding
-setMethod("encode", signature(x = "character"),
+setMethod(
+  "encode", signature(x = "character"),
   function(x, itemLabels, itemMatrix = TRUE) {
     ## itemMatrix always is created from list
-    if (itemMatrix == TRUE)
+    if (itemMatrix == TRUE) {
       return(encode(list(x), itemLabels, itemMatrix == TRUE))
-    
+    }
+
     ## regular encoding
     r <- which(itemLabels %in% x)
-    if (length(r) < length(x))
+    if (length(r) < length(x)) {
       warning(
         "The following item labels are not available in itemLabels: ",
         paste(setdiff(x, itemLabels), collapse = ", "),
         "\nItems with missing labels are dropped!",
         call. = FALSE
       )
+    }
     r
-  })
+  }
+)
 
 #' @rdname itemCoding
-setMethod("encode", signature(x = "numeric"),
+setMethod(
+  "encode", signature(x = "numeric"),
   function(x, itemLabels, itemMatrix = TRUE) {
     ## itemMatrix always is created from list
-    if (itemMatrix == TRUE)
+    if (itemMatrix == TRUE) {
       return(encode(list(x), itemLabels, itemMatrix == TRUE))
-    
+    }
+
     ## handle empty sets
-    if (length(x) == 0)
+    if (length(x) == 0) {
       return(integer(0))
-    
+    }
+
     ## regular encoding
     r <- range(x)
-    if (r[1] < 1 || r[2] > length(itemLabels))
+    if (r[1] < 1 || r[2] > length(itemLabels)) {
       stop("Invalid item ID in ", deparse(x), call. = FALSE)
-    
+    }
+
     ## deal with numeric
     if (!is.integer(x)) {
-      if (any(x %% 1 != 0))
+      if (any(x %% 1 != 0)) {
         stop("Invalid item ID (needs to be integer) in ", deparse(x), call. = FALSE)
+      }
       x <- as.integer(x)
     }
     x
-  })
+  }
+)
 
 ## NOTES this is less error prone than creating ngCMatrix
 ##       directly in internal code.
 
 #' @rdname itemCoding
-setMethod("encode", signature(x = "list"),
+setMethod(
+  "encode", signature(x = "list"),
   function(x, itemLabels, itemMatrix = TRUE) {
     if (is(itemLabels, "itemMatrix") ||
-        is(itemLabels, "association"))
+      is(itemLabels, "association")) {
       itemLabels <- itemLabels(itemLabels)
-    
+    }
+
     # this calls encode for character
     i <- lapply(x, encode, itemLabels, itemMatrix = FALSE)
-    if (itemMatrix == FALSE)
+    if (itemMatrix == FALSE) {
       return(i)
-    
+    }
+
     ## yuck
-    if (!length(i))
+    if (!length(i)) {
       return(recode(new("itemMatrix"), itemLabels))
-    
+    }
+
     ## fix Matrix mess  (ceeboo 2009)
     i <- lapply(i, sort)
-    
+
     p <- sapply(i, length)
     names(p) <- NULL
     p <- cumsum(p)
     i <- unlist(i, use.names = FALSE)
-    
+
     i <- new(
       "ngCMatrix",
       p   = c(0L, p),
       i   = i - 1L,
       Dim = c(length(itemLabels), length(p))
     )
-    
+
     ## item labels must be character
     new(
       "itemMatrix",
-      data     = i,
+      data = i,
       itemInfo = data.frame(
         labels = as.character(itemLabels),
         stringsAsFactors = FALSE
       )
     )
-  })
+  }
+)
 
 
 #' @rdname itemCoding
 #' @aliases recode
-setGeneric("recode",
-  function(x, ...)
-    standardGeneric("recode"))
+setGeneric(
+  "recode",
+  function(x, ...) {
+    standardGeneric("recode")
+  }
+)
 
 #' @rdname itemCoding
-setMethod("recode", signature(x = "itemMatrix"),
-  function(x,
-    itemLabels = NULL,
-    match = NULL) {
+setMethod(
+  "recode", signature(x = "itemMatrix"),
+  function(
+      x,
+      itemLabels = NULL,
+      match = NULL) {
     ### FIXME: Deprecated
-    if (!is.null(match))
+    if (!is.null(match)) {
       message("recode: parameter 'match' is deprecated. Use 'itemLabels' instead.")
-    
-    if (!is.null(itemLabels) && !is.null(match))
+    }
+
+    if (!is.null(itemLabels) && !is.null(match)) {
       stop("'match' and 'itemLabels' cannot both be specified")
-    if (is.null(itemLabels))
-      if (is.null(match))
+    }
+    if (is.null(itemLabels)) {
+      if (is.null(match)) {
         stop("Either 'match' or 'itemLabels' has to be specified")
-    else
-      itemLabels <- itemLabels(match)
+      } else {
+        itemLabels <- itemLabels(match)
+      }
+    }
     ### END
-    
+
     if (is(itemLabels, "itemMatrix") ||
-        is(itemLabels, "association"))
+      is(itemLabels, "association")) {
       itemLabels <- itemLabels(itemLabels)
-    
+    }
+
     ## nothing to do
-    if (identical(itemLabels(x), itemLabels))
+    if (identical(itemLabels(x), itemLabels)) {
       return(x)
-    
+    }
+
     k <- match(itemLabels(x), itemLabels)
-    if (any(is.na(k)))
-      stop ("All item labels in x must be contained in 'itemLabels'.", call. = FALSE)
-    
+    if (any(is.na(k))) {
+      stop("All item labels in x must be contained in 'itemLabels'.", call. = FALSE)
+    }
+
     ## recode items
-    if (any(k != seq(length(k))))
+    if (any(k != seq(length(k)))) {
       x@data <- .Call(R_recode_ngCMatrix, x@data, k)
-    
+    }
+
     ## enlarge matrix for additional items
-    if (x@data@Dim[1] <  length(itemLabels))
+    if (x@data@Dim[1] < length(itemLabels)) {
       x@data@Dim[1] <- length(itemLabels)
-    
-    if (!is.null(match))
+    }
+
+    if (!is.null(match)) {
       itemInfo(x) <- itemInfo(match)
-    else
+    } else {
       itemInfo(x) <-
-      data.frame(labels = as.character(itemLabels),
-        stringsAsFactors = FALSE)
-    
+        data.frame(
+          labels = as.character(itemLabels),
+          stringsAsFactors = FALSE
+        )
+    }
+
     validObject(x)
     x
-  })
+  }
+)
 
 #' @rdname itemCoding
-setMethod("recode", signature(x = "itemsets"),
-  function(x,
-    itemLabels = NULL,
-    match = NULL) {
+setMethod(
+  "recode", signature(x = "itemsets"),
+  function(
+      x,
+      itemLabels = NULL,
+      match = NULL) {
     x@items <- recode(x@items, itemLabels, match)
     x
-  })
+  }
+)
 
 #' @rdname itemCoding
-setMethod("recode", signature(x = "rules"),
-  function(x,
-    itemLabels = NULL,
-    match = NULL) {
+setMethod(
+  "recode", signature(x = "rules"),
+  function(
+      x,
+      itemLabels = NULL,
+      match = NULL) {
     x@lhs <- recode(x@lhs, itemLabels, match)
     x@rhs <- recode(x@rhs, itemLabels, match)
     x
-  })
+  }
+)
 
 
 #' @rdname itemCoding
-setGeneric("compatible",
-  function(x, y)
-    standardGeneric("compatible"))
+setGeneric(
+  "compatible",
+  function(x, y) {
+    standardGeneric("compatible")
+  }
+)
 
 #' @rdname itemCoding
-setMethod("compatible", signature(x = "itemMatrix"),
-  function(x, y)
-    identical(itemLabels(x), itemLabels(y)))
+setMethod(
+  "compatible", signature(x = "itemMatrix"),
+  function(x, y) {
+    identical(itemLabels(x), itemLabels(y))
+  }
+)
 
 #' @rdname itemCoding
-setMethod("compatible", signature(x = "associations"),
-  function(x, y)
-    identical(itemLabels(x), itemLabels(y)))
+setMethod(
+  "compatible", signature(x = "associations"),
+  function(x, y) {
+    identical(itemLabels(x), itemLabels(y))
+  }
+)

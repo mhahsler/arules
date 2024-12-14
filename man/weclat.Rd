@@ -54,8 +54,10 @@ SunBai
 transactionInfo(SunBai)
 
 ## mine weighted support itemsets using transaction support in SunBai
-s <- weclat(SunBai, parameter = list(support = 0.3),
-		       control = list(verbose = TRUE))
+s <- weclat(SunBai,
+  parameter = list(support = 0.3),
+  control = list(verbose = TRUE)
+)
 inspect(sort(s))
 
 ## create rules using weighted support (satisfying a minimum
@@ -64,27 +66,29 @@ r <- ruleInduction(s, confidence = .9)
 inspect(r)
 
 ## Example 2: Find association rules in weighted data
-trans <-  list(
-    c("A", "B", "C", "D", "E"),
-    c("C", "F", "G"),
-    c("A", "B"),
-    c("A"),
-    c("C", "F", "G", "H"),
-    c("A", "G", "H")
+trans <- list(
+  c("A", "B", "C", "D", "E"),
+  c("C", "F", "G"),
+  c("A", "B"),
+  c("A"),
+  c("C", "F", "G", "H"),
+  c("A", "G", "H")
 )
 
 weight <- c(5, 10, 6, 7, 5, 1)
 
 ## convert list to transactions
-trans <-  transactions(trans)
+trans <- transactions(trans)
 
 ## add weight information
 transactionInfo(trans) <- data.frame(weight = weight)
 inspect(trans)
 
 ## mine weighed support itemsets
-s <- weclat(trans, parameter = list(support = 0.3),
-		       control = list(verbose = TRUE))
+s <- weclat(trans,
+  parameter = list(support = 0.3),
+  control = list(verbose = TRUE)
+)
 inspect(sort(s))
 
 ## create association rules

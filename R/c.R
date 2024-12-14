@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #' Provides the methods to combine several [associations] or [transactions] objects
 #' into a single object.
 #'
-#' Combining arules objects is done by combining the rows 
+#' Combining arules objects is done by combining the rows
 #' of [itemMatrix] objects
 #' representing the associations or transactions.
-#' 
-#' Note that `c()` can result in duplicates. 
+#'
+#' Note that `c()` can result in duplicates.
 #' Use [union()] rather than `c()` to combine several mined
 #' [itemsets] or [rules] into a single
 #' set without duplicates.
@@ -35,7 +35,7 @@
 #' @aliases c
 #' @family associations functions
 #' @family itemMatrix and transactions functions
-#' 
+#'
 #' @param x first object.
 #' @param ... further objects of the same class as `x` to be combined.
 #' @param recursive a logical. If `recursive = TRUE`, the function
@@ -61,106 +61,129 @@
 #' rComb
 #'
 #' ## union of rules (a set with only unique rules: same as unique(rComb))
-#' rUnion <- union(r1,r2)
+#' rUnion <- union(r1, r2)
 #' rUnion
 #' @docType methods
 NULL
 
 #' @rdname c
-setMethod("c", signature(x = "itemMatrix"),
+setMethod(
+  "c", signature(x = "itemMatrix"),
   function(x, ..., recursive = FALSE) {
     ### this is rbind
     ### FIXME: labels are not sorted
     args <- list(...)
-    if (recursive)
+    if (recursive) {
       args <- unlist(args)
+    }
     for (y in args) {
-      if (!is(y, "itemMatrix"))
+      if (!is(y, "itemMatrix")) {
         stop("can only combine itemMatrix")
-      
+      }
+
       x@itemsetInfo <- .combineMeta(x, y, "itemsetInfo")
-      
+
       if (!compatible(x, y)) {
         warning("Item coding not compatible, recoding item matrices.")
-        
+
         # expand x if y has additional items
         k <- match(itemLabels(y), itemLabels(x))
         n <- which(is.na(k))
         if (length(n)) {
           k[n] <- x@data@Dim[1] + seq(length(n))
           x@data@Dim[1] <- x@data@Dim[1] + length(n)
-          x@itemInfo <- rbind(x@itemInfo,
-            y@itemInfo[n, , drop = FALSE])
+          x@itemInfo <- rbind(
+            x@itemInfo,
+            y@itemInfo[n, , drop = FALSE]
+          )
         }
-        
+
         # recode y to match x
-        if (any(k != seq_len(length(k))))
+        if (any(k != seq_len(length(k)))) {
           y@data <- .Call(R_recode_ngCMatrix, y@data, k)
-        if (y@data@Dim[1] <  x@data@Dim[1])
+        }
+        if (y@data@Dim[1] < x@data@Dim[1]) {
           y@data@Dim[1] <- x@data@Dim[1]
+        }
       }
-      
+
       ## this is faster than x@data <- cbind(x@data, y@data)
       x@data <- .Call(R_cbind_ngCMatrix, x@data, y@data)
     }
     validObject(x, complete = TRUE)
     x
-  })
+  }
+)
 
 #' @rdname c
-setMethod("c", signature(x = "transactions"),
+setMethod(
+  "c", signature(x = "transactions"),
   function(x, ..., recursive = FALSE) {
     args <- list(...)
-    if (recursive)
+    if (recursive) {
       args <- unlist(args)
+    }
     for (y in args) {
-      if (!is(y, "transactions"))
+      if (!is(y, "transactions")) {
         stop("can only combine transactions")
+      }
       x <- new("transactions",
-        c(as(x, "itemMatrix"),
-          as(y, "itemMatrix")),
-        itemsetInfo = .combineMeta(x, y, "itemsetInfo"))
+        c(
+          as(x, "itemMatrix"),
+          as(y, "itemMatrix")
+        ),
+        itemsetInfo = .combineMeta(x, y, "itemsetInfo")
+      )
     }
     x
-  })
+  }
+)
 
 
 #' @rdname c
-setMethod("c", signature(x = "tidLists"),
+setMethod(
+  "c", signature(x = "tidLists"),
   function(x, ..., recursive = FALSE) {
     args <- list(...)
-    if (recursive)
+    if (recursive) {
       args <- unlist(args)
-    
+    }
+
     dat <- x@data
     itemI <- itemInfo(x)
     for (y in args) {
-      if (!is(y, "tidLists"))
+      if (!is(y, "tidLists")) {
         stop("can only combine tidLists.")
-      
-      if (ncol(x) != ncol(y))
+      }
+
+      if (ncol(x) != ncol(y)) {
         stop("transactions not conforming.")
-      
+      }
+
       dat <- .Call(R_cbind_ngCMatrix, dat, y@data)
       itemI <- rbind(itemI, itemInfo(y))
     }
-    
+
     x@data <- dat
     x@itemInfo <- itemI
     x
-  })
+  }
+)
 
 #' @rdname c
-setMethod("c", signature(x = "rules"),
+setMethod(
+  "c", signature(x = "rules"),
   function(x, ..., recursive = FALSE) {
     args <- list(...)
-    
-    if (recursive)
+
+    if (recursive) {
       args <- unlist(args)
+    }
     for (y in args) {
-      if (!is(y, "rules"))
+      if (!is(y, "rules")) {
         stop("can combine rules only")
-      
+      }
+
       ## retain identical info attributes
       info <- y@info
       if (length(info)) {
@@ -168,7 +191,7 @@ setMethod("c", signature(x = "rules"),
         k <- mapply(identical, info, x@info[k])
         info <- info[k]
       }
-      
+
       x <- new(
         "rules",
         lhs     = c(x@lhs, y@lhs),
@@ -178,20 +201,24 @@ setMethod("c", signature(x = "rules"),
       )
     }
     x
-  })
+  }
+)
 
 
 #' @rdname c
-setMethod("c", signature(x = "itemsets"),
+setMethod(
+  "c", signature(x = "itemsets"),
   function(x, ..., recursive = FALSE) {
     args <- list(...)
-    
-    if (recursive)
+
+    if (recursive) {
       args <- unlist(args)
+    }
     for (y in args) {
-      if (!is(y, "itemsets"))
+      if (!is(y, "itemsets")) {
         stop("can combine itemsets only")
-      
+      }
+
       ## retain identical info attributes
       info <- y@info
       if (length(info)) {
@@ -199,7 +226,7 @@ setMethod("c", signature(x = "itemsets"),
         k <- mapply(identical, info, x@info[k])
         info <- info[k]
       }
-      
+
       x <- new(
         "itemsets",
         items   = c(x@items, y@items),
@@ -208,4 +235,5 @@ setMethod("c", signature(x = "itemsets"),
       )
     }
     x
-  })
+  }
+)

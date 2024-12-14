@@ -9,7 +9,7 @@ names(list_decoded2) <- NULL
 
 expect_equal(list_decoded1, list_decoded2)
 
-## Example 2: Manually create an itemMatrix 
+## Example 2: Manually create an itemMatrix
 data <- list(
   c("income=small", "age=Young"),
   c("income=large", "age=Middle-aged")
@@ -27,10 +27,8 @@ expect_warning(iM <- encode(data2, itemLabels = Adult))
 expect_identical(size(iM), c(2L, 1L))
 
 ### test encoding
-iM <- encode(list(c(1,2,3), c(4,5)), itemLabels(Adult))
+iM <- encode(list(c(1, 2, 3), c(4, 5)), itemLabels(Adult))
 expect_identical(size(iM), c(3L, 2L))
 
-expect_error(encode(list(c(1,2,3), c(4,5.5)), itemLabels(Adult)))
-expect_error(encode(list(c(1,2,3), c(4,5, nitems(Adult)+1L)), itemLabels(Adult)))
-
-
+expect_error(encode(list(c(1, 2, 3), c(4, 5.5)), itemLabels(Adult)))
+expect_error(encode(list(c(1, 2, 3), c(4, 5, nitems(Adult) + 1L)), itemLabels(Adult)))

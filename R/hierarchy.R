@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,14 +22,14 @@
 #'
 #' Functions to use item hierarchies to aggregate items at different
 #' group levels, to perform multi-level transaction analysis.
-#' 
-#' Often an item hierarchy is available for [transactions] 
+#'
+#' Often an item hierarchy is available for [transactions]
 #' used for association rule
 #' mining. For example in a supermarket dataset items like "bread" and "beagle"
 #' might belong to the item group (category) "baked goods."
 #'
 #' Transactions can store item hierarchies as additional columns in the
-#' itemInfo data.frame (`"labels"` cannot be used since it is reserved for 
+#' itemInfo data.frame (`"labels"` cannot be used since it is reserved for
 #' the item labels).
 #'
 #' \bold{Aggregation:} To perform analysis at a group level of the item
@@ -60,7 +60,7 @@
 #' @aliases aggregate
 #' @family preprocessing
 #' @family itemMatrix and transactions functions
-#' 
+#'
 #' @param x an transactions, itemsets or rules object.
 #' @param by name of a field (hierarchy level) available in
 #' [itemInfo] of `x` or a grouping vector of the same length
@@ -69,7 +69,7 @@
 #' Note that the grouping vector will be coerced to factor before use.
 #' @param postfix characters added to mark group-level items.
 #' @param ... further arguments.
-#' 
+#'
 #' @return `aggregate()` returns an object of the same class as `x`
 #' encoded with a number of items equal to the number of unique values in
 #' `by`. Note that for associations (itemsets and rules) the number of
@@ -130,7 +130,8 @@
 #' inspect(head(Groceries_multilevel))
 #'
 #' rules <- apriori(Groceries_multilevel,
-#'   parameter = list(support = 0.01, conf = .9))
+#'   parameter = list(support = 0.01, conf = .9)
+#' )
 #' inspect(head(rules, by = "lift"))
 #' ## Note that this contains many spurious rules of type 'item X => aggregate of item X'
 #' ## with a confidence of 1 and high lift. We can filter spurious rules resulting from
@@ -142,40 +143,46 @@ addAggregate <- function(x, by, postfix = "*") {
   x_aggr <- aggregate(x, by)
   itemLabels(x_aggr) <- paste(itemLabels(x_aggr), postfix, sep = "")
   itemInfo(x_aggr)[["aggregatedBy"]] <- by
-  
+
   ## merge with transactions
   x_m <- merge(x, x_aggr)
-  
+
   ## add technical itemInfo
   itemInfo(x_m)[["aggregateLevels"]] <-
-    c(rep(1L, times = nitems(x)),
-      rep(2L, times = nitems(x_aggr)))
-  
-  itemInfo(x_m)[["aggregateID"]] <- c(nitems(x) +
+    c(
+      rep(1L, times = nitems(x)),
+      rep(2L, times = nitems(x_aggr))
+    )
+
+  itemInfo(x_m)[["aggregateID"]] <- c(
+    nitems(x) +
       as.integer(as.factor(itemInfo(x)[[by]])),
-    rep(0, times = nitems(x_aggr)))
-  
+    rep(0, times = nitems(x_aggr))
+  )
+
   x_m
 }
 
-#' @rdname hierarchy 
+#' @rdname hierarchy
 filterAggregate <- function(x) {
   levels <- itemInfo(x)[["aggregateLevels"]]
   aggr <- itemInfo(x)[["aggregateID"]]
-  if (is.null(levels) || is.null(aggr))
+  if (is.null(levels) || is.null(aggr)) {
     stop("No aggregated hierarchy info available!")
-  
+  }
+
   m <- as(items(x), "ngCMatrix")
-  
+
   rem <- logical(length(x))
   for (i in 1:nrow(m)) {
     ## number of items including level 1
-    if (levels[i] > 1)
-      break   ## done with items
+    if (levels[i] > 1) {
+      break
+    } ## done with items
     rem <- rem | colSums(m[i, , drop = FALSE]) &
       colSums(m[aggr[i], , drop = FALSE])
   }
-  
+
   x[!rem]
 }
 
@@ -184,63 +191,71 @@ filterAggregate <- function(x) {
 setGeneric("aggregate")
 
 #' @rdname hierarchy
-setMethod("aggregate", signature(x = "itemMatrix"),
+setMethod(
+  "aggregate", signature(x = "itemMatrix"),
   function(x, by) {
     ## we can specify the name from itemInfo in by
-    if (length(by) == 1 && !is.null(itemInfo(x)[[by]]))
+    if (length(by) == 1 && !is.null(itemInfo(x)[[by]])) {
       by <- itemInfo(x)[[by]]
-    
+    }
+
     by <- as.factor(by)
-    
-    if (length(by) != nitems(x))
+
+    if (length(by) != nitems(x)) {
       stop(
         "Name not available in itemInfo or supplied number of by does not match number of items in x!"
       )
-    
+    }
+
     ## create an indicator matrix (cols are items)
     aggrMat <- as(sapply(
       levels(by),
-      FUN = function(l)
+      FUN = function(l) {
         as.numeric(by == l)
+      }
     ), "CsparseMatrix")
-    
+
     ## count the items for each group and make binary
     x@data <- as(as(crossprod(aggrMat, as(x, "ngCMatrix")), "nsparseMatrix"), "generalMatrix")
-      
-    
+
+
     ## fix itemInfo
     ii <- x@itemInfo
     ii <- aggregate(ii, by = list(labels = by), FUN = unique)
-    ii <- ii[,!sapply(ii, is.list), drop = FALSE]
+    ii <- ii[, !sapply(ii, is.list), drop = FALSE]
     x@itemInfo <- ii
-    
+
     validObject(x)
     x
-  })
+  }
+)
 
 #' @rdname hierarchy
-setMethod("aggregate", signature(x = "itemsets"),
+setMethod(
+  "aggregate", signature(x = "itemsets"),
   function(x, by) {
     new("itemsets", items = aggregate(items(x), by))
-    
+
     ## first support value is used
     x <- unique(x)
     x
-  })
+  }
+)
 
 #' @rdname hierarchy
-setMethod("aggregate", signature(x = "rules"),
+setMethod(
+  "aggregate", signature(x = "rules"),
   function(x, by) {
     rhs <- aggregate(rhs(x), by)
     lhs <- aggregate(lhs(x), by)
-    
+
     ## check if lhs items have to be removed
     lhs <- itemSetdiff(lhs, rhs)
-    
+
     ### remove non-unique rules
     ## first support value is used
     x <- new("rules", lhs = lhs, rhs = rhs)
     x <- unique(x)
     x
-  })
-
+  }
+)

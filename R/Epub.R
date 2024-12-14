@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
-#			Bettina Gruen and Kurt Hornik
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,26 +19,24 @@
 
 
 #' The Epub Transactions Data Set
-#' 
+#'
 #' The `Epub` data set contains the download history of documents from the
 #' electronic publication platform of the Vienna University of Economics and
 #' Business Administration.  The data was recorded between Jan 2003 and Dec
 #' 2008.
-#' 
+#'
 #' @name Epub
 #' @docType data
-#' @format Object of class [transactions] 
-#' with `r data(Epub); nrow(Epub)` transactions 
+#' @format Object of class [transactions]
+#' with `r data(Epub); nrow(Epub)` transactions
 #' and `r data(Epub); ncol(Epub)` items.
 #' Item labels are document IDs of the form `"doc_11d"`.
 #' Session IDs and time stamps for transactions are also provided as transaction information.
 #' @author Michael Hahsler
-#' @source Provided by Michael Hahsler from the custom information system ePub-WU 
+#' @source Provided by Michael Hahsler from the custom information system ePub-WU
 #' (which has since been replaced by eprint).
 #' @keywords datasets
-#' @examples  
+#' @examples
 #' data(Epub)
 #' inspect(head(Epub))
 NULL
-
-

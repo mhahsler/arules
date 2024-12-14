@@ -3,7 +3,7 @@ output: github_document
 ---
 
 ```{r echo=FALSE, results = 'asis'}
-pkg <- 'arules'
+pkg <- "arules"
 
 source("https://raw.githubusercontent.com/mhahsler/pkg_helpers/main/pkg_helpers.R")
 pkg_title(pkg, anaconda = "r-arules", stackoverflow = "arules")
@@ -123,16 +123,18 @@ library("tidyverse")
 library("arules")
 data("IncomeESL")
 
-trans <- IncomeESL |> 
-      select(-`ethnic classification`) |> 
-      transactions()
-rules <- trans |> 
-      apriori(supp = 0.1, conf = 0.9, target = "rules", 
-              control = list(verbose = FALSE))
-rules |> 
-      head(3, by = "lift") |>
-      as("data.frame") |> 
-      tibble()
+trans <- IncomeESL |>
+  select(-`ethnic classification`) |>
+  transactions()
+rules <- trans |>
+  apriori(
+    supp = 0.1, conf = 0.9, target = "rules",
+    control = list(verbose = FALSE)
+  )
+rules |>
+  head(3, by = "lift") |>
+  as("data.frame") |>
+  tibble()
 ```
 
 ## Using arules from Python

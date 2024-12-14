@@ -63,7 +63,7 @@ rComb <- c(r1, r2)
 rComb
 
 ## union of rules (a set with only unique rules: same as unique(rComb))
-rUnion <- union(r1,r2)
+rUnion <- union(r1, r2)
 rUnion
 }
 \seealso{

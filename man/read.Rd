@@ -68,7 +68,8 @@ data <- paste(
   "item1, item2",
   "item1",
   "item2, item3",
-  sep="\n")
+  sep = "\n"
+)
 cat(data)
 write(data, file = "demo_basket.txt")
 
@@ -84,12 +85,13 @@ data <- paste(
   "trans1 item1",
   "trans2 item1",
   "trans2 item2",
-  sep ="\n")
+  sep = "\n"
+)
 cat(data)
 write(data, file = "demo_single.txt")
 
 ## read demo data
-tr <- read.transactions("demo_single.txt", format = "single", cols = c(1,2))
+tr <- read.transactions("demo_single.txt", format = "single", cols = c(1, 2))
 inspect(tr)
 
 ## create a demo file using single format with column headers
@@ -98,13 +100,16 @@ data <- paste(
   "item1;trans1",
   "item1;trans2",
   "item2;trans2",
-  sep ="\n")
+  sep = "\n"
+)
 cat(data)
 write(data, file = "demo_single.txt")
 
 ## read demo data
-tr <- read.transactions("demo_single.txt", format = "single",
-  header = TRUE, sep = ";", cols = c("trans_id", "item_id"))
+tr <- read.transactions("demo_single.txt",
+  format = "single",
+  header = TRUE, sep = ";", cols = c("trans_id", "item_id")
+)
 inspect(tr)
 
 ## tidy up

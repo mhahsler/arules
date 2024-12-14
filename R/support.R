@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@
 #' @param method use `"ptree"` or `"tidlists"`. See Details Section.
 #' @param reduce should unused items are removed before counting?
 #' @param verbose report progress?
-#' @param ... further arguments. 
+#' @param ... further arguments.
 #'
 #' @return A numeric vector of the same length as `x` containing the
 #' support values for the sets in `x`.
@@ -79,34 +79,42 @@
 #'
 #' ## count support in the database
 #' support(items(itemsets), Income)
-#' @export 
-setGeneric("support",
-  function(x, transactions, ...)
-    standardGeneric("support"))
+#' @export
+setGeneric(
+  "support",
+  function(x, transactions, ...) {
+    standardGeneric("support")
+  }
+)
 
 #' @rdname support
-setMethod("support", signature(x = "itemMatrix"),
-  function(x,
-    transactions,
-    type = c("relative", "absolute"),
-    method = c("ptree", "tidlists"),
-    reduce = FALSE,
-    weighted = FALSE,
-    verbose = FALSE,
-    ...) {
-    if (!is(transactions, "transactions"))
+setMethod(
+  "support", signature(x = "itemMatrix"),
+  function(
+      x,
+      transactions,
+      type = c("relative", "absolute"),
+      method = c("ptree", "tidlists"),
+      reduce = FALSE,
+      weighted = FALSE,
+      verbose = FALSE,
+      ...) {
+    if (!is(transactions, "transactions")) {
       stop("transactions missing. Please specify the transactions used to mine the itemsets!")
-    
+    }
+
     if (weighted &&
-        !("weight" %in% colnames(transactionInfo(transactions))))
+      !("weight" %in% colnames(transactionInfo(transactions)))) {
       stop("transactions do not contain weights. Add a weight column to transactionInfo.")
-    
+    }
+
     type <- match.arg(type)
     method <- match.arg(method)
-    
-    if (verbose)
+
+    if (verbose) {
       cat("using method:", method, "\n")
-    
+    }
+
     ## conform
     k <- match(itemLabels(transactions), itemLabels(x))
     n <- which(is.na(k))
@@ -118,89 +126,100 @@ setMethod("support", signature(x = "itemMatrix"),
         transactions@itemInfo <-
         rbind(x@itemInfo, transactions@itemInfo[n, , drop = FALSE])
     }
-    if (any(k != seq_len(length(k))))
+    if (any(k != seq_len(length(k)))) {
       transactions@data <-
-      .Call(R_recode_ngCMatrix, transactions@data, k)
-    if (transactions@data@Dim[1] <  x@data@Dim[1])
+        .Call(R_recode_ngCMatrix, transactions@data, k)
+    }
+    if (transactions@data@Dim[1] < x@data@Dim[1]) {
       transactions@data@Dim[1] <- x@data@Dim[1]
-    
+    }
+
     if (weighted) {
       tm <-
         system.time(support <-
-            support.weighted(x, transactions, reduce = reduce, verbose = verbose))
+          support.weighted(x, transactions, reduce = reduce, verbose = verbose))
       total <- sum(transactionInfo(transactions)[["weight"]])
     } else {
       total <- length(transactions)
-      if (method == "ptree")
+      if (method == "ptree") {
         tm <-
           system.time(support <-
-              support.ptree(x, transactions, reduce = reduce, verbose = verbose))
-      else
+            support.ptree(x, transactions, reduce = reduce, verbose = verbose))
+      } else {
         tm <-
           system.time(support <-
-              support.tidlists(x, transactions, reduce = reduce, verbose = verbose))
+            support.tidlists(x, transactions, reduce = reduce, verbose = verbose))
+      }
     }
-    
-    if (verbose)
+
+    if (verbose) {
       cat("timing:", sum(tm[1:2]), "sec.\n")
-    
+    }
+
     switch(type,
-      relative =  support / total,
-      absolute =  support)
-    
-  })
+      relative = support / total,
+      absolute = support
+    )
+  }
+)
 
 
 ## UNUSED: We have now a C implementation
 support.tidlists.inR <- function(x, transactions, control = NULL) {
-  if (nitems(x) != nitems(transactions))
+  if (nitems(x) != nitems(transactions)) {
     stop("number of items in x and transactions do not match.")
-  
+  }
+
   ## prepare tid-list and list of itemsets
   tlists <- LIST(as(transactions, "tidLists"), decode = FALSE)
   xitems <- LIST(x, decode = FALSE)
-  
+
   ## select tid-lists for items and do intersection
   support <- sapply(
     xitems,
     FUN = function(i) {
       tidls <- unlist(tlists[i])
-      if (!is.null(tidls))
+      if (!is.null(tidls)) {
         supp <- sum(tabulate(tidls) == length(i))
-      else
+      } else {
         supp <- 0
+      }
       supp
     }
   )
-  
-  #names(support) <- labels(x)
+
+  # names(support) <- labels(x)
   support
 }
 
 support.tidlists <-
-  function(x,
-    transactions,
-    reduce = FALSE,
-    verbose = FALSE) {
-    if (nitems(x) != nitems(transactions))
+  function(
+      x,
+      transactions,
+      reduce = FALSE,
+      verbose = FALSE) {
+    if (nitems(x) != nitems(transactions)) {
       stop("number of items in x and transactions do not match.")
-    
-    if (reduce)
+    }
+
+    if (reduce) {
       warning("method tidlists does not use reduce")
-    
+    }
+
     tid <- as(transactions, "tidLists")
-    
-    support <- .Call(R_tid_support , tid@data, x@data)
-    
-    #names(supports) <- labels(x)
+
+    support <- .Call(R_tid_support, tid@data, x@data)
+
+    # names(supports) <- labels(x)
     support
   }
 
 support.ptree <-
-  function(x,
-    transactions,
-    reduce = FALSE,
-    verbose = FALSE) {
+  function(
+      x,
+      transactions,
+      reduce = FALSE,
+      verbose = FALSE) {
     .Call(
       R_pncount,
       x@data,
@@ -211,16 +230,17 @@ support.ptree <-
     )
   }
 
-support.weighted <- function(x,
-  transactions,
-  reduce = FALSE,
-  verbose = FALSE) {
+support.weighted <- function(
+    x,
+    transactions,
+    reduce = FALSE,
+    verbose = FALSE) {
   weights <- as.numeric(transactionInfo(transactions)[["weight"]])
-  
+
   .Call(
     R_wcount_ngCMatrix,
     x@data,
-    #t(transactions@data),
+    # t(transactions@data),
     selectMethod("t", class(transactions@data))(transactions@data),
     weights,
     NULL,
@@ -230,15 +250,17 @@ support.weighted <- function(x,
 }
 
 #' @rdname support
-setMethod("support", signature(x = "associations"),
-  function(x,
-    transactions,
-    type = c("relative", "absolute"),
-    method = c("ptree", "tidlists"),
-    reduce = FALSE,
-    weighted = FALSE,
-    verbose = FALSE,
-    ...)
+setMethod(
+  "support", signature(x = "associations"),
+  function(
+      x,
+      transactions,
+      type = c("relative", "absolute"),
+      method = c("ptree", "tidlists"),
+      reduce = FALSE,
+      weighted = FALSE,
+      verbose = FALSE,
+      ...) {
     support(
       items(x),
       transactions = transactions,
@@ -248,4 +270,6 @@ setMethod("support", signature(x = "associations"),
       weighted = weighted,
       verbose = verbose,
       ...
-    ))
+    )
+  }
+)

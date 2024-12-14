@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 
 #' Computing Transaction Weights With HITS
 #'
-#' Compute the hub transaction weights for a collection 
+#' Compute the hub transaction weights for a collection
 #' of [transactions] using the HITS (hubs and authorities) algorithm.
 #'
 #' Model a collection of [transactions] as a bipartite graph of hubs
@@ -64,20 +64,20 @@
 #' ## calulate weighted item frequencies
 #' itemFrequency(SunBai, weighted = TRUE)
 #' @export hits
-hits <- function(data,
-  iter = 16L,
-  tol = NULL,
-  type = c("normed", "relative", "absolute"),
-  verbose = FALSE) {
+hits <- function(
+    data,
+    iter = 16L,
+    tol = NULL,
+    type = c("normed", "relative", "absolute"),
+    verbose = FALSE) {
   data <- as(data, "transactions")
   type <- match.arg(type)
-  
+
   r <- .Call(R_hits_ngCMatrix, data@data, iter, tol, verbose)
   names(r) <- transactionInfo(data)[["transactionID"]]
-  
-  switch(
-    type,
-    normed   = r / sqrt(sum(r ^ 2)),
+
+  switch(type,
+    normed   = r / sqrt(sum(r^2)),
     relative = r / sum(r),
     absolute = r
   )
@@ -128,8 +128,10 @@ hits <- function(data,
 #' transactionInfo(SunBai)
 #'
 #' ## mine weighted support itemsets using transaction support in SunBai
-#' s <- weclat(SunBai, parameter = list(support = 0.3),
-#' 		       control = list(verbose = TRUE))
+#' s <- weclat(SunBai,
+#'   parameter = list(support = 0.3),
+#'   control = list(verbose = TRUE)
+#' )
 #' inspect(sort(s))
 #'
 #' ## create rules using weighted support (satisfying a minimum
@@ -138,57 +140,63 @@ hits <- function(data,
 #' inspect(r)
 #'
 #' ## Example 2: Find association rules in weighted data
-#' trans <-  list(
-#'     c("A", "B", "C", "D", "E"),
-#'     c("C", "F", "G"),
-#'     c("A", "B"),
-#'     c("A"),
-#'     c("C", "F", "G", "H"),
-#'     c("A", "G", "H")
+#' trans <- list(
+#'   c("A", "B", "C", "D", "E"),
+#'   c("C", "F", "G"),
+#'   c("A", "B"),
+#'   c("A"),
+#'   c("C", "F", "G", "H"),
+#'   c("A", "G", "H")
 #' )
 #'
 #' weight <- c(5, 10, 6, 7, 5, 1)
 #'
 #' ## convert list to transactions
-#' trans <-  transactions(trans)
+#' trans <- transactions(trans)
 #'
 #' ## add weight information
 #' transactionInfo(trans) <- data.frame(weight = weight)
 #' inspect(trans)
 #'
 #' ## mine weighed support itemsets
-#' s <- weclat(trans, parameter = list(support = 0.3),
-#' 		       control = list(verbose = TRUE))
+#' s <- weclat(trans,
+#'   parameter = list(support = 0.3),
+#'   control = list(verbose = TRUE)
+#' )
 #' inspect(sort(s))
 #'
 #' ## create association rules
 #' r <- ruleInduction(s, confidence = .5)
 #' inspect(r)
 #' @export weclat
-weclat <- function(data,
-  parameter = NULL,
-  control = NULL) {
+weclat <- function(
+    data,
+    parameter = NULL,
+    control = NULL) {
   data <- as(data, "transactions")
-  
+
   weight <- transactionInfo(data)[["weight"]]
   if (is.null(weight)) {
     weight <- rep(1, length(data))
-    if (!is.null(control) && control$v)
+    if (!is.null(control) && control$v) {
       cat("Transactions do not contain weights in transactionInfo. Using a weight of 1 for each.")
+    }
   }
-  
+
   weight <- as.numeric(weight)
-  
-  if (!is(parameter, "ASparameter"))
+
+  if (!is(parameter, "ASparameter")) {
     parameter <- do.call("new", c(list("ASparameter"), parameter))
-  if (!is(control, "AScontrol"))
+  }
+  if (!is(control, "AScontrol")) {
     control <- do.call("new", c(list("AScontrol"), control))
-  
+  }
+
   ## these are not available
   parameter@target <- NA_character_
   parameter@ext <- NA
   control@sort <- NA_integer_
-  
+
   if (control@verbose) {
     cat("Weighted Eclat (WEclat)\n")
     cat("\nparameter specification:\n")
@@ -198,9 +206,9 @@ weclat <- function(data,
     cat("\n")
   }
   ## r <- .Call(R_transpose_ngCMatrix, data@data)
-  ##r <- selectMethod("t", class(data@data))(data@data)
+  ## r <- selectMethod("t", class(data@data))(data@data)
   r <- t(data@data)
-  
+
   r <- .Call(
     R_weclat_ngCMatrix,
     r,
@@ -212,21 +220,23 @@ weclat <- function(data,
   )
   names(r) <- c("data", "support")
   validObject(r$data)
-  
+
   quality <- data.frame(support = r$support)
-  
+
   r <- new("itemMatrix",
     data = r$data,
-    itemInfo = data@itemInfo)
+    itemInfo = data@itemInfo
+  )
   info <- c(
     data = match.call()$data,
     ntransactions = length(data),
     support = parameter@support
   )
-  
+
   r <- new("itemsets",
     items    = r,
     quality  = quality,
-    info     = info)
+    info     = info
+  )
   r
 }

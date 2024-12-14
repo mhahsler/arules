@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,34 +20,34 @@
 
 #' Supporting Transactions
 #'
-#' Find for each itemset in an [associations] object which transactions support 
+#' Find for each itemset in an [associations] object which transactions support
 #' (i.e., contains all items in the itemset) it. The information is returned
 #' as a [tidLists] object.
 #'
 #' @family itemMatrix and transactions functions
-#' 
+#'
 #' @param x a set of [associations] ([itemsets], [rules], etc.)
 #' @param transactions an object of class [transactions] used to mine the
 #' associations in `x`.
 #' @param ... currently unused.
-#' 
+#'
 #' @return An object of class [tidLists] containing one transaction ID
 #' list per association in `x`.
 #' @author Michael Hahsler
 #' @keywords models
 #' @examples
 #' data <- list(
-#' 	c("a","b","c"),
-#' 	c("a","b"),
-#' 	c("a","b","d"),
-#' 	c("b","e"),
-#' 	c("b","c","e"),
-#' 	c("a","d","e"),
-#' 	c("a","c"),
-#' 	c("a","b","d"),
-#' 	c("c","e"),
-#' 	c("a","b","d","e")
-#' 	)
+#'   c("a", "b", "c"),
+#'   c("a", "b"),
+#'   c("a", "b", "d"),
+#'   c("b", "e"),
+#'   c("b", "c", "e"),
+#'   c("a", "d", "e"),
+#'   c("a", "c"),
+#'   c("a", "b", "d"),
+#'   c("c", "e"),
+#'   c("a", "b", "d", "e")
+#' )
 #' data <- as(data, "transactions")
 #'
 #' ## mine itemsets
@@ -59,12 +59,16 @@
 #' st
 #'
 #' as(st, "list")
-setGeneric("supportingTransactions",
-  function(x, transactions, ...)
-    standardGeneric("supportingTransactions"))
+setGeneric(
+  "supportingTransactions",
+  function(x, transactions, ...) {
+    standardGeneric("supportingTransactions")
+  }
+)
 
 #' @rdname supportingTransactions
-setMethod("supportingTransactions",  signature(x = "associations"),
+setMethod(
+  "supportingTransactions", signature(x = "associations"),
   function(x, transactions) {
     ss <- is.subset(x, transactions, sparse = TRUE)
     new(
@@ -73,4 +77,5 @@ setMethod("supportingTransactions",  signature(x = "associations"),
       itemInfo = data.frame(labels = labels(x)),
       transactionInfo = transactionInfo(transactions)
     )
-  })
+  }
+)

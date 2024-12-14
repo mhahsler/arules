@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
-#			Bettina Gruen and Kurt Hornik
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,17 +25,17 @@
 ## 		we manually coerce to dgTMatrix
 
 #' Visual Inspection of Binary Incidence Matrices
-#' 
+#'
 #' Provides `image()` methods to generate level plots to visually
 #' inspect binary incidence matrices, i.e., objects based on
 #' [itemMatrix] (e.g., [transactions], [tidLists], items in
 #' [itemsets] or rhs/lhs in [rules]).  These plots can be used to identify problems
 #' in a data set (e.g., recording problems with some transactions containing
 #' all items).
-#' 
+#'
 #' @name image
 #' @family itemMatrix and transactions functions
-#' 
+#'
 #' @aliases image
 #' @param x the object ([itemMatrix], [transactions] or
 #' [tidLists]).
@@ -48,30 +48,39 @@
 #' @keywords hplot
 #' @examples
 #' data("Epub")
-#' 
+#'
 #' ## in this data set we can see that not all
 #' ## items were available from the beginning.
 #' image(Epub[1:1000])
 NULL
 
 #' @rdname image
-setMethod("image", signature(x = "itemMatrix"),
-    function(x, xlab = "Items (Columns)", ylab = "Elements (Rows)", ...) 
-    Matrix::image(t(as(x, "ngCMatrix")), 
-	sub = NULL, ylab = ylab, xlab = xlab, ...)
+setMethod(
+  "image", signature(x = "itemMatrix"),
+  function(x, xlab = "Items (Columns)", ylab = "Elements (Rows)", ...) {
+    Matrix::image(t(as(x, "ngCMatrix")),
+      sub = NULL, ylab = ylab, xlab = xlab, ...
+    )
+  }
 )
 
 #' @rdname image
-setMethod("image", signature(x = "transactions"),
-    function(x, xlab = "Items (Columns)", ylab = "Transactions (Rows)" ,...)
-    Matrix::image(t(as(x, "ngCMatrix")), 
-	sub = NULL, ylab = ylab, xlab = xlab, ...)
+setMethod(
+  "image", signature(x = "transactions"),
+  function(x, xlab = "Items (Columns)", ylab = "Transactions (Rows)", ...) {
+    Matrix::image(t(as(x, "ngCMatrix")),
+      sub = NULL, ylab = ylab, xlab = xlab, ...
+    )
+  }
 )
 
 #' @rdname image
-setMethod("image", signature(x = "tidLists"),
-    function(x, xlab="Transactions (Columns)",
-        ylab="Items/itemsets (Rows)", ...)
-    Matrix::image(t(as(x, "ngCMatrix")), 
-            ylab = ylab, xlab = xlab, ...)
+setMethod(
+  "image", signature(x = "tidLists"),
+  function(x, xlab = "Transactions (Columns)",
+           ylab = "Items/itemsets (Rows)", ...) {
+    Matrix::image(t(as(x, "ngCMatrix")),
+      ylab = ylab, xlab = xlab, ...
+    )
+  }
 )

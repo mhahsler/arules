@@ -32,7 +32,7 @@ and \link{transactions} to add new items to existing data.
 data("Groceries")
 
 ## create a random item as a matrix
-randomItem <- sample(c(TRUE, FALSE), size = length(Groceries),replace = TRUE)
+randomItem <- sample(c(TRUE, FALSE), size = length(Groceries), replace = TRUE)
 randomItem <- as.matrix(randomItem)
 colnames(randomItem) <- "random item"
 head(randomItem, 3)

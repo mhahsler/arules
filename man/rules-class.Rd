@@ -170,8 +170,10 @@ inspect(rules.sub[1:3])
 
 ## Get labels for the first 3 rules
 labels(rules.sub[1:3])
-labels(rules.sub[1:3], itemSep = " + ", setStart = "", setEnd="",
-  ruleSep = " ---> ")
+labels(rules.sub[1:3],
+  itemSep = " + ", setStart = "", setEnd = "",
+  ruleSep = " ---> "
+)
 
 ## Manually create rules using the item coding in Adult and calculate some interest measures
 twoRules <- rules(
@@ -187,7 +189,8 @@ twoRules <- rules(
 )
 
 quality(twoRules) <- interestMeasure(twoRules,
-  measure = c("support", "confidence", "lift"), transactions = Adult)
+  measure = c("support", "confidence", "lift"), transactions = Adult
+)
 
 inspect(twoRules)
 

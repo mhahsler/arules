@@ -179,12 +179,12 @@ See Examples Section for creating transactions from data.
 \examples{
 ## Example 1: creating transactions form a list (each element is a transaction)
 a_list <- list(
-      c("a","b","c"),
-      c("a","b"),
-      c("a","b","d"),
-      c("c","e"),
-      c("a","b","d","e")
-      )
+  c("a", "b", "c"),
+  c("a", "b"),
+  c("a", "b", "d"),
+  c("c", "e"),
+  c("a", "b", "d", "e")
+)
 
 ## Set transaction names
 names(a_list) <- paste("Tr", c(1:5), sep = "")
@@ -202,11 +202,15 @@ image(trans1)
 ## Example 2: creating transactions from a 0-1 matrix with 5 transactions (rows) and
 ##            5 items (columns)
 a_matrix <- matrix(
-  c(1, 1, 1, 0, 0,
-	   1, 1, 0, 0, 0,
-	   1, 1, 0, 1, 0,
-	   0, 0, 1, 0, 1,
-	   1, 1, 0, 1, 1), ncol = 5)
+  c(
+    1, 1, 1, 0, 0,
+    1, 1, 0, 0, 0,
+    1, 1, 0, 1, 0,
+    0, 0, 1, 0, 1,
+    1, 1, 0, 1, 1
+  ),
+  ncol = 5
+)
 
 ## Set item names (columns) and transaction labels (rows)
 colnames(a_matrix) <- c("a", "b", "c", "d", "e")
@@ -221,9 +225,10 @@ inspect(trans2)
 
 ## Example 3: creating transactions from data.frame (wide format)
 a_df <- data.frame(
-	age   = as.factor(c( 6,   8,   NA, 9,   16)),
-	grade = as.factor(c("A", "C", "F", NA, "C")),
-  pass  = c(TRUE, TRUE, FALSE, TRUE, TRUE))
+  age = as.factor(c(6, 8, NA, 9, 16)),
+  grade = as.factor(c("A", "C", "F", NA, "C")),
+  pass = c(TRUE, TRUE, FALSE, TRUE, TRUE)
+)
 ## Note: factors are translated differently than logicals and NAs are ignored
 a_df
 
@@ -238,7 +243,7 @@ as(trans3, "data.frame")
 ## Example 4: creating transactions from a data.frame with
 ## transaction IDs and items (long format)
 a_df3 <- data.frame(
-  TID =  c( 1,   1,   2,   2,   2,   3 ),
+  TID =  c(1, 1, 2, 2, 2, 3),
   item = c("a", "b", "a", "b", "c", "b")
 )
 a_df3
@@ -269,7 +274,9 @@ trans6 <- transactions(
   list(
     c("Sepal.Length=[4.3,5.4)", "Species=setosa"),
     c("Sepal.Length=[4.3,5.4)", "Species=setosa")
-  ), itemLabels = trans5)
+  ),
+  itemLabels = trans5
+)
 trans6
 
 inspect(trans6)

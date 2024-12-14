@@ -28,17 +28,17 @@ as a \link{tidLists} object.
 }
 \examples{
 data <- list(
-	c("a","b","c"),
-	c("a","b"),
-	c("a","b","d"),
-	c("b","e"),
-	c("b","c","e"),
-	c("a","d","e"),
-	c("a","c"),
-	c("a","b","d"),
-	c("c","e"),
-	c("a","b","d","e")
-	)
+  c("a", "b", "c"),
+  c("a", "b"),
+  c("a", "b", "d"),
+  c("b", "e"),
+  c("b", "c", "e"),
+  c("a", "d", "e"),
+  c("a", "c"),
+  c("a", "b", "d"),
+  c("c", "e"),
+  c("a", "b", "d", "e")
+)
 data <- as(data, "transactions")
 
 ## mine itemsets

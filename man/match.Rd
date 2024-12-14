@@ -78,7 +78,7 @@ data("Adult")
 ## and plot frequency of unique transactions
 vals <- unique(Adult)
 cnts <- tabulate(match(Adult, vals))
-plot(sort(cnts, decreasing=TRUE))
+plot(sort(cnts, decreasing = TRUE))
 
 ## find all transactions which are equal to transaction 10 in Adult
 which(Adult \%in\% Adult[10])

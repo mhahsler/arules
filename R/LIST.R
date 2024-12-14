@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@
 #' List Representation for Objects Based on Class itemMatrix
 #'
 #' Provides the generic function `LIST()` and the methods to create a
-#' list representation from objects of the classes [itemMatrix], 
-#' [transactions], and [tidLists]. 
+#' list representation from objects of the classes [itemMatrix],
+#' [transactions], and [tidLists].
 #'
 #' Using `LIST()` with `decode = TRUE` is equivalent to the standard
 #' coercion `as(x, "list")`.  `LIST` returns the object `from`
@@ -47,43 +47,57 @@
 #'
 #' ### coercion without item decoding
 #' LIST(Adult[1:5], decode = FALSE)
-setGeneric("LIST",
-  function(from, ...)
-    standardGeneric("LIST"))
+setGeneric(
+  "LIST",
+  function(from, ...) {
+    standardGeneric("LIST")
+  }
+)
 
 #' @rdname LIST
-setMethod("LIST", signature(from = "itemMatrix"),
+setMethod(
+  "LIST", signature(from = "itemMatrix"),
   function(from, decode = TRUE) {
     l <-
-      .Call(R_asList_ngCMatrix, from@data, if (decode)
+      .Call(R_asList_ngCMatrix, from@data, if (decode) {
         itemLabels(from)
-        else
-          NULL)
-    if (decode)
+      } else {
+        NULL
+      })
+    if (decode) {
       names(l) <- itemsetInfo(from)[["itemsetID"]]
+    }
     l
-  })
+  }
+)
 
 #' @rdname LIST
-setMethod("LIST", signature(from = "transactions"),
+setMethod(
+  "LIST", signature(from = "transactions"),
   function(from, decode = TRUE) {
     l <- LIST(as(from, "itemMatrix"), decode)
-    if (decode)
+    if (decode) {
       names(l) <- transactionInfo(from)$transactionID
+    }
     l
-  })
+  }
+)
 
 
 #' @rdname LIST
-setMethod("LIST", signature(from = "tidLists"),
+setMethod(
+  "LIST", signature(from = "tidLists"),
   function(from, decode = TRUE) {
     if (decode) {
       i <- from@transactionInfo[["transactionID"]]
-      if (!is.null(i))
+      if (!is.null(i)) {
         i <- as.character(i)
+      }
       to <- .Call(R_asList_ngCMatrix, from@data, i)
       names(to) <- from@itemInfo[["labels"]]
       to
-    } else
+    } else {
       .Call(R_asList_ngCMatrix, from@data, NULL)
-  })
+    }
+  }
+)

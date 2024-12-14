@@ -92,8 +92,10 @@ adding the pattern to the transaction.
 ## generate random 1000 transactions for 200 items with
 ## a success probability decreasing from 0.2 to 0.0001
 ## using the method described in Hahsler et al. (2006).
-trans <- random.transactions(nItems = 200, nTrans = 1000,
-   lambda = 5, iProb = seq(0.2,0.0001, length=200))
+trans <- random.transactions(
+  nItems = 200, nTrans = 1000,
+  lambda = 5, iProb = seq(0.2, 0.0001, length = 200)
+)
 
 ## size distribution
 summary(size(trans))
@@ -107,12 +109,14 @@ image(trans)
 patterns <- random.patterns(nItems = 1000)
 summary(patterns)
 
-trans2 <- random.transactions(nItems = 1000, nTrans = 100,
-   method = "agrawal", patterns = patterns)
+trans2 <- random.transactions(
+  nItems = 1000, nTrans = 100,
+  method = "agrawal", patterns = patterns
+)
 image(trans2)
 
 ## plot data with items ordered by item frequency
-image(trans2[,order(itemFrequency(trans2), decreasing=TRUE)])
+image(trans2[, order(itemFrequency(trans2), decreasing = TRUE)])
 }
 \references{
 Michael Hahsler, Kurt Hornik, and Thomas Reutterer (2006).

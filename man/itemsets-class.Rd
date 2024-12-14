@@ -149,10 +149,12 @@ twoitemsets <- itemsets(
   items = list(
     c("age=Young", "relationship=Unmarried"),
     c("age=Old")
-  ), itemLabels = Adult)
+  ), itemLabels = Adult
+)
 
 quality(twoitemsets) <- data.frame(support = interestMeasure(twoitemsets,
-  measure = c("support"), transactions = Adult))
+  measure = c("support"), transactions = Adult
+))
 
 inspect(twoitemsets)
 }

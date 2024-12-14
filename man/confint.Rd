@@ -81,13 +81,15 @@ added to each count in the contingency table.
 data("Income")
 
 # mine some rules with the consequent "language in home=english"
-rules <- apriori(Income, parameter = list(support = 0.5),
-  appearance = list(rhs = "language in home=english"))
+rules <- apriori(Income,
+  parameter = list(support = 0.5),
+  appearance = list(rhs = "language in home=english")
+)
 
 # calculate the confidence interval for the rules' odds ratios.
 # note that we use Haldane-Anscombe correction (with smoothCounts = .5)
 # to avoid issues with 0 counts in the contingency table.
-ci <- confint(rules, "oddsRatio",  smoothCounts = .5)
+ci <- confint(rules, "oddsRatio", smoothCounts = .5)
 ci
 
 # We add the odds ratio (with Haldane-Anscombe correction)
@@ -95,7 +97,8 @@ ci
 quality(rules) <- cbind(
   quality(rules),
   oddsRatio = interestMeasure(rules, "oddsRatio", smoothCounts = .5),
-  oddsRatio = ci)
+  oddsRatio = ci
+)
 
 rules <- sort(rules, by = "oddsRatio")
 inspect(rules)

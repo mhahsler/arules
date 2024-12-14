@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
-#			Bettina Gruen and Kurt Hornik
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #' The SunBai Weighted Transactions Data Set
-#' 
+#'
 #' A small example database for weighted association rule mining provided as an
 #' object of class [transactions].
-#' 
+#'
 #' The data set contains the example database described in the paper by K. Sun
 #' and F.Bai for illustration of the concepts of weighted association rule
 #' mining. `weight` stored as transaction information denotes the
 #' transaction weights obtained using the HITS algorithm.
-#' 
+#'
 #' @name SunBai
 #' @family weighted association mining functions
 #' @aliases SunBai sunbai
@@ -40,6 +40,6 @@
 #' data(SunBai)
 #' summary(SunBai)
 #' inspect(SunBai)
-#' 
+#'
 #' transactionInfo(SunBai)
 NULL

@@ -87,15 +87,15 @@ the execution actually stops.
 
 ## Example 1: Create transaction data and mine association rules
 a_list <- list(
-      c("a","b","c"),
-      c("a","b"),
-      c("a","b","d"),
-      c("c","e"),
-      c("a","b","d","e")
-      )
+  c("a", "b", "c"),
+  c("a", "b"),
+  c("a", "b", "d"),
+  c("c", "e"),
+  c("a", "b", "d", "e")
+)
 
 ## Set transaction names
-names(a_list) <- paste("Tr",c(1:5), sep = "")
+names(a_list) <- paste("Tr", c(1:5), sep = "")
 a_list
 
 ## Use the constructor to create transactions
@@ -110,10 +110,11 @@ inspect(rules)
 data("Adult")
 
 rules <- apriori(Adult,
-	parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
+  parameter = list(supp = 0.5, conf = 0.9, target = "rules")
+)
 summary(rules)
 
-# since ... gets automatically added to parameter, we can also write the 
+# since ... gets automatically added to parameter, we can also write the
 #  same call shorter:
 apriori(Adult, supp = 0.5, conf = 0.9, target = "rules")
 }

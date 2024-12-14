@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,29 +20,34 @@
 ## provide some interfaces to our C implementations
 
 ## density for ngC/dgCMatrix
-.density_Matrix <- function(x)
+.density_Matrix <- function(x) {
   length(x@i) / prod(dim(x))
+}
 
 ## helper to convert names into an integer index
 .translate_index <- function(i, labels, n) {
   ## checking is deferred to the actual subsetting code
-  if (is.logical(i))
+  if (is.logical(i)) {
     return(which(i))
-  
+  }
+
   if (is.numeric(i)) {
     ## deal with neg. and 0's
-    if (all(i > 0))
+    if (all(i > 0)) {
       return(as.integer(i))
-    else
+    } else {
       return(seq(n)[i])
+    }
   }
-  
+
   ## if no labels were specified we used "1", "2", etc.
-  if (is.null(labels))
+  if (is.null(labels)) {
     labels <- seq(n)
+  }
   sel <- structure(seq(length(labels)), names = labels)[i]
-  
-  if (any(is.na(sel)))
+
+  if (any(is.na(sel))) {
     stop("subscript out of bounds")
+  }
   sel
 }

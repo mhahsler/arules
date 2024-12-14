@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,14 +19,14 @@
 
 
 #' Find Duplicated Elements
-#' 
-#' Provides the generic function `duplicated()` and the methods to find 
+#'
+#' Provides the generic function `duplicated()` and the methods to find
 #' duplicated elements in
 #' [itemMatrix], [associations] and their subclasses.
-#' 
+#'
 #' @family associations functions
 #' @family itemMatrix and transactions functions
-#' 
+#'
 #' @param x an object of class [itemMatrix] or [associations].
 #' @param \dots further arguments (currently unused).
 #' @param incomparables argument currently unused.
@@ -35,31 +35,37 @@
 #' @keywords manip
 #' @examples
 #' data("Adult")
-#' 
+#'
 #' r1 <- apriori(Adult[1:1000], parameter = list(support = 0.5))
 #' r2 <- apriori(Adult[1001:2000], parameter = list(support = 0.5))
-#' 
+#'
 #' ## Note this creates a collection of rules from two sets of rules
 #' r_comb <- c(r1, r2)
 #' duplicated(r_comb)
 setGeneric("duplicated")
 
 #' @rdname duplicated
-setMethod("duplicated", signature(x = "itemMatrix"),
+setMethod(
+  "duplicated", signature(x = "itemMatrix"),
   function(x, incomparables = FALSE) {
     ## use a prefix tree
     i <- .Call(R_pnindex, x@data, NULL, FALSE)
     duplicated(i)
-  })
+  }
+)
 
 #' @rdname duplicated
-setMethod("duplicated", signature(x = "rules"),
-  function(x, incomparables = FALSE)
-    duplicated(.joinedList(x), incomparables = incomparables))
+setMethod(
+  "duplicated", signature(x = "rules"),
+  function(x, incomparables = FALSE) {
+    duplicated(.joinedList(x), incomparables = incomparables)
+  }
+)
 
 #' @rdname duplicated
-setMethod("duplicated", signature(x = "itemsets"),
-  function(x, incomparables = FALSE)
-    duplicated(x@items, incomparables = incomparables))
-
-
+setMethod(
+  "duplicated", signature(x = "itemsets"),
+  function(x, incomparables = FALSE) {
+    duplicated(x@items, incomparables = incomparables)
+  }
+)

@@ -45,10 +45,10 @@ sup <- c(
 expect_equal(round(quality(f)$support, 2), sup)
 expect_equal(labels(f)[5], "{a,d}")
 
-#f
-#summary(f)
-#inspect(f[1:2])
-#labels(f[1:2])
+# f
+# summary(f)
+# inspect(f[1:2])
+# labels(f[1:2])
 
 
 ### test subset
@@ -59,17 +59,18 @@ expect_equal(l, grep("a", l, value = T))
 ### test tidlists
 f <-
   eclat(trans,
-        parameter = list(tidLists = TRUE),
-        control = list(verb = verb))
+    parameter = list(tidLists = TRUE),
+    control = list(verb = verb)
+  )
 
-#f
-#summary(f)
+# f
+# summary(f)
 tl <- tidLists(f)
 
 expect_identical(dim(tl), c(20L, 7L))
 
-#tl
-#summary(tl)
-#inspect(tl)
+# tl
+# summary(tl)
+# inspect(tl)
 
-expect_equal(as(tl[5], "list"), list('{a,d}' = c("Tr3", "Tr7")))
+expect_equal(as(tl[5], "list"), list("{a,d}" = c("Tr3", "Tr7")))

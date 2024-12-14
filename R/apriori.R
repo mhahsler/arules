@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@
 #' Mining Associations with the Apriori Algorithm
 #'
 #' Mine frequent itemsets, association rules or association hyperedges using
-#' the Apriori algorithm.  
-#' 
+#' the Apriori algorithm.
+#'
 #' The Apriori algorithm (Agrawal et al, 1993) employs level-wise search for
 #' frequent itemsets. The used C implementation of Apriori by Christian
 #' Borgelt (2003) includes some improvements (e.g., a prefix tree and item sorting).
@@ -38,7 +38,7 @@
 #' [discretizeDF()] and then coercion to transactions. The discretization
 #' may fail if the data is not well behaved.
 #'
-#' **Apriori only creates rules with one item in the RHS (Consequent).** 
+#' **Apriori only creates rules with one item in the RHS (Consequent).**
 #' The default value in [APparameter] for `minlen` is 1.
 #' This meains that rules with only one item (i.e., an empty antecedent/LHS)
 #' like
@@ -50,7 +50,7 @@
 #' rule's confidence (which equals the support).  If you want to avoid these
 #' rules then use the argument `parameter = list(minlen = 2)`.
 #'
-#' **Notes on run time and memory usage:** 
+#' **Notes on run time and memory usage:**
 #' If the minimum `support` is
 #' chosen too low for the dataset, then the algorithm will try to create an
 #' extremely large set of itemsets/rules. This will result in very long run
@@ -73,8 +73,8 @@
 #'
 #' @param data object of class [transactions]. Any data
 #' structure which can be coerced into transactions (e.g.,
-#' a binary matrix, a data.frame or a tibble) can also be specified and will be 
-#' internally coerced to transactions. 
+#' a binary matrix, a data.frame or a tibble) can also be specified and will be
+#' internally coerced to transactions.
 #' @param parameter object of class [APparameter] or named
 #' list.  The default behavior is to mine rules with minimum support of 0.1,
 #' minimum confidence of 0.8, maximum of 10 items (maxlen), and a maximal time
@@ -115,15 +115,15 @@
 #'
 #' ## Example 1: Create transaction data and mine association rules
 #' a_list <- list(
-#'       c("a","b","c"),
-#'       c("a","b"),
-#'       c("a","b","d"),
-#'       c("c","e"),
-#'       c("a","b","d","e")
-#'       )
+#'   c("a", "b", "c"),
+#'   c("a", "b"),
+#'   c("a", "b", "d"),
+#'   c("c", "e"),
+#'   c("a", "b", "d", "e")
+#' )
 #'
 #' ## Set transaction names
-#' names(a_list) <- paste("Tr",c(1:5), sep = "")
+#' names(a_list) <- paste("Tr", c(1:5), sep = "")
 #' a_list
 #'
 #' ## Use the constructor to create transactions
@@ -138,34 +138,37 @@
 #' data("Adult")
 #'
 #' rules <- apriori(Adult,
-#' 	parameter = list(supp = 0.5, conf = 0.9, target = "rules"))
+#'   parameter = list(supp = 0.5, conf = 0.9, target = "rules")
+#' )
 #' summary(rules)
 #'
-#' # since ... gets automatically added to parameter, we can also write the 
+#' # since ... gets automatically added to parameter, we can also write the
 #' #  same call shorter:
 #' apriori(Adult, supp = 0.5, conf = 0.9, target = "rules")
 #' @export
 apriori <-
-  function(data,
-    parameter = NULL,
-    appearance = NULL,
-    control = NULL,
-    ...)
-  {
+  function(
+      data,
+      parameter = NULL,
+      appearance = NULL,
+      control = NULL,
+      ...) {
     ## prepare data
     data <- as(data, "transactions")
     items <- data@data
-    
-    if (is(appearance, "list"))
+
+    if (is(appearance, "list")) {
       appearance <-
-      as(c(appearance, list(labels = itemLabels(data))), "APappearance")
+        as(c(appearance, list(labels = itemLabels(data))), "APappearance")
+    }
     appearance <- as(appearance, "APappearance")
-    
+
     control <- as(control, "APcontrol")
     if (is.null(parameter) ||
-        !is(parameter, "APparameter"))
+      !is(parameter, "APparameter")) {
       parameter <- as(c(parameter, list(...)), "APparameter")
-    
+    }
+
     if (control@verbose) {
       cat("Apriori\n")
       cat("\nParameter specification:\n")
@@ -173,13 +176,13 @@ apriori <-
       cat("\nAlgorithmic control:\n")
       show(control)
     }
-    
+
     ## sanity check for support (abs. support >1)
     abs_supp <- as.integer(parameter@support * length(data))
     if (control@verbose) {
       cat("\nAbsolute minimum support count:", abs_supp, "\n\n")
     }
-    
+
     ## call apriori
     result <- .Call(
       R_rapriori,
@@ -193,7 +196,7 @@ apriori <-
       appearance,
       data@itemInfo
     )
-    
+
     ## add some reflectance
     call <- match.call()
     result@info <- list(
@@ -203,12 +206,12 @@ apriori <-
       confidence = parameter@confidence,
       call = deparse1(call)[1]
     )
-    
+
     ## add count to quality
     quality(result)$count <-
       as.integer(round(quality(result)$support * length(data)))
-    
-    if (is(result, "rules"))  {
+
+    if (is(result, "rules")) {
       ## validate sparse Matrix (this takes care of sorting vector i)
       validObject(result@lhs@data)
       validObject(result@rhs@data)

@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
 # Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
-#			Bettina Gruen and Kurt Hornik
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ setGeneric("sort")
 #' @name sort
 #' @aliases sort SORT
 #' @family associations functions
-#'  
+#'
 #' @param x an object to be sorted.
 #' @param decreasing a logical. Should the sort be increasing or decreasing?
 #' (default is decreasing)
@@ -55,7 +55,7 @@ setGeneric("sort")
 #' @param order should a order vector (a permutation like [order()])
 #'  be returned instead of the sorted associations?
 #' @param ... Further arguments are ignored.
-#' 
+#'
 #' @return An object of the same class as `x` or a permutation vector.
 #' @author Michael Hahsler
 #' @keywords manip arith
@@ -76,33 +76,40 @@ setGeneric("sort")
 NULL
 
 #' @rdname sort
-setMethod("sort", signature(x = "associations"),
-  function (x,
-    decreasing = TRUE,
-    na.last = NA,
-    by = "support",
-    order = FALSE,
-    ...) {
-    if (!is.na(na.last))
+setMethod(
+  "sort", signature(x = "associations"),
+  function(
+      x,
+      decreasing = TRUE,
+      na.last = NA,
+      by = "support",
+      order = FALSE,
+      ...) {
+    if (!is.na(na.last)) {
       stop("na.last not supported. NAs are always put last.")
-    
+    }
+
     q <- quality(x)
     m <- pmatch(by, colnames(q))
-    if (any(is.na(m)))
+    if (any(is.na(m))) {
       stop("Unknown interest measure to sort by.")
-    
+    }
+
     q <- q[, m, drop = FALSE]
-    
-    if (length(x) == 0)
+
+    if (length(x) == 0) {
       return(x)
-    
+    }
+
     o <- do.call(base::order, c(q, list(
       na.last = TRUE,
       decreasing = decreasing
     )))
-    
-    if (order)
+
+    if (order) {
       o
-    else
+    } else {
       x[o]
-  })
+    }
+  }
+)

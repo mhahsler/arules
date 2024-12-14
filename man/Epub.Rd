@@ -22,7 +22,6 @@ Business Administration.  The data was recorded between Jan 2003 and Dec
 2008.
 }
 \examples{
- 
 data(Epub)
 inspect(head(Epub))
 }

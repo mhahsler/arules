@@ -1,7 +1,7 @@
 #######################################################################
 # arules - Mining Association Rules and Frequent Itemsets
-# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta, 
-#			Bettina Gruen and Kurt Hornik
+# Copyright (C) 2011-2015 Michael Hahsler, Christian Buchta,
+# 			Bettina Gruen and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@
 #'
 #' Provides the generic function `size()` and methods to get the size of
 #' each itemset in an [itemMatrix] or [associations]. For
-#' example, `size()` can be used to get a vector with the number of items in each 
-#' transaction.  
+#' example, `size()` can be used to get a vector with the number of items in each
+#' transaction.
 #'
 #' @include itemMatrix.R
 #' @family itemMatrix and transactions functions
@@ -41,26 +41,33 @@
 #' data("Adult")
 #' summary(size(Adult))
 #'
-setGeneric("size",
-  function(x, ...) standardGeneric("size"))
+setGeneric(
+  "size",
+  function(x, ...) standardGeneric("size")
+)
 
 ## FIXME: Add transactionID or itemsetID as names?
 
 #' @rdname size
-setMethod("size", signature(x = "itemMatrix"),
+setMethod(
+  "size", signature(x = "itemMatrix"),
   function(x) colSums(x@data)
 )
 
 #' @rdname size
-setMethod("size", signature(x = "tidLists"),
+setMethod(
+  "size", signature(x = "tidLists"),
   function(x) colSums(x@data)
 )
 
 #' @rdname size
-setMethod("size", signature(x = "itemsets"),
+setMethod(
+  "size", signature(x = "itemsets"),
   function(x) colSums(x@items@data)
 )
 
 #' @rdname size
-setMethod("size", signature(x = "rules"),
-  function(x) size(x@lhs) + size(x@rhs))
+setMethod(
+  "size", signature(x = "rules"),
+  function(x) size(x@lhs) + size(x@rhs)
+)

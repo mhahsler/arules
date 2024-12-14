@@ -113,8 +113,10 @@ rules <- subset(rules, subset = lift > 2)
 ## use affinity to cluster rules
 ## Note: we need to supply the transactions (or affinities) from the
 ## dataset (sample).
-d_affinity <- dissimilarity(rules, method = "affinity",
-  args = list(transactions = s))
+d_affinity <- dissimilarity(rules,
+  method = "affinity",
+  args = list(transactions = s)
+)
 hc <- hclust(d_affinity, method = "ward.D2")
 plot(hc, main = "Dendrogram for Rules (Affinity)")
 
