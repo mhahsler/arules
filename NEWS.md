@@ -1,7 +1,7 @@
 # arules 1.7-9 (12/14/2024)
 
 ## Internal Changes
-* C code: Legacy variable length arrays in structs use now c11 syntax so
+* C code: Legacy variable length arrays in structs use now C99 syntax so
   that UBSAN's static analysis does not report a non-existing 
   out-of-bounds violation.
 
