@@ -11,7 +11,7 @@
             12.09.2003 function tas_total added
             20.09.2003 empty transactions in input made possible
             12/9/2013 fixed 64-bit address alignment (MFH)
-            12/14/2024 moved to c11 variable array lenght in structs
+            12/14/2024 moved to c11 variable array length in structs
 ----------------------------------------------------------------------*/
 #ifndef __TRACT__
 #define __TRACT__

@@ -33,7 +33,7 @@
             11.08.2003 item set filtering generalized (ist_filter)
             09.05.2004 parameter 'aval' added to function ist_set
             12/9/2013 fixed 64-bit address alignment (MFH)
-            12/14/2024 moved to c11 variable array lenght in structs
+            12/14/2024 moved to c11 variable array length in structs
 ----------------------------------------------------------------------*/
 #ifndef __ISTREE__
 #define __ISTREE__
