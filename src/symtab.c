@@ -351,43 +351,6 @@ void st_endblk (SYMTAB *tab)
 }  /* st_endblk() */
 
 /*--------------------------------------------------------------------*/
-#ifndef NDEBUG
-
-void st_stats (const SYMTAB *tab)
-{                               /* --- compute and print statistics */
-  const STE *ste;               /* to traverse bucket lists */
-  int i;                        /* loop variable */
-  int used;                     /* number of used hash buckets */
-  int len;                      /* length of current bucket list */
-  int min, max;                 /* min. and max. bucket list length */
-  int cnts[10];                 /* counter for bucket list lengths */
-
-  assert(tab);                  /* check for a valid symbol table */
-  min = INT_MAX; max = used = 0;/* initialize variables */
-  for (i = 10; --i >= 0; ) cnts[i] = 0;
-  for (i = tab->size; --i >= 0; ) { /* traverse bucket vector */
-    len = 0;                    /* determine bucket list length */
-    for (ste = tab->bvec[i]; ste; ste = ste->succ) len++;
-    if (len > 0) used++;        /* count used hash buckets */
-    if (len < min) min = len;   /* determine minimal and */
-    if (len > max) max = len;   /* maximal list length */
-    cnts[(len >= 9) ? 9 : len]++;
-  }                             /* count list length */
-  printf("number of symbols     : %d\n", tab->cnt);
-  printf("number of hash buckets: %d\n", tab->size);
-  printf("used hash buckets     : %d\n", used);
-  printf("minimal list length   : %d\n", min);
-  printf("maximal list length   : %d\n", max);
-  printf("average list length   : %g\n", (double)tab->cnt/tab->size);
-  printf("ditto, of used buckets: %g\n", (double)tab->cnt/used);
-  printf("length distribution   :\n");
-  for (i = 0; i < 9; i++) printf("%3d ", i);
-  printf(" >8\n");
-  for (i = 0; i < 9; i++) printf("%3d ", cnts[i]);
-  printf("%3d\n", cnts[9]);
-}  /* st_stats() */
-
-#endif
 /*----------------------------------------------------------------------
   Name/Identifier Map Functions
 ----------------------------------------------------------------------*/

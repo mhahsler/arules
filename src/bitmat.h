@@ -62,9 +62,6 @@ extern int     bm_ones   (BITMAT *bm, int row);
 extern int     bm_allone (BITMAT *bm, int mode, int supp,
                           int min, int max, BMREPFN report, void *data, int tacnt);
 
-#ifndef NDEBUG
-extern void    bm_show   (BITMAT *bm, FILE *file, int transpose);
-#endif
 
 /*----------------------------------------------------------------------
   Preprocessor Definitions

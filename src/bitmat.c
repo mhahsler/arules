@@ -519,37 +519,6 @@ int bm_allone (BITMAT *bm, int mode, int supp, int min, int max,
 }  /* bm_allone() */
 
 /*--------------------------------------------------------------------*/
-#ifndef NDEBUG
-
-void bm_show (BITMAT *bm, FILE *file, int transpose)
-{                               /* --- show a bit matrix */
-  int row, col, i, k, n, b;     /* loop variables, bit mask */
-  int *p;                       /* to traverse a bit vector */
-
-  assert(bm);                   /* check the function argument */
-  if (transpose) {              /* if to transpose the matrix */
-    for (col = 0; col < bm->colcnt; col++) {
-      i = col >> BM_SHIFT; b = 1 << (col & BM_MASK);
-      for (row = 0; row < bm->rowcnt; row++)
-        putc((bm->rows[row][i] & b) ? '1' : '0', file);
-      putc('\n', file);         /* print one column per row */
-    } }
-  else {                        /* if not to transpose the matrix */
-    n = bm->colcnt >> BM_SHIFT; /* get the number of full integers */
-    k = bm->colcnt &  BM_MASK;  /* and the number of bits in the last */
-    for (row = 0; row < bm->rowcnt; row++) {
-      p = bm->rows[row];        /* traverse the matrix rows */
-      for (i = 0; i < n; i++) { /* traverse the integers in a row */
-        for (b = 1; b & MASK; b <<= 1) {
-          putc((*p & b) ? '1' : '0', file); p++; }
-      }                         /* print the bits in an integer */
-      for (b = 0; b < k; b++)   /* and print the bits in it */
-        putc((*p & (1 << b)) ? '1' : '0', file);
-    }
-  }
-}  /* bm_show() */
-
-#endif
 /*----------------------------------------------------------------------
 Note that the above function works only for non-sparse representations.
 ----------------------------------------------------------------------*/

@@ -138,9 +138,6 @@ extern int     ist_rule    (ISTREE *ist, int *rule,
 extern int     ist_hedge   (ISTREE *ist, int *hedge,
                             double *supp, double *conf);
 
-#ifndef NDEBUG
-extern void    ist_show    (ISTREE *ist);
-#endif
 
 /*----------------------------------------------------------------------
   Preprocessor Definitions
@@ -150,7 +147,7 @@ extern void    ist_show    (ISTREE *ist);
 #define ist_gettac(t)      ((t)->tacnt)
 #define ist_height(t)      ((t)->lvlcnt)
 
-/* 64 bit alignment (MFH) */
+/* 64 bit alignment. Pointers at the end of the struct need to start at an even address. (MFH) */
 
 #ifdef ARCH64
 #define isn_align(n) ((n & 1) ? (n+1) : (n))  /* start is even! n  needs to be even */ 

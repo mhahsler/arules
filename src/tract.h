@@ -15,9 +15,9 @@
 ----------------------------------------------------------------------*/
 #ifndef __TRACT__
 #define __TRACT__
-#ifndef NIMAPFN
+
 #define NIMAPFN
-#endif
+
 #include "vecops.h"
 #include "symtab.h"
 #include "tfscan.h"
@@ -142,10 +142,6 @@ extern void        tas_shuffle (TASET *taset, double randfn(void));
 extern void        tas_sort    (TASET *taset, int heap);
 extern int         tas_occur   (TASET *taset, const int *items, int n);
 
-#ifndef NDEBUG
-extern void        tas_show    (TASET *taset);
-#endif
-
 /*----------------------------------------------------------------------
   Transaction Tree Functions
 ----------------------------------------------------------------------*/
@@ -158,9 +154,6 @@ extern int*        tat_items   (TATREE *tat);
 extern int         tat_item    (TATREE *tat, int index);
 extern TATREE*     tat_child   (TATREE *tat, int index);
 
-#ifndef NDEBUG
-extern void        tat_show    (TATREE *tat);
-#endif
 
 /*----------------------------------------------------------------------
   Preprocessor Definitions
@@ -199,8 +192,8 @@ extern void        tat_show    (TATREE *tat);
 #define tat_item(t,i)     ((t)->items[i])
 #define tat_items(t)      ((t)->items)
 
-/* 64 bit alignment (MFH) */
-#ifdef ARCH64                 /* adapt to even item number */
+/* 64 bit alignment. Pointers at the end of the struct need to start at an even address. (MFH) */
+#ifdef ARCH64 
 #define tat_align(n) ((n & 1) ? n : (n+1))  /* start is odd! n  needs to be odd */ 
                                             /* so that pointer addresses aligned */
 #define tat_vec(t)    (((TATREE**)((t)->items + (((t)->size & 1) ? (t)->size : ((t)->size + 1)))))

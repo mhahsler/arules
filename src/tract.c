@@ -571,26 +571,7 @@ int tas_occur (TASET *taset, const int *items, int n)
 }  /* tas_occur() */
 
 /*--------------------------------------------------------------------*/
-#ifndef NDEBUG
 
-void tas_show (TASET *taset)
-{                               /* --- show a transaction set */
-  int   i, k;                   /* loop variables */
-  TRACT *t;                     /* to traverse the transactions */
-
-  assert(taset);                /* check the function argument */
-  for (i = 0; i < taset->cnt; i++) {
-    t = taset->tracts[i];       /* traverse the transactions */
-    for (k = 0; k < t->cnt; k++) {  /* traverse the items */
-      if (k > 0) putc(' ', stdout); /* print a separator */
-      printf(is_name(taset->itemset, t->items[k]));
-    }                           /* print the next item */
-    putc('\n', stdout);         /* terminate the transaction */
-  }                             /* finally print the number of t.a. */
-  printf("%d transaction(s)\n", taset->cnt);
-}  /* tas_show() */
-
-#endif
 /*----------------------------------------------------------------------
   Transaction Tree Functions
 ----------------------------------------------------------------------*/
@@ -682,6 +663,7 @@ void tat_delete (TATREE *tat)
 
 TATREE* tat_child (TATREE *tat, int index)
 {                               /* --- go to a child node */
+
   assert(tat                    /* check the function arguments */
      && (index >= 0) && (index < tat->size));
   TATREE ** children = tat_vec(tat);
@@ -689,33 +671,4 @@ TATREE* tat_child (TATREE *tat, int index)
 }  /* tat_child */              /* return the child node/subtree */
 
 /*--------------------------------------------------------------------*/
-#ifndef NDEBUG
 
-void _show (TATREE *tat, int ind)
-{                               /* --- rekursive part of tat_show() */
-  int    i, k;                  /* loop variables */
-  TATREE **vec;                 /* vector of child nodes */
-
-  assert(tat && (ind >= 0));    /* check the function arguments */
-  if (tat->size <= 0) {         /* if this is a leaf node */
-    for (i = 0; i < tat->max; i++)
-      printf("%d ", tat->items[i]);
-    printf("\n"); return;       /* print the items in the */
-  }                             /* (rest of) the transaction */
-  vec = tat_vec(tat);
-  for (i = 0; i < tat->size; i++) {
-    if (i > 0) for (k = ind; --k >= 0; ) printf("  ");
-    printf("%d ", tat->items[i]);
-    _show(vec[i], ind+1);       /* traverse the items, print them, */
-  }                             /* and show the children recursively */
-}  /* _show() */
-
-/*--------------------------------------------------------------------*/
-
-void tat_show (TATREE *tat)
-{                               /* --- show a transaction tree */
-  assert(tat);                  /* check the function argument */
-  _show(tat, 0);                /* just call the recursive function */
-}  /* tat_show() */
-
-#endif

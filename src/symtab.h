@@ -23,6 +23,7 @@
   Preprocessor Definitions
 ----------------------------------------------------------------------*/
 #define EXISTS  ((void*)-1)     /* symbol exists already */
+#define NIMAPFN
 #define NIMAP   SYMTAB          /* name/id maps are special sym.tabs. */
 
 /*----------------------------------------------------------------------
@@ -66,9 +67,6 @@ extern void        st_endblk  (SYMTAB *tab);
 extern int         st_symcnt  (const SYMTAB *tab);
 extern const char* st_name    (const void *data);
 extern int         st_type    (const void *data);
-#ifndef NDEBUG
-extern void        st_stats   (const SYMTAB *tab);
-#endif
 
 /*----------------------------------------------------------------------
   Name/Identifier Map Functions
@@ -85,9 +83,6 @@ extern const char* nim_name   (const void *data);
 extern int         nim_cnt    (const NIMAP *nim);
 extern void        nim_sort   (NIMAP *nim, SYMCMPFN cmpfn, void *data,
                                int *map, int dir);
-#ifndef NDEBUG
-extern void        nim_stats  (const NIMAP *nimap);
-#endif
 #endif
 /*----------------------------------------------------------------------
   Preprocessor Definitions
@@ -105,8 +100,5 @@ extern void        nim_stats  (const NIMAP *nimap);
 #define nim_byid(m,i)     ((void*)(m)->ids[i])
 #define nim_name(d)       st_name(d)
 #define nim_cnt(m)        st_symcnt(m)
-#ifndef NDEBUG
-#define nim_stats(m)      st_stats(m)
-#endif
 #endif
 #endif
