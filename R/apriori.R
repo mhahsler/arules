@@ -73,8 +73,10 @@
 #'
 #' @param data object of class [transactions]. Any data
 #' structure which can be coerced into transactions (e.g.,
-#' a binary matrix, a data.frame or a tibble) can also be specified and will be
-#' internally coerced to transactions.
+#' a logical matrix, a data.frame or a tibble) can also be specified and will be
+#' internally coerced to transactions. However, it is recommended to first create
+#' a transactions object using [`transactions()`] and then to check that items are 
+#' correctly created.
 #' @param parameter object of class [APparameter] or named
 #' list.  The default behavior is to mine rules with minimum support of 0.1,
 #' minimum confidence of 0.8, maximum of 10 items (maxlen), and a maximal time

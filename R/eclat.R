@@ -44,9 +44,12 @@
 #' @family mining algorithms
 #' @aliases ECLAT Eclat
 #'
-#' @param data object of class [transactions] or any data
+#' @param data object of class [transactions]. Any data
 #' structure which can be coerced into transactions (e.g.,
-#' binary matrix, data.frame).
+#' a logical matrix, a data.frame or a tibble) can also be specified and will be
+#' internally coerced to transactions. However, it is recommended to first create
+#' a transactions object using [`transactions()`] and then to check that items are 
+#' correctly created.
 #' @param parameter object of class [ECparameter] or named
 #' list (default values are: support 0.1 and maxlen 5)
 #' @param control object of class [ECcontrol] or named list

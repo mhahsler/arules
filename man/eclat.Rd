@@ -9,9 +9,12 @@
 eclat(data, parameter = NULL, control = NULL, ...)
 }
 \arguments{
-\item{data}{object of class \link{transactions} or any data
+\item{data}{object of class \link{transactions}. Any data
 structure which can be coerced into transactions (e.g.,
-binary matrix, data.frame).}
+a logical matrix, a data.frame or a tibble) can also be specified and will be
+internally coerced to transactions. However, it is recommended to first create
+a transactions object using \code{\link[=transactions]{transactions()}} and then to check that items are
+correctly created.}
 
 \item{parameter}{object of class \link{ECparameter} or named
 list (default values are: support 0.1 and maxlen 5)}

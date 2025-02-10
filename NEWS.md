@@ -1,3 +1,9 @@
+# arules 1.7-9-1 (xx/xx/2024)
+
+## Changes
+* Improved documentation for apriori and eclat. Make clear that a logical
+  matrix is needed.
+
 # arules 1.7-9 (12/14/2024)
 
 ## Internal Changes

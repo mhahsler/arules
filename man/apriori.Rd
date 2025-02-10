@@ -11,8 +11,10 @@ apriori(data, parameter = NULL, appearance = NULL, control = NULL, ...)
 \arguments{
 \item{data}{object of class \link{transactions}. Any data
 structure which can be coerced into transactions (e.g.,
-a binary matrix, a data.frame or a tibble) can also be specified and will be
-internally coerced to transactions.}
+a logical matrix, a data.frame or a tibble) can also be specified and will be
+internally coerced to transactions. However, it is recommended to first create
+a transactions object using \code{\link[=transactions]{transactions()}} and then to check that items are
+correctly created.}
 
 \item{parameter}{object of class \link{APparameter} or named
 list.  The default behavior is to mine rules with minimum support of 0.1,
