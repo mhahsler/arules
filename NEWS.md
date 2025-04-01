@@ -1,4 +1,4 @@
-# arules 1.7-9-1 (xx/xx/2024)
+# arules 1.7-9-1 (xx/xx/2025)
 
 ## Changes
 * Improved documentation for apriori and eclat. Make clear that a logical
