@@ -1,13 +1,12 @@
 proj$
 ^\.Rproj\.user$
 ^cran-comments\.md$
-^appveyor\.yml$
 ^revdep$
 ^.*\.o$
 ^.*\.Rproj$
 ^LICENSE
 README.Rmd
-Work
+data_src
 docs
 _config.yml
 ^\.github$

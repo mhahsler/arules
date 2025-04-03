@@ -1,0 +1,55 @@
+01	sausage	WURST
+02	poultry	GEFLUEGEL
+03	pork	SCHWEINEFLEISCH
+04	beef	RINDFLEISCH
+08	fish	FISCH
+11	fruit	OBST
+12	vegetables	GEMUESE
+19	packaged fruit/vegetables	VERPACKUNG OBST/GEMUESE
+21	dairy produce	MOLKEREIPRODUKTE
+22	shelf-stable dairy	HALTBAR UND STERILPRODUKTE
+23	cheese	KAESE
+24	delicatessen	FEINKOST
+25	frozen foods	TIEFKUEHLKOST
+26	eggs	EIER
+28	bread and backed goods	BROT UND GEBAECK
+31	staple foods	RUNDNAHRUNGSMITTEL
+32	vinegar/oils	ESSIG/OEL/FETTE
+33	sweetener	SUESS-STOFFE
+34	condiments	GESCMACKSMITTEL
+35	soups/sauces	SUPPEN/SAUCEN
+36	health food	REFORM/DIAET
+37	bakery improver	BACKMITTEL/EINSIEDE
+38	pudding powder	PUDDING/DESSERT-PULVER
+41	canned fruit/vegetables	GEMUESE/OBST-KONSERVEN
+42	jam/sweet spreads	MARMELADE/SCHOKOAUFSTRICH
+43	meat spreads	FLEISCHKONSERVEN/AUFSTRICHE
+44	canned fish	FISCHKONS./MEERESFRUECHTE
+45	pet food/care	TIERNAHRUNG/PFLEGE
+46	baby food	BABYNAHRUNG
+50	coffee	KAFFEE
+51	tea/cocoa drinks	TEE/KAKAO
+52	non-alc. drinks	ALKOHOLFREIE GETRAENKE
+53	beer	BIER
+54	hard drinks	SPIRITUOSEN
+55	wine	WEIN/SEKT
+62	snacks	KNABBERGEB./SNACKPRODUKTE
+63	long-life bakery products	DAUERBACKWAREN/WAFFELN
+64	chewing gum	KAUGUMMI
+65	chocolate	SCHOKOLADE
+66	candy	SUESSWAREN
+67	seasonal products	SAISONWARE
+71	detergent/softener	WASCHMITTEL/ZUSAETZE/WEICHM.
+72	cleaner	SPUEL/PUTZMITTEL
+73	bathroom cleaner	SANITAERBEREICH
+81	hair care	HAARPFLEGE
+82	dental care	ZAHN/FUSSPFLEGE
+83	cosmetics	KOSMETIK
+84	soap	SEIFEN/BADE-DUSCHMITTEL
+85	personal hygiene	KOERPERPFLEGE/SCHUTZMITTEL
+86	perfumery	PARFUEMERIE-NON FOOD
+91	non-food kitchen	NON FOOD  KUECHE
+92	non-food house keeping products	NON FOOD HAUSHALT
+93	games/books/hobby	SPIELE/BUECHER/MUSIK/HOBBY
+94	garden	GARTEN/TABAK
+96	bags	TRAGTASCHEN/KOERBE/KOFFER
