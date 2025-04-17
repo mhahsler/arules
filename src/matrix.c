@@ -416,14 +416,14 @@ SEXP R_cbind_ngCMatrix(SEXP x, SEXP y) {
   setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(px)+LENGTH(py)-1)));
   setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix)+LENGTH(iy))));
   
-  memcpy(INTEGER(pr), INTEGER(px), sizeof(int) * LENGTH(px));
+  if (LENGTH(px)) memcpy(INTEGER(pr), INTEGER_RO(px), sizeof(int) * LENGTH(px));
   n = LENGTH(px);
   k = INTEGER(px)[n-1];
   for (i = 1; i < LENGTH(py); i++)
     INTEGER(pr)[n++] = INTEGER(py)[i] + k;
   
-  memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * LENGTH(ix));
-  memcpy(INTEGER(ir)+LENGTH(ix), INTEGER(iy), sizeof(int) * LENGTH(iy));
+  if (LENGTH(ix)) memcpy(INTEGER(ir), INTEGER_RO(ix), sizeof(int) * LENGTH(ix));
+  if (LENGTH(iy)) memcpy(INTEGER(ir)+LENGTH(ix), INTEGER_RO(iy), sizeof(int) * LENGTH(iy));
   
   setAttrib(r, install("Dim"), PROTECT(ir = allocVector(INTSXP, 2)));
   INTEGER(ir)[0] = nr;
