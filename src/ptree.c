@@ -2,6 +2,7 @@
 #include <Rdefines.h>
 #include <time.h>
 #include "newS4object.h"
+#include "r_memcpy.h"
 
 
 /*
@@ -179,12 +180,12 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
     o = INTEGER(PROTECT(allocVector(INTSXP, nr)));
     nprotect++;
     
-    memset(o, 0, sizeof(int) * nr);
+    r_memset(o, 0, sizeof(int) * nr);
     
     for (k = 0; k < LENGTH(it); k++)
       o[INTEGER(it)[k]]++;
     
-    memset(pb, 0, sizeof(int) * nr);
+    r_memset(pb, 0, sizeof(int) * nr);
     
     for (k = 0; k < LENGTH(ix); k++)
       pb[INTEGER(ix)[k]] = 1;
@@ -241,7 +242,7 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
     it = iz;
     
     if (LOGICAL(R_s)[0] == FALSE)
-      memcpy(o, pb, sizeof(int) * nr);
+      r_memcpy(o, pb, sizeof(int) * nr);
     
 #ifdef _TIME_H
     t1 = clock();
@@ -284,7 +285,7 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
     pnadd(nb[*x], x, n);
     if (LOGICAL(R_s)[0] == FALSE && n > 1) {
       if (n > 2) {
-        memcpy(pb, x, sizeof(int) * n);
+        r_memcpy(pb, x, sizeof(int) * n);
         for (k = 0; k < n-1; k++) {
           if (k > 0) {
             j     = pb[0];
@@ -398,7 +399,7 @@ SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v) {
       INTEGER(r)[i-1] = c;
     else if (n > 1) {
       s = c / t;
-      memcpy(pb, x, sizeof(int) * n);
+      r_memcpy(pb, x, sizeof(int) * n);
       for (k = 0; k < n; k++) {
         if (k > 0) {
           j     = pb[0];
@@ -971,7 +972,7 @@ SEXP R_pnrindex(SEXP R_x, SEXP R_v) {
       continue;
     if (n > 1) {
       x = INTEGER(ix)+f;
-      memcpy(pb, x, sizeof(int) * n);
+      r_memcpy(pb, x, sizeof(int) * n);
       for (k = 0; k < n; k++) {
         if (k > 0) {
           j     = pb[0];

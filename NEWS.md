@@ -1,8 +1,14 @@
-# arules 1.7-9-1 (xx/xx/2025)
+# arules 1.7-10 (04/22/2025)
 
 ## Changes
 * Improved documentation for apriori and eclat. Make clear that a logical
   matrix is needed.
+  
+## Bug Fix
+* R 4.5.0 changes the pointers for 0-length objects which is problematic with 
+  older implementations of memcpy and some sanitizers. I added the solution
+  used in r-lib/rlang provided by aitap (https://github.com/r-lib/rlang/pull/1797). 
+  The bug was originally reported by MichaelChirico.
 
 # arules 1.7-9 (12/14/2024)
 

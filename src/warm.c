@@ -2,6 +2,7 @@
 #include <Rdefines.h>
 #include <time.h>
 #include "newS4object.h"
+#include "r_memcpy.h"
 
 // Iterate a bipartite graph of transactions (itemsets) and
 // items using the HITS algorithm with tolerance FLT_EPSILON.
@@ -68,7 +69,7 @@ SEXP R_hits_ngCMatrix(SEXP x, SEXP R_iter, SEXP R_tol, SEXP R_verbose) {
   z = 0;
   j = INTEGER(R_iter)[0];
   while (j--) {
-    memset(z0, 0, sizeof(double) * nr);
+    r_memset(z0, 0, sizeof(double) * nr);
     f = 0;
     for (i = 1; i < nc+1; i++) {
       l = px[i];
@@ -129,7 +130,7 @@ SEXP R_rowWSums_ngCMatrix(SEXP x, SEXP R_weight) {
   ix = getAttrib(x, install("i"));
   
   PROTECT(r = allocVector(REALSXP, nr));
-  memset(REAL(r), 0, sizeof(double) * nr);
+  r_memset(REAL(r), 0, sizeof(double) * nr);
   
   f = 0;
   for (i = 1; i < LENGTH(px); i++) {
@@ -456,12 +457,12 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
   
   SET_VECTOR_ELT(r, 0, (r0 = NEW_OBJECT_OF_CLASS("ngCMatrix")));
   setAttrib(r0, install("p"), PROTECT(r1 = allocVector(INTSXP, n + 1)));
-  memcpy(INTEGER(r1), pr, sizeof(int) * (n + 1));
+  r_memcpy(INTEGER(r1), pr, sizeof(int) * (n + 1));
   free(pr); pr = NULL;
   UNPROTECT(1);
   
   setAttrib(r0, install("i"), PROTECT(r1 = allocVector(INTSXP, ni)));
-  memcpy(INTEGER(r1), ir, sizeof(int) * ni);
+  r_memcpy(INTEGER(r1), ir, sizeof(int) * ni);
   free(ir); ir = NULL;
   UNPROTECT(1);
   
@@ -470,7 +471,7 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
   INTEGER(r1)[1] = n;
   
   SET_VECTOR_ELT(r, 1, (r0 = allocVector(REALSXP, n)));
-  memcpy(REAL(r0), sr, sizeof(double) * n);
+  r_memcpy(REAL(r0), sr, sizeof(double) * n);
   free(sr); sr = NULL;
   
 #ifdef _TIME_H
