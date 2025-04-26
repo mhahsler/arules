@@ -2,6 +2,7 @@
 
 ## Changes
 * Added cross-dissimilarity calculation for Euclidean distances. 
+* We use now the builtin R_chk_memcpy and R_chk_memset.
 
 # arules 1.7-10 (04/22/2025)
 

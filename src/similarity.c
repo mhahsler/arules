@@ -2,7 +2,6 @@
 #include <Rinternals.h>
 #include <Rdefines.h>
 #include "newS4object.h"
-#include "r_memcpy.h"
 
 // Compute auto- or cross-similarities over the columns
 // of ngCMatrix objects, using optional element weights.
@@ -95,11 +94,11 @@ SEXP R_similarity_ngCMatrix(SEXP x, SEXP y, SEXP R_method, SEXP R_weight) {
       
       PROTECT(t = ir);
       setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ir) * 2)));
-      r_memcpy(INTEGER(ir), INTEGER(t), sizeof(int) * n);
+      R_chk_memcpy(INTEGER(ir), INTEGER(t), sizeof(int) * n);
       
       PROTECT(t = xr);
       setAttrib(r, install("x"), PROTECT(xr = allocVector(REALSXP, LENGTH(ir))));
-      r_memcpy(REAL(xr), REAL(t), sizeof(double) * n);
+      R_chk_memcpy(REAL(xr), REAL(t), sizeof(double) * n);
       UNPROTECT(4);
     }
     
@@ -180,11 +179,11 @@ SEXP R_similarity_ngCMatrix(SEXP x, SEXP y, SEXP R_method, SEXP R_weight) {
     
     PROTECT(ix = ir);
     setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, n)));
-    r_memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * n);
+    R_chk_memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * n);
     
     PROTECT(ix = xr);
     setAttrib(r, install("x"), PROTECT(xr = allocVector(REALSXP, n)));
-    r_memcpy(REAL(xr), REAL(ix), sizeof(double) * n);
+    R_chk_memcpy(REAL(xr), REAL(ix), sizeof(double) * n);
     
     UNPROTECT(4);
   }

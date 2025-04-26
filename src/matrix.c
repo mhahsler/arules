@@ -2,7 +2,6 @@
 #include <R_ext/Utils.h>
 #include <Rdefines.h>
 #include "newS4object.h"
-#include "r_memcpy.h"
 
 /* arrayIndex.c */
 SEXP _int_array_subscript(int, SEXP, const char *, const char *, SEXP,
@@ -38,7 +37,7 @@ SEXP R_transpose_ngCMatrix(SEXP x) {
   setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix))));
   UNPROTECT(2);
   
-  r_memset(INTEGER(pr), 0, sizeof(int) * (nr+1));
+  R_chk_memset(INTEGER(pr), 0, sizeof(int) * (nr+1));
   
   for (k = 0; k < LENGTH(ix); k++)
     INTEGER(pr)[INTEGER(ix)[k]]++;
@@ -142,7 +141,7 @@ SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t) {
   
   PROTECT(r = allocMatrix(INTSXP, nr, nc));
   nprotect++;
-  r_memset(INTEGER(r), 0, sizeof(int) * nr * nc);
+  R_chk_memset(INTEGER(r), 0, sizeof(int) * nr * nc);
   
   fx = fy = 0;
   for (i = 1; i < LENGTH(px); i++) {
@@ -190,7 +189,7 @@ SEXP R_rowSums_ngCMatrix(SEXP x) {
     error("'x' not of class 'ngCMatrix'");
   
   PROTECT(r = allocVector(INTSXP, nr));
-  r_memset(INTEGER(r), 0, sizeof(int) * nr);
+  R_chk_memset(INTEGER(r), 0, sizeof(int) * nr);
   
   for (k = 0; k < LENGTH(ix); k++)
     INTEGER(r)[INTEGER(ix)[k]]++;
@@ -417,14 +416,14 @@ SEXP R_cbind_ngCMatrix(SEXP x, SEXP y) {
   setAttrib(r, install("p"), PROTECT(pr = allocVector(INTSXP, LENGTH(px)+LENGTH(py)-1)));
   setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, LENGTH(ix)+LENGTH(iy))));
   
-  r_memcpy(INTEGER(pr), INTEGER(px), sizeof(int) * LENGTH(px));
+  R_chk_memcpy(INTEGER(pr), INTEGER(px), sizeof(int) * LENGTH(px));
   n = LENGTH(px);
   k = INTEGER(px)[n-1];
   for (i = 1; i < LENGTH(py); i++)
     INTEGER(pr)[n++] = INTEGER(py)[i] + k;
   
-  r_memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * LENGTH(ix));
-  r_memcpy(INTEGER(ir)+LENGTH(ix), INTEGER(iy), sizeof(int) * LENGTH(iy));
+  R_chk_memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * LENGTH(ix));
+  R_chk_memcpy(INTEGER(ir)+LENGTH(ix), INTEGER(iy), sizeof(int) * LENGTH(iy));
   
   setAttrib(r, install("Dim"), PROTECT(ir = allocVector(INTSXP, 2)));
   INTEGER(ir)[0] = nr;
@@ -617,7 +616,7 @@ SEXP R_or_ngCMatrix(SEXP x, SEXP y) {
   if (n < LENGTH(ir)) {
     PROTECT(ix = ir);
     setAttrib(r, install("i"), PROTECT(ir = allocVector(INTSXP, n)));
-    r_memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * n);
+    R_chk_memcpy(INTEGER(ir), INTEGER(ix), sizeof(int) * n);
     
     UNPROTECT(2);
   }
