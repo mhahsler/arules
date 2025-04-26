@@ -48,6 +48,7 @@ RoxygenNote: 7.3.2
 Collate: 
     'AAADefs.R'
     'AAA_arules-package.R'
+    'AAA_check_installed.R'
     'Adult.R'
     'itemMatrix.R'
     'associations.R'
@@ -68,7 +69,6 @@ Collate:
     'appearance.R'
     'apriori.R'
     'c.R'
-    'check_installed.R'
     'confint.R'
     'control.R'
     'coverage.R'
