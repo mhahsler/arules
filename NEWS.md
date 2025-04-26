@@ -1,3 +1,8 @@
+# arules 1.7-10-1 (xx/xx/2025)
+
+## Changes
+* Added cross-dissimilarity calculation for Euclidean distances. 
+
 # arules 1.7-10 (04/22/2025)
 
 ## Changes

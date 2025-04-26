@@ -309,11 +309,20 @@ setMethod(
 
       ## Euclidean is special too
     } else if (ind == 6) {
-      if (cross) {
-        stop("Euclidean cross-distance not implemented.")
+      
+      
+      if (!cross)
+        dist <- dist(x, method = "euclidean")
+      else {
+        ### TODO: this could be done sparse!
+        c <- tcrossprod(x, y)
+        a <- rowSums(x)
+        b <- rowSums(y)
+        
+        dist <- (outer(a, b, "+") - 2* c) ^.5
+        dist <- new("ar_cross_dissimilarity", dist)
       }
-
-      dist <- dist(x, method = "euclidean")
+       
 
       ## Pearson correlation coefficient (Note: cor is calculated
       ##    between columns and we only use pos. correlation)
