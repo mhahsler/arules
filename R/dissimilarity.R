@@ -17,19 +17,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#########################################################################
-## dissimilarity is currently implemented using dense matrices
-##
-## Memory usage of dissimilarity with  "jaccard", "matching" ore "dice"
-## (on a 32 bit machine)
-##
-## input: x and y (integer, 4 byte)
-## intermediate: 4 matrices size nx x ny (double, 8 byte)
-## result: either 1 dist nx x ny /2 or full matrix for crossdissim.
-##
-## total w/o input: about 5 * nx * ny * 8 byte
-
-
 #' Classes dist, ar_cross_dissimilarity and ar_similarity --- Proximity
 #' Matrices
 #'
@@ -217,6 +204,177 @@ setGeneric(
   }
 )
 
+# this works with dense and sparse dgCMatrix matrices!
+dissimilarity_internal <- function(x, y = NULL, method = NULL, args = NULL) {
+  ## cross dissimilarities? Check y
+  if (is.null(y)) {
+    y <- x
+    cross <- FALSE
+  } else {
+    cross <- TRUE
+  }
+  
+  builtin_methods <- c(
+    "affinity",
+    "jaccard",
+    "matching",
+    "dice",
+    "cosine",
+    "euclidean",
+    "pearson",
+    "phi"
+  )
+  
+  if (is.null(method)) {
+    ind <- 2
+  } # Jaccard is standard
+  else if (is.na(ind <- pmatch(
+    tolower(method),
+    tolower(builtin_methods)
+  ))) {
+    stop(
+      gettextf(
+        "Value '%s' is not a valid abbreviation for a similarity method.",
+        method
+      ),
+      domain = NA
+    )
+  }
+  
+  method <- builtin_methods[ind]
+  
+  ## affinity is special!
+  if (ind == 1) {
+    ## Affinity.
+    ## for rules and itemsets we need transactions or affinities
+    
+    ## given affinities or transactions? Otherwise, calculate!
+    if (!is.null(args$aff)) {
+      affinities <- args$aff
+    } else if (!is.null(args$trans)) {
+      affinities <- affinity(args$trans)
+    } else {
+      affinities <- affinity(as(x, "matrix"))
+    }
+    
+    ## Normalize transaction incidences by transaction length.
+    x <- x / pmax(rowSums(x), 1)
+    
+    if (!cross) {
+      dist <- 1 - stats::as.dist(x %*% affinities %*% t(x))
+    } else {
+      y <- y / pmax(rowSums(y), 1)
+      dist <- new(
+        "ar_cross_dissimilarity",
+        1 - x %*% affinities %*% t(y)
+      )
+    }
+    
+    ## Euclidean
+  } else if (ind == 6) {
+    c <- tcrossprod(x, y)
+    a <- rowSums(x)
+    b <- rowSums(y)
+    
+    dist <- (outer(a, b, "+") - 2* c) ^.5
+    
+    ## Pearson correlation coefficient (Note: cor is calculated
+    ##    between columns and we only use pos. correlation)
+    ## Phi is the same as pearson
+  } else if (ind == 7 || ind == 8) {
+    if (!cross) {
+      ## warnings for zero variance!
+      suppressWarnings(cm <- stats::cor(t(as(x, "matrix")), 
+                                        method = "pearson"))
+      ## pairwise complete is very slow
+      # cm <- stats::cor(t(x), method = "pearson",
+      # 	  use="pairwise.complete.obs")
+      cm[cm < 0 | is.na(cm)] <- 0
+      dist <- stats::as.dist(1 - cm)
+    } else {
+      suppressWarnings(cm <- stats::cor(t(as(x, "matrix")), 
+                                        t(as(y, "matrix")), 
+                                        method = "pearson"))
+      # cm <- stats::cor(t(x), t(y), method = "pearson",
+      # 	use="pairwise.complete.obs")
+      cm[cm < 0 | is.na(cm)] <- 0
+      dist <- new("ar_cross_dissimilarity", 1 - cm)
+    }
+  } else {
+    if (!cross) {
+      y <- x
+    }
+    
+    ## prepare a, b, c, d (response table) for the rest of measures
+    ## see: Gower, J. C. and P. Legendre.  1986.  Metric and
+    ## Euclidean properties of dissimilarity coefficients.
+    ## J. Classif. 3: 5 - 48.
+    # a <- x %*% t(y)
+    a <- tcrossprod(x, y)
+    
+    ## save some memory
+    # b <- x %*% (1 - t(y))
+    # c <- (1 - x) %*% t(y)
+    # d <- ncol(x) - a - b - c
+    
+    # even faster code adapted from Leisch (2005): A toolbox for
+    # K-centroids cluster analysis, Preprint.
+    nx <- nrow(x)
+    ny <- nrow(y)
+    
+    c <- matrix(rowSums(x), nrow = nx, ncol = ny) - a
+    b <-
+      matrix(rowSums(y),
+             nrow = nx,
+             ncol = ny,
+             byrow = TRUE
+      ) - a
+    
+    # a_b_c <- matrix(rowSums(x), nrow = nx, ncol = ny) +
+    # matrix(rowSums(y), nrow = nx, ncol = ny, byrow = TRUE) - a
+    
+    
+    if (ind == 2) {
+      ## Jaccard == binary (Sneath, 1957)
+      # dist <- dist(as(x, "matrix"), "binary")
+      
+      dist <- 1 - a / (a + b + c)
+      # dist <- 1 - (a/a_b_c)
+    } else if (ind == 3) {
+      ## Matching Coefficient (Sokal and Michener, 1958)
+      
+      # we need d only here
+      # d <- ncol(x) - a_b_c
+      d <- ncol(x) - (a + b + c)
+      
+      dist <- 1 - (a + d) / (a + b + c + d)
+      # dist <- 1 - ((a + d) / (a_b_c + d))
+    } else if (ind == 4) {
+      ## Dice Coefficient (Dice, 1945)
+      dist <- 1 - 2 * a / (2 * a + b + c)
+      # dist <- 1 - 2 * a / (a + a_b_c)
+    } else if (ind == 5) {
+      ## Cosine
+      dist <- 1 - a / sqrt((a + b) * (a + c))
+    }
+  }
+  
+  # in case we divided by zero
+  dist[is.nan(dist)] <- 0
+  
+  if (!cross) {
+    # return a S3 "dist" object just add "ar_dissimilarity"
+    dist <- stats::as.dist(dist)
+    attr(dist, "method") <- method
+    # class(dist) <- c("ar_dissimilarity", class(dist))
+    return(dist)
+  } else {
+    # return a S4 "ar_cross_dist" object
+    dist <- new("ar_cross_dissimilarity", as(dist, "matrix"), method = method)
+    return(dist)
+  }
+}
+
 #' @rdname dissimilarity
 setMethod(
   "dissimilarity", signature(x = "matrix"),
@@ -246,177 +404,10 @@ setMethod(
       if (!is.zeroone(y)) {
         stop("y is not a binary matrix (0-1 or logical)!")
       }
-      cross <- TRUE
-    } else {
-      cross <- FALSE
     }
 
-    builtin_methods <- c(
-      "affinity",
-      "jaccard",
-      "matching",
-      "dice",
-      "cosine",
-      "euclidean",
-      "pearson",
-      "phi"
-    )
-
-    if (is.null(method)) {
-      ind <- 2
-    } # Jaccard is standard
-    else if (is.na(ind <- pmatch(
-      tolower(method),
-      tolower(builtin_methods)
-    ))) {
-      stop(
-        gettextf(
-          "Value '%s' is not a valid abbreviation for a similarity method.",
-          method
-        ),
-        domain = NA
-      )
-    }
-
-    method <- builtin_methods[ind]
-
-    ## affinity is special!
-    if (ind == 1) {
-      ## Affinity.
-      ## for rules and itemsets we need transactions or affinities
-
-      ## given affinities or transactions? Otherwise, calculate!
-      if (!is.null(args$aff)) {
-        affinities <- args$aff
-      } else if (!is.null(args$trans)) {
-        affinities <- affinity(args$trans)
-      } else {
-        affinities <- affinity(x)
-      }
-
-      ## Normalize transaction incidences by transaction length.
-      x <- x / pmax(rowSums(x), 1)
-
-      if (!cross) {
-        dist <- 1 - stats::as.dist(x %*% affinities %*% t(x))
-      } else {
-        y <- y / pmax(rowSums(y), 1)
-        dist <- new(
-          "ar_cross_dissimilarity",
-          1 - x %*% affinities %*% t(y)
-        )
-      }
-
-      ## Euclidean is special too
-    } else if (ind == 6) {
-      
-      
-      if (!cross)
-        dist <- dist(x, method = "euclidean")
-      else {
-        ### TODO: this could be done sparse!
-        c <- tcrossprod(x, y)
-        a <- rowSums(x)
-        b <- rowSums(y)
-        
-        dist <- (outer(a, b, "+") - 2* c) ^.5
-        dist <- new("ar_cross_dissimilarity", dist)
-      }
-       
-
-      ## Pearson correlation coefficient (Note: cor is calculated
-      ##    between columns and we only use pos. correlation)
-      ## Phi is the same as pearson
-    } else if (ind == 7 || ind == 8) {
-      if (!cross) {
-        ## warnings for zero variance!
-        suppressWarnings(cm <- stats::cor(t(x), method = "pearson"))
-        ## pairwise complete is very slow
-        # cm <- stats::cor(t(x), method = "pearson",
-        # 	  use="pairwise.complete.obs")
-        cm[cm < 0 | is.na(cm)] <- 0
-        dist <- stats::as.dist(1 - cm)
-      } else {
-        suppressWarnings(cm <- stats::cor(t(x), t(y), method = "pearson"))
-        # cm <- stats::cor(t(x), t(y), method = "pearson",
-        # 	use="pairwise.complete.obs")
-        cm[cm < 0 | is.na(cm)] <- 0
-        dist <- new("ar_cross_dissimilarity", 1 - cm)
-      }
-    } else {
-      if (!cross) {
-        y <- x
-      }
-
-      ## prepare a, b, c, d (response table) for the rest of measures
-      ## see: Gower, J. C. and P. Legendre.  1986.  Metric and
-      ## Euclidean properties of dissimilarity coefficients.
-      ## J. Classif. 3: 5 - 48.
-      # a <- x %*% t(y)
-      a <- tcrossprod(x, y)
-
-      ## save some memory
-      # b <- x %*% (1 - t(y))
-      # c <- (1 - x) %*% t(y)
-      # d <- ncol(x) - a - b - c
-
-      # even faster code adapted from Leisch (2005): A toolbox for
-      # K-centroids cluster analysis, Preprint.
-      nx <- nrow(x)
-      ny <- nrow(y)
-
-      c <- matrix(rowSums(x), nrow = nx, ncol = ny) - a
-      b <-
-        matrix(rowSums(y),
-          nrow = nx,
-          ncol = ny,
-          byrow = TRUE
-        ) - a
-
-      # a_b_c <- matrix(rowSums(x), nrow = nx, ncol = ny) +
-      # matrix(rowSums(y), nrow = nx, ncol = ny, byrow = TRUE) - a
-
-
-      if (ind == 2) {
-        ## Jaccard == binary (Sneath, 1957)
-        # dist <- dist(as(x, "matrix"), "binary")
-
-        dist <- 1 - a / (a + b + c)
-        # dist <- 1 - (a/a_b_c)
-      } else if (ind == 3) {
-        ## Matching Coefficient (Sokal and Michener, 1958)
-
-        # we need d only here
-        # d <- ncol(x) - a_b_c
-        d <- ncol(x) - (a + b + c)
-
-        dist <- 1 - (a + d) / (a + b + c + d)
-        # dist <- 1 - ((a + d) / (a_b_c + d))
-      } else if (ind == 4) {
-        ## Dice Coefficient (Dice, 1945)
-        dist <- 1 - 2 * a / (2 * a + b + c)
-        # dist <- 1 - 2 * a / (a + a_b_c)
-      } else if (ind == 5) {
-        ## Cosine
-        dist <- 1 - a / sqrt((a + b) * (a + c))
-      }
-    }
-
-    # in case we divided by zero
-    dist[is.nan(dist)] <- 0
-
-    if (!cross) {
-      # return a S3 "dist" object just add "ar_dissimilarity"
-      dist <- stats::as.dist(dist)
-      attr(dist, "method") <- method
-      # class(dist) <- c("ar_dissimilarity", class(dist))
-      return(dist)
-    } else {
-      # return a S4 "ar_cross_dist" object
-      dist <- new("ar_cross_dissimilarity", dist, method = method)
-      return(dist)
-    }
-  }
+    dissimilarity_internal(x, y, method = method, args = args)
+  }   
 )
 
 
@@ -430,29 +421,22 @@ setMethod(
       args = NULL,
       which = "transactions") {
     ## use items?
-    if (is.null(which)) {
-      which <- "transactions"
-    }
-    items <- pmatch(tolower(which), "items", nomatch = 0) == 1
+    which <- match.arg(which, c("transactions", "items"))
 
-    x <- as(x, "matrix")
-    if (items) {
-      x <- t(x)
-    }
+    x <- as(as(x, "ngCMatrix"), "dgCMatrix")
 
     if (!is.null(y)) {
-      y <- as(y, "matrix")
-      if (items) {
-        y <- t(y)
-      }
+      y <- as(as(y, "ngCMatrix"), "dgCMatrix")
     }
-
-    dissimilarity(
-      x = x,
-      y = y,
-      method = method,
-      args = args
-    )
+    
+    # note: ngCMatrix is stores transposed in itemMatrix!
+    if (which != "items") {
+      x <- t(x)
+      if (!is.null(y)) 
+        y <- t(y)
+    }
+        
+    dissimilarity_internal(x, y, method = method, args = args)
   }
 )
 
@@ -536,8 +520,7 @@ setMethod(
       }
     }
 
-
-    ## use methods for transactions
+    ## use methods for itemsets
     if (!is.null(y)) {
       y <- items(y)
     }
@@ -571,63 +554,3 @@ setMethod(
   tids
 }
 
-
-#' Computing Affinity Between Items
-#'
-#' Provides the generic function `affinity()` and methods to compute
-#' and return a similarity matrix with the affinities between items for a set
-#' itemsets stored in a matrix or in [transactions] via its superclass [itemMatrix].
-#'
-#' Affinity between the two items \eqn{i} and \eqn{j} is defined by Aggarwal et
-#' al. (2002) as \deqn{A(i,j) = \frac{supp(\{i,j\})}{supp(\{i\}) + supp(\{j\}) -
-#' supp(\{i,j\})},}{A(i,j) = supp({i,j})/(supp({i}) + supp({j}) - supp({i,j})),}
-#' where \eqn{supp(.)} is the support measure. Note that affinity is equivalent to the
-#' Jaccard similarity between items.
-#'
-#' @family proximity classes and functions
-#' @param x a matrix or an object of class [itemMatrix] or
-#'   [transactions] containing itemsets.
-#' @return returns an object of class [ar_similarity-class] which represents the
-#'   affinities between items in `x`.
-#' @author Michael Hahsler
-#' @references Charu C. Aggarwal, Cecilia Procopiuc, and Philip S. Yu (2002)
-#' Finding localized associations in market basket data, _IEEE Trans. on
-#' Knowledge and Data Engineering,_ 14(1):51--62.
-#' @keywords cluster models
-#' @examples
-#' data("Adult")
-#'
-#' ## choose a sample, calculate affinities
-#' s <- sample(Adult, 500)
-#' s
-#'
-#' a <- affinity(s)
-#' image(a)
-setGeneric(
-  "affinity",
-  function(x) {
-    standardGeneric("affinity")
-  }
-)
-
-
-#' @rdname affinity
-setMethod(
-  "affinity", signature(x = "matrix"),
-  function(x) {
-    ## Affinity is basically the Jaccard similarity between items
-    new("ar_similarity",
-      as.matrix(1 - dissimilarity(t(x), method = "Jaccard")),
-      method = "Affinity"
-    )
-    ## Fix: S4 as(..., "matrix") does not work
-  }
-)
-
-#' @rdname affinity
-setMethod(
-  "affinity", signature(x = "itemMatrix"),
-  function(x) {
-    affinity(as(x, "matrix"))
-  }
-)

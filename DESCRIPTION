@@ -66,6 +66,7 @@ Collate:
     'SunBai.R'
     'abbreviate.R'
     'addComplement.R'
+    'affinity.R'
     'appearance.R'
     'apriori.R'
     'c.R'

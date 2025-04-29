@@ -1,8 +1,10 @@
 # arules 1.7-10-1 (xx/xx/2025)
 
 ## Changes
-* Added cross-dissimilarity calculation for Euclidean distances. 
-* We use now the builtin R_chk_memcpy and R_chk_memset.
+* Added cross-dissimilarity calculation for Euclidean distances. Dissimilarities
+  are now computed on the sparse itemMatrix objects and tests were added.
+* We use now the built-in R_chk_memcpy and R_chk_memset.
+* Removed unused similarity.c
 
 # arules 1.7-10 (04/22/2025)
 
