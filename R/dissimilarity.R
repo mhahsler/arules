@@ -5,7 +5,7 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
+# the Free Software Foundation; either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
@@ -50,15 +50,13 @@ setOldClass("dist")
 
 #' @rdname proximity-classes
 setClass("ar_similarity",
-  contains = "matrix",
-  representation(method = "character")
-)
+         contains = "matrix",
+         representation(method = "character"))
 
 #' @rdname proximity-classes
 setClass("ar_cross_dissimilarity",
-  contains = "matrix",
-  representation(method = "character")
-)
+         contains = "matrix",
+         representation(method = "character"))
 
 
 #' Dissimilarity Matrix Computation for Associations and Transactions
@@ -114,8 +112,8 @@ setClass("ar_cross_dissimilarity",
 #'      to be passed on via `args` as element `"transactions"`.
 #'
 #' @param args a list of additional arguments for the methods.
-#' @param which a character string indicating if the dissimilarity should be
-#' calculated between transactions/associations (default) or items (use `"items"`).
+#' @param items logical; dissimilarity should be
+#' calculated between transactions/associations (default) or items.
 #' @param ... further arguments.
 #' @return returns an object of class `dist`.
 #' @author Michael Hahsler
@@ -152,14 +150,14 @@ setClass("ar_cross_dissimilarity",
 #' data("Groceries")
 #'
 #' s <- Groceries[, itemFrequency(Groceries) > 0.05]
-#' d_jaccard <- dissimilarity(s, which = "items")
+#' d_jaccard <- dissimilarity(s, items = TRUE)
 #' plot(hclust(d_jaccard, method = "ward.D2"), main = "Dendrogram for items")
 #'
 #' ## cluster transactions for a sample of Adult
 #' data("Adult")
 #' s <- sample(Adult, 500)
 #'
-#' ##  calculate Jaccard distances and do hclust
+#' ##  calculate Jaccard distances between sample transactions and do hclust
 #' d_jaccard <- dissimilarity(s)
 #' hc <- hclust(d_jaccard, method = "ward.D2")
 #' plot(hc, labels = FALSE, main = "Dendrogram for Transactions (Jaccard)")
@@ -192,20 +190,20 @@ setClass("ar_cross_dissimilarity",
 #' assign <- cutree(hc, k = 3)
 #' inspect(rules[assign == 1])
 #'
-setGeneric(
-  "dissimilarity",
-  function(
-      x,
-      y = NULL,
-      method = NULL,
-      args = NULL,
-      ...) {
-    standardGeneric("dissimilarity")
-  }
-)
+setGeneric("dissimilarity", function(x,
+                                     y = NULL,
+                                     method = NULL,
+                                     args = NULL,
+                                     items = FALSE,
+                                     ...) {
+  standardGeneric("dissimilarity")
+})
 
 # this works with dense and sparse dgCMatrix matrices!
-dissimilarity_internal <- function(x, y = NULL, method = NULL, args = NULL) {
+dissimilarity_internal <- function(x,
+                                   y = NULL,
+                                   method = NULL,
+                                   args = NULL) {
   ## cross dissimilarities? Check y
   if (is.null(y)) {
     y <- x
@@ -214,24 +212,19 @@ dissimilarity_internal <- function(x, y = NULL, method = NULL, args = NULL) {
     cross <- TRUE
   }
   
-  builtin_methods <- c(
-    "affinity",
-    "jaccard",
-    "matching",
-    "dice",
-    "cosine",
-    "euclidean",
-    "pearson",
-    "phi"
-  )
+  builtin_methods <- c("affinity",
+                       "jaccard",
+                       "matching",
+                       "dice",
+                       "cosine",
+                       "euclidean",
+                       "pearson",
+                       "phi")
   
   if (is.null(method)) {
     ind <- 2
   } # Jaccard is standard
-  else if (is.na(ind <- pmatch(
-    tolower(method),
-    tolower(builtin_methods)
-  ))) {
+  else if (is.na(ind <- pmatch(tolower(method), tolower(builtin_methods)))) {
     stop(
       gettextf(
         "Value '%s' is not a valid abbreviation for a similarity method.",
@@ -264,10 +257,7 @@ dissimilarity_internal <- function(x, y = NULL, method = NULL, args = NULL) {
       dist <- 1 - stats::as.dist(x %*% affinities %*% t(x))
     } else {
       y <- y / pmax(rowSums(y), 1)
-      dist <- new(
-        "ar_cross_dissimilarity",
-        1 - x %*% affinities %*% t(y)
-      )
+      dist <- new("ar_cross_dissimilarity", 1 - x %*% affinities %*% t(y))
     }
     
     ## Euclidean
@@ -276,34 +266,11 @@ dissimilarity_internal <- function(x, y = NULL, method = NULL, args = NULL) {
     a <- rowSums(x)
     b <- rowSums(y)
     
-    dist <- (outer(a, b, "+") - 2* c) ^.5
+    dist <- (outer(a, b, "+") - 2 * c)^.5
     
-    ## Pearson correlation coefficient (Note: cor is calculated
-    ##    between columns and we only use pos. correlation)
-    ## Phi is the same as pearson
-  } else if (ind == 7 || ind == 8) {
-    if (!cross) {
-      ## warnings for zero variance!
-      suppressWarnings(cm <- stats::cor(t(as(x, "matrix")), 
-                                        method = "pearson"))
-      ## pairwise complete is very slow
-      # cm <- stats::cor(t(x), method = "pearson",
-      # 	  use="pairwise.complete.obs")
-      cm[cm < 0 | is.na(cm)] <- 0
-      dist <- stats::as.dist(1 - cm)
-    } else {
-      suppressWarnings(cm <- stats::cor(t(as(x, "matrix")), 
-                                        t(as(y, "matrix")), 
-                                        method = "pearson"))
-      # cm <- stats::cor(t(x), t(y), method = "pearson",
-      # 	use="pairwise.complete.obs")
-      cm[cm < 0 | is.na(cm)] <- 0
-      dist <- new("ar_cross_dissimilarity", 1 - cm)
-    }
   } else {
-    if (!cross) {
+    if (!cross)
       y <- x
-    }
     
     ## prepare a, b, c, d (response table) for the rest of measures
     ## see: Gower, J. C. and P. Legendre.  1986.  Metric and
@@ -327,12 +294,10 @@ dissimilarity_internal <- function(x, y = NULL, method = NULL, args = NULL) {
       matrix(rowSums(y),
              nrow = nx,
              ncol = ny,
-             byrow = TRUE
-      ) - a
+             byrow = TRUE) - a
     
     # a_b_c <- matrix(rowSums(x), nrow = nx, ncol = ny) +
     # matrix(rowSums(y), nrow = nx, ncol = ny, byrow = TRUE) - a
-    
     
     if (ind == 2) {
       ## Jaccard == binary (Sneath, 1957)
@@ -356,9 +321,15 @@ dissimilarity_internal <- function(x, y = NULL, method = NULL, args = NULL) {
     } else if (ind == 5) {
       ## Cosine
       dist <- 1 - a / sqrt((a + b) * (a + c))
+    } else if (ind == 7 || ind == 8) {
+      ## phi and pearson correlation
+      d <- ncol(x) - (a + b + c)
+      phi <- ((b * c - a * d) / sqrt((a + b) * (c + d) * (a + c) * (b + d)))
+      phi[phi < 0] <- 0
+      dist <- 1 - phi
     }
+    
   }
-  
   # in case we divided by zero
   dist[is.nan(dist)] <- 0
   
@@ -367,171 +338,167 @@ dissimilarity_internal <- function(x, y = NULL, method = NULL, args = NULL) {
     dist <- stats::as.dist(dist)
     attr(dist, "method") <- method
     # class(dist) <- c("ar_dissimilarity", class(dist))
-    return(dist)
   } else {
     # return a S4 "ar_cross_dist" object
     dist <- new("ar_cross_dissimilarity", as(dist, "matrix"), method = method)
-    return(dist)
   }
+  
+  dist
 }
 
 #' @rdname dissimilarity
-setMethod(
-  "dissimilarity", signature(x = "matrix"),
-  function(
-      x,
-      y = NULL,
-      method = NULL,
-      args = NULL) {
-    ## Compute dissimilarities on binary data
-
-    ## make sure the input is a 0-1 matrix or a logical matrix
-    is.zeroone <- function(x) {
-      (all(x == 0 | x == 1))
+setMethod("dissimilarity", signature(x = "matrix"), function(x,
+                                                             y = NULL,
+                                                             method = NULL,
+                                                             args = NULL, 
+                                                             items = FALSE,
+                                                             ...) {
+  .nodots(...)
+  ## Compute dissimilarities on binary data
+  
+  ## make sure the input is a 0-1 matrix or a logical matrix
+  is.zeroone <- function(x) {
+    (all(x == 0 | x == 1))
+  }
+  
+  storage.mode(x) <- "numeric"
+  if (!is.zeroone(x)) {
+    stop("x is not a binary matrix (0-1 or logical)!")
+  }
+  
+  ## cross dissimilarities? Check y
+  if (!is.null(y)) {
+    if (!is.matrix(y)) {
+      stop("'y' not a matrix")
     }
-
-    storage.mode(x) <- "numeric"
-    if (!is.zeroone(x)) {
-      stop("x is not a binary matrix (0-1 or logical)!")
+    storage.mode(y) <- "numeric"
+    if (!is.zeroone(y)) {
+      stop("y is not a binary matrix (0-1 or logical)!")
     }
-
-    ## cross dissimilarities? Check y
-    if (!is.null(y)) {
-      if (!is.matrix(y)) {
-        stop("'y' not a matrix")
-      }
-      storage.mode(y) <- "numeric"
-      if (!is.zeroone(y)) {
-        stop("y is not a binary matrix (0-1 or logical)!")
-      }
-    }
-
-    dissimilarity_internal(x, y, method = method, args = args)
-  }   
-)
+  }
+  
+  if (items) {
+    x <- t(x)
+    if (!is.null(y))
+      y <- t(y)
+  }
+  
+  dissimilarity_internal(x, y, method = method, args = args)
+})
 
 
 #' @rdname dissimilarity
-setMethod(
-  "dissimilarity", signature(x = "itemMatrix"),
-  function(
-      x,
-      y = NULL,
-      method = NULL,
-      args = NULL,
-      which = "transactions") {
-    ## use items?
-    which <- match.arg(which, c("transactions", "items"))
+setMethod("dissimilarity", signature(x = "itemMatrix"), function(x,
+                                                                 y = NULL,
+                                                                 method = NULL,
+                                                                 args = NULL, 
+                                                                 items = FALSE,
+                                                                 ...) {
+  .nodots(...)
+  
+  x <- as(as(x, "ngCMatrix"), "dgCMatrix")
+  
+  if (!is.null(y)) {
+    y <- as(as(y, "ngCMatrix"), "dgCMatrix")
+  }
+  
+  # note: ngCMatrix is stores transposed in itemMatrix!
+  if (!items) {
+    x <- t(x)
+    if (!is.null(y))
+      y <- t(y)
+  }
+  
+  dissimilarity_internal(x, y, method = method, args = args)
+})
 
-    x <- as(as(x, "ngCMatrix"), "dgCMatrix")
-
+#' @rdname dissimilarity
+setMethod("dissimilarity", signature(x = "associations"), function(x,
+                                                                   y = NULL,
+                                                                   method = NULL,
+                                                                   args = NULL,
+                                                                   items = FALSE,
+                                                                   ...) {
+  .nodots(...)
+  
+  if (is.null(method)) {
+    method <- "jaccard"
+  } # Jaccard is standard
+  
+  builtin_methods <- c("gupta", "toivonen")
+  
+  if (!is.na(ind <- pmatch(tolower(method), tolower(builtin_methods)))) {
+    method <- builtin_methods[ind]
     if (!is.null(y)) {
-      y <- as(as(y, "ngCMatrix"), "dgCMatrix")
+      stop("Cross dissimilarities not implemented for this method!")
+    }
+    trans <- args$trans
+    if (is.null(trans)) {
+      stop("Transactions needed in args for this method!")
     }
     
-    # note: ngCMatrix is stores transposed in itemMatrix!
-    if (which != "items") {
-      x <- t(x)
-      if (!is.null(y)) 
-        y <- t(y)
+    if (ind == 1) {
+      ## gupta: use tidlist intersection
+      
+      ## FIXME: tidlist operations should be made functions
+      
+      ## calculate tidlist for rules
+      tids <- .associationTidLists(x, trans)
+      
+      m_X <- sapply(tids, length)
+      n <- length(x)
+      
+      m <- matrix(nrow = n, ncol = n)
+      for (i in 1:n) {
+        for (j in i:n) {
+          m_XiXj <- length(intersect(tids[[i]], tids[[j]]))
+          m[i, j] <- 1 - m_XiXj / (m_X[i] + m_X[j] - m_XiXj)
+          m[j, i] <- m[i, j] ## dists are symmetric
+        }
+      }
+      
+      dist <- stats::as.dist(m)
+      attr(dist, "method") <- method
+      return(dist)
+    } else {
+      ## toivonen
+      
+      ## only one RHS allowed
+      if (length(unique(rhs(x))) != 1) {
+        stop("Only a single RHS allowed for this method!")
+      }
+      
+      ## calculate tidlist for rules
+      tids <- .associationTidLists(x, trans)
+      
+      m_X <- sapply(tids, length)
+      n <- length(x)
+      
+      m <- matrix(nrow = n, ncol = n)
+      for (i in 1:n) {
+        for (j in i:n) {
+          m_XiXj <- length(intersect(tids[[i]], tids[[j]]))
+          m[i, j] <- m_X[i] + m_X[j] - 2 * m_XiXj
+          m[j, i] <- m[i, j] ## dists are symmetric
+        }
+      }
+      
+      dist <- stats::as.dist(m)
+      attr(dist, "method") <- method
+      return(dist)
     }
-        
-    dissimilarity_internal(x, y, method = method, args = args)
   }
-)
-
-#' @rdname dissimilarity
-setMethod(
-  "dissimilarity", signature(x = "associations"),
-  function(
-      x,
-      y = NULL,
-      method = NULL,
-      args = NULL,
-      which = "associations") {
-    if (is.null(method)) {
-      method <- "jaccard"
-    } # Jaccard is standard
-
-    builtin_methods <- c("gupta", "toivonen")
-
-    if (!is.na(ind <- pmatch(
-      tolower(method),
-      tolower(builtin_methods)
-    ))) {
-      method <- builtin_methods[ind]
-      if (!is.null(y)) {
-        stop("Cross dissimilarities not implemented for this method!")
-      }
-      trans <- args$trans
-      if (is.null(trans)) {
-        stop("Transactions needed in args for this method!")
-      }
-
-      if (ind == 1) {
-        ## gupta: use tidlist intersection
-
-        ## FIXME: tidlist operations should be made functions
-
-        ## calculate tidlist for rules
-        tids <- .associationTidLists(x, trans)
-
-        m_X <- sapply(tids, length)
-        n <- length(x)
-
-        m <- matrix(nrow = n, ncol = n)
-        for (i in 1:n) {
-          for (j in i:n) {
-            m_XiXj <- length(intersect(tids[[i]], tids[[j]]))
-            m[i, j] <- 1 - m_XiXj / (m_X[i] + m_X[j] - m_XiXj)
-            m[j, i] <- m[i, j] ## dists are symmetric
-          }
-        }
-
-        dist <- stats::as.dist(m)
-        attr(dist, "method") <- method
-        return(dist)
-      } else {
-        ## toivonen
-
-        ## only one RHS allowed
-        if (length(unique(rhs(x))) != 1) {
-          stop("Only a single RHS allowed for this method!")
-        }
-
-        ## calculate tidlist for rules
-        tids <- .associationTidLists(x, trans)
-
-        m_X <- sapply(tids, length)
-        n <- length(x)
-
-        m <- matrix(nrow = n, ncol = n)
-        for (i in 1:n) {
-          for (j in i:n) {
-            m_XiXj <- length(intersect(tids[[i]], tids[[j]]))
-            m[i, j] <- m_X[i] + m_X[j] - 2 * m_XiXj
-            m[j, i] <- m[i, j] ## dists are symmetric
-          }
-        }
-
-        dist <- stats::as.dist(m)
-        attr(dist, "method") <- method
-        return(dist)
-      }
-    }
-
-    ## use methods for itemsets
-    if (!is.null(y)) {
-      y <- items(y)
-    }
-    dissimilarity(items(x),
-      y,
-      method = method,
-      args = args,
-      which = which
-    )
+  
+  ## use methods for itemsets
+  if (!is.null(y)) {
+    y <- items(y)
   }
-)
+  dissimilarity(items(x),
+                y,
+                method = method,
+                items = items,
+                args = args)
+})
 
 
 ## helper to compute tidLists for associations
@@ -539,7 +506,7 @@ setMethod(
 .associationTidLists <- function(x, trans) {
   I <- LIST(items(x), decode = FALSE)
   tlists <- LIST(as(trans, "tidLists"), decode = FALSE)
-
+  
   tids <- list()
   for (i in seq_len(length(I))) {
     v <- I[[i]]
@@ -550,7 +517,6 @@ setMethod(
       }
     }
   }
-
+  
   tids
 }
-

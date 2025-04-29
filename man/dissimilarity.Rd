@@ -8,13 +8,13 @@
 \alias{dissimilarity,associations-method}
 \title{Dissimilarity Matrix Computation for Associations and Transactions}
 \usage{
-dissimilarity(x, y = NULL, method = NULL, args = NULL, ...)
+dissimilarity(x, y = NULL, method = NULL, args = NULL, items = FALSE, ...)
 
-\S4method{dissimilarity}{matrix}(x, y = NULL, method = NULL, args = NULL)
+\S4method{dissimilarity}{matrix}(x, y = NULL, method = NULL, args = NULL, items = FALSE, ...)
 
-\S4method{dissimilarity}{itemMatrix}(x, y = NULL, method = NULL, args = NULL, which = "transactions")
+\S4method{dissimilarity}{itemMatrix}(x, y = NULL, method = NULL, args = NULL, items = FALSE, ...)
 
-\S4method{dissimilarity}{associations}(x, y = NULL, method = NULL, args = NULL, which = "associations")
+\S4method{dissimilarity}{associations}(x, y = NULL, method = NULL, args = NULL, items = FALSE, ...)
 }
 \arguments{
 \item{x}{the set of elements (e.g., \code{matrix}, \link{itemMatrix}, \link{transactions},
@@ -63,10 +63,10 @@ to be passed on via \code{args} as element \code{"transactions"}.
 
 \item{args}{a list of additional arguments for the methods.}
 
-\item{...}{further arguments.}
+\item{items}{logical; dissimilarity should be
+calculated between transactions/associations (default) or items.}
 
-\item{which}{a character string indicating if the dissimilarity should be
-calculated between transactions/associations (default) or items (use \code{"items"}).}
+\item{...}{further arguments.}
 }
 \value{
 returns an object of class \code{dist}.
@@ -84,14 +84,14 @@ introduction to distance-based clustering of association rules.
 data("Groceries")
 
 s <- Groceries[, itemFrequency(Groceries) > 0.05]
-d_jaccard <- dissimilarity(s, which = "items")
+d_jaccard <- dissimilarity(s, items = TRUE)
 plot(hclust(d_jaccard, method = "ward.D2"), main = "Dendrogram for items")
 
 ## cluster transactions for a sample of Adult
 data("Adult")
 s <- sample(Adult, 500)
 
-##  calculate Jaccard distances and do hclust
+##  calculate Jaccard distances between sample transactions and do hclust
 d_jaccard <- dissimilarity(s)
 hc <- hclust(d_jaccard, method = "ward.D2")
 plot(hc, labels = FALSE, main = "Dendrogram for Transactions (Jaccard)")

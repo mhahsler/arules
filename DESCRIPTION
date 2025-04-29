@@ -49,6 +49,7 @@ Collate:
     'AAADefs.R'
     'AAA_arules-package.R'
     'AAA_check_installed.R'
+    'AAA_nodots.R'
     'Adult.R'
     'itemMatrix.R'
     'associations.R'

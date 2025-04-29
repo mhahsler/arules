@@ -43,7 +43,7 @@ setMethod(
   function(x) {
     ## Affinity is equivalent to the Jaccard similarity between items
     new("ar_similarity",
-        as.matrix(1 - dissimilarity(t(x), method = "Jaccard")),
+        as.matrix(1 - dissimilarity(x, method = "jaccard", items = TRUE)),
         method = "Affinity"
     )
     ## Fix: S4 as(..., "matrix") does not work
@@ -56,7 +56,7 @@ setMethod(
   function(x) {
     #affinity(as(x, "matrix"))
     new("ar_similarity",
-        as(1 - dissimilarity(x, method = "jaccard", which = "items"), "matrix"),
+        as(1 - dissimilarity(x, method = "jaccard", items = TRUE), "matrix"),
         method = "Affinity"
     )
   }
