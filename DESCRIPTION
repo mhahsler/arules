@@ -46,9 +46,9 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Collate: 
-    'AAADefs.R'
     'AAA_arules-package.R'
     'AAA_check_installed.R'
+    'AAA_definitions.R'
     'AAA_nodots.R'
     'Adult.R'
     'itemMatrix.R'
