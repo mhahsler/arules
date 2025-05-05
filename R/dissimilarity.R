@@ -396,10 +396,10 @@ setMethod("dissimilarity", signature(x = "itemMatrix"), function(x,
                                                                  ...) {
   .nodots(...)
   
-  x <- as(as(x, "ngCMatrix"), "dgCMatrix")
+  x <- as(as(x, "ngCMatrix"), "dMatrix")
   
   if (!is.null(y)) {
-    y <- as(as(y, "ngCMatrix"), "dgCMatrix")
+    y <- as(as(y, "ngCMatrix"), "dMatrix")
   }
   
   # note: ngCMatrix is stores transposed in itemMatrix!
