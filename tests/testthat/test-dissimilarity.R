@@ -46,3 +46,4 @@ expect_equal(attr(d, "Size"), ncol(trans))
 
 d <- dissimilarity(trans, trans, method = "jaccard", items = TRUE)
 expect_equal(nrow(d), ncol(trans))
+

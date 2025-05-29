@@ -128,8 +128,8 @@ Recommendation/Prediction
   creating predictions using association rules.
 
 The following R packages use `arules`:
-[aPEAR](https://CRAN.R-project.org/package=aPEAR),
 [arc](https://CRAN.R-project.org/package=arc),
+[arlclustering](https://CRAN.R-project.org/package=arlclustering),
 [arulesCBA](https://CRAN.R-project.org/package=arulesCBA),
 [arulesNBMiner](https://CRAN.R-project.org/package=arulesNBMiner),
 [arulesSequences](https://CRAN.R-project.org/package=arulesSequences),
@@ -145,6 +145,7 @@ The following R packages use `arules`:
 [ibmdbR](https://CRAN.R-project.org/package=ibmdbR),
 [immcp](https://CRAN.R-project.org/package=immcp),
 [inTrees](https://CRAN.R-project.org/package=inTrees),
+[nuggets](https://CRAN.R-project.org/package=nuggets),
 [opusminer](https://CRAN.R-project.org/package=opusminer),
 [pmml](https://CRAN.R-project.org/package=pmml),
 [qCBA](https://CRAN.R-project.org/package=qCBA),
@@ -154,6 +155,7 @@ The following R packages use `arules`:
 [recommenderlab](https://CRAN.R-project.org/package=recommenderlab),
 [rgnoisefilt](https://CRAN.R-project.org/package=rgnoisefilt),
 [RKEEL](https://CRAN.R-project.org/package=RKEEL),
+[RulesTools](https://CRAN.R-project.org/package=RulesTools),
 [sbrl](https://CRAN.R-project.org/package=sbrl),
 [SurvivalTests](https://CRAN.R-project.org/package=SurvivalTests),
 [TELP](https://CRAN.R-project.org/package=TELP)
@@ -210,7 +212,7 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## Absolute minimum support count: 899 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
+    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
     ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
@@ -254,14 +256,17 @@ library("arules")
 data("IncomeESL")
 
 trans <- IncomeESL |>
-    select(-`ethnic classification`) |>
-    transactions()
+  select(-`ethnic classification`) |>
+  transactions()
 rules <- trans |>
-    apriori(supp = 0.1, conf = 0.9, target = "rules", control = list(verbose = FALSE))
+  apriori(
+    supp = 0.1, conf = 0.9, target = "rules",
+    control = list(verbose = FALSE)
+  )
 rules |>
-    head(3, by = "lift") |>
-    as("data.frame") |>
-    tibble()
+  head(3, by = "lift") |>
+  as("data.frame") |>
+  tibble()
 ```
 
     ## # A tibble: 3 × 6

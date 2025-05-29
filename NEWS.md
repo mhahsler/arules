@@ -1,4 +1,4 @@
-# arules 1.7-10-1 (xx/xx/2025)
+# arules 1.7-11 (05/28/2025)
 
 ## Changes
 * dissimilarity(): The parameter which is now replaced with the logical items. 
