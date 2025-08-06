@@ -242,10 +242,10 @@ dissimilarity_internal <- function(x,
     ## for rules and itemsets we need transactions or affinities
     
     ## given affinities or transactions? Otherwise, calculate!
-    if (!is.null(args$aff)) {
-      affinities <- args$aff
-    } else if (!is.null(args$trans)) {
-      affinities <- affinity(args$trans)
+    if (!is.null(args$affinities)) {
+      affinities <- args$affinities
+    } else if (!is.null(args$transactions)) {
+      affinities <- affinity(args$transactions)
     } else {
       affinities <- affinity(as(x, "matrix"))
     }
@@ -432,7 +432,7 @@ setMethod("dissimilarity", signature(x = "associations"), function(x,
     if (!is.null(y)) {
       stop("Cross dissimilarities not implemented for this method!")
     }
-    trans <- args$trans
+    trans <- args$transactions
     if (is.null(trans)) {
       stop("Transactions needed in args for this method!")
     }

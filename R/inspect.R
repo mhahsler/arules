@@ -137,7 +137,7 @@ setMethod(
 
 
       ## Remaining columns: quality measures.
-      for (i in seq(length = NCOL(quality))) {
+      for (i in seq_len(NCOL(quality))) {
         tmp <- rep.int("", n_of_rows + 1)
         tmp[1] <- names(quality)[i]
         tmp[entry_end_pos + 1] <- format(quality[[i]])
@@ -258,7 +258,7 @@ setMethod(
         format(c("rhs", paste(pre, tmp, post, sep = "")[-1]))
 
       ## Remaining columns: quality measures.
-      for (i in seq(length = NCOL(quality))) {
+      for (i in seq_len(NCOL(quality))) {
         tmp <- rep.int("", n_of_rows)
         tmp[1] <- names(quality)[i]
         tmp[entry_end_pos] <- format(quality[[i]])
@@ -346,7 +346,7 @@ setMethod(
 
 
       ## Remaining columns: transactionInfo.
-      for (i in seq(length = NCOL(transactionInfo))) {
+      for (i in seq_len(NCOL(transactionInfo))) {
         tmp <- rep.int("", n_of_rows + 1)
         tmp[1] <- names(transactionInfo)[i]
         tmp[entry_end_pos + 1] <- format(transactionInfo[[i]])
