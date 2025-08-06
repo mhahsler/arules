@@ -94,7 +94,7 @@ adding the pattern to the transaction.
 ## using the method described in Hahsler et al. (2006).
 trans <- random.transactions(
   nItems = 200, nTrans = 1000,
-  lambda = 5, iProb = seq(0.2, 0.0001, length = 200)
+  lambda = 5, iProb = seq(0.2, 0.0001, length.out = 200)
 )
 
 ## size distribution

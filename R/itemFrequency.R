@@ -355,7 +355,7 @@ setMethod(
   on.exit(graphics::par(mai = op.mai))
 
   midpoints <- graphics::barplot(height,
-    las = 2, cex.name = cex.names, horiz = TRUE,
+    las = 2, cex.names = cex.names, horiz = TRUE,
     xlab = xlab, ylab = ylab, ...
   )
 

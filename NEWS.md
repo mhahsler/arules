@@ -1,3 +1,8 @@
+# arules 1.7-11.1 (?)
+
+## Changes
+* Fixed partial argument matches.
+
 # arules 1.7-11 (05/28/2025)
 
 ## Changes
