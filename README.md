@@ -1,13 +1,14 @@
 
 # <img src="man/figures/logo.svg" align="right" height="139" /> R package arules - Mining Association Rules and Frequent Itemsets
 
-[![r-universe
-status](https://mhahsler.r-universe.dev/badges/arules)](https://mhahsler.r-universe.dev/arules)
 [![Package on
 CRAN](https://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org/package=arules)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/arules)](https://CRAN.R-project.org/package=arules)
+![License](https://img.shields.io/cran/l/arules)
 [![Anaconda.org](https://anaconda.org/conda-forge/r-arules/badges/version.svg)](https://anaconda.org/conda-forge/r-arules)
+[![r-universe
+status](https://mhahsler.r-universe.dev/badges/arules)](https://mhahsler.r-universe.dev/arules)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-arules-orange.svg)](https://stackoverflow.com/questions/tagged/arules)
 
 ## Introduction
@@ -66,7 +67,7 @@ To cite package ‘arules’ in publications use:
   interest measures.
 - [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of
   association rules.
-- [arulesCBA](https://github.com/ianstenbit/arulesCBA): Classification
+- [arulesCBA](https://github.com/mhahsler/arulesCBA): Classification
   algorithms based on association rules (includes CBA).  
 - [arulesSequences](https://cran.r-project.org/package=arulesSequences):
   Mining frequent sequences (cSPADE).
@@ -147,6 +148,7 @@ The following R packages use `arules`:
 [inTrees](https://CRAN.R-project.org/package=inTrees),
 [nuggets](https://CRAN.R-project.org/package=nuggets),
 [opusminer](https://CRAN.R-project.org/package=opusminer),
+[pervasive](https://CRAN.R-project.org/package=pervasive),
 [pmml](https://CRAN.R-project.org/package=pmml),
 [qCBA](https://CRAN.R-project.org/package=qCBA),
 [RareComb](https://CRAN.R-project.org/package=RareComb),
@@ -212,7 +214,7 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## Absolute minimum support count: 899 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
+    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
     ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
@@ -224,6 +226,9 @@ Inspect the rules with the highest lift.
 ``` r
 inspect(head(rules, n = 3, by = "lift"))
 ```
+
+    ## Warning in seq.default(length = NCOL(quality)): partial argument match of
+    ## 'length' to 'length.out'
 
     ##     lhs                           rhs                      support confidence coverage lift count
     ## [1] {dual incomes=no,                                                                            
@@ -256,17 +261,14 @@ library("arules")
 data("IncomeESL")
 
 trans <- IncomeESL |>
-  select(-`ethnic classification`) |>
-  transactions()
+    select(-`ethnic classification`) |>
+    transactions()
 rules <- trans |>
-  apriori(
-    supp = 0.1, conf = 0.9, target = "rules",
-    control = list(verbose = FALSE)
-  )
+    apriori(supp = 0.1, conf = 0.9, target = "rules", control = list(verbose = FALSE))
 rules |>
-  head(3, by = "lift") |>
-  as("data.frame") |>
-  tibble()
+    head(3, by = "lift") |>
+    as("data.frame") |>
+    tibble()
 ```
 
     ## # A tibble: 3 × 6

@@ -41,7 +41,7 @@ pkg_citation(pkg, 2)
 
 * [arules](https://cran.r-project.org/package=arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
 * [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of association rules. 
-* [arulesCBA](https://github.com/ianstenbit/arulesCBA): Classification algorithms based on association rules (includes CBA).  
+* [arulesCBA](https://github.com/mhahsler/arulesCBA): Classification algorithms based on association rules (includes CBA).  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences): Mining frequent sequences (cSPADE).
 
 ### Other related packages

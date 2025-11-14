@@ -1,4 +1,7 @@
-# arules 1.7-11.1 (?)
+# arules 1.7.12-1 (xx/xx/2025)
+* Fixed link to arulesCBA in README
+
+# arules 1.7.12 (08/08/2025)
 
 ## Changes
 * Fixed partial argument matches.
