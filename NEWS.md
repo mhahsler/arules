@@ -1,5 +1,6 @@
 # arules 1.7.12-1 (xx/xx/2025)
 * Fixed link to arulesCBA in README
+* Fixed mailto in vignette.
 
 # arules 1.7.12 (08/08/2025)
 

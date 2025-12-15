@@ -234,8 +234,7 @@ The algorithms can be used to mine frequent itemsets, maximal frequent
 itemsets and closed frequent itemsets.  The implementation of Apriori
 can additionally be used to generate association rules.
 
-This paper presents \pkg{arules}\footnote{The \pkg{arules} package can be obtained from \url{http://CRAN.R-Project.org} and the maintainer can be contacted at 
-\url{michael@hahsler.net}.}, an extension package for
+This paper presents \pkg{arules}\footnote{The \pkg{arules} package can be obtained from \url{http://CRAN.R-Project.org}. Issues can be submitted on the package's GitHub page at \url{https://github.com/mhahsler/arules}.}, an extension package for
 \proglang{R}~\citep{arules:R:2005} which provides the infrastructure
 needed to create and manipulate input data sets for the mining
 algorithms and for analyzing the resulting itemsets and rules.  Since it

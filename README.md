@@ -144,7 +144,6 @@ The following R packages use `arules`:
 [fdm2id](https://CRAN.R-project.org/package=fdm2id),
 [GroupBN](https://CRAN.R-project.org/package=GroupBN),
 [ibmdbR](https://CRAN.R-project.org/package=ibmdbR),
-[immcp](https://CRAN.R-project.org/package=immcp),
 [inTrees](https://CRAN.R-project.org/package=inTrees),
 [nuggets](https://CRAN.R-project.org/package=nuggets),
 [opusminer](https://CRAN.R-project.org/package=opusminer),
@@ -214,7 +213,7 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## Absolute minimum support count: 899 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
+    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
     ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
@@ -298,7 +297,7 @@ arules](https://stackoverflow.com/questions/tagged/arules).
   arXiv:2305.15263 \[cs.DB\], May 2023.
 - Michael Hahsler. [An R Companion for Introduction to Data Mining:
   Chapter
-  5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html),
+  5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts.html),
   2021, URL:
   <https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/>
 - Hahsler, Michael. [A Probabilistic Comparison of Commonly Used
