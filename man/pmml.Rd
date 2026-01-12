@@ -21,7 +21,7 @@ This function reads and writes PMML representations (version 4.1) of
 \link{associations} (\link{itemsets} and \link{rules}). Write delegates to package \pkg{pmml}.
 }
 \examples{
-\dontshow{if (requireNamespace("pmml", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("pmml", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 data("Groceries")
 
 rules <- apriori(Groceries, parameter = list(support = 0.001))

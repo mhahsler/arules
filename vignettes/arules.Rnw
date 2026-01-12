@@ -65,7 +65,7 @@
 	P.O. Box 750122 \\
 	Dallas, TX 75275-0122\\
 	E-mail: \email{mhahsler@lyle.smu.edu}\\
-	URL: \url{http://lyle.smu.edu/~mhahsler}
+	URL: \url{https://michael.hahsler.net}
 }
 
 
@@ -234,7 +234,7 @@ The algorithms can be used to mine frequent itemsets, maximal frequent
 itemsets and closed frequent itemsets.  The implementation of Apriori
 can additionally be used to generate association rules.
 
-This paper presents \pkg{arules}\footnote{The \pkg{arules} package can be obtained from \url{http://CRAN.R-Project.org}. Issues can be submitted on the package's GitHub page at \url{https://github.com/mhahsler/arules}.}, an extension package for
+This paper presents \pkg{arules}\footnote{The \pkg{arules} package can be obtained from \url{https://CRAN.R-Project.org}. Issues can be submitted on the package's GitHub page at \url{https://github.com/mhahsler/arules}.}, an extension package for
 \proglang{R}~\citep{arules:R:2005} which provides the infrastructure
 needed to create and manipulate input data sets for the mining
 algorithms and for analyzing the resulting itemsets and rules.  Since it
@@ -778,7 +778,7 @@ In package \pkg{arules} we interface free reference implementations of
 Apriori and Eclat by Christian Borgelt
 \citep{arules:Borgelt+Kruse:2002,arules:Borgelt:2003}\footnote{Christian
 Borgelt provides the source code for Apriori and Eclat at
-\url{http://www.borgelt.net/fpm.html}.}.  The code is
+\url{https://borgelt.net/fpm.html}.}.  The code is
 called directly from \proglang{R} by the functions \func{apriori} and
 \func{eclat} and the data objects are directly passed from \proglang{R} to
 the \proglang{C} code and back without writing to external files.
@@ -1162,9 +1162,8 @@ to associations mined on a properly prepared data set.
 For the example,
 we look at the \code{Epub} transaction data contained in
 package \pkg{arules}.  This data set contains downloads of documents
-from the Electronic Publication platform of the Vienna University of
-Economics and Business available via
-\url{http://epub.wu-wien.ac.at} from January 2003 to December 2008.
+from a former Electronic Publication platform of the Vienna University of
+Economics and Business from January 2003 to December 2008.
 
 First, we load \pkg{arules} and the data set.
 
@@ -1201,7 +1200,8 @@ table(year)
 
 For 2003, the first year in the data set, we have \Sexpr{table(year)[1]}
 transactions.  We can select the corresponding transactions and inspect
-the structure using a level-plot (see Figure~\ref{fig:imageEpub}).
+the structure using a level-plot (see Figure~\ref{fig:image
+Epub}).
 
 %%% lattice image returns an object of class "trellis"
 <<fig=FALSE>>=

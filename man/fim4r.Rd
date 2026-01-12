@@ -85,7 +85,7 @@ matching your R version.
 \strong{Additional Notes:}
 \itemize{
 \item Support and confidence are specified here in the range \eqn{[0,1]}.
-This is different from the use in  \code{fim4r} package where \code{supp} and \code{conf}
+This is different from the use in  \code{fim4r} package where \code{support} and \code{confidence}
 have the range \eqn{[0, 100]}.
 \code{arules::fim4r()} automatically converts support and confidence internally.
 \item \code{fim4r} methods also return the empty itemset while \code{arules} methods do not.
@@ -105,7 +105,7 @@ fim4r()
 # mine association rules with FPgrowth
 r <- fim4r(Adult,
   method = "fpgrowth",
-  target = "rules", supp = .7, conf = .8
+  target = "rules", support = .7, confidence = .8
 )
 r
 inspect(head(r, by = "lift"))
@@ -113,49 +113,49 @@ inspect(head(r, by = "lift"))
 # mine closed itemsets with Carpenter or IsTa
 fim4r(Adult,
   method = "carpenter",
-  target = "closed", supp = .7
+  target = "closed", support = .7
 )
 fim4r(Adult,
   method = "ista",
-  target = "closed", supp = .7
+  target = "closed", support = .7
 )
 
 # mine frequent itemset of length 2 (zmin and zmax = 2)
 freq_2 <- fim4r(Adult,
-  method = "relim", target = "frequent", supp = .7,
+  method = "relim", target = "frequent", support = .7,
   zmin = 2, zmax = 2
 )
 inspect(freq_2)
 
 # mine maximal frequent itemsets
-mfis <- fim4r(Adult, method = "sam", target = "maximal", supp = .7)
+mfis <- fim4r(Adult, method = "sam", target = "maximal", support = .7)
 inspect(mfis)
 
 # Examples for how to use item appearance with apriori, eclat,
 #   fpgrowth in fim4r. We first mine all rules.
 inspect(fim4r(Adult,
   method = "fpgrowth",
-  target = "rules", supp = .8
+  target = "rules", support = .8
 ))
 
 # ignore item "capital-gain=None"
 inspect(fim4r(Adult,
   method = "fpgrowth",
-  target = "rules", supp = .8,
+  target = "rules", support = .8,
   appear = list(c("capital-gain=None"), c("-"))
 ))
 
 # "capital-gain=None" cannot appear in consequent (antecedent only)
 inspect(fim4r(Adult,
   method = "fpgrowth",
-  target = "rules", supp = .8,
+  target = "rules", support = .8,
   appear = list(c("capital-gain=None"), c("a"))
 ))
 
 # "capital-gain=None" cannot appear in the antecedent
 inspect(fim4r(Adult,
   method = "fpgrowth",
-  target = "rules", supp = .8,
+  target = "rules", support = .8,
   appear = list(c("capital-gain=None"), c("c"))
 ))
 
@@ -164,7 +164,7 @@ inspect(fim4r(Adult,
 # exception that "capital-gain=None" can only appear in the consequent.
 inspect(fim4r(Adult,
   method = "fpgrowth",
-  target = "rules", supp = .8,
+  target = "rules", support = .8,
   appear = list(c("", "capital-gain=None"), c("a", "c"))
 ))
 }

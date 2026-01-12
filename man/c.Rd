@@ -42,7 +42,7 @@ of \link{itemMatrix} objects
 representing the associations or transactions.
 
 Note that \code{c()} can result in duplicates.
-Use \code{\link[=union]{union()}} rather than \code{c()} to combine several mined
+Use \code{\link[generics:setops]{generics::union()}} rather than \code{c()} to combine several mined
 \link{itemsets} or \link{rules} into a single
 set without duplicates.
 }

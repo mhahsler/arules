@@ -29,7 +29,7 @@ available via [fim4r](https://borgelt.net/fim4r.html):
 
 Code examples can be found in
 [Chapter 5 of the web book R Companion for Introduction to Data
-Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
+Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts.html).
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_citation(pkg, 2)
@@ -110,7 +110,7 @@ inspect(head(rules, n = 3, by = "lift"))
 
 ## Using arules with tidyverse
 
-`arules` works seamlessly with [tidyverse](https://www.tidyverse.org/). For example: 
+`arules` works seamlessly with [tidyverse](https://tidyverse.org/). For example: 
 
 * `dplyr` can be used for cleaning and preparing the transactions.
 * `transaction()` and other functions accept `tibble` as input.

@@ -36,7 +36,7 @@ mining algorithms are available via
 
 Code examples can be found in [Chapter 5 of the web book R Companion for
 Introduction to Data
-Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts-and-algorithms.html).
+Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts.html).
 
 To cite package ‘arules’ in publications use:
 
@@ -213,10 +213,10 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## Absolute minimum support count: 899 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
+    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
-    ## creating transaction tree ... done [0.00s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
+    ## creating transaction tree ... done [0.01s].
+    ## checking subsets of size 1 2 3 4 5 6 done [0.03s].
     ## writing ... [457 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 
@@ -225,9 +225,6 @@ Inspect the rules with the highest lift.
 ``` r
 inspect(head(rules, n = 3, by = "lift"))
 ```
-
-    ## Warning in seq.default(length = NCOL(quality)): partial argument match of
-    ## 'length' to 'length.out'
 
     ##     lhs                           rhs                      support confidence coverage lift count
     ## [1] {dual incomes=no,                                                                            
@@ -242,8 +239,8 @@ inspect(head(rules, n = 3, by = "lift"))
 
 ## Using arules with tidyverse
 
-`arules` works seamlessly with [tidyverse](https://www.tidyverse.org/).
-For example:
+`arules` works seamlessly with [tidyverse](https://tidyverse.org/). For
+example:
 
 - `dplyr` can be used for cleaning and preparing the transactions.
 - `transaction()` and other functions accept `tibble` as input.
