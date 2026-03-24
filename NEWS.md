@@ -1,3 +1,6 @@
+# arules 1.7.14 (03/24/2026)
+* Added PROTECT to all getAttr calls in src.
+
 # arules 1.7.13 (01/07/2026)
 * Fixed link to arulesCBA in README
 * Fixed mailto in vignette.
