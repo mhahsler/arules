@@ -123,18 +123,16 @@ SEXP R_similarity_ngCMatrix(SEXP x, SEXP y, SEXP R_method, SEXP R_weight) {
       int new_len = LENGTH(ir) * 2;
 
       PROTECT(old_ir = ir);
-      nprotect++;
       PROTECT(ir = allocVector(INTSXP, new_len));
-      nprotect++;
       R_chk_memcpy(INTEGER(ir), INTEGER(old_ir), sizeof(int) * n);
       setAttrib(r, install("i"), ir);
-
+      
       PROTECT(old_xr = xr);
-      nprotect++;
       PROTECT(xr = allocVector(REALSXP, new_len));
-      nprotect++;
       R_chk_memcpy(REAL(xr), REAL(old_xr), sizeof(double) * n);
       setAttrib(r, install("x"), xr);
+      
+      UNPROTECT(4);
     }
 
     ly = INTEGER(py)[j];
@@ -214,18 +212,15 @@ SEXP R_similarity_ngCMatrix(SEXP x, SEXP y, SEXP R_method, SEXP R_weight) {
     SEXP old_ir, old_xr;
 
     PROTECT(old_ir = ir);
-    nprotect++;
     PROTECT(ir = allocVector(INTSXP, n));
-    nprotect++;
     R_chk_memcpy(INTEGER(ir), INTEGER(old_ir), sizeof(int) * n);
     setAttrib(r, install("i"), ir);
 
     PROTECT(old_xr = xr);
-    nprotect++;
     PROTECT(xr = allocVector(REALSXP, n));
-    nprotect++;
     R_chk_memcpy(REAL(xr), REAL(old_xr), sizeof(double) * n);
     setAttrib(r, install("x"), xr);
+    UNPROTECT(4);
   }
 
   PROTECT(dim_r = getAttrib(r, install("Dim")));
@@ -251,12 +246,12 @@ SEXP R_similarity_ngCMatrix(SEXP x, SEXP y, SEXP R_method, SEXP R_weight) {
   if (!isNull(namesy) || !isNull(namesx)) {
     SEXP dn_names;
     PROTECT(dn_names = allocVector(STRSXP, 2));
-    nprotect++;
     SET_STRING_ELT(dn_names, 0,
       isNull(namesx) ? R_BlankString : STRING_ELT(namesx, 1));
     SET_STRING_ELT(dn_names, 1,
       isNull(namesy) ? R_BlankString : STRING_ELT(namesy, 1));
     setAttrib(dn_r, R_NamesSymbol, dn_names);
+    UNPROTECT(1);
   }
 
   UNPROTECT(nprotect);

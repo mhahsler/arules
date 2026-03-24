@@ -443,7 +443,6 @@ SEXP R_asList_ngCMatrix(SEXP x, SEXP d) {
     l = INTEGER(px)[i];
     n = l - f;
     PROTECT(t = allocVector((isNull(d)) ? INTSXP : TYPEOF(d), n));
-    nprotect++;
     SET_VECTOR_ELT(r, i - 1, t);
     for (k = f, m = 0; k < l; k++, m++) {
       j = INTEGER(ix)[k];
@@ -468,6 +467,7 @@ SEXP R_asList_ngCMatrix(SEXP x, SEXP d) {
       }
     }
     f = l;
+    UNPROTECT(1);
   }
 
   PROTECT(dn_x = getAttrib(x, install("Dimnames")));

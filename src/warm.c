@@ -260,20 +260,18 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
     error("'verbose' not of type logical");
 
   PROTECT(dimx = getAttrib(x, install("Dim")));
-  nprotect++;
   nr = INTEGER(dimx)[0];
   nc = INTEGER(dimx)[1];
 
   PROTECT(pxS = getAttrib(x, install("p")));
-  nprotect++;
   if (LENGTH(pxS) != nc + 1)
     error("p and Dim do not conform");
   px = INTEGER(pxS);
 
   PROTECT(ixS = getAttrib(x, install("i")));
-  nprotect++;
   ix = INTEGER(ixS);
-
+  UNPROTECT(3);
+  
   if (LENGTH(R_weight) != nr)
     error("the number of rows of 'x' and the length of 'weight' do not conform");
 
@@ -292,17 +290,15 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
 
   if (nr == 0 || nc == 0 || nc < minlen) {
     PROTECT(r = allocVector(VECSXP, 2));
-    nprotect++;
     SET_VECTOR_ELT(r, 0, (r0 = NEW_OBJECT_OF_CLASS("ngCMatrix")));
     PROTECT(dimx = getAttrib(r0, install("Dim")));
-    nprotect++;
     INTEGER(dimx)[0] = nc;
     SET_VECTOR_ELT(r, 1, allocVector(REALSXP, 0));
 #ifdef _TIME_H
     if (LOGICAL(R_verbose)[0] == TRUE)
       Rprintf(" degenerate dimension(s)\n");
 #endif
-    UNPROTECT(nprotect);
+    UNPROTECT(2);
     return r;
   }
 
@@ -310,12 +306,11 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
     maxlen = nc;
 
   PROTECT(j0S = allocVector(INTSXP, nc));
-  nprotect++;
   j0 = INTEGER(j0S);
   PROTECT(z0S = allocVector(REALSXP, nc));
-  nprotect++;
   z0 = REAL(z0S);
-
+  UNPROTECT(2);
+  
   w = REAL(R_weight);
   s = 0;
   for (k = 0; k < nr; k++)
@@ -455,9 +450,6 @@ SEXP R_weclat_ngCMatrix(SEXP x, SEXP R_weight, SEXP R_support,
   ir = realloc(ir, sizeof(int) * ni);
   sr = realloc(sr, sizeof(double) * n);
 
-  UNPROTECT(2);
-  nprotect -= 2;
-
   PROTECT(r = allocVector(VECSXP, 2));
   nprotect++;
 
@@ -523,34 +515,31 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
     error("'verbose' not of storage type logical");
 
   PROTECT(dimt = getAttrib(t, install("Dim")));
-  nprotect++;
   nr = INTEGER(dimt)[0];
   nc = INTEGER(dimt)[1];
 
   PROTECT(dimx = getAttrib(x, install("Dim")));
-  nprotect++;
   if (INTEGER(dimx)[0] != nc)
     error("the number of rows of 'x' and columns of 't' do not conform");
   if (LENGTH(R_weight) != nr)
     error("the number of rows of 't' and the length of 'weight' do not conform");
-
+  UNPROTECT(2);
+  
   if (isNull(R_fun) && !isNull(R_args))
     error("'ARGS' without 'FUN'");
 
   n = INTEGER(dimx)[1];
   if (n == 0 || nr == 0 || nc == 0) {
     PROTECT(r = allocVector(REALSXP, n));
-    nprotect++;
     for (k = 0; k < n; k++)
       REAL(r)[k] = 0;
     PROTECT(r0 = getAttrib(x, install("Dimnames")));
-    nprotect++;
     setAttrib(r, R_NamesSymbol, VECTOR_ELT(r0, 1));
 #ifdef _TIME_H
     if (LOGICAL(R_verbose)[0] == TRUE)
       Rprintf(" degenerate dimension(s)\n");
 #endif
-    UNPROTECT(nprotect);
+    UNPROTECT(2);
     return r;
   }
 
@@ -613,17 +602,12 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
                                   PROTECT(LCONS(x,
                                                 LCONS(R_NilValue,
                                                       LCONS(ScalarLogical(FALSE), R_NilValue))))))));
-  nprotect += 4;
   r = eval(r, R_GlobalEnv);
   UNPROTECT(4);
-  nprotect -= 4;
 
   PROTECT(r = r);
-  nprotect++;
   R_qsort_int_I(INTEGER(r), j0, 1, LENGTH(px) - 1);
-
   UNPROTECT(1);
-  nprotect--;
 
   PROTECT(r = allocVector(REALSXP, LENGTH(px) - 1));
   nprotect++;
@@ -683,13 +667,11 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
         SEXP ans, vals;
         n = pz[j] - pz[j - 1];
         PROTECT(vals = allocVector(REALSXP, n));
-        nprotect++;
         SETCAR(CDR(fun), vals);
         n = 0;
         for (k = pz[j - 1]; k < pz[j]; k++)
           REAL(vals)[n++] = w[iz[k]];
         PROTECT(ans = eval(fun, R_GlobalEnv));
-        nprotect++;
         if (!isNull(ans)) {
           if (LENGTH(ans) != 1)
             error("not a scalar return value");
@@ -705,7 +687,6 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
           }
         }
         UNPROTECT(2);
-        nprotect -= 2;
       } else {
         for (k = pz[j - 1]; k < pz[j]; k++)
           z += w[iz[k]];
@@ -737,25 +718,25 @@ SEXP R_wcount_ngCMatrix(SEXP x, SEXP t, SEXP R_weight,
 // replace NA or NaN values with zero.
 
 SEXP R_na_zero(SEXP x) {
-  int k, nprotect = 0;
+  int k;
   Rboolean dup = FALSE;
 
   if (isNull(x))
     return x;
   if (TYPEOF(x) != REALSXP) {
     PROTECT(x = coerceVector(x, REALSXP));
-    nprotect++;
     dup = TRUE;
   }
   for (k = 0; k < LENGTH(x); k++)
     if (ISNAN(REAL(x)[k])) {
       if (!dup) {
         PROTECT(x = duplicate(x));
-        nprotect++;
         dup = TRUE;
       }
       REAL(x)[k] = 0;
     }
-  UNPROTECT(nprotect);
+  if (dup)
+    UNPROTECT(1);
+  
   return x;
 }

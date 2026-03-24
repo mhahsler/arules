@@ -665,8 +665,8 @@ void sort_ngCMatrix(SEXP x)
   int i, f, l;
   SEXP px, ix;
 
-  px = GET_SLOT(x, install("p"));
-  ix = GET_SLOT(x, install("i"));
+  PROTECT(px = GET_SLOT(x, install("p")));
+  PROTECT(ix = GET_SLOT(x, install("i")));
 
   f = INTEGER(px)[0];
   for (i = 1; i < LENGTH(px); i++) {
@@ -674,6 +674,7 @@ void sort_ngCMatrix(SEXP x)
     R_isort(INTEGER(ix)+f, l-f);
     f = l;
   }
+  UNPROTECT(2);
 }
 
 SEXP returnObject(RULESET *set, SEXP dim, ARparameter *param, SEXP itemInfo)
