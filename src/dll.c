@@ -3,14 +3,6 @@
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 
-/* DEPRECATED (8/20/24): 
- *  - R_rowSums_ngCMatrix
- *  - R_colSums_ngCMatrix
- *  - R_colSubset_ngCMatrix
- *  - R_rowSubset_ngCMatrix
- *  - R_or_ngCMatrix
- */  
-
 extern SEXP is_subset(SEXP X_P, SEXP X_I, SEXP X_DIM, SEXP Y_P, SEXP Y_I, SEXP Y_DIM, SEXP PROPER, SEXP OUT_P);
 extern SEXP reclat(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control,
 		   SEXP itemInfo);
@@ -18,14 +10,9 @@ extern SEXP rapriori(SEXP x, SEXP y, SEXP dim, SEXP parms, SEXP control,
 		     SEXP app, SEXP itemInfo);
 extern SEXP R_transpose_ngCMatrix(SEXP x);
 extern SEXP R_crosstab_ngCMatrix(SEXP x, SEXP y, SEXP t);
-extern SEXP R_rowSums_ngCMatrix(SEXP x);
-extern SEXP R_colSums_ngCMatrix(SEXP x);
-extern SEXP R_colSubset_ngCMatrix(SEXP x, SEXP s);
-extern SEXP R_rowSubset_ngCMatrix(SEXP x, SEXP s);
 extern SEXP R_asList_ngCMatrix(SEXP x, SEXP d);
 extern SEXP R_cbind_ngCMatrix(SEXP x, SEXP y);
 extern SEXP R_recode_ngCMatrix(SEXP x, SEXP s);
-extern SEXP R_or_ngCMatrix(SEXP x, SEXP y);
 extern SEXP R_valid_ngCMatrix(SEXP x);
 extern SEXP R_pncount(SEXP R_x, SEXP R_t, SEXP R_s, SEXP R_o, SEXP R_v);
 extern SEXP R_pnindex(SEXP R_x, SEXP R_y, SEXP R_v);
@@ -53,14 +40,9 @@ void R_init_arules(DllInfo *dll) {
 	{"R_rapriori",		  (DL_FUNC) rapriori,		    7},
 	{"R_transpose_ngCMatrix", (DL_FUNC) R_transpose_ngCMatrix,  1},
 	{"R_crosstab_ngCMatrix",  (DL_FUNC) R_crosstab_ngCMatrix,   3},
-	{"R_rowSums_ngCMatrix",   (DL_FUNC) R_rowSums_ngCMatrix,    1},
-	{"R_colSums_ngCMatrix",   (DL_FUNC) R_colSums_ngCMatrix,    1},
-	{"R_colSubset_ngCMatrix", (DL_FUNC) R_colSubset_ngCMatrix,  2},
-	{"R_rowSubset_ngCMatrix", (DL_FUNC) R_rowSubset_ngCMatrix,  2},
 	{"R_asList_ngCMatrix",    (DL_FUNC) R_asList_ngCMatrix,	    2},
 	{"R_cbind_ngCMatrix",     (DL_FUNC) R_cbind_ngCMatrix,	    2},
 	{"R_recode_ngCMatrix",    (DL_FUNC) R_recode_ngCMatrix,	    2},
-	{"R_or_ngCMatrix",	  (DL_FUNC) R_or_ngCMatrix,	    2},
 	{"R_valid_ngCMatrix",     (DL_FUNC) R_valid_ngCMatrix,	    1},
 	{"R_pncount",		  (DL_FUNC) R_pncount,		    5},
 	{"R_pnindex",		  (DL_FUNC) R_pnindex,		    3},
@@ -82,10 +64,6 @@ void R_init_arules(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 
-    R_RegisterCCallable("arules", "R_rowSums_ngCMatrix",   (DL_FUNC) R_rowSums_ngCMatrix);
-    R_RegisterCCallable("arules", "R_colSums_ngCMatrix",   (DL_FUNC) R_colSums_ngCMatrix);
-    R_RegisterCCallable("arules", "R_colSubset_ngCMatrix", (DL_FUNC) R_colSubset_ngCMatrix);
-    R_RegisterCCallable("arules", "R_rowSubset_ngCMatrix", (DL_FUNC) R_rowSubset_ngCMatrix);
     R_RegisterCCallable("arules", "R_asList_ngCMatrix",    (DL_FUNC) R_asList_ngCMatrix);
     R_RegisterCCallable("arules", "R_cbind_ngCMatrix",     (DL_FUNC) R_cbind_ngCMatrix);
     R_RegisterCCallable("arules", "R_recode_ngCMatrix",    (DL_FUNC) R_recode_ngCMatrix);

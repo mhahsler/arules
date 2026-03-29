@@ -34,16 +34,6 @@ expect_identical(
 expect_identical(.Call(arules:::R_cbind_ngCMatrix, e, e), cbind(e, e))
 expect_identical(.Call(arules:::R_cbind_ngCMatrix, x, x), cbind(x, x))
 
-## logical OR
-expect_identical(
-  .Call(arules:::R_or_ngCMatrix, x, x),
-  as(x | x, "nsparseMatrix")
-)
-expect_identical(
-  .Call(arules:::R_or_ngCMatrix, e, e),
-  as(e | e, "nsparseMatrix")
-)
-
 ## crossprod and tcrossprod
 expect_equal(
   .Call(arules:::R_crosstab_ngCMatrix, x, NULL, TRUE),
