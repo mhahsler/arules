@@ -234,9 +234,9 @@ setMethod(
 setMethod(
   "aggregate", signature(x = "itemsets"),
   function(x, by) {
-    new("itemsets", items = aggregate(items(x), by))
+    x <- new("itemsets", items = aggregate(items(x), by))
 
-    ## first support value is used
+    ## remove itemsets that become duplicates through aggregation
     x <- unique(x)
     x
   }

@@ -341,15 +341,14 @@ setMethod(
 
 #' @rdname tidLists-class
 #' @name coercion-tidLists
-#' @aliases
-#' coerce,tidLists,matrix-method
-#' coerce,tidLists,list-method
-#' coerce,list,tidLists-method
-#' coerce,tidLists,ngCMatrix-method
-#' coerce,tidLists,transactions-method
-#' coerce,transactions,tidLists-method
-#' coerce,tidLists,itemMatrix-method
-#' coerce,itemMatrix,tidLists-method
+#' @aliases coerce,tidLists,matrix-method
+#' @aliases coerce,tidLists,list-method
+#' @aliases coerce,list,tidLists-method
+#' @aliases coerce,tidLists,ngCMatrix-method
+#' @aliases coerce,tidLists,transactions-method
+#' @aliases coerce,transactions,tidLists-method
+#' @aliases coerce,tidLists,itemMatrix-method
+#' @aliases coerce,itemMatrix,tidLists-method
 #'
 #' @section Coercions:
 #'

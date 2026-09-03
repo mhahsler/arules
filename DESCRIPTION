@@ -1,7 +1,7 @@
 Package: arules
 Title: Mining Association Rules and Frequent Itemsets
-Version: 1.7.14
-Date: 2026-03-28
+Version: 1.7.15
+Date: 2026-xx-xx
 Authors@R: c(
     person("Michael", "Hahsler", , "mhahsler@lyle.smu.edu", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-2716-1405")),
@@ -37,6 +37,7 @@ Suggests:
     proxy,
     testthat,
     XML
+Config/testthat/edition: 3
 Classification/ACM: G.4, H.2.8, I.5.1
 Copyright: The source code for Apriori and Eclat was obtained from
     http://www.borgelt.net/ and is Copyright (C) 1996-2003 Christian
@@ -44,7 +45,6 @@ Copyright: The source code for Apriori and Eclat was obtained from
     Buchta, Bettina Gruen and Kurt Hornik.
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Collate: 
     'AAA_arules-package.R'
     'AAA_check_installed.R'
@@ -112,3 +112,4 @@ Collate:
     'supportingTransactions.R'
     'unique.R'
     'warm.R'
+Config/roxygen2/version: 8.1.0

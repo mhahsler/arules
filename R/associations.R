@@ -61,7 +61,7 @@
 #' Subclasses: [rules], [itemsets]
 #'
 #' @aliases initialize,associations-method show,associations-method
-#' t,associations-method summary.associations-class
+#' @aliases t,associations-method summary.associations-class
 setClass(
   "associations",
   representation(

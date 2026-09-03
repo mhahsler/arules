@@ -282,8 +282,7 @@ setMethod(
 
 #' @rdname itemsets-class
 #' @name coercion-itemsets
-#' @aliases
-#' coerce,itemsets,data.frame-method
+#' @aliases coerce,itemsets,data.frame-method
 #'
 #' @section Coercions:
 #'

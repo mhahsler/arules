@@ -127,6 +127,8 @@ setMethod(
       reduce = FALSE,
       verbose = FALSE,
       ...) {
+    .nodots(...)
+    
     method <- match.arg(method)
 
     ## check transaction data

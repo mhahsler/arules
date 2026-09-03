@@ -312,11 +312,10 @@ setMethod(
 
 #' @rdname ASparameter-classes
 #' @name coercion
-#' @aliases
-#' coerce,NULL,APparameter-method
-#' coerce,list,APparameter-method
-#' coerce,NULL,ECparameter-method
-#' coerce,list,ECparameter-method
+#' @aliases coerce,NULL,APparameter-method
+#' @aliases coerce,list,APparameter-method
+#' @aliases coerce,NULL,ECparameter-method
+#' @aliases coerce,list,ECparameter-method
 #'
 #' @section Coercions:
 #'

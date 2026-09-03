@@ -1,3 +1,33 @@
+# arules 1.7.15 (xx/xx/2026)
+
+## Bug Fixes
+
+* `predict()`: Fixed block-size handling and block boundaries. Blocked
+  prediction now processes each observation exactly once and correctly handles
+  a single-row `newdata` object.
+* `aggregate()`: Fixed aggregation of `itemsets`, which previously discarded
+  the aggregated object. Duplicate aggregated itemsets are now removed and
+  invalidated quality measures are dropped as documented.
+* Fixed the error message produced in non-interactive sessions when a suggested
+  package is not installed.
+* `ruleInduction()` now warns about unknown arguments. Tests for its Apriori
+  method now use the `method` argument and exercise the intended implementation.
+
+## Tests
+
+* Added tests for `aggregate()`, `predict()`, PMML round trips, and
+  `supportingTransactions()`.
+* Switched the test suite explicitly to testthat edition 3.
+
+## Documentation and Maintenance
+
+* Updated roxygen2 metadata and annotations for roxygen2 8.1.0, including
+  single-line alias tags, the S3 export annotation for `confint.rules`,
+  documentation of control coercion arguments, and an unambiguous link to the
+  arules `union()` methods.
+* Fixed the `transactions()` function name in the README.
+* Fixed the random seed initialization in the package vignette.
+
 # arules 1.7.14 (03/28/2026)
 * Added PROTECT to all getAttr calls in src.
 * Removed deprecated src sparse matrix functions.

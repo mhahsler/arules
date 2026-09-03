@@ -203,11 +203,14 @@ setClass(
 #' * `as("NULL", "ECcontrol")`
 #' * `as("list", "ECcontrol")`
 #'
-#' @aliases
-#'   coerce,NULL,APcontrol-method
-#'   coerce,list,APcontrol-method
-#'   coerce,NULL,ECcontrol-method
-#'   coerce,list,ECcontrol-method
+#' @aliases coerce,NULL,APcontrol-method
+#' @aliases coerce,list,APcontrol-method
+#' @aliases coerce,NULL,ECcontrol-method
+#' @aliases coerce,list,ECcontrol-method
+#' @param from object to coerce.
+#' @param to target class for the coercion.
+#' @param strict logical; if `TRUE`, the returned object must be strictly from
+#'   the target class.
 #'
 
 setAs(

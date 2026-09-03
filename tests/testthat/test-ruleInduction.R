@@ -98,14 +98,15 @@ expect_equal_rules(r2_nosupp, r1)
 ## they all need specified transactions
 r1_a <- ruleInduction(is,
   transactions = trans,
-  control = list(method = "apriori")
+  method = "apriori"
 )
 expect_equal_rules(r1_a, r1)
 
 
 r2_a <- ruleInduction(is,
   transactions = trans,
-  control = list(method = "apriori"), confidence = 1
+  method = "apriori", 
+  confidence = 1
 )
 expect_equal_rules(r2_a, r2)
 
@@ -114,11 +115,11 @@ expect_equal_rules(r2_a, r2)
 # test tidlists
 # FIXME: tidlists does not work correctly!
 # r1_t <- ruleInduction(is, transactions = trans,
-#     control=list(method="tidlists"))
+#     method="tidlists")
 # expect_equal_rules(r1_t, r1)
 #
 # r2_t <- ruleInduction(is, transactions = trans,
-#     control=list(method="tidlists"), confidence = 1)
+#     method="tidlists", confidence = 1)
 # expect_equal_rules(r2_t, r2)
 
 ## test with problematic transactions (items have support of 0)
@@ -139,12 +140,12 @@ r_t2 <- ruleInduction(is, transactions = trans[1:2])
 expect_equal(length(r_t2), 3L)
 
 # method apriori
-r_t0a <- ruleInduction(is, transactions = trans[0], control = list(method = "apriori"))
+r_t0a <- ruleInduction(is, transactions = trans[0], method = "apriori")
 expect_equal(length(r_t0a), 0L)
 
 r_t2a <- ruleInduction(is,
   transactions = trans[1:2],
-  control = list(method = "apriori")
+  method = "apriori"
 )
 
 ## FIXME: apriori returns rules like {} -> rule induction does not!

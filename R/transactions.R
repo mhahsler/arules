@@ -441,14 +441,13 @@ setReplaceMethod(
 
 #' @rdname transactions-class
 #' @name coercion-transactions
-#' @aliases
-#' coerce,transactions,matrix-method
-#' coerce,matrix,transactions-method
-#' coerce,list,transactions-method
-#' coerce,transactions,list-method
-#' coerce,data.frame,transactions-method
-#' coerce,transactions,data.frame-method
-#' coerce,ngCMatrix,transactions-method
+#' @aliases coerce,transactions,matrix-method
+#' @aliases coerce,matrix,transactions-method
+#' @aliases coerce,list,transactions-method
+#' @aliases coerce,transactions,list-method
+#' @aliases coerce,data.frame,transactions-method
+#' @aliases coerce,transactions,data.frame-method
+#' @aliases coerce,ngCMatrix,transactions-method
 #'
 #' @section Coercions:
 #'

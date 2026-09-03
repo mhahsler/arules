@@ -459,13 +459,12 @@ setReplaceMethod(
 
 #' @rdname itemMatrix-class
 #' @name coercion-itemMatrix
-#' @aliases
-#' coerce,matrix,itemMatrix-method
-#' coerce,itemMatrix,matrix-method
-#' coerce,list,itemMatrix-method
-#' coerce,itemMatrix,list-method
-#' coerce,itemMatrix,ngCMatrix-method
-#' coerce,ngCMatrix,itemMatrix-method
+#' @aliases coerce,matrix,itemMatrix-method
+#' @aliases coerce,itemMatrix,matrix-method
+#' @aliases coerce,list,itemMatrix-method
+#' @aliases coerce,itemMatrix,list-method
+#' @aliases coerce,itemMatrix,ngCMatrix-method
+#' @aliases coerce,ngCMatrix,itemMatrix-method
 #'
 #' @section Coercions:
 #'

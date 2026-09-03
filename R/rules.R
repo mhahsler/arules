@@ -398,8 +398,7 @@ setMethod(
 
 #' @rdname rules-class
 #' @name coercion-rules
-#' @aliases
-#' coerce,rules,data.frame-method
+#' @aliases coerce,rules,data.frame-method
 #'
 #' @section Coercions:
 #'

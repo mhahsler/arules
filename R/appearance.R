@@ -128,9 +128,8 @@ setClass(
 #' * `as("NULL", "APappearance")`
 #' * `as("list", "APappearance")`
 #'
-#' @aliases
-#' coerce,NULL,APappearance-method
-#' coerce,list,APappearance-method
+#' @aliases coerce,NULL,APappearance-method
+#' @aliases coerce,list,APappearance-method
 NULL
 
 setAs(

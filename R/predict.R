@@ -84,11 +84,11 @@ setMethod(
     }
 
     if (is.null(labels)) {
-      labels <- 1:lenOb
+      labels <- seq_len(lenOb)
     }
 
     # do it in one run
-    if (lenOb * lenNew <= blocksize) {
+    if (lenNew <= blocksize) {
       xd <- dissimilarity(newdata, object, ...)
       return(labels[max.col(-xd)])
     }
@@ -96,13 +96,13 @@ setMethod(
     # do it in blocks
     newLabels <- integer(lenNew)
 
-    blockStart <- 1
-    while (blockStart < lenNew) {
-      blockEnd <- min(blockStart + blocksize, lenNew)
+    blockStart <- 1L
+    while (blockStart <= lenNew) {
+      blockEnd <- min(blockStart + blocksize - 1L, lenNew)
       xd <-
         dissimilarity(newdata[blockStart:blockEnd], object, ...)
       newLabels[blockStart:blockEnd] <- labels[max.col(-xd)]
-      blockStart <- blockEnd
+      blockStart <- blockEnd + 1L
     }
 
     return(newLabels)

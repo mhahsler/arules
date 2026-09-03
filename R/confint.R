@@ -133,6 +133,7 @@
 #' ci
 #'
 #' inspect(rules[ci[, "LL"] > 1])
+#' @exportS3Method stats::confint
 confint.rules <- function(
     object,
     parm = "oddsRatio",

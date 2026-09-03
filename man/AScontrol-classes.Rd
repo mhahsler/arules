@@ -19,6 +19,17 @@
 \alias{coerce,list,ECcontrol-method}
 \title{Classes AScontrol, APcontrol, ECcontrol ---
 Specifying the control Argument of Apriori and Eclat}
+\usage{
+\S4method{coerce}{NULL,APcontrol}(from, to = "APcontrol", strict = TRUE)
+}
+\arguments{
+\item{from}{object to coerce.}
+
+\item{to}{target class for the coercion.}
+
+\item{strict}{logical; if \code{TRUE}, the returned object must be strictly from
+the target class.}
+}
 \description{
 The \code{AScontrol} class holds the algorithmic parameters for the used
 mining algorithms.  \code{APcontrol} and \code{ECcontrol} directly extend
@@ -103,14 +114,14 @@ Rules/Hyperedges with the Apriori Algorithm}.
 \url{https://borgelt.net/apriori.html}
 }
 \seealso{
-Other mining algorithms: 
+Other mining algorithms:
 \code{\link{APappearance-class}},
 \code{\link{ASparameter-classes}},
-\code{\link{apriori}()},
-\code{\link{eclat}()},
-\code{\link{fim4r}()},
-\code{\link{ruleInduction}()},
-\code{\link{weclat}()}
+\code{\link[=apriori]{apriori()}},
+\code{\link[=eclat]{eclat()}},
+\code{\link[=fim4r]{fim4r()}},
+\code{\link[=ruleInduction]{ruleInduction()}},
+\code{\link[=weclat]{weclat()}}
 }
 \author{
 Michael Hahsler and Bettina Gruen

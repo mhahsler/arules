@@ -27,7 +27,7 @@
 #' representing the associations or transactions.
 #'
 #' Note that `c()` can result in duplicates.
-#' Use [union()] rather than `c()` to combine several mined
+#' Use [`union()`][union.associations] rather than `c()` to combine several mined
 #' [itemsets] or [rules] into a single
 #' set without duplicates.
 #'
