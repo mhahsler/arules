@@ -119,7 +119,7 @@ IDs) representing the items.
 
 \strong{Warning:} Ideally, we would store the matrix as a row-oriented sparse
 matrix (\code{ngRMatrix}), but the \pkg{Matrix} package provides better support for
-column-oriented sparse classes (\link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix}). The matrix is therefore internally stored
+column-oriented sparse classes (\link[Matrix:ngCMatrix-class]{Matrix::ngCMatrix}). The matrix is therefore internally stored
 in transposed form.
 
 \strong{Working with several \code{itemMatrix} objects}
@@ -169,7 +169,7 @@ of the labels: \code{itemSep}, \code{setStart} and \code{setEnd}.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{a sparse matrix of class \link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix} representing the itemsets.
+\item{\code{data}}{a sparse matrix of class \link[Matrix:ngCMatrix-class]{Matrix::ngCMatrix} representing the itemsets.
 \strong{Warning:} the matrix is stored in transposed form for efficiency reasons!.}
 
 \item{\code{itemInfo}}{a data.frame}
@@ -279,28 +279,28 @@ compatible(imatrix_new, imatrix)
 
 }
 \seealso{
-Other itemMatrix and transactions functions: 
-\code{\link{abbreviate}()},
-\code{\link{c}()},
-\code{\link{crossTable}()},
-\code{\link{duplicated}()},
+Other itemMatrix and transactions functions:
+\code{\link[=abbreviate]{abbreviate()}},
+\code{\link{c}},
+\code{\link[=crossTable]{crossTable()}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
 \code{\link{hierarchy}},
-\code{\link{image}()},
-\code{\link{inspect}()},
-\code{\link{is.superset}()},
-\code{\link{itemFrequency}()},
-\code{\link{itemFrequencyPlot}()},
-\code{\link{match}()},
-\code{\link{merge}()},
-\code{\link{random.transactions}()},
-\code{\link{sample}()},
+\code{\link{image}},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.superset]{is.superset()}},
+\code{\link[=itemFrequency]{itemFrequency()}},
+\code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}},
+\code{\link[=match]{match()}},
+\code{\link[=merge]{merge()}},
+\code{\link[=random.transactions]{random.transactions()}},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{supportingTransactions}()},
+\code{\link[=size]{size()}},
+\code{\link[=supportingTransactions]{supportingTransactions()}},
 \code{\link{tidLists-class}},
 \code{\link{transactions-class}},
-\code{\link{unique}()}
+\code{\link[=unique]{unique()}}
 }
 \author{
 Michael Hahsler

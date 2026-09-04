@@ -42,7 +42,7 @@ of \link{itemMatrix} objects
 representing the associations or transactions.
 
 Note that \code{c()} can result in duplicates.
-Use \code{\link[generics:setops]{generics::union()}} rather than \code{c()} to combine several mined
+Use \code{\link[=union.associations]{union()}} rather than \code{c()} to combine several mined
 \link{itemsets} or \link{rules} into a single
 set without duplicates.
 }
@@ -67,49 +67,49 @@ rUnion <- union(r1, r2)
 rUnion
 }
 \seealso{
-Other associations functions: 
-\code{\link{abbreviate}()},
+Other associations functions:
+\code{\link[=abbreviate]{abbreviate()}},
 \code{\link{associations-class}},
-\code{\link{duplicated}()},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
-\code{\link{inspect}()},
-\code{\link{is.closed}()},
-\code{\link{is.generator}()},
-\code{\link{is.maximal}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()},
-\code{\link{is.superset}()},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.closed]{is.closed()}},
+\code{\link[=is.generator]{is.generator()}},
+\code{\link[=is.maximal]{is.maximal()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}},
+\code{\link[=is.superset]{is.superset()}},
 \code{\link{itemsets-class}},
-\code{\link{match}()},
+\code{\link[=match]{match()}},
 \code{\link{rules-class}},
-\code{\link{sample}()},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{sort}()},
-\code{\link{unique}()}
+\code{\link[=size]{size()}},
+\code{\link[=sort]{sort()}},
+\code{\link[=unique]{unique()}}
 
-Other itemMatrix and transactions functions: 
-\code{\link{abbreviate}()},
-\code{\link{crossTable}()},
-\code{\link{duplicated}()},
+Other itemMatrix and transactions functions:
+\code{\link[=abbreviate]{abbreviate()}},
+\code{\link[=crossTable]{crossTable()}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
 \code{\link{hierarchy}},
-\code{\link{image}()},
-\code{\link{inspect}()},
-\code{\link{is.superset}()},
-\code{\link{itemFrequency}()},
-\code{\link{itemFrequencyPlot}()},
+\code{\link{image}},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.superset]{is.superset()}},
+\code{\link[=itemFrequency]{itemFrequency()}},
+\code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}},
 \code{\link{itemMatrix-class}},
-\code{\link{match}()},
-\code{\link{merge}()},
-\code{\link{random.transactions}()},
-\code{\link{sample}()},
+\code{\link[=match]{match()}},
+\code{\link[=merge]{merge()}},
+\code{\link[=random.transactions]{random.transactions()}},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{supportingTransactions}()},
+\code{\link[=size]{size()}},
+\code{\link[=supportingTransactions]{supportingTransactions()}},
 \code{\link{tidLists-class}},
 \code{\link{transactions-class}},
-\code{\link{unique}()}
+\code{\link[=unique]{unique()}}
 }
 \author{
 Michael Hahsler

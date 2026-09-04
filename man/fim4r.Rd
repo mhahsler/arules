@@ -174,13 +174,13 @@ Christian Borgelt, fimi4r: Frequent Item Set Mining and Association Rule Inducti
 \url{https://borgelt.net/fim4r.html}
 }
 \seealso{
-Other mining algorithms: 
+Other mining algorithms:
 \code{\link{APappearance-class}},
 \code{\link{AScontrol-classes}},
 \code{\link{ASparameter-classes}},
-\code{\link{apriori}()},
-\code{\link{eclat}()},
-\code{\link{ruleInduction}()},
-\code{\link{weclat}()}
+\code{\link[=apriori]{apriori()}},
+\code{\link[=eclat]{eclat()}},
+\code{\link[=ruleInduction]{ruleInduction()}},
+\code{\link[=weclat]{weclat()}}
 }
 \concept{mining algorithms}

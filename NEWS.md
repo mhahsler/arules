@@ -27,6 +27,8 @@
   arules `union()` methods.
 * Fixed the `transactions()` function name in the README.
 * Fixed the random seed initialization in the package vignette.
+* Fixed TYPOs.
+* Improved parameter descriptions and general documentation.
 
 # arules 1.7.14 (03/28/2026)
 * Added PROTECT to all getAttr calls in src.

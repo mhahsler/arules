@@ -42,7 +42,7 @@ To cite package ‘arules’ in publications use:
 
 > Hahsler M, Gruen B, Hornik K (2005). “arules - A Computational
 > Environment for Mining Association Rules and Frequent Item Sets.”
-> *Journal of Statistical Software*, *14*(15), 1-25. ISSN 1548-7660,
+> *Journal of Statistical Software*, *14*(15), 1-25. ISSN 1548-7660.
 > <doi:10.18637/jss.v014.i15> <https://doi.org/10.18637/jss.v014.i15>.
 
     @Article{,
@@ -82,20 +82,13 @@ Additional mining algorithms
   for several mining algorithms. An interface function called `fim4r()`
   is provided in `arules`.
 - [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner
-  algorithm for finding the op k productive, non-redundant itemsets.
+  algorithm for finding the top-k productive, non-redundant itemsets.
   Call `opus()` with `format = 'itemsets'`.
-- [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL’s
-  association rule mining algorithm.
-- [RSarules](https://cran.r-project.org/package=RSarules): Mining
-  algorithm which randomly samples association rules with one pre-chosen
-  item as the consequent from a transaction dataset.
 
 In-database analytics
 
 - [ibmdbR](https://cran.r-project.org/package=ibmdbR): IBM in-database
   analytics for R can calculate association rules from a database table.
-- [rfml](https://cran.r-project.org/package=rfml): Mine frequent
-  itemsets or association rules using a MarkLogic server.
 
 Interface
 
@@ -108,9 +101,6 @@ Classification
 
 - [arc](https://cran.r-project.org/package=arc): Alternative CBA
   implementation.
-- [inTrees](https://cran.r-project.org/package=inTrees): Interpret Tree
-  Ensembles provides functions for: extracting, measuring and pruning
-  rules; selecting a compact rule set; summarizing rules into a learner.
 - [rCBA](https://cran.r-project.org/package=rCBA): Alternative CBA
   implementation.
 - [qCBA](https://cran.r-project.org/package=qCBA): Quantitative
@@ -118,14 +108,9 @@ Classification
 - [sblr](https://cran.r-project.org/package=sbrl): Scalable Bayesian
   rule lists algorithm for classification.
 
-Outlier Detection
-
-- [fpmoutliers](https://cran.r-project.org/package=fpmoutliers):
-  Frequent Pattern Mining Outliers.
-
 Recommendation/Prediction
 
-- [recommenerlab](https://github.com/mhahsler/recommenderlab): Supports
+- [recommenderlab](https://github.com/mhahsler/recommenderlab): Supports
   creating predictions using association rules.
 
 The following R packages use `arules`:
@@ -139,12 +124,15 @@ The following R packages use `arules`:
 [CLONETv2](https://CRAN.R-project.org/package=CLONETv2),
 [CRE](https://CRAN.R-project.org/package=CRE),
 [ctsem](https://CRAN.R-project.org/package=ctsem),
+[daltoolbox](https://CRAN.R-project.org/package=daltoolbox),
 [discnorm](https://CRAN.R-project.org/package=discnorm),
 [fcaR](https://CRAN.R-project.org/package=fcaR),
 [fdm2id](https://CRAN.R-project.org/package=fdm2id),
+[gp3sequences](https://CRAN.R-project.org/package=gp3sequences),
 [GroupBN](https://CRAN.R-project.org/package=GroupBN),
 [ibmdbR](https://CRAN.R-project.org/package=ibmdbR),
-[inTrees](https://CRAN.R-project.org/package=inTrees),
+[icdhelper](https://CRAN.R-project.org/package=icdhelper),
+[manydist](https://CRAN.R-project.org/package=manydist),
 [nuggets](https://CRAN.R-project.org/package=nuggets),
 [opusminer](https://CRAN.R-project.org/package=opusminer),
 [pervasive](https://CRAN.R-project.org/package=pervasive),
@@ -155,11 +143,11 @@ The following R packages use `arules`:
 [rCBA](https://CRAN.R-project.org/package=rCBA),
 [recommenderlab](https://CRAN.R-project.org/package=recommenderlab),
 [rgnoisefilt](https://CRAN.R-project.org/package=rgnoisefilt),
-[RKEEL](https://CRAN.R-project.org/package=RKEEL),
 [RulesTools](https://CRAN.R-project.org/package=RulesTools),
 [sbrl](https://CRAN.R-project.org/package=sbrl),
 [SurvivalTests](https://CRAN.R-project.org/package=SurvivalTests),
-[TELP](https://CRAN.R-project.org/package=TELP)
+[TELP](https://CRAN.R-project.org/package=TELP),
+[tidylearn](https://CRAN.R-project.org/package=tidylearn)
 
 ## Installation
 
@@ -213,10 +201,10 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## Absolute minimum support count: 899 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
+    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
-    ## creating transaction tree ... done [0.01s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.03s].
+    ## creating transaction tree ... done [0.00s].
+    ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
     ## writing ... [457 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 
@@ -243,7 +231,7 @@ inspect(head(rules, n = 3, by = "lift"))
 example:
 
 - `dplyr` can be used for cleaning and preparing the transactions.
-- `transaction()` and other functions accept `tibble` as input.
+- `transactions()` and other functions accept `tibble` as input.
 - Functions in arules can be connected with the pipe operator `|>`.
 - [arulesViz](https://github.com/mhahsler/arulesViz) provides
   visualizations based on `ggplot2`.
@@ -257,14 +245,17 @@ library("arules")
 data("IncomeESL")
 
 trans <- IncomeESL |>
-    select(-`ethnic classification`) |>
-    transactions()
+  select(-`ethnic classification`) |>
+  transactions()
 rules <- trans |>
-    apriori(supp = 0.1, conf = 0.9, target = "rules", control = list(verbose = FALSE))
+  apriori(
+    supp = 0.1, conf = 0.9, target = "rules",
+    control = list(verbose = FALSE)
+  )
 rules |>
-    head(3, by = "lift") |>
-    as("data.frame") |>
-    tibble()
+  head(3, by = "lift") |>
+  as("data.frame") |>
+  tibble()
 ```
 
     ## # A tibble: 3 × 6
@@ -278,7 +269,7 @@ rules |>
 
 `arules` and `arulesViz` can now be used directly from Python with the
 Python package [`arulespy`](https://pypi.org/project/arulespy/)
-available form PyPI.
+available from PyPI.
 
 ## Support
 

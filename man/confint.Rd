@@ -140,12 +140,12 @@ Anscombe, F.J. (1956). "On estimating binomial response relations".
 \emph{Biometrika,} 43, 461-464.
 }
 \seealso{
-Other interest measures: 
-\code{\link{coverage}()},
-\code{\link{interestMeasure}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()},
-\code{\link{support}()}
+Other interest measures:
+\code{\link[=coverage]{coverage()}},
+\code{\link[=interestMeasure]{interestMeasure()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}},
+\code{\link[=support]{support()}}
 }
 \author{
 Michael Hahsler

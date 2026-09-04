@@ -117,11 +117,11 @@ unlink("demo_basket.txt")
 unlink("demo_single.txt")
 }
 \seealso{
-Other import/export: 
-\code{\link{DATAFRAME}()},
-\code{\link{LIST}()},
+Other import/export:
+\code{\link[=DATAFRAME]{DATAFRAME()}},
+\code{\link[=LIST]{LIST()}},
 \code{\link{pmml}},
-\code{\link{write}()}
+\code{\link[=write]{write()}}
 }
 \author{
 Michael Hahsler and Kurt Hornik

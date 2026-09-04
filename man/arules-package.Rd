@@ -4,31 +4,62 @@
 \name{arules-package}
 \alias{arules}
 \alias{arules-package}
-\title{arules: Mining Association Rules and Frequent Itemsets}
+\title{Infrastructure for representing transaction data, mining frequent itemsets
+and association rules, and evaluating the resulting patterns. The package
+includes efficient C implementations of the Apriori and Eclat algorithms.}
 \description{
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
+
 Provides the infrastructure for representing, manipulating and analyzing transaction data and patterns (frequent itemsets and association rules). Also provides C implementations of the association mining algorithms Apriori and Eclat. Hahsler, Gruen and Hornik (2005) \doi{10.18637/jss.v014.i15}.
 }
-\section{Key functions and Classes}{
+\section{Typical workflow}{
+
+\enumerate{
+\item Create a \link{transactions} object with \code{\link[=transactions]{transactions()}} or import basket or
+single-format data with \code{\link[=read.transactions]{read.transactions()}}. Numeric variables should
+first be converted to categories with \code{\link[=discretize]{discretize()}} or \code{\link[=discretizeDF]{discretizeDF()}}.
+\item Inspect the data with \code{\link[=summary]{summary()}}, \code{\link[=inspect]{inspect()}}, \code{\link[=itemFrequency]{itemFrequency()}}, or
+\code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}}.
+\item Mine association rules with \code{\link[=apriori]{apriori()}} or frequent itemsets with
+\code{\link[=eclat]{eclat()}}.
+\item Rank and filter patterns with \code{\link[=sort]{sort()}}, \code{\link[=subset]{subset()}}, and
+\code{\link[=interestMeasure]{interestMeasure()}}. Use \code{\link[=is.redundant]{is.redundant()}}, \code{\link[=is.closed]{is.closed()}}, or
+\code{\link[=is.maximal]{is.maximal()}} for common postprocessing tasks.
+\item Convert results with \code{\link[=DATAFRAME]{DATAFRAME()}} or \code{\link[=LIST]{LIST()}}, or visualize them with the
+suggested package arulesViz.
+}
+}
+
+\section{Choosing a mining function}{
 
 \itemize{
-\item Mining Algorithms: \code{\link[=apriori]{apriori()}}, \code{\link[=eclat]{eclat()}}
-\item Classes: \link{transactions}, \link{rules}, \link{itemsets}
+\item \code{\link[=apriori]{apriori()}} mines rules or itemsets and offers detailed control over rule
+appearance.
+\item \code{\link[=eclat]{eclat()}} is designed for mining frequent, closed, or maximal itemsets.
+\item \code{\link[=ruleInduction]{ruleInduction()}} creates rules from an existing collection of itemsets.
+\item \code{\link[=fim4r]{fim4r()}} provides access to additional mining algorithms when the optional
+fim4r package is installed.
 }
+}
+
+\section{Core classes}{
+
+
+\link{transactions} stores sparse binary transaction data. Mining functions return
+\link{itemsets} or \link{rules}, both derived from \link{associations}. Item coding must be
+compatible when objects are compared or combined; see \link{itemCoding}.
 }
 
 \seealso{
-Useful links:
-\itemize{
-  \item \url{https://github.com/mhahsler/arules}
-  \item Report bugs at \url{https://github.com/mhahsler/arules/issues}
-}
-
+\href{https://github.com/mhahsler/arulesViz}{arulesViz} for visualization
+and the package vignettes for extended examples.
 }
 \author{
 \strong{Maintainer}: Michael Hahsler \email{mhahsler@lyle.smu.edu} (\href{https://orcid.org/0000-0003-2716-1405}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
+  \item Michael Hahsler \email{mhahsler@lyle.smu.edu} (\href{https://orcid.org/0000-0003-2716-1405}{ORCID}) [copyright holder]
   \item Christian Buchta [copyright holder]
   \item Bettina Gruen [copyright holder]
   \item Kurt Hornik (\href{https://orcid.org/0000-0003-4198-9911}{ORCID}) [copyright holder]

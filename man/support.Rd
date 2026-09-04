@@ -31,37 +31,37 @@ support(x, transactions, ...)
 )
 }
 \arguments{
-\item{x}{the set of itemsets for which support should be counted.}
+\item{x}{an \link{itemMatrix} or \link{associations} object containing the itemsets for
+which support is counted.}
 
-\item{transactions}{the transaction data set used for mining.}
+\item{transactions}{the \link{transactions} data set in which support is counted.}
 
-\item{...}{further arguments.}
+\item{...}{further arguments passed from the generic to a method.}
 
-\item{type}{a character string specifying if \code{"relative"} support or
-\code{"absolute"} support (counts) are returned for the itemsets in
-\code{x}.  (default: \code{"relative"})}
+\item{type}{return \code{"relative"} support or \code{"absolute"} counts (or summed
+weights when \code{weighted = TRUE}).}
 
-\item{method}{use \code{"ptree"} or \code{"tidlists"}. See Details Section.}
+\item{method}{support-counting method: \code{"ptree"} or \code{"tidlists"}.}
 
-\item{reduce}{should unused items are removed before counting?}
+\item{reduce}{logical; remove unused items before prefix-tree counting?}
 
-\item{weighted}{should support be weighted by transactions weights stored as
-column \code{"weight"} in \code{transactionInfo}?}
+\item{weighted}{logical; use transaction weights stored in the \code{weight}
+column of \code{\link[=transactionInfo]{transactionInfo()}}?}
 
-\item{verbose}{report progress?}
+\item{verbose}{logical; report progress and timing information?}
 }
 \value{
-A numeric vector of the same length as \code{x} containing the
-support values for the sets in \code{x}.
+An unnamed numeric vector of length \code{length(x)}. Values are relative
+supports when \code{type = "relative"} and counts or weight sums when
+\code{type = "absolute"}.
 }
 \description{
-Provides the generic function \code{support()} and the methods to count support for
-given \link{itemMatrix} and \link{associations} in a given \link{transactions}
-data.
+Counts support for itemsets represented by an \link{itemMatrix} or an
+\link{associations} object in a \link{transactions} data set.
 }
 \details{
-Normally, the support of frequent itemsets is very efficiently counted during
-mining process using a set minimum support.
+Normally, the support of frequent itemsets is counted efficiently during the
+mining process using a minimum support threshold.
 However, if only the support for specific itemsets (maybe itemsets with very low support)
 is needed, or the support of a set of itemsets needs to be recalculated on
 different \link{transactions} than they were mined on, then \code{support()} can be used.
@@ -73,15 +73,21 @@ are organized in a prefix tree. The transactions are sequentially processed
 and the corresponding counters in the prefix tree are incremented (see
 Hahsler et al, 2008). This method is used by default since it is typically
 significantly faster than transaction ID list intersection.
-\item \code{"tidlists"}: support is counted using
+\item \code{"tidlists"}: Support is counted using
 transaction ID list intersection which is used by several fast mining
-algorithms (e.g., by Eclat). However, Support is determined for each itemset
+algorithms (e.g., by Eclat). However, support is determined for each itemset
 individually which is slow for a large number of long itemsets in dense
 data.
 }
 
-To speed up counting, \code{reduce = TRUE} can be specified in control. Unused items
-are removed from the transactions before counting.
+The item coding of \code{x} and \code{transactions} is reconciled using item labels.
+Items that occur only in \code{transactions} do not affect the count. With
+\code{reduce = TRUE}, unused items are removed before prefix-tree counting.
+
+Weighted support uses the numeric \code{weight} column in
+\code{transactionInfo(transactions)}. Absolute weighted support is the sum of the
+weights of supporting transactions; relative weighted support divides this
+value by the sum of all transaction weights.
 }
 \examples{
 data("Income")
@@ -94,6 +100,7 @@ inspect(itemsets)
 
 ## count support in the database
 support(items(itemsets), Income)
+support(itemsets, Income, type = "absolute")
 }
 \references{
 Michael Hahsler, Christian Buchta, and Kurt Hornik. Selective
@@ -101,12 +108,12 @@ association rule generation. \emph{Computational Statistics}, 23(2):303-315,
 April 2008.
 }
 \seealso{
-Other interest measures: 
-\code{\link{confint}()},
-\code{\link{coverage}()},
-\code{\link{interestMeasure}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()}
+Other interest measures:
+\code{\link{confint}},
+\code{\link[=coverage]{coverage()}},
+\code{\link[=interestMeasure]{interestMeasure()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}}
 }
 \author{
 Michael Hahsler and Christian Buchta

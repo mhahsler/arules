@@ -34,10 +34,10 @@ or by coercion from matrix.
 \seealso{
 \code{\link[stats:dist]{stats::dist()}}, \code{\link[proxy:dist]{proxy::dist()}}
 
-Other proximity classes and functions: 
-\code{\link{affinity}()},
-\code{\link{dissimilarity}()},
-\code{\link{predict}()}
+Other proximity classes and functions:
+\code{\link[=affinity]{affinity()}},
+\code{\link[=dissimilarity]{dissimilarity()}},
+\code{\link[=predict]{predict()}}
 }
 \author{
 Michael Hahsler

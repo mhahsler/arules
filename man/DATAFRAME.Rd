@@ -60,11 +60,11 @@ DATAFRAME(rules, separate = TRUE)
 DATAFRAME(rules, separate = TRUE, setStart = "", itemSep = " + ", setEnd = "")
 }
 \seealso{
-Other import/export: 
-\code{\link{LIST}()},
+Other import/export:
+\code{\link[=LIST]{LIST()}},
 \code{\link{pmml}},
 \code{\link{read}},
-\code{\link{write}()}
+\code{\link[=write]{write()}}
 }
 \author{
 Michael Hahsler

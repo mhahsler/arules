@@ -50,15 +50,12 @@ Additional mining algorithms
 
 * [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner): Mining NB-frequent itemsets and NB-precise rules.
 * [fim4r](https://borgelt.net/fim4r.html): Provides fast implementations for several mining algorithms. An interface function called `fim4r()` is provided in `arules`.
-* [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for finding the op k productive, non-redundant itemsets. Call `opus()` with `format = 'itemsets'`. 
-* [RKEEL](https://cran.r-project.org/package=RKEEL): Interface to KEEL's association rule mining algorithm.
-* [RSarules](https://cran.r-project.org/package=RSarules): Mining algorithm which randomly samples association rules with one pre-chosen item as the consequent from a transaction dataset.
+* [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner algorithm for finding the top-k productive, non-redundant itemsets. Call `opus()` with `format = 'itemsets'`. 
 
 
 In-database analytics
 
 * [ibmdbR](https://cran.r-project.org/package=ibmdbR): IBM in-database analytics for R can calculate association rules from a database table.
-* [rfml](https://cran.r-project.org/package=rfml): Mine frequent itemsets or association rules using a MarkLogic server. 
 
 Interface
 
@@ -68,18 +65,13 @@ Interface
 Classification 
 
 * [arc](https://cran.r-project.org/package=arc): Alternative CBA implementation. 
-* [inTrees](https://cran.r-project.org/package=inTrees): Interpret Tree Ensembles provides functions for: extracting, measuring and pruning rules; selecting a compact rule set; summarizing rules into a learner.
 * [rCBA](https://cran.r-project.org/package=rCBA): Alternative CBA implementation.
 * [qCBA](https://cran.r-project.org/package=qCBA): Quantitative Classification by Association Rules.
 * [sblr](https://cran.r-project.org/package=sbrl): Scalable Bayesian rule lists algorithm for classification.
 
-Outlier Detection
-
-* [fpmoutliers](https://cran.r-project.org/package=fpmoutliers): Frequent Pattern Mining Outliers.
-
 Recommendation/Prediction
 
-* [recommenerlab](https://github.com/mhahsler/recommenderlab): Supports creating predictions using association rules.
+* [recommenderlab](https://github.com/mhahsler/recommenderlab): Supports creating predictions using association rules.
 
 
 ```{r echo=FALSE, results = 'asis'}
@@ -140,7 +132,7 @@ rules |>
 ## Using arules from Python
 
 `arules` and `arulesViz` can now be used directly from Python with the Python 
-package [`arulespy`](https://pypi.org/project/arulespy/) available form PyPI. 
+package [`arulespy`](https://pypi.org/project/arulespy/) available from PyPI. 
 
 ## Support
 

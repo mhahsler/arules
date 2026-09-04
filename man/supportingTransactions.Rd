@@ -52,28 +52,28 @@ st
 as(st, "list")
 }
 \seealso{
-Other itemMatrix and transactions functions: 
-\code{\link{abbreviate}()},
-\code{\link{c}()},
-\code{\link{crossTable}()},
-\code{\link{duplicated}()},
+Other itemMatrix and transactions functions:
+\code{\link[=abbreviate]{abbreviate()}},
+\code{\link{c}},
+\code{\link[=crossTable]{crossTable()}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
 \code{\link{hierarchy}},
-\code{\link{image}()},
-\code{\link{inspect}()},
-\code{\link{is.superset}()},
-\code{\link{itemFrequency}()},
-\code{\link{itemFrequencyPlot}()},
+\code{\link{image}},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.superset]{is.superset()}},
+\code{\link[=itemFrequency]{itemFrequency()}},
+\code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}},
 \code{\link{itemMatrix-class}},
-\code{\link{match}()},
-\code{\link{merge}()},
-\code{\link{random.transactions}()},
-\code{\link{sample}()},
+\code{\link[=match]{match()}},
+\code{\link[=merge]{merge()}},
+\code{\link[=random.transactions]{random.transactions()}},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
+\code{\link[=size]{size()}},
 \code{\link{tidLists-class}},
 \code{\link{transactions-class}},
-\code{\link{unique}()}
+\code{\link[=unique]{unique()}}
 }
 \author{
 Michael Hahsler

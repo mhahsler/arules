@@ -74,9 +74,9 @@ write(rules, file = "data.csv", sep = ",")
 unlink("data.csv") # tidy up
 }
 \seealso{
-Other import/export: 
-\code{\link{DATAFRAME}()},
-\code{\link{LIST}()},
+Other import/export:
+\code{\link[=DATAFRAME]{DATAFRAME()}},
+\code{\link[=LIST]{LIST()}},
 \code{\link{pmml}},
 \code{\link{read}}
 }

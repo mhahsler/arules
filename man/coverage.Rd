@@ -49,12 +49,12 @@ quality(rules) <- cbind(quality(rules), coverage = coverage(rules))
 inspect(rules)
 }
 \seealso{
-Other interest measures: 
-\code{\link{confint}()},
-\code{\link{interestMeasure}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()},
-\code{\link{support}()}
+Other interest measures:
+\code{\link{confint}},
+\code{\link[=interestMeasure]{interestMeasure()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}},
+\code{\link[=support]{support()}}
 }
 \author{
 Michael Hahsler

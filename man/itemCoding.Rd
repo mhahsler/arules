@@ -247,11 +247,11 @@ inspect(aRule)
 \seealso{
 \code{\link[=LIST]{LIST()}}, \link{associations}, \link{itemMatrix}
 
-Other preprocessing: 
-\code{\link{discretize}()},
+Other preprocessing:
+\code{\link[=discretize]{discretize()}},
 \code{\link{hierarchy}},
-\code{\link{merge}()},
-\code{\link{sample}()}
+\code{\link[=merge]{merge()}},
+\code{\link[=sample]{sample()}}
 }
 \author{
 Michael Hahsler

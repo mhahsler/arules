@@ -25,7 +25,7 @@
 #'
 #' Often an item hierarchy is available for [transactions]
 #' used for association rule
-#' mining. For example in a supermarket dataset items like "bread" and "beagle"
+#' mining. For example, in a supermarket dataset items like "bread" and "bagel"
 #' might belong to the item group (category) "baked goods."
 #'
 #' Transactions can store item hierarchies as additional columns in the
@@ -61,11 +61,11 @@
 #' @family preprocessing
 #' @family itemMatrix and transactions functions
 #'
-#' @param x an transactions, itemsets or rules object.
+#' @param x a [transactions], [itemsets], or [rules] object.
 #' @param by name of a field (hierarchy level) available in
 #' [itemInfo] of `x` or a grouping vector of the same length
-#' as items in `x` by which should be aggregated. Items with the same
-#' group label in `by` will be aggregated into a single with that name.
+#' as the number of items in `x`. Items with the same group label in `by`
+#' are aggregated into a single item with that label.
 #' Note that the grouping vector will be coerced to factor before use.
 #' @param postfix characters added to mark group-level items.
 #' @param ... further arguments.
@@ -74,14 +74,14 @@
 #' encoded with a number of items equal to the number of unique values in
 #' `by`. Note that for associations (itemsets and rules) the number of
 #' associations in the returned set will most likely be reduced since several
-#' associations might map to the same aggregated association and aggregate
-#' returns a unique set. If several associations map to a single aggregated
-#' association then the quality measures of one of the original associations is
-#' randomly chosen.
+#' associations might map to the same aggregated association. `aggregate()`
+#' returns only unique associations. Quality measures are removed because they
+#' are generally invalid after aggregation; aggregate the transactions and mine
+#' them again to obtain valid quality measures.
 #'
 #' `addAggregate()` returns a new transactions object with the original
-#' items and the group-items added. `filterAggregateRules()` returns a new
-#' rules object with the spurious rules remove.
+#' items and the group items added. `filterAggregate()` removes associations
+#' containing both an item and its aggregate.
 #' @author Michael Hahsler
 #' @keywords manip
 #' @examples
@@ -115,7 +115,7 @@
 #'
 #' ## Example 3: Aggregate rules
 #' ## Note: You could also directly mine rules from aggregated transactions to
-#' ## get support, lift and support
+#' ## get support, confidence, and lift
 #' rules <- apriori(Groceries, parameter = list(supp = 0.005, conf = 0.5))
 #' rules
 #' inspect(rules[1])

@@ -21,35 +21,38 @@
 #' Model Predictions
 #'
 #' Provides the method `predict()` for [itemMatrix] (e.g.,
-#' transactions).  Predicts the membership (nearest neighbor) of new data to
+#' transactions). Predicts the membership (nearest neighbor) of new data to
 #' clusters represented by medoids or labeled examples.
+#'
+#' `object` and `newdata` must use compatible item coding (the same items in the
+#' same order). For each row in `newdata`, the label of the least dissimilar row
+#' in `object` is returned. Ties are resolved by [max.col()] and may therefore be
+#' selected at random.
 #'
 #' @family proximity classes and functions
 #'
-#' @param object clustered examples as an [itemMatrix] with cluster label specified in `labels` or medoids as an [itemMatrix] (use `labels = NULL`).
+#' @param object clustered examples or medoids stored as an [itemMatrix].
 #' @param newdata an [itemMatrix] containing the objects to predict labels for.
-#' @param labels an integer vector containing the labels for the examples in
-#' `object`. The cluster labels need to be contiguous integers starting with 1.
-#' @param blocksize a numeric scalar indicating how much memory predict can use
-#' for big `x` and/or `y` (approx. in MB). 200 is only a crude
-#' approximation for 32-bit machines (64-bit architectures need double the
-#' blocksize in memory) and using the default Jaccard method for dissimilarity
-#' calculation.  In general, reducing `blocksize` will decrease the memory
-#' usage but will increase the run-time.
+#' @param labels a vector containing one label for each row in `object`. If
+#' `NULL`, the row numbers of `object` are used.
+#' @param blocksize approximate maximum memory, in MB, used for the
+#' cross-dissimilarity matrix. Reducing `blocksize` lowers peak memory use but
+#' can increase run time.
 #' @param ... further arguments passed on to [dissimilarity()]. E.g.,
 #' `method`.
-#' @return An integer vector of the same length as `newdata` containing
-#' the predicted labels for each element.
+#' @return A vector with one predicted label per row of `newdata`. Its values
+#' come from `labels` (or from the row numbers of `object` when `labels = NULL`).
 #' @author Michael Hahsler
 #' @keywords models cluster
 #' @examples
 #' data("Adult")
 #'
 #' ## sample
+#' set.seed(1234)
 #' small <- sample(Adult, 500)
 #' large <- sample(Adult, 5000)
 #'
-#' ## cluster a small sample and extract the cluster lael vector
+#' ## cluster a small sample and extract the cluster label vector
 #' d_jaccard <- dissimilarity(small)
 #' hc <- hclust(d_jaccard)
 #' l <- cutree(hc, k = 4)

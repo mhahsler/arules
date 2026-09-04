@@ -74,7 +74,7 @@ an item/itemset and stores the IDs of the transactions which support the
 item/itemset.
 
 \code{tidLists} uses the class
-\link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix} to efficiently store the
+\link[Matrix:ngCMatrix-class]{Matrix::ngCMatrix} to efficiently store the
 transaction ID lists as a sparse matrix.  Each column in the matrix
 represents one transaction ID list.
 
@@ -121,7 +121,7 @@ columns are the transactions.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{an object of class \link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix}.}
+\item{\code{data}}{an object of class \link[Matrix:ngCMatrix-class]{Matrix::ngCMatrix}.}
 
 \item{\code{itemInfo}}{a data.frame}
 
@@ -189,28 +189,28 @@ tl2 <- tidLists(f)
 inspect(tl2)
 }
 \seealso{
-Other itemMatrix and transactions functions: 
-\code{\link{abbreviate}()},
-\code{\link{c}()},
-\code{\link{crossTable}()},
-\code{\link{duplicated}()},
+Other itemMatrix and transactions functions:
+\code{\link[=abbreviate]{abbreviate()}},
+\code{\link{c}},
+\code{\link[=crossTable]{crossTable()}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
 \code{\link{hierarchy}},
-\code{\link{image}()},
-\code{\link{inspect}()},
-\code{\link{is.superset}()},
-\code{\link{itemFrequency}()},
-\code{\link{itemFrequencyPlot}()},
+\code{\link{image}},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.superset]{is.superset()}},
+\code{\link[=itemFrequency]{itemFrequency()}},
+\code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}},
 \code{\link{itemMatrix-class}},
-\code{\link{match}()},
-\code{\link{merge}()},
-\code{\link{random.transactions}()},
-\code{\link{sample}()},
+\code{\link[=match]{match()}},
+\code{\link[=merge]{merge()}},
+\code{\link[=random.transactions]{random.transactions()}},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{supportingTransactions}()},
+\code{\link[=size]{size()}},
+\code{\link[=supportingTransactions]{supportingTransactions()}},
 \code{\link{transactions-class}},
-\code{\link{unique}()}
+\code{\link[=unique]{unique()}}
 }
 \author{
 Michael Hahsler

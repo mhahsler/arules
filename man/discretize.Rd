@@ -202,11 +202,11 @@ discretizeDF(iris[sample(1:nrow(iris), 5), ], methods = irisDisc)
 \code{\link[base:cut]{base::cut()}},
 \code{\link[arulesCBA:discretizeDF.supervised]{arulesCBA::discretizeDF.supervised()}}.
 
-Other preprocessing: 
+Other preprocessing:
 \code{\link{hierarchy}},
 \code{\link{itemCoding}},
-\code{\link{merge}()},
-\code{\link{sample}()}
+\code{\link[=merge]{merge()}},
+\code{\link[=sample]{sample()}}
 }
 \author{
 Michael Hahsler

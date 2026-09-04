@@ -65,9 +65,9 @@ without Preassigned Weights. \emph{IEEE Transactions on Knowledge and Data
 Engineering}, 4 (30), 489--495.
 }
 \seealso{
-Other weighted association mining functions: 
+Other weighted association mining functions:
 \code{\link{SunBai}},
-\code{\link{weclat}()}
+\code{\link[=weclat]{weclat()}}
 }
 \author{
 Christian Buchta

@@ -20,7 +20,8 @@ dissimilarity(x, y = NULL, method = NULL, args = NULL, items = FALSE, ...)
 \item{x}{the set of elements (e.g., \code{matrix}, \link{itemMatrix}, \link{transactions},
 \link{itemsets}, \link{rules}).}
 
-\item{y}{\code{NULL} or a second set to calculate cross dissimilarities.}
+\item{y}{\code{NULL} or a second compatible set for calculating cross
+dissimilarities.}
 
 \item{method}{the distance measure to be used. Implemented measures are
 (defaults to \code{"jaccard"}):
@@ -32,19 +33,18 @@ transactions (see Aggarwal et al. (2002)). If \code{x} is not the full
 transaction set \code{args} needs to contain either precalculated affinities
 as element \code{"affinities"} or the transaction set as element
 \code{"transactions"}.
-\item \code{"cosine"}: the Cosine distance.
-\item \code{"dice"}: Dice's coefficient defined by Dice (1945).
-Similar to Jaccard but gives double the weight to agreeing items.
+\item \code{"cosine"}: one minus cosine similarity.
+\item \code{"dice"}: one minus Dice's coefficient defined by Dice (1945).
+Dice's coefficient is similar to Jaccard similarity but gives double
+weight to shared items.
 \item \code{"euclidean"}: the Euclidean distance.
-\item \code{"jaccard"}: the number of items which occur in both elements
-divided by the total number of items in the elements (Sneath, 1957).  This
-measure is often also called: binary, asymmetric binary, etc.
-\item \code{"matching"}: the matching coefficient defined by
-Sokal and Michener (1958). This coefficient gives the same weight to
-presents and absence of items.
-\item \code{"pearson"} A distance calculated by \eqn{1 - r}
-if \eqn{r>1} and \eqn{1} otherwise, where \eqn{r} is the Pearson's correlation
-coefficient.
+\item \code{"jaccard"}: one minus the number of shared items divided by the
+number of items present in either element (Sneath, 1957).
+\item \code{"matching"}: one minus the matching coefficient defined by Sokal and
+Michener (1958). This coefficient gives equal weight to the presence and
+absence of items.
+\item \code{"pearson"}: a distance derived from Pearson correlation for binary
+incidence vectors.
 \item \code{"phi"}: same as \code{"pearson"}. Pearson's correlation coefficient
 reduces to the phi coefficient for the 2x2 contingency tables used
 here.
@@ -61,22 +61,31 @@ each rule individually.  The transactions used to mine the associations has
 to be passed on via \code{args} as element \code{"transactions"}.
 }}
 
-\item{args}{a list of additional arguments for the methods.}
+\item{args}{a list of method-specific arguments. The \code{"affinity"},
+\code{"toivonen"}, and \code{"gupta"} methods can require \code{transactions} or a
+precomputed \code{affinities} matrix in this list.}
 
-\item{items}{logical; dissimilarity should be
-calculated between transactions/associations (default) or items.}
+\item{items}{logical; calculate dissimilarities between rows
+(transactions/associations) or between columns (items)?}
 
-\item{...}{further arguments.}
+\item{...}{unused; unknown arguments produce a warning.}
 }
 \value{
-returns an object of class \code{dist}.
+If \code{y = NULL}, a symmetric \link[stats:dist]{stats::dist} object. If \code{y} is supplied,
+an \code{ar_cross_dissimilarity} matrix with \code{nrow(x)} rows and \code{nrow(y)} columns
+(or the corresponding numbers of items when \code{items = TRUE}).
 }
 \description{
-Provides the generic function \code{dissimilarity()} and the methods to
-compute and returns distances for binary data in a \code{matrix},
-\link{transactions} or \link{associations} which
-can be used for grouping and clustering. See Hahsler (2016) for an
+Computes distances for binary data in a \code{matrix}, \link{transactions}, or
+\link{associations}. The result can be used for grouping and clustering. See
+Hahsler (2016) for an
 introduction to distance-based clustering of association rules.
+}
+\details{
+Matrix input must contain only zeroes and ones (or logical values). When \code{y}
+is supplied, it must use the same columns as \code{x}. Likewise, arules objects
+must have compatible item coding. Setting \code{items = TRUE} computes distances
+between columns (items) instead of rows.
 }
 \examples{
 
@@ -154,9 +163,9 @@ Toivonen, H., Klemettinen, M., Ronkainen, P., Hatonen, K. and Mannila H.
 Proceedings of KDD'95}.
 }
 \seealso{
-Other proximity classes and functions: 
-\code{\link{affinity}()},
-\code{\link{predict}()},
+Other proximity classes and functions:
+\code{\link[=affinity]{affinity()}},
+\code{\link[=predict]{predict()}},
 \code{\link{proximity-classes}}
 }
 \author{

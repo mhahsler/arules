@@ -52,33 +52,34 @@ frequent itemsets using generators and a positive border.
 \doi{10.1007/s10115-007-0111-5}
 }
 \seealso{
-Other postprocessing: 
-\code{\link{is.closed}()},
-\code{\link{is.maximal}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()},
-\code{\link{is.superset}()}
+Other postprocessing:
+\code{\link[=is.closed]{is.closed()}},
+\code{\link[=is.maximal]{is.maximal()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}},
+\code{\link[=is.superset]{is.superset()}},
+\code{\link[=ruleInduction]{ruleInduction()}}
 
-Other associations functions: 
-\code{\link{abbreviate}()},
+Other associations functions:
+\code{\link[=abbreviate]{abbreviate()}},
 \code{\link{associations-class}},
-\code{\link{c}()},
-\code{\link{duplicated}()},
+\code{\link{c}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
-\code{\link{inspect}()},
-\code{\link{is.closed}()},
-\code{\link{is.maximal}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()},
-\code{\link{is.superset}()},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.closed]{is.closed()}},
+\code{\link[=is.maximal]{is.maximal()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}},
+\code{\link[=is.superset]{is.superset()}},
 \code{\link{itemsets-class}},
-\code{\link{match}()},
+\code{\link[=match]{match()}},
 \code{\link{rules-class}},
-\code{\link{sample}()},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{sort}()},
-\code{\link{unique}()}
+\code{\link[=size]{size()}},
+\code{\link[=sort]{sort()}},
+\code{\link[=unique]{unique()}}
 }
 \author{
 Michael Hahsler

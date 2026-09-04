@@ -180,12 +180,12 @@ Anscombe, F.J. (1956). "On estimating binomial response relations".
 \seealso{
 \link{itemsets}, \link{rules}
 
-Other interest measures: 
-\code{\link{confint}()},
-\code{\link{coverage}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()},
-\code{\link{support}()}
+Other interest measures:
+\code{\link{confint}},
+\code{\link[=coverage]{coverage()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}},
+\code{\link[=support]{support()}}
 }
 \author{
 Michael Hahsler

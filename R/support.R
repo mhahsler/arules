@@ -19,12 +19,11 @@
 
 #' Support Counting for Itemsets
 #'
-#' Provides the generic function `support()` and the methods to count support for
-#' given [itemMatrix] and [associations] in a given [transactions]
-#' data.
+#' Counts support for itemsets represented by an [itemMatrix] or an
+#' [associations] object in a [transactions] data set.
 #'
-#' Normally, the support of frequent itemsets is very efficiently counted during
-#' mining process using a set minimum support.
+#' Normally, the support of frequent itemsets is counted efficiently during the
+#' mining process using a minimum support threshold.
 #' However, if only the support for specific itemsets (maybe itemsets with very low support)
 #' is needed, or the support of a set of itemsets needs to be recalculated on
 #' different [transactions] than they were mined on, then `support()` can be used.
@@ -37,32 +36,39 @@
 #'   Hahsler et al, 2008). This method is used by default since it is typically
 #'   significantly faster than transaction ID list intersection.
 #'
-#' * `"tidlists"`: support is counted using
+#' * `"tidlists"`: Support is counted using
 #'   transaction ID list intersection which is used by several fast mining
-#'   algorithms (e.g., by Eclat). However, Support is determined for each itemset
+#'   algorithms (e.g., by Eclat). However, support is determined for each itemset
 #'   individually which is slow for a large number of long itemsets in dense
 #'   data.
 #'
-#' To speed up counting, `reduce = TRUE` can be specified in control. Unused items
-#' are removed from the transactions before counting.
+#' The item coding of `x` and `transactions` is reconciled using item labels.
+#' Items that occur only in `transactions` do not affect the count. With
+#' `reduce = TRUE`, unused items are removed before prefix-tree counting.
+#'
+#' Weighted support uses the numeric `weight` column in
+#' `transactionInfo(transactions)`. Absolute weighted support is the sum of the
+#' weights of supporting transactions; relative weighted support divides this
+#' value by the sum of all transaction weights.
 #'
 #' @aliases support
 #' @family interest measures
 #'
-#' @param x the set of itemsets for which support should be counted.
-#' @param transactions the transaction data set used for mining.
-#' @param type a character string specifying if `"relative"` support or
-#' `"absolute"` support (counts) are returned for the itemsets in
-#' `x`.  (default: `"relative"`)
-#' @param weighted should support be weighted by transactions weights stored as
-#' column `"weight"` in `transactionInfo`?
-#' @param method use `"ptree"` or `"tidlists"`. See Details Section.
-#' @param reduce should unused items are removed before counting?
-#' @param verbose report progress?
-#' @param ... further arguments.
+#' @param x an [itemMatrix] or [associations] object containing the itemsets for
+#' which support is counted.
+#' @param transactions the [transactions] data set in which support is counted.
+#' @param type return `"relative"` support or `"absolute"` counts (or summed
+#' weights when `weighted = TRUE`).
+#' @param weighted logical; use transaction weights stored in the `weight`
+#' column of [transactionInfo()]?
+#' @param method support-counting method: `"ptree"` or `"tidlists"`.
+#' @param reduce logical; remove unused items before prefix-tree counting?
+#' @param verbose logical; report progress and timing information?
+#' @param ... further arguments passed from the generic to a method.
 #'
-#' @return A numeric vector of the same length as `x` containing the
-#' support values for the sets in `x`.
+#' @return An unnamed numeric vector of length `length(x)`. Values are relative
+#' supports when `type = "relative"` and counts or weight sums when
+#' `type = "absolute"`.
 #' @author Michael Hahsler and Christian Buchta
 #' @references Michael Hahsler, Christian Buchta, and Kurt Hornik. Selective
 #' association rule generation. _Computational Statistics_, 23(2):303-315,
@@ -79,6 +85,7 @@
 #'
 #' ## count support in the database
 #' support(items(itemsets), Income)
+#' support(itemsets, Income, type = "absolute")
 #' @export
 setGeneric(
   "support",

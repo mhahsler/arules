@@ -10,40 +10,44 @@ predict(object, ...)
 \S4method{predict}{itemMatrix}(object, newdata, labels = NULL, blocksize = 200, ...)
 }
 \arguments{
-\item{object}{clustered examples as an \link{itemMatrix} with cluster label specified in \code{labels} or medoids as an \link{itemMatrix} (use \code{labels = NULL}).}
+\item{object}{clustered examples or medoids stored as an \link{itemMatrix}.}
 
 \item{...}{further arguments passed on to \code{\link[=dissimilarity]{dissimilarity()}}. E.g.,
 \code{method}.}
 
 \item{newdata}{an \link{itemMatrix} containing the objects to predict labels for.}
 
-\item{labels}{an integer vector containing the labels for the examples in
-\code{object}. The cluster labels need to be contiguous integers starting with 1.}
+\item{labels}{a vector containing one label for each row in \code{object}. If
+\code{NULL}, the row numbers of \code{object} are used.}
 
-\item{blocksize}{a numeric scalar indicating how much memory predict can use
-for big \code{x} and/or \code{y} (approx. in MB). 200 is only a crude
-approximation for 32-bit machines (64-bit architectures need double the
-blocksize in memory) and using the default Jaccard method for dissimilarity
-calculation.  In general, reducing \code{blocksize} will decrease the memory
-usage but will increase the run-time.}
+\item{blocksize}{approximate maximum memory, in MB, used for the
+cross-dissimilarity matrix. Reducing \code{blocksize} lowers peak memory use but
+can increase run time.}
 }
 \value{
-An integer vector of the same length as \code{newdata} containing
-the predicted labels for each element.
+A vector with one predicted label per row of \code{newdata}. Its values
+come from \code{labels} (or from the row numbers of \code{object} when \code{labels = NULL}).
 }
 \description{
 Provides the method \code{predict()} for \link{itemMatrix} (e.g.,
-transactions).  Predicts the membership (nearest neighbor) of new data to
+transactions). Predicts the membership (nearest neighbor) of new data to
 clusters represented by medoids or labeled examples.
+}
+\details{
+\code{object} and \code{newdata} must use compatible item coding (the same items in the
+same order). For each row in \code{newdata}, the label of the least dissimilar row
+in \code{object} is returned. Ties are resolved by \code{\link[=max.col]{max.col()}} and may therefore be
+selected at random.
 }
 \examples{
 data("Adult")
 
 ## sample
+set.seed(1234)
 small <- sample(Adult, 500)
 large <- sample(Adult, 5000)
 
-## cluster a small sample and extract the cluster lael vector
+## cluster a small sample and extract the cluster label vector
 d_jaccard <- dissimilarity(small)
 hc <- hclust(d_jaccard)
 l <- cutree(hc, k = 4)
@@ -55,9 +59,9 @@ labels <- predict(small, large, l)
 itemFrequencyPlot(large[labels == 1, itemFrequency(large) > 0.1])
 }
 \seealso{
-Other proximity classes and functions: 
-\code{\link{affinity}()},
-\code{\link{dissimilarity}()},
+Other proximity classes and functions:
+\code{\link[=affinity]{affinity()}},
+\code{\link[=dissimilarity]{dissimilarity()}},
 \code{\link{proximity-classes}}
 }
 \author{

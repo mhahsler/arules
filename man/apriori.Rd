@@ -143,14 +143,14 @@ Melbourne, FL, USA).
 APRIORI Implementation: \url{https://borgelt.net/apriori.html}
 }
 \seealso{
-Other mining algorithms: 
+Other mining algorithms:
 \code{\link{APappearance-class}},
 \code{\link{AScontrol-classes}},
 \code{\link{ASparameter-classes}},
-\code{\link{eclat}()},
-\code{\link{fim4r}()},
-\code{\link{ruleInduction}()},
-\code{\link{weclat}()}
+\code{\link[=eclat]{eclat()}},
+\code{\link[=fim4r]{fim4r()}},
+\code{\link[=ruleInduction]{ruleInduction()}},
+\code{\link[=weclat]{weclat()}}
 }
 \author{
 Michael Hahsler and Bettina Gruen

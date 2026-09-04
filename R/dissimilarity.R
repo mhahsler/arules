@@ -61,18 +61,23 @@ setClass("ar_cross_dissimilarity",
 
 #' Dissimilarity Matrix Computation for Associations and Transactions
 #'
-#' Provides the generic function `dissimilarity()` and the methods to
-#' compute and returns distances for binary data in a `matrix`,
-#' [transactions] or [associations] which
-#' can be used for grouping and clustering. See Hahsler (2016) for an
+#' Computes distances for binary data in a `matrix`, [transactions], or
+#' [associations]. The result can be used for grouping and clustering. See
+#' Hahsler (2016) for an
 #' introduction to distance-based clustering of association rules.
+#'
+#' Matrix input must contain only zeroes and ones (or logical values). When `y`
+#' is supplied, it must use the same columns as `x`. Likewise, arules objects
+#' must have compatible item coding. Setting `items = TRUE` computes distances
+#' between columns (items) instead of rows.
 #'
 #' @aliases dissimilarity dist
 #' @family proximity classes and functions
 #'
 #' @param x the set of elements (e.g., `matrix`, [itemMatrix], [transactions],
 #' [itemsets], [rules]).
-#' @param y `NULL` or a second set to calculate cross dissimilarities.
+#' @param y `NULL` or a second compatible set for calculating cross
+#' dissimilarities.
 #' @param method the distance measure to be used. Implemented measures are
 #' (defaults to `"jaccard"`):
 #'
@@ -83,19 +88,18 @@ setClass("ar_cross_dissimilarity",
 #'       transaction set `args` needs to contain either precalculated affinities
 #'       as element `"affinities"` or the transaction set as element
 #'       `"transactions"`.
-#'    * `"cosine"`: the Cosine distance.
-#'    *  `"dice"`: Dice's coefficient defined by Dice (1945).
-#'      Similar to Jaccard but gives double the weight to agreeing items.
+#'    * `"cosine"`: one minus cosine similarity.
+#'    * `"dice"`: one minus Dice's coefficient defined by Dice (1945).
+#'      Dice's coefficient is similar to Jaccard similarity but gives double
+#'      weight to shared items.
 #'    * `"euclidean"`: the Euclidean distance.
-#'    * `"jaccard"`: the number of items which occur in both elements
-#'      divided by the total number of items in the elements (Sneath, 1957).  This
-#'      measure is often also called: binary, asymmetric binary, etc.
-#'    * `"matching"`: the matching coefficient defined by
-#'       Sokal and Michener (1958). This coefficient gives the same weight to
-#'       presents and absence of items.
-#'    * `"pearson"` A distance calculated by \eqn{1 - r}
-#'       if \eqn{r>1} and \eqn{1} otherwise, where \eqn{r} is the Pearson's correlation
-#'       coefficient.
+#'    * `"jaccard"`: one minus the number of shared items divided by the
+#'      number of items present in either element (Sneath, 1957).
+#'    * `"matching"`: one minus the matching coefficient defined by Sokal and
+#'      Michener (1958). This coefficient gives equal weight to the presence and
+#'      absence of items.
+#'    * `"pearson"`: a distance derived from Pearson correlation for binary
+#'      incidence vectors.
 #'    * `"phi"`: same as `"pearson"`. Pearson's correlation coefficient
 #'      reduces to the phi coefficient for the 2x2 contingency tables used
 #'      here.
@@ -111,11 +115,15 @@ setClass("ar_cross_dissimilarity",
 #'      each rule individually.  The transactions used to mine the associations has
 #'      to be passed on via `args` as element `"transactions"`.
 #'
-#' @param args a list of additional arguments for the methods.
-#' @param items logical; dissimilarity should be
-#' calculated between transactions/associations (default) or items.
-#' @param ... further arguments.
-#' @return returns an object of class `dist`.
+#' @param args a list of method-specific arguments. The `"affinity"`,
+#' `"toivonen"`, and `"gupta"` methods can require `transactions` or a
+#' precomputed `affinities` matrix in this list.
+#' @param items logical; calculate dissimilarities between rows
+#' (transactions/associations) or between columns (items)?
+#' @param ... unused; unknown arguments produce a warning.
+#' @return If `y = NULL`, a symmetric [stats::dist] object. If `y` is supplied,
+#' an `ar_cross_dissimilarity` matrix with `nrow(x)` rows and `nrow(y)` columns
+#' (or the corresponding numbers of items when `items = TRUE`).
 #' @author Michael Hahsler
 #' @references Aggarwal, C.C., Cecilia Procopiuc, and Philip S. Yu. (2002)
 #' Finding localized associations in market basket data.  _IEEE Trans. on

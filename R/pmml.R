@@ -20,15 +20,15 @@
 
 #' Read and Write PMML
 #'
-#' This function reads and writes PMML representations (version 4.1) of
-#' [associations] ([itemsets] and [rules]). Write delegates to package \pkg{pmml}.
+#' Reads PMML AssociationModel files and writes PMML representations of
+#' [associations] ([itemsets] and [rules]). Writing delegates to [pmml::pmml()],
+#' which determines the PMML version (currently PMML 4.4).
 #'
 #' @name pmml
 #' @family import/export
 #'
 #' @param x a [rules] or [itemsets] object.
-#' @param file name of the PMML file (for `read.PMML()` also a XML root node can be
-#' supplied).
+#' @param file path to a PMML file.
 #' @author Michael Hahsler
 #' @seealso [pmml::pmml()].
 #' @references PMML 4.4 - Association Rules.

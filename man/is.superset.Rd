@@ -27,7 +27,7 @@ or subset structure within set \code{x} is calculated.}
 
 \item{proper}{a logical indicating if all or just proper super or subsets.}
 
-\item{sparse}{a logical indicating if a sparse \link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix}
+\item{sparse}{a logical indicating if a sparse \link[Matrix:ngCMatrix-class]{Matrix::ngCMatrix}
 rather than a dense logical matrix should be returned.
 Sparse computation requires a
 significantly smaller amount of memory and is much faster for large sets.}
@@ -35,7 +35,7 @@ significantly smaller amount of memory and is much faster for large sets.}
 \item{...}{currently unused.}
 }
 \value{
-returns a logical matrix or a sparse \link[Matrix:nsparseMatrix-class]{Matrix::ngCMatrix}
+returns a logical matrix or a sparse \link[Matrix:ngCMatrix-class]{Matrix::ngCMatrix}
 with \code{length(x)} rows and \code{length(y)} columns.
 Each logical row vector represents which elements in \code{y} are supersets
 (subsets) of the corresponding element in \code{x}.  If either \code{x} or
@@ -62,56 +62,57 @@ is.superset(set, set)
 is.superset(set, set, sparse = FALSE)
 }
 \seealso{
-Other postprocessing: 
-\code{\link{is.closed}()},
-\code{\link{is.generator}()},
-\code{\link{is.maximal}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()}
+Other postprocessing:
+\code{\link[=is.closed]{is.closed()}},
+\code{\link[=is.generator]{is.generator()}},
+\code{\link[=is.maximal]{is.maximal()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}},
+\code{\link[=ruleInduction]{ruleInduction()}}
 
-Other associations functions: 
-\code{\link{abbreviate}()},
+Other associations functions:
+\code{\link[=abbreviate]{abbreviate()}},
 \code{\link{associations-class}},
-\code{\link{c}()},
-\code{\link{duplicated}()},
+\code{\link{c}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
-\code{\link{inspect}()},
-\code{\link{is.closed}()},
-\code{\link{is.generator}()},
-\code{\link{is.maximal}()},
-\code{\link{is.redundant}()},
-\code{\link{is.significant}()},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.closed]{is.closed()}},
+\code{\link[=is.generator]{is.generator()}},
+\code{\link[=is.maximal]{is.maximal()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.significant]{is.significant()}},
 \code{\link{itemsets-class}},
-\code{\link{match}()},
+\code{\link[=match]{match()}},
 \code{\link{rules-class}},
-\code{\link{sample}()},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{sort}()},
-\code{\link{unique}()}
+\code{\link[=size]{size()}},
+\code{\link[=sort]{sort()}},
+\code{\link[=unique]{unique()}}
 
-Other itemMatrix and transactions functions: 
-\code{\link{abbreviate}()},
-\code{\link{c}()},
-\code{\link{crossTable}()},
-\code{\link{duplicated}()},
+Other itemMatrix and transactions functions:
+\code{\link[=abbreviate]{abbreviate()}},
+\code{\link{c}},
+\code{\link[=crossTable]{crossTable()}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
 \code{\link{hierarchy}},
-\code{\link{image}()},
-\code{\link{inspect}()},
-\code{\link{itemFrequency}()},
-\code{\link{itemFrequencyPlot}()},
+\code{\link{image}},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=itemFrequency]{itemFrequency()}},
+\code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}},
 \code{\link{itemMatrix-class}},
-\code{\link{match}()},
-\code{\link{merge}()},
-\code{\link{random.transactions}()},
-\code{\link{sample}()},
+\code{\link[=match]{match()}},
+\code{\link[=merge]{merge()}},
+\code{\link[=random.transactions]{random.transactions()}},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{supportingTransactions}()},
+\code{\link[=size]{size()}},
+\code{\link[=supportingTransactions]{supportingTransactions()}},
 \code{\link{tidLists-class}},
 \code{\link{transactions-class}},
-\code{\link{unique}()}
+\code{\link[=unique]{unique()}}
 }
 \author{
 Michael Hahsler and Ian Johnson

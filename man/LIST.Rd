@@ -49,11 +49,11 @@ LIST(Adult[1:5])
 LIST(Adult[1:5], decode = FALSE)
 }
 \seealso{
-Other import/export: 
-\code{\link{DATAFRAME}()},
+Other import/export:
+\code{\link[=DATAFRAME]{DATAFRAME()}},
 \code{\link{pmml}},
 \code{\link{read}},
-\code{\link{write}()}
+\code{\link[=write]{write()}}
 }
 \author{
 Michael Hahsler

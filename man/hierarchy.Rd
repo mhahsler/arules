@@ -23,12 +23,12 @@ aggregate(x, ...)
 \S4method{aggregate}{rules}(x, by)
 }
 \arguments{
-\item{x}{an transactions, itemsets or rules object.}
+\item{x}{a \link{transactions}, \link{itemsets}, or \link{rules} object.}
 
 \item{by}{name of a field (hierarchy level) available in
 \link{itemInfo} of \code{x} or a grouping vector of the same length
-as items in \code{x} by which should be aggregated. Items with the same
-group label in \code{by} will be aggregated into a single with that name.
+as the number of items in \code{x}. Items with the same group label in \code{by}
+are aggregated into a single item with that label.
 Note that the grouping vector will be coerced to factor before use.}
 
 \item{postfix}{characters added to mark group-level items.}
@@ -40,14 +40,14 @@ Note that the grouping vector will be coerced to factor before use.}
 encoded with a number of items equal to the number of unique values in
 \code{by}. Note that for associations (itemsets and rules) the number of
 associations in the returned set will most likely be reduced since several
-associations might map to the same aggregated association and aggregate
-returns a unique set. If several associations map to a single aggregated
-association then the quality measures of one of the original associations is
-randomly chosen.
+associations might map to the same aggregated association. \code{aggregate()}
+returns only unique associations. Quality measures are removed because they
+are generally invalid after aggregation; aggregate the transactions and mine
+them again to obtain valid quality measures.
 
 \code{addAggregate()} returns a new transactions object with the original
-items and the group-items added. \code{filterAggregateRules()} returns a new
-rules object with the spurious rules remove.
+items and the group items added. \code{filterAggregate()} removes associations
+containing both an item and its aggregate.
 }
 \description{
 Functions to use item hierarchies to aggregate items at different
@@ -56,7 +56,7 @@ group levels, to perform multi-level transaction analysis.
 \details{
 Often an item hierarchy is available for \link{transactions}
 used for association rule
-mining. For example in a supermarket dataset items like "bread" and "beagle"
+mining. For example, in a supermarket dataset items like "bread" and "bagel"
 might belong to the item group (category) "baked goods."
 
 Transactions can store item hierarchies as additional columns in the
@@ -118,7 +118,7 @@ inspect(head(Groceries_alpha, 2))
 
 ## Example 3: Aggregate rules
 ## Note: You could also directly mine rules from aggregated transactions to
-## get support, lift and support
+## get support, confidence, and lift
 rules <- apriori(Groceries, parameter = list(supp = 0.005, conf = 0.5))
 rules
 inspect(rules[1])
@@ -143,34 +143,34 @@ rules <- filterAggregate(rules)
 inspect(head(rules, by = "lift"))
 }
 \seealso{
-Other preprocessing: 
-\code{\link{discretize}()},
+Other preprocessing:
+\code{\link[=discretize]{discretize()}},
 \code{\link{itemCoding}},
-\code{\link{merge}()},
-\code{\link{sample}()}
+\code{\link[=merge]{merge()}},
+\code{\link[=sample]{sample()}}
 
-Other itemMatrix and transactions functions: 
-\code{\link{abbreviate}()},
-\code{\link{c}()},
-\code{\link{crossTable}()},
-\code{\link{duplicated}()},
+Other itemMatrix and transactions functions:
+\code{\link[=abbreviate]{abbreviate()}},
+\code{\link{c}},
+\code{\link[=crossTable]{crossTable()}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
-\code{\link{image}()},
-\code{\link{inspect}()},
-\code{\link{is.superset}()},
-\code{\link{itemFrequency}()},
-\code{\link{itemFrequencyPlot}()},
+\code{\link{image}},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.superset]{is.superset()}},
+\code{\link[=itemFrequency]{itemFrequency()}},
+\code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}},
 \code{\link{itemMatrix-class}},
-\code{\link{match}()},
-\code{\link{merge}()},
-\code{\link{random.transactions}()},
-\code{\link{sample}()},
+\code{\link[=match]{match()}},
+\code{\link[=merge]{merge()}},
+\code{\link[=random.transactions]{random.transactions()}},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{supportingTransactions}()},
+\code{\link[=size]{size()}},
+\code{\link[=supportingTransactions]{supportingTransactions()}},
 \code{\link{tidLists-class}},
 \code{\link{transactions-class}},
-\code{\link{unique}()}
+\code{\link[=unique]{unique()}}
 }
 \author{
 Michael Hahsler

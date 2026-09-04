@@ -73,40 +73,41 @@ interest measures for association rules. \emph{Intelligent Data Analysis},
 \seealso{
 \code{\link[stats:p.adjust]{stats::p.adjust()}}
 
-Other interest measures: 
-\code{\link{confint}()},
-\code{\link{coverage}()},
-\code{\link{interestMeasure}()},
-\code{\link{is.redundant}()},
-\code{\link{support}()}
+Other interest measures:
+\code{\link{confint}},
+\code{\link[=coverage]{coverage()}},
+\code{\link[=interestMeasure]{interestMeasure()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=support]{support()}}
 
-Other postprocessing: 
-\code{\link{is.closed}()},
-\code{\link{is.generator}()},
-\code{\link{is.maximal}()},
-\code{\link{is.redundant}()},
-\code{\link{is.superset}()}
+Other postprocessing:
+\code{\link[=is.closed]{is.closed()}},
+\code{\link[=is.generator]{is.generator()}},
+\code{\link[=is.maximal]{is.maximal()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.superset]{is.superset()}},
+\code{\link[=ruleInduction]{ruleInduction()}}
 
-Other associations functions: 
-\code{\link{abbreviate}()},
+Other associations functions:
+\code{\link[=abbreviate]{abbreviate()}},
 \code{\link{associations-class}},
-\code{\link{c}()},
-\code{\link{duplicated}()},
+\code{\link{c}},
+\code{\link[=duplicated]{duplicated()}},
 \code{\link{extract}},
-\code{\link{inspect}()},
-\code{\link{is.closed}()},
-\code{\link{is.generator}()},
-\code{\link{is.maximal}()},
-\code{\link{is.redundant}()},
-\code{\link{is.superset}()},
+\code{\link[=inspect]{inspect()}},
+\code{\link[=is.closed]{is.closed()}},
+\code{\link[=is.generator]{is.generator()}},
+\code{\link[=is.maximal]{is.maximal()}},
+\code{\link[=is.redundant]{is.redundant()}},
+\code{\link[=is.superset]{is.superset()}},
 \code{\link{itemsets-class}},
-\code{\link{match}()},
+\code{\link[=match]{match()}},
 \code{\link{rules-class}},
-\code{\link{sample}()},
+\code{\link[=sample]{sample()}},
 \code{\link{sets}},
-\code{\link{size}()},
-\code{\link{sort}()},
-\code{\link{unique}()}
+\code{\link[=size]{size()}},
+\code{\link[=sort]{sort()}},
+\code{\link[=unique]{unique()}}
 }
 \author{
 Michael Hahsler

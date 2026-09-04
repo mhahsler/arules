@@ -17,7 +17,7 @@ affinity(x)
 \link{transactions} containing itemsets.}
 }
 \value{
-returns an object of class \linkS4class{ar_similarity} which represents the
+returns an object of class \link[=ar_similarity-class]{ar_similarity} which represents the
 affinities between items in \code{x}.
 }
 \description{
@@ -48,9 +48,9 @@ Finding localized associations in market basket data, \emph{IEEE Trans. on
 Knowledge and Data Engineering,} 14(1):51--62.
 }
 \seealso{
-Other proximity classes and functions: 
-\code{\link{dissimilarity}()},
-\code{\link{predict}()},
+Other proximity classes and functions:
+\code{\link[=dissimilarity]{dissimilarity()}},
+\code{\link[=predict]{predict()}},
 \code{\link{proximity-classes}}
 }
 \author{

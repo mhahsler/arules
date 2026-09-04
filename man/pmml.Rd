@@ -13,12 +13,12 @@ read.PMML(file)
 \arguments{
 \item{x}{a \link{rules} or \link{itemsets} object.}
 
-\item{file}{name of the PMML file (for \code{read.PMML()} also a XML root node can be
-supplied).}
+\item{file}{path to a PMML file.}
 }
 \description{
-This function reads and writes PMML representations (version 4.1) of
-\link{associations} (\link{itemsets} and \link{rules}). Write delegates to package \pkg{pmml}.
+Reads PMML AssociationModel files and writes PMML representations of
+\link{associations} (\link{itemsets} and \link{rules}). Writing delegates to \code{\link[pmml:pmml]{pmml::pmml()}},
+which determines the PMML version (currently PMML 4.4).
 }
 \examples{
 \dontshow{if (requireNamespace("pmml", quietly = TRUE)) withAutoprint(\{ # examplesIf}
@@ -50,11 +50,11 @@ PMML 4.4 - Association Rules.
 \seealso{
 \code{\link[pmml:pmml]{pmml::pmml()}}.
 
-Other import/export: 
-\code{\link{DATAFRAME}()},
-\code{\link{LIST}()},
+Other import/export:
+\code{\link[=DATAFRAME]{DATAFRAME()}},
+\code{\link[=LIST]{LIST()}},
 \code{\link{read}},
-\code{\link{write}()}
+\code{\link[=write]{write()}}
 }
 \author{
 Michael Hahsler

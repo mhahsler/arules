@@ -100,18 +100,18 @@ G.D. Ramkumar, S. Ranka, and S. Tsur (1998).  Weighted
 Association Rules: Model and Algorithm, \emph{Proceedings of ACM SIGKDD.}
 }
 \seealso{
-Other mining algorithms: 
+Other mining algorithms:
 \code{\link{APappearance-class}},
 \code{\link{AScontrol-classes}},
 \code{\link{ASparameter-classes}},
-\code{\link{apriori}()},
-\code{\link{eclat}()},
-\code{\link{fim4r}()},
-\code{\link{ruleInduction}()}
+\code{\link[=apriori]{apriori()}},
+\code{\link[=eclat]{eclat()}},
+\code{\link[=fim4r]{fim4r()}},
+\code{\link[=ruleInduction]{ruleInduction()}}
 
-Other weighted association mining functions: 
+Other weighted association mining functions:
 \code{\link{SunBai}},
-\code{\link{hits}()}
+\code{\link[=hits]{hits()}}
 }
 \author{
 Christian Buchta
