@@ -33,11 +33,14 @@ Imports:
 Suggests: 
     arulesCBA,
     arulesViz,
+    knitr,
     pmml,
     proxy,
+    rmarkdown,
     testthat,
     XML
 Config/testthat/edition: 3
+VignetteBuilder: knitr
 Classification/ACM: G.4, H.2.8, I.5.1
 Copyright: The source code for Apriori and Eclat was obtained from
     http://www.borgelt.net/ and is Copyright (C) 1996-2003 Christian

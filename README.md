@@ -201,7 +201,7 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
     ## Absolute minimum support count: 899 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
-    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.00s].
+    ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
     ## sorting and recoding items ... [42 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
     ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
@@ -224,6 +224,18 @@ inspect(head(rules, n = 3, by = "lift"))
     ##      householder status=own,                                                                     
     ##      type of home=house,                                                                         
     ##      language in home=english} => {marital status=married}    0.11       0.96     0.11  2.6   988
+
+The following short guides cover the main workflows:
+
+- [Getting started](vignettes/getting-started.Rmd)
+- [Preparing transaction data](vignettes/preparing-transaction-data.Rmd)
+- [Mining and pruning rules](vignettes/mining-and-pruning-rules.Rmd)
+- [Interest measures](vignettes/interest-measures.Rmd)
+- [Item hierarchies](vignettes/item-hierarchies.Rmd)
+
+The theoretical background and the original description of the package
+are available in the paper [Introduction to
+arules](vignettes/arules.Rnw).
 
 ## Using arules with tidyverse
 

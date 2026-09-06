@@ -31,6 +31,8 @@ Code examples can be found in
 [Chapter 5 of the web book R Companion for Introduction to Data
 Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts.html).
 
+
+
 ```{r echo=FALSE, results = 'asis'}
 pkg_citation(pkg, 2)
 ```
@@ -99,6 +101,18 @@ Inspect the rules with the highest lift.
 ```{r }
 inspect(head(rules, n = 3, by = "lift"))
 ```
+
+The following short guides cover the main workflows:
+
+* [Getting started](vignettes/getting-started.Rmd)
+* [Preparing transaction data](vignettes/preparing-transaction-data.Rmd)
+* [Mining and pruning rules](vignettes/mining-and-pruning-rules.Rmd)
+* [Interest measures](vignettes/interest-measures.Rmd)
+* [Item hierarchies](vignettes/item-hierarchies.Rmd)
+
+The theoretical background and the original description of the package are
+available in the paper
+[Introduction to arules](vignettes/arules.Rnw).
 
 ## Using arules with tidyverse
 

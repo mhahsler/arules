@@ -1,0 +1,118 @@
+---
+title: "Preparing transaction data"
+author: "Michael Hahsler"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Preparing transaction data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(arules)
+set.seed(1234)
+```
+
+Data for association rule mining comes from many sources and in several
+layouts. `arules` stores these data in the sparse `transactions` class, and
+the `transactions()` constructor accepts several common input layouts.
+
+The following examples show how to convert each layout. Always inspect the
+resulting `transactions` object with `summary()` or `itemLabels()`: values that
+were encoded incorrectly in the source data may otherwise become unintended
+items.
+
+## A list of baskets
+
+Use one character vector per transaction. List names become transaction IDs.
+
+```{r}
+baskets <- list(
+  order_1 = c("apple", "bread"),
+  order_2 = c("bread", "milk"),
+  order_3 = c("apple", "bread", "milk")
+)
+from_list <- transactions(baskets)
+inspect(from_list)
+```
+
+Check both the transaction summary and the resulting item labels.
+
+```{r}
+summary(from_list)
+itemLabels(from_list)
+```
+
+The item labels confirm that the baskets were translated correctly.
+
+## A binary matrix
+
+Rows represent transactions and columns represent items. Logical matrices make
+the intended coding explicit.
+
+```{r}
+binary <- matrix(
+  c(TRUE, TRUE, FALSE,
+    FALSE, TRUE, TRUE,
+    TRUE, TRUE, TRUE),
+  nrow = 3,
+  byrow = TRUE,
+  dimnames = list(names(baskets), c("apple", "bread", "milk"))
+)
+from_matrix <- transactions(binary)
+
+itemLabels(from_matrix)
+inspect(from_matrix)
+```
+
+## A data frame in wide format
+
+Categorical columns are converted to items of the form `variable=value`.
+Logical columns represent the presence or absence of a single item. Missing
+values are omitted.
+
+```{r}
+customers <- data.frame(
+  age_group = factor(c("young", "adult", "adult")),
+  region = factor(c("north", "south", "north")),
+  subscriber = c(TRUE, FALSE, TRUE)
+)
+from_wide <- transactions(customers)
+
+itemLabels(from_wide)
+inspect(from_wide)
+```
+
+Continuous variables need to be discretized before conversion.
+
+```{r}
+measurements <- data.frame(
+  spend = c(12, 18, 35, 42, 55),
+  visits = c(1, 2, 3, 5, 8)
+)
+measurements_discrete <- discretizeDF(
+  measurements,
+  default = list(method = "frequency", breaks = 2)
+)
+from_discrete <- transactions(measurements_discrete)
+
+itemLabels(from_discrete)
+inspect(from_discrete)
+```
+
+## A data frame in long format
+
+Long-format data has one row per transaction--item pair. Identify the
+transaction and item columns with `cols`.
+
+```{r}
+long <- data.frame(
+  order = c(1, 1, 2, 2, 3),
+  product = c("apple", "bread", "bread", "milk", "apple")
+)
+from_long <- transactions(long, format = "long", cols = c("order", "product"))
+
+itemLabels(from_long)
+inspect(from_long)
+```

@@ -1,0 +1,97 @@
+---
+title: "Interest measures"
+author: "Michael Hahsler"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Interest measures}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(arules)
+set.seed(1234)
+```
+
+No single measure identifies every useful association. Support and confidence
+describe prevalence and conditional probability, while measures such as lift
+and leverage compare observed co-occurrence with what would be expected under
+independence.
+
+```{r}
+trans <- transactions(list(
+  T1 = c("tea", "cookies", "milk"),
+  T2 = c("tea", "cookies"),
+  T3 = c("coffee", "cookies"),
+  T4 = c("tea", "milk"),
+  T5 = c("coffee", "milk"),
+  T6 = c("tea", "cookies", "milk"),
+  T7 = c("coffee", "cookies"),
+  T8 = c("tea", "cookies")
+))
+
+rules <- apriori(
+  trans,
+  parameter = list(support = 0.25, confidence = 0.5),
+  control = list(verbose = FALSE)
+)
+```
+
+The quality data frame already contains the measures calculated during mining.
+
+```{r}
+head(quality(rules))
+```
+
+Different measures answer different questions:
+
+* **Support** is the proportion of transactions containing both sides.
+* **Confidence** estimates the conditional probability of the right-hand side.
+* **Coverage** is the support of the left-hand side.
+* **Lift** is confidence divided by the right-hand-side support; values above
+  one indicate positive association.
+
+A rare rule can have high lift but little practical impact, while a rule with
+high confidence may simply predict a very common consequent. It is therefore
+often useful to consider several measures together.
+
+`arules` implements many commonly used measures. The complete list is in
+[A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://mhahsler.github.io/arules/docs/measures).
+
+## Calculating additional measures for rules
+
+`interestMeasure()` calculates additional measures. Supply the transactions
+for measures that require counts not stored with the rules.
+
+```{r}
+measures <- interestMeasure(
+  rules,
+  measure = c("leverage", "phi"),
+  transactions = trans
+)
+head(measures)
+```
+
+Here, leverage is the observed joint support minus the support expected under
+independence. Phi is the correlation between the left- and right-hand sides of
+a rule; it is undefined for some rules.
+
+Add selected measures as new columns in the quality data frame.
+
+```{r}
+quality(rules) <- cbind(
+  quality(rules),
+  interestMeasure(
+    rules,
+    measure = c("leverage", "phi"),
+    transactions = trans
+  )
+)
+```
+
+The new measures can now be used to filter and sort rules.
+
+```{r}
+inspect(head(sort(rules, by = "leverage"), 3))
+```

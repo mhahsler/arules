@@ -29,6 +29,10 @@
 * Fixed the random seed initialization in the package vignette.
 * Fixed TYPOs.
 * Improved parameter descriptions and general documentation.
+* Added five short task-oriented R Markdown vignettes covering the basic
+  workflow, transaction data preparation, rule mining and pruning, interest
+  measures, and item hierarchies. The original theoretical article is retained
+  as a historical reference.
 
 # arules 1.7.14 (03/28/2026)
 * Added PROTECT to all getAttr calls in src.
@@ -643,4 +647,3 @@
 # arules 0.1-0 (4/15/2005)
 
 * Alpha and beta versions
-
