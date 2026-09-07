@@ -170,12 +170,13 @@ confint.rules <- function(
         object,
         transactions = transactions,
         reuse = ifelse(is.null(transactions), TRUE, FALSE),
-        smoothCounts = smoothCounts
+        smoothCounts = 0
       )
     )
 
   # try fast approximate intervals first
-  ci <- .confint_approx(counts, measure, method, level)
+  ci <- .confint_approx(counts, measure, method, level,
+                        smoothCounts = smoothCounts)
 
   # fall back to bootstrap if .confint_approx does not return anything?
   if (is.null(ci)) {
@@ -243,7 +244,7 @@ confint.rules <- function(
       if (!any(is.na(vals))) {
         ci[i, ] <- stats::quantile(vals, probs = qs)
       }
-      se[i] <- stats::sd(vals) / sqrt(replications)
+      se[i] <- stats::sd(vals)
     }
 
     structure(

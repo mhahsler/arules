@@ -831,6 +831,16 @@ setMethod(
         x[, i]
       })
       names(counts) <- colnames(x)
+
+      stopifnot(smoothCounts >= 0)
+      if (smoothCounts > 0) {
+        cells <- c("n11", "n10", "n01", "n00")
+        counts[cells] <- lapply(counts[cells], `+`, smoothCounts)
+
+        # Recompute totals from the smoothed cells if they were supplied as
+        # additional matrix columns.
+        counts[c("n", "n1x", "nx1", "n0x", "nx0")] <- NULL
+      }
     } else {
       counts <- x
     }
@@ -870,7 +880,7 @@ setMethod(
       recall = n11 / nx1,
       fScore = 2 * n11 / (n1x + nx1),
       accuracy = (n11 + n00) / n,
-      balancedAccuracy = ((n11 / nx1) + (n00 / n0x)) / 2,
+      balancedAccuracy = ((n11 / nx1) + (n00 / nx0)) / 2,
       lift = n * n11 / (n1x * nx1),
       coverage = n1x / n,
       rhsSupport = nx1 / n,

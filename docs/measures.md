@@ -1330,7 +1330,7 @@ $$F_1=2n_{XY}/(n_X+n_Y).$$
 Balanced accuracy is the mean of the true-positive and true-negative rates,
 giving equal weight to the positive and negative classes.
 
-$$balancedAccuracy=\tfrac12(n_{XY}/n_Y+n_{\overline{X}\overline{Y}}/n_{\overline{X}}).$$
+$$balancedAccuracy=\tfrac12(n_{XY}/n_Y+n_{\overline{X}\overline{Y}}/n_{\overline{Y}}).$$
 
 **Range:** $[0, 1]$
 

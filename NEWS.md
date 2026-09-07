@@ -18,8 +18,10 @@
 * `ruleInduction()` now warns about unknown arguments.
 * Corrected the formulas for collective strength, causal support and
   confidence, least contradiction, and substitute hyper-confidence.
+* fixed count smoothing for interest measure computation.
+* fixed the bootstrap se attribute.
 
-## Documentation and Maintenance
+# Documentation and Maintenance
 
 * Added tests for `aggregate()`, `predict()`, PMML round trips, and
   `supportingTransactions()`.

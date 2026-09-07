@@ -143,11 +143,25 @@ expect_equal(
     precision = 2 / 3,
     recall = .4,
     fScore = .5,
-    balancedAccuracy = (.4 + 40 / 70) / 2,
+    balancedAccuracy = (.4 + 40 / 50) / 2,
     netconf = (.2 - .3 * .5) / (.3 * .7),
     zhang = (.2 - .3 * .5) / max(.2 * .7, .3 * (.5 - .2))
   )),
   tolerance = 1e-14
+)
+
+count_matrix <- matrix(
+  c(20, 10, 30, 40),
+  nrow = 1,
+  dimnames = list(NULL, c("n11", "n10", "n01", "n00"))
+)
+expect_equal(
+  unname(arules:::.basicRuleMeasure(
+    count_matrix,
+    "confidence",
+    smoothCounts = .5
+  )),
+  20.5 / (20.5 + 10.5)
 )
 
 data("Adult")
