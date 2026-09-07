@@ -1,3 +1,4 @@
+test_that("Eclat mining and tidlists", {
 library("arules")
 library("testthat")
 
@@ -74,3 +75,4 @@ expect_identical(dim(tl), c(20L, 7L))
 # inspect(tl)
 
 expect_equal(as(tl[5], "list"), list("{a,d}" = c("Tr3", "Tr7")))
+})

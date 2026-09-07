@@ -1,3 +1,4 @@
+test_that("transaction input and output", {
 setwd(tempdir())
 
 ## test skip and quote
@@ -83,3 +84,4 @@ tr2 <- read.transactions("demo_write", format = "single", cols = c(1, 2))
 expect_equal(tr, tr2)
 
 unlink("demo_write")
+})

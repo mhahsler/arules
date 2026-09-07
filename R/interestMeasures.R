@@ -643,7 +643,7 @@ setMethod(
         stats::phyper(
           n11,
           m = nx1,
-          n = n - n1x,
+          n = n - nx1,
           k = n1x,
           lower.tail = significance
         )
@@ -871,8 +871,9 @@ setMethod(
       relativeRisk = (n11 / n1x) / (n01 / n0x),
       phi = (n * n11 - n1x * nx1) / sqrt(n1x * nx1 * n0x * nx0),
       leverage = n11 / n - (n1x * nx1 / n^2),
-      collectiveStrength = n11 * n00 / (n1x * nx1 + n0x + nx0) *
-        (n^2 - n1x * nx1 - n0x * nx0) / (n - n11 - n00),
+      collectiveStrength = (n11 + n00) /
+        ((n1x * nx1 + n0x * nx0) / n) *
+        ((n1x * nx0 + n0x * nx1) / n) / (n10 + n01),
       importance = log(((n11 + 1) * (n0x + 2)) / ((n01 + 1) * (n1x + 2)), base = 10),
       imbalance = abs(n1x - nx1) / (n1x + nx1 - n11),
       jaccard = n11 / (n1x + nx1 - n11),
@@ -904,9 +905,9 @@ setMethod(
       # needs alpha
       # if(measure == "wang") return(1/n * (1-alpha) * n1x - n10)
       confirmedConfidence = (n11 - n10) / n1x,
-      casualSupport = (n1x + nx1 - 2 * n10) / n,
-      casualConfidence = 1 - n10 / n * (1 / n1x + 1 / nx1),
-      leastContradiction = (n1x - n10) / nx1,
+      casualSupport = (n11 + n00) / n,
+      casualConfidence = (n11 / n1x + n00 / n0x) / 2,
+      leastContradiction = (n11 - n10) / nx1,
       centeredConfidence = nx0 / n - n10 / n1x,
       varyingLiaison = (n1x - n10) / (n1x * nx1 / n) - 1,
       yuleQ = {

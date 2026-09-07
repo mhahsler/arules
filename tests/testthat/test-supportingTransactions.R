@@ -1,3 +1,4 @@
+test_that("supporting transactions", {
 data <- transactions(list(
   T1 = c("a", "b"),
   T2 = "a",
@@ -33,3 +34,4 @@ expect_identical(
   unname(as(supportingTransactions(rules, data), "list")),
   list(c("T1", "T4"), c("T3", "T4"))
 )
+})

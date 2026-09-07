@@ -1,3 +1,4 @@
+test_that("fim4r mining interfaces", {
 skip_if_not_installed("fim4r")
 
 verb <- FALSE
@@ -54,3 +55,4 @@ rules_apriori <- apriori(Adult,
 )
 
 expect_true(arules::setequal(rules_fim4r, rules_apriori))
+})

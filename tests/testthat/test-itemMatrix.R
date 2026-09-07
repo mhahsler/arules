@@ -1,3 +1,4 @@
+test_that("item matrix operations", {
 set.seed(20070611)
 
 ### Generate random data and coerce data to itemMatrix.
@@ -94,4 +95,5 @@ expect_identical(dimnames(ngc), dimnames(t(m)))
 expect_identical(i, as(ngc, "itemMatrix"))
 
 ## crossTable
-expect_equivalent(crossTable(i), crossprod(as(i, "matrix")))
+expect_equal(crossTable(i), crossprod(as(i, "matrix")), ignore_attr = TRUE)
+})

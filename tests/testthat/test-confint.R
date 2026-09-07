@@ -1,3 +1,4 @@
+test_that("confidence intervals and significance", {
 debug <- FALSE
 
 data("Adult")
@@ -44,3 +45,4 @@ s <- is.significant(rules, method = "Fisher", alpha = 0.05, adjust = "none")
 s2 <- interestMeasure(rules, "Fisher") <= 0.05
 
 expect_equal(s, s2)
+})

@@ -1,3 +1,4 @@
+test_that("rule prediction", {
 data <- transactions(list(
   a = "a",
   b = "b",
@@ -26,3 +27,4 @@ expect_identical(
   predict(examples, newdata[1], labels = cluster_labels, blocksize = one_row_in_mb),
   10L
 )
+})

@@ -1,3 +1,4 @@
+test_that("item coding and decoding", {
 data("Adult")
 
 list <- LIST(Adult[1:5], decode = FALSE)
@@ -32,3 +33,4 @@ expect_identical(size(iM), c(3L, 2L))
 
 expect_error(encode(list(c(1, 2, 3), c(4, 5.5)), itemLabels(Adult)))
 expect_error(encode(list(c(1, 2, 3), c(4, 5, nitems(Adult) + 1L)), itemLabels(Adult)))
+})

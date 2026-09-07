@@ -1,3 +1,4 @@
+test_that("concise itemset representations", {
 library("arules")
 library("testthat")
 
@@ -37,3 +38,4 @@ expect_true(setequal(names(im)[im], c("{a,b,c,d}")))
 
 im2 <- apriori(trans, support = 1 / 4, target = "maximally frequent itemsets", control = list(verb = FALSE))
 expect_true(setequal(its[im], im2))
+})

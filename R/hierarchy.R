@@ -217,13 +217,7 @@ setMethod(
 
     ## count the items for each group and make binary
     x@data <- as(as(crossprod(aggrMat, as(x, "ngCMatrix")), "nsparseMatrix"), "generalMatrix")
-
-
-    ## fix itemInfo
-    ii <- x@itemInfo
-    ii <- aggregate(ii, by = list(labels = by), FUN = unique)
-    ii <- ii[, !sapply(ii, is.list), drop = FALSE]
-    x@itemInfo <- ii
+    x@itemInfo <- data.frame(labels = levels(by))
 
     validObject(x)
     x

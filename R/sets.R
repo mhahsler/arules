@@ -103,7 +103,12 @@ setMethod("intersect", "itemMatrix", intersect.itemMatrix)
 #' @rdname sets
 #' @method setequal itemMatrix
 setequal.itemMatrix <- function(x, y, ...) {
-  all(c(match(x, y, 0L) > 0L, match(y, x, 0L) > 0L))
+  if (!compatible(x, y)) {
+    warning("Item coding not compatible, recoding item matrices first.")
+  }
+    
+  all(c(match(x, y, 0L, incomparables = TRUE) > 0L, 
+        match(y, x, 0L, incomparables = TRUE) > 0L))
 }
 
 #' @rdname sets

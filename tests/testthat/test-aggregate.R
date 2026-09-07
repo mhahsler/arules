@@ -1,3 +1,4 @@
+test_that("aggregate transaction and association objects", {
 data <- transactions(list(
   T1 = c("a", "b"),
   T2 = "a",
@@ -46,3 +47,4 @@ aggregated_rules <- aggregate(rules, groups)
 expect_s4_class(aggregated_rules, "rules")
 expect_identical(labels(aggregated_rules), c("{} => {group1}", "{group1} => {group2}"))
 expect_length(quality(aggregated_rules), 0L)
+})

@@ -1,3 +1,4 @@
+test_that("sparse matrix helpers", {
 e <- new("ngCMatrix")
 x <- new("ngCMatrix",
   p = as.integer(c(0, 3, 5, 7, 7, 10)),
@@ -45,3 +46,4 @@ expect_equal(
 )
 
 ###
+})

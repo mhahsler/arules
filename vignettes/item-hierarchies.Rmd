@@ -14,14 +14,13 @@ library(arules)
 set.seed(1234)
 ```
 
-Real data sets may contain many closely related items. A supermarket, for
-example, may stock dozens of types of milk and hundreds of dairy products. An
-item hierarchy maps these detailed items to broader groups, such as mapping
-milk and yogurt to dairy. The hierarchy makes it possible to analyze patterns
-at the category level.
+Often, we deal with many items. For example in a supermarket there may be 10s of
+different types of milk and 100s of different dairy products. 
+An item hierarchy maps detailed items to broader groups. For example,
+milk and yogurt are grouped in the dairy category. 
+This information will help us analyze when rules are true for a whole category.
 
-Store each hierarchy level as a column in the transaction object's
-`itemInfo()` data frame.
+Item hierarchy level are stored as a column in `itemInfo()` in the transactions.
 
 ```{r}
 trans <- transactions(list(
@@ -35,8 +34,9 @@ trans <- transactions(list(
 itemInfo(trans)
 ```
 
-Initially, `itemInfo()` contains only the item labels. Add `category` as one
-level of the hierarchy.
+Initially, the transactions only contain the item labels. 
+We can add a category as an level in the hierarchy.
+
 
 ```{r}
 category_list <- c(
@@ -49,8 +49,8 @@ itemInfo(trans)
 
 ## Aggregating transactions
 
-`aggregate()` replaces detailed items with their groups. Multiple items from
-the same group in one transaction become a single group item.
+`aggregate()` replaces item labels with their group. Multiple items from
+the same group in one basket become a single group item.
 
 ```{r}
 by_category <- aggregate(trans, by = "category")
@@ -59,8 +59,8 @@ inspect(by_category)
 itemFrequency(by_category)
 ```
 
-Mine the aggregated transactions when the analysis should operate only at the
-group level. Mining again calculates valid quality measures for that level.
+Mine the aggregated transactions when the analysis is intended to operate only
+at the group level. This calculates valid quality measures for that level.
 
 ```{r}
 category_rules <- apriori(
@@ -73,9 +73,9 @@ inspect(category_rules)
 
 ## Mine across hierarchy levels
 
-`addAggregate()` retains the detailed items and adds their group items. By
-default, an asterisk marks group items. The resulting transactions can produce
-rules that cross hierarchy levels.
+`addAggregate()` retains items and adds group items.
+By default, group items are marked with an asterisk.
+This creates rules that cross levels.
 
 ```{r}
 multilevel <- addAggregate(trans, by = "category")
@@ -89,14 +89,14 @@ multilevel_rules <- apriori(
 multilevel_rules
 ```
 
-Adding category items creates trivial rules such as `{apple} => {fruit*}`
-because the hierarchy guarantees them. `filterAggregate()` removes rules that
-contain both a detailed item and its own aggregate, reducing the rule set and
-making it easier to interpret.
+Adding category items creates trivial rules such as `{apple} => {fruit*}` because
+the hierarchy guarantees them. `filterAggregate()` removes associations that
+contain both a detailed item and its own aggregate. This reduces the size of the
+rule set significantly and makes it easier to interpret.
 
 ```{r}
 multilevel_rules <- filterAggregate(multilevel_rules)
 multilevel_rules
-
+  
 inspect(sort(multilevel_rules, by = "lift"))
 ```

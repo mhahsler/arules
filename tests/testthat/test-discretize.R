@@ -1,3 +1,4 @@
+test_that("numeric discretization", {
 options(digits = 2)
 
 nums1 <- sample(rep(0:10, time = 5))
@@ -58,3 +59,4 @@ d <- discretize(nums1, method = "frequency")
 expect_equal(sum(is.na(d)), 3L)
 d <- discretize(nums1, method = "cluster")
 expect_equal(sum(is.na(d)), 3L)
+})

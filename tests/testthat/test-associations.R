@@ -1,3 +1,4 @@
+test_that("association classes and methods", {
 set.seed(20070611)
 
 m <- matrix(as.integer(runif(100000) > 0.8), ncol = 20)
@@ -96,25 +97,31 @@ take_cc <- itemLabels(t)[take_c]
 expect_equal(dim(t[, take_cc]), c(nrow(t), 10L))
 
 # NA
-expect_warning(expect_equal(dim(t[NA, NA]), c(0L, 0L)))
-expect_warning(expect_equal(dim(t[NA]), c(0L, ncol(t))))
-expect_warning(expect_equal(dim(t[, NA]), c(nrow(t), 0L)))
+expect_warning(expect_warning(subset_result <- t[NA, NA], "Subsetting with NAs"))
+expect_equal(dim(subset_result), c(0L, 0L))
+expect_warning(subset_result <- t[NA], "Subsetting with NAs")
+expect_equal(dim(subset_result), c(0L, ncol(t)))
+expect_warning(subset_result <- t[, NA], "Subsetting with NAs")
+expect_equal(dim(subset_result), c(nrow(t), 0L))
 
 take_rn <- take_r
 take_rn[3:4] <- NA
 take_cn <- take_c
 take_cn[3:4] <- NA
-expect_warning(expect_equal(dim(t[take_rn, take_cn]), c(8L, 8L)))
+expect_warning(expect_warning(subset_result <- t[take_rn, take_cn], "Subsetting with NAs"))
+expect_equal(dim(subset_result), c(8L, 8L))
 
 take_rbn <- take_rb
 take_rbn[which(take_rbn)[3:4]] <- NA
 take_cbn <- take_cb
 take_cbn[which(take_cbn)[3:4]] <- NA
-expect_warning(expect_equal(dim(t[take_rbn, take_cbn]), c(8L, 8L)))
+expect_warning(expect_warning(subset_result <- t[take_rbn, take_cbn], "Subsetting with NAs"))
+expect_equal(dim(subset_result), c(8L, 8L))
 
 take_ccn <- take_cc
 take_ccn[3:4] <- NA
-expect_warning(expect_equal(dim(t[, take_cbn]), c(nrow(t), 8L)))
+expect_warning(subset_result <- t[, take_cbn], "Subsetting with NAs")
+expect_equal(dim(subset_result), c(nrow(t), 8L))
 
 # rules
 r <-
@@ -122,30 +129,24 @@ r <-
     parameter = list(supp = 0.01, conf = 0.1),
     control = list(verb = FALSE)
   )
-expect_warning(expect_equal(length(r[NA]), 0L))
-expect_warning(expect_equal(length(r[c(1L, NA_integer_)]), 1L))
-expect_warning(expect_equal(
-  length(r[c(TRUE, NA, FALSE)]),
-  sum(rep(
-    c(TRUE, NA, FALSE),
-    length.out = length(r)
-  ), na.rm = TRUE)
-)) # recycle
+expect_warning(rule_subset <- r[NA])
+expect_equal(length(rule_subset), 0L)
+expect_warning(rule_subset <- r[c(1L, NA_integer_)])
+expect_equal(length(rule_subset), 1L)
+expect_warning(rule_subset <- r[c(TRUE, NA, FALSE)]) # recycle
+expect_equal(length(rule_subset), sum(rep(c(TRUE, NA, FALSE), length.out = length(r)), na.rm = TRUE))
 
 # itemsets
 f <- eclat(t,
   parameter = list(supp = 0.01),
   control = list(verb = FALSE)
 )
-expect_warning(expect_equal(length(f[NA]), 0L))
-expect_warning(expect_equal(length(f[c(1L, NA_integer_)]), 1L))
-expect_warning(expect_equal(
-  length(f[c(TRUE, NA, FALSE)]),
-  sum(rep(
-    c(TRUE, NA, FALSE),
-    length.out = length(f)
-  ), na.rm = TRUE)
-)) # recycle
+expect_warning(itemset_subset <- f[NA])
+expect_equal(length(itemset_subset), 0L)
+expect_warning(itemset_subset <- f[c(1L, NA_integer_)])
+expect_equal(length(itemset_subset), 1L)
+expect_warning(itemset_subset <- f[c(TRUE, NA, FALSE)]) # recycle
+expect_equal(length(itemset_subset), sum(rep(c(TRUE, NA, FALSE), length.out = length(f)), na.rm = TRUE))
 
 # head and tail
 expect_identical(r[1:5], head(r, n = 5))
@@ -187,4 +188,5 @@ expect_identical(
   )
 )
 expect_error(rhs(r[1:10]) %pin% "")
-expect_warning(rhs(r[1:10]) %pin% c("1", "2"))
+expect_warning(pin_result <- rhs(r[1:10]) %pin% c("1", "2"))
+})

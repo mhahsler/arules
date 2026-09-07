@@ -78,8 +78,8 @@ The following measures are implemented for \strong{rules}:
 \item "count": \href{https://mhahsler.github.io/arules/docs/measures#count}{Support Count.}
 \item "addedValue": \href{https://mhahsler.github.io/arules/docs/measures#addedvalue}{Added Value.}
 \item "boost": \href{https://mhahsler.github.io/arules/docs/measures#boost}{Confidence Boost.}
-\item "casualConfidence": \href{https://mhahsler.github.io/arules/docs/measures#casualconfidence}{Casual Confidence.}
-\item "casualSupport": \href{https://mhahsler.github.io/arules/docs/measures#casualsupport}{Casual Support.}
+\item "casualConfidence": \href{https://mhahsler.github.io/arules/docs/measures#casualconfidence}{Causal Confidence.}
+\item "casualSupport": \href{https://mhahsler.github.io/arules/docs/measures#casualsupport}{Causal Support.}
 \item "centeredConfidence": \href{https://mhahsler.github.io/arules/docs/measures#centeredconfidence}{Centered Confidence.}
 \item "certainty": \href{https://mhahsler.github.io/arules/docs/measures#certainty}{Certainty Factor.}
 \item "chiSquared": \href{https://mhahsler.github.io/arules/docs/measures#chisquared}{Chi-Squared.} Additional parameters are: \code{significance = TRUE} returns the p-value of the test for independence instead of the chi-squared statistic. For p-values, substitution effects (the occurrence of one item makes the occurrence of another item less likely) can be tested using the parameter \code{complements = FALSE}.  Note: Correction for multiple comparisons can be done using \code{\link[stats:p.adjust]{stats::p.adjust()}}.
@@ -108,7 +108,7 @@ The following measures are implemented for \strong{rules}:
 \item "lerman": \href{https://mhahsler.github.io/arules/docs/measures#lerman}{Lerman Similarity.}
 \item "leverage": \href{https://mhahsler.github.io/arules/docs/measures#leverage}{Leverage.}
 \item "LIC": \href{https://mhahsler.github.io/arules/docs/measures#lic}{Lift Increase.} The additional parameter \code{improvementMeasure} (default: \code{'lift'}) can be used to specify the measure used for the increase calculation.  See \href{https://mhahsler.github.io/arules/docs/measures#ginc}{Generalized increase ratio}.
-\item "maxconfidence": \href{https://mhahsler.github.io/arules/docs/measures#maxconfidence}{MaxConfidence.}
+\item "maxconfidence": \href{https://mhahsler.github.io/arules/docs/measures#maxconfidence}{Max-Confidence.}
 \item "mutualInformation": \href{https://mhahsler.github.io/arules/docs/measures#mutualinformation}{Mutual Information.}
 \item "oddsRatio": \href{https://mhahsler.github.io/arules/docs/measures#oddsratio}{Odds Ratio.}
 \item "phi": \href{https://mhahsler.github.io/arules/docs/measures#phi}{Phi Correlation Coefficient.}

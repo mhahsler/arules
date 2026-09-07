@@ -6,12 +6,12 @@
   prediction now processes each observation exactly once and correctly handles
   a single-row `newdata` object.
 * `aggregate()`: Fixed aggregation of `itemsets`, which previously discarded
-  the aggregated object. Duplicate aggregated itemsets are now removed and
-  invalidated quality measures are dropped as documented.
+  the aggregated object.
 * Fixed the error message produced in non-interactive sessions when a suggested
   package is not installed.
-* `ruleInduction()` now warns about unknown arguments. Tests for its Apriori
-  method now use the `method` argument and exercise the intended implementation.
+* `ruleInduction()` now warns about unknown arguments.
+* Corrected the formulas for collective strength, causal support and
+  confidence, least contradiction, and substitute hyper-confidence.
 
 ## Tests
 
@@ -21,18 +21,10 @@
 
 ## Documentation and Maintenance
 
-* Updated roxygen2 metadata and annotations for roxygen2 8.1.0, including
-  single-line alias tags, the S3 export annotation for `confint.rules`,
-  documentation of control coercion arguments, and an unambiguous link to the
-  arules `union()` methods.
-* Fixed the `transactions()` function name in the README.
 * Fixed the random seed initialization in the package vignette.
 * Fixed TYPOs.
 * Improved parameter descriptions and general documentation.
-* Added five short task-oriented R Markdown vignettes covering the basic
-  workflow, transaction data preparation, rule mining and pruning, interest
-  measures, and item hierarchies. The original theoretical article is retained
-  as a historical reference.
+* Added five short task-oriented R Markdown vignettes.
 
 # arules 1.7.14 (03/28/2026)
 * Added PROTECT to all getAttr calls in src.

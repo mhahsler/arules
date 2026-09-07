@@ -1,3 +1,4 @@
+test_that("weighted Eclat mining", {
 data("Income")
 
 ## find and some frequent itemsets
@@ -46,3 +47,4 @@ t <- new("transactions")
 s <- weclat(t, control = list(verbose = FALSE))
 # s
 expect_equal(length(s), 0L)
+})

@@ -1,3 +1,4 @@
+test_that("set operations on associations", {
 data <- list(
   c("A", "B"),
   c("A", "B", "C", "G"),
@@ -93,6 +94,11 @@ d1 <- as(data, "itemMatrix")
 expect_true(setequal(d1, d1))
 
 d2 <- merge(d1[, 6:7], d1[, 1:5])
-compatible(d1, d2)
-expect_warning(expect_true(setequal(d1, d2)))
-expect_warning(expect_true(setequal(union(d1, d2), intersect(d1, d2))))
+expect_false(compatible(d1, d2))
+expect_warning(set_equal <- setequal(d1, d2))
+expect_true(set_equal)
+expect_warning(set_result <- union(d1, d2))
+expect_warning(inter_result <- intersect(d1, d2))
+expect_warning(comp_result <- setequal(set_result, inter_result))
+expect_true(comp_result)
+})

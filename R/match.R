@@ -41,7 +41,8 @@
 #' [associations].
 #' @param table a set of associations or transactions to be matched against.
 #' @param nomatch the value to be returned in the case when no match is found.
-#' @param incomparables not implemented.
+#' @param incomparables a logical; If `TRUE` then match recodes incompatible
+#'  item orders quietly. Otherwise, recoding will create a warning.
 #' @return `match`: An integer vector of the same length as `x`
 #' giving the position in `table` of the first match if there is a match,
 #' otherwise `nomatch`.
@@ -85,9 +86,13 @@ setMethod(
       table,
       nomatch = NA_integer_,
       incomparables = NULL) {
+    incomparables <- incomparables %||% FALSE
     if (!compatible(x, table)) {
-      warning("Item coding not compatible, recoding item matrices first.")
-
+      if (!incomparables) {
+        warning("Item coding not compatible, recoding item matrices first.")
+      }
+      
+      ### recode  
       k <- match(itemLabels(x), itemLabels(table))
       n <- which(is.na(k))
       if (length(n)) {
@@ -105,8 +110,7 @@ setMethod(
     i <- .Call(R_pnindex, table@data, x@data, FALSE)
     match(i,
       seq_len(length(table)),
-      nomatch = nomatch,
-      incomparables = incomparables
+      nomatch = nomatch
     )
   }
 )

@@ -45,7 +45,8 @@ match(x, table, nomatch = NA_integer_, incomparables = NULL)
 
 \item{nomatch}{the value to be returned in the case when no match is found.}
 
-\item{incomparables}{not implemented.}
+\item{incomparables}{a logical; If \code{TRUE} then match recodes incompatible
+item orders quietly. Otherwise, recoding will create a warning.}
 }
 \value{
 \code{match}: An integer vector of the same length as \code{x}

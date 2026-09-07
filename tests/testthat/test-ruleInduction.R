@@ -1,3 +1,4 @@
+test_that("rule induction", {
 data <- list(
   c("a", "b", "c"),
   c("a", "b"),
@@ -159,3 +160,4 @@ expect_error(ruleInduction(is, transactions = trans[, rev(1:nitems(trans))]),
 expect_error(ruleInduction(is, transactions = trans[, -2]),
   regex = "Dimensions"
 )
+})

@@ -1,3 +1,4 @@
+test_that("Apriori mining and constraints", {
 verb <- FALSE
 options(digits = 2)
 
@@ -91,3 +92,4 @@ esets <-
 
 ## compare if output is the same
 expect_true(all(table(match(fsets, esets)) == 1))
+})

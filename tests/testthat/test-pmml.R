@@ -1,3 +1,4 @@
+test_that("PMML import and export", {
 skip_if_not_installed("pmml")
 skip_if_not_installed("XML")
 
@@ -48,3 +49,4 @@ invalid_file <- tempfile(fileext = ".xml")
 on.exit(unlink(invalid_file), add = TRUE)
 writeLines("<PMML></PMML>", invalid_file)
 expect_error(read.PMML(invalid_file), "does not contain an AssociationModel", fixed = TRUE)
+})

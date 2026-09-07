@@ -1,3 +1,4 @@
+test_that("transaction dissimilarities", {
 ### TODO: test dissimilarities between associations
 
 verb <- FALSE
@@ -37,7 +38,7 @@ for (m in builtin_methods) {
   
   dx <- dissimilarity(trans, trans, method = m)
   expect_identical(dissimilarity(as(trans, "matrix"), as(trans, "matrix"), method = m), dx)
-  expect_equivalent(as.dist(dx), d)
+  expect_equal(as.dist(dx), d, ignore_attr = TRUE)
 }
 
 # test between items
@@ -46,4 +47,4 @@ expect_equal(attr(d, "Size"), ncol(trans))
 
 d <- dissimilarity(trans, trans, method = "jaccard", items = TRUE)
 expect_equal(nrow(d), ncol(trans))
-
+})

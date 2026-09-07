@@ -1,3 +1,4 @@
+test_that("tidlist operations", {
 data <- list(
   c("a", "b", "c"),
   c("a", "b"),
@@ -41,3 +42,4 @@ expect_identical(size(tl), unname(sapply(as(tl, "list"), length)))
 
 ## check
 transactionInfo(tl) <- cbind(transactionInfo(tl), additional = 1)
+})

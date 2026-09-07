@@ -58,24 +58,17 @@ setMethod(
     if (nrow(x) != nrow(y)) {
       stop("The number of rows in x and y do not conform!")
     }
-
+    
     ## this is faster than dc <- rbind(x@data, y@data)
     dc <- t(.Call(R_cbind_ngCMatrix, t(x@data), t(y@data)))
 
-    ## fix itemInfo
+    ## merge itemInfos
     iix <- itemInfo(x)
     iiy <- itemInfo(y)
-    names <- unique(union(colnames(iix), colnames(iiy)))
-    for (n in names) {
-      if (is.null(iix[[n]])) {
-        iix[[n]] <- NA_character_
-      }
-      if (is.null(iiy[[n]])) {
-        iiy[[n]] <- NA_character_
-      }
-    }
-
-    ii <- rbind(iix, iiy)
+    all_cols <- union(names(iix), names(iiy))
+    iix[setdiff(all_cols, names(iix))] <- NA_character_
+    iiy[setdiff(all_cols, names(iiy))] <- NA_character_
+    ii <- rbind(iix, iiy[, names(iix), drop = FALSE])
 
     new(
       "itemMatrix",

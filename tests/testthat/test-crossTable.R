@@ -1,9 +1,9 @@
+test_that("contingency table calculations", {
 data(Groceries)
 
 itset <- new("itemsets",
   items = encode(c("whole milk", "soda"), itemLabels = Groceries)
 )
-
 supp <- support(itset, Groceries, type = "absolute")
 
 expect_equal(
@@ -20,3 +20,4 @@ expect_equal(
   crossTable(Groceries, measure = "lift")["whole milk", "soda"],
   supp / length(Groceries) / prod(itemFrequency(Groceries)[c("whole milk", "soda")])
 )
+})

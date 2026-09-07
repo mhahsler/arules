@@ -1,3 +1,4 @@
+test_that("concise mining methods", {
 verb <- FALSE
 options(digits = 2)
 
@@ -30,3 +31,4 @@ expect_true(setequal(is_a_gen, is_e_gen))
 
 # inspect(is_a_freq)
 # inspect(is_e_freq)
+})
