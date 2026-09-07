@@ -1,5 +1,11 @@
 # arules 1.7.15 (xx/xx/2026)
 
+## New Features
+
+* Added interest measures: Netconf and Zhang’s Measure
+* Added classification measures for rules: accuracy, precision, recall,
+  F-score, and balanced accuracy.
+
 ## Bug Fixes
 
 * `predict()`: Fixed block-size handling and block boundaries. Blocked
@@ -13,18 +19,17 @@
 * Corrected the formulas for collective strength, causal support and
   confidence, least contradiction, and substitute hyper-confidence.
 
-## Tests
+## Documentation and Maintenance
 
 * Added tests for `aggregate()`, `predict()`, PMML round trips, and
   `supportingTransactions()`.
 * Switched the test suite explicitly to testthat edition 3.
-
-## Documentation and Maintenance
-
 * Fixed the random seed initialization in the package vignette.
 * Fixed TYPOs.
 * Improved parameter descriptions and general documentation.
 * Added five short task-oriented R Markdown vignettes.
+
+
 
 # arules 1.7.14 (03/28/2026)
 * Added PROTECT to all getAttr calls in src.

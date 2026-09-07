@@ -1712,33 +1712,45 @@ table</a> with counts for rule <span class="math inline">\(X \Rightarrow
 Y\)</span> in the transaction dataset. The counts are:</p>
 <table>
 <colgroup>
-<col width="23%" />
-<col width="30%" />
-<col width="46%" />
+<col width="21%" />
+<col width="27%" />
+<col width="42%" />
+<col width="9%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="center"></th>
 <th align="center"><span class="math inline">\(Y\)</span></th>
 <th align="center"><span class="math inline">\(\overline{Y}\)</span></th>
+<th align="center">Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="center"><span class="math inline">\(X\)</span></td>
-<td align="center"><span class="math inline">\(n_{XY}\)</span></td>
-<td align="center"><span class="math inline">\(n_{X\overline{Y}}\)</span></td>
+<td align="center"><span class="math inline">\(n_{11}\)</span></td>
+<td align="center"><span class="math inline">\(n_{10}\)</span></td>
+<td align="center"><span class="math inline">\(n_X\)</span></td>
 </tr>
 <tr class="even">
 <td align="center"><span class="math inline">\(\overline{X}\)</span></td>
-<td align="center"><span class="math inline">\(n_{\overline{X}Y}\)</span></td>
-<td align="center"><span class="math inline">\(n_{\overline{X}\overline{Y}}\)</span></td>
+<td align="center"><span class="math inline">\(n_{01}\)</span></td>
+<td align="center"><span class="math inline">\(n_{00}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{X}}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">Total</td>
+<td align="center"><span class="math inline">\(n_Y\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{Y}}\)</span></td>
+<td align="center"><span class="math inline">\(n\)</span></td>
 </tr>
 </tbody>
 </table>
-<p><span class="math inline">\(n_{XY}\)</span> is the number of
-transactions that contain all items in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. All other measures for rules can be
-calculated using these counts.</p>
+<p><span class="math inline">\(n_{11}\)</span> is the number of
+transactions that contain all items in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. The first subscript indicates whether
+<span class="math inline">\(X\)</span> is present and the second
+indicates whether <span class="math inline">\(Y\)</span> is present. All
+other measures for rules can be calculated using these counts.</p>
 </div>
 <div id="confidence" class="section level2">
 <h2>Confidence</h2>
@@ -2448,6 +2460,17 @@ M(X \Rightarrow Y)
 (0 means that <span class="math inline">\(X\)</span> provides no
 information about <span class="math inline">\(Y\)</span>)</p>
 </div>
+<div id="netconf" class="section level2">
+<h2>Netconf</h2>
+<p><strong>Reference:</strong> <span class="citation">Tan et al. (<a href="#ref-arules:Tan:2004">2004</a>)</span></p>
+<p>Netconf normalizes leverage by the maximum possible positive
+deviation for the antecedent:</p>
+<p><span class="math display">\[netconf(X \Rightarrow
+Y)=\frac{leverage(X \Rightarrow Y)}{P(X)(1-P(X))} = \frac{P(X\cap
+Y)-P(X)P(Y)}{P(X)(1-P(X))}.\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span>
+(0 for independence)</p>
+</div>
 <div id="oddsratio" class="section level2">
 <h2>Odds Ratio</h2>
 <p><strong>Reference:</strong> <span class="citation">Tan et al. (<a href="#ref-arules:Tan:2004">2004</a>)</span></p>
@@ -2665,6 +2688,102 @@ variables. It is defined as <span class="math display">\[ Y(X
 <p>where <span class="math inline">\(\alpha = OR(X \Rightarrow
 Y)\)</span> is the <a href="#oddsratio">odds ratio</a> of the rule.</p>
 <p><strong>Range:</strong> <span class="math inline">\([-1,
+1]\)</span></p>
+</div>
+<div id="zhang" class="section level2">
+<h2>Zhang’s Measure</h2>
+<p><strong>Reference:</strong> <span class="citation">Tan et al. (<a href="#ref-arules:Tan:2004">2004</a>)</span></p>
+<p>Zhang’s measure is a bounded dependence score:</p>
+<p><span class="math display">\[Z(X \Rightarrow Y)=\frac{leverage(X
+\Rightarrow Y)}{\max\{P(X\cap Y)(1-P(X)),\;P(X)(P(Y)-P(X\cap
+Y))\}}=\frac{P(X\cap Y)-P(X)P(Y)}{\max\{P(X\cap
+Y)(1-P(X)),\;P(X)(P(Y)-P(X\cap Y))\}}.\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([-1, 1]\)</span>
+(0 for independence)</p>
+</div>
+</div>
+<div id="measuresforclassificationrules" class="section level1">
+<h1>Measures for Classification Rules</h1>
+<p>For rules interpreted as binary classifiers, the following measures
+are available. They are computed from the contingency-table counts as
+follows.</p>
+<p>The count variables use the first subscript for the rule antecedent
+<span class="math inline">\(X\)</span> and the second subscript for the
+consequent <span class="math inline">\(Y\)</span>:</p>
+<table>
+<colgroup>
+<col width="34%" />
+<col width="15%" />
+<col width="34%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center"><span class="math inline">\(Y\)</span></th>
+<th align="center"><span class="math inline">\(\overline{Y}\)</span></th>
+<th align="center">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(X\)</span></td>
+<td align="center"><span class="math inline">\(n_{XY}\)</span></td>
+<td align="center"><span class="math inline">\(n_{X\overline{Y}}\)</span></td>
+<td align="center"><span class="math inline">\(n_{X}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\overline{X}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{X}Y}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{X}\overline{Y}}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{X}}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">Total</td>
+<td align="center"><span class="math inline">\(n_{Y}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{Y}}\)</span></td>
+<td align="center"><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="accuracy" class="section level2">
+<h2>Accuracy</h2>
+<p>Accuracy is the proportion of transactions classified correctly by
+the rule, including both positive and negative predictions.</p>
+<p><span class="math display">\[accuracy=(n_{XY}+n_{\overline{X}\overline{Y}})/n.\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([0,
+1]\)</span></p>
+</div>
+<div id="precision" class="section level2">
+<h2>Precision</h2>
+<p>Precision is the proportion of transactions predicted positive by the
+rule that are actually positive.</p>
+<p><span class="math display">\[precision=n_{XY}/n_X.\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([0,
+1]\)</span></p>
+</div>
+<div id="recall" class="section level2">
+<h2>Recall</h2>
+<p>Recall is the proportion of actual positive transactions that are
+correctly identified by the rule.</p>
+<p><span class="math display">\[recall=n_{XY}/n_Y.\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([0,
+1]\)</span></p>
+</div>
+<div id="fscore" class="section level2">
+<h2>F-score</h2>
+<p>The F-score is the harmonic mean of precision and recall, balancing
+the two types of classification performance.</p>
+<p><span class="math display">\[F_1=2n_{XY}/(n_X+n_Y).\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([0,
+1]\)</span></p>
+</div>
+<div id="balancedaccuracy" class="section level2">
+<h2>Balanced Accuracy</h2>
+<p>Balanced accuracy is the mean of the true-positive and true-negative
+rates, giving equal weight to the positive and negative classes.</p>
+<p><span class="math display">\[balancedAccuracy=\tfrac12(n_{XY}/n_Y+n_{\overline{X}\overline{Y}}/n_{\overline{X}}).\]</span></p>
+<p><strong>Range:</strong> <span class="math inline">\([0,
 1]\)</span></p>
 </div>
 </div>

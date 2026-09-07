@@ -126,6 +126,30 @@ expect_equal(s_tid, quality(rules)$support)
 
 ## FIXME: test others
 
+## Test the classifier and dependence measures from a contingency table.
+counts <- list(n = 100, n11 = 20, n10 = 10, n01 = 30, n00 = 40)
+new_measure_names <- c(
+  "accuracy", "precision", "recall", "fScore", "balancedAccuracy",
+  "netconf", "zhang"
+)
+new_measures <- sapply(
+  new_measure_names,
+  function(measure) arules:::.basicRuleMeasure(counts, measure)
+)
+expect_equal(
+  unname(new_measures),
+  unname(c(
+    accuracy = .6,
+    precision = 2 / 3,
+    recall = .4,
+    fScore = .5,
+    balancedAccuracy = (.4 + 40 / 70) / 2,
+    netconf = (.2 - .3 * .5) / (.3 * .7),
+    zhang = (.2 - .3 * .5) / max(.2 * .7, .3 * (.5 - .2))
+  )),
+  tolerance = 1e-14
+)
+
 data("Adult")
 ## Mine association rules.
 rules <- apriori(Adult,
@@ -2927,8 +2951,9 @@ m_previous <- structure(
   class = "data.frame"
 )
 
-if (!all(setequal(names(m_previous), names(m_r)))) {
-  warning("Not all interestMeasures are tested! Missing data for: ", paste(setdiff(names(m_r), names(m_previous)), collapse = ", "))
+missing_measures <- setdiff(names(m_r), c(names(m_previous), new_measure_names))
+if (length(missing_measures)) {
+  warning("Not all interestMeasures are tested! Missing data for: ", paste(missing_measures, collapse = ", "))
 }
 
 # Keep the historical regression table for unchanged measures.

@@ -377,6 +377,8 @@ measuresRules <-
     "boost",
     "casualConfidence",
     "casualSupport",
+    "accuracy",
+    "balancedAccuracy",
     "centeredConfidence",
     "certainty",
     "chiSquared",
@@ -407,6 +409,7 @@ measuresRules <-
     "LIC",
     "maxconfidence",
     "mutualInformation",
+    "netconf",
     "oddsRatio",
     "phi",
     "ralambondrainy",
@@ -414,10 +417,14 @@ measuresRules <-
     "rhsSupport",
     "RLD",
     "rulePowerFactor",
+    "precision",
+    "recall",
+    "fScore",
     "sebag",
     "stdLift",
     "table",
     "varyingLiaison",
+    "zhang",
     "yuleQ",
     "yuleY"
   )
@@ -859,6 +866,11 @@ setMethod(
       ),
       support = n11 / n,
       confidence = n11 / n1x,
+      precision = n11 / n1x,
+      recall = n11 / nx1,
+      fScore = 2 * n11 / (n1x + nx1),
+      accuracy = (n11 + n00) / n,
+      balancedAccuracy = ((n11 / nx1) + (n00 / n0x)) / 2,
       lift = n * n11 / (n1x * nx1),
       coverage = n1x / n,
       rhsSupport = nx1 / n,
@@ -871,6 +883,9 @@ setMethod(
       relativeRisk = (n11 / n1x) / (n01 / n0x),
       phi = (n * n11 - n1x * nx1) / sqrt(n1x * nx1 * n0x * nx0),
       leverage = n11 / n - (n1x * nx1 / n^2),
+      netconf = (n11 / n - n1x * nx1 / n^2) / (n1x / n * (1 - n1x / n)),
+      zhang = (n11 / n - n1x * nx1 / n^2) /
+        max(n11 / n * (1 - n1x / n), n1x / n * (nx1 / n - n11 / n)),
       collectiveStrength = (n11 + n00) /
         ((n1x * nx1 + n0x * nx0) / n) *
         ((n1x * nx0 + n0x * nx1) / n) / (n10 + n01),

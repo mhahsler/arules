@@ -218,13 +218,16 @@ A $2 \times 2$ [contingency
 table](https://en.wikipedia.org/wiki/Contingency_table) with counts for
 rule $X \Rightarrow Y$ in the transaction dataset. The counts are:
 
-|                |         $Y$         |         $\overline{Y}$         |
-|:--------------:|:-------------------:|:------------------------------:|
-|      $X$       |      $n_{XY}$       |      $n_{X\overline{Y}}$       |
-| $\overline{X}$ | $n_{\overline{X}Y}$ | $n_{\overline{X}\overline{Y}}$ |
+|                |         $Y$         |         $\overline{Y}$         | Total |
+|:--------------:|:-------------------:|:------------------------------:|:-----:|
+|      $X$       |      $n_{11}$       |      $n_{10}$                   | $n_X$ |
+| $\overline{X}$ |      $n_{01}$       |      $n_{00}$                   | $n_{\overline{X}}$ |
+| Total          | $n_Y$              | $n_{\overline{Y}}$             | $n$   |
 
-$n_{XY}$ is the number of transactions that contain all items in $X$ and
-$Y$. All other measures for rules can be calculated using these counts.
+$n_{11}$ is the number of transactions that contain all items in $X$ and
+$Y$. The first subscript indicates whether $X$ is present and the second
+indicates whether $Y$ is present. All other measures for rules can be
+calculated using these counts.
 
 ## Confidence {#confidence}
 
@@ -1011,6 +1014,19 @@ $$
 
 **Range:** $[0, 1]$ (0 means that $X$ provides no information about $Y$)
 
+
+## Netconf {#netconf}
+
+**Reference:** @arules:Tan:2004
+
+Netconf normalizes leverage by the maximum possible positive deviation for
+the antecedent:
+
+$$netconf(X \Rightarrow Y)=\frac{leverage(X \Rightarrow Y)}{P(X)(1-P(X))} = \frac{P(X\cap Y)-P(X)P(Y)}{P(X)(1-P(X))}.$$
+
+**Range:** $[-1, 1]$ (0 for independence)
+
+
 ## Odds Ratio {#oddsratio}
 
 **Reference:** @arules:Tan:2004
@@ -1219,6 +1235,7 @@ $$
 
 **Range:** $[-1, \infty)$ (0 for independence)
 
+
 ## Yule's Q {#yuleq}
 
 **Reference:** @arules:Tan:2004
@@ -1246,5 +1263,76 @@ where $\alpha = OR(X \Rightarrow Y)$ is the [odds ratio](#oddsratio) of
 the rule.
 
 **Range:** $[-1, 1]$
+
+## Zhang's Measure {#zhang}
+
+**Reference:** @arules:Tan:2004
+
+Zhang's measure is a bounded dependence score that can be viewed as a 
+scaled version of leverage:
+
+$$Z(X \Rightarrow Y)=\frac{leverage(X \Rightarrow Y)}{\max\{P(X\cap Y)(1-P(X)),\;P(X)(P(Y)-P(X\cap Y))\}}=\frac{P(X\cap Y)-P(X)P(Y)}{\max\{P(X\cap Y)(1-P(X)),\;P(X)(P(Y)-P(X\cap Y))\}}.$$
+
+**Range:** $[-1, 1]$ (0 for independence)
+
+# Measures for Classification Rules {#measuresforclassificationrules}
+
+For rules interpreted as binary classifiers, the following measures are
+available. They are computed from the contingency-table counts as follows.
+
+The count variables use the first subscript for the rule antecedent $X$ and
+the second subscript for the consequent $Y$:
+
+|                | $Y$   | $\overline{Y}$ | Total |
+|:--------------:|:-----:|:--------------:|:-----:|
+| $X$            | $n_{XY}$ | $n_{X\overline{Y}}$ | $n_{X}$ |
+| $\overline{X}$ | $n_{\overline{X}Y}$ | $n_{\overline{X}\overline{Y}}$ | $n_{\overline{X}}$ |
+| Total          | $n_{Y}$ | $n_{\overline{Y}}$ | $n$ |
+
+## Accuracy {#accuracy}
+
+Accuracy is the proportion of transactions classified correctly by the rule,
+including both positive and negative predictions.
+
+$$accuracy=(n_{XY}+n_{\overline{X}\overline{Y}})/n.$$
+
+**Range:** $[0, 1]$
+
+## Precision {#precision}
+
+Precision is the proportion of transactions predicted positive by the rule
+that are actually positive.
+
+$$precision=n_{XY}/n_X.$$
+
+**Range:** $[0, 1]$
+
+## Recall {#recall}
+
+Recall is the proportion of actual positive transactions that are correctly
+identified by the rule.
+
+$$recall=n_{XY}/n_Y.$$
+
+**Range:** $[0, 1]$
+
+## F-score {#fscore}
+
+The F-score is the harmonic mean of precision and recall, balancing the two
+types of classification performance.
+
+$$F_1=2n_{XY}/(n_X+n_Y).$$
+
+**Range:** $[0, 1]$
+
+## Balanced Accuracy {#balancedaccuracy}
+
+Balanced accuracy is the mean of the true-positive and true-negative rates,
+giving equal weight to the positive and negative classes.
+
+$$balancedAccuracy=\tfrac12(n_{XY}/n_Y+n_{\overline{X}\overline{Y}}/n_{\overline{X}}).$$
+
+**Range:** $[0, 1]$
+
 
 # References

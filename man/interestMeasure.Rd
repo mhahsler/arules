@@ -80,6 +80,8 @@ The following measures are implemented for \strong{rules}:
 \item "boost": \href{https://mhahsler.github.io/arules/docs/measures#boost}{Confidence Boost.}
 \item "casualConfidence": \href{https://mhahsler.github.io/arules/docs/measures#casualconfidence}{Causal Confidence.}
 \item "casualSupport": \href{https://mhahsler.github.io/arules/docs/measures#casualsupport}{Causal Support.}
+\item "accuracy": \href{https://mhahsler.github.io/arules/docs/measures#accuracy}{Accuracy.}
+\item "balancedAccuracy": \href{https://mhahsler.github.io/arules/docs/measures#balancedaccuracy}{Balanced Accuracy.}
 \item "centeredConfidence": \href{https://mhahsler.github.io/arules/docs/measures#centeredconfidence}{Centered Confidence.}
 \item "certainty": \href{https://mhahsler.github.io/arules/docs/measures#certainty}{Certainty Factor.}
 \item "chiSquared": \href{https://mhahsler.github.io/arules/docs/measures#chisquared}{Chi-Squared.} Additional parameters are: \code{significance = TRUE} returns the p-value of the test for independence instead of the chi-squared statistic. For p-values, substitution effects (the occurrence of one item makes the occurrence of another item less likely) can be tested using the parameter \code{complements = FALSE}.  Note: Correction for multiple comparisons can be done using \code{\link[stats:p.adjust]{stats::p.adjust()}}.
@@ -110,6 +112,7 @@ The following measures are implemented for \strong{rules}:
 \item "LIC": \href{https://mhahsler.github.io/arules/docs/measures#lic}{Lift Increase.} The additional parameter \code{improvementMeasure} (default: \code{'lift'}) can be used to specify the measure used for the increase calculation.  See \href{https://mhahsler.github.io/arules/docs/measures#ginc}{Generalized increase ratio}.
 \item "maxconfidence": \href{https://mhahsler.github.io/arules/docs/measures#maxconfidence}{Max-Confidence.}
 \item "mutualInformation": \href{https://mhahsler.github.io/arules/docs/measures#mutualinformation}{Mutual Information.}
+\item "netconf": \href{https://mhahsler.github.io/arules/docs/measures#netconf}{Netconf.}
 \item "oddsRatio": \href{https://mhahsler.github.io/arules/docs/measures#oddsratio}{Odds Ratio.}
 \item "phi": \href{https://mhahsler.github.io/arules/docs/measures#phi}{Phi Correlation Coefficient.}
 \item "ralambondrainy": \href{https://mhahsler.github.io/arules/docs/measures#ralambondrainy}{Ralambondrainy.}
@@ -117,10 +120,14 @@ The following measures are implemented for \strong{rules}:
 \item "rhsSupport": \href{https://mhahsler.github.io/arules/docs/measures#rhssupport}{Right-Hand-Side Support.}
 \item "RLD": \href{https://mhahsler.github.io/arules/docs/measures#rld}{Relative Linkage Disequilibrium.}
 \item "rulePowerFactor": \href{https://mhahsler.github.io/arules/docs/measures#rulepowerfactor}{Rule Power Factor.}
+\item "precision": \href{https://mhahsler.github.io/arules/docs/measures#precision}{Precision.}
+\item "recall": \href{https://mhahsler.github.io/arules/docs/measures#recall}{Recall.}
+\item "fScore": \href{https://mhahsler.github.io/arules/docs/measures#fscore}{F-score.}
 \item "sebag": \href{https://mhahsler.github.io/arules/docs/measures#sebag}{Sebag-Schoenauer.}
 \item "stdLift": \href{https://mhahsler.github.io/arules/docs/measures#stdlift}{Standardized Lift.}
 \item "table": \href{https://mhahsler.github.io/arules/docs/measures#table}{Contingency Table.} Returns the four counts for the contingency table. The entries are labeled \code{n11}, \code{n01}, \code{n10}, and \code{n00} (the first subscript is for X and the second is for Y; 1 indicated presence and 0 indicates absence). If several measures are specified, then the counts have the prefix \code{table.}
 \item "varyingLiaison": \href{https://mhahsler.github.io/arules/docs/measures#varyingliaison}{Varying Rates Liaison.}
+\item "zhang": \href{https://mhahsler.github.io/arules/docs/measures#zhang}{Zhang's Measure.}
 \item "yuleQ": \href{https://mhahsler.github.io/arules/docs/measures#yuleq}{Yule's Q.}
 \item "yuleY": \href{https://mhahsler.github.io/arules/docs/measures#yuley}{Yule's Y.}
 }
