@@ -227,15 +227,20 @@ inspect(head(rules, n = 3, by = "lift"))
 
 The following short guides cover the main workflows:
 
-- [Getting started](vignettes/getting-started.Rmd)
-- [Preparing transaction data](vignettes/preparing-transaction-data.Rmd)
-- [Mining and pruning rules](vignettes/mining-and-pruning-rules.Rmd)
-- [Interest measures](vignettes/interest-measures.Rmd)
-- [Item hierarchies](vignettes/item-hierarchies.Rmd)
+- [Getting
+  started](https://mhahsler.r-universe.dev/articles/arules/getting-started.html)
+- [Preparing transaction
+  data](https://mhahsler.r-universe.dev/articles/arules/preparing-transaction-data.html)
+- [Mining and pruning
+  rules](https://mhahsler.r-universe.dev/articles/arules/mining-and-pruning-rules.html)
+- [Interest
+  measures](https://mhahsler.r-universe.dev/articles/arules/interest-measures.html)
+- [Item
+  hierarchies](https://mhahsler.r-universe.dev/articles/arules/item-hierarchies.html)
 
 The theoretical background and the original description of the package
 are available in the paper [Introduction to
-arules](vignettes/arules.Rnw).
+arules](https://mhahsler.r-universe.dev/articles/arules/arules.pdf).
 
 ## Using arules with tidyverse
 
