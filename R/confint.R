@@ -544,8 +544,12 @@ ci.or.exact <-
 
       ci[ci < -1] <- -1
       ci[ci > 1] <- 1
-    } else 
-      stop("Confidence interval measure ", measure, "not implemented!")
+    } else {
+      ci <- NULL
+    }
 
+    if (!length(ci)) {
+      return(NULL)
+    }
     ci
   }

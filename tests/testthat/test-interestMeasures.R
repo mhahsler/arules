@@ -97,10 +97,10 @@ m2 <- interestMeasure(rules[1], transactions = trans)
 expect_equal(nrow(m2), 1L)
 
 ## coverage
-expect_equal(coverage(rules), support(lhs(rules), trans = trans))
+expect_equal(coverage(rules), support(lhs(rules), transactions = trans))
 expect_equal(
-  coverage(rules, trans = trans, reuse = FALSE),
-  support(lhs(rules), trans = trans)
+  coverage(rules, transactions = trans, reuse = FALSE),
+  support(lhs(rules), transactions = trans)
 )
 
 ## check for empty ruleset
