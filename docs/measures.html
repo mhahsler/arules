@@ -1728,14 +1728,14 @@ Y\)</span> in the transaction dataset. The counts are:</p>
 <tbody>
 <tr class="odd">
 <td align="center"><span class="math inline">\(X\)</span></td>
-<td align="center"><span class="math inline">\(n_{11}\)</span></td>
-<td align="center"><span class="math inline">\(n_{10}\)</span></td>
+<td align="center"><span class="math inline">\(n_{XY}\)</span></td>
+<td align="center"><span class="math inline">\(n_{X\overline{Y}}\)</span></td>
 <td align="center"><span class="math inline">\(n_X\)</span></td>
 </tr>
 <tr class="even">
 <td align="center"><span class="math inline">\(\overline{X}\)</span></td>
-<td align="center"><span class="math inline">\(n_{01}\)</span></td>
-<td align="center"><span class="math inline">\(n_{00}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{X}Y}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\overline{X}\overline{Y}}\)</span></td>
 <td align="center"><span class="math inline">\(n_{\overline{X}}\)</span></td>
 </tr>
 <tr class="odd">
@@ -2693,7 +2693,8 @@ Y)\)</span> is the <a href="#oddsratio">odds ratio</a> of the rule.</p>
 <div id="zhang" class="section level2">
 <h2>Zhang’s Measure</h2>
 <p><strong>Reference:</strong> <span class="citation">Tan et al. (<a href="#ref-arules:Tan:2004">2004</a>)</span></p>
-<p>Zhang’s measure is a bounded dependence score:</p>
+<p>Zhang’s measure is a bounded dependence score that can be viewed as a
+scaled version of leverage:</p>
 <p><span class="math display">\[Z(X \Rightarrow Y)=\frac{leverage(X
 \Rightarrow Y)}{\max\{P(X\cap Y)(1-P(X)),\;P(X)(P(Y)-P(X\cap
 Y))\}}=\frac{P(X\cap Y)-P(X)P(Y)}{\max\{P(X\cap

@@ -9,15 +9,15 @@ abstract: "This document contains a comprehensive collection of commonly used me
   Here, we also present their relationship with estimating probabilities and 
   conditional probabilities."
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_document:
     toc: yes
     toc_depth: 2
     toc_float:
       collapsed: no
       smooth_scroll: no
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
 bibliography: association_rules.bib
 link-citations: yes
 editor_options: 
@@ -220,8 +220,8 @@ rule $X \Rightarrow Y$ in the transaction dataset. The counts are:
 
 |                |         $Y$         |         $\overline{Y}$         | Total |
 |:--------------:|:-------------------:|:------------------------------:|:-----:|
-|      $X$       |      $n_{11}$       |      $n_{10}$                   | $n_X$ |
-| $\overline{X}$ |      $n_{01}$       |      $n_{00}$                   | $n_{\overline{X}}$ |
+|      $X$       |      $n_{XY}$       |      $n_{X\overline{Y}}$                   | $n_X$ |
+| $\overline{X}$ |      $n_{\overline{X}Y}$       |      $n_{\overline{X}\overline{Y}}$                   | $n_{\overline{X}}$ |
 | Total          | $n_Y$              | $n_{\overline{Y}}$             | $n$   |
 
 $n_{11}$ is the number of transactions that contain all items in $X$ and
