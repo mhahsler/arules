@@ -1,7 +1,9 @@
 ---
 title: "Getting started with arules"
 author: "Michael Hahsler"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Getting started with arules}
   %\VignetteEngine{knitr::rmarkdown}
@@ -96,13 +98,12 @@ butter_rules <- subset(rules, rhs %in% "butter" & lift > 1)
 inspect(butter_rules)
 ```
 
-## Where to learn more
+## Other vignettes
 
-For importing other data shapes, continue with
-[Preparing transaction data](preparing-transaction-data.html)
-(`vignette("preparing-transaction-data", package = "arules")`). For selecting
-and simplifying a larger result, see
-[Mining and pruning association rules](mining-and-pruning-rules.html)
-(`vignette("mining-and-pruning-rules", package = "arules")`).
+* [Preparing transaction data](preparing-transaction-data.html)
+* [Mining and pruning association rules](mining-and-pruning-rules.html)
+* [Interest measures](interest-measures.html)
+* [Item hierarchies](item-hierarchies.html)
+
 To explore association rules visually, see the
 [`arulesViz` package](https://cran.r-project.org/package=arulesViz).

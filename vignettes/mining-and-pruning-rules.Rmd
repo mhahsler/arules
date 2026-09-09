@@ -1,7 +1,9 @@
 ---
 title: "Mining and pruning association rules"
 author: "Michael Hahsler"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Mining and pruning association rules}
   %\VignetteEngine{knitr::rmarkdown}
@@ -89,3 +91,10 @@ The complementary subset contains the redundant rules that were removed.
 ```{r}
 inspect(rules[is.redundant(rules)])
 ```
+
+## Other vignettes
+
+* [Getting started with arules](getting-started.html)
+* [Preparing transaction data](preparing-transaction-data.html)
+* [Interest measures](interest-measures.html)
+* [Item hierarchies](item-hierarchies.html)

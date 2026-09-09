@@ -1,7 +1,9 @@
 ---
 title: "Preparing transaction data"
 author: "Michael Hahsler"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Preparing transaction data}
   %\VignetteEngine{knitr::rmarkdown}
@@ -116,3 +118,10 @@ from_long <- transactions(long, format = "long", cols = c("order", "product"))
 itemLabels(from_long)
 inspect(from_long)
 ```
+
+## Other vignettes
+
+* [Getting started with arules](getting-started.html)
+* [Mining and pruning association rules](mining-and-pruning-rules.html)
+* [Interest measures](interest-measures.html)
+* [Item hierarchies](item-hierarchies.html)

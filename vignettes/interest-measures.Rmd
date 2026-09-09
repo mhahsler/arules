@@ -1,7 +1,9 @@
 ---
 title: "Interest measures"
 author: "Michael Hahsler"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Interest measures}
   %\VignetteEngine{knitr::rmarkdown}
@@ -95,3 +97,10 @@ The new measures can now be used to filter and sort rules.
 ```{r}
 inspect(head(sort(rules, by = "leverage"), 3))
 ```
+
+## Other vignettes
+
+* [Getting started with arules](getting-started.html)
+* [Preparing transaction data](preparing-transaction-data.html)
+* [Mining and pruning association rules](mining-and-pruning-rules.html)
+* [Item hierarchies](item-hierarchies.html)
