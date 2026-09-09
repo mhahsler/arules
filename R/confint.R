@@ -26,16 +26,65 @@
 #' Defines a method to compute confidence intervals for interest measures for association [rules].
 #'
 #' This method creates a contingency table for each rule and then constructs a
-#' confidence interval for the specified measures.
+#' confidence interval for the specified measures. Confidence intervals for 
+#' all interest measures can be assessed using the `"bootstrap"` method.
+#' However, since bootstrapping has to be applied to each rule
+#' separately, this can be slow. For some popular measures, faster estimates
+#' are available.
 #'
-#' Fast confidence interval approximations are currently available for the
+#' @section Fast Confidence Interval Estimation:
+#' 
+#' Fast confidence interval approximations are currently available and used for the
 #' measures `"support"`, `"count"`, `"confidence"`, `"lift"`, `"oddsRatio"`, and `"phi"`.
-#' For all other measures, bootstrap sampling from a multinomial distribution
-#' is used.
 #'
-#' Haldan-Anscombe correction (Haldan, 1940; Anscombe, 1956) to avoids issues
-#' with zero counts can be specified by `smoothCounts = 0.5`. Here .5 is
-#' added to each count in the contingency table.
+#' Methods:
+#' 
+#' * `"exact"`: Exact binomial proportion confidence interval (Clopper & Pearson, 1934).
+#' * `"normal"`: Normal approximation population proportion confidence interval (Wilson, 1927).
+#' * `"wilson"`: Wilson score interval (Wilson, 1927).
+#' * `"woolf"`: Woolf method confidence interval for log of the odds ratio (Woolf, 1955).
+#' * `"delta"`, `"log_delta"`: Delta and Log delta method (Doob, 1935).
+#' * `"gart"`: Haldane-Anscombe-Gart interval. Delta method with count smoothing of .5 (Haldane, 1956).
+#'
+#' Available methods by interest measure:
+#'
+#' | Interest measure | Default fast method | Other available fast methods |
+#' |:-----------------|:--------------------|:-----------------------------|
+#' | `"count"` | `"wilson"` | `"normal"`, `"exact"` |
+#' | `"support"` | `"wilson"` | `"normal"`, `"exact"` |
+#' | `"confidence"` | `"delta"` | `"log_delta"`, `"wilson"`, `"normal"`, `"exact"` |
+#' | `"lift"` | `"delta"` | `"log_delta"` |
+#' | `"oddsRatio"` | `"woolf"` | `"gart"`, `"exact"` |
+#' | `"phi"` | `"delta"` | None |
+#'
+#' The `"bootstrap"` method is also available.
+#'
+#' @section Count Smoothing:
+#' 
+#' All intervals are calculated using count data. Haldan-Anscombe correction 
+#' (Haldan, 1940; Anscombe, 1956) avoids issues
+#' with zero counts by count smoothing (adding .5 to each count). 
+#' Haldan-Anscombe correction of `smoothCounts = 0.5` can be used with any 
+#' interval method.
+#' 
+#' The Haldane-Anscombe-Gart interval above (method `"gart"`) applies 
+#' the delta method with Haldan-Anscombe correction to the odds ratio 
+#' measure (Haldane, 1956).
+#'
+#' @section Using Validation Data:
+#'
+#' Confidence intervals calculated from the same transactions used to mine and
+#' select rules do not account for the rule-selection process. Their nominal
+#' coverage may therefore be too optimistic, especially when many candidate
+#' rules are examined.
+#'
+#' For confirmatory analysis, rules can be mined using training data and an
+#' independent validation transaction set can be supplied using `transactions`.
+#' The contingency-table counts and confidence intervals are then recalculated
+#' from the validation data instead of using the quality measures stored with
+#' the rules. When many rules are evaluated on the validation data,
+#' multiple-comparison adjustments or a further independent test set may still
+#' be appropriate.
 #'
 #' @name confint
 #' @family interest measures
@@ -54,11 +103,12 @@
 #' @param smoothCounts pseudo count for addaptive smoothing (Laplace
 #' smoothing). Often a pseudo counts of .5 is used for smoothing (see Detail
 #' Section).
-#' @param replications number of replications for method `"simulation"`. Ignored
+#' @param replications number of replications for method `"bootstrap"`. Ignored
 #' for other methods.
-#' @param transactions if the rules object does not contain sufficient quality
-#' information, then a set of transactions to calculate the confidence interval
-#' for can be specified.
+#' @param transactions transactions used to calculate the contingency-table
+#' counts. If supplied, stored rule-quality values are not reused. An independent
+#' validation dataset can be supplied to obtain confidence intervals that are
+#' not affected by mining and selecting the rules on the same observations.
 #' @param ... Additional parameters are ignored with a warning.
 #' @return Returns a matrix with with one row for each rule and the two columns
 #' named `"LL"` and `"UL"` with the interval boundaries.
@@ -89,6 +139,10 @@
 #'
 #' Fisher, R.A. (1962). "Confidence limits for a cross-product ratio".
 #' _Australian Journal of Statistics,_ 4, 41.
+#' 
+#' Wilson, E.B. (1927, 6). "Probable inference,
+#' the law of succession, and statistical inference". 
+#' _Journal of the American Statistical Association,_ 22.
 #'
 #' Woolf, B. (1955). "On estimating the relation between blood group and
 #' diseases". _Annals of Human Genetics,_ 19, 251-253.
@@ -96,6 +150,10 @@
 #' Haldane, J.B.S. (1940). "The mean and variance of the moments of chi-squared
 #' when used as a test of homogeneity, when expectations are small".
 #' _Biometrika,_ 29, 133-134.
+#'
+#' Haldane, J.B.S. (1956, 5). "The estimation and significance of the 
+#' logarithm of a ratio of frequencies". 
+#' _Annals of Human Genetics,_ 20.
 #'
 #' Anscombe, F.J. (1956). "On estimating binomial response relations".
 #' _Biometrika,_ 43, 461-464.
@@ -133,6 +191,24 @@
 #' ci
 #'
 #' inspect(rules[ci[, "LL"] > 1])
+#'
+#' # For confirmatory analysis, mine rules on training data and calculate
+#' # confidence intervals using independent validation data.
+#' set.seed(1234)
+#' training_ids <- sample(seq_along(Income), floor(.7 * length(Income)))
+#' training <- Income[training_ids]
+#' validation <- Income[-training_ids]
+#'
+#' validation_rules <- apriori(training,
+#'   parameter = list(support = .5),
+#'   appearance = list(rhs = "language in home=english")
+#' )
+#' validation_ci <- confint(validation_rules,
+#'   "lift",
+#'   transactions = validation,
+#'   side = "lower"
+#' )
+#' inspect(validation_rules[validation_ci[, "LL"] > 1])
 #' @exportS3Method stats::confint
 confint.rules <- function(
     object,

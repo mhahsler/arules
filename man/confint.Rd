@@ -34,16 +34,17 @@ returns an interval with only an upper limit.}
 methods depends on the measure and the most common method is used by
 default.}
 
-\item{replications}{number of replications for method \code{"simulation"}. Ignored
+\item{replications}{number of replications for method \code{"bootstrap"}. Ignored
 for other methods.}
 
 \item{smoothCounts}{pseudo count for addaptive smoothing (Laplace
 smoothing). Often a pseudo counts of .5 is used for smoothing (see Detail
 Section).}
 
-\item{transactions}{if the rules object does not contain sufficient quality
-information, then a set of transactions to calculate the confidence interval
-for can be specified.}
+\item{transactions}{transactions used to calculate the contingency-table
+counts. If supplied, stored rule-quality values are not reused. An independent
+validation dataset can be supplied to obtain confidence intervals that are
+not affected by mining and selecting the rules on the same observations.}
 
 \item{...}{Additional parameters are ignored with a warning.}
 }
@@ -66,17 +67,66 @@ Defines a method to compute confidence intervals for interest measures for assoc
 }
 \details{
 This method creates a contingency table for each rule and then constructs a
-confidence interval for the specified measures.
+confidence interval for the specified measures. Confidence intervals for
+all interest measures can be assessed using the \code{"bootstrap"} method.
+However, since bootstrapping has to be applied to each rule
+separately, this can be slow. For some popular measures, faster estimates
+are available.
+}
+\section{Fast Confidence Interval Estimation}{
 
-Fast confidence interval approximations are currently available for the
+
+Fast confidence interval approximations are currently available and used for the
 measures \code{"support"}, \code{"count"}, \code{"confidence"}, \code{"lift"}, \code{"oddsRatio"}, and \code{"phi"}.
-For all other measures, bootstrap sampling from a multinomial distribution
-is used.
+
+Methods:
+\itemize{
+\item \code{"exact"}: Exact binomial proportion confidence interval (Clopper & Pearson, 1934).
+\item \code{"normal"}: Normal approximation population proportion confidence interval (Wilson, 1927).
+\item \code{"wilson"}: Wilson score interval (Wilson, 1927).
+\item \code{"woolf"}: Woolf method confidence interval for log of the odds ratio (Woolf, 1955).
+\item \code{"delta"}, \code{"log_delta"}: Delta and Log delta method (Doob, 1935).
+}
+
+Availabel methods by interest measure:\tabular{lll}{
+   Interest measure \tab Default fast method \tab Other available fast methods \cr
+   \code{"count"} \tab \code{"wilson"} \tab \code{"normal"}, \code{"exact"} \cr
+   \code{"support"} \tab \code{"wilson"} \tab \code{"normal"}, \code{"exact"} \cr
+   \code{"confidence"} \tab \code{"delta"} \tab \code{"log_delta"}, \code{"wilson"}, \code{"normal"}, \code{"exact"} \cr
+   \code{"lift"} \tab \code{"delta"} \tab \code{"log_delta"} \cr
+   \code{"oddsRatio"} \tab \code{"woolf"} \tab \code{"gart"}, \code{"exact"} \cr
+   \code{"phi"} \tab \code{"delta"} \tab None \cr
+}
+
+
+The \code{"bootstrap"} method is also available.
+}
+
+\section{Count Smoothing}{
+
 
 Haldan-Anscombe correction (Haldan, 1940; Anscombe, 1956) to avoids issues
 with zero counts can be specified by \code{smoothCounts = 0.5}. Here .5 is
 added to each count in the contingency table.
 }
+
+\section{Using Validation Data}{
+
+
+Confidence intervals calculated from the same transactions used to mine and
+select rules do not account for the rule-selection process. Their nominal
+coverage may therefore be too optimistic, especially when many candidate
+rules are examined.
+
+For confirmatory analysis, rules can be mined using training data and an
+independent validation transaction set can be supplied using \code{transactions}.
+The contingency-table counts and confidence intervals are then recalculated
+from the validation data instead of using the quality measures stored with
+the rules. When many rules are evaluated on the validation data,
+multiple-comparison adjustments or a further independent test set may still
+be appropriate.
+}
+
 \examples{
 data("Income")
 
@@ -110,6 +160,24 @@ ci <- confint(rules, "lift", level = 0.95, side = "lower")
 ci
 
 inspect(rules[ci[, "LL"] > 1])
+
+# For confirmatory analysis, mine rules on training data and calculate
+# confidence intervals using independent validation data.
+set.seed(1234)
+training_ids <- sample(seq_along(Income), floor(.7 * length(Income)))
+training <- Income[training_ids]
+validation <- Income[-training_ids]
+
+validation_rules <- apriori(training,
+  parameter = list(support = .5),
+  appearance = list(rhs = "language in home=english")
+)
+validation_ci <- confint(validation_rules,
+  "lift",
+  transactions = validation,
+  side = "lower"
+)
+inspect(validation_rules[validation_ci[, "LL"] > 1])
 }
 \references{
 Wilson, E. B. (1927). "Probable inference, the law of
