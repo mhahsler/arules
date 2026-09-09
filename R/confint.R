@@ -226,6 +226,7 @@ confint.rules <- function(
     measure <- parm
   }
 
+  measure <- .checkDeprecatedMeasures(measure)
   measure <- match.arg(measure, choices = measuresRules)
 
   # one-sided CI (adjust level)

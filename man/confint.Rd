@@ -86,9 +86,10 @@ Methods:
 \item \code{"wilson"}: Wilson score interval (Wilson, 1927).
 \item \code{"woolf"}: Woolf method confidence interval for log of the odds ratio (Woolf, 1955).
 \item \code{"delta"}, \code{"log_delta"}: Delta and Log delta method (Doob, 1935).
+\item \code{"gart"}: Haldane-Anscombe-Gart interval. Delta method with count smoothing of .5 (Haldane, 1956).
 }
 
-Availabel methods by interest measure:\tabular{lll}{
+Available methods by interest measure:\tabular{lll}{
    Interest measure \tab Default fast method \tab Other available fast methods \cr
    \code{"count"} \tab \code{"wilson"} \tab \code{"normal"}, \code{"exact"} \cr
    \code{"support"} \tab \code{"wilson"} \tab \code{"normal"}, \code{"exact"} \cr
@@ -105,9 +106,15 @@ The \code{"bootstrap"} method is also available.
 \section{Count Smoothing}{
 
 
-Haldan-Anscombe correction (Haldan, 1940; Anscombe, 1956) to avoids issues
-with zero counts can be specified by \code{smoothCounts = 0.5}. Here .5 is
-added to each count in the contingency table.
+All intervals are calculated using count data. Haldan-Anscombe correction
+(Haldan, 1940; Anscombe, 1956) avoids issues
+with zero counts by count smoothing (adding .5 to each count).
+Haldan-Anscombe correction of \code{smoothCounts = 0.5} can be used with any
+interval method.
+
+The Haldane-Anscombe-Gart interval above (method \code{"gart"}) applies
+the delta method with Haldan-Anscombe correction to the odds ratio
+measure (Haldane, 1956).
 }
 
 \section{Using Validation Data}{
@@ -197,12 +204,20 @@ Doob, J. L. (1935). "The Limiting Distributions of Certain Statistics".
 Fisher, R.A. (1962). "Confidence limits for a cross-product ratio".
 \emph{Australian Journal of Statistics,} 4, 41.
 
+Wilson, E.B. (1927, 6). "Probable inference,
+the law of succession, and statistical inference".
+\emph{Journal of the American Statistical Association,} 22.
+
 Woolf, B. (1955). "On estimating the relation between blood group and
 diseases". \emph{Annals of Human Genetics,} 19, 251-253.
 
 Haldane, J.B.S. (1940). "The mean and variance of the moments of chi-squared
 when used as a test of homogeneity, when expectations are small".
 \emph{Biometrika,} 29, 133-134.
+
+Haldane, J.B.S. (1956, 5). "The estimation and significance of the
+logarithm of a ratio of frequencies".
+\emph{Annals of Human Genetics,} 20.
 
 Anscombe, F.J. (1956). "On estimating binomial response relations".
 \emph{Biometrika,} 43, 461-464.
