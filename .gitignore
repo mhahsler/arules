@@ -15,3 +15,5 @@ vignettes/*.pdf
 
 *.o
 *.so
+
+revdep/
