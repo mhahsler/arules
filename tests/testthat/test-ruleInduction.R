@@ -46,7 +46,7 @@ expect_true(all(quality(r2)$confidence == 1))
 ## missing itemsets
 is_incomplete <- is[labels(is) != "{a,b}"]
 expect_error(r_incomplete <- ruleInduction(is_incomplete),
-  regex = "cannot induce rules"
+  regexp = "cannot induce rules"
 )
 
 ## missing support
@@ -54,12 +54,12 @@ is_nosupp <- is
 
 # empty quality
 quality(is_nosupp) <- data.frame()
-expect_error(r_nosupp <- ruleInduction(is_nosupp), regex = "support is missing")
+expect_error(r_nosupp <- ruleInduction(is_nosupp), regexp = "support is missing")
 
 # no support
 quality(is_nosupp) <- data.frame(weird_measure = runif(length(is_nosupp)))
 # inspect(is_nosupp)
-expect_error(r_nosupp <- ruleInduction(is_nosupp), regex = "support is missing")
+expect_error(r_nosupp <- ruleInduction(is_nosupp), regexp = "support is missing")
 
 
 expect_equal_rules <- function(r1, r2) {
@@ -154,10 +154,10 @@ expect_equal_rules(r_t2, r_t2a[size(r_t2a) > 1])
 
 ## test with problematic transactions (items missing, items in different order)
 expect_error(ruleInduction(is, transactions = trans[, rev(1:nitems(trans))]),
-  regex = "Item labels"
+  regexp = "Item labels"
 )
 
 expect_error(ruleInduction(is, transactions = trans[, -2]),
-  regex = "Dimensions"
+  regexp = "Dimensions"
 )
 })

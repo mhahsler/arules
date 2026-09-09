@@ -1,7 +1,7 @@
 test_that("numeric discretization", {
 options(digits = 2)
 
-nums1 <- sample(rep(0:10, time = 5))
+nums1 <- sample(rep(0:10, times = 5))
 
 nums2 <-
   c(

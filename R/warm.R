@@ -178,7 +178,7 @@ weclat <- function(
   weight <- transactionInfo(data)[["weight"]]
   if (is.null(weight)) {
     weight <- rep(1, length(data))
-    if (!is.null(control) && control$v) {
+    if (!is.null(control) && control$verbose) {
       cat("Transactions do not contain weights in transactionInfo. Using a weight of 1 for each.")
     }
   }
