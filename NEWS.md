@@ -1,4 +1,4 @@
-# arules 1.7.15 (xx/xx/2026)
+# arules 1.7.15 (09/09/2026)
 
 ## New Features
 
@@ -18,10 +18,13 @@
 * `ruleInduction()` now warns about unknown arguments.
 * Corrected the formulas for collective strength, causal support and
   confidence, least contradiction, and substitute hyper-confidence.
+* The misspelled interest-measure names `casualSupport` and
+  `casualConfidence` are deprecated. Use `causalSupport` and
+  `causalConfidence` instead.
 * fixed count smoothing for interest measure computation.
 * fixed the bootstrap se attribute.
 
-# Documentation and Maintenance
+## Documentation and Maintenance
 
 * Added tests for `aggregate()`, `predict()`, PMML round trips, and
   `supportingTransactions()`.
