@@ -277,7 +277,7 @@ $$AV(X \Rightarrow Y) = conf(X \Rightarrow Y) - supp(Y) = P(Y | X) - P(Y)$$
 **Range:** $[-1+1/n, 1-1/n]$ for an empirical data set with $n$
 transactions (0 indicates independence)
 
-## Causal Confidence {#casualconfidence}
+## Causal Confidence {#causalconfidence}
 
 **Reference:** @arules:Kodratoff:2001
 
@@ -291,10 +291,7 @@ $$\textrm{causal-conf} =
 
 **Range:** $[0, 1]$
 
-For backward compatibility, `interestMeasure()` exposes this measure as
-`"casualConfidence"`.
-
-## Causal Support {#casualsupport}
+## Causal Support {#causalsupport}
 
 **Reference:** @arules:Kodratoff:2001
 
@@ -306,9 +303,6 @@ supp(X \cup Y) + supp(\overline{X} \cup \overline{Y}) =
 P(X \cap Y) + P(\overline{X} \cap \overline{Y})$$
 
 **Range:** $[0, 1]$
-
-For backward compatibility, `interestMeasure()` exposes this measure as
-`"casualSupport"`.
 
 ## Centered Confidence {#centeredconfidence}
 

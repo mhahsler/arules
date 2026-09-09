@@ -78,8 +78,8 @@ The following measures are implemented for \strong{rules}:
 \item "count": \href{https://mhahsler.github.io/arules/docs/measures#count}{Support Count.}
 \item "addedValue": \href{https://mhahsler.github.io/arules/docs/measures#addedvalue}{Added Value.}
 \item "boost": \href{https://mhahsler.github.io/arules/docs/measures#boost}{Confidence Boost.}
-\item "casualConfidence": \href{https://mhahsler.github.io/arules/docs/measures#casualconfidence}{Causal Confidence.}
-\item "casualSupport": \href{https://mhahsler.github.io/arules/docs/measures#casualsupport}{Causal Support.}
+\item "causalConfidence": \href{https://mhahsler.github.io/arules/docs/measures#causalconfidence}{Causal Confidence.}
+\item "causalSupport": \href{https://mhahsler.github.io/arules/docs/measures#causalsupport}{Causal Support.}
 \item "accuracy": \href{https://mhahsler.github.io/arules/docs/measures#accuracy}{Accuracy.}
 \item "balancedAccuracy": \href{https://mhahsler.github.io/arules/docs/measures#balancedaccuracy}{Balanced Accuracy.}
 \item "centeredConfidence": \href{https://mhahsler.github.io/arules/docs/measures#centeredconfidence}{Centered Confidence.}

@@ -1793,7 +1793,7 @@ Y) - supp(Y) = P(Y | X) - P(Y)\]</span></p>
 1-1/n]\)</span> for an empirical data set with <span class="math inline">\(n\)</span> transactions (0 indicates
 independence)</p>
 </div>
-<div id="casualconfidence" class="section level2">
+<div id="causalconfidence" class="section level2">
 <h2>Causal Confidence</h2>
 <p><strong>Reference:</strong> <span class="citation">Kodratoff (<a href="#ref-arules:Kodratoff:2001">2001</a>)</span></p>
 <p>Causal confidence combines a rule’s confidence with the confidence of
@@ -1804,10 +1804,8 @@ its contrapositive:</p>
 \frac{1}{2} [P(Y|X) + P(\overline{X}|\overline{Y})]\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0,
 1]\)</span></p>
-<p>For backward compatibility, <code>interestMeasure()</code> exposes
-this measure as <code>&quot;casualConfidence&quot;</code>.</p>
 </div>
-<div id="casualsupport" class="section level2">
+<div id="causalsupport" class="section level2">
 <h2>Causal Support</h2>
 <p><strong>Reference:</strong> <span class="citation">Kodratoff (<a href="#ref-arules:Kodratoff:2001">2001</a>)</span></p>
 <p>Causal support adds the proportion of examples to the proportion of
@@ -1817,8 +1815,6 @@ supp(X \cup Y) + supp(\overline{X} \cup \overline{Y}) =
 P(X \cap Y) + P(\overline{X} \cap \overline{Y})\]</span></p>
 <p><strong>Range:</strong> <span class="math inline">\([0,
 1]\)</span></p>
-<p>For backward compatibility, <code>interestMeasure()</code> exposes
-this measure as <code>&quot;casualSupport&quot;</code>.</p>
 </div>
 <div id="centeredconfidence" class="section level2">
 <h2>Centered Confidence</h2>

@@ -375,8 +375,8 @@ measuresRules <-
     "count",
     "addedValue",
     "boost",
-    "casualConfidence",
-    "casualSupport",
+    "causalConfidence",
+    "causalSupport",
     "accuracy",
     "balancedAccuracy",
     "centeredConfidence",
@@ -429,6 +429,25 @@ measuresRules <-
     "yuleY"
   )
 
+.checkDeprecatedMeasures <- function(measure) {
+  deprecated <- c(
+    casualConfidence = "causalConfidence",
+    casualSupport = "causalSupport"
+  )
+  ind <- pmatch(tolower(measure), tolower(names(deprecated)), nomatch = 0L)
+
+  for (i in which(ind > 0L)) {
+    .Deprecated(
+      new = unname(deprecated[ind[i]]),
+      old = measure[i],
+      package = "arules"
+    )
+    measure[i] <- unname(deprecated[ind[i]])
+  }
+
+  measure
+}
+
 
 #' @rdname interestMeasure
 setMethod(
@@ -448,6 +467,8 @@ setMethod(
 
     if (missing(measure)) {
       measure <- measuresRules
+    } else {
+      measure <- .checkDeprecatedMeasures(measure)
     }
 
     ## check and expand measure
@@ -930,8 +951,8 @@ setMethod(
       # needs alpha
       # if(measure == "wang") return(1/n * (1-alpha) * n1x - n10)
       confirmedConfidence = (n11 - n10) / n1x,
-      casualSupport = (n11 + n00) / n,
-      casualConfidence = (n11 / n1x + n00 / n0x) / 2,
+      causalSupport = (n11 + n00) / n,
+      causalConfidence = (n11 / n1x + n00 / n0x) / 2,
       leastContradiction = (n11 - n10) / nx1,
       centeredConfidence = nx0 / n - n10 / n1x,
       varyingLiaison = (n1x - n10) / (n1x * nx1 / n) - 1,
