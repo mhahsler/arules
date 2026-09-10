@@ -1,6 +1,25 @@
 test_that("interest measures", {
 options(digits = 2)
 
+expect_measure_ranges <- function(measures, ranges) {
+  expect_setequal(names(measures), rownames(ranges))
+
+  for (measure in names(measures)) {
+    values <- measures[[measure]]
+    values <- values[!is.na(values)]
+    tolerance <- sqrt(.Machine$double.eps)
+
+    expect_true(
+      all(values >= ranges[measure, "lower"] - tolerance),
+      info = paste(measure, "is below its documented range")
+    )
+    expect_true(
+      all(values <= ranges[measure, "upper"] + tolerance),
+      info = paste(measure, "is above its documented range")
+    )
+  }
+}
+
 data <- list(
   c("A", "B"),
   c("A", "B", "C", "G"),
@@ -60,6 +79,16 @@ expect_equal(round(quality(fsets)$allConfidence, 2), ac)
 ###################################################################
 ## test all measures for itemsets
 m1 <- interestMeasure(fsets, transactions = trans)
+
+## Ranges documented in docs/measures.md.
+itemset_ranges <- rbind(
+  support = c(lower = 0, upper = 1),
+  count = c(lower = 0, upper = length(trans)),
+  allConfidence = c(lower = 0, upper = 1),
+  crossSupportRatio = c(lower = 0, upper = 1),
+  lift = c(lower = 0, upper = Inf)
+)
+expect_measure_ranges(m1, itemset_ranges)
 
 ## now recalculate the measures using the transactions
 m2 <- interestMeasure(fsets, transactions = trans, reuse = FALSE)
@@ -197,6 +226,74 @@ rules <- apriori(Adult,
 m_r <- interestMeasure(rules, transactions = Adult, reuse = TRUE)
 m <- interestMeasure(rules, transactions = Adult, reuse = FALSE)
 expect_equal(m_r, m)
+
+## Ranges documented in docs/measures.md. Undefined values (NA/NaN) are
+## ignored, while infinite values are accepted only for unbounded ranges.
+n <- length(Adult)
+rule_ranges <- rbind(
+  support = c(lower = 0, upper = 1),
+  confidence = c(lower = 0, upper = 1),
+  lift = c(lower = 0, upper = Inf),
+  count = c(lower = 0, upper = n),
+  addedValue = c(lower = -1 + 1 / n, upper = 1 - 1 / n),
+  boost = c(lower = 0, upper = Inf),
+  causalConfidence = c(lower = 0, upper = 1),
+  causalSupport = c(lower = 0, upper = 1),
+  accuracy = c(lower = 0, upper = 1),
+  balancedAccuracy = c(lower = 0, upper = 1),
+  centeredConfidence = c(lower = -1 + 1 / n, upper = 1 - 1 / n),
+  certainty = c(lower = -Inf, upper = 1),
+  chiSquared = c(lower = 0, upper = Inf),
+  collectiveStrength = c(lower = 0, upper = Inf),
+  confirmedConfidence = c(lower = -1, upper = 1),
+  conviction = c(lower = 0, upper = Inf),
+  cosine = c(lower = 0, upper = 1),
+  counterexample = c(lower = -Inf, upper = 1),
+  coverage = c(lower = 0, upper = 1),
+  doc = c(lower = -1, upper = 1),
+  fishersExactTest = c(lower = 0, upper = 1),
+  gini = c(lower = 0, upper = 1 / 2),
+  hyperConfidence = c(lower = 0, upper = 1),
+  hyperLift = c(lower = 0, upper = Inf),
+  imbalance = c(lower = 0, upper = 1),
+  implicationIndex = c(lower = -Inf, upper = Inf),
+  importance = c(lower = -Inf, upper = Inf),
+  improvement = c(lower = -1, upper = 1),
+  jaccard = c(lower = 0, upper = 1),
+  jMeasure = c(lower = 0, upper = 1 / exp(1)),
+  kappa = c(lower = -1, upper = 1),
+  kulczynski = c(lower = 0, upper = 1),
+  lambda = c(lower = 0, upper = 1),
+  laplace = c(lower = 0, upper = 1),
+  leastContradiction = c(lower = -Inf, upper = 1),
+  lerman = c(lower = -Inf, upper = Inf),
+  leverage = c(lower = -1 / 4, upper = 1 / 4),
+  LIC = c(lower = 0, upper = Inf),
+  maxconfidence = c(lower = 0, upper = 1),
+  mutualInformation = c(lower = 0, upper = 1),
+  netconf = c(lower = -1, upper = 1),
+  oddsRatio = c(lower = 0, upper = Inf),
+  phi = c(lower = -1, upper = 1),
+  ralambondrainy = c(lower = 0, upper = 1),
+  relativeRisk = c(lower = 0, upper = Inf),
+  rhsSupport = c(lower = 0, upper = 1),
+  RLD = c(lower = 0, upper = 1),
+  rulePowerFactor = c(lower = 0, upper = 1),
+  precision = c(lower = 0, upper = 1),
+  recall = c(lower = 0, upper = 1),
+  fScore = c(lower = 0, upper = 1),
+  sebag = c(lower = 0, upper = Inf),
+  stdLift = c(lower = 0, upper = 1),
+  table.n11 = c(lower = 0, upper = n),
+  table.n01 = c(lower = 0, upper = n),
+  table.n10 = c(lower = 0, upper = n),
+  table.n00 = c(lower = 0, upper = n),
+  varyingLiaison = c(lower = -1, upper = Inf),
+  zhang = c(lower = -1, upper = 1),
+  yuleQ = c(lower = -1, upper = 1),
+  yuleY = c(lower = -1, upper = 1)
+)
+expect_measure_ranges(m, rule_ranges)
 
 # dput(round(m_r, 3))
 m_previous <- structure(
