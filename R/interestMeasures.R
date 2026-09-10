@@ -952,7 +952,7 @@ setMethod(
       # if(measure == "wang") return(1/n * (1-alpha) * n1x - n10)
       confirmedConfidence = (n11 - n10) / n1x,
       causalSupport = (n11 + n00) / n,
-      causalConfidence = (n11 / n1x + n00 / n0x) / 2,
+      causalConfidence = (n11 / n1x + n00 / nx0) / 2,
       leastContradiction = (n11 - n10) / nx1,
       centeredConfidence = nx0 / n - n10 / n1x,
       varyingLiaison = (n1x - n10) / (n1x * nx1 / n) - 1,
