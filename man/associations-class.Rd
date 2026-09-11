@@ -47,6 +47,10 @@
 \S4method{length}{associations}(x)
 
 \S4method{labels}{associations}(object)
+
+\method{plot}{associations}(x, ...)
+
+\method{plot}{itemMatrix}(x, ...)
 }
 \arguments{
 \item{x, object}{the object.}

@@ -21,6 +21,8 @@
 #' @rdname associations-class
 #' @name plot
 #' @aliases plot.associations plot.itemMatrix
+#' @usage \method{plot}{associations}(x, ...)
+#' @usage \method{plot}{itemMatrix}(x, ...)
 NULL
 
 ### produce a better error message for plot of associations

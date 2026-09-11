@@ -1,3 +1,10 @@
+# arules 1.7.15.1 (xx/xx/2026)
+
+## Documentation and Maintenance
+
+* added missing aliases for plot.associations and plot.itemMatrix.
+
+
 # arules 1.7.15 (09/10/2026)
 
 ## New Features
