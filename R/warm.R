@@ -101,7 +101,6 @@ hits <- function(
 #' association rules can be created using [ruleInduction()].
 #'
 #' @aliases WARM warm WECLAT
-#' @family mining algorithms
 #' @family weighted association mining functions
 #'
 #' @param data an object that can be coerced into an object of class

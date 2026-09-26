@@ -53,6 +53,7 @@ Other itemMatrix and transactions functions:
 \code{\link[=itemFrequency]{itemFrequency()}},
 \code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}},
 \code{\link{itemMatrix-class}},
+\code{\link{itemwiseSetOps}},
 \code{\link[=match]{match()}},
 \code{\link[=merge]{merge()}},
 \code{\link[=random.transactions]{random.transactions()}},

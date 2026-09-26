@@ -27,7 +27,7 @@
 #'
 #' @name itemwiseSetOps
 #' @aliases itemSetOperations
-#' @family itemMatrix and transactions Functions
+#' @family itemMatrix and transactions functions
 #'
 #' @param x,y two [itemMatrix] objects with the same number of rows (itemsets).
 #' @return An object of class [itemMatrix] is returned.

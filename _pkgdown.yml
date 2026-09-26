@@ -11,3 +11,66 @@ articles:
   - interest-measures
   - item-hierarchies
   - tidyverse
+
+reference:
+- title: Package overview
+  desc: Infrastructure for representing, manipulating, and analyzing transaction data, frequent itemsets, and association rules.
+  contents:
+  - arules-package
+- title: Transaction data and item matrices
+  desc: Represent, inspect, visualize, and manipulate sparse binary incidence matrices, transactions, and transaction ID lists.
+  contents:
+  - transactions
+  - has_concept("itemMatrix and transactions functions")
+  - has_concept("itemMatrix functions")
+  - has_concept("transactions functions")
+  - subset
+- title: Data preprocessing
+  desc: Prepare data for mining by discretizing variables, managing item coding and hierarchies, adding items, and sampling data.
+  contents:
+  - has_concept("preprocessing")
+- title: Association mining
+  desc: Mine frequent itemsets and association rules, configure the mining algorithms, and induce rules from itemsets.
+  contents:
+  - apriori
+  - eclat
+  - weclat
+  - fim4r
+  - ruleInduction
+  - has_concept("mining algorithms")
+- title: Weighted association mining
+  desc: Compute transaction weights and mine frequent itemsets from weighted transaction data.
+  contents:
+  - has_concept("weighted association mining functions")
+- title: Associations and set operations
+  desc: Represent and manipulate sets of itemsets and association rules.
+  contents:
+  - inspect
+  - has_concept("associations functions")
+- title: Interest measures
+  desc: Calculate support, coverage, confidence intervals, and other interest measures for itemsets and association rules.
+  contents:
+  - has_concept("interest measures")
+- title: Postprocessing
+  desc: Induce and prune rules and identify closed, generator, maximal, redundant, significant, and related itemsets or rules.
+  contents:
+  - interestMeasure
+  - has_concept("postprocessing")
+- title: Proximities and prediction
+  desc: Compute and represent affinities, similarities, and dissimilarities and use them for nearest-neighbor prediction.
+  contents:
+  - has_concept("proximity classes and functions")
+- title: Import and export
+  desc: Read, write, and convert transactions and associations using data frames, lists, text formats, and PMML.
+  contents:
+  - has_concept("import/export")
+- title: Data sets
+  desc: Example transaction and survey data sets for association mining and preprocessing.
+  contents:
+  - Adult
+  - Epub
+  - Groceries
+  - Income
+  - Mushroom
+  - SunBai
+

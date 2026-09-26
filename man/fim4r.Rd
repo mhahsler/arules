@@ -179,8 +179,6 @@ Other mining algorithms:
 \code{\link{AScontrol-classes}},
 \code{\link{ASparameter-classes}},
 \code{\link[=apriori]{apriori()}},
-\code{\link[=eclat]{eclat()}},
-\code{\link[=ruleInduction]{ruleInduction()}},
-\code{\link[=weclat]{weclat()}}
+\code{\link[=eclat]{eclat()}}
 }
 \concept{mining algorithms}

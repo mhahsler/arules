@@ -57,7 +57,6 @@
 #'   be generated from one of the itemsets are removed. This procedure is very slow,
 #'   especially for itemsets with many elements or very low support.
 #'
-#' @family mining algorithms
 #' @family postprocessing
 #'
 #' @param x the set of [itemsets] from which rules will be induced.

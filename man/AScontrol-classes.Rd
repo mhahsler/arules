@@ -119,9 +119,7 @@ Other mining algorithms:
 \code{\link{ASparameter-classes}},
 \code{\link[=apriori]{apriori()}},
 \code{\link[=eclat]{eclat()}},
-\code{\link[=fim4r]{fim4r()}},
-\code{\link[=ruleInduction]{ruleInduction()}},
-\code{\link[=weclat]{weclat()}}
+\code{\link[=fim4r]{fim4r()}}
 }
 \author{
 Michael Hahsler and Bettina Gruen

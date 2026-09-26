@@ -291,6 +291,7 @@ Other itemMatrix and transactions functions:
 \code{\link[=is.superset]{is.superset()}},
 \code{\link[=itemFrequency]{itemFrequency()}},
 \code{\link[=itemFrequencyPlot]{itemFrequencyPlot()}},
+\code{\link{itemwiseSetOps}},
 \code{\link[=match]{match()}},
 \code{\link[=merge]{merge()}},
 \code{\link[=random.transactions]{random.transactions()}},

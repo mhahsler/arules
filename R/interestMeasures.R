@@ -150,7 +150,7 @@ addl_doc <- list(
 
 create_measures_doc <- function(measures) {
   measures_doc <-
-    grep("^## ", readLines("docs/measures.md"), value = TRUE)
+    grep("^## ", readLines("pkgdown/assets/docs/measures.md"), value = TRUE)
   measures_doc <-
     do.call(
       rbind,

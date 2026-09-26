@@ -117,15 +117,6 @@ Frequent Closed Itemsets. \emph{ACM SIGMOD Workshop on Research Issues in Data
 Mining and Knowledge Discovery (DMKD 2000).}
 }
 \seealso{
-Other mining algorithms:
-\code{\link{APappearance-class}},
-\code{\link{AScontrol-classes}},
-\code{\link{ASparameter-classes}},
-\code{\link[=apriori]{apriori()}},
-\code{\link[=eclat]{eclat()}},
-\code{\link[=fim4r]{fim4r()}},
-\code{\link[=weclat]{weclat()}}
-
 Other postprocessing:
 \code{\link[=is.closed]{is.closed()}},
 \code{\link[=is.generator]{is.generator()}},
@@ -137,6 +128,5 @@ Other postprocessing:
 \author{
 Christian Buchta and Michael Hahsler
 }
-\concept{mining algorithms}
 \concept{postprocessing}
 \keyword{models}
