@@ -40,6 +40,8 @@ rules <- apriori(
 )
 ```
 
+## Standard interest measures
+
 The quality data frame already contains the measures calculated during mining.
 
 ```{r}
@@ -58,10 +60,11 @@ A rare rule can have high lift but little practical impact, while a rule with
 high confidence may simply predict a very common consequent. It is therefore
 often useful to consider several measures together.
 
-`arules` implements many commonly used measures. The complete list is in
-[A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://mhahsler.github.io/arules/docs/measures).
 
 ## Calculating additional measures for rules
+
+`arules` implements many commonly used measures. The complete list is in
+[A Probabilistic Comparison of Commonly Used Interest Measures for Association Rules](https://mhahsler.github.io/arules/docs/measures).
 
 `interestMeasure()` calculates additional measures. Supply the transactions
 for measures that require counts not stored with the rules.
@@ -98,9 +101,3 @@ The new measures can now be used to filter and sort rules.
 inspect(head(sort(rules, by = "leverage"), 3))
 ```
 
-## Other vignettes
-
-* [Getting started with arules](getting-started.html)
-* [Preparing transaction data](preparing-transaction-data.html)
-* [Mining and pruning association rules](mining-and-pruning-rules.html)
-* [Item hierarchies](item-hierarchies.html)

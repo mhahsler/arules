@@ -92,9 +92,3 @@ The complementary subset contains the redundant rules that were removed.
 inspect(rules[is.redundant(rules)])
 ```
 
-## Other vignettes
-
-* [Getting started with arules](getting-started.html)
-* [Preparing transaction data](preparing-transaction-data.html)
-* [Interest measures](interest-measures.html)
-* [Item hierarchies](item-hierarchies.html)

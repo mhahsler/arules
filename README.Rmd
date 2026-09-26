@@ -32,17 +32,12 @@ Code examples can be found in
 Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts.html).
 
 
-
-```{r echo=FALSE, results = 'asis'}
-pkg_citation(pkg, 2)
-```
-
 ## Packages
 
 ### arules core packages
 
-* [arules](https://cran.r-project.org/package=arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
-* [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of association rules. 
+* [arules](https://mhahsler.github.io/arules): arules base package with data structures, mining algorithms (APRIORI and ECLAT), interest measures. 
+* [arulesViz](https://mhahsler.github.io/arulesViz): Visualization of association rules. 
 * [arulesCBA](https://github.com/mhahsler/arulesCBA): Classification algorithms based on association rules (includes CBA).  
 * [arulesSequences](https://cran.r-project.org/package=arulesSequences): Mining frequent sequences (cSPADE).
 
@@ -73,7 +68,7 @@ Classification
 
 Recommendation/Prediction
 
-* [recommenderlab](https://github.com/mhahsler/recommenderlab): Supports creating predictions using association rules.
+* [recommenderlab](https://mhahsler.github.io/recommenderlab): Supports creating predictions using association rules.
 
 
 ```{r echo=FALSE, results = 'asis'}
@@ -104,55 +99,31 @@ inspect(head(rules, n = 3, by = "lift"))
 
 The following short guides cover the main workflows:
 
-* [Getting started](https://mhahsler.r-universe.dev/articles/arules/getting-started.html)
-* [Preparing transaction data](https://mhahsler.r-universe.dev/articles/arules/preparing-transaction-data.html)
-* [Mining and pruning rules](https://mhahsler.r-universe.dev/articles/arules/mining-and-pruning-rules.html)
-* [Interest measures](https://mhahsler.r-universe.dev/articles/arules/interest-measures.html)
-* [Item hierarchies](https://mhahsler.r-universe.dev/articles/arules/item-hierarchies.html)
+* [Getting started](https://mhahsler.github.io/arules/articles/arules.html)
+* [Preparing transaction data](https://mhahsler.github.io/arules/articles/preparing-transaction-data.html)
+* [Mining and pruning rules](https://mhahsler.github.io/arules/articles/mining-and-pruning-rules.html)
+* [Interest measures](https://mhahsler.github.io/arules/articles/interest-measures.html)
+* [Item hierarchies](https://mhahsler.github.io/arules/articles/item-hierarchies.html)
+
+Using arules with other tidyverse or Python: 
+
+* [Using arules with tidyverse](https://mhahsler.github.io/arules/articles/tidyverse.html)
+* [Using arules with Python (arulespy)](https://mhahsler.github.io/arulespy)
 
 The theoretical background and the original description of the package are
-available in the paper
-[Introduction to arules](https://mhahsler.r-universe.dev/articles/arules/arules.pdf).
-
-## Using arules with tidyverse
-
-`arules` works seamlessly with [tidyverse](https://tidyverse.org/). For example: 
-
-* `dplyr` can be used for cleaning and preparing the transactions.
-* `transactions()` and other functions accept `tibble` as input.
-* Functions in arules can be connected with the pipe operator `|>`.
-* [arulesViz](https://github.com/mhahsler/arulesViz) provides visualizations based on `ggplot2`.
-
-For example, we can remove the ethnic information column before creating transactions and then mine and inspect rules.
-```{r }
-library("tidyverse")
-library("arules")
-data("IncomeESL")
-
-trans <- IncomeESL |>
-  select(-`ethnic classification`) |>
-  transactions()
-rules <- trans |>
-  apriori(
-    supp = 0.1, conf = 0.9, target = "rules",
-    control = list(verbose = FALSE)
-  )
-rules |>
-  head(3, by = "lift") |>
-  as("data.frame") |>
-  tibble()
-```
-
-## Using arules from Python
-
-`arules` and `arulesViz` can now be used directly from Python with the Python 
-package [`arulespy`](https://pypi.org/project/arulespy/) available from PyPI. 
+available in the package vignette
+[Introduction to arules](https://mhahsler.r-universe.dev/articles/arules/arules_paper_vignette.pdf).
 
 ## Support
 
 Please report bugs [here on GitHub.](https://github.com/mhahsler/arules/issues)
 Questions should be posted on [stackoverflow and tagged with arules](https://stackoverflow.com/questions/tagged/arules).
 
+## Citation request
+
+```{r echo=FALSE, results = 'asis'}
+pkg_citation(pkg, 2)
+```
 
 ## References
 

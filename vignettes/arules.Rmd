@@ -10,6 +10,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+```{r echo=FALSE, results = 'asis'}
+pkg <- "arules"
+
+source("https://raw.githubusercontent.com/mhahsler/pkg_helpers/main/pkg_helpers.R")
+```
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 library(arules)
@@ -20,6 +27,10 @@ Association rule mining starts with a collection of transactions. Each
 transaction contains a set of items, such as the products in a shopping
 basket. This guide introduces the basic workflow: create transactions, inspect
 the data, mine rules, and select useful results.
+
+```{r echo=FALSE, results = 'asis'}
+pkg_install(pkg)
+```
 
 ## Installation
 
@@ -98,12 +109,13 @@ butter_rules <- subset(rules, rhs %in% "butter" & lift > 1)
 inspect(butter_rules)
 ```
 
-## Other vignettes
+## More vignettes
 
 * [Preparing transaction data](preparing-transaction-data.html)
 * [Mining and pruning association rules](mining-and-pruning-rules.html)
 * [Interest measures](interest-measures.html)
 * [Item hierarchies](item-hierarchies.html)
+* [Using arules with tidyverse](tidyverse.html)
 
 To explore association rules visually, see the
-[`arulesViz` package](https://cran.r-project.org/package=arulesViz).
+[`arulesViz` package](https://mhahsler.github.io/arulesViz).

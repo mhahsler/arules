@@ -103,9 +103,3 @@ multilevel_rules
 inspect(sort(multilevel_rules, by = "lift"))
 ```
 
-## Other vignettes
-
-* [Getting started with arules](getting-started.html)
-* [Preparing transaction data](preparing-transaction-data.html)
-* [Mining and pruning association rules](mining-and-pruning-rules.html)
-* [Interest measures](interest-measures.html)

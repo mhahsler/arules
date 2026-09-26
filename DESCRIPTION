@@ -38,6 +38,7 @@ Suggests:
     proxy,
     rmarkdown,
     testthat,
+    tidyverse,
     XML
 Config/testthat/edition: 3
 VignetteBuilder: knitr

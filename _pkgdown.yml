@@ -2,3 +2,12 @@ url: http://michael.hahsler.net/arules/
 template:
   bootstrap: 5
 
+articles:
+- title: How-tos
+  navbar: "How-tos"
+  contents:
+  - preparing-transaction-data
+  - mining-and-pruning-rules
+  - interest-measures
+  - item-hierarchies
+  - tidyverse

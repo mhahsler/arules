@@ -1,0 +1,44 @@
+---
+title: "Using arules with tidyverse"
+author: "Michael Hahsler"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Interest measures}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(arules)
+set.seed(1234)
+```
+
+`arules` works seamlessly with [tidyverse](https://tidyverse.org/). For example:
+
+* `dplyr` can be used for cleaning and preparing the transactions.
+* `transactions()` and other functions accept `tibble` as input.
+* Functions in arules can be connected with the pipe operator `|>`.
+* [arulesViz](https://mhahsler.github.io/arulesViz) provides visualizations based on `ggplot2`.
+
+For example, we can remove the ethnic information column before creating transactions and then mine and inspect rules.
+```{r }
+library("tidyverse")
+library("arules")
+data("IncomeESL")
+
+trans <- IncomeESL |>
+  select(-`ethnic classification`) |>
+  transactions()
+rules <- trans |>
+  apriori(
+    supp = 0.1, conf = 0.9, target = "rules",
+    control = list(verbose = FALSE)
+  )
+rules |>
+  head(3, by = "lift") |>
+  as("data.frame") |>
+  tibble()
+```

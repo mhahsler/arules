@@ -59,10 +59,10 @@
 
 \Address{
 	Michael Hahsler\\
-	Engineering Management, Information, and Systems\\
+	Computer Science\\
 	Lyle School of Engineering\\
 	Southern Methodist University\\
-	P.O. Box 750122 \\
+	P.O. Box 750122 	\\
 	Dallas, TX 75275-0122\\
 	E-mail: \email{mhahsler@lyle.smu.edu}\\
 	URL: \url{https://michael.hahsler.net}
@@ -106,6 +106,14 @@ set.seed(1234)
 %\clearpage
 %% ------------------------------------------------------------------
 %% ------------------------------------------------------------------
+
+\section{Preamble}
+
+This vignette contains an updated version of the paper 
+`arules - A Computational Environment for Mining Association Rules and Frequent Item Sets' 
+published in the \emph{Journal of Statistical Software} \citep{arules:Hahsler+Gruen+Hornik:2005b}.
+It introcues the package with code examples.
+
 
 \section{Introduction}
 
@@ -265,9 +273,6 @@ in order to speed up the mining process.  We conclude with a summary of
 the features and strengths of the package~\pkg{arules} as a
 computational environment for mining association rules and frequent
 itemsets.
-
-A previous version of this manuscript was published in the \emph{Journal
-  of Statistical Software} \citep{arules:Hahsler+Gruen+Hornik:2005b}.
 
 
 %% ------------------------------------------------------------------
