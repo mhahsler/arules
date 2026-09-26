@@ -7,6 +7,9 @@ proj$
 ^LICENSE
 README.Rmd
 data_src
-docs
+assets
 _config.yml
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

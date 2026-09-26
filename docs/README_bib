@@ -1,1 +1,0 @@
-bibtex2html -d -header "<H1>Association Rule Mining - Annodated Bibliography by Michael Hahsler</H1>" association_rules.bib

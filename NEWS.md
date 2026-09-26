@@ -1,4 +1,4 @@
-# arules 1.7.15.1 (xx/xx/2026)
+# arules 1.7.15.1 (unreleased)
 
 ## Documentation and Maintenance
 

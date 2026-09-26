@@ -11,6 +11,8 @@ downloads](https://cranlogs.r-pkg.org/badges/arules)](https://CRAN.R-project.org
 status](https://mhahsler.r-universe.dev/badges/arules)](https://mhahsler.r-universe.dev/arules)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-arules-orange.svg)](https://stackoverflow.com/questions/tagged/arules)
 
+**Maintainer:** [Michael Hahsler](https://michael.hahsler.net)
+
 ## Introduction
 
 The arules package family for R provides the infrastructure for
@@ -297,6 +299,15 @@ arules](https://stackoverflow.com/questions/tagged/arules).
 
 ## References
 
+- Michael Hahsler, Bettina Grün and Kurt Hornik. [arules - A
+  Computational Environment for Mining Association Rules and Frequent
+  Item Sets.](https://dx.doi.org/10.18637/jss.v014.i15) *Journal of
+  Statistical Software,* 14(15), 2005.
+- Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian
+  Buchta. [The arules R-package ecosystem: Analyzing interesting
+  patterns from large transaction
+  datasets.](https://jmlr.csail.mit.edu/papers/v12/hahsler11a.html)
+  *Journal of Machine Learning Research,* 12:1977-1981, 2011.
 - Michael Hahsler. [ARULESPY: Exploring association rules and frequent
   itemsets in Python.](http://dx.doi.org/10.48550/arXiv.2305.15263)
   arXiv:2305.15263 \[cs.DB\], May 2023.
@@ -309,12 +320,10 @@ arules](https://stackoverflow.com/questions/tagged/arules).
   Interest Measures for Association
   Rules](https://mhahsler.github.io/arules/docs/measures), 2015, URL:
   <https://mhahsler.github.io/arules/docs/measures>.
-- Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian
-  Buchta. [The arules R-package ecosystem: Analyzing interesting
-  patterns from large transaction
-  datasets.](https://jmlr.csail.mit.edu/papers/v12/hahsler11a.html)
-  *Journal of Machine Learning Research,* 12:1977-1981, 2011.
-- Michael Hahsler, Bettina Grün and Kurt Hornik. [arules - A
-  Computational Environment for Mining Association Rules and Frequent
-  Item Sets.](https://dx.doi.org/10.18637/jss.v014.i15) *Journal of
-  Statistical Software,* 14(15), 2005.
+- Michael Hahsler, Christian Buchta, and Kurt Hornik. [Selective
+  association rule
+  generation.](http://dx.doi.org/10.1007/s00180-007-0062-z)
+  *Computational Statistics,* 23(2):303–315, April 2008.
+- Michael Hahsler and Kurt Hornik. [New probabilistic interest measures
+  for association rules.](http://dx.doi.org/10.3233/IDA-2007-11502)
+  *Intelligent Data Analysis,* 11(5):437–455, 2007.

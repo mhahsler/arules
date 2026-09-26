@@ -19,7 +19,7 @@ Description: Provides the infrastructure for representing, manipulating
     association mining algorithms Apriori and Eclat.  Hahsler, Gruen and
     Hornik (2005) <doi:10.18637/jss.v014.i15>.
 License: GPL-3
-URL: https://github.com/mhahsler/arules
+URL: https://github.com/mhahsler/arules, http://michael.hahsler.net/arules/
 BugReports: https://github.com/mhahsler/arules/issues
 Depends: 
     Matrix (>= 1.4-0),
