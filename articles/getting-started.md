@@ -1,0 +1,159 @@
+# Getting started with arules
+
+Association rule mining starts with a collection of transactions. Each
+transaction contains a set of items, such as the products in a shopping
+basket. This guide introduces the basic workflow: create transactions,
+inspect the data, mine rules, and select useful results.
+
+## Installation
+
+Install the released version of `arules` from CRAN:
+
+``` r
+
+install.packages("arules")
+```
+
+Load the package in each R session where you want to use it:
+
+``` r
+
+library(arules)
+```
+
+## Create transactions
+
+A named list is the simplest input format for small data sets.
+
+``` r
+
+baskets <- list(
+  T1 = c("milk", "bread", "butter"),
+  T2 = c("bread", "butter"),
+  T3 = c("milk", "bread"),
+  T4 = c("bread", "jam"),
+  T5 = c("milk", "bread", "butter"),
+  T6 = c("beer", "chips"),
+  T7 = c("beer", "chips", "salsa"),
+  T8 = c("bread", "butter", "jam")
+)
+trans <- transactions(baskets)
+trans
+#> transactions in sparse format with
+#>  8 transactions (rows) and
+#>  7 items (columns)
+inspect(trans[1:3])
+#>     items                 transactionID
+#> [1] {bread, butter, milk} T1           
+#> [2] {bread, butter}       T2           
+#> [3] {bread, milk}         T3
+```
+
+[`summary()`](https://rdrr.io/r/base/summary.html) describes the sparse
+transaction matrix.
+[`itemFrequency()`](http://michael.hahsler.net/arules/reference/itemFrequency.md)
+returns the fraction of transactions containing each item.
+
+``` r
+
+summary(trans)
+#> transactions as itemMatrix in sparse format with
+#>  8 rows (elements/itemsets/transactions) and
+#>  7 columns (items) and a density of 0.3571429 
+#> 
+#> most frequent items:
+#>   bread  butter    milk    beer   chips (Other) 
+#>       6       4       3       2       2       3 
+#> 
+#> element (itemset/transaction) length distribution:
+#> sizes
+#> 2 3 
+#> 4 4 
+#> 
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>     2.0     2.0     2.5     2.5     3.0     3.0 
+#> 
+#> includes extended item information - examples:
+#>   labels
+#> 1   beer
+#> 2  bread
+#> 3 butter
+#> 
+#> includes extended transaction information - examples:
+#>   transactionID
+#> 1            T1
+#> 2            T2
+#> 3            T3
+sort(itemFrequency(trans), decreasing = TRUE)
+#>  bread butter   milk   beer  chips    jam  salsa 
+#>  0.750  0.500  0.375  0.250  0.250  0.250  0.125
+```
+
+## Mine and inspect rules
+
+[`apriori()`](http://michael.hahsler.net/arules/reference/apriori.md)
+mines association rules. Support specifies how often all items in a rule
+must occur together, confidence specifies how often the right-hand side
+must occur when the left-hand side occurs, and `maxlen` limits the total
+number of items in a rule.
+
+On large data sets, setting support too low or `maxlen` too high can
+produce an extremely large rule set and exhaust the available memory.
+Start with restrictive values and relax them only as needed.
+
+``` r
+
+rules <- apriori(
+  trans,
+  parameter = list(support = 0.25, confidence = 0.6, maxlen = 5),
+  control = list(verbose = FALSE)
+)
+rules
+#> set of 10 rules
+```
+
+Rules are often sorted by an interest measure before inspection. Lift is
+a common choice.
+
+``` r
+
+inspect(sort(rules, by = "lift"))
+#>      lhs               rhs      support confidence coverage lift     count
+#> [1]  {beer}         => {chips}  0.250   1.0000000  0.250    4.000000 2    
+#> [2]  {chips}        => {beer}   0.250   1.0000000  0.250    4.000000 2    
+#> [3]  {jam}          => {bread}  0.250   1.0000000  0.250    1.333333 2    
+#> [4]  {milk}         => {butter} 0.250   0.6666667  0.375    1.333333 2    
+#> [5]  {milk}         => {bread}  0.375   1.0000000  0.375    1.333333 3    
+#> [6]  {butter}       => {bread}  0.500   1.0000000  0.500    1.333333 4    
+#> [7]  {bread}        => {butter} 0.500   0.6666667  0.750    1.333333 4    
+#> [8]  {butter, milk} => {bread}  0.250   1.0000000  0.250    1.333333 2    
+#> [9]  {bread, milk}  => {butter} 0.250   0.6666667  0.375    1.333333 2    
+#> [10] {}             => {bread}  0.750   0.7500000  1.000    1.000000 6
+```
+
+Use ordinary subsetting expressions to focus on a particular consequent
+or a minimum quality value.
+
+``` r
+
+butter_rules <- subset(rules, rhs %in% "butter" & lift > 1)
+inspect(butter_rules)
+#>     lhs              rhs      support confidence coverage lift     count
+#> [1] {milk}        => {butter} 0.25    0.6666667  0.375    1.333333 2    
+#> [2] {bread}       => {butter} 0.50    0.6666667  0.750    1.333333 4    
+#> [3] {bread, milk} => {butter} 0.25    0.6666667  0.375    1.333333 2
+```
+
+## Other vignettes
+
+- [Preparing transaction
+  data](http://michael.hahsler.net/arules/articles/preparing-transaction-data.md)
+- [Mining and pruning association
+  rules](http://michael.hahsler.net/arules/articles/mining-and-pruning-rules.md)
+- [Interest
+  measures](http://michael.hahsler.net/arules/articles/interest-measures.md)
+- [Item
+  hierarchies](http://michael.hahsler.net/arules/articles/item-hierarchies.md)
+
+To explore association rules visually, see the [`arulesViz`
+package](https://cran.r-project.org/package=arulesViz).

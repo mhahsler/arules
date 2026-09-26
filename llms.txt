@@ -1,0 +1,629 @@
+# R package arules - Mining Association Rules and Frequent Itemsets
+
+[![Package on
+CRAN](https://www.r-pkg.org/badges/version/arules)](https://CRAN.R-project.org/package=arules)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/arules)](https://CRAN.R-project.org/package=arules)
+![License](https://img.shields.io/cran/l/arules)[![Anaconda.org](https://anaconda.org/conda-forge/r-arules/badges/version.svg)](https://anaconda.org/conda-forge/r-arules)
+[![r-universe
+status](https://mhahsler.r-universe.dev/badges/arules)](https://mhahsler.r-universe.dev/arules)
+[![StackOverflow](https://img.shields.io/badge/stackoverflow-arules-orange.svg)](https://stackoverflow.com/questions/tagged/arules)
+
+**Maintainer:** [Michael Hahsler](https://michael.hahsler.net)
+
+## Introduction
+
+The arules package family for R provides the infrastructure for
+representing, manipulating and analyzing transaction data and patterns
+using [frequent itemsets and association
+rules](https://en.wikipedia.org/wiki/Association_rule_learning). The
+package also provides a wide range of [interest
+measures](https://mhahsler.github.io/arules/docs/measures) and mining
+algorithms including the code of Christian Borgelt’s popular and
+efficient C implementations of the association mining algorithms
+[Apriori](https://borgelt.net/apriori.html) and
+[Eclat](https://borgelt.net/eclat.html). In addition, the following
+mining algorithms are available via
+[fim4r](https://borgelt.net/fim4r.html):
+
+- Apriori
+- Eclat
+- Carpenter
+- FPgrowth
+- IsTa
+- RElim
+- SaM
+
+Code examples can be found in [Chapter 5 of the web book R Companion for
+Introduction to Data
+Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts.html).
+
+To cite package ‘arules’ in publications use:
+
+> Hahsler M, Gruen B, Hornik K (2005). “arules - A Computational
+> Environment for Mining Association Rules and Frequent Item Sets.”
+> *Journal of Statistical Software*, *14*(15), 1-25. ISSN 1548-7660.
+> <doi:10.18637/jss.v014.i15> <https://doi.org/10.18637/jss.v014.i15>.
+
+``` R
+@Article{,
+  title = {arules -- {A} Computational Environment for Mining Association Rules and Frequent Item Sets},
+  author = {Michael Hahsler and Bettina Gruen and Kurt Hornik},
+  year = {2005},
+  journal = {Journal of Statistical Software},
+  volume = {14},
+  number = {15},
+  pages = {1--25},
+  doi = {10.18637/jss.v014.i15},
+  month = {October},
+  issn = {1548-7660},
+}
+```
+
+## Packages
+
+### arules core packages
+
+- [arules](https://cran.r-project.org/package=arules): arules base
+  package with data structures, mining algorithms (APRIORI and ECLAT),
+  interest measures.
+- [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of
+  association rules.
+- [arulesCBA](https://github.com/mhahsler/arulesCBA): Classification
+  algorithms based on association rules (includes CBA).  
+- [arulesSequences](https://cran.r-project.org/package=arulesSequences):
+  Mining frequent sequences (cSPADE).
+
+### Other related packages
+
+Additional mining algorithms
+
+- [arulesNBMiner](https://github.com/mhahsler/arulesNBMiner): Mining
+  NB-frequent itemsets and NB-precise rules.
+- [fim4r](https://borgelt.net/fim4r.html): Provides fast implementations
+  for several mining algorithms. An interface function called
+  [`fim4r()`](http://michael.hahsler.net/arules/reference/fim4r.md) is
+  provided in `arules`.
+- [opusminer](https://cran.r-project.org/package=opusminer): OPUS Miner
+  algorithm for finding the top-k productive, non-redundant itemsets.
+  Call `opus()` with `format = 'itemsets'`.
+
+In-database analytics
+
+- [ibmdbR](https://cran.r-project.org/package=ibmdbR): IBM in-database
+  analytics for R can calculate association rules from a database table.
+
+Interface
+
+- [rattle](https://cran.r-project.org/package=rattle): Provides a
+  graphical user interface for association rule mining.
+- [pmml](https://cran.r-project.org/package=pmml): Generates PMML
+  (predictive model markup language) for association rules.
+
+Classification
+
+- [arc](https://cran.r-project.org/package=arc): Alternative CBA
+  implementation.
+- [rCBA](https://cran.r-project.org/package=rCBA): Alternative CBA
+  implementation.
+- [qCBA](https://cran.r-project.org/package=qCBA): Quantitative
+  Classification by Association Rules.
+- [sblr](https://cran.r-project.org/package=sbrl): Scalable Bayesian
+  rule lists algorithm for classification.
+
+Recommendation/Prediction
+
+- [recommenderlab](https://github.com/mhahsler/recommenderlab): Supports
+  creating predictions using association rules.
+
+The following R packages use `arules`:
+[arc](https://CRAN.R-project.org/package=arc),
+[arlclustering](https://CRAN.R-project.org/package=arlclustering),
+[arulesCBA](https://CRAN.R-project.org/package=arulesCBA),
+[arulesNBMiner](https://CRAN.R-project.org/package=arulesNBMiner),
+[arulesSequences](https://CRAN.R-project.org/package=arulesSequences),
+[arulesViz](https://CRAN.R-project.org/package=arulesViz),
+[clickstream](https://CRAN.R-project.org/package=clickstream),
+[CLONETv2](https://CRAN.R-project.org/package=CLONETv2),
+[CRE](https://CRAN.R-project.org/package=CRE),
+[ctsem](https://CRAN.R-project.org/package=ctsem),
+[daltoolbox](https://CRAN.R-project.org/package=daltoolbox),
+[discnorm](https://CRAN.R-project.org/package=discnorm),
+[fcaR](https://CRAN.R-project.org/package=fcaR),
+[fdm2id](https://CRAN.R-project.org/package=fdm2id),
+[gp3sequences](https://CRAN.R-project.org/package=gp3sequences),
+[GroupBN](https://CRAN.R-project.org/package=GroupBN),
+[ibmdbR](https://CRAN.R-project.org/package=ibmdbR),
+[icdhelper](https://CRAN.R-project.org/package=icdhelper),
+[manydist](https://CRAN.R-project.org/package=manydist),
+[nuggets](https://CRAN.R-project.org/package=nuggets),
+[opusminer](https://CRAN.R-project.org/package=opusminer),
+[pervasive](https://CRAN.R-project.org/package=pervasive),
+[pmml](https://CRAN.R-project.org/package=pmml),
+[qCBA](https://CRAN.R-project.org/package=qCBA),
+[RareComb](https://CRAN.R-project.org/package=RareComb),
+[rattle](https://CRAN.R-project.org/package=rattle),
+[rCBA](https://CRAN.R-project.org/package=rCBA),
+[recommenderlab](https://CRAN.R-project.org/package=recommenderlab),
+[rgnoisefilt](https://CRAN.R-project.org/package=rgnoisefilt),
+[RulesTools](https://CRAN.R-project.org/package=RulesTools),
+[sbrl](https://CRAN.R-project.org/package=sbrl),
+[SurvivalTests](https://CRAN.R-project.org/package=SurvivalTests),
+[TELP](https://CRAN.R-project.org/package=TELP),
+[tidylearn](https://CRAN.R-project.org/package=tidylearn)
+
+## Installation
+
+**Stable CRAN version:** Install from within R with
+
+``` r
+
+install.packages("arules")
+```
+
+**Current development version:** Install from
+[r-universe.](https://mhahsler.r-universe.dev/arules)
+
+``` r
+
+install.packages("arules",
+    repos = c("https://mhahsler.r-universe.dev",
+              "https://cloud.r-project.org/"))
+```
+
+## Usage
+
+Load package and mine some association rules.
+
+``` r
+
+library("arules")
+data("IncomeESL")
+
+trans <- transactions(IncomeESL)
+trans
+```
+
+``` R
+## transactions in sparse format with
+##  8993 transactions (rows) and
+##  84 items (columns)
+```
+
+``` r
+
+rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
+```
+
+``` R
+## Apriori
+## 
+## Parameter specification:
+##  confidence minval smax arem  aval originalSupport maxtime support minlen
+##         0.9    0.1    1 none FALSE            TRUE       5     0.1      1
+##  maxlen target  ext
+##      10  rules TRUE
+## 
+## Algorithmic control:
+##  filter tree heap memopt load sort verbose
+##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+## 
+## Absolute minimum support count: 899 
+## 
+## set item appearances ...[0 item(s)] done [0.00s].
+## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
+## sorting and recoding items ... [42 item(s)] done [0.00s].
+## creating transaction tree ... done [0.00s].
+## checking subsets of size 1 2 3 4 5 6 done [0.02s].
+## writing ... [457 rule(s)] done [0.00s].
+## creating S4 object  ... done [0.00s].
+```
+
+Inspect the rules with the highest lift.
+
+``` r
+
+inspect(head(rules, n = 3, by = "lift"))
+```
+
+``` R
+##     lhs                           rhs                      support confidence coverage lift count
+## [1] {dual incomes=no,                                                                            
+##      householder status=own}   => {marital status=married}    0.10       0.97     0.10  2.6   914
+## [2] {years in bay area=>10,                                                                      
+##      dual incomes=yes,                                                                           
+##      type of home=house}       => {marital status=married}    0.10       0.96     0.10  2.6   902
+## [3] {dual incomes=yes,                                                                           
+##      householder status=own,                                                                     
+##      type of home=house,                                                                         
+##      language in home=english} => {marital status=married}    0.11       0.96     0.11  2.6   988
+```
+
+The following short guides cover the main workflows:
+
+- [Getting
+  started](https://mhahsler.r-universe.dev/articles/arules/getting-started.html)
+- [Preparing transaction
+  data](https://mhahsler.r-universe.dev/articles/arules/preparing-transaction-data.html)
+- [Mining and pruning
+  rules](https://mhahsler.r-universe.dev/articles/arules/mining-and-pruning-rules.html)
+- [Interest
+  measures](https://mhahsler.r-universe.dev/articles/arules/interest-measures.html)
+- [Item
+  hierarchies](https://mhahsler.r-universe.dev/articles/arules/item-hierarchies.html)
+
+The theoretical background and the original description of the package
+are available in the paper [Introduction to
+arules](https://mhahsler.r-universe.dev/articles/arules/arules.pdf).
+
+## Using arules with tidyverse
+
+`arules` works seamlessly with [tidyverse](https://tidyverse.org/). For
+example:
+
+- `dplyr` can be used for cleaning and preparing the transactions.
+- [`transactions()`](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  and other functions accept `tibble` as input.
+- Functions in arules can be connected with the pipe operator `|>`.
+- [arulesViz](https://github.com/mhahsler/arulesViz) provides
+  visualizations based on `ggplot2`.
+
+For example, we can remove the ethnic information column before creating
+transactions and then mine and inspect rules.
+
+``` r
+
+library("tidyverse")
+library("arules")
+data("IncomeESL")
+
+trans <- IncomeESL |>
+  select(-`ethnic classification`) |>
+  transactions()
+rules <- trans |>
+  apriori(
+    supp = 0.1, conf = 0.9, target = "rules",
+    control = list(verbose = FALSE)
+  )
+rules |>
+  head(3, by = "lift") |>
+  as("data.frame") |>
+  tibble()
+```
+
+``` R
+## # A tibble: 3 × 6
+##   rules                                  support confidence coverage  lift count
+##   <chr>                                    <dbl>      <dbl>    <dbl> <dbl> <int>
+## 1 {dual incomes=no,householder status=o…   0.102      0.971    0.105  2.62   914
+## 2 {years in bay area=>10,dual incomes=y…   0.100      0.961    0.104  2.59   902
+## 3 {dual incomes=yes,householder status=…   0.110      0.960    0.114  2.59   988
+```
+
+## Using arules from Python
+
+`arules` and `arulesViz` can now be used directly from Python with the
+Python package [`arulespy`](https://pypi.org/project/arulespy/)
+available from PyPI.
+
+## Support
+
+Please report bugs [here on
+GitHub.](https://github.com/mhahsler/arules/issues) Questions should be
+posted on [stackoverflow and tagged with
+arules](https://stackoverflow.com/questions/tagged/arules).
+
+## References
+
+- Michael Hahsler, Bettina Grün and Kurt Hornik. [arules - A
+  Computational Environment for Mining Association Rules and Frequent
+  Item Sets.](https://dx.doi.org/10.18637/jss.v014.i15) *Journal of
+  Statistical Software,* 14(15), 2005.
+- Michael Hahsler, Sudheer Chelluboina, Kurt Hornik, and Christian
+  Buchta. [The arules R-package ecosystem: Analyzing interesting
+  patterns from large transaction
+  datasets.](https://jmlr.csail.mit.edu/papers/v12/hahsler11a.html)
+  *Journal of Machine Learning Research,* 12:1977-1981, 2011.
+- Michael Hahsler. [ARULESPY: Exploring association rules and frequent
+  itemsets in Python.](http://dx.doi.org/10.48550/arXiv.2305.15263)
+  arXiv:2305.15263 \[cs.DB\], May 2023.
+- Michael Hahsler. [An R Companion for Introduction to Data Mining:
+  Chapter
+  5](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts.html),
+  2021, URL:
+  <https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/>
+- Hahsler, Michael. [A Probabilistic Comparison of Commonly Used
+  Interest Measures for Association
+  Rules](https://mhahsler.github.io/arules/docs/measures), 2015, URL:
+  <https://mhahsler.github.io/arules/docs/measures>.
+- Michael Hahsler, Christian Buchta, and Kurt Hornik. [Selective
+  association rule
+  generation.](http://dx.doi.org/10.1007/s00180-007-0062-z)
+  *Computational Statistics,* 23(2):303–315, April 2008.
+- Michael Hahsler and Kurt Hornik. [New probabilistic interest measures
+  for association rules.](http://dx.doi.org/10.3233/IDA-2007-11502)
+  *Intelligent Data Analysis,* 11(5):437–455, 2007.
+
+# Package index
+
+## All functions
+
+- [`APappearance-class`](http://michael.hahsler.net/arules/reference/APappearance-class.md)
+  [`APappearance`](http://michael.hahsler.net/arules/reference/APappearance-class.md)
+  [`coercion-APappearance`](http://michael.hahsler.net/arules/reference/APappearance-class.md)
+  [`coerce,NULL,APappearance-method`](http://michael.hahsler.net/arules/reference/APappearance-class.md)
+  [`coerce,list,APappearance-method`](http://michael.hahsler.net/arules/reference/APappearance-class.md)
+  : Class APappearance — Specifying the appearance Argument of Apriori
+  to Implement Rule Templates
+- [`coerce(`*`<NULL>`*`,`*`<APcontrol>`*`)`](http://michael.hahsler.net/arules/reference/AScontrol-classes.md)
+  : Classes AScontrol, APcontrol, ECcontrol — Specifying the control
+  Argument of Apriori and Eclat
+- [`ASparameter-classes`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`parameter`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`initialize,ASparameter-method`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`show,ASparameter-method`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`ASparameter-class`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`ASparameter`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`APparameter-class`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`APparameter`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`initialize,APparameter-method`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`ECparameter-class`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`ECparameter`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`initialize,ECparameter-method`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`coercion`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`coerce,NULL,APparameter-method`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`coerce,list,APparameter-method`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`coerce,NULL,ECparameter-method`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  [`coerce,list,ECparameter-method`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md)
+  : Classes ASparameter, APparameter, ECparameter — Specifying the
+  parameter Argument of APRIORI and ECLAT
+- [`Adult`](http://michael.hahsler.net/arules/reference/Adult.md)
+  [`adult`](http://michael.hahsler.net/arules/reference/Adult.md)
+  [`AdultUCI`](http://michael.hahsler.net/arules/reference/Adult.md) :
+  Adult Data Set
+- [`DATAFRAME()`](http://michael.hahsler.net/arules/reference/DATAFRAME.md)
+  : Data.frame Representation for arules Objects
+- [`Epub`](http://michael.hahsler.net/arules/reference/Epub.md) : The
+  Epub Transactions Data Set
+- [`Groceries`](http://michael.hahsler.net/arules/reference/Groceries.md)
+  [`groceries`](http://michael.hahsler.net/arules/reference/Groceries.md)
+  : The Groceries Transactions Data Set
+- [`Income`](http://michael.hahsler.net/arules/reference/Income.md)
+  [`income`](http://michael.hahsler.net/arules/reference/Income.md)
+  [`IncomeESL`](http://michael.hahsler.net/arules/reference/Income.md) :
+  The Income Data Set
+- [`LIST()`](http://michael.hahsler.net/arules/reference/LIST.md) : List
+  Representation for Objects Based on Class itemMatrix
+- [`Mushroom`](http://michael.hahsler.net/arules/reference/Mushroom.md)
+  [`mushroom`](http://michael.hahsler.net/arules/reference/Mushroom.md)
+  : The Mushroom Data Set as Transactions
+- [`SunBai`](http://michael.hahsler.net/arules/reference/SunBai.md)
+  [`sunbai`](http://michael.hahsler.net/arules/reference/SunBai.md) :
+  The SunBai Weighted Transactions Data Set
+- [`abbreviate()`](http://michael.hahsler.net/arules/reference/abbreviate.md)
+  : Abbreviate item labels in transactions, itemMatrix and associations
+- [`addComplement()`](http://michael.hahsler.net/arules/reference/addComplement.md)
+  : Add Complement-items to Transactions
+- [`affinity()`](http://michael.hahsler.net/arules/reference/affinity.md)
+  : Computing Affinity Between Items
+- [`apriori()`](http://michael.hahsler.net/arules/reference/apriori.md)
+  : Mining Associations with the Apriori Algorithm
+- [`quality(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`` `quality<-`( ``*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`info(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`` `info<-`( ``*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`head(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`tail(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`items(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`length(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`labels(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`plot(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  [`plot(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/associations-class.md)
+  : Class associations — A Set of Associations
+- [`c(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/c.md)
+  [`c(`*`<transactions>`*`)`](http://michael.hahsler.net/arules/reference/c.md)
+  [`c(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/c.md)
+  [`c(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/c.md)
+  [`c(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/c.md)
+  : Combining Association and Transaction Objects
+- [`confint(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/confint.md)
+  : Confidence Intervals for Interest Measures for Association Rules
+- [`coverage()`](http://michael.hahsler.net/arules/reference/coverage.md)
+  : Calculate coverage for rules
+- [`crossTable()`](http://michael.hahsler.net/arules/reference/crossTable.md)
+  : Cross-tabulate joint occurrences across pairs of items
+- [`discretize()`](http://michael.hahsler.net/arules/reference/discretize.md)
+  [`discretizeDF()`](http://michael.hahsler.net/arules/reference/discretize.md)
+  : Convert a Continuous Variable into a Categorical Variable
+- [`dissimilarity()`](http://michael.hahsler.net/arules/reference/dissimilarity.md)
+  : Dissimilarity Matrix Computation for Associations and Transactions
+- [`duplicated()`](http://michael.hahsler.net/arules/reference/duplicated.md)
+  : Find Duplicated Elements
+- [`eclat()`](http://michael.hahsler.net/arules/reference/eclat.md) :
+  Mining Associations with Eclat
+- [`` `[`( ``*`<itemMatrix>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](http://michael.hahsler.net/arules/reference/extract.md)
+  [`` `[`( ``*`<transactions>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](http://michael.hahsler.net/arules/reference/extract.md)
+  [`` `[`( ``*`<tidLists>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](http://michael.hahsler.net/arules/reference/extract.md)
+  [`` `[`( ``*`<rules>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](http://michael.hahsler.net/arules/reference/extract.md)
+  [`` `[`( ``*`<itemsets>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](http://michael.hahsler.net/arules/reference/extract.md)
+  : Methods for "\[": Extraction or Subsetting arules Objects
+- [`fim4r()`](http://michael.hahsler.net/arules/reference/fim4r.md) :
+  Interface to Mining Algorithms from fim4r
+- [`addAggregate()`](http://michael.hahsler.net/arules/reference/hierarchy.md)
+  [`filterAggregate()`](http://michael.hahsler.net/arules/reference/hierarchy.md)
+  [`aggregate()`](http://michael.hahsler.net/arules/reference/hierarchy.md)
+  : Support for Item Hierarchies
+- [`hits()`](http://michael.hahsler.net/arules/reference/hits.md) :
+  Computing Transaction Weights With HITS
+- [`image(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/image.md)
+  [`image(`*`<transactions>`*`)`](http://michael.hahsler.net/arules/reference/image.md)
+  [`image(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/image.md)
+  : Visual Inspection of Binary Incidence Matrices
+- [`inspect()`](http://michael.hahsler.net/arules/reference/inspect.md)
+  : Display Associations and Transactions in Readable Form
+- [`interestMeasure()`](http://michael.hahsler.net/arules/reference/interestMeasure.md)
+  : Calculate Additional Interest Measures
+- [`is.closed()`](http://michael.hahsler.net/arules/reference/is.closed.md)
+  : Find Closed Itemsets
+- [`is.generator()`](http://michael.hahsler.net/arules/reference/is.generator.md)
+  : Find Generator Itemsets
+- [`is.maximal()`](http://michael.hahsler.net/arules/reference/is.maximal.md)
+  : Find Maximal Itemsets
+- [`is.redundant()`](http://michael.hahsler.net/arules/reference/is.redundant.md)
+  : Find Redundant Rules
+- [`is.significant()`](http://michael.hahsler.net/arules/reference/is.significant.md)
+  : Find Significant Rules
+- [`is.superset()`](http://michael.hahsler.net/arules/reference/is.superset.md)
+  [`is.subset()`](http://michael.hahsler.net/arules/reference/is.superset.md)
+  : Find Super and Subsets
+- [`decode()`](http://michael.hahsler.net/arules/reference/itemCoding.md)
+  [`encode()`](http://michael.hahsler.net/arules/reference/itemCoding.md)
+  [`recode()`](http://michael.hahsler.net/arules/reference/itemCoding.md)
+  [`compatible()`](http://michael.hahsler.net/arules/reference/itemCoding.md)
+  : Item Coding — Conversion between Item Labels and Column IDs
+- [`itemFrequency()`](http://michael.hahsler.net/arules/reference/itemFrequency.md)
+  : Getting Frequency/Support for Single Items
+- [`itemFrequencyPlot()`](http://michael.hahsler.net/arules/reference/itemFrequencyPlot.md)
+  : Creating a Item Frequencies/Support Bar Plot
+- [`summary(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`dim(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`nitems()`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`length(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`toLongFormat()`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`labels(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`itemLabels()`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`` `itemLabels<-`() ``](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`itemInfo()`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`` `itemInfo<-`() ``](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`itemsetInfo()`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`` `itemsetInfo<-`() ``](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`dimnames(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  [`` `dimnames<-`( ``*`<itemMatrix>`*`,`*`<list>`*`)`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
+  : Class itemMatrix — Sparse Binary Incidence Matrix to Represent Sets
+  of Items
+- [`itemsets()`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`summary(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`length(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`nitems(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`labels(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`itemLabels(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`` `itemLabels<-`( ``*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`itemInfo(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`items(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`` `items<-`( ``*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  [`tidLists(`*`<itemsets>`*`)`](http://michael.hahsler.net/arules/reference/itemsets-class.md)
+  : Class itemsets — A Set of Itemsets
+- [`itemUnion()`](http://michael.hahsler.net/arules/reference/itemwiseSetOps.md)
+  [`itemSetdiff()`](http://michael.hahsler.net/arules/reference/itemwiseSetOps.md)
+  [`itemIntersect()`](http://michael.hahsler.net/arules/reference/itemwiseSetOps.md)
+  : Itemwise Set Operations
+- [`match()`](http://michael.hahsler.net/arules/reference/match.md)
+  [`` `%in%`( ``*`<itemMatrix>`*`,`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/match.md)
+  [`` `%in%`( ``*`<itemMatrix>`*`,`*`<character>`*`)`](http://michael.hahsler.net/arules/reference/match.md)
+  [`` `%in%`( ``*`<associations>`*`,`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/match.md)
+  [`` `%pin%`( ``*`<itemMatrix>`*`,`*`<character>`*`)`](http://michael.hahsler.net/arules/reference/match.md)
+  [`` `%ain%`( ``*`<itemMatrix>`*`,`*`<character>`*`)`](http://michael.hahsler.net/arules/reference/match.md)
+  [`` `%oin%`( ``*`<itemMatrix>`*`,`*`<character>`*`)`](http://michael.hahsler.net/arules/reference/match.md)
+  : Value Matching
+- [`merge()`](http://michael.hahsler.net/arules/reference/merge.md) :
+  Adding Items to Data
+- [`write.PMML()`](http://michael.hahsler.net/arules/reference/pmml.md)
+  [`read.PMML()`](http://michael.hahsler.net/arules/reference/pmml.md) :
+  Read and Write PMML
+- [`predict()`](http://michael.hahsler.net/arules/reference/predict.md)
+  : Model Predictions
+- [`proximity-classes`](http://michael.hahsler.net/arules/reference/proximity-classes.md)
+  [`ar_similarity-class`](http://michael.hahsler.net/arules/reference/proximity-classes.md)
+  [`ar_cross_dissimilarity-class`](http://michael.hahsler.net/arules/reference/proximity-classes.md)
+  : Classes dist, ar_cross_dissimilarity and ar_similarity — Proximity
+  Matrices
+- [`random.transactions()`](http://michael.hahsler.net/arules/reference/random.transactions.md)
+  [`random.patterns()`](http://michael.hahsler.net/arules/reference/random.transactions.md)
+  : Simulate a Random Transactions
+- [`read.transactions()`](http://michael.hahsler.net/arules/reference/read.md)
+  : Read Transaction Data
+- [`ruleInduction()`](http://michael.hahsler.net/arules/reference/ruleInduction.md)
+  : Association Rule Induction from Itemsets
+- [`rules()`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`summary(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`length(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`nitems(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`labels(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`itemLabels(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`` `itemLabels<-`( ``*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`itemInfo(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`lhs()`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`` `lhs<-`() ``](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`rhs()`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`` `rhs<-`() ``](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`items(`*`<rules>`*`)`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  [`generatingItemsets()`](http://michael.hahsler.net/arules/reference/rules-class.md)
+  : Class rules — A Set of Rules
+- [`sample(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/sample.md)
+  [`sample(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/sample.md)
+  : Random Samples and Permutations
+- [`union(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`union(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`intersect(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`intersect(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`setequal(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`setequal(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`setdiff(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`setdiff(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`is.element(`*`<itemMatrix>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  [`is.element(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/sets.md)
+  : Set Operations
+- [`size()`](http://michael.hahsler.net/arules/reference/size.md) :
+  Number of Items in Sets
+- [`sort(`*`<associations>`*`)`](http://michael.hahsler.net/arules/reference/sort.md)
+  : Sort Associations
+- [`subset()`](http://michael.hahsler.net/arules/reference/subset.md) :
+  Subsetting Itemsets, Rules and Transactions
+- [`support()`](http://michael.hahsler.net/arules/reference/support.md)
+  : Support Counting for Itemsets
+- [`supportingTransactions()`](http://michael.hahsler.net/arules/reference/supportingTransactions.md)
+  : Supporting Transactions
+- [`tidLists()`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`summary(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`dim(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`dimnames(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`` `dimnames<-`( ``*`<tidLists>`*`,`*`<list>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`length(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`t(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`transactionInfo(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`` `transactionInfo<-`( ``*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`itemInfo(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`` `itemInfo<-`( ``*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`itemLabels(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  [`labels(`*`<tidLists>`*`)`](http://michael.hahsler.net/arules/reference/tidLists-class.md)
+  : Class tidLists — Transaction ID Lists for Items/Itemsets
+- [`transactions()`](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  [`summary(`*`<transactions>`*`)`](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  [`toLongFormat(`*`<transactions>`*`)`](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  [`items(`*`<transactions>`*`)`](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  [`transactionInfo()`](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  [`` `transactionInfo<-`() ``](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  [`dimnames(`*`<transactions>`*`)`](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  [`` `dimnames<-`( ``*`<transactions>`*`,`*`<list>`*`)`](http://michael.hahsler.net/arules/reference/transactions-class.md)
+  : Class transactions — Binary Incidence Matrix for Transactions
+- [`unique()`](http://michael.hahsler.net/arules/reference/unique.md) :
+  Remove Duplicated Elements from a Collection
+- [`weclat()`](http://michael.hahsler.net/arules/reference/weclat.md) :
+  Mining Associations from Weighted Transaction Data with Eclat (WARM)
+- [`write()`](http://michael.hahsler.net/arules/reference/write.md) :
+  Write Transactions or Associations to a File
+
+# Articles
+
+### All vignettes
+
+- [Getting started with
+  arules](http://michael.hahsler.net/arules/articles/getting-started.md):
+- [Interest
+  measures](http://michael.hahsler.net/arules/articles/interest-measures.md):
+- [Item
+  hierarchies](http://michael.hahsler.net/arules/articles/item-hierarchies.md):
+- [Mining and pruning association
+  rules](http://michael.hahsler.net/arules/articles/mining-and-pruning-rules.md):
+- [Preparing transaction
+  data](http://michael.hahsler.net/arules/articles/preparing-transaction-data.md):
