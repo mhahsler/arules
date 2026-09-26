@@ -17,4 +17,4 @@ vignettes/*.pdf
 *.so
 
 revdep/
-docs
+/docs
