@@ -177,7 +177,7 @@ closed_rules <- ruleInduction(closed_is, transactions = Adult, verbose = TRUE)
 #> preparing ... 593 itemsets, created 203 (0.20) nodes [0.00s]
 #> counting ... 48842 transactions, processed 9285411 (0.31) nodes [0.02s]
 #> writing ... 247 rules, processed 1433 (0.70) nodes [0.00s]
-#> searching done [0.019s].
+#> searching done [0.029s].
 #> postprocessing done [0s].
 
 ## inspect the resulting closed rules

@@ -13,7 +13,7 @@ the resulting `transactions` object with
 values that were encoded incorrectly in the source data may otherwise
 become unintended items.
 
-## A list of baskets
+## From a list of baskets
 
 Use one character vector per transaction. List names become transaction
 IDs.
@@ -71,7 +71,7 @@ itemLabels(from_list)
 
 The item labels confirm that the baskets were translated correctly.
 
-## A binary matrix
+## From a binary matrix
 
 Rows represent transactions and columns represent items. Logical
 matrices make the intended coding explicit.
@@ -97,7 +97,7 @@ inspect(from_matrix)
 #> [3] {apple, bread, milk} order_3
 ```
 
-## A data frame in wide format
+## From a data frame in wide format
 
 Categorical columns are converted to items of the form `variable=value`.
 Logical columns represent the presence or absence of a single item.
@@ -147,7 +147,7 @@ inspect(from_discrete)
 #> [5] {spend=[35,55], visits=[3,8]} 5
 ```
 
-## A data frame in long format
+## From a data frame in long format
 
 Long-format data has one row per transaction–item pair. Identify the
 transaction and item columns with `cols`.
@@ -168,14 +168,3 @@ inspect(from_long)
 #> [2] {bread, milk}  2            
 #> [3] {apple}        3
 ```
-
-## Other vignettes
-
-- [Getting started with
-  arules](http://michael.hahsler.net/arules/articles/getting-started.md)
-- [Mining and pruning association
-  rules](http://michael.hahsler.net/arules/articles/mining-and-pruning-rules.md)
-- [Interest
-  measures](http://michael.hahsler.net/arules/articles/interest-measures.md)
-- [Item
-  hierarchies](http://michael.hahsler.net/arules/articles/item-hierarchies.md)

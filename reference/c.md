@@ -170,7 +170,7 @@ r1 <- apriori(Adult[1:1000])
 #> set transactions ...[100 item(s), 1000 transaction(s)] done [0.00s].
 #> sorting and recoding items ... [31 item(s)] done [0.00s].
 #> creating transaction tree ... done [0.00s].
-#> checking subsets of size 1 2 3 4 5 6 7 8 done [0.00s].
+#> checking subsets of size 1 2 3 4 5 6 7 8 done [0.01s].
 #> writing ... [8500 rule(s)] done [0.00s].
 #> creating S4 object  ... done [0.00s].
 r2 <- apriori(Adult[1001:2000])
@@ -192,7 +192,7 @@ r2 <- apriori(Adult[1001:2000])
 #> set transactions ...[101 item(s), 1000 transaction(s)] done [0.00s].
 #> sorting and recoding items ... [30 item(s)] done [0.00s].
 #> creating transaction tree ... done [0.00s].
-#> checking subsets of size 1 2 3 4 5 6 7 8 9 done [0.00s].
+#> checking subsets of size 1 2 3 4 5 6 7 8 9 done [0.01s].
 #> writing ... [8575 rule(s)] done [0.00s].
 #> creating S4 object  ... done [0.00s].
 rComb <- c(r1, r2)

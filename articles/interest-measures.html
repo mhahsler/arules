@@ -34,15 +34,18 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../articles/arules.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/getting-started.html">Getting started with arules</a></li>
+<li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>How-tos</h6></li>
+    <li><a class="dropdown-item" href="../articles/preparing-transaction-data.html">Preparing transaction data</a></li>
+    <li><a class="dropdown-item" href="../articles/mining-and-pruning-rules.html">Mining and pruning association rules</a></li>
     <li><a class="dropdown-item" href="../articles/interest-measures.html">Interest measures</a></li>
     <li><a class="dropdown-item" href="../articles/item-hierarchies.html">Item hierarchies</a></li>
-    <li><a class="dropdown-item" href="../articles/mining-and-pruning-rules.html">Mining and pruning association rules</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing-transaction-data.html">Preparing transaction data</a></li>
+    <li><a class="dropdown-item" href="../articles/tidyverse.html">Using arules with tidyverse</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -96,6 +99,9 @@ what would be expected under independence.</p>
 <span>  parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>support <span class="op">=</span> <span class="fl">0.25</span>, confidence <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
 <span>  control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="standard-interest-measures">Standard interest measures<a class="anchor" aria-label="anchor" href="#standard-interest-measures"></a>
+</h2>
 <p>The quality data frame already contains the measures calculated
 during mining.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -124,13 +130,14 @@ support; values above one indicate positive association.</li>
 <p>A rare rule can have high lift but little practical impact, while a
 rule with high confidence may simply predict a very common consequent.
 It is therefore often useful to consider several measures together.</p>
+</div>
+<div class="section level2">
+<h2 id="calculating-additional-measures-for-rules">Calculating additional measures for rules<a class="anchor" aria-label="anchor" href="#calculating-additional-measures-for-rules"></a>
+</h2>
 <p><code>arules</code> implements many commonly used measures. The
 complete list is in <a href="https://mhahsler.github.io/arules/docs/measures" class="external-link">A Probabilistic
 Comparison of Commonly Used Interest Measures for Association
 Rules</a>.</p>
-<div class="section level2">
-<h2 id="calculating-additional-measures-for-rules">Calculating additional measures for rules<a class="anchor" aria-label="anchor" href="#calculating-additional-measures-for-rules"></a>
-</h2>
 <p><code><a href="../reference/interestMeasure.html">interestMeasure()</a></code> calculates additional measures. Supply
 the transactions for measures that require counts not stored with the
 rules.</p>
@@ -172,18 +179,6 @@ and right-hand sides of a rule; it is undefined for some rules.</p>
 <span><span class="co">#&gt; [1] 0.4472136</span></span>
 <span><span class="co">#&gt; [2] 0.2581989</span></span>
 <span><span class="co">#&gt; [3] 0.2581989</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="other-vignettes">Other vignettes<a class="anchor" aria-label="anchor" href="#other-vignettes"></a>
-</h2>
-<ul>
-<li><a href="getting-started.html">Getting started with arules</a></li>
-<li><a href="preparing-transaction-data.html">Preparing transaction
-data</a></li>
-<li><a href="mining-and-pruning-rules.html">Mining and pruning
-association rules</a></li>
-<li><a href="item-hierarchies.html">Item hierarchies</a></li>
-</ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

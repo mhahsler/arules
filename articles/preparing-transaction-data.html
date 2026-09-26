@@ -34,15 +34,18 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../articles/arules.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/getting-started.html">Getting started with arules</a></li>
+<li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>How-tos</h6></li>
+    <li><a class="dropdown-item" href="../articles/preparing-transaction-data.html">Preparing transaction data</a></li>
+    <li><a class="dropdown-item" href="../articles/mining-and-pruning-rules.html">Mining and pruning association rules</a></li>
     <li><a class="dropdown-item" href="../articles/interest-measures.html">Interest measures</a></li>
     <li><a class="dropdown-item" href="../articles/item-hierarchies.html">Item hierarchies</a></li>
-    <li><a class="dropdown-item" href="../articles/mining-and-pruning-rules.html">Mining and pruning association rules</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing-transaction-data.html">Preparing transaction data</a></li>
+    <li><a class="dropdown-item" href="../articles/tidyverse.html">Using arules with tidyverse</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -85,7 +88,7 @@ inspect the resulting <code>transactions</code> object with
 encoded incorrectly in the source data may otherwise become unintended
 items.</p>
 <div class="section level2">
-<h2 id="a-list-of-baskets">A list of baskets<a class="anchor" aria-label="anchor" href="#a-list-of-baskets"></a>
+<h2 id="from-a-list-of-baskets">From a list of baskets<a class="anchor" aria-label="anchor" href="#from-a-list-of-baskets"></a>
 </h2>
 <p>Use one character vector per transaction. List names become
 transaction IDs.</p>
@@ -137,7 +140,7 @@ transaction IDs.</p>
 correctly.</p>
 </div>
 <div class="section level2">
-<h2 id="a-binary-matrix">A binary matrix<a class="anchor" aria-label="anchor" href="#a-binary-matrix"></a>
+<h2 id="from-a-binary-matrix">From a binary matrix<a class="anchor" aria-label="anchor" href="#from-a-binary-matrix"></a>
 </h2>
 <p>Rows represent transactions and columns represent items. Logical
 matrices make the intended coding explicit.</p>
@@ -161,7 +164,7 @@ matrices make the intended coding explicit.</p>
 <span><span class="co">#&gt; [3] {apple, bread, milk} order_3</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="a-data-frame-in-wide-format">A data frame in wide format<a class="anchor" aria-label="anchor" href="#a-data-frame-in-wide-format"></a>
+<h2 id="from-a-data-frame-in-wide-format">From a data frame in wide format<a class="anchor" aria-label="anchor" href="#from-a-data-frame-in-wide-format"></a>
 </h2>
 <p>Categorical columns are converted to items of the form
 <code>variable=value</code>. Logical columns represent the presence or
@@ -205,7 +208,7 @@ absence of a single item. Missing values are omitted.</p>
 <span><span class="co">#&gt; [5] {spend=[35,55], visits=[3,8]} 5</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="a-data-frame-in-long-format">A data frame in long format<a class="anchor" aria-label="anchor" href="#a-data-frame-in-long-format"></a>
+<h2 id="from-a-data-frame-in-long-format">From a data frame in long format<a class="anchor" aria-label="anchor" href="#from-a-data-frame-in-long-format"></a>
 </h2>
 <p>Long-format data has one row per transaction–item pair. Identify the
 transaction and item columns with <code>cols</code>.</p>
@@ -223,17 +226,6 @@ transaction and item columns with <code>cols</code>.</p>
 <span><span class="co">#&gt; [1] {apple, bread} 1            </span></span>
 <span><span class="co">#&gt; [2] {bread, milk}  2            </span></span>
 <span><span class="co">#&gt; [3] {apple}        3</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="other-vignettes">Other vignettes<a class="anchor" aria-label="anchor" href="#other-vignettes"></a>
-</h2>
-<ul>
-<li><a href="getting-started.html">Getting started with arules</a></li>
-<li><a href="mining-and-pruning-rules.html">Mining and pruning
-association rules</a></li>
-<li><a href="interest-measures.html">Interest measures</a></li>
-<li><a href="item-hierarchies.html">Item hierarchies</a></li>
-</ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

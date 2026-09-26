@@ -116,14 +116,3 @@ inspect(rules[is.redundant(rules)])
 #> [1] {bread}      => {butter} 0.625   0.7142857  0.875    0.952381 5    
 #> [2] {bread, jam} => {butter} 0.250   1.0000000  0.250    1.333333 2
 ```
-
-## Other vignettes
-
-- [Getting started with
-  arules](http://michael.hahsler.net/arules/articles/getting-started.md)
-- [Preparing transaction
-  data](http://michael.hahsler.net/arules/articles/preparing-transaction-data.md)
-- [Interest
-  measures](http://michael.hahsler.net/arules/articles/interest-measures.md)
-- [Item
-  hierarchies](http://michael.hahsler.net/arules/articles/item-hierarchies.md)

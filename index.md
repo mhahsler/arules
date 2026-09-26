@@ -38,36 +38,14 @@ Code examples can be found in [Chapter 5 of the web book R Companion for
 Introduction to Data
 Mining](https://mhahsler.github.io/Introduction_to_Data_Mining_R_Examples/book/association-analysis-basic-concepts.html).
 
-To cite package ‘arules’ in publications use:
-
-> Hahsler M, Gruen B, Hornik K (2005). “arules - A Computational
-> Environment for Mining Association Rules and Frequent Item Sets.”
-> *Journal of Statistical Software*, *14*(15), 1-25. ISSN 1548-7660.
-> <doi:10.18637/jss.v014.i15> <https://doi.org/10.18637/jss.v014.i15>.
-
-``` R
-@Article{,
-  title = {arules -- {A} Computational Environment for Mining Association Rules and Frequent Item Sets},
-  author = {Michael Hahsler and Bettina Gruen and Kurt Hornik},
-  year = {2005},
-  journal = {Journal of Statistical Software},
-  volume = {14},
-  number = {15},
-  pages = {1--25},
-  doi = {10.18637/jss.v014.i15},
-  month = {October},
-  issn = {1548-7660},
-}
-```
-
 ## Packages
 
 ### arules core packages
 
-- [arules](https://cran.r-project.org/package=arules): arules base
-  package with data structures, mining algorithms (APRIORI and ECLAT),
-  interest measures.
-- [arulesViz](https://github.com/mhahsler/arulesViz): Visualization of
+- [arules](https://mhahsler.github.io/arules): arules base package with
+  data structures, mining algorithms (APRIORI and ECLAT), interest
+  measures.
+- [arulesViz](https://mhahsler.github.io/arulesViz): Visualization of
   association rules.
 - [arulesCBA](https://github.com/mhahsler/arulesCBA): Classification
   algorithms based on association rules (includes CBA).  
@@ -113,7 +91,7 @@ Classification
 
 Recommendation/Prediction
 
-- [recommenderlab](https://github.com/mhahsler/recommenderlab): Supports
+- [recommenderlab](https://mhahsler.github.io/recommenderlab): Supports
   creating predictions using association rules.
 
 The following R packages use `arules`:
@@ -214,7 +192,7 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
 ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
 ## sorting and recoding items ... [42 item(s)] done [0.00s].
 ## creating transaction tree ... done [0.00s].
-## checking subsets of size 1 2 3 4 5 6 done [0.02s].
+## checking subsets of size 1 2 3 4 5 6 done [0.03s].
 ## writing ... [457 rule(s)] done [0.00s].
 ## creating S4 object  ... done [0.00s].
 ```
@@ -242,69 +220,26 @@ inspect(head(rules, n = 3, by = "lift"))
 The following short guides cover the main workflows:
 
 - [Getting
-  started](https://mhahsler.r-universe.dev/articles/arules/getting-started.html)
+  started](https://mhahsler.github.io/arules/articles/arules.html)
 - [Preparing transaction
-  data](https://mhahsler.r-universe.dev/articles/arules/preparing-transaction-data.html)
+  data](https://mhahsler.github.io/arules/articles/preparing-transaction-data.html)
 - [Mining and pruning
-  rules](https://mhahsler.r-universe.dev/articles/arules/mining-and-pruning-rules.html)
+  rules](https://mhahsler.github.io/arules/articles/mining-and-pruning-rules.html)
 - [Interest
-  measures](https://mhahsler.r-universe.dev/articles/arules/interest-measures.html)
+  measures](https://mhahsler.github.io/arules/articles/interest-measures.html)
 - [Item
-  hierarchies](https://mhahsler.r-universe.dev/articles/arules/item-hierarchies.html)
+  hierarchies](https://mhahsler.github.io/arules/articles/item-hierarchies.html)
+
+Using arules with other tidyverse or Python:
+
+- [Using arules with
+  tidyverse](https://mhahsler.github.io/arules/articles/tidyverse.html)
+- [Using arules with Python
+  (arulespy)](https://mhahsler.github.io/arulespy)
 
 The theoretical background and the original description of the package
-are available in the paper [Introduction to
-arules](https://mhahsler.r-universe.dev/articles/arules/arules.pdf).
-
-## Using arules with tidyverse
-
-`arules` works seamlessly with [tidyverse](https://tidyverse.org/). For
-example:
-
-- `dplyr` can be used for cleaning and preparing the transactions.
-- [`transactions()`](http://michael.hahsler.net/arules/reference/transactions-class.md)
-  and other functions accept `tibble` as input.
-- Functions in arules can be connected with the pipe operator `|>`.
-- [arulesViz](https://github.com/mhahsler/arulesViz) provides
-  visualizations based on `ggplot2`.
-
-For example, we can remove the ethnic information column before creating
-transactions and then mine and inspect rules.
-
-``` r
-
-library("tidyverse")
-library("arules")
-data("IncomeESL")
-
-trans <- IncomeESL |>
-  select(-`ethnic classification`) |>
-  transactions()
-rules <- trans |>
-  apriori(
-    supp = 0.1, conf = 0.9, target = "rules",
-    control = list(verbose = FALSE)
-  )
-rules |>
-  head(3, by = "lift") |>
-  as("data.frame") |>
-  tibble()
-```
-
-``` R
-## # A tibble: 3 × 6
-##   rules                                  support confidence coverage  lift count
-##   <chr>                                    <dbl>      <dbl>    <dbl> <dbl> <int>
-## 1 {dual incomes=no,householder status=o…   0.102      0.971    0.105  2.62   914
-## 2 {years in bay area=>10,dual incomes=y…   0.100      0.961    0.104  2.59   902
-## 3 {dual incomes=yes,householder status=…   0.110      0.960    0.114  2.59   988
-```
-
-## Using arules from Python
-
-`arules` and `arulesViz` can now be used directly from Python with the
-Python package [`arulespy`](https://pypi.org/project/arulespy/)
-available from PyPI.
+are available in the package vignette [Introduction to
+arules](https://mhahsler.r-universe.dev/articles/arules/arules_paper_vignette.pdf).
 
 ## Support
 
@@ -312,6 +247,30 @@ Please report bugs [here on
 GitHub.](https://github.com/mhahsler/arules/issues) Questions should be
 posted on [stackoverflow and tagged with
 arules](https://stackoverflow.com/questions/tagged/arules).
+
+## Citation request
+
+To cite package ‘arules’ in publications use:
+
+> Hahsler M, Gruen B, Hornik K (2005). “arules - A Computational
+> Environment for Mining Association Rules and Frequent Item Sets.”
+> *Journal of Statistical Software*, *14*(15), 1-25. ISSN 1548-7660.
+> <doi:10.18637/jss.v014.i15> <https://doi.org/10.18637/jss.v014.i15>.
+
+``` R
+@Article{,
+  title = {arules -- {A} Computational Environment for Mining Association Rules and Frequent Item Sets},
+  author = {Michael Hahsler and Bettina Gruen and Kurt Hornik},
+  year = {2005},
+  journal = {Journal of Statistical Software},
+  volume = {14},
+  number = {15},
+  pages = {1--25},
+  doi = {10.18637/jss.v014.i15},
+  month = {October},
+  issn = {1548-7660},
+}
+```
 
 ## References
 

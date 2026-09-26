@@ -1,12 +1,13 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>http://michael.hahsler.net/arules/404.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/LICENSE-text.html</loc></url>
-<url><loc>http://michael.hahsler.net/arules/articles/getting-started.html</loc></url>
+<url><loc>http://michael.hahsler.net/arules/articles/arules.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/articles/index.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/articles/interest-measures.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/articles/item-hierarchies.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/articles/mining-and-pruning-rules.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/articles/preparing-transaction-data.html</loc></url>
+<url><loc>http://michael.hahsler.net/arules/articles/tidyverse.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/authors.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/docs/association_rules.html</loc></url>
 <url><loc>http://michael.hahsler.net/arules/docs/association_rules_bib.html</loc></url>

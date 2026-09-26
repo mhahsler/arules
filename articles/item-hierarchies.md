@@ -153,14 +153,3 @@ inspect(sort(multilevel_rules, by = "lift"))
 #> [16] {milk}           => {fruit*} 0.3333333 0.6666667  0.5000000 0.800 2    
 #> [17] {apple, banana}  => {dairy*} 0.3333333 0.6666667  0.5000000 0.800 2
 ```
-
-## Other vignettes
-
-- [Getting started with
-  arules](http://michael.hahsler.net/arules/articles/getting-started.md)
-- [Preparing transaction
-  data](http://michael.hahsler.net/arules/articles/preparing-transaction-data.md)
-- [Mining and pruning association
-  rules](http://michael.hahsler.net/arules/articles/mining-and-pruning-rules.md)
-- [Interest
-  measures](http://michael.hahsler.net/arules/articles/interest-measures.md)
