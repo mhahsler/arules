@@ -112,7 +112,7 @@ Using arules with other tidyverse or Python:
 
 The theoretical background and the original description of the package are
 available in the package vignette
-[Introduction to arules](https://mhahsler.r-universe.dev/articles/arules/arules_paper_vignette.pdf).
+[Introduction to arules](https://mhahsler.r-universe.dev/articles/arules/arules_vignette.pdf).
 
 ## Support
 

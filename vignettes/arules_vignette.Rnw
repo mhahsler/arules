@@ -285,14 +285,14 @@ association rule mining algorithms in \proglang{R}, a well-designed
 structure is necessary which can deal in an efficient way with large
 amounts of sparse binary data.  The \proglang{S4} class structure
 implemented in the package \pkg{arules} is presented in
-Figure~\ref{fig:arules-classes}.
+Figure~\ref{fig:arules_vignettes-classes}.
 
 \begin{figure}[tp]
 \centering
 \includegraphics[width=12cm]{arules-classes}
 \caption{UML class diagram \citep[see][]{misc:Fowler:2004} of the \pkg{arules}
 package.}
-\label{fig:arules-classes}
+\label{fig:arules_vignette-classes}
 \end{figure}
 
 For input data the classes \class{transactions} and \class{tidLists}
@@ -1219,7 +1219,7 @@ image(Epub2003)
 <<echo=FALSE, fig=TRUE, include=FALSE, label=epub>>=
 print(image(Epub2003))
 @ %
-\includegraphics[width=10cm]{arules-epub}
+\includegraphics[width=10cm]{arules_vignette-epub}
 \caption{The Epub data set (year 2003).}
 \label{fig:imageEpub}
 \end{figure}
