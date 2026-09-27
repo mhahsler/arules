@@ -86,30 +86,18 @@ results.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><strong>Stable CRAN version:</strong> Install from within R with</p>
+<p>Install the released version of <code>arules</code> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"arules"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Current development version:</strong> Install from <a href="https://mhahsler.r-universe.dev/arules" class="external-link">r-universe.</a></p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"arules"</span>,</span>
-<span>    repos <span class="op">=</span> <span class="fu"><a href="../reference/c.html">c</a></span><span class="op">(</span><span class="st">"https://mhahsler.r-universe.dev"</span>,</span>
-<span>              <span class="st">"https://cloud.r-project.org/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="installation-1">Installation<a class="anchor" aria-label="anchor" href="#installation-1"></a>
-</h2>
-<p>Install the released version of <code>arules</code> from CRAN:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"arules"</span><span class="op">)</span></span></code></pre></div>
 <p>Load the package in each R session where you want to use it:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhahsler/arules" class="external-link">arules</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="create-transactions">Create transactions<a class="anchor" aria-label="anchor" href="#create-transactions"></a>
 </h2>
 <p>A named list is the simplest input format for small data sets.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">baskets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  T1 <span class="op">=</span> <span class="fu"><a href="../reference/c.html">c</a></span><span class="op">(</span><span class="st">"milk"</span>, <span class="st">"bread"</span>, <span class="st">"butter"</span><span class="op">)</span>,</span>
 <span>  T2 <span class="op">=</span> <span class="fu"><a href="../reference/c.html">c</a></span><span class="op">(</span><span class="st">"bread"</span>, <span class="st">"butter"</span><span class="op">)</span>,</span>
@@ -133,7 +121,7 @@ results.</p>
 <p><code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> describes the sparse transaction matrix.
 <code><a href="../reference/itemFrequency.html">itemFrequency()</a></code> returns the fraction of transactions
 containing each item.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">trans</span><span class="op">)</span></span>
 <span><span class="co">#&gt; transactions as itemMatrix in sparse format with</span></span>
 <span><span class="co">#&gt;  8 rows (elements/itemsets/transactions) and</span></span>
@@ -177,7 +165,7 @@ often the right-hand side must occur when the left-hand side occurs, and
 too high can produce an extremely large rule set and exhaust the
 available memory. Start with restrictive values and relax them only as
 needed.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rules</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/apriori.html">apriori</a></span><span class="op">(</span></span>
 <span>  <span class="va">trans</span>,</span>
 <span>  parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>support <span class="op">=</span> <span class="fl">0.25</span>, confidence <span class="op">=</span> <span class="fl">0.6</span>, maxlen <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
@@ -187,7 +175,7 @@ needed.</p>
 <span><span class="co">#&gt; set of 10 rules</span></span></code></pre></div>
 <p>Rules are often sorted by an interest measure before inspection. Lift
 is a common choice.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/inspect.html">inspect</a></span><span class="op">(</span><span class="fu"><a href="../reference/sort.html">sort</a></span><span class="op">(</span><span class="va">rules</span>, by <span class="op">=</span> <span class="st">"lift"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      lhs               rhs      support confidence coverage lift     count</span></span>
 <span><span class="co">#&gt; [1]  {beer}         =&gt; {chips}  0.250   1.0000000  0.250    4.000000 2    </span></span>
@@ -202,7 +190,7 @@ is a common choice.</p>
 <span><span class="co">#&gt; [10] {}             =&gt; {bread}  0.750   0.7500000  1.000    1.000000 6</span></span></code></pre></div>
 <p>Use ordinary subsetting expressions to focus on a particular
 consequent or a minimum quality value.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">butter_rules</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/subset.html">subset</a></span><span class="op">(</span><span class="va">rules</span>, <span class="va">rhs</span> <span class="op"><a href="../reference/match.html">%in%</a></span> <span class="st">"butter"</span> <span class="op">&amp;</span> <span class="va">lift</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/inspect.html">inspect</a></span><span class="op">(</span><span class="va">butter_rules</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     lhs              rhs      support confidence coverage lift     count</span></span>

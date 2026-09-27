@@ -187,7 +187,7 @@ Mining and Knowledge Discovery (DMKD 2000).</em></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> set item appearances ...[0 item(s)] done [0.00s].</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sorting and recoding items ... [11 item(s)] done [0.00s].</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> creating transaction tree ... done [0.01s].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> creating transaction tree ... done [0.02s].</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> checking subsets of size 1 2 3 4 5 done [0.00s].</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> filtering closed item sets ... done [0.00s].</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sorting transactions ... done [0.01s].</span>
@@ -200,9 +200,9 @@ Mining and Knowledge Discovery (DMKD 2000).</em></p>
 <span class="r-in"><span><span class="va">closed_rules</span> <span class="op">&lt;-</span> <span class="fu">ruleInduction</span><span class="op">(</span><span class="va">closed_is</span>, transactions <span class="op">=</span> <span class="va">Adult</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ruleInduction: using method ptree </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> preparing ... 593 itemsets, created 203 (0.20) nodes [0.00s]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> counting ... 48842 transactions, processed 9285411 (0.31) nodes [0.02s]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> counting ... 48842 transactions, processed 9285411 (0.31) nodes [0.03s]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> writing ... 247 rules, processed 1433 (0.70) nodes [0.00s]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> searching done [0.03s].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> searching done [0.034s].</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> postprocessing done [0s].</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## inspect the resulting closed rules</span></span></span>

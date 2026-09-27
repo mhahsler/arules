@@ -7,25 +7,6 @@ inspect the data, mine rules, and select useful results.
 
 ## Installation
 
-**Stable CRAN version:** Install from within R with
-
-``` r
-
-install.packages("arules")
-```
-
-**Current development version:** Install from
-[r-universe.](https://mhahsler.r-universe.dev/arules)
-
-``` r
-
-install.packages("arules",
-    repos = c("https://mhahsler.r-universe.dev",
-              "https://cloud.r-project.org/"))
-```
-
-## Installation
-
 Install the released version of `arules` from CRAN:
 
 ``` r
