@@ -137,9 +137,7 @@ Other mining algorithms:
 [`AScontrol-classes`](http://michael.hahsler.net/arules/reference/AScontrol-classes.md),
 [`ASparameter-classes`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md),
 [`eclat()`](http://michael.hahsler.net/arules/reference/eclat.md),
-[`fim4r()`](http://michael.hahsler.net/arules/reference/fim4r.md),
-[`ruleInduction()`](http://michael.hahsler.net/arules/reference/ruleInduction.md),
-[`weclat()`](http://michael.hahsler.net/arules/reference/weclat.md)
+[`fim4r()`](http://michael.hahsler.net/arules/reference/fim4r.md)
 
 ## Author
 

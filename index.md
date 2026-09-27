@@ -192,7 +192,7 @@ rules <- apriori(trans, supp = 0.1, conf = 0.9, target = "rules")
 ## set transactions ...[84 item(s), 8993 transaction(s)] done [0.01s].
 ## sorting and recoding items ... [42 item(s)] done [0.00s].
 ## creating transaction tree ... done [0.00s].
-## checking subsets of size 1 2 3 4 5 6 done [0.03s].
+## checking subsets of size 1 2 3 4 5 6 done [0.02s].
 ## writing ... [457 rule(s)] done [0.00s].
 ## creating S4 object  ... done [0.00s].
 ```
@@ -239,7 +239,7 @@ Using arules with other tidyverse or Python:
 
 The theoretical background and the original description of the package
 are available in the package vignette [Introduction to
-arules](https://mhahsler.r-universe.dev/articles/arules/arules_paper_vignette.pdf).
+arules](https://mhahsler.r-universe.dev/articles/arules/arules_vignette.pdf).
 
 ## Support
 

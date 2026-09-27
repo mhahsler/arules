@@ -132,9 +132,7 @@ Other mining algorithms:
 [`AScontrol-classes`](http://michael.hahsler.net/arules/reference/AScontrol-classes.md),
 [`ASparameter-classes`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md),
 [`apriori()`](http://michael.hahsler.net/arules/reference/apriori.md),
-[`eclat()`](http://michael.hahsler.net/arules/reference/eclat.md),
-[`ruleInduction()`](http://michael.hahsler.net/arules/reference/ruleInduction.md),
-[`weclat()`](http://michael.hahsler.net/arules/reference/weclat.md)
+[`eclat()`](http://michael.hahsler.net/arules/reference/eclat.md)
 
 ## Examples
 

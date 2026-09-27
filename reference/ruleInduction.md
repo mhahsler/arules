@@ -117,15 +117,6 @@ in Data Mining and Knowledge Discovery (DMKD 2000).*
 
 ## See also
 
-Other mining algorithms:
-[`APappearance-class`](http://michael.hahsler.net/arules/reference/APappearance-class.md),
-[`AScontrol-classes`](http://michael.hahsler.net/arules/reference/AScontrol-classes.md),
-[`ASparameter-classes`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md),
-[`apriori()`](http://michael.hahsler.net/arules/reference/apriori.md),
-[`eclat()`](http://michael.hahsler.net/arules/reference/eclat.md),
-[`fim4r()`](http://michael.hahsler.net/arules/reference/fim4r.md),
-[`weclat()`](http://michael.hahsler.net/arules/reference/weclat.md)
-
 Other postprocessing:
 [`is.closed()`](http://michael.hahsler.net/arules/reference/is.closed.md),
 [`is.generator()`](http://michael.hahsler.net/arules/reference/is.generator.md),
@@ -177,7 +168,7 @@ closed_rules <- ruleInduction(closed_is, transactions = Adult, verbose = TRUE)
 #> preparing ... 593 itemsets, created 203 (0.20) nodes [0.00s]
 #> counting ... 48842 transactions, processed 9285411 (0.31) nodes [0.02s]
 #> writing ... 247 rules, processed 1433 (0.70) nodes [0.00s]
-#> searching done [0.029s].
+#> searching done [0.03s].
 #> postprocessing done [0s].
 
 ## inspect the resulting closed rules

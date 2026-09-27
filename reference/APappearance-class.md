@@ -73,9 +73,7 @@ Other mining algorithms:
 [`ASparameter-classes`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md),
 [`apriori()`](http://michael.hahsler.net/arules/reference/apriori.md),
 [`eclat()`](http://michael.hahsler.net/arules/reference/eclat.md),
-[`fim4r()`](http://michael.hahsler.net/arules/reference/fim4r.md),
-[`ruleInduction()`](http://michael.hahsler.net/arules/reference/ruleInduction.md),
-[`weclat()`](http://michael.hahsler.net/arules/reference/weclat.md)
+[`fim4r()`](http://michael.hahsler.net/arules/reference/fim4r.md)
 
 ## Author
 
@@ -140,9 +138,9 @@ is <- apriori(Adult,
 #> Absolute minimum support count: 4884 
 #> 
 #> set item appearances ...[3 item(s)] done [0.00s].
-#> set transactions ...[3 item(s), 48842 transaction(s)] done [0.01s].
+#> set transactions ...[3 item(s), 48842 transaction(s)] done [0.02s].
 #> sorting and recoding items ... [3 item(s)] done [0.00s].
-#> creating transaction tree ... done [0.00s].
+#> creating transaction tree ... done [0.01s].
 #> checking subsets of size 1 2 done [0.00s].
 #> sorting transactions ... done [0.00s].
 #> writing ... [4 set(s)] done [0.00s].
@@ -179,7 +177,7 @@ rules <- apriori(Adult,
 #> set item appearances ...[2 item(s)] done [0.00s].
 #> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
 #> sorting and recoding items ... [18 item(s)] done [0.00s].
-#> creating transaction tree ... done [0.01s].
+#> creating transaction tree ... done [0.02s].
 #> checking subsets of size 1 2 3 4 5 6 7 done [0.01s].
 #> writing ... [62 rule(s)] done [0.00s].
 #> creating S4 object  ... done [0.00s].

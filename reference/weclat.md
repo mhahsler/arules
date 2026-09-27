@@ -69,15 +69,6 @@ Model and Algorithm, *Proceedings of ACM SIGKDD.*
 
 ## See also
 
-Other mining algorithms:
-[`APappearance-class`](http://michael.hahsler.net/arules/reference/APappearance-class.md),
-[`AScontrol-classes`](http://michael.hahsler.net/arules/reference/AScontrol-classes.md),
-[`ASparameter-classes`](http://michael.hahsler.net/arules/reference/ASparameter-classes.md),
-[`apriori()`](http://michael.hahsler.net/arules/reference/apriori.md),
-[`eclat()`](http://michael.hahsler.net/arules/reference/eclat.md),
-[`fim4r()`](http://michael.hahsler.net/arules/reference/fim4r.md),
-[`ruleInduction()`](http://michael.hahsler.net/arules/reference/ruleInduction.md)
-
 Other weighted association mining functions:
 [`SunBai`](http://michael.hahsler.net/arules/reference/SunBai.md),
 [`hits()`](http://michael.hahsler.net/arules/reference/hits.md)

@@ -140,6 +140,7 @@ Other itemMatrix and transactions functions:
 [`is.superset()`](http://michael.hahsler.net/arules/reference/is.superset.md),
 [`itemFrequency()`](http://michael.hahsler.net/arules/reference/itemFrequency.md),
 [`itemMatrix-class`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md),
+[`itemwiseSetOps`](http://michael.hahsler.net/arules/reference/itemwiseSetOps.md),
 [`match()`](http://michael.hahsler.net/arules/reference/match.md),
 [`merge()`](http://michael.hahsler.net/arules/reference/merge.md),
 [`random.transactions()`](http://michael.hahsler.net/arules/reference/random.transactions.md),

@@ -41,6 +41,32 @@ An object of class
 [itemMatrix](http://michael.hahsler.net/arules/reference/itemMatrix-class.md)
 is returned.
 
+## See also
+
+Other itemMatrix and transactions functions:
+[`abbreviate()`](http://michael.hahsler.net/arules/reference/abbreviate.md),
+[`c`](http://michael.hahsler.net/arules/reference/c.md),
+[`crossTable()`](http://michael.hahsler.net/arules/reference/crossTable.md),
+[`duplicated()`](http://michael.hahsler.net/arules/reference/duplicated.md),
+[`extract`](http://michael.hahsler.net/arules/reference/extract.md),
+[`hierarchy`](http://michael.hahsler.net/arules/reference/hierarchy.md),
+[`image`](http://michael.hahsler.net/arules/reference/image.md),
+[`inspect()`](http://michael.hahsler.net/arules/reference/inspect.md),
+[`is.superset()`](http://michael.hahsler.net/arules/reference/is.superset.md),
+[`itemFrequency()`](http://michael.hahsler.net/arules/reference/itemFrequency.md),
+[`itemFrequencyPlot()`](http://michael.hahsler.net/arules/reference/itemFrequencyPlot.md),
+[`itemMatrix-class`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md),
+[`match()`](http://michael.hahsler.net/arules/reference/match.md),
+[`merge()`](http://michael.hahsler.net/arules/reference/merge.md),
+[`random.transactions()`](http://michael.hahsler.net/arules/reference/random.transactions.md),
+[`sample()`](http://michael.hahsler.net/arules/reference/sample.md),
+[`sets`](http://michael.hahsler.net/arules/reference/sets.md),
+[`size()`](http://michael.hahsler.net/arules/reference/size.md),
+[`supportingTransactions()`](http://michael.hahsler.net/arules/reference/supportingTransactions.md),
+[`tidLists-class`](http://michael.hahsler.net/arules/reference/tidLists-class.md),
+[`transactions-class`](http://michael.hahsler.net/arules/reference/transactions-class.md),
+[`unique()`](http://michael.hahsler.net/arules/reference/unique.md)
+
 ## Author
 
 Michael Hahsler

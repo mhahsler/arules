@@ -116,6 +116,7 @@ Other itemMatrix and transactions functions:
 [`itemFrequency()`](http://michael.hahsler.net/arules/reference/itemFrequency.md),
 [`itemFrequencyPlot()`](http://michael.hahsler.net/arules/reference/itemFrequencyPlot.md),
 [`itemMatrix-class`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md),
+[`itemwiseSetOps`](http://michael.hahsler.net/arules/reference/itemwiseSetOps.md),
 [`match()`](http://michael.hahsler.net/arules/reference/match.md),
 [`merge()`](http://michael.hahsler.net/arules/reference/merge.md),
 [`random.transactions()`](http://michael.hahsler.net/arules/reference/random.transactions.md),
@@ -156,7 +157,7 @@ rules <- apriori(Adult)
 #> creating transaction tree ... done [0.02s].
 #> checking subsets of size 1 2 3 4 5 6 7 8 9 done [0.07s].
 #> writing ... [6137 rule(s)] done [0.00s].
-#> creating S4 object  ... done [0.01s].
+#> creating S4 object  ... done [0.00s].
 
 ## display some rules
 inspect(rules[1000:1001])

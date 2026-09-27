@@ -62,6 +62,7 @@ Other itemMatrix and transactions functions:
 [`itemFrequency()`](http://michael.hahsler.net/arules/reference/itemFrequency.md),
 [`itemFrequencyPlot()`](http://michael.hahsler.net/arules/reference/itemFrequencyPlot.md),
 [`itemMatrix-class`](http://michael.hahsler.net/arules/reference/itemMatrix-class.md),
+[`itemwiseSetOps`](http://michael.hahsler.net/arules/reference/itemwiseSetOps.md),
 [`match()`](http://michael.hahsler.net/arules/reference/match.md),
 [`random.transactions()`](http://michael.hahsler.net/arules/reference/random.transactions.md),
 [`sample()`](http://michael.hahsler.net/arules/reference/sample.md),
