@@ -28,10 +28,6 @@ transaction contains a set of items, such as the products in a shopping
 basket. This guide introduces the basic workflow: create transactions, inspect
 the data, mine rules, and select useful results.
 
-```{r echo=FALSE, results = 'asis'}
-pkg_install(pkg)
-```
-
 ## Installation
 
 Install the released version of `arules` from CRAN:
