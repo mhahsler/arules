@@ -24,13 +24,13 @@ Source:
 [`inst/CITATION`](https://github.com/mhahsler/arules/blob/master/inst/CITATION)
 
 Hahsler M, Buchta C, Gruen B, Hornik K (????). *arules: Mining
-Association Rules and Frequent Itemsets*. R package version 1.7.15.1,
+Association Rules and Frequent Itemsets*. R package version 1.7.16,
 <https://github.com/mhahsler/arules>.
 
     @Manual{,
       title = {arules: Mining Association Rules and Frequent Itemsets},
       author = {Michael Hahsler and Christian Buchta and Bettina Gruen and Kurt Hornik},
-      note = {R package version 1.7.15.1},
+      note = {R package version 1.7.16},
       url = {https://github.com/mhahsler/arules},
     }
 

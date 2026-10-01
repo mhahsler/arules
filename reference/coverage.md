@@ -88,7 +88,7 @@ rules <- apriori(Income)[1:5]
 #> set transactions ...[50 item(s), 6876 transaction(s)] done [0.00s].
 #> sorting and recoding items ... [30 item(s)] done [0.00s].
 #> creating transaction tree ... done [0.00s].
-#> checking subsets of size 1 2 3 4 5 6 7 8 done [0.04s].
+#> checking subsets of size 1 2 3 4 5 6 7 8 done [0.03s].
 #> writing ... [8664 rule(s)] done [0.00s].
 #> creating S4 object  ... done [0.00s].
 quality(rules) <- cbind(quality(rules), coverage = coverage(rules))

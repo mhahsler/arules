@@ -250,7 +250,7 @@ rules <- apriori(Adult,
 #> set item appearances ...[0 item(s)] done [0.00s].
 #> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
 #> sorting and recoding items ... [9 item(s)] done [0.00s].
-#> creating transaction tree ... done [0.02s].
+#> creating transaction tree ... done [0.01s].
 #> checking subsets of size 1 2 3 4 done [0.00s].
 #> writing ... [52 rule(s)] done [0.00s].
 #> creating S4 object  ... done [0.00s].
@@ -306,7 +306,7 @@ apriori(Adult, supp = 0.5, conf = 0.9, target = "rules")
 #> set item appearances ...[0 item(s)] done [0.00s].
 #> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
 #> sorting and recoding items ... [9 item(s)] done [0.00s].
-#> creating transaction tree ... done [0.02s].
+#> creating transaction tree ... done [0.01s].
 #> checking subsets of size 1 2 3 4 done [0.00s].
 #> writing ... [52 rule(s)] done [0.00s].
 #> creating S4 object  ... done [0.00s].
