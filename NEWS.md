@@ -1,8 +1,9 @@
-# arules 1.7.15.1 (unreleased)
+# arules 1.7.16 (unreleased)
 
 ## Documentation and Maintenance
 
-* added missing aliases for plot.associations and plot.itemMatrix.
+* Added missing aliases for `plot.associations()` and `plot.itemMatrix()`.
+* Including a new tidyverse vignette.
 
 
 # arules 1.7.15 (09/10/2026)
