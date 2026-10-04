@@ -1,6 +1,7 @@
 url: http://michael.hahsler.net/arules/
 template:
   bootstrap: 5
+  math-rendering: mathjax
 
 articles:
 - title: How-tos
