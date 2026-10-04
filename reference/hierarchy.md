@@ -340,7 +340,7 @@ rules <- apriori(Groceries_multilevel,
 #> Absolute minimum support count: 98 
 #> 
 #> set item appearances ...[0 item(s)] done [0.00s].
-#> set transactions ...[224 item(s), 9835 transaction(s)] done [0.00s].
+#> set transactions ...[224 item(s), 9835 transaction(s)] done [0.01s].
 #> sorting and recoding items ... [132 item(s)] done [0.00s].
 #> creating transaction tree ... done [0.00s].
 #> checking subsets of size 1 2 3 4 5 6 done [0.01s].

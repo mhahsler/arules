@@ -88,12 +88,12 @@ rules <- apriori(Adult)
 #> Absolute minimum support count: 4884 
 #> 
 #> set item appearances ...[0 item(s)] done [0.00s].
-#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
-#> sorting and recoding items ... [31 item(s)] done [0.00s].
-#> creating transaction tree ... done [0.01s].
-#> checking subsets of size 1 2 3 4 5 6 7 8 9 done [0.06s].
+#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
+#> sorting and recoding items ... [31 item(s)] done [0.01s].
+#> creating transaction tree ... done [0.02s].
+#> checking subsets of size 1 2 3 4 5 6 7 8 9 done [0.09s].
 #> writing ... [6137 rule(s)] done [0.00s].
-#> creating S4 object  ... done [0.00s].
+#> creating S4 object  ... done [0.01s].
 
 ## select all rules with item "marital-status=Never-married" in
 ## the right-hand-side and lift > 2

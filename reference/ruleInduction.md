@@ -151,7 +151,7 @@ closed_is <- apriori(Adult, target = "closed frequent itemsets", support = 0.4)
 #> Absolute minimum support count: 19536 
 #> 
 #> set item appearances ...[0 item(s)] done [0.00s].
-#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
+#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
 #> sorting and recoding items ... [11 item(s)] done [0.00s].
 #> creating transaction tree ... done [0.01s].
 #> checking subsets of size 1 2 3 4 5 done [0.00s].
@@ -166,9 +166,9 @@ closed_is
 closed_rules <- ruleInduction(closed_is, transactions = Adult, verbose = TRUE)
 #> ruleInduction: using method ptree 
 #> preparing ... 593 itemsets, created 203 (0.20) nodes [0.00s]
-#> counting ... 48842 transactions, processed 9285411 (0.31) nodes [0.02s]
+#> counting ... 48842 transactions, processed 9285411 (0.31) nodes [0.03s]
 #> writing ... 247 rules, processed 1433 (0.70) nodes [0.00s]
-#> searching done [0.02s].
+#> searching done [0.038s].
 #> postprocessing done [0s].
 
 ## inspect the resulting closed rules
@@ -224,7 +224,7 @@ frequent_is <- eclat(Adult, support = 0.4)
 #> Absolute minimum support count: 19536 
 #> 
 #> create itemset ... 
-#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
+#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
 #> sorting and recoding items ... [11 item(s)] done [0.00s].
 #> creating bit matrix ... [11 row(s), 48842 column(s)] done [0.00s].
 #> writing  ... [99 set(s)] done [0.00s].

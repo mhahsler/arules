@@ -111,7 +111,7 @@ rules <- apriori(Adult, parameter = list(supp = 0.6))
 #> Absolute minimum support count: 29305 
 #> 
 #> set item appearances ...[0 item(s)] done [0.00s].
-#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
+#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
 #> sorting and recoding items ... [6 item(s)] done [0.00s].
 #> creating transaction tree ... done [0.01s].
 #> checking subsets of size 1 2 3 4 done [0.00s].

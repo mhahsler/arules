@@ -144,7 +144,7 @@ set <- eclat(Adult, parameter = list(supp = 0.8))
 #> Absolute minimum support count: 39073 
 #> 
 #> create itemset ... 
-#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
+#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
 #> sorting and recoding items ... [4 item(s)] done [0.00s].
 #> creating bit matrix ... [4 row(s), 48842 column(s)] done [0.00s].
 #> writing  ... [8 set(s)] done [0.00s].

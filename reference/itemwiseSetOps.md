@@ -90,7 +90,7 @@ fsets <- eclat(Adult, parameter = list(supp = 0.5))
 #> Absolute minimum support count: 24421 
 #> 
 #> create itemset ... 
-#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
+#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
 #> sorting and recoding items ... [9 item(s)] done [0.00s].
 #> creating bit matrix ... [9 row(s), 48842 column(s)] done [0.00s].
 #> writing  ... [49 set(s)] done [0.00s].

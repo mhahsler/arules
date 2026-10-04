@@ -116,7 +116,7 @@ itemsets <- eclat(Adult,
 #> Absolute minimum support count: 4884 
 #> 
 #> create itemset ... 
-#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.02s].
+#> set transactions ...[115 item(s), 48842 transaction(s)] done [0.03s].
 #> sorting and recoding items ... [31 item(s)] done [0.00s].
 #> creating bit matrix ... [31 row(s), 48842 column(s)] done [0.00s].
 #> writing  ... [2143 set(s)] done [0.00s].

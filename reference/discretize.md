@@ -129,7 +129,7 @@ Discretization may fail for several reasons. Some reasons are
   decide on breaks for the method fixed.
 
 `discretize` only implements unsupervised discretization. See
-[`arulesCBA::discretizeDF.supervised()`](https://rdrr.io/pkg/arulesCBA/man/discretizeDF.supervised.html)
+[`arulesCBA::discretizeDF.supervised()`](http://michael.hahsler.net/arulesCBA/reference/discretizeDF.supervised.md)
 in package arulesCBA for supervised discretization.
 
 `discretizeDF()` applies discretization to each numeric column.
@@ -143,7 +143,7 @@ suppress discretization for a column.
 ## See also
 
 [`base::cut()`](https://rdrr.io/r/base/cut.html),
-[`arulesCBA::discretizeDF.supervised()`](https://rdrr.io/pkg/arulesCBA/man/discretizeDF.supervised.html).
+[`arulesCBA::discretizeDF.supervised()`](http://michael.hahsler.net/arulesCBA/reference/discretizeDF.supervised.md).
 
 Other preprocessing:
 [`hierarchy`](http://michael.hahsler.net/arules/reference/hierarchy.md),
